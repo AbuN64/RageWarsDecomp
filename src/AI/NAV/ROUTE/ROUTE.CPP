@@ -5,7 +5,7 @@
 #include "COMMON/NAVIGATION_NODE_AND_ROUTE_VIEWS.H"
 #include "TYPES.H"
 
-extern void Portal_ResetSearchState(void *graph);
+extern void Portal_ResetSearchState(struct NavigationSearchGraphView *graph);
 
 extern void Route_ClearGoalList(s32);
 

@@ -10,7 +10,7 @@
 
 f32 Graphu64_GetSquaredDistance(void *a, void *b);
 
-extern void Route_ClearGoalList(void *);
+extern void Route_ClearGoalList(s32 cNavData);
 
 
 extern void Nav_AddGoalNode(void *, s32);

@@ -18,14 +18,14 @@
 
 extern s32 g_navigationGraph;
 extern s32 Portal_FindLinkIndex(s32 *, s32, s32);
-extern void Portal_ResetSearchState(s32 *);
+extern void Portal_ResetSearchState(struct NavigationSearchGraphView *graph);
 extern void Nav_SetLinkedActorNodeCosts(void *);
 extern void Nav_AccumulateNodeTickCosts(void *);
 extern void Nav_AddPickupCategoryCosts(void *);
-extern void Route_ClearGoalList(s32 *);
+extern void Route_ClearGoalList(s32 cNavData);
 extern void Nav_AddGoalNode(s32 *, s32);
-extern void Route_SearchPathByKey(s32 *, s32);
-extern void Route_ReconstructSearchPath(s32 *, s32 *, s32);
+extern void Route_SearchPathByKey(void *graph, s32 key);
+extern void Route_ReconstructSearchPath(char *owner, s32 *output, s32 count);
 
 s32 Nav_RebuildRequestedGoalRoute(void *controller) {
     s32 *base;

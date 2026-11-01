@@ -8,7 +8,10 @@
 #include "AI/SHARED_PICKUPGOALNODE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "PICKUP.H"
+#include "COMMON/SHAREDCALLBACK5.H"
+#include "COMMON/NAVIGATION_GRAPH.H"
 
+/* PICKUP.CPP */
 /* 80208000_12.CPP */
 /* Advances a committed selection's stage against the node list g_navigationGraph: finishes through
    Nav_FindSpecialLinkedCandidate when there are no stages at 0x1BC, counts once into 0x1C8 the list's kind-6 nodes whose
@@ -16,9 +19,7 @@
    Nav_InsertPickupRouteNode on the stage right after it and Nav_ComputeScaledPointCentroid on the one after that. */
 /* Navigation selection/list/node canonical ownership remains unresolved. */
 
-extern Link *Portal_GetStridedTableEntry(PickupGoalNodeList *, s32);
-extern s32 Nav_ComputeScaledPointCentroid(Selection *sel);
-extern s32 Nav_FindSpecialLinkedCandidate(Selection *sel);
+extern void *Portal_GetStridedTableEntry(struct NavigationLinkListView *object, int index);
 
 s32 Nav_AdvancePickupRouteSelection(Selection *sel)
 {
@@ -181,3 +182,89 @@ s32 Nav_InsertPickupRouteNode(SelectionNavAppendDirectionalRouteStage *sel) {
     sel->stageCount++;
     return 0;
 }
+
+/* POINTS.CPP */
+/** Find the first of an object's four nodes that starts a type-6 link, record it and return 0; return 1 when none does. */
+
+s32 Nav_ComputeScaledPointCentroid(ObjNavComputeScaledPointCentroid *obj) {
+    CVector3 sum;
+    s32 i;
+    f32 scale;
+    Info *info;
+    CVector3 *base;
+    void *global;
+
+    sum.x = sum.y = sum.z = 0.0f;
+    global = &g_navigationGraph;
+    for (i = 0; i < obj->count; i++) {
+        sum.x += obj->points[i].x;
+        sum.y += obj->points[i].y;
+        sum.z += obj->points[i].z;
+    }
+    if (obj->count == 0)
+        return 1;
+
+    scale = g_pointCentroidUnitScale / (f32)obj->count;
+    sum.x *= scale;
+    sum.y *= scale;
+    sum.z *= scale;
+    info = (Info *)Portal_FindSearchNode((PickupGoalNodeList *)global, obj->infoIndex);
+    sum.x *= info->scale;
+    sum.y *= info->scale;
+    sum.z *= info->scale;
+    base = Portal_GetGraphPoint(global, obj->infoIndex);
+    obj->result.x = base->x + sum.x;
+    obj->result.y = base->y + sum.y;
+    obj->result.z = base->z + sum.z;
+    return 1;
+}
+
+int Nav_FindSpecialLinkedCandidate(ObjNavFindSpecialLinkedCandidate *obj) {
+    int j;
+    int i;
+    Link *link;
+    CNavData *graph = (CNavData *)&g_navigationGraph;
+
+    obj->node = -1;
+    obj->pending = 0;
+    for (j = 0; j < 4; j++) {
+        for (i = 0; i < graph->m_nNavLinks; i++) {
+            link = Portal_GetStridedTableEntry(graph, i);
+            if (link->from == obj->nodes[j] && link->type == 6) {
+                obj->hits++;
+                obj->node = obj->nodes[j];
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+/* NAV_COMPUTESCALEDPOINTCENTROID_DATA.CPP */
+#if !(defined(VERSION_US_REV1))
+const float g_pointCentroidUnitScale = 1.0f;
+#endif
+
+#if defined(VERSION_DE)
+extern char addrLow_Nav_RefineBallisticAim[];
+void *k_NavComputescaledpointcentroidEncodedWords[1] = {
+    (void *)(addrLow_Nav_RefineBallisticAim + 336),
+};
+#endif
+
+#if defined(VERSION_US_REV1)
+/* ROM-grounded data: src/g_pointCentroidUnitScale_us_rev1.c */
+
+/* ROM-grounded data: src/g_Nav_ComputeScaledPointCentroidConstantWords_NavComputescaledpointcentroidData.c */
+const float g_Nav_ComputeScaledPointCentroidConstantWords[1] = {
+    1.0f,
+};
+#endif
+
+/* G_OVERLAYSONECONSTANTSFLOATCONSTANTWORDSBLOCK2.CPP */
+#if defined(VERSION_US_REV1)
+/* ROM-grounded data: rodata/unresolved/800C6EAC */
+#if defined(VERSION_US_REV1)
+char g_overlaysOneConstantsFloatConstantWordsBlock2[4] __attribute__((aligned(4))) = "Bp\000\000";
+#endif
+#endif

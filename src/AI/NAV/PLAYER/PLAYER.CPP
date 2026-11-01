@@ -181,7 +181,7 @@ void Scaled_SetPitchFromAngle(PlayerAimBrainView *, f32, s32);
 void Portal_DispatchActorBehavior(AiController *);
 float Gu_Sqrtf(float);
 NavigationPoint *Portal_GetGraphPoint(CNavData *,s32);
-NavigationPortal *Portal_GetStridedTableEntry(CNavData *,s32);
+void *Portal_GetStridedTableEntry(struct NavigationLinkListView *object, int index);
 NavigationSearchNode *Portal_FindSearchNode(CNavData *,s32);
 s32 Portal_FindLinkIndex(CNavData *,s32,s32);
 s32 Scaled_AdvanceNodeQueue(AiController *);

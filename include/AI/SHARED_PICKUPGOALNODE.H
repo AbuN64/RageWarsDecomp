@@ -19,11 +19,11 @@ struct Shared_PickupGoalNode {
 extern PickupGoalNodeList g_navigationGraph;
 
 extern void Portal_ResetSearchState(struct NavigationSearchGraphView *graph);
-extern void Route_ClearGoalList(PickupGoalNodeList *list);
+extern void Route_ClearGoalList(s32 cNavData);
 extern s32 Nav_AddPickupGoalsByObjectIds(s32 *ids);
-extern void Route_SearchPathByKey(PickupGoalNodeList *list, s32 key);
+extern void Route_SearchPathByKey(void *graph, s32 key);
 extern Shared_PickupGoalNode *Portal_FindSearchNode(PickupGoalNodeList *list, u32 key);
-extern void Route_ReconstructSearchPath(PickupGoalNodeList *list, s32 *output, s32 count);
+extern void Route_ReconstructSearchPath(char *owner, s32 *output, s32 count);
 
 
 #endif
