@@ -1,4 +1,4 @@
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#if defined(VERSION_EU_X)
 /* Older build's rodata pool. */
 unsigned int g_earlierPoolWords_8015C9D0[1] = { 0x606020 };
 float g_earlierPoolFloats_8015C9D4[3] = { 2.0f, 0.0f, 0.0f };
