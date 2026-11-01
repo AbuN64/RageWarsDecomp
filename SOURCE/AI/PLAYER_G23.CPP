@@ -1,0 +1,394 @@
+#include "TYPES.H"
+#include "include_asm.h"
+#include "DATA/WEAPON_CALLBACKS/ADDRLOW_WEAPONAI_INITIALIZESWITCHFORSINGLEROUND.H"
+#include "DATA/WEAPON_CALLBACKS/G_WEAPON_RESETCONTROLLERANDSPINENCODEDCALLBACK.H"
+#include "DATA/WEAPON_CALLBACKS/ADDRLOW_WEAPON_RELEASEHANDLESANDEXITSTATE39.H"
+#include "DATA/WEAPON_CALLBACKS/PLAYER_HEALTH_CALLBACK_LABELS.H"
+#include "DATA/OVL1_F/WEAPON_CHARGE_CALLBACK_ADDRESS.H"
+#include "DATA/WEAPON_CALLBACKS/OVERLAY_SIX_FIRST_CALLBACK_ROM_ENTRY.H"
+#include "DATA/WEAPON_CALLBACKS/WEAPON_UPDATE_TRIGGER_RELEASE_STATE_ADDRESS.H"
+#include "DATA/OVL1_D/WEAPON_CHARGE_FIVE_CALLBACK_ADDRESS.H"
+#include "DATA/OVL1_F/WEAPON_UPDATE_HELD_FIRE_CALLBACK_ADDRESS.H"
+#include "DATA/WEAPON_CALLBACKS/WEAPON_STATE_CALLBACK_ADDRESS.H"
+#include "DATA/WEAPON_CALLBACKS/WEAPON_STARTUP_CUE_ADDRESS.H"
+#include "DATA/WEAPON_CALLBACKS/ADDRLOW_WEAPON_ADVANCESPINANDTRIGGERMODE.H"
+#include "DATA/WEAPON_CALLBACKS/WEAPONAI_SELECTRELEASEDFIRESTATE_ADDRESS.H"
+#include "DATA/WEAPON_CALLBACKS/WEAPON_FIRE_STATE_TABLE.H"
+
+/* PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA_DATA.CPP */
+/* ROM-grounded data: src/PlayeraiEntermovingsequencestateDataEncodedWordsSource.c */
+#if defined(VERSION_DE)
+const f32 k_PlayeraiEntermovingsequencestateDataEncodedWords = 400.0f;
+#endif
+#if defined(VERSION_EU)
+const f32 k_PlayeraiEntermovingsequencestateDataEncodedWords = 400.0f;
+#endif
+#if defined(VERSION_EU_X)
+const f32 k_PlayeraiEntermovingsequencestateDataEncodedWords = 400.0f;
+#endif
+#if defined(VERSION_US)
+const f32 k_PlayeraiEntermovingsequencestateDataEncodedWords = 400.0f;
+#endif
+#if defined(VERSION_US_REV1)
+const f32 k_PlayeraiEntermovingsequencestateDataEncodedWords = 400.0f;
+#endif
+
+/* PLAYERAI_INITIALIZEPLAYERHEALTH_DATA__PLAYER.CPP */
+#if defined(VERSION_US_REV1)
+extern char addrLow_Weapon_ReleaseLinkedActorHandles[];
+
+/* Rates read by Playerai_UpdateTargetFacing and Playerai_UpdateReactionReserve. */
+f32 g_playerTargetFacingEaseRate = 0.35f;
+f32 g_playerReactionReserveApproachRate = 0.00625f;
+
+/* Linker fill between the rate and the next constant: no instruction reads it and the other builds hold other words here. */
+u32 g_playerReactionReserveApproachRatePad[2] = {
+    0xFFFFFFFF, 0xFFFF0000,
+};
+
+f32 k_PlayeraiInitializeplayerhealthOneWords = 1.0f;
+
+struct WeaponAnimationChoice g_weaponAnimationChoicesA[5] = {
+    { 20210, 10 }, { 20220, 10 }, { 20230, 10 }, { 20240, 10 }, { -1, 0 },
+};
+
+struct WeaponAnimationChoice g_weaponAnimationChoicesB[5] = {
+    { 20550, 10 }, { 20551, 10 }, { 20552, 10 }, { 20553, 10 }, { -1, 0 },
+};
+
+struct WeaponAnimationChoice g_weaponAnimationChoicesC[5] = {
+    { 20510, 10 }, { 20520, 10 }, { 20530, 10 }, { 20540, 10 }, { -1, 0 },
+};
+
+/* Mirror flags read by Player_BuildWeaponHandTransform, followed by two unused zero words. */
+
+/* Base state table of the weapon fire state machine (Weapon_InitializeFireStateCallbacks installs it). */
+
+/* Spin weapon states searched before the base table. */
+
+/* Trigger release weapon states searched before the base table. */
+#endif
+
+/* WEAPON_SWITCH_STATE_TABLE_DE.CPP */
+extern char g_weaponFireStateCallbackTable[];
+
+#if defined(VERSION_DE)
+extern char addrLow_Weaponai_InitializeSwitchForSingleRound_de[];
+extern char addrLow_Weaponai_UpdateAlternateFire_de[];
+extern char addrLow_Weapon_UpdateIdleWeaponSelection_de[];
+extern char addrLow_Weaponai_UpdateSpinAndAlternateFire_de[];
+extern char addrLow_Weaponai_SelectReleasedFireState_de_eu[];
+extern char addrLow_Weaponai_UpdateHeldFire_de[];
+extern char addrLow_Weapon_InitializeChargeForWeaponFive_de[];
+extern char addrLow_Weapon_ResetControllerAndSpin[];
+extern char addrLow_Weapon_ReleaseLinkedActorHandlesEntryVariant4[];
+extern char addrLow_Weapon_InitializeChargeForWeaponEight_de[];
+extern char addrLow_Weapon_UpdateTriggerReleaseState_de[];
+extern char addrLow_Weapon_ReleaseHandlesAndExitState39_de[];
+extern char addrLow_Weapon_PlayStartupCue9E2_de[];
+extern char addrLow_Weapon_AdvanceSpinAndTriggerMode_de[];
+#if defined(VERSION_DE)
+struct {
+    f32 targetFacingEaseRate;
+    f32 reactionReserveApproachRate;
+    s16 precedingAnimationTriples[6];
+    f32 aimScale;
+    s16 weaponAnimationDurationPairs[30];
+    s32 handMirrorAxesAndFlags[5];
+    f32 weaponRestOffset;
+    void * nextTable;
+    u32 stateTableHeaderReserved[7];
+    s32 state0Id;
+    void * state0Enter;
+    void * state0Update;
+    u32 state0Reserved;
+    s32 state0Animation;
+    f32 state0Rate;
+    s32 state0Threshold;
+    u32 state0Flags;
+    s32 state1Id;
+    void * state1Enter;
+    void * state1Update;
+    u32 state1Reserved;
+    s32 state1Animation;
+    f32 state1Rate;
+    s32 state1Threshold;
+    u32 state1Flags;
+    s32 state2Id;
+    void * state2Enter;
+    void * state2Update;
+    u32 state2Reserved;
+    s32 state2Animation;
+    f32 state2Rate;
+    s32 state2Threshold;
+    u32 state2Flags;
+    s32 state3Id;
+    void * state3Enter;
+    void * state3Update;
+    u32 state3Reserved;
+    s32 state3Animation;
+    f32 state3Rate;
+    s32 state3Threshold;
+    u32 state3Flags;
+    s32 state4Id;
+    void * state4Enter;
+    void * state4Update;
+    u32 state4Reserved;
+    void * state4AnimationList;
+    f32 state4Rate;
+    s32 state4Threshold;
+    u32 state4Flags;
+    s32 state5Id;
+    void * state5Enter;
+    void * state5Update;
+    u32 state5Reserved;
+    void * state5AnimationList;
+    f32 state5Rate;
+    s32 state5Threshold;
+    u32 state5Flags;
+    s32 state6Id;
+    void * state6Enter;
+    void * state6Update;
+    u32 state6Reserved;
+    s32 state6Animation;
+    f32 state6Rate;
+    s32 state6Threshold;
+    u32 state6Flags;
+    s32 state7Id;
+    void * state7Enter;
+    void * state7Update;
+    u32 state7Reserved;
+    s32 state7Animation;
+    f32 state7Rate;
+    s32 state7Threshold;
+    u32 state7Flags;
+    void * table8Next;
+    u32 table8HeaderReserved[7];
+    s32 state9Id;
+    void * state9Enter;
+    void * state9Update;
+    u32 state9Reserved;
+    s32 state9Animation;
+    f32 state9Rate;
+    s32 state9Threshold;
+    u32 state9Flags;
+    s32 state10Id;
+    void * state10Enter;
+    void * state10Update;
+    u32 state10Reserved;
+    s32 state10Animation;
+    f32 state10Rate;
+    s32 state10Threshold;
+    u32 state10Flags;
+    s32 state11Id;
+    void * state11Enter;
+    void * state11Update;
+    u32 state11Reserved;
+    s32 state11Animation;
+    f32 state11Rate;
+    s32 state11Threshold;
+    u32 state11Flags;
+    s32 state12Id;
+    void * state12Enter;
+    void * state12Update;
+    u32 state12Reserved;
+    s32 state12Animation;
+    f32 state12Rate;
+    s32 state12Threshold;
+    u32 state12Flags;
+    void * table13Next;
+    u32 table13HeaderReserved[7];
+    s32 state14Id;
+    void * state14Enter;
+    void * state14Update;
+    u32 state14Reserved;
+    s32 state14Animation;
+    f32 state14Rate;
+    s32 state14Threshold;
+    u32 state14Flags;
+    s32 state15Id;
+    void * state15Enter;
+    void * state15Update;
+    u32 state15Reserved;
+    s32 state15Animation;
+    f32 state15Rate;
+    s32 state15Threshold;
+    u32 state15Flags;
+    s32 state16Id;
+    void * state16Enter;
+    void * state16Update;
+    u32 state16Reserved;
+    s32 state16Animation;
+    f32 state16Rate;
+    s32 state16Threshold;
+    u32 state16Flags;
+    s32 state17Id;
+    void * state17Enter;
+    void * state17Update;
+    u32 state17Reserved;
+    s32 state17Animation;
+    f32 state17Rate;
+    s32 state17Threshold;
+    u32 state17Flags;
+    s32 state18Id;
+    void * state18Enter;
+    void * state18Update;
+    u32 state18Reserved;
+    s32 state18Animation;
+    f32 state18Rate;
+    s32 state18Threshold;
+    u32 state18Flags;
+} g_weaponSwitchStateWordsDe __attribute__((aligned(4))) = {
+    0.349999994f,
+    0.00625000009f,
+    { 20210, 10, 20220, 10, 20230, 10 },
+    1.0f,
+    { 20210, 10, 20220, 10, 20230, 10, 20240, 10, -1, 0, 20550, 10, 20551, 10, 20552, 10, 20553, 10, -1, 0, 20510, 10, 20520, 10, 20530, 10, 20540, 10, -1, 0 },
+    { 0, 0, 0, 0, 0 },
+    -3.0f,
+    0,
+    { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },
+    0,
+    (void *)&addrLow_Weaponai_InitializeSwitchForSingleRound_de,
+    (void *)&addrLow_Weapon_ResetControllerAndSpin,
+    0x0,
+    20000,
+    1.0f,
+    0,
+    0x0,
+    1,
+    (void *)&addrLow_Weapon_ReleaseHandlesAndExitState39_de,
+    (void *)&addrLow_Weapon_UpdateIdleWeaponSelection_de,
+    0x0,
+    20010,
+    1.0f,
+    2,
+    0x0,
+    2,
+    (void *)&addrLow_Weapon_ReleaseLinkedActorHandlesEntryVariant4,
+    (void *)&addrLow_Weaponai_UpdateAlternateFire_de,
+    0x0,
+    20100,
+    1.0f,
+    0,
+    0x0,
+    3,
+    0,
+    (void *)&addrLow_Weaponai_UpdateAlternateFire_de,
+    0x0,
+    20110,
+    1.0f,
+    0,
+    0x0,
+    4,
+    (void *)&addrLow_Weapon_InitializeChargeForWeaponEight_de,
+    (void *)&addrLow_Weapon_UpdateTriggerReleaseState_de,
+    0x0,
+    (void *)((char *)&g_weaponSwitchStateWordsDe + 24),
+    1.0f,
+    3,
+    0x0,
+    8,
+    (void *)&addrLow_Weapon_InitializeChargeForWeaponFive_de,
+    (void *)&addrLow_Weaponai_UpdateHeldFire_de,
+    0x0,
+    (void *)((char *)&g_weaponSwitchStateWordsDe + 44),
+    1.0f,
+    3,
+    0x0,
+    7,
+    0,
+    (void *)&addrLow_Weapon_UpdateIdleWeaponSelection_de,
+    0x0,
+    20249,
+    1.0f,
+    3,
+    0x0,
+    -1,
+    0,
+    0,
+    0x0,
+    0,
+    0.0f,
+    0,
+    0x0,
+    (void *)&g_weaponFireStateCallbackTable,
+    { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },
+    2,
+    0,
+    (void *)&addrLow_Weaponai_UpdateSpinAndAlternateFire_de,
+    0x0,
+    20100,
+    1.0f,
+    0,
+    0x0,
+    3,
+    0,
+    (void *)&addrLow_Weaponai_UpdateSpinAndAlternateFire_de,
+    0x0,
+    20110,
+    1.0f,
+    0,
+    0x0,
+    5,
+    (void *)&addrLow_Weapon_PlayStartupCue9E2_de,
+    (void *)&addrLow_Weapon_AdvanceSpinAndTriggerMode_de,
+    0x0,
+    20200,
+    1.0f,
+    3,
+    0x0,
+    -1,
+    0,
+    0,
+    0x0,
+    0,
+    0.0f,
+    0,
+    0x0,
+    (void *)&g_weaponFireStateCallbackTable,
+    { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },
+    4,
+    0,
+    (void *)&addrLow_Weaponai_SelectReleasedFireState_de_eu,
+    0x0,
+    20200,
+    1.0f,
+    3,
+    0x0,
+    8,
+    0,
+    (void *)&addrLow_Weaponai_SelectReleasedFireState_de_eu,
+    0x0,
+    20200,
+    1.0f,
+    3,
+    0x20,
+    5,
+    0,
+    (void *)&addrLow_Weapon_UpdateTriggerReleaseState_de,
+    0x0,
+    20210,
+    1.0f,
+    3,
+    0x20,
+    9,
+    0,
+    (void *)&addrLow_Weapon_UpdateTriggerReleaseState_de,
+    0x0,
+    20550,
+    1.0f,
+    3,
+    0x20,
+    -1,
+    0,
+    0,
+    0x0,
+    0,
+    0.0f,
+    0,
+    0x0
+};
+typedef char g_weaponSwitchStateWordsDeSizeCheck[(sizeof(g_weaponSwitchStateWordsDe) == 748) ? 1 : -1];
+#endif
+#endif
