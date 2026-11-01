@@ -1,0 +1,4 @@
+#ifndef DATA_OVL1_F_WEAPON_CHARGE_CALLBACK_ADDRESS_H
+#define DATA_OVL1_F_WEAPON_CHARGE_CALLBACK_ADDRESS_H
+extern char addrLow_Weapon_ReleaseLinkedActorHandlesEntryVariant2[];
+#endif

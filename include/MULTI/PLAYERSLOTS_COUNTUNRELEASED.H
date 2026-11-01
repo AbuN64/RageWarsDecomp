@@ -1,0 +1,5 @@
+#ifndef MULTI_PLAYERSLOTS_COUNTUNRELEASED_H
+#define MULTI_PLAYERSLOTS_COUNTUNRELEASED_H
+#include "MULTI/PLAYER_SLOTS.H"
+extern s32 PlayerSlots_CountUnreleased(void);
+#endif

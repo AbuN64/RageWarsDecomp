@@ -1,0 +1,5 @@
+#ifndef DATA_PLAYER_CALLBACKS_PLAYER_SEQUENCE_CALLBACK_ADDRESSES_H
+#define DATA_PLAYER_CALLBACKS_PLAYER_SEQUENCE_CALLBACK_ADDRESSES_H
+extern char g_overlayFiveLinkRecordRomLinkTarget_ResetPlayerWeaponLock[];
+extern char g_overlayFiveLinkRecordRomLinkTarget_EnterStoppedSequenceState[];
+#endif

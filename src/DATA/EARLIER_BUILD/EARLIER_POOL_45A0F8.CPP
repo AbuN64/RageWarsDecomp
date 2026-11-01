@@ -1,0 +1,4 @@
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Older build's rodata pool. */
+unsigned int g_earlierPoolWords_45A0F8[15] = { 0x2E2690, 0x2E269C, 0x2E2690, 0x2E2690, 0x2E269C, 0x2E2690, 0x2E2690, 0x2E2690, 0x2E2690, 0x2E269C, 0x2E2690, 0x2E269C, 0x2E2690, 0x2E2690, 0x2E2690 };
+#endif

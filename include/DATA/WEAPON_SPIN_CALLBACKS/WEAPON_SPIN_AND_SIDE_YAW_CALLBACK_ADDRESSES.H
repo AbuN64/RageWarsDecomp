@@ -1,0 +1,5 @@
+#ifndef DATA_WEAPON_SPIN_CALLBACKS_WEAPON_SPIN_AND_SIDE_YAW_CALLBACK_ADDRESSES_H
+#define DATA_WEAPON_SPIN_CALLBACKS_WEAPON_SPIN_AND_SIDE_YAW_CALLBACK_ADDRESSES_H
+extern char g_Weaponai_DecaySpinAndActivateEffectAddress[];
+extern char g_Weapon_ApplyScaledSideYawAddress[];
+#endif

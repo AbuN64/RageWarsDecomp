@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "revision": "b321da793d3a963de347814a4e2778444ef71176",
+  "files": {
+    "sdk/libultra/libc/_divdi3.CPP": [
+      {
+        "reason": "NON_MATCHING changes ROM-side C: Libc_SignedDivide [3aef09f3fc23fbfd077a769507d2ec6ed77ddd769f8244423f49d8df56cbb947]",
+        "lines": [
+          3
+        ]
+      }
+    ],
+    "sdk/libultra/libc/_moddi3.CPP": [
+      {
+        "reason": "NON_MATCHING changes ROM-side C: Libc_SignedRemainder [f9c057bb5dac869ab759242d68bbbc042cc4f6a8a58fb187e8fbd7341503b774]",
+        "lines": [
+          1
+        ]
+      }
+    ],
+    "sdk/libultra/libc/_umoddi3.CPP": [
+      {
+        "reason": "NON_MATCHING changes ROM-side C: Libc_UnsignedRemainder [7bc7e9a58c1cd882b4dffafa56da299a3cbe8ce411346afcfa39d5e2e5a9cfe3]",
+        "lines": [
+          3
+        ]
+      }
+    ]
+  }
+}

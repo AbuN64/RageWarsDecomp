@@ -1,0 +1,17 @@
+#!/bin/sh
+# Generated file. The one CI entry point: sh ci/run check. The forge files only call it.
+# The repository builds and verifies with make alone: `make check` builds every version ROM and checks its SHA-1,
+# which needs the cartridge dumps a CI runner does not have, so CI checks the committed tree (`make check CHECK=tree`).
+set -eu
+cd "$(dirname "$0")/.."
+
+case "${1:-}" in
+check)
+    sh ci/abucache-audit
+    make check CHECK=tree
+    ;;
+*)
+    echo "usage: sh ci/run check" >&2
+    exit 2
+    ;;
+esac

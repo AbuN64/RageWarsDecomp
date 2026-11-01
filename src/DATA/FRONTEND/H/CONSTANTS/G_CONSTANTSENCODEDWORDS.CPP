@@ -1,0 +1,33 @@
+#include "DATA/REST_SOURCE_RECORDS.H"
+extern char g_audioDecodedSampleSlots[];
+extern struct FftTables * g_audioTransformFftTable;
+extern char g_tlbMissExceptionVector[];
+#include "include_asm.h"
+
+#if defined(VERSION_US)
+/* bytes live in the preceding array */
+#endif
+
+#if defined(VERSION_US)
+RestConstantsEncodedWordsLayout413 g_ConstantsEncodedWords = {
+    "NICe",
+    0x7175042E,
+    { 0, 0, 3840 },
+    0x0A000400,
+    { (void *)((char *)&g_audioTransformFftTable + 8), (void *)((char *)&g_audioTransformFftTable + 264), (void *)((char *)&g_audioDecodedSampleSlots + 3072), 0 },
+    { 1, 196615, 983071, 4128895, 16712191 },
+    0x03FF07FF,
+    0x0FFF1FFF,
+    1.9960936f,
+    { -65536, 1, 131076, 524304, 2097216, 8388864 },
+    0x02000400,
+    0x08001000,
+    0x20004000,
+    (void *)&g_tlbMissExceptionVector,
+    { 262152, 786450, 1638433, 2883637, 4128843, 5832809, 8257685, 12124416 },
+    0x379837F1,
+    0x37B504F3,
+    0x37D744FD,
+    { 3.0517578e-05f, 3.629172e-05f, 4.3158372e-05f, 5.1324245e-05f, 6.1035156e-05f, 7.258344e-05f, 8.6316744e-05f, 0.00010264849f, 0.00012207031f, 0.00017263349f, 0.00014516688f, 0.00020529698f, 0.00024414062f, 0.00029033376f, 0.00034526698f, 0.00041059396f, 0.00048828125f, 0.0005806675f, 0.00069053395f, 0.0008211879f, 0.0009765625f, 0.0011613352f, 0.0013810679f, 0.0016423758f, 0.001953125f, 0.00232267f, 0.0027621358f, 0.0032847517f, 0.00390625f, 0.00464534f, 0.0055242716f, 0.0065695033f, 0.0078125f, 0.00929068f, 0.011048543f, 0.013139006f, 0.015625f, 0.01858136f, 0.022097087f, 0.026278013f, 0.03125f, 0.03716272f, 0.044194173f, 0.052556027f, 0.0625f, 0.07432544f, 0.088388346f, 0.10511205f, 0.125f, 0.14865088f, 0.1767767f, 0.2102241f, 0.25f, 0.29730177f, 0.35355338f, 0.4204482f, 0.5f, 0.59460354f, 0.70710677f, 0.8408964f, 1.0f },
+};
+#endif

@@ -1,0 +1,5 @@
+#ifndef ENGINE_INSTANCE_GASTATE_ADVANCEROOTMOTION_DATA_H
+#define ENGINE_INSTANCE_GASTATE_ADVANCEROOTMOTION_DATA_H
+#include "COMMON/LOCALDECODERANGE.H"
+extern void Gobjinst_DispatchAnimationIntervalEvents(char *,void *,f32,f32);
+#endif

@@ -1,0 +1,10 @@
+#ifndef DATA_ACTION_CALLBACKS_DEVICE_SPAWN_AND_MOTION_ROM_ENTRIES_H
+#define DATA_ACTION_CALLBACKS_DEVICE_SPAWN_AND_MOTION_ROM_ENTRIES_H
+extern char addrLow_SpawnAI_InitializeActorDispatch[];
+extern char addrLow_SpawnAI_InitializeActionDelay[];
+extern char addrLow_MovingAI_SetActorStateActive[];
+extern char addrLow_MovingAI_EnableTriggerActor[];
+extern char addrLow_MovingAI_ClearActorStateActive[];
+extern char addrLow_MovingAI_DisableTriggerActor[];
+extern char addrLow_MovingAI_DeviceHealthNoOp[];
+#endif

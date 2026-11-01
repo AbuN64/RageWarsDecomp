@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_G_OVERLAYFIVELINKRECORDLINKWORDSBLOCK7_H
+#define DATA_OVLTBL_G_OVERLAYFIVELINKRECORDLINKWORDSBLOCK7_H
+extern char g_playerStateCallbacks41FirstTargetUsRev1[];
+extern char g_playerStateCallbacks41SecondTargetUsRev1[];
+#endif

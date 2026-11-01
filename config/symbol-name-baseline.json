@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "revision": "d144d6d1b5a0ba6b7492a0f783a81e21c9df8d2e",
+  "files": {
+    "include/COMMON/RUNTIME_DECLARATIONS.H": [
+      {
+        "reason": "_Pft: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          3247,
+          3248,
+          4631,
+          4632
+        ]
+      }
+    ],
+    "include/COMMON/UNSIGNED_QUOTIENT.H": [
+      {
+        "reason": "__udivdi3: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          6
+        ]
+      }
+    ],
+    "include/TYPES.H": [
+      {
+        "reason": "__scAppendList: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          154
+        ]
+      },
+      {
+        "reason": "__scYield: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          156
+        ]
+      },
+      {
+        "reason": "__setUsptFromTempo: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          214
+        ]
+      }
+    ],
+    "include/stdarg.h": [
+      {
+        "reason": "__builtin_next_arg: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          9
+        ]
+      }
+    ],
+    "include/ultra64.h": [
+      {
+        "reason": "_ULTRA64_H_: reserved identifier (elf-gcc, coff-mingw, macho-clang, android-clang, msvc)",
+        "lines": [
+          23
+        ]
+      }
+    ]
+  }
+}

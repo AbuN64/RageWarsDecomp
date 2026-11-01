@@ -1,0 +1,5 @@
+#ifndef WEAPONS_PLAYER_UPDATEFRAGTAGSELECTION_H
+#define WEAPONS_PLAYER_UPDATEFRAGTAGSELECTION_H
+#include "COMMON/SCENE_FRAME_AND_EFFECT_UPDATES.H"
+extern void Playerai_StopInactivePlayerSounds(char *);
+#endif

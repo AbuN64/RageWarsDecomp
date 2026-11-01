@@ -1,0 +1,4 @@
+#ifndef DATA_PLAYER_STUN_PLAYER_STUN_RESET_ADDRESS_H
+#define DATA_PLAYER_STUN_PLAYER_STUN_RESET_ADDRESS_H
+extern char addrLow_Player_ResetStunAndReleaseHandles[];
+#endif

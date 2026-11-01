@@ -1,0 +1,5 @@
+#ifndef LIBGULTRA_DIVS32BYF32_H
+#define LIBGULTRA_DIVS32BYF32_H
+#include "COMMON/PARAMSRECAT8V3.H"
+s32 _DivS32ByF32(s32 val, f32 div);
+#endif

@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_ITEMS_COPYLOCALIZEDPLAYERNAMESUFFIX_H
+#define DATA_OVLTBL_ITEMS_COPYLOCALIZEDPLAYERNAMESUFFIX_H
+extern char Frontend_DestroyPakProfileScreen_Address[];
+extern char Frontend_DestroyPauseMenu_Address[];
+#endif

@@ -1,0 +1,4 @@
+#ifndef DATA_OVLTBL_OPTIONS_CREATEOPTIONSPAGE_DATA_H
+#define DATA_OVLTBL_OPTIONS_CREATEOPTIONSPAGE_DATA_H
+extern char g_frontend_UpdateOptionsPageExitEntry[];
+#endif

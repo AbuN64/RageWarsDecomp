@@ -1,0 +1,5 @@
+#ifndef FRONTEND_RANDOM_CHOOSERANDOMCHARACTER_H
+#define FRONTEND_RANDOM_CHOOSERANDOMCHARACTER_H
+#include "COMMON/ACTIVE.H"
+extern s32 Random_ChooseRandomCharacter(void);
+#endif

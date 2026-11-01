@@ -1,0 +1,4 @@
+#ifndef DATA_WEAPON_EVENT_CALLBACKS_WEAPON_FORCE_MARKER_ADDRESS_H
+#define DATA_WEAPON_EVENT_CALLBACKS_WEAPON_FORCE_MARKER_ADDRESS_H
+extern char addrLow_Weaponai_UpdateForceMarkerTrigger[];
+#endif

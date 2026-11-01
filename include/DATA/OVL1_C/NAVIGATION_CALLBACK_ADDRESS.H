@@ -1,0 +1,6 @@
+#ifndef DATA_OVL1_C_NAVIGATION_CALLBACK_ADDRESS_H
+#define DATA_OVL1_C_NAVIGATION_CALLBACK_ADDRESS_H
+extern char addrLow_Nav_RebuildRequestedGoalRoute[];
+extern char addrLow_Target_UpdateTargetSelection[];
+extern char addrLow_Nav_CollectEnemyTargets[];
+#endif

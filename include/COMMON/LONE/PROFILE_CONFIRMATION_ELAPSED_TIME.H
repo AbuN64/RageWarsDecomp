@@ -1,0 +1,5 @@
+#ifndef COMMON_LONE_PROFILE_CONFIRMATION_ELAPSED_TIME_H
+#define COMMON_LONE_PROFILE_CONFIRMATION_ELAPSED_TIME_H
+#include "TYPES.H"
+extern f32 g_profileConfirmationElapsedTime;
+#endif

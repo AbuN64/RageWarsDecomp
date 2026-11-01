@@ -1,0 +1,10 @@
+#ifndef DATA_SCENARIO_SETUP_FRONTEND_DISPATCHRESIDENTACTOREVENT_DATA_H
+#define DATA_SCENARIO_SETUP_FRONTEND_DISPATCHRESIDENTACTOREVENT_DATA_H
+extern char g_Frontend_CreatePauseConfirmationPackedAddress243[];
+extern char g_Timed_DestroyPauseConfirmationPackedAddress243[];
+extern char g_Timed_SetConfirmationInputModePackedAddress243[];
+extern char g_Timed_FinishPauseConfirmationTransitionPackedAddress243[];
+extern char g_Frontend_ReturnConfirmationEventZeroPackedAddress243[];
+extern char g_Frontend_ConsumeConfirmationEventPackedAddress243[];
+extern char g_Timed_UpdateTimedScreenPackedAddress243[];
+#endif

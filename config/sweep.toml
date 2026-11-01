@@ -1,0 +1,86 @@
+# Sweep rules over the game tree (`decomp sweep --rules config/sweep.toml --tree rw=.`). Each rule is a root cause a TAS
+# cycle found; the sweep finds its siblings without a movie reaching them. A rule is added with the fix that found it.
+
+[[rule]]
+id = "word-array-byte-use"
+kind = "decl-use"
+why = "A 32-bit array read through a byte or halfword pointer: packed byte data typed as words swaps on a little-endian host (font pair lists g_hudSecondaryByteLookupSource and the AI light bytes, cycle 2)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+declare = '^(?P<local>static\s+)?(?:const\s+)?(?:extern\s+)?(?:unsigned int|unsigned long|u32|s32|int)\s+(?P<datum>[A-Za-z_]\w*)\s*\['
+use = '\(\s*(?:u8|s8|char|unsigned char|signed char|u16|s16|short|unsigned short)\s*\*\s*\)\s*&?\s*(?P<datum>[A-Za-z_]\w*)\b(?!\s*(?:->|\.|\[))'
+
+[[rule]]
+id = "ascii-words"
+kind = "pattern"
+why = "Text stored as 32-bit words (two ASCII words in one initializer): the characters come out in the wrong order on a little-endian host (the strings reached through pointers, ENDIAN-SWEEP-1)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C"]
+multiline = true
+match = '(?:unsigned int|unsigned long|u32|s32|int)\s+\w+\s*\[[^\]]*\]\s*=\s*\{[^};]*?\b0x(?:[2-7][0-9A-Fa-f]){4}\b[^};]*?\b0x(?:[2-7][0-9A-Fa-f]){4}\b'
+
+[[rule]]
+id = "halfword-pair-in-word"
+kind = "pattern"
+why = "Two adjacent halfword members at a word boundary (offsets 0x40 and 0x42): when the game stores the pair as one word, the little-endian port reads the wrong half (pak slide step, cycle 3; the four-player speeds)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+multiline = true
+match = '\b(?:u16|s16|unsigned short|short)\s+unk[0-9A-F]*[048C]\s*;\s*\b(?:u16|s16|unsigned short|short)\s+unk[0-9A-F]*[26AE]\s*;'
+
+[[rule]]
+id = "wide-access-through-member-address"
+kind = "pattern"
+why = "A word read or written through the address of a struct member: if the member is narrower the access spans its neighbour and its half depends on byte order (sw/lhu at one offset, cycle 3)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+match = '\*\s*\(\s*(?:u32|s32|unsigned int)\s*\*\s*\)\s*&\s*[A-Za-z_]\w*\s*(?:->|\.)\s*\w+'
+
+[[rule]]
+id = "pointer-to-word"
+kind = "pattern"
+why = "An address cast to a 32-bit integer: it holds only where pointers are 32 bits and the guest address space is mapped 1:1; a 64-bit port or a moved heap truncates it."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+match = '\(\s*(?:u32|s32|unsigned int|unsigned long|int|long)\s*\)\s*&\s*[A-Za-z_]'
+
+[[rule]]
+id = "dropped-call-args"
+kind = "call-arity"
+why = "A call with fewer arguments than the callee's definition takes: the callee reads a register or stack slot the caller never set (Scaled_InitPlayerState -> Nav_ResetPlayerState wrote through a native code address; Polytrak2_SampleAnimationCurve -> Polytrak2_EvaluateAnimationCurve)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C"]
+[[rule]]
+id = "struct-return-spelling"
+kind = "return-spelling"
+why = "A function defined to return a struct by value and called or declared with the result pointer spelled out (or the reverse): MIPS passes the hidden result pointer where a first parameter goes, so the original mixes both, but a native 32-bit host pops the hidden pointer in the callee (ret $4) and every call spelled the other way leaves the stack 4 bytes off; the next call in that function reads garbage arguments (Graphu64_InterpolateQuaternionWithLinearFallback null read, first seen in monkey-wl1-start-pak-prompt)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+returns = 'C(?:Vector3|Quatern|Matrix\w*)|Triple|Func\w+Result|MenuElementHandler'
+[[rule]]
+id = "narrow-alias-of-word-array"
+kind = "word-alias"
+why = "A halfword extern whose address lies inside a data array defined as 32-bit words: the original reads the low half of a big-endian word at +2, the native word holds it at +0 (Results_AnimateResultsOptionsScreen read D_800E0646_de as 0 and built a null menu widget; first seen in monkey-wl1-start-pak-prompt). Read the word and cast, or define the data as the narrow type."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+declare_paths = ["src/DATA/**/*.CPP", "src/DATA/**/*.c"]
+symbols = "versions/us-rev1/symbol_addrs.txt"
+defines = ["VERSION_US_REV1"]
+array = '^\s*(?:static\s+)?(?:const\s+)?(?:unsigned int|unsigned long|u32|s32|int)\s+(?P<datum>\w+)\s*\[(?P<count>\d+)\]\s*='
+narrow = '^\s*extern\s+(?:unsigned\s+)?(?:u16|s16|short)\s+(?P<datum>\w+)'
+[[rule]]
+id = "void-defined-value-declared"
+kind = "return-spelling"
+why = "A function defined void whose result another file declares as a value: the original leaves the result in $v0 or $f0 and the reader finds it there; a native host has no such register, so an integer reads garbage and a float read from an empty x87 stack faults (Scaled_DistanceToNode, Gsky_GetDistanceTo and Gobjinst_GetRootMeanSquareScale returned the distance of a sqrt call; first seen in monkey-wl8-arena-retaliation)."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
+returns = '(?!)'
+scalars = true
+[[rule]]
+id = "hook-called-without-arguments"
+kind = "pattern"
+why = "A function pointer typed with no parameters and called with none: the callee reads its arguments from the registers the wrapper happened to hold (Barrel_RunDamageHook ran its hook with the actor, state and damage record it had itself received); on a native host the arguments live on the stack and the hook reads garbage (Playerai_ApplyDamagePacket, first seen in monkey-wl8-options-menu). Type the pointer with the parameters the hook takes and forward them."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C"]
+match = '^\s*(?:\(\s*\*\s*)?\b(?:fn|cb|hook|callback|func|handler|end|cue)\b\s*\)?\s*\(\s*\)\s*;'
+unless = 'FuncPtr\s+\w+\s*=|extern'

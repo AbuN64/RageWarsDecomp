@@ -1,0 +1,45 @@
+#ifndef DATA_ACTOR_STATE_CALLBACKS_ACTOR_STATE_CALLBACK_LABELS_H
+#define DATA_ACTOR_STATE_CALLBACKS_ACTOR_STATE_CALLBACK_LABELS_H
+extern char addrLow_Nav_AdvancePickupRouteSelection[];
+extern char addrLow_UpdateCloseAttack[];
+extern char addrLow_Nav_RefineBallisticAim[];
+extern char addrLow_Nav_UpdateRouteIntermediateGoal[];
+extern char addrLow_Nav_SelectPickupGoal[];
+extern char addrLow_Nav_SelectCloseAttackPickupGoal[];
+extern char addrLow_Nav_SelectChaseObjectGoal[];
+extern char addrLow_Nav_SelectStationaryObjectGoal[];
+extern char addrLow_Nav_SelectPlayerState[];
+extern char addrLow_Nav_SelectWeaponFromFirstAmmoGroup[];
+extern char addrLow_Nav_SelectWeaponFromSecondAmmoGroup[];
+extern char addrLow_Nav_SelectWeaponFromThirdAmmoGroup[];
+extern char addrLow_Nav_SelectSecondAmmoGroupVariantOne[];
+extern char addrLow_Nav_SelectSecondAmmoGroupVariantTwo[];
+extern char addrLow_Nav_CheckCloseAttackRoute[];
+extern char addrLow_Wheel_AdvanceWheelProbe[];
+extern char addrLow_Nav_UpdatePursuitStrafe[];
+extern char addrLow_Nav_UpdateRangedCombat[];
+extern char addrLow_Nav_UpdateCloseCombat[];
+extern char addrLow_Nav_InitPursuitStrafe[];
+extern char addrLow_Nav_InitRangedCombat[];
+extern char addrLow_Nav_InitCloseCombat[];
+extern char addrLow_Nav_InitCombatTargetApproach[];
+extern char addrLow_Nav_ApproachCombatTargetAlongRoute[];
+extern char addrLow_Nav_InitRetreatMovement[];
+extern char addrLow_Nav_UpdateRetreatMovement[];
+extern char addrLow_Nav_InitNearbyUnrestrictedGoal[];
+extern char addrLow_Nav_SeekNearbyUnrestrictedGoal[];
+extern char addrLow_Nav_InitUnclaimedMarkerSearch[];
+extern char addrLow_Nav_SeekUnclaimedMarker[];
+extern char addrLow_Nav_InitCarrierRoute[];
+extern char addrLow_Nav_FollowMarkerCarrierRoute[];
+extern char addrLow_Nav_ResetTargetFollowStateDe[];
+extern char addrLow_Nav_UpdateTargetRouteFollow[];
+extern char addrLow_Nav_UpdatePatrolRoute[];
+extern char addrLow_Nav_ResetPatrolRouteSelection[];
+extern char addrLow_Nav_UpdateObjectArrivalChase[];
+extern char addrLow_Nav_ResetObjectArrivalChase[];
+extern char addrLow_Nav_InitTimedJumpRoute[];
+extern char addrLow_Nav_UpdateTransientJumpRoute[];
+extern char addrLow_Nav_UpdateRoamingWithJumps[];
+extern char addrLow_Nav_InitRoamingWithJumps[];
+#endif

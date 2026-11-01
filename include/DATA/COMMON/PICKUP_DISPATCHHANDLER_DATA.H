@@ -1,0 +1,4 @@
+#ifndef DATA_COMMON_PICKUP_DISPATCHHANDLER_DATA_H
+#define DATA_COMMON_PICKUP_DISPATCHHANDLER_DATA_H
+extern char addrLow_Pickup_ApplyLifePoints[];
+#endif

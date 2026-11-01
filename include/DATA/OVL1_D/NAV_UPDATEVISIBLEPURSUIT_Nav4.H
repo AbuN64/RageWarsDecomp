@@ -1,0 +1,4 @@
+#ifndef DATA_OVL1_D_NAV_UPDATEVISIBLEPURSUIT_NAV4_H
+#define DATA_OVL1_D_NAV_UPDATEVISIBLEPURSUIT_NAV4_H
+extern char addrLow_Nav_UpdateVisiblePursuit[];
+#endif

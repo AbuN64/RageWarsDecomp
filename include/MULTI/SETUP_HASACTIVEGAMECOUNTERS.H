@@ -1,0 +1,5 @@
+#ifndef MULTI_SETUP_HASACTIVEGAMECOUNTERS_H
+#define MULTI_SETUP_HASACTIVEGAMECOUNTERS_H
+#include "COMMON/MENURECAT20V1.H"
+extern s32 Setup_HasActiveGameCounters(void);
+#endif

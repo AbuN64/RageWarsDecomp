@@ -1,0 +1,5 @@
+#ifndef DATA_OVL1_J_PLAYER_DISPATCHPLAYERSETTINGSEVENT_DATA_H
+#define DATA_OVL1_J_PLAYER_DISPATCHPLAYERSETTINGSEVENT_DATA_H
+extern char addrLow_Player_EmptySettingsEntryHook[];
+extern char addrLow_Player_UpdatePlayerSettingsExit[];
+#endif

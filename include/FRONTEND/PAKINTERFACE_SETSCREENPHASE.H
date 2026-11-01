@@ -1,0 +1,5 @@
+#ifndef FRONTEND_PAKINTERFACE_SETSCREENPHASE_H
+#define FRONTEND_PAKINTERFACE_SETSCREENPHASE_H
+#include "COMMON/ENTRYRECAT6C.H"
+extern void PAKInterface_SetScreenPhase(s32 value);
+#endif

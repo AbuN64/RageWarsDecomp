@@ -1,0 +1,4 @@
+#ifndef DATA_OVL1_G_WEAPON_ACTION_FIVE_SPIN_ADDRESS_H
+#define DATA_OVL1_G_WEAPON_ACTION_FIVE_SPIN_ADDRESS_H
+extern char g_weapon_EaseSpinForActionFiveEntry[];
+#endif

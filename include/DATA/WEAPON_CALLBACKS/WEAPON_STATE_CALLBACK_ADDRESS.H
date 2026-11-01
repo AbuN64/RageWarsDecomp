@@ -1,0 +1,4 @@
+#ifndef DATA_WEAPON_CALLBACKS_WEAPON_STATE_CALLBACK_ADDRESS_H
+#define DATA_WEAPON_CALLBACKS_WEAPON_STATE_CALLBACK_ADDRESS_H
+extern char addrLow_Weaponai_UpdateSpinAndAlternateFire[];
+#endif

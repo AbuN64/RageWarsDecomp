@@ -1,0 +1,4 @@
+#ifndef DATA_WEAPON_CALLBACKS_SECONDARY_ACTOR_CALLBACK_LABELS_H
+#define DATA_WEAPON_CALLBACKS_SECONDARY_ACTOR_CALLBACK_LABELS_H
+extern char Weapon_InitializeChargeAndStartupCues_Address[];
+#endif

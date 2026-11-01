@@ -1,0 +1,5 @@
+#ifndef COMMON_VIDEO_DIMENSIONS_H
+#define COMMON_VIDEO_DIMENSIONS_H
+#define SCREEN_WD g_hudReferenceViewportWidth
+#define SCREEN_HT g_hudReferenceViewportHeight
+#endif

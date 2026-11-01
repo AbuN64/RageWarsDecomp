@@ -1,0 +1,4 @@
+#ifndef DATA_COMMON_G_PICKUPHEALTHDEFINITIONS_H
+#define DATA_COMMON_G_PICKUPHEALTHDEFINITIONS_H
+extern char g_Pickup_ApplyHealthAddress[];
+#endif

@@ -1,0 +1,5 @@
+#ifndef DATA_OVL1_J_FRONTEND_DISPATCHNODEPAIRMENUEVENT_DATA_H
+#define DATA_OVL1_J_FRONTEND_DISPATCHNODEPAIRMENUEVENT_DATA_H
+extern char g_frontend_UpdateTimedTransitionEntry[];
+extern char g_frontend_CancelNodePairMenuEntry[];
+#endif

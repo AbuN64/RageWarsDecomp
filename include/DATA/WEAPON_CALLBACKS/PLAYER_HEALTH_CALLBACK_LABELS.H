@@ -1,0 +1,4 @@
+#ifndef DATA_WEAPON_CALLBACKS_PLAYER_HEALTH_CALLBACK_LABELS_H
+#define DATA_WEAPON_CALLBACKS_PLAYER_HEALTH_CALLBACK_LABELS_H
+extern char addrLow_Weapon_UpdateIdleWeaponSelection[];
+#endif

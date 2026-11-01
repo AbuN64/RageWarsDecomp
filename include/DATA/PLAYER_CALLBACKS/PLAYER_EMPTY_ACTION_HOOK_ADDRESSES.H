@@ -1,0 +1,5 @@
+#ifndef DATA_PLAYER_CALLBACKS_PLAYER_EMPTY_ACTION_HOOK_ADDRESSES_H
+#define DATA_PLAYER_CALLBACKS_PLAYER_EMPTY_ACTION_HOOK_ADDRESSES_H
+extern char addrLow_Playerai_NoopShortSequenceWaitFirst_de[];
+extern char addrLow_Playerai_NoopShortSequenceWaitSecond_de[];
+#endif

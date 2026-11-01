@@ -1,0 +1,5 @@
+#ifndef DATA_ACTION_CALLBACKS_BREAKABLE_HIT_CALLBACK_ADDRESSES_H
+#define DATA_ACTION_CALLBACKS_BREAKABLE_HIT_CALLBACK_ADDRESSES_H
+extern char addrLow_Action_ResolveBreakableHit[];
+extern char addrLow_Action_DeactivateBreakable[];
+#endif

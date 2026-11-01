@@ -1,0 +1,4 @@
+#ifndef DATA_ACTION_CALLBACKS_ACTOR_STATE_CALLBACK_ADDRESS_H
+#define DATA_ACTION_CALLBACKS_ACTOR_STATE_CALLBACK_ADDRESS_H
+extern char addrLow_Triggered_SelectMotionSound[];
+#endif

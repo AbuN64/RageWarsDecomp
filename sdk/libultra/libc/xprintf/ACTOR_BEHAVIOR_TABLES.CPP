@@ -1,0 +1,14 @@
+#include "DATA/REST_SOURCE_RECORDS.H"
+#include "include_asm.h"
+#include "TYPES.H"
+#include "DATA/OVL1_C/NAVIGATION_CALLBACK_ADDRESS.H"
+#include "DATA/OVL1_D/NAV_INITVISIBLEPURSUIT.H"
+#include "DATA/OVL1_D/NAV_UPDATEVISIBLEPURSUIT_Nav4.H"
+#include "DATA/ACTOR_STATE_CALLBACKS/ACTOR_STATE_CALLBACK_LABELS.H"
+#if defined(VERSION_EU)
+/* 800C8858.CPP */
+RestDecimalPowersPool5 k_Ovldat2EncodedWords = { { 0x41700000, 0x00269390 },
+    { 10.0, 100.0, 10000.0, 100000000.0, 1e+16, 1e+32, 1e+64, 1e+128, 1e+256 },
+    "F\240\000\000@D\233\246"
+};
+#endif

@@ -1,0 +1,5 @@
+#ifndef DATA_PLAYER_STUN_PLAYER_RESETSTUNFLAGS_H
+#define DATA_PLAYER_STUN_PLAYER_RESETSTUNFLAGS_H
+extern char addrLow_Player_ResetStunFlags[];
+extern char g_playerStateCallbacks20SecondTargetUsRev1[];
+#endif

@@ -1,0 +1,9 @@
+#ifndef DATA_OVL1_I_SMPOVERLAY_DISPATCHPAKDIALOGEVENT_DATA_H
+#define DATA_OVL1_I_SMPOVERLAY_DISPATCHPAKDIALOGEVENT_DATA_H
+extern char g_SmpOverlay_CreatePakDialogAddress[];
+extern char g_SmpOverlay_DestroyPakDialogAddress[];
+extern char g_SmpOverlay_TickPakDialogAddress[];
+extern char g_SmpOverlay_ReturnUnhandledPakDialogEventAddress[];
+extern char g_SmpOverlay_ConsumePakDialogEventAddress[];
+extern char g_SmpOverlay_HandlePakDialogChoiceAddress[];
+#endif

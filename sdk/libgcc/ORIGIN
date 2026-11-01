@@ -1,0 +1,2 @@
+Source: https://ftp.gnu.org/gnu/gcc/gcc-2.8.1.tar.gz
+libgcc2.inc.c is the unmodified gcc-2.8.1/libgcc2.c. Shared upstream headers and COPYING.LIB are unmodified. Per-routine files select the upstream L_* compilation unit. tconfig.h supplies the target configuration.

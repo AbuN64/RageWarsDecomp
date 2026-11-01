@@ -1,0 +1,4 @@
+#ifndef LIBULTRA_ACTION_CLEARBREAKABLESTATE_ADDRESS_H
+#define LIBULTRA_ACTION_CLEARBREAKABLESTATE_ADDRESS_H
+extern char Action_ClearBreakableState_Address[];
+#endif

@@ -1,0 +1,5 @@
+#ifndef LIBGULTRA_INFERRED_CSEQ_H
+#define LIBGULTRA_INFERRED_CSEQ_H
+#include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
+extern s32 __alCSeqNextDelta(ALCSeq *seq, s32 *result);
+#endif

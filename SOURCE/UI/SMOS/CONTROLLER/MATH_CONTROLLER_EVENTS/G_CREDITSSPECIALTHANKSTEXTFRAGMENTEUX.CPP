@@ -1,0 +1,5 @@
+#if defined(VERSION_EU_X)
+/* SETN64_RETAINED_ARP_TIME_TEXT_WORDS_US.CPP */
+/* CREDITS_SPECIAL_THANKS_TEXT_FRAGMENT_EU_X.CPP */
+char g_creditsSpecialThanksTextFragmentEuX[12] = "  SPECIAL TH";
+#endif

@@ -1,0 +1,2 @@
+export PATH="$HOME/venv-unbake/bin:$HOME/venv-decomp/bin:$PATH" && . ci/gate_unbake_env.sh "${WORKTREE_Projects_AbuN64_CakeUnbake64:-}" && D=$("$HOME/venv-decomp/bin/python" -c "import json,os;from abu_decomp.config import default_profile_path as p;print(os.path.dirname(json.load(open(p()))[\"tas\"][\"rom\"]))") && mkdir -p roms && cp "$D"/baserom.*.z64 roms/ && unbake setup && unbake sync && make check && for d in versions/*/; do v=$(basename "$d"); cmp "build/$v/RageWars.z64" "roms/baserom.$v.z64" || exit 1; done && git diff --exit-code
+host=rig

@@ -1,0 +1,46 @@
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Older build's rodata of CKUP_PLAC:/Projects/DM/n64/Source/Ui/Smos/SM_SMngr.cpp. */
+float g_earlierSmsmngrFloats_45C06C[35] = { 0.0666666701f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 1.0f, 1.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 1.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f };
+char g_earlierSmsmngrStr_45C0F8[56] = "CKUP_PLAC:/Projects/DM/n64/Source/Ui/Smos/SM_SMngr.cpp";
+char g_earlierSmsmngrStr_45C130[8] = "Smos";
+char g_earlierSmsmngrStr_45C138[40] = "Smos->ScreenStackTop < Smos->MaxScreens";
+char g_earlierSmsmngrStr_45C160[28] = "Smos->ScreenStackTop >= 0";
+char g_earlierSmsmngrStr_45C17C[16] = "Smos->pStack";
+char g_earlierSmsmngrStr_45C18C[24] = "Smos->RenderStart >= 0";
+char g_earlierSmsmngrStr_45C1A4[44] = "Smos->RenderStart <= Smos->ScreenStackTop";
+char g_earlierSmsmngrStr_45C1D0[48] = "Smos->pStack[ Smos->ScreenStackTop ].CurScreen";
+char g_earlierSmsmngrStr_45C200[60] = "Smos->pStack[i].CurScreen->ID == Smos->pStack[i].ScreenID";
+char g_earlierSmsmngrStr_45C23C[12] = "SM_ACCEPT";
+char g_earlierSmsmngrStr_45C248[12] = "SM_CANCEL";
+char g_earlierSmsmngrStr_45C254[12] = "SM_START";
+char g_earlierSmsmngrStr_45C260[12] = "SM_BACKUP";
+char g_earlierSmsmngrStr_45C26C[8] = "SM_UP";
+char g_earlierSmsmngrStr_45C274[8] = "SM_DOWN";
+char g_earlierSmsmngrStr_45C27C[8] = "SM_LEFT";
+char g_earlierSmsmngrStr_45C284[12] = "SM_RIGHT";
+char g_earlierSmsmngrStr_45C290[16] = "SM_BUTTON_DOWN";
+char g_earlierSmsmngrStr_45C2A0[20] = "SM_BUTTON_DEBOUNCE";
+char g_earlierSmsmngrStr_45C2B4[16] = "SM_BUTTON_UP";
+char g_earlierSmsmngrStr_45C2C4[12] = "SM_KEY_DOWN";
+char g_earlierSmsmngrStr_45C2D0[16] = "SM_KEY_DEBOUNCE";
+char g_earlierSmsmngrStr_45C2E0[12] = "SM_KEY_UP";
+char g_earlierSmsmngrStr_45C2EC[16] = "SM_MOUSE_MOVE";
+char g_earlierSmsmngrStr_45C2FC[16] = "SM_GOT_FOCUS";
+char g_earlierSmsmngrStr_45C30C[16] = "SM_LOST_FOCUS";
+char g_earlierSmsmngrStr_45C31C[16] = "SM_SYSMESSAGE";
+char g_earlierSmsmngrStr_45C32C[16] = "SM_SAVE_DATA";
+char g_earlierSmsmngrStr_45C33C[16] = "SM_RESTORE_DATA";
+char g_earlierSmsmngrStr_45C34C[12] = "SM_DESTROY";
+char g_earlierSmsmngrStr_45C358[16] = "SM_INIT_SYSTEM";
+char g_earlierSmsmngrStr_45C368[16] = "SM_KILL_SYSTEM";
+char g_earlierSmsmngrStr_45C378[12] = "SM_CREATE";
+char g_earlierSmsmngrStr_45C384[20] = "SM_INITIAL_UPDATE";
+char g_earlierSmsmngrStr_45C398[8] = "SM_SYNC";
+char g_earlierSmsmngrStr_45C3A0[4] = "%ld";
+char g_earlierSmsmngrStr_45C3A4[8] = "ID >= 0";
+char g_earlierSmsmngrStr_45C3AC[56] = "Smos->pStack[Smos->ScreenStackTop].CurScreen == NULL";
+char g_earlierSmsmngrStr_45C3E4[8] = "Screen";
+char g_earlierSmsmngrStr_45C3EC[8] = "FALSE";
+char g_earlierSmsmngrStr_45C3F4[32] = "SanityCheck() == ERR_SUCCESS";
+unsigned int g_earlierSmsmngrWords_45C414[1] = { 0 };
+#endif

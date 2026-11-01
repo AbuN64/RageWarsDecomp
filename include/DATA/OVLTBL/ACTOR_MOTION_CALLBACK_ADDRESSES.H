@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_ACTOR_MOTION_CALLBACK_ADDRESSES_H
+#define DATA_OVLTBL_ACTOR_MOTION_CALLBACK_ADDRESSES_H
+extern char g_actorStateEntry10_us_rev1[];
+extern char g_actorStateEntry11_us_rev1[];
+#endif

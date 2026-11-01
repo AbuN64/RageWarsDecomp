@@ -1,0 +1,4 @@
+#ifndef DATA_COMMON_G_PICKUPSPECIALDEFINITIONS_H
+#define DATA_COMMON_G_PICKUPSPECIALDEFINITIONS_H
+extern char addrLow_Pickup_ApplySpecialPickupEntryVariant4[];
+#endif

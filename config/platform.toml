@@ -1,0 +1,104 @@
+# Platform content: the packaged boot range and the exact-hash SDK RSP segments (tools in
+# ragewars-evidence tools/rsp_rows.py).
+schema = 1
+
+[platform]
+boot = [[0x0, 0x1000]]
+
+[platform.rsp.rsp_boot]
+format = "microcode: libultra rspboot"
+state = "identified"
+rom."de" = [[0xd9810, 0xd98e0], [0xeb800, 0xeb8d0]]
+rom."eu" = [[0xe9e90, 0xe9f60]]
+rom."eu-x" = [[0xe5050, 0xe5120]]
+rom."us" = [[0xd84c0, 0xd8590]]
+rom."us-rev1" = [[0xdd840, 0xdd910]]
+sha256."de" = ["5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4", "5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4"]
+sha256."eu" = ["5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4"]
+sha256."eu-x" = ["5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4"]
+sha256."us" = ["5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4"]
+sha256."us-rev1" = ["5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4"]
+
+[platform.rsp.rsp_graphics_f3dex2_code]
+format = "microcode: F3DEX2 text"
+state = "identified"
+rom."de" = [[0xd98e0, 0xdac70], [0xeb8d0, 0xecc60]]
+rom."eu" = [[0xe9f60, 0xeb2f0]]
+rom."eu-x" = [[0xe5120, 0xe64b0]]
+rom."us" = [[0xd8590, 0xd9920]]
+rom."us-rev1" = [[0xdd910, 0xdeca0]]
+sha256."de" = ["6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57", "6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57"]
+sha256."eu" = ["6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57"]
+sha256."eu-x" = ["6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57"]
+sha256."us" = ["6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57"]
+sha256."us-rev1" = ["6734f26b67b25c6a521dc2ee56d343d33c8005ea4001c2db83fbabf539e62e57"]
+
+[platform.rsp.rsp_graphics_l3dex2_code]
+format = "microcode: L3DEX2 text"
+state = "identified"
+rom."de" = [[0xdac70, 0xdbe00], [0xecc60, 0xeddf0]]
+rom."eu" = [[0xeb2f0, 0xec480]]
+rom."eu-x" = [[0xe64b0, 0xe7640]]
+rom."us" = [[0xd9920, 0xdaab0]]
+rom."us-rev1" = [[0xdeca0, 0xdfe30]]
+sha256."de" = ["1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f", "1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f"]
+sha256."eu" = ["1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f"]
+sha256."eu-x" = ["1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f"]
+sha256."us" = ["1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f"]
+sha256."us-rev1" = ["1befc93e062386294e0b74528ccb19dac46038be4669f4dd5b70ef932e36d32f"]
+
+[platform.rsp.rsp_audio_code]
+format = "microcode: libultra audio text"
+state = "identified"
+rom."de" = [[0xdbe00, 0xdcc20], [0xeddf0, 0xeec10]]
+rom."eu" = [[0xec480, 0xed2a0]]
+rom."eu-x" = [[0xe7640, 0xe8460]]
+rom."us" = [[0xdaab0, 0xdb8d0]]
+rom."us-rev1" = [[0xdfe30, 0xe0c50]]
+sha256."de" = ["14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc", "14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc"]
+sha256."eu" = ["14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc"]
+sha256."eu-x" = ["14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc"]
+sha256."us" = ["14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc"]
+sha256."us-rev1" = ["14e3b245e8cd4e0bdf4cbb864af82d1ccba6d3d3ff33f73cb52c5821a76f30fc"]
+
+[platform.rsp.rsp_graphics_f3dex2_data]
+format = "microcode: F3DEX2 data"
+state = "identified"
+rom."de" = [[0xdcc20, 0xdd040], [0xeec10, 0xef030]]
+rom."eu" = [[0xed2a0, 0xed6c0]]
+rom."eu-x" = [[0xe8460, 0xe8880]]
+rom."us" = [[0xdb8d0, 0xdbcf0]]
+rom."us-rev1" = [[0xe0c50, 0xe1070]]
+sha256."de" = ["462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1", "462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1"]
+sha256."eu" = ["462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1"]
+sha256."eu-x" = ["462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1"]
+sha256."us" = ["462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1"]
+sha256."us-rev1" = ["462006091cd750bfb2f191d8da8f6221d64fd4257852cacab4aacd94e27b3ff1"]
+
+[platform.rsp.rsp_graphics_l3dex2_data]
+format = "microcode: L3DEX2 data"
+state = "identified"
+rom."de" = [[0xdd040, 0xdd430], [0xef030, 0xef420]]
+rom."eu" = [[0xed6c0, 0xedab0]]
+rom."eu-x" = [[0xe8880, 0xe8c70]]
+rom."us" = [[0xdbcf0, 0xdc0e0]]
+rom."us-rev1" = [[0xe1070, 0xe1460]]
+sha256."de" = ["f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca", "f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca"]
+sha256."eu" = ["f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca"]
+sha256."eu-x" = ["f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca"]
+sha256."us" = ["f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca"]
+sha256."us-rev1" = ["f66020599e3ab96d539875d4ef2533a76d1225d56a22a6a3f836b45f29cbfeca"]
+
+[platform.rsp.rsp_audio_data]
+format = "microcode: libultra audio data"
+state = "identified"
+rom."de" = [[0xdd430, 0xdd6f0], [0xef420, 0xef6e0]]
+rom."eu" = [[0xedab0, 0xedd70]]
+rom."eu-x" = [[0xe8c70, 0xe8f30]]
+rom."us" = [[0xdc0e0, 0xdc3a0]]
+rom."us-rev1" = [[0xe1460, 0xe1720]]
+sha256."de" = ["79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83", "79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83"]
+sha256."eu" = ["79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83"]
+sha256."eu-x" = ["79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83"]
+sha256."us" = ["79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83"]
+sha256."us-rev1" = ["79bb2a3e8555019bc4b229f0c218f1e329ca5711bfa55c7c7f992facf2e12c83"]

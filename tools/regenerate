@@ -1,0 +1,217 @@
+#!/usr/bin/env python3
+"""Regenerate this tree's generated files on the rig.
+
+ButlerMaster Land runs this from the tree root (on W) for every path the
+.gitattributes declares `generated=tools/regenerate`. W must not run the heavy
+build, so the script commits the exact tree state off to the side and runs the build as one Job Invoke job at that
+sha in a Worktree, then reads the declared generated paths back out of the job's Log. Job Invoke reuses the card's job
+root, so a later regenerate of the same run rebuilds only what the tree's change touches.
+
+Rig facts (host, repository, seed tree, build commands, optional bound) live in
+config/regenerate/rig.toml. Every failure exits non-zero naming the job's Log and
+leaves the tree's files as they were: results are staged, then renamed whole.
+"""
+import base64
+import io
+import json
+import os
+import shlex
+import shutil
+import subprocess
+import sys
+import tarfile
+import tomllib
+
+COMMAND = "tools/regenerate"
+CONFIG = "config/regenerate/rig.toml"
+BEGIN = "regenerate-archive-begin"
+END = "regenerate-archive-end"
+AUTHOR = {
+    "GIT_AUTHOR_NAME": "regenerate", "GIT_AUTHOR_EMAIL": "regenerate@localhost",
+    "GIT_AUTHOR_DATE": "2000-01-01T00:00:00Z",
+    "GIT_COMMITTER_NAME": "regenerate", "GIT_COMMITTER_EMAIL": "regenerate@localhost",
+    "GIT_COMMITTER_DATE": "2000-01-01T00:00:00Z",
+}
+
+
+class Failure(Exception):
+    pass
+
+
+def run(argv, cwd=None, env=None, input=None, what=None):
+    done = subprocess.run(argv, cwd=cwd, env=env, input=input, capture_output=True)
+    if done.returncode:
+        message = (done.stderr or done.stdout).decode(errors="replace").strip()
+        raise Failure(f"{what or argv[0]} failed ({done.returncode}): {tail(message)}")
+    return done.stdout
+
+
+def quote(path):
+    return shlex.quote(path)
+
+
+def load_config(root):
+    with open(os.path.join(root, CONFIG), "rb") as handle:
+        return tomllib.load(handle)
+
+
+def commit_state(root):
+    """Commit the exact worktree state (tracked, untracked, not ignored) off to the side, on top of HEAD; the real
+    index and refs are untouched. The commit lives in the shared object store, where Job Invoke pushes it from."""
+    git_dir = run(["git", "rev-parse", "--absolute-git-dir"], cwd=root).decode().strip()
+    index = os.path.join(git_dir, f"regenerate-index-{os.getpid()}")
+    env = dict(os.environ, GIT_INDEX_FILE=index, **AUTHOR)
+    try:
+        head = run(["git", "rev-parse", "HEAD"], cwd=root).decode().strip()
+        run(["git", "read-tree", head], cwd=root, env=env)
+        run(["git", "add", "-A", "--", "."], cwd=root, env=env)
+        tree = run(["git", "write-tree"], cwd=root, env=env).decode().strip()
+    finally:
+        if os.path.exists(index):
+            os.unlink(index)
+    return run(["git", "commit-tree", tree, "-p", head, "-m", "regenerate"], cwd=root, env=env).decode().strip()
+
+
+def identity(root, repository):
+    """The board and card of the run whose worktree this is: Run Invoke leases it at <Runs>/<board>.<card>/<repository>."""
+    suffix = os.sep + repository
+    if not root.endswith(suffix):
+        raise Failure(f"{root} is not a run worktree of {repository}: Job Invoke needs the run's board and card")
+    board, dot, card = os.path.basename(root[:-len(suffix)]).partition(".")
+    if not (board and dot and card):
+        raise Failure(f"{root} is not under a <board>.<card> run folder")
+    return board, card
+
+
+def home(path):
+    """A rig path (relative to the rig user's home) as an absolute shell word."""
+    return '"$HOME"/' + quote(path)
+
+
+def build_script(rig, commit):
+    """The job Job Invoke runs in its worktree on the rig: link the seed, move the tree to the shipped commit (only files
+    that differ change, so make rebuilds only changed units), build, record the tree as a state commit (the next job's
+    checkout of another sha then finds it clean) and print the declared generated paths as one gzip tar in base64."""
+    links = [line for name in rig.get("seed_link", []) for line in (
+        f"[ -e {quote(name)} ] || ln -s {home(rig['seed_tree'] + '/' + name)} {quote(name)}",
+        f"grep -qxF /{quote(name)} \"$X\" || echo /{quote(name)} >> \"$X\"")]  # linked, never committed
+    lines = ["set -e", 'X="$(git rev-parse --git-path info/exclude)"', 'mkdir -p "$(dirname "$X")"', *links,
+             'G="$(git rev-parse --absolute-git-dir)/regenerate"', 'mkdir -p "$G"',
+             "state() { git add -A && { git diff --cached --quiet || git -c user.name=regenerate "
+             "-c user.email=regenerate@localhost commit -q -m state; }; }",
+             "state",  # a job that was killed left its changes behind: keep them out of the checkout
+             f"git checkout -q --detach {commit}",
+             "trap 'rc=$?; trap - EXIT; state; exit $rc' EXIT", *rig["build"], "state",
+             'git ls-files -z > "$G/files"', 'git check-attr -z --stdin generated < "$G/files" > "$G/attrs"',
+             f"tr '\\0' '\\n' < \"$G/attrs\" | paste - - - | awk -F'\\t' '$3==\"{COMMAND}\"{{print $1}}' "
+             "| tr '\\n' '\\0' > \"$G/names\"",
+             f'[ -s "$G/names" ] || {{ echo "no path is declared generated={COMMAND} in .gitattributes" >&2; exit 1; }}',
+             'tar -czf "$G/generated.tgz" --null -T "$G/names"',
+             f"echo {BEGIN}", 'base64 -w0 "$G/generated.tgz"', "echo", f"echo {END}"]
+    return "\n".join(lines)
+
+
+def build_argv(rig, commit):
+    script = build_script(rig, commit)
+    bound = rig.get("timeout_seconds")
+    return ["timeout", str(int(bound)), "sh", "-c", script] if bound else ["sh", "-c", script]
+
+
+def tail(message, lines=40):
+    rows = message.splitlines()
+    return "\n".join((["..."] if len(rows) > lines else []) + rows[-lines:])
+
+
+def job_invoke(board, card, rig, commit):
+    """The one Job Invoke call, through its public CLI, with Argv as a list; answers its Exit and Log."""
+    request = {"Metadata": {}, "Request": {
+        "Host": rig["host"], "Subject": {"Board": board, "Card": card},
+        "Worktrees": [f"{rig['repository']}@{commit}"], "Argv": build_argv(rig, commit)}}
+    done = subprocess.run(["mo-butlermaster", "Job", "Invoke", "--input=json", "--output=json"],
+                          input=json.dumps(request).encode(), capture_output=True)
+    try:
+        answer = json.loads(done.stdout)["Response"]
+    except (ValueError, KeyError):
+        raise Failure(f"Job Invoke failed ({done.returncode}): {tail(done.stderr.decode(errors='replace'))}")
+    if "Error" in answer:
+        error = answer["Error"]
+        raise Failure(f"Job Invoke refused {error.get('Code')}: {error.get('Message')} ({error.get('NextStep')})")
+    return answer["Exit"], answer["Log"]
+
+
+def read_log(log):
+    with open(log, encoding="utf-8", errors="replace") as handle:
+        return handle.read()
+
+
+def archive_of(text):
+    """The bytes the job printed between its two markers, or None when it printed none."""
+    rows = text.splitlines()
+    if BEGIN not in rows or END not in rows[rows.index(BEGIN):]:
+        return None
+    begin = rows.index(BEGIN)
+    return base64.b64decode("".join(rows[begin + 1:rows.index(END, begin)]))
+
+
+def generated(root, names):
+    """The names whose `generated` attribute is this script's command."""
+    if not names:
+        return []
+    out = run(["git", "check-attr", "-z", "--stdin", "generated"], cwd=root,
+              input=b"\0".join(n.encode() for n in names) + b"\0").decode()
+    fields = out.split("\0")
+    return sorted(fields[i] for i in range(0, len(fields) - 2, 3) if fields[i + 2] == COMMAND)
+
+
+def tree_files(root):
+    out = run(["git", "ls-files", "-z", "-co", "--exclude-standard"], cwd=root)
+    return [n for n in out.decode().split("\0") if n and os.path.lexists(os.path.join(root, n))]
+
+
+def regenerate(root):
+    rig = load_config(root)["rig"]
+    board, card = identity(root, rig["repository"])
+    exit_code, log = job_invoke(board, card, rig, commit_state(root))
+    text = read_log(log)
+    if exit_code:
+        raise Failure(f"rig build and sync failed ({exit_code}), Log {log}: {tail(text)}")
+    archive = archive_of(text)
+    if archive is None:
+        raise Failure(f"the rig build printed no generated archive, Log {log}: {tail(text)}")
+    stage = os.path.join(root, f".regenerate-stage-{os.getpid()}")
+    try:
+        with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as bundle:
+            wanted = sorted(m.name for m in bundle.getmembers() if m.isfile())
+            if not wanted:
+                raise Failure("no path is declared generated=" + COMMAND + f" in .gitattributes, Log {log}")
+            kept = set(wanted)  # before the stage exists: it is an untracked folder of the tree
+            stale = [n for n in generated(root, tree_files(root)) if n not in kept]
+            os.makedirs(stage)
+            bundle.extractall(stage, filter="data")
+        missing = [n for n in wanted if not os.path.lexists(os.path.join(stage, n))]
+        if missing:
+            raise Failure("the rig did not bring back: " + ", ".join(missing) + f", Log {log}")
+        for name in wanted:
+            target = os.path.join(root, name)
+            os.makedirs(os.path.dirname(target), exist_ok=True)
+            os.replace(os.path.join(stage, name), target)
+        for name in stale:
+            os.unlink(os.path.join(root, name))
+        return wanted
+    finally:
+        shutil.rmtree(stage, ignore_errors=True)
+
+
+def main():
+    try:
+        root = run(["git", "rev-parse", "--show-toplevel"]).decode().strip()
+        wanted = regenerate(root)
+    except Failure as failure:
+        print(f"regenerate: {failure}", file=sys.stderr)
+        return 1
+    print(f"regenerate: {len(wanted)} generated files written")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

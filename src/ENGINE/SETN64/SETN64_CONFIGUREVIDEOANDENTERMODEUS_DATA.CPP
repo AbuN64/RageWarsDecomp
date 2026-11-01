@@ -1,0 +1,71 @@
+#include "SYSTEM/ENGINE_DATA_SOURCE.H"
+
+#if defined(VERSION_US)
+extern char g_SetN64_DrawSessionWithRoundTimeoutPackedAddress24[];
+extern char g_SetN64_InitializeFrontendScreenStatePackedAddress24[];
+extern char g_SetN64_ExitSessionAndDisablePaksPackedAddress24[];
+extern char g_SetN64_DrawRoundTimeoutSessionPackedAddress24[];
+extern char g_SetN64_ResetSceneForIntroPackedAddress24[];
+extern char g_SetN64_AdvanceIntroForMemorySizePackedAddress24[];
+extern char g_SetN64_DrawIntroBackdropPackedAddress24[];
+extern char g_SetN64_ClearSessionPlayerPoolsPackedAddress24[];
+extern char g_SetN64_AdvanceToModeFourPackedAddress24[];
+extern char g_SetN64_InitializeMode2PackedAddress24[];
+extern char g_SetN64_AdvanceToModeFivePackedAddress24[];
+extern char g_SetN64_DrawCenteredIntroTextPackedAddress24[];
+extern char g_SetN64_ResetMode4EffectsPackedAddress24[];
+extern char g_SetN64_AdvanceToModeEightPackedAddress24[];
+extern char g_modeLifecycleHandlers1_us_rev1[];
+extern char g_SetN64_ResetMode5ItemsPackedAddress24[];
+extern char g_SetN64_HandleMode5InputPackedAddress24[];
+extern char g_SetN64_DrawMode5SessionPackedAddress24[];
+extern char g_SetN64_InitializeMode6PackedAddress24[];
+extern char g_SetN64_UpdateMode6PackedAddress24[];
+extern char g_SetN64_DrawMode6PackedAddress24[];
+extern char g_SetN64_SetMode7AudioStatePackedAddress24[];
+extern char g_SetN64_HandleMode7TransitionPackedAddress24[];
+extern char g_SetN64_InitializeMode8ScenePackedAddress24[];
+extern char g_SetN64_UpdateMode8PackedAddress24[];
+extern char g_SetN64_DrawMode8SessionPackedAddress24[];
+extern char g_SetN64_ResetMode9ItemsPackedAddress24[];
+extern char g_SetN64_HandleMode9InputPackedAddress24[];
+extern char g_setN64_HandleMode7TransitionEntry[];
+extern char g_SetN64_ResetMode11ItemsPackedAddress24[];
+extern char g_SetN64_HandleMode11InputPackedAddress24[];
+extern char g_SetN64_DrawMode11SessionPackedAddress24[];
+extern char g_SetN64_ResetMode10ItemsPackedAddress24[];
+extern char g_SetN64_HandleMode10InputPackedAddress24[];
+extern char g_SetN64_DrawMode10SessionPackedAddress24[];
+extern char g_SetN64_ResetMode12ItemsPackedAddress24[];
+extern char g_SetN64_HandleMode12InputPackedAddress24[];
+extern char g_SetN64_DrawMode12SessionPackedAddress24[];
+extern char g_SetN64_ResumeSelectedSessionPackedAddress24[];
+extern char g_setN64_ResetMode12ItemsEntry[];
+extern char g_SetN64_UpdateActiveSessionPackedAddress24[];
+extern char g_SetN64_InitializeMode15PackedAddress24[];
+extern char g_SetN64_UpdateMode15PackedAddress24[];
+extern char g_SetN64_DrawMode15PackedAddress24[];
+extern char g_SetN64_InitializeMode16CreditsPackedAddress24[];
+extern char g_SetN64_HandleMode16CreditsInputPackedAddress24[];
+extern char g_SetN64_DrawMode16CreditsPackedAddress24[];
+extern char g_SetN64_InitializeMode17CreditsPackedAddress24[];
+extern char g_SetN64_HandleMode17CreditsInputPackedAddress24[];
+extern char g_SetN64_DrawMode17CreditsPackedAddress24[];
+extern char g_SetN64_InitializeTransitionModePackedAddress24[];
+extern char g_SetN64_ConfigureVideoAndEnterModeUsPackedAddress24[];
+extern char g_SetN64_DrawTransitionModePackedAddress24[];
+extern char g_SetN64_EmptyVideoModeHookUsPackedAddress24[];
+extern char g_Visdata_EmptyInitializeHookUsPackedAddress24[];
+extern char g_Visdata_EmptyReleaseHookUsPackedAddress24[];
+extern void SetN64_EmptyVideoModeHookSecondUs(void);
+extern void Visdata_EmptyInitializeHookSecondUs(void);
+extern void Visdata_EmptyReleaseHookSecondUs(void);
+extern void SetN64_DrawFullscreenBackdrop();
+extern void SetN64_SetupLoadingBackdropUs();
+EngineSessionHandlers g_Setn64ConfigurevideoandentermodeusPointerWords1[21] = {
+    { (EngineSessionCallback)g_SetN64_InitializeFrontendScreenStatePackedAddress24, (EngineSessionCallback)g_SetN64_ExitSessionAndDisablePaksPackedAddress24, (EngineSessionCallback)g_SetN64_DrawRoundTimeoutSessionPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ResetSceneForIntroPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceIntroForMemorySizePackedAddress24, (EngineSessionCallback)g_SetN64_DrawIntroBackdropPackedAddress24 }, { (EngineSessionCallback)g_SetN64_InitializeMode2PackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeFivePackedAddress24, (EngineSessionCallback)g_SetN64_DrawCenteredIntroTextPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ClearSessionPlayerPoolsPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeFourPackedAddress24, (EngineSessionCallback)((char *)SetN64_SetupLoadingBackdropUs - 0x80000000) }, { (EngineSessionCallback)g_SetN64_ResetMode4EffectsPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeEightPackedAddress24, (EngineSessionCallback)g_modeLifecycleHandlers1_us_rev1 }, { (EngineSessionCallback)g_SetN64_ResetMode5ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode5InputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode5SessionPackedAddress24 },
+    { (EngineSessionCallback)g_SetN64_InitializeMode6PackedAddress24, (EngineSessionCallback)g_SetN64_UpdateMode6PackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode6PackedAddress24 }, { (EngineSessionCallback)g_SetN64_SetMode7AudioStatePackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode7TransitionPackedAddress24, (EngineSessionCallback)((char *)SetN64_DrawFullscreenBackdrop - 0x80000000) }, { (EngineSessionCallback)g_SetN64_InitializeMode8ScenePackedAddress24, (EngineSessionCallback)g_SetN64_UpdateMode8PackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode8SessionPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ResetMode9ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode9InputPackedAddress24, (EngineSessionCallback)g_setN64_HandleMode7TransitionEntry }, { (EngineSessionCallback)g_SetN64_ResetMode10ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode10InputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode10SessionPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ResetMode11ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode11InputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode11SessionPackedAddress24 },
+    { (EngineSessionCallback)g_SetN64_ResetMode12ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode12InputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode12SessionPackedAddress24 }, { (EngineSessionCallback)g_setN64_ResetMode12ItemsEntry, (EngineSessionCallback)g_SetN64_UpdateActiveSessionPackedAddress24, (EngineSessionCallback)g_SetN64_DrawSessionWithRoundTimeoutPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ResumeSelectedSessionPackedAddress24, (EngineSessionCallback)g_SetN64_UpdateActiveSessionPackedAddress24, (EngineSessionCallback)g_SetN64_DrawSessionWithRoundTimeoutPackedAddress24 }, { (EngineSessionCallback)g_SetN64_InitializeMode15PackedAddress24, (EngineSessionCallback)g_SetN64_UpdateMode15PackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode15PackedAddress24 }, { (EngineSessionCallback)g_SetN64_InitializeMode16CreditsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode16CreditsInputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode16CreditsPackedAddress24 }, { (EngineSessionCallback)g_SetN64_InitializeMode17CreditsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode17CreditsInputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode17CreditsPackedAddress24 },
+    { (EngineSessionCallback)g_SetN64_EmptyVideoModeHookUsPackedAddress24, (EngineSessionCallback)((char *)SetN64_EmptyVideoModeHookSecondUs - 0x80000000), (EngineSessionCallback)g_Visdata_EmptyInitializeHookUsPackedAddress24 }, { (EngineSessionCallback)((char *)Visdata_EmptyInitializeHookSecondUs - 0x80000000), (EngineSessionCallback)g_Visdata_EmptyReleaseHookUsPackedAddress24, (EngineSessionCallback)((char *)Visdata_EmptyReleaseHookSecondUs - 0x80000000) }, { (EngineSessionCallback)g_SetN64_InitializeTransitionModePackedAddress24, (EngineSessionCallback)g_SetN64_ConfigureVideoAndEnterModeUsPackedAddress24, (EngineSessionCallback)g_SetN64_DrawTransitionModePackedAddress24 },
+};
+#endif

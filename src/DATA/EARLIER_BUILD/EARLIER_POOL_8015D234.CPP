@@ -1,0 +1,44 @@
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Older build's rodata pool. */
+void *g_earlierPoolPointers_8015D234[1] = { (void *)0x8014CFB4 };
+unsigned int g_earlierPoolWords_8015D238[2] = { 0x20000, 0x20000 };
+void *g_earlierPoolPointers_8015D240[1] = { (void *)0x8014CF9C };
+unsigned int g_earlierPoolWords_8015D244[2] = { 0x10000, 0x10000 };
+void *g_earlierPoolPointers_8015D24C[1] = { (void *)0x8014CF88 };
+unsigned int g_earlierPoolWords_8015D250[2] = { 0x8000, 0x8000 };
+void *g_earlierPoolPointers_8015D258[1] = { (void *)0x8014CF74 };
+unsigned int g_earlierPoolWords_8015D25C[2] = { 0x4000, 0x4000 };
+void *g_earlierPoolPointers_8015D264[1] = { (void *)0x8014CF68 };
+unsigned int g_earlierPoolWords_8015D268[2] = { 0x2000, 0x2000 };
+void *g_earlierPoolPointers_8015D270[1] = { (void *)0x8014CF5C };
+unsigned int g_earlierPoolWords_8015D274[2] = { 0x1000, 0x1000 };
+void *g_earlierPoolPointers_8015D27C[1] = { (void *)0x8014CF48 };
+unsigned int g_earlierPoolWords_8015D280[2] = { 0x800, 0x800 };
+void *g_earlierPoolPointers_8015D288[1] = { (void *)0x8014CF44 };
+unsigned int g_earlierPoolWords_8015D28C[2] = { 0x400, 0x400 };
+void *g_earlierPoolPointers_8015D294[1] = { (void *)0x8014CF40 };
+unsigned int g_earlierPoolWords_8015D298[2] = { 0x200, 0x200 };
+void *g_earlierPoolPointers_8015D2A0[1] = { (void *)0x8014CF3C };
+unsigned int g_earlierPoolWords_8015D2A4[2] = { 0x100, 0x100 };
+void *g_earlierPoolPointers_8015D2AC[1] = { (void *)0x8014CF38 };
+unsigned int g_earlierPoolWords_8015D2B0[2] = { 0x80, 0x80 };
+void *g_earlierPoolPointers_8015D2B8[1] = { (void *)0x8014CF34 };
+unsigned int g_earlierPoolWords_8015D2BC[2] = { 0x40, 0x40 };
+void *g_earlierPoolPointers_8015D2C4[1] = { (void *)0x8014CF30 };
+unsigned int g_earlierPoolWords_8015D2C8[2] = { 0x20, 0x20 };
+void *g_earlierPoolPointers_8015D2D0[1] = { (void *)0x8014CF2C };
+unsigned int g_earlierPoolWords_8015D2D4[2] = { 0x10, 0x10 };
+void *g_earlierPoolPointers_8015D2DC[1] = { (void *)0x8014CF28 };
+unsigned int g_earlierPoolWords_8015D2E0[2] = { 8, 8 };
+void *g_earlierPoolPointers_8015D2E8[1] = { (void *)0x8014CF24 };
+unsigned int g_earlierPoolWords_8015D2EC[2] = { 4, 4 };
+void *g_earlierPoolPointers_8015D2F4[1] = { (void *)0x8014CF20 };
+unsigned int g_earlierPoolWords_8015D2F8[2] = { 3, 0 };
+void *g_earlierPoolPointers_8015D300[1] = { (void *)0x8014CF1C };
+unsigned int g_earlierPoolWords_8015D304[2] = { 3, 1 };
+void *g_earlierPoolPointers_8015D30C[1] = { (void *)0x8014CF18 };
+unsigned int g_earlierPoolWords_8015D310[2] = { 3, 2 };
+void *g_earlierPoolPointers_8015D318[1] = { (void *)0x8014CF00 };
+unsigned int g_earlierPoolWords_8015D31C[2] = { 3, 3 };
+void *g_earlierPoolPointers_8015D324[6] = { (void *)0x8014CF14, 0, 0, (void *)0x8014CC30, 0, 0 };
+#endif

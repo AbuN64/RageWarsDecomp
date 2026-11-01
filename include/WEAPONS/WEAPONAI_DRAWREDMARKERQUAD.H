@@ -1,0 +1,5 @@
+#ifndef WEAPONS_WEAPONAI_DRAWREDMARKERQUAD_H
+#define WEAPONS_WEAPONAI_DRAWREDMARKERQUAD_H
+#include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
+extern void Weaponai_DrawRedMarkerQuad(void *, void *);
+#endif

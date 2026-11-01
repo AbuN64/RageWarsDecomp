@@ -1,0 +1,4 @@
+#ifndef DATA_COMMON_G_PICKUPAMMODEFINITIONS_H
+#define DATA_COMMON_G_PICKUPAMMODEFINITIONS_H
+extern char g_pickup_ApplyAmmoBundleEntry[];
+#endif

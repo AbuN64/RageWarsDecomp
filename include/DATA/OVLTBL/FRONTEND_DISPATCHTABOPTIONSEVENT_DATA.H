@@ -1,0 +1,9 @@
+#ifndef DATA_OVLTBL_FRONTEND_DISPATCHTABOPTIONSEVENT_DATA_H
+#define DATA_OVLTBL_FRONTEND_DISPATCHTABOPTIONSEVENT_DATA_H
+extern char g_options_OpenOptionsScreenEntry[];
+extern char g_menu_FinishTabOptionsTransitionEntry[];
+extern char g_menu_AnimateTabOptionsMenuEntry[];
+extern char g_frontend_DestroyTabOptionsPageEntry[];
+extern char g_frontend_HandleTabOptionsShortcutEntry[];
+extern char g_frontend_ConsumeTabOptionsEventEntry[];
+#endif

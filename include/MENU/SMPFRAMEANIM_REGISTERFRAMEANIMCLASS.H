@@ -1,0 +1,5 @@
+#ifndef MENU_SMPFRAMEANIM_REGISTERFRAMEANIMCLASS_H
+#define MENU_SMPFRAMEANIM_REGISTERFRAMEANIMCLASS_H
+#include "COMMON/ANIMATION.H"
+extern void SmpFrameAnim_RegisterFrameAnimClass(void);
+#endif

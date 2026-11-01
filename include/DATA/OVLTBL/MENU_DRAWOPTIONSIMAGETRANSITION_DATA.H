@@ -1,0 +1,10 @@
+#ifndef DATA_OVLTBL_MENU_DRAWOPTIONSIMAGETRANSITION_DATA_H
+#define DATA_OVLTBL_MENU_DRAWOPTIONSIMAGETRANSITION_DATA_H
+extern char g_menu_CreateOptionsImageTransitionEntry[];
+extern char g_menu_DestroyOptionsImageTransitionEntry[];
+extern char g_menu_DrawOptionsImageTransitionEntry[];
+extern char g_menu_StartOptionsImageTransitionEntry[];
+extern char g_menu_HandleOptionsTransitionRequestEntry[];
+extern char g_menu_RequestOptionsImageTransitionEntry[];
+extern char g_menu_ConsumeOptionsTransitionEventEntry[];
+#endif

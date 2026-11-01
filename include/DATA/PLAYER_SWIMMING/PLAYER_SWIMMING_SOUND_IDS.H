@@ -1,0 +1,15 @@
+#ifndef DATA_PLAYER_SWIMMING_PLAYER_SWIMMING_SOUND_IDS_H
+#define DATA_PLAYER_SWIMMING_PLAYER_SWIMMING_SOUND_IDS_H
+#include "COMMON/ITEMRECAT20V1.H"
+#include "COMMON/SHAREDPLAYER.H"
+#include "COMMON/EFFECTRENDER.H"
+#include "COMMON/LENS_FLARE.H"
+#include "COMMON/APPROACHLOCATION.H"
+#include "COMMON/GLOBALS.H"
+#include "COMMON/SHARED_DEBUGFIELD.H"
+#include "UI/TSMOS/SCREENS/PAKINTERFACESCREEN.H"
+#include "COMMON/MENU_UI_PROVIDERS.H"
+extern short g_playerClimbStepSound;
+extern short g_playerClimbReleaseSound;
+extern short g_playerClimbJumpSound;
+#endif

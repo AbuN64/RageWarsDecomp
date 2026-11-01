@@ -1,0 +1,5 @@
+#ifndef MENU_ITEMS_ITEMS_INVOKEHANDLERANDCLEARITEMSTATE_H
+#define MENU_ITEMS_ITEMS_INVOKEHANDLERANDCLEARITEMSTATE_H
+#include "MENU/OBJECT1C8.H"
+extern void Items_InvokeHandlerAndClearItemState(struct MenuItemCallbackAndStateView *object);
+#endif
