@@ -125,7 +125,7 @@ def tail(message, lines=40):
 def job_invoke(board, card, rig, commit):
     """The one Job Invoke call, through its public CLI, with Argv as a list; answers its Exit and Log."""
     request = {"Metadata": {}, "Request": {
-        "Host": rig["host"], "Subject": {"Board": board, "Card": card},
+        "Host": rig["host"], "Bound": int(rig["bound_seconds"]), "Subject": {"Board": board, "Card": card},
         "Worktrees": [f"{rig['repository']}@{commit}"], "Argv": build_argv(rig, commit)}}
     done = subprocess.run(["mo-butlermaster", "Job", "Invoke", "--input=json", "--output=json"],
                           input=json.dumps(request).encode(), capture_output=True)

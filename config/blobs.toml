@@ -32074,8 +32074,8 @@ type = "leftover"
 format = "copy"
 codec = "none"
 state = "decoded"
-stored_size = 401
-rom."eu" = [[0x160b00, 0x160c91]]
+stored_size = 400
+rom."eu" = [[0x160b00, 0x160c90]]
 evidence = [{ artifact = "stale-eu.json", sha256 = "df2aea21a816498f817b1fab2201337d0bfe5d8ffe8b392a05caa6ed03015d21", pointer = "/rows/121" }]
 
 [blob."leftover.eu.copy.160ca8"]
@@ -32245,18 +32245,9 @@ type = "leftover"
 format = "copy"
 codec = "none"
 state = "decoded"
-stored_size = 415
-rom."eu" = [[0x16afba, 0x16b159]]
+stored_size = 414
+rom."eu" = [[0x16afba, 0x16b158]]
 evidence = [{ artifact = "stale-eu.json", sha256 = "df2aea21a816498f817b1fab2201337d0bfe5d8ffe8b392a05caa6ed03015d21", pointer = "/rows/139" }]
-
-[blob."leftover.eu.copy.16b414"]
-type = "leftover"
-format = "copy"
-codec = "none"
-state = "decoded"
-stored_size = 38
-rom."eu" = [[0x16b414, 0x16b43a]]
-evidence = [{ artifact = "receiptE1.json", sha256 = "c907351b20182c29b114ae2673af10099d13c4efa12c9300d4ee9b3ce8fec4d8", pointer = "/rows/0" }]
 
 [blob."leftover.eu.copy.16b46c"]
 type = "leftover"

@@ -4,7 +4,7 @@
 # The host Name of ButlerMaster's Hosts that Job Invoke runs the build on.
 host = "rig"
 # The repository's registry name: the --Worktree the job runs in, <Root>/<board>.<card>/<repository> on the host.
-repository = "Projects/AbuN64/RageWars"
+repository = "Projects/AbuN64/RageWarsDecomp"
 # A tree whose ignored inputs the job's worktree links when it is created: the cartridge dumps.
 seed_tree = "code/ragewars-decomp"
 seed_link = ["roms"]
@@ -12,5 +12,6 @@ seed_link = ["roms"]
 # `unbake sync` after `unbake setup --no-make` finds the tree synced and only publishes (README.md, progress.json and
 # docs, from the verdict `unbake verify` records for the exact tree), so it runs after the check. Job Invoke sets JOBS to
 # Dos's width: the make width is Dos's, never a literal.
-build = ['unbake setup --no-make', 'make -j"$JOBS" check', 'unbake verify 0', 'unbake sync']
-# No timeout_seconds: a bound is a value its owner declares, and none has.
+build = ['export PATH="$HOME/venv-unbake/bin:$HOME/venv-decomp/bin:$PATH"', 'unbake setup --no-make', 'make -j"$JOBS" check', 'unbake verify 0', 'unbake sync']
+# Job Invoke requires a bound: the seconds after Dos admits the job at which its scope is stopped.
+bound_seconds = 3600
