@@ -8,10 +8,10 @@ repository = "Projects/AbuN64/RageWarsDecomp"
 # A tree whose ignored inputs the job's worktree links when it is created: the cartridge dumps.
 seed_tree = "code/ragewars-decomp"
 seed_link = ["roms"]
-# Run in the job's worktree, in order; the first failure ends the run. One linker and one make check per regenerate:
+# Run in the job's worktree, in order; the first failure ends the run. One linker and one make check per regenerate: `unbake sync` runs first, because it writes the linker script and symbols the check links;
 # `unbake sync` after `unbake setup --no-make` finds the tree synced and only publishes (README.md, progress.json and
 # docs, from the verdict `unbake verify` records for the exact tree), so it runs after the check. Job Invoke sets JOBS to
 # Dos's width: the make width is Dos's, never a literal.
-build = ['export PATH="$HOME/venv-unbake/bin:$HOME/venv-decomp/bin:$PATH"', 'unbake setup --no-make', 'make -j"$JOBS" check', 'unbake verify 0', 'unbake sync']
+build = ['export PATH="$HOME/venv-unbake/bin:$HOME/venv-decomp/bin:$PATH"', 'unbake setup --no-make', 'unbake sync', 'make -j"$JOBS" check', 'unbake verify 0', 'unbake sync']
 # Job Invoke requires a bound: the seconds after Dos admits the job at which its scope is stopped.
 bound_seconds = 3600

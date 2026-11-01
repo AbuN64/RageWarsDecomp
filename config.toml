@@ -560,7 +560,16 @@ segments = [
   ] },
   { name = "ovl_frontendMenu", rom = 0x176000, vram = 0x80400000 },
   { name = "ovl_frontendMenuData", rom = 0x1C5414, vram = 0x801605CC },
-  { name = "debug_symbols_and_assets", rom = 0x1C8BF0, kind = "bin" },
+  { name = "debug_symbols_and_assets", rom = 0x1C8BF0, kind = "bin", earlier_build = [
+    { rom = 0x1C9F2C, end = 0x1C9F30, delta = 0x2C0000 },
+    { rom = 0x1CA224, end = 0x1CA228, delta = 0x2C0000 },
+    { rom = 0x1CB20C, end = 0x1CB210, delta = 0x2C0000 },
+    { rom = 0x1CC44C, end = 0x1CC450, delta = 0x2C0000 },
+    { rom = 0x1CCBCC, end = 0x1CCBD0, delta = 0x2C0000 },
+    { rom = 0x1E205C, end = 0x1E2060, delta = 0x2C0000 },
+    { rom = 0x1F8C1C, end = 0x1F8C20, delta = 0x2C0000 },
+    { rom = 0x1FD54C, end = 0x1FD550, delta = 0x2C0000 },
+  ] },
 ]
 
 [version."eu-x"]
