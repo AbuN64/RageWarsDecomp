@@ -31790,15 +31790,6 @@ stored_size = 132
 rom."eu" = [[0x159c6c, 0x159c70]]
 evidence = [{ artifact = "stale-eu.json", sha256 = "df2aea21a816498f817b1fab2201337d0bfe5d8ffe8b392a05caa6ed03015d21", pointer = "/rows/89" }]
 
-[blob."leftover.eu.copy.159cde"]
-type = "leftover"
-format = "copy"
-codec = "none"
-state = "decoded"
-stored_size = 126
-rom."eu" = [[0x159cde, 0x159ce0], [0x159d4c, 0x159d50]]
-evidence = [{ artifact = "stale-eu.json", sha256 = "df2aea21a816498f817b1fab2201337d0bfe5d8ffe8b392a05caa6ed03015d21", pointer = "/rows/90" }]
-
 [blob."leftover.eu.copy.159e5f"]
 type = "leftover"
 format = "copy"
@@ -43481,15 +43472,6 @@ stored_size = 14
 rom."eu" = [[0x159dd4, 0x159de2]]
 evidence = [{ artifact = "stale-text-copies.json", sha256 = "07c89a602fbe46f9f64df674892a05877e2c633ef843c1c5819759bc051d4ee8", pointer = "/rows/52" }]
 
-[blob."leftover.eu.text-copy.159df4"]
-type = "leftover"
-format = "copy"
-codec = "none"
-state = "decoded"
-stored_size = 14
-rom."eu" = [[0x159df4, 0x159e02]]
-evidence = [{ artifact = "stale-text-copies.json", sha256 = "07c89a602fbe46f9f64df674892a05877e2c633ef843c1c5819759bc051d4ee8", pointer = "/rows/53" }]
-
 [blob."leftover.eu.text-copy.165b08"]
 type = "leftover"
 format = "copy"
@@ -43624,15 +43606,6 @@ state = "decoded"
 stored_size = 21
 rom."eu" = [[0x1696fc, 0x169711]]
 evidence = [{ artifact = "stale-text-copies.json", sha256 = "07c89a602fbe46f9f64df674892a05877e2c633ef843c1c5819759bc051d4ee8", pointer = "/rows/70" }]
-
-[blob."leftover.eu.text-copy.16b440"]
-type = "leftover"
-format = "copy"
-codec = "none"
-state = "decoded"
-stored_size = 8
-rom."eu" = [[0x16b440, 0x16b448]]
-evidence = [{ artifact = "stale-text-copies.json", sha256 = "07c89a602fbe46f9f64df674892a05877e2c633ef843c1c5819759bc051d4ee8", pointer = "/rows/71" }]
 
 [blob."leftover.eu.text-copy.16f2ec"]
 type = "leftover"
@@ -88099,24 +88072,6 @@ stored_size = 9
 rom."eu" = [[0x152694, 0x15269d]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/148" }]
 
-[blob."unknown-spans.eu.str.153db8"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 10
-rom."eu" = [[0x153db8, 0x153dbc], [0x153dc0, 0x153dc2]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/188" }]
-
-[blob."unknown-spans.eu.str.153e3c"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 30
-rom."eu" = [[0x153e3c, 0x153e5a]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/189" }]
-
 [blob."unknown-spans.eu.str.154068"]
 type = "stale-data"
 format = "c-string"
@@ -88126,15 +88081,6 @@ stored_size = 27
 rom."eu" = [[0x154068, 0x154070], [0x154078, 0x154083]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/190" }]
 
-[blob."unknown-spans.eu.str.154160"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 13
-rom."eu" = [[0x154160, 0x15416d]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/191" }]
-
 [blob."unknown-spans.eu.str.154358"]
 type = "stale-data"
 format = "c-string"
@@ -88143,15 +88089,6 @@ state = "decoded"
 stored_size = 39
 rom."eu" = [[0x154358, 0x154368], [0x15436c, 0x15437c]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/193" }]
-
-[blob."unknown-spans.eu.str.1546ac"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 17
-rom."eu" = [[0x1546ac, 0x1546bd]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/203" }]
 
 [blob."unknown-spans.eu.str.154f34"]
 type = "stale-data"
@@ -88197,15 +88134,6 @@ state = "decoded"
 stored_size = 46
 rom."eu" = [[0x156580, 0x156590], [0x156598, 0x1565ad]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/281" }]
-
-[blob."unknown-spans.eu.str.156697"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 12
-rom."eu" = [[0x156697, 0x156698]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/283" }]
 
 [blob."unknown-spans.eu.str.156c4f"]
 type = "stale-data"
@@ -88305,15 +88233,6 @@ state = "decoded"
 stored_size = 13
 rom."eu" = [[0x15f554, 0x15f560]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/338" }]
-
-[blob."unknown-spans.eu.str.16024a"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 7
-rom."eu" = [[0x16024a, 0x160250]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/358" }]
 
 [blob."unknown-spans.eu.str.1604d4"]
 type = "stale-data"
