@@ -11310,6 +11310,16 @@ segments:
   - name: debug_symbols_160B00
     type: bin
     start: 0x160B00
+  - name: debug_symbols_earlier_160C90
+    type: code
+    start: 0x160C90
+    vram: 0x00467C90
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x160C90, data, debug_symbols_earlier_160C90/g_earlierPoolPointers_467C90]
+  - name: debug_symbols_160CA8
+    type: bin
+    start: 0x160CA8
   - name: debug_symbols_earlier_160DC4
     type: code
     start: 0x160DC4
@@ -11504,6 +11514,16 @@ segments:
   - name: debug_symbols_165A1C
     type: bin
     start: 0x165A1C
+  - name: debug_symbols_earlier_16B158
+    type: code
+    start: 0x16B158
+    vram: 0x00472158
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x16B158, data, debug_symbols_earlier_16B158/g_earlierPoolPointers_472158]
+  - name: debug_symbols_16B170
+    type: bin
+    start: 0x16B170
   - name: debug_symbols_earlier_16B188
     type: code
     start: 0x16B188
@@ -11614,6 +11634,16 @@ segments:
   - name: debug_symbols_16B3BC
     type: bin
     start: 0x16B3BC
+  - name: debug_symbols_earlier_16B414
+    type: code
+    start: 0x16B414
+    vram: 0x00472414
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x16B414, data, debug_symbols_earlier_16B414/g_earlierPoolPointers_472414]
+  - name: debug_symbols_16B440
+    type: bin
+    start: 0x16B440
   - name: debug_symbols_earlier_16B448
     type: code
     start: 0x16B448
