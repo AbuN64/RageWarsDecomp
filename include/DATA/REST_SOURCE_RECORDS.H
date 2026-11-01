@@ -568,6 +568,38 @@ typedef struct RestoverlayOneIPreviewConstantWordsBlock12Record772 {
     s32 lightOffsets[4];
 } RestoverlayOneIPreviewConstantWordsBlock12Record772;
 
+typedef struct RestPlayerStateNormalTiming00TrailWordsRecord797 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming00TrailWordsRecord797;
+
+typedef struct RestPlayerStateNormalTiming02TrailWordsRecord805 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming02TrailWordsRecord805;
+
+typedef struct RestPlayerStateNormalTiming04TrailWordsRecord813 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming04TrailWordsRecord813;
+
+typedef struct RestPlayerStateNormalTiming06TrailWordsRecord821 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming06TrailWordsRecord821;
+
+typedef struct RestPlayerStateNormalTiming08TrailWordsRecord829 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming08TrailWordsRecord829;
+
+typedef struct RestPlayerStateNormalTiming10TrailWordsRecord837 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming10TrailWordsRecord837;
+
+typedef struct RestPlayerStateNormalTiming12TrailWordsRecord845 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming12TrailWordsRecord845;
+
+typedef struct RestPlayerStateNormalTiming14TrailWordsRecord853 {
+    u32 stateFlags;
+} RestPlayerStateNormalTiming14TrailWordsRecord853;
+
 typedef struct RestplayerStateNormalCallbacks01WordsRecord798 {
     u32 enterAddress;
     u32 updateAddress;
