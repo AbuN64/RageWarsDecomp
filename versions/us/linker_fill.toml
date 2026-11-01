@@ -2324,15 +2324,6 @@ bytes = "5349435f"
 provenance = "unattributed"
 
 [[fill]]
-object = "379"
-section = ".game_data"
-rom = 0xDDFF8
-address = 0x800DD3F8
-size = 8
-bytes = "000a000400000014"
-provenance = "unattributed"
-
-[[fill]]
 object = "382"
 section = ".game_data"
 rom = 0xDE064

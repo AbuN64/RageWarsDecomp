@@ -5760,7 +5760,6 @@ segments:
       - [0xE3330, rodata, game_data/g_fmtDec4Pad]
       - [0xE3338, rodata, game_data/literals_Player_FormatPlayerPartnerStatus]
       - [0xE3374, rodata, game_data/g_Player_DrawPulsingMenuSpriteConstantWords_us_rev1]
-      - [0xE3378, data, game_data/fill_E3378]
       - [0xE3380, rodata, game_data/g_fmtDec2Pad]
       - [0xE3388, rodata, game_data/g_ItemsFormatplayeroption79stepBytes1]
       - [0xE3390, rodata, game_data/g_fmtSpaceDec3]

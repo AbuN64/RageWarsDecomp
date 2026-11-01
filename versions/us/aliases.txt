@@ -1823,3 +1823,6 @@ k_PortalAfterUpdateGroupsPatchesSixth = 0x800F6D5F;
 k_PortalAfterUpdateGroupsPatchesSeventh = 0x800F6D9C;
 k_PortalAfterUpdateGroupsPatchesEighth = 0x800F6DD2;
 k_PortalAfterInitNameManagement = 0x800F9474;
+k_particleBuildMatrixJumpTable = 0x800C4BD8; // rom:0xC57D8
+k_equipShowEquipChoiceJumpTable = 0x800DCCA8; // rom:0xDD8A8
+gReactionReserveMaximum = 0x800C90B0; // reaction reserve upper limit (g_playerReserveBounds_de[0])

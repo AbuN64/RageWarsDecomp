@@ -2306,15 +2306,6 @@ bytes = "00007530"
 provenance = "unattributed"
 
 [[fill]]
-object = "373"
-section = ".game_data_E1720"
-rom = 0xE3378
-address = 0x800E2778
-size = 8
-bytes = "0000000100000010"
-provenance = "unattributed"
-
-[[fill]]
 object = "294"
 section = ".game_data_E1720"
 rom = 0xE344C

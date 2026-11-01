@@ -1708,3 +1708,7 @@ g_earlierMenuResource_800D3DAC = 0x800D3DAC;
 g_earlierMenuResource_800D3DB0 = 0x800D3DB0;
 g_earlierMenuResource_800D3DDC = 0x800D3DDC;
 g_earlierMenuResource_800D3DE8 = 0x800D3DE8;
+k_particleBuildMatrixJumpTable = 0x800C4CA8; // rom:0xC58A8
+k_playerMenuSpriteScaleConstants = 0x800DE740; // rom:0xDF340
+k_playerFormatPlayerPartnerStatusZeroWord = 0x800DE724; // rom:0xDF324
+gReactionReserveMaximum = 0x800C9190; // reaction reserve upper limit (g_playerReserveBounds_de[0])

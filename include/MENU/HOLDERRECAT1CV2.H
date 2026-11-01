@@ -40,5 +40,5 @@ s32 Items_FormatPackedGameOption(struct LayeredText *field);
 
 extern u8 *g_packedGameOptionZeroText[];
 extern u8 *g_packedGameOptionSixteenText[];
-extern char g_fmtDec2Pad[];
+extern const char g_fmtDec2Pad[];
 #endif

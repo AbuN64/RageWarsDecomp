@@ -1823,3 +1823,6 @@ literals_Menu_FormatLocalizedPakStatus = 0x800E8618; // rom:0xE9218 size:0x3C
 literals_Initial_ResetPlayerGameOverTimer = 0x800E9BA0; // rom:0xEA7A0 size:0x4
 g_Setn64DrawfullscreenbackdropWords2 = 0x800C56B0;
 g_forceMarkerDurationEuropean = 0x800C2EF4;
+k_particleBuildMatrixJumpTable = 0x800C4F98; // rom:0xC5B98
+D_800C3ED4_eu_x = 0x800C3ED4; // rom:0xC4AD4
+gReactionReserveMaximum = 0x800CA750; // reaction reserve upper limit (g_playerReserveBounds_de[0])

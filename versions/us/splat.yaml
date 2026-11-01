@@ -4586,7 +4586,6 @@ segments:
       - [0xDDFB0, rodata, game_data/g_fmtDec4Pad]
       - [0xDDFB8, rodata, game_data/literals_Player_FormatPlayerPartnerStatus]
       - [0xDDFF4, rodata, game_data/g_Player_DrawPulsingMenuSpriteConstantWords_us]
-      - [0xDDFF8, data, game_data/fill_DDFF8]
       - [0xDE000, rodata, game_data/g_fmtDec2Pad]
       - [0xDE008, rodata, game_data/g_ItemsFormatplayeroption79stepBytes1]
       - [0xDE010, rodata, game_data/g_fmtSpaceDec3]

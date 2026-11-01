@@ -1819,3 +1819,6 @@ g_Setn64DrawfullscreenbackdropWords1 = 0x800C5670;
 g_forceMarkerDurationEuropean = 0x800C2EB4;
 g_earlierMenuResource_800E4E30 = 0x800E4E30;
 g_earlierOptionWord_800EF160 = 0x800EF160;
+k_particleBuildMatrixJumpTable = 0x800C4F58; // rom:0xC5B58
+k_equipShowEquipChoiceJumpTable = 0x800EE678; // rom:0xEF278
+gReactionReserveMaximum = 0x800C9D80; // reaction reserve upper limit (g_playerReserveBounds_de[0])

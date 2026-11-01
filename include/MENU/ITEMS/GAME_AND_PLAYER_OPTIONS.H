@@ -1,6 +1,7 @@
 #ifndef MENU_ITEMS_GAME_AND_PLAYER_OPTIONS_H
 #define MENU_ITEMS_GAME_AND_PLAYER_OPTIONS_H
 #include "MENU/HOLDERRECAT1CV2.H"
+#include "COMMON/GAMEPLAY_SETTINGS.H"
 /* The SN debug records name the options record g_gameSettings COptions_t and its 0x96-byte player
    records CPlayerOptions_t; these are views of them with the debug member names and types. */
 typedef struct CPlayerOptions {
@@ -80,11 +81,11 @@ extern void Items_ResetGameOptions(COptions *options);
 extern void Items_ResetPlayerSettings(CPlayerOptions *player, s8 controller);
 /* The default-name routine sits at different addresses in the PAL and non-PAL builds. */
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-extern void Items_CopyDefaultLocalizedPlayerName(u8 *);
-#define PLAYER_SET_DEFAULT_NAME Items_CopyDefaultLocalizedPlayerName
+extern void Items_CopyDefaultLocalizedPlayerName(Shared_PlayerSettingsRecord *);
+#define PLAYER_SET_DEFAULT_NAME(p) Items_CopyDefaultLocalizedPlayerName((Shared_PlayerSettingsRecord *)(p))
 #else
 extern void Items_SetDefaultPlayerName(u8 *);
-#define PLAYER_SET_DEFAULT_NAME Items_SetDefaultPlayerName
+#define PLAYER_SET_DEFAULT_NAME(p) Items_SetDefaultPlayerName(p)
 #endif
 /* CPlayerOptions_t's reset (Items_ResetPlayerSettings is its out-of-line copy): controls back to
    their defaults, the controller index kept, the default name set. */
