@@ -1,0 +1,15 @@
+# The RageWars Land gate (`sh ci/gate`, run by .gate on the rig). Every tool is called by name: `decomp` and `unbake`
+# are the commands the rig job environment holds, each published by its own repository's deploy.
+set -eu
+dir=$(decomp roms | python3 -c 'import json,sys; print(json.load(sys.stdin)["result"]["directory"])')
+mkdir -p roms
+cp "$dir"/baserom.*.z64 roms/
+command -v unbake
+unbake setup
+unbake sync
+make check
+for d in versions/*/; do
+  v=$(basename "$d")
+  cmp "build/$v/RageWars.z64" "roms/baserom.$v.z64"
+done
+git diff --exit-code
