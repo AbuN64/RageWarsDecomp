@@ -1,10 +1,12 @@
-extern char g_viDataZeroWords[];
 #include "COMMON/FORMAT.H"
+#include "COMMON/OSVISCALE.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
 
 #include "include_asm.h"
+
+extern ViSwapContextView g_viDataZeroWords[];
 
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)

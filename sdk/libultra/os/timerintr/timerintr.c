@@ -8,7 +8,7 @@
 
 
 
-extern OSTimer *g_timerListSentinel;
+extern struct OSTimer_s *g_timerListSentinel;
 
 u64 __osInsertTimer(OSTimer *t)
 {
