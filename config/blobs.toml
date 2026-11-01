@@ -55290,6 +55290,15 @@ stored_size = 2
 rom."de" = [[0x1fa05b, 0x1fa05d]]
 evidence = [{ artifact = "pad-sliver-receipt.json", sha256 = "1bcca6dfe3e1c91628983eee75b7b21b819c80ff7e1352a927385f5ace6d9477", pointer = "/de" }]
 
+[blob."pad.de.stale-de-b"]
+type = "fill"
+format = "pad"
+state = "decoded"
+limit = 512
+stored_size = 4
+rom."de" = [[0x1fbd81, 0x1fbd85]]
+evidence = [{ artifact = "pad-stale-de-b-receipt.json", sha256 = "caa3ca8b2e7d0621d56c8c47bba629641d3b054b7e01146aaf0965cc65160b0d", pointer = "/de" }]
+
 [blob."pad.eu"]
 type = "fill"
 format = "pad"
@@ -55317,6 +55326,15 @@ stored_size = 1
 rom."eu-x" = [[0x14e9b8, 0x14e9b9]]
 evidence = [{ artifact = "pad-sliver-receipt.json", sha256 = "1bcca6dfe3e1c91628983eee75b7b21b819c80ff7e1352a927385f5ace6d9477", pointer = "/eu-x" }]
 
+[blob."pad.eu-x.stale-de-b"]
+type = "fill"
+format = "pad"
+state = "decoded"
+limit = 512
+stored_size = 10
+rom."eu-x" = [[0x1545c0, 0x1545c1], [0x154660, 0x154661], [0x1547a0, 0x1547a1], [0x1547e0, 0x1547e1], [0x154830, 0x154831], [0x154860, 0x154861], [0x154880, 0x154881], [0x154a34, 0x154a35], [0x154a64, 0x154a65], [0x154ad4, 0x154ad5]]
+evidence = [{ artifact = "pad-stale-de-b-receipt.json", sha256 = "caa3ca8b2e7d0621d56c8c47bba629641d3b054b7e01146aaf0965cc65160b0d", pointer = "/eu-x" }]
+
 [blob."pad.eu.slivers"]
 type = "fill"
 format = "pad"
@@ -55325,6 +55343,15 @@ limit = 512
 stored_size = 1
 rom."eu" = [[0x1599b8, 0x1599b9]]
 evidence = [{ artifact = "pad-sliver-receipt.json", sha256 = "1bcca6dfe3e1c91628983eee75b7b21b819c80ff7e1352a927385f5ace6d9477", pointer = "/eu" }]
+
+[blob."pad.eu.stale-de-b"]
+type = "fill"
+format = "pad"
+state = "decoded"
+limit = 512
+stored_size = 10
+rom."eu" = [[0x15f5c0, 0x15f5c1], [0x15f660, 0x15f661], [0x15f7a0, 0x15f7a1], [0x15f7e0, 0x15f7e1], [0x15f830, 0x15f831], [0x15f860, 0x15f861], [0x15f880, 0x15f881], [0x15fa34, 0x15fa35], [0x15fa64, 0x15fa65], [0x15fad4, 0x15fad5]]
+evidence = [{ artifact = "pad-stale-de-b-receipt.json", sha256 = "caa3ca8b2e7d0621d56c8c47bba629641d3b054b7e01146aaf0965cc65160b0d", pointer = "/eu" }]
 
 [blob."pad.us"]
 type = "fill"
