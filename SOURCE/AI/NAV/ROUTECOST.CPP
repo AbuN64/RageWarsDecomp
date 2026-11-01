@@ -6,7 +6,12 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDCALLBACK5.H"
 #include "AI/NAV/NAV_SETPICKUPGOALWEIGHTS.H"
+#include "COMMON/VECTOR4F.H"
+#include "COMMON/ITEMRECAT20V1.H"
+#include "COMMON/AIPROFILE.H"
+#include "AI/NAV/PICKUPTARGET.H"
 
+/* PICKUPGOAL.CPP */
 /* 8020EAE0.CPP */
 /* Commits a pending selection to the controller g_navigationGraph: returns at once when nothing is
    requested at 0xC, the request is already active at 0x4, or it continues the committed request at
@@ -16,12 +21,9 @@
    reselects the active entry, copies the four link words from 0x14 and records the request as
    committed. Always returns 1. Written from its own assembly with early returns. */
 
-extern s32 g_navigationGraph;
+extern CNavData g_navigationGraph;
 extern s32 Portal_FindLinkIndex(s32 *, s32, s32);
 extern void Portal_ResetSearchState(struct NavigationSearchGraphView *graph);
-extern void Nav_SetLinkedActorNodeCosts(void *);
-extern void Nav_AccumulateNodeTickCosts(void *);
-extern void Nav_AddPickupCategoryCosts(void *);
 extern void Route_ClearGoalList(s32 cNavData);
 extern void Nav_AddGoalNode(s32 *, s32);
 extern void Route_SearchPathByKey(void *graph, s32 key);
@@ -80,7 +82,7 @@ s32 Nav_RebuildRequestedGoalRoute(void *controller) {
 
 extern char g_actorParticleEffectSystem[];
 struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
-extern u8 *Portal_FindSearchNode(s32 *, s32);
+extern char *Portal_FindSearchNode(CNavData *, int);
 /* Finds the nav node of obj and stores weight as its goal weight (+0x18). */
 #define navigationNodeOf(graph, obj, out) do { (out) = Portal_FindSearchNode((graph), Portal_FindNearestPointIndex((graph), (obj))); } while (0)
 #define navigationSetGoalWeight(graph, obj, weight) do { u8 *node_; navigationNodeOf(graph, obj, node_); ((NavigationSearchNode *)node_)->extra = (weight); } while (0)
@@ -141,5 +143,118 @@ const float g_Nav_AccumulateNodeTickCostsConstantWords[1] = {
 /* ROM-grounded data: src/Nav_AddPickupCategoryCostsConstantWords.c */
 const float g_Nav_AddPickupCategoryCostsConstantWords[1] = {
     -614.39996f,
+};
+#endif
+
+/* ROUTECOST__ROUTECOST.CPP */
+extern s32 Route_GetRouteRelation(void *relationTable, s32 sourceNode, s32 destinationNode);
+
+struct NavigationSearchGraphView; extern s32 Portal_SearchRelatedGoalPath(struct NavigationSearchGraphView *obj, s32 key, s32 requested, void *owner);
+
+/** Reset the float field of each occupied player slot's table entry to the default value. */
+
+extern void *Portal_GetGraphPoint(void *, s32);
+
+s32 Nav_UpdateRouteIntermediateGoal(NavigationRouteControllerView *owner) {
+    s32 *base;
+
+    base = &g_navigationGraph;
+    if (base != 0) {
+        if (owner->destinationNode == -1) {
+            return 1;
+        }
+        if (owner->currentNode == owner->destinationNode) {
+            return 1;
+        }
+        if (Route_GetRouteRelation(base, owner->currentNode, owner->destinationNode) == 0) {
+            owner->requestedGoalNode = Portal_SearchRelatedGoalPath(base, owner->currentNode, owner->destinationNode, owner);
+        }
+    }
+    return 1;
+}
+
+void Nav_SetLinkedActorNodeCosts(char *actor) {
+    CNavData *table = &g_navigationGraph;
+    int i;
+    float value;
+
+    if (table != 0) {
+        value = g_linkedActorNodeDefaultCost;
+        for (i = 0; i < 10; i++) {
+            Actor1DC *a = ((struct NavigationActorListEntryView *) (actor + (i * 4)))->actor;
+            if (a != 0) {
+                ((struct NavigationNodeCostView *) Portal_FindSearchNode(table, ((struct ResourceKeyView *) ((NavigationActorSearchStateView *) a->info)->resourceKeyRecord)->key))->cost = value;
+            }
+        }
+    }
+}
+
+void Nav_AccumulateNodeTickCosts(void) {
+    NavigationSearchNode *node;
+    f32 k;
+
+    node = g_pickupNavigationGoalList;
+    if (node != 0) {
+        k = g_navigationNodeTickCostScale;
+        do {
+            node->extra =
+                node->extra +
+                (f32) (node->ticks * 30) * k;
+            node = node->next;
+        } while (node != 0);
+    }
+}
+
+void Nav_AddPickupCategoryCosts(void) {
+    CNavData *base;
+    NavigationSearchNode *node;
+    NavigationPoint *result;
+    f32 addVal;
+    u16 objectId;
+
+    base = &g_navigationGraph;
+    node = base->nodes;
+    if (node != 0) {
+        addVal = g_pickupCategoryNodeCost;
+        do {
+            result = Portal_GetGraphPoint(base, node->key);
+            if (navigation_point_flags(result) & 1) {
+                objectId = navigation_point_object_id(result);
+                if (Nav_IsPickupObjectInPairCategory(objectId) != 0 || Nav_IsPickupObjectInSixEntryCategory(navigation_point_object_id(result)) != 0) {
+                    node->extra = node->extra + addVal;
+                }
+            }
+            node = node->next;
+        } while (node != 0);
+    }
+}
+
+#if defined(VERSION_US)
+const unsigned int k_RoutecostEncodedWords[2] = {
+    0x14000000, 0x00000E43,
+};
+#endif
+
+/* NAV__ROUTECOST.CPP */
+/* 800C1EE8.CPP */
+#if defined(VERSION_DE)
+extern char addrLow_Nav_SelectPickupGoal[];
+void *k_NavEncodedWordsBlock4[2] = {
+    (void *)(addrLow_Nav_SelectPickupGoal + 188), (void *)(addrLow_Nav_SelectPickupGoal + 200),
+};
+#endif
+/* 800C6E84_4.CPP */
+#if defined(VERSION_EU) || defined(VERSION_US)
+#if defined(VERSION_EU)
+#endif
+#if defined(VERSION_US)
+#endif
+#endif
+
+/* 800C6FD8.CPP */
+#if defined(VERSION_US_REV1)
+/* ROM-grounded data: rodata/unresolved/800C6FD8 */
+unsigned int g_NavEncodedWordsBlock4[2] = {
+    0x3F800000, 0x3F800000,
 };
 #endif
