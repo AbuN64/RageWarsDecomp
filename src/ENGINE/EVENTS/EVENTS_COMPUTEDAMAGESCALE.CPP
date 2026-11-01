@@ -40,7 +40,7 @@ extern f32 Gobjinst_GetActorHeight(ActorEventsComputeDamageScale *);
 
 extern f32 Gobjinst_GetActorRadius(ActorEventsComputeDamageScale *);
 
-extern f32 Graphu64_GetPointDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 
 /* Spawns a hit effect when the target has a rider: turns the negated hit direction into the victim's frame through Player_TransformPointByViewOrOwnerMatrix, makes it relative to the victim rider's centre and converts it to a rotation, resolves the hit position on the attacker through InstHdr_CopyActorPositionAndModel, spawns effect 0xE9 there raised by k_playerEventClipHeightAndAngle (size 3 for kind 5, otherwise 1), and starts effect 3 on the victim's emitter. */
 
@@ -57,7 +57,7 @@ extern f32 Graphu64_GetPointDistance(CVector3 *, CVector3 *);
 
 extern f32 k_playerEventClipScale;
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern void Player_TransformPointByViewOrOwnerMatrix(SharedPlayer *, CVector3 *);
 
@@ -179,7 +179,7 @@ void Events_SpawnRiderImpactEffect(SharedPlayer *target, ActorEventsSpawnRiderIm
     zero.x = 0;
     zero.y = 0;
     zero.z = 0;
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 233, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&point, 0, -1, kind == 5 ? 3 : 1);
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 233, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&point, 0, -1, kind == 5 ? 3 : 1);
     point.x = 0;
     point.y = 0;
     point.z = 0;

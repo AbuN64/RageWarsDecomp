@@ -9,11 +9,11 @@ extern void Portal_ResetSearchState(struct NavigationSearchGraphView *graph);
 
 extern void Route_ClearGoalList(s32);
 
-extern void Nav_AddGoalNode(void *, s32);
+struct ObjNavAddGoalNode; extern void Nav_AddGoalNode(struct ObjNavAddGoalNode *obj, int id);
 
 extern void Route_SearchPathByKey(void *graph, s32 startKey);
 
-extern void Portal_SearchPath(void *graph, void *node);
+struct CNavData_t; struct NavigationSearchNode; extern void Portal_SearchPath(struct CNavData_t *graph, struct NavigationSearchNode *start);
 
 void Route_SearchSingleGoalPath(void *graph, s32 startKey, s32 goalKey) {
     Portal_ResetSearchState(graph);

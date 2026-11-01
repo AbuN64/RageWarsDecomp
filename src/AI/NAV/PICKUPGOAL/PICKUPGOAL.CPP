@@ -78,8 +78,8 @@ s32 Nav_RebuildRequestedGoalRoute(void *controller) {
     return 1;
 }
 
-extern u8 g_actorParticleEffectSystem[];
-extern s32 Portal_FindNearestPointIndex(s32 *, void *);
+extern char g_actorParticleEffectSystem[];
+struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern u8 *Portal_FindSearchNode(s32 *, s32);
 /* Finds the nav node of obj and stores weight as its goal weight (+0x18). */
 #define navigationNodeOf(graph, obj, out) do { (out) = Portal_FindSearchNode((graph), Portal_FindNearestPointIndex((graph), (obj))); } while (0)

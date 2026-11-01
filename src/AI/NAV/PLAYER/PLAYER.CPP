@@ -22,7 +22,7 @@
    Nav_ResetWheelProbeState, Scaled_ResetBehaviorState and Scaled_ClearAuxiliaryBehaviorState, and clears the remaining state words. */
 
 extern void Scaled_SetBehaviorTable(void *, char *, s32);
-extern void Scaled_SetBehaviourState(void *, s32);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 extern void Nav_ResetWheelProbeState(void *);
 
 extern void Scaled_ClearAuxiliaryBehaviorState(void *);
@@ -174,16 +174,16 @@ void Nav_UpdateComputerPlayerStatus(Brain *brain) {
 }
 
 extern CNavData g_navigationGraph;
-float Graphu64_GetPointDistance(void *, void *);
+f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 f32 Nav_SteerTowardPoint(PlayerAimBrainView *, CVector3 *, f32, f32);
 void Scaled_SetPitchFromAngle(PlayerAimBrainView *, f32, s32);
-void Portal_DispatchActorBehavior(AiController *);
+void Portal_DispatchActorBehavior(void *controller);
 float Gu_Sqrtf(float);
 NavigationPoint *Portal_GetGraphPoint(CNavData *,s32);
 void *Portal_GetStridedTableEntry(struct NavigationLinkListView *object, int index);
 NavigationSearchNode *Portal_FindSearchNode(CNavData *,s32);
-s32 Portal_FindLinkIndex(CNavData *,s32,s32);
+struct Graph; int Portal_FindLinkIndex(struct Graph *graph, int from, int to);
 s32 Scaled_AdvanceNodeQueue(AiController *);
 typedef struct GroundObject { char pad[0x18]; ActorMotionResource *resource; } GroundObject;
 GroundObject *InstHdr_GetEnabledItemValue(Player *);

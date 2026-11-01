@@ -40,7 +40,7 @@ extern SharedPlayer **g_collisionCurrentActor;
 
 extern char g_particleCollisionProbeResult[];
 
-extern f32 Graphu64_GetSquaredDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 extern f32 Gobjinst_GetActorHeight(SharedPlayer *);
 

@@ -128,7 +128,7 @@ extern s32 Animpool_SpawnSceneEffect(void *scene, s32 effectId, s32 variant, s32
                          s32 owner, Triple position, f32 scale, CVector3 direction,
                          Triple color, void *ref);
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern char g_playerViewRenderContext;
 
@@ -193,7 +193,7 @@ void MovingAI_SpawnSceneEffectAtPosition(void *actor, ActorMotionState *spawnSta
                    s32 unused5, s32 effectKind) {
     s32 result;
 
-    result = Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor,
+    result = Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor,
                            (s32 *)&spawnState->animation, 0, effectKind,
                            ((LevelActor *)actor)->position1,
                            ((LevelActor *)actor)->rotation,

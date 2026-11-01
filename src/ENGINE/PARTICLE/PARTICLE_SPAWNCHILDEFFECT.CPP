@@ -77,7 +77,7 @@ reset_state:
 
 
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 extern char g_currentActorInstance;
 extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
 extern void BuildRollMatrix(f32 *matrix, s32 angle);
@@ -135,6 +135,6 @@ void Particle_SpawnChildEffect(ParticleChildEffectActorView *actor, s32 model, s
         point = moved;
         g_collisionCurrentActor = &g_currentActorInstance;
     }
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor->owner, (s32 *)actor->effectEntries, actor->effectEntryCount, model,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor->owner, (s32 *)actor->effectEntries, actor->effectEntryCount, model,
                   direction, rotation, point, 0, spawnMode, flags | (actor->flags & 0x200006));
 }

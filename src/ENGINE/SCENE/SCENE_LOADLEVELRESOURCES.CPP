@@ -94,8 +94,8 @@ void Scene_CollectLevelSwitches(SceneLevelSwitchCollectionView *world) {
 /* Unknown data types are explicit unresolved contracts, never guessed s32. */
 
 extern void Nav_ResetPlayerState();
-extern void Portal_AssignPlatformEndpoints();
-extern s32 Portal_FindNearestPointIndex();
+struct CNavData_t; extern void Portal_AssignPlatformEndpoints(struct CNavData_t *graph);
+struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern void * Playerai_GetPlayerByIndex();
 extern void Camera_UpdateViewportLayoutAndBounds();
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
@@ -108,7 +108,7 @@ extern void **Cache_RequestPackSection(s32 cacheAddress, void *handle, s32 secti
 extern s32 Cache_WaitForResourceLoads(struct ResourceLoadWorker *resourceLoadWorker);
 extern void SoundVoicePool_Initialize(void *, void *, s32);
 extern void Scene_ShowResultsGoal(void);
-extern s32 Scene_GetModelIdAtIndex();
+extern int Scene_GetModelIdAtIndex(void *world, int modelIndex);
 extern void Scene_CopyLevelName(struct Shared_World *world, s32 type, void *levelName, s32 maximumBytes);
 extern void Scene_ClearSceneObjectCounts(void *object);
 extern void Scene_UnlockActiveSectionResources(struct OwnerSceneUnlockActiveSectionResources *owner);

@@ -9,7 +9,7 @@
 
 extern s32 Route_GetRouteRelation(void *relationTable, s32 sourceNode, s32 destinationNode);
 
-extern s32 Portal_SearchRelatedGoalPath(void *obj, s32 key, s32 requested, void *owner);
+struct NavigationSearchGraphView; extern s32 Portal_SearchRelatedGoalPath(struct NavigationSearchGraphView *obj, s32 key, s32 requested, void *owner);
 
 /** Reset the float field of each occupied player slot's table entry to the default value. */
 

@@ -73,22 +73,22 @@ void Nav_SelectFarthestReachableNeighbor(AiController *object)
 }
 
 /* 802106E0_20.CPP */
-extern s32 Scaled_SetBehaviourState(void *, s32);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 extern void Nav_UpdateTargetSteering(void *);
 
 extern void Nav_RunBehaviorHandler(void *);
 
-extern void Nav_SteerAlongRoute(void *);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
 
 extern f32 g_navigationRetreatDistanceLimit;
 
 extern f32 g_navigationNearbyGoalDistanceLimit;
 
-extern void Nav_AddGoalNode(void *, s32);
+struct ObjNavAddGoalNode; extern void Nav_AddGoalNode(struct ObjNavAddGoalNode *obj, int id);
 
-extern void Nav_UpdatePlayerSteering(void *controller);
+struct AiController; extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 
-extern void Nav_SelectPlayerState(void *controller);
+struct AiController; extern s32 Nav_SelectPlayerState(struct AiController *controller);
 
 extern f32 Scaled_DistanceToNode(s32 *, s32);
 

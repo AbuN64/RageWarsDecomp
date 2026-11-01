@@ -23,7 +23,7 @@ extern ParticleAttachmentState *g_collisionCurrentActor;
 
 extern ParticleAttachmentState g_currentActorInstance;
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern SharedPlayer *g_transientPlayerList;
 
@@ -34,7 +34,7 @@ f32 Gobjinst_GetActorHeight(SharedPlayer *player);
 void Graphu64_SubtractVectors(struct CVector3_t *difference, struct CVector3_t *leftVector, struct CVector3_t *rightVector);
 
 
-f32 Graphu64_GetSquaredDistance(CVector3 *a, CVector3 *b);
+f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 s32 Graphu64_NextRandom(void);
 
@@ -295,7 +295,7 @@ void Particle_Update(Shared_Particle *particle) {
         particle->size.z += (goalSize - particle->size.z) * g_frameElapsedTime;
         if (particle->size.x < 0.0f || particle->size.y < 0.0f || particle->size.z < 0.0f) {
             Particle_DispatchParticleContactEvents(particle);
-            Particle_Release(&g_actorParticleEffectSystem, particle);
+            Particle_Release(&g_actorParticleEffectSystem[0], particle);
             ((void (*)(Shared_Particle *))Particle_StopSound)(particle);
             g_frameElapsedTime = savedStep;
             return;
@@ -441,7 +441,7 @@ void Particle_HandleInitialMaterialContact(Shared_Particle *particle) {
                 position = particle->inst.velocity;
             }
             rotation = Graphu64_BuildDirectionQuaternion(&position);
-            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)particle,
+            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)particle,
                           (struct EffectActor *)particle->owner,
                           (s32 *)particle->ownerId,
                           (s32)particle->target, kind,
@@ -458,7 +458,7 @@ skip_effects:
                   particle->rotationScale);
     particle->flags |= 0x400;
     if (particle->mode1 == 1) {
-        Particle_Release(&g_actorParticleEffectSystem, particle);
+        Particle_Release(&g_actorParticleEffectSystem[0], particle);
         Particle_StopSound(particle);
     }
 }
@@ -506,7 +506,7 @@ void Particle_HandleTypedContact(Shared_Particle *particle) {
             position = particle->inst.velocity;
         }
         rotation = Graphu64_BuildDirectionQuaternion(&position);
-        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)particle,
+        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)particle,
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
@@ -519,7 +519,7 @@ void Particle_HandleTypedContact(Shared_Particle *particle) {
     }
     particle->flags |= 0x200;
     if ((particle->desc->flags & 0x20000) != 0) {
-        Particle_Release(&g_actorParticleEffectSystem, particle);
+        Particle_Release(&g_actorParticleEffectSystem[0], particle);
         Particle_StopSound(particle);
     }
 }
@@ -563,7 +563,7 @@ void Particle_HandleSelectedSurfaceContact(Shared_Particle *particle) {
             position = particle->inst.velocity;
         }
         rotation = Graphu64_BuildDirectionQuaternion(&position);
-        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)particle,
+        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)particle,
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
@@ -578,7 +578,7 @@ void Particle_HandleSelectedSurfaceContact(Shared_Particle *particle) {
                   particle->rotationScale);
     particle->flags |= 0x200;
     if (particle->mode2 == 1) {
-        Particle_Release(&g_actorParticleEffectSystem, particle);
+        Particle_Release(&g_actorParticleEffectSystem[0], particle);
         Particle_StopSound(particle);
     }
 }
@@ -618,7 +618,7 @@ void Particle_HandleMaterialContact(Shared_Particle *particle) {
             position = particle->inst.velocity;
         }
         rotation = Graphu64_BuildDirectionQuaternion(&position);
-        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)particle,
+        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)particle,
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
@@ -633,7 +633,7 @@ void Particle_HandleMaterialContact(Shared_Particle *particle) {
                   particle->rotationScale);
     particle->flags |= 0x200;
     if (particle->mode2 == 1) {
-        Particle_Release(&g_actorParticleEffectSystem, particle);
+        Particle_Release(&g_actorParticleEffectSystem[0], particle);
         Particle_StopSound(particle);
     }
 }
@@ -812,7 +812,7 @@ void Particle_HitTarget(void *particle) {
             }
         }
         if (mode==1 || (effect!=0xffff && g_effectCallbackFlags[effect].flags&1)) {
-            Particle_Release(&g_actorParticleEffectSystem, actor);
+            Particle_Release(&g_actorParticleEffectSystem[0], actor);
             Particle_StopSound(actor);
         }
     }
@@ -928,6 +928,6 @@ void Particle_ApplyImpactResponse(Shared_Particle *particle) {
             return;
         }
     }
-    Particle_Release(&g_actorParticleEffectSystem, particle);
+    Particle_Release(&g_actorParticleEffectSystem[0], particle);
     Particle_StopSound(particle);
 }

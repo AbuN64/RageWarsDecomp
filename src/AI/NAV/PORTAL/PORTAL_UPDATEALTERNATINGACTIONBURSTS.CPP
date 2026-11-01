@@ -25,14 +25,14 @@ extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
 
 
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern s32 Particle_CountOwnerListOneEffects(char *, void *);
 
 struct EffectSystem;
 extern void Particle_AverageOwnerEffectPositions(struct EffectSystem *, void *, CVector3 *);
 
-extern f32 Graphu64_GetSquaredDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 struct LevelActor;
 extern void Particle_FindNearestForeignEffectDistance(struct EffectSystem *effectSystem, struct LevelActor *actor, f32 *distanceOut);
@@ -202,7 +202,7 @@ void Portal_UpdateCountedEffectAction(CountedEffectActionState *controller, Coun
         return;
     }
     if (controller->phaseCountdown == 0) {
-        count = Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem, *(void **) controller);
+        count = Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem[0], *(void **) controller);
         if (count == 3) {
             controller->waitTimer = count;
         }
@@ -220,7 +220,7 @@ void Portal_UpdateCountedEffectAction(CountedEffectActionState *controller, Coun
     }
     controller->waitTimer -= 1;
     target = ((struct ActionTargetPlayerView *) controller->targetView)->player;
-    Particle_AverageOwnerEffectPositions(&g_actorParticleEffectSystem, *(void **) controller, &pos);
+    Particle_AverageOwnerEffectPositions(&g_actorParticleEffectSystem[0], *(void **) controller, &pos);
     range = g_alternatingActionTargetRange;
     pos.y = ((Player *)target)->pos.y;
     if (Graphu64_GetSquaredDistance(&pos, &((Player *)(target))->pos) < range) {
@@ -248,7 +248,7 @@ void Portal_UpdateMeterGatedActionBurst(void *object, void *settings) {
     if (timer == 0) {
         f32 value;
 
-        Particle_FindNearestForeignEffectDistance(&g_actorParticleEffectSystem, controller->player, &value);
+        Particle_FindNearestForeignEffectDistance(&g_actorParticleEffectSystem[0], controller->player, &value);
         if (value < g_meterActionEffectDistanceLimit) {
             f32 k = g_meterActionChanceBase;
             f32 threshold = Graphu64_RandomFloat(g_meterActionChanceRandomRange) + k;

@@ -30,7 +30,7 @@ extern void Fx_DetachParticleSwooshes(void *effectWorld, void *detachedEntity);
 
 
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern void Particle_Release(void *a, void *b);
 
@@ -218,7 +218,7 @@ void Particle_InitializeObjectLinks(void *particle) {
 }
 
 void Particle_ReleaseObjectAndSound(void *object) {
-    Particle_Release(&g_actorParticleEffectSystem, object);
+    Particle_Release(&g_actorParticleEffectSystem[0], object);
     Particle_StopSound(object);
 }
 
@@ -236,7 +236,7 @@ void Particle_SpawnAtSharedContactPoint(ObjParticleInitializeAttachmentsAndSound
         pos = source->rotation;
     }
     q = Graphu64_BuildDirectionQuaternion(&pos);
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)source,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)source,
                   (struct EffectActor *)source->effectResource,
                   (s32 *)source->effectIndex,
                   source->effectCount, kind,
@@ -254,7 +254,7 @@ void Particle_SpawnWithModeMinusThree(ObjParticleInitializeAttachmentsAndSound *
         position = source->rotation;
     }
     rotation = Graphu64_BuildDirectionQuaternion(&position);
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)source,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)source,
                   (struct EffectActor *)source->effectResource,
                   (s32 *)source->effectIndex,
                   source->effectCount, kind,
@@ -272,7 +272,7 @@ void Particle_SpawnWithModeMinusTwo(ObjParticleInitializeAttachmentsAndSound *so
         position = source->rotation;
     }
     rotation = Graphu64_BuildDirectionQuaternion(&position);
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)source,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)source,
                   (struct EffectActor *)source->effectResource,
                   (s32 *)source->effectIndex,
                   source->effectCount, kind,
@@ -290,7 +290,7 @@ void Particle_SpawnWithModeMinusFive(ObjParticleInitializeAttachmentsAndSound *s
         position = source->rotation;
     }
     rotation = Graphu64_BuildDirectionQuaternion(&position);
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)source,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)source,
                   (struct EffectActor *)source->effectResource,
                   (s32 *)source->effectIndex,
                   source->effectCount, kind,

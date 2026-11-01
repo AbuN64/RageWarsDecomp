@@ -15,7 +15,7 @@
 
 extern f32 g_simpleObjectViewEffectRotationAndHeight;
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 
 
@@ -79,9 +79,9 @@ void Simpinst_SpawnModelEffect(ActorSimpleInstanceSpawnModelEffect *actor, void 
             (*((s32 *)SetN64_GetPackSection(SetN64_GetPackSection(node, 0), 0)) & 0x8000)) {
             position = actor->position0;
             position.y += Gobjinst_GetActorHeight(actor) * *(&g_simpleObjectViewEffectRotationAndHeight + 1);
-            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
+            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
                           actor->position1, rotation, position, 0, -1, 0);
-            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem);
+            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem[0]);
             if (effect != 0) {
                 scale = g_simpleObjectViewEffectScale;
                 effect->radius = Gobjinst_GetActorRadius(actor) * scale;

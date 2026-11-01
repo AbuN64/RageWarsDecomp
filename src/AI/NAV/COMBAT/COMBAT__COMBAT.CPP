@@ -11,12 +11,12 @@
 #include "AI/NAV/NAV_INITPURSUITSTRAFE.H"
 
 extern void Nav_RunBehaviorHandler(void *);
-extern s32 Scaled_HasLineOfSight(void *, void *);
-extern void Scaled_SetBehaviourState(void *, s32);
-extern f32 Scaled_ScaleCharacterSettingByDifficulty(void *);
+struct Player; extern s32 Scaled_HasLineOfSight(struct Player **fromRef, struct Player *target);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
+struct AiController; extern f32 Scaled_ScaleCharacterSettingByDifficulty(struct AiController *controller);
 extern f32 Scaled_UpdateDifficultyAimJitter(void *);
-extern f32 Nav_SteerTowardPoint(void *, CVector3 *, f32, f32);
-extern void Wheel_MeasureWheelClearance(void *, s32);
+struct PlayerAimBrainView; struct CVector3_t; extern f32 Nav_SteerTowardPoint(struct PlayerAimBrainView *brain, struct CVector3_t *target, f32 rate, f32 offset);
+struct Player; extern void Wheel_MeasureWheelClearance(struct Player *player, s32 wheel);
 extern void Portal_DispatchActorBehavior(void *);
 
 /* 802106E0_11.CPP */
@@ -24,11 +24,13 @@ extern void Portal_DispatchActorBehavior(void *);
 
 extern char g_navigationGraph[];
 
-extern f32 Graphu64_GetSquaredDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 extern s32 Wheel_GetDirectionSector(f32);
-extern s32 Route_GetRouteRelation(char *, s32, s32);
+extern s32 Route_GetRouteRelation(void *relationTable, s32 sourceNode, s32 destinationNode);
 
-extern void Nav_SteerAlongRoute(CloseAttackBrain *),Nav_UpdatePlayerSteering(CloseAttackBrain *),Nav_SelectPlayerState(CloseAttackBrain *);
+struct AiController; struct AiController; struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+extern void Nav_UpdatePlayerSteering(struct AiController *controller);
+extern s32 Nav_SelectPlayerState(struct AiController *controller);
 extern struct {char pad[0xC];unsigned short flags;} *Portal_GetGraphPoint(char *,int);
 
 void Nav_UpdateRangedCombat(CloseAttackActor *actor) {

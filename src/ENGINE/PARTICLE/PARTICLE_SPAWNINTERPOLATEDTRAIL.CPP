@@ -47,7 +47,7 @@ void Particle_UpdateMatrix(Shared_Particle *particle) {
 
 /* Spawns a sequence of effects along an object's motion segment. */
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 void Particle_SpawnInterpolatedTrail(TrailActor *actor) {
         CQuatern rotation;
@@ -65,7 +65,7 @@ void Particle_SpawnInterpolatedTrail(TrailActor *actor) {
                 position = actor->position;
                 rotation = Graphu64_BuildDirectionQuaternion((f32 *)&position);
                 Graphu64_SubtractVectors(&delta, &actor->origin, &actor->end);
-                system = &g_actorParticleEffectSystem;
+                system = &g_actorParticleEffectSystem[0];
                 i = 1;
                 hasTrailSegments = i <= count;
                 if (hasTrailSegments) {

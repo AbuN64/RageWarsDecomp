@@ -16,7 +16,7 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
 
 /* PLAYERSTATE.CPP */
-s32 Scaled_SetBehaviourState(void *, s32);
+struct AiController; s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 s32 Scaled_MatchesBehaviorStateFilter(void *);
 s32 Scaled_IsBehaviorStateEight(void *);
 f32 Scaled_GetScaledAggression(void *);

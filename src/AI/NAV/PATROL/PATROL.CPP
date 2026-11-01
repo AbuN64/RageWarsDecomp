@@ -28,15 +28,15 @@ extern RoutePatrolNodes g_navigationGraph;
 
 
 
-extern Clip *Scene_GetPlatformRoute(PatrolRouteSet *set, s32 route);
-extern s32 Scene_GetPlatformRoutePoint(PatrolRouteSet *set, s32 route, s32 pos);
-extern s32 Portal_FindNearestPointIndex(RoutePatrolNodes *list, s32 id);
+extern char *Scene_GetPlatformRoute(void *world, s32 index);
+extern void *Scene_GetPlatformRoutePoint(void *a, s32 b, s32 c);
+struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern void *Portal_GetGraphPoint(RoutePatrolNodes *list, s32 index);
 extern void *Scaled_GetControllerPosition(PatrolBot *bot);
-extern f32 Graphu64_GetPointDistance(void *a, void *b);
-extern void Nav_SteerAlongRoute(PatrolBot *bot);
-extern void Nav_RunBehaviorHandler(PatrolBot *bot);
-extern void Nav_UpdatePlayerSteering(PatrolBot *bot);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+extern void Nav_RunBehaviorHandler(void *aiController);
+struct AiController; extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 
 void Nav_UpdatePatrolRoute(PatrolActor *actor)
 {

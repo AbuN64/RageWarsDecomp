@@ -540,7 +540,7 @@ extern void Playerai_BeginHeldAlternateFire(void *actor);
 
 extern s32 Particle_CountOwnerListOneEffects(void *, s32);
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern f32 Graphu64_ApproachValue(f32, f32, s32);
 
@@ -634,7 +634,7 @@ void Weapon_UpdateSpecialFireAndAmmo(void *weaponActor, void *attack) {
     }
 
     if (Player_HasAmmoForMode(actor, ((WeaponSpecialFirePlayerView *)(actor))->ammoMode) == 0) {
-        if (Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem, actor) == 0) {
+        if (Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem[0], actor) == 0) {
             ((WeaponSpecialFirePlayerView *)(actor))->nextUsableWeapon = Weaponai_FindNextUsableWeapon(actor);
         }
     } else if (Weaponai_TryRequestFiringState(weaponActor, attack) == 0 &&

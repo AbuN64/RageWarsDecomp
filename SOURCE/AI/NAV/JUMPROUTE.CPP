@@ -22,11 +22,11 @@ void Nav_InitTimedJumpRoute(JumpRouteActorView *actor) {
     inner->resetFlag = 0;
 }
 
-extern void Scaled_SetBehaviourState(void *controller, s32 behaviourId);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 extern void Nav_RunBehaviorHandler(void *aiController);
 extern f32 Scaled_DistanceToNode(void *controller, s32 nodeId);
-extern void Nav_SteerAlongRoute(void *);
-extern void Nav_UpdatePlayerSteering(void *controller);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+struct AiController; extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 
 void Nav_UpdateTransientJumpRoute(JumpRouteActorView *actor)
 {

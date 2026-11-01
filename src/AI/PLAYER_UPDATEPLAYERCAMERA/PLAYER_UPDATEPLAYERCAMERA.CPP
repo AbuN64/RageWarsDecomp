@@ -54,7 +54,7 @@ extern void *g_weaponInfoByType[];
    team and squad overlays. */
 extern Gfx *g_displayListCursor;
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 extern s32 g_playerWeaponClassMode;
 void TeamSelect_DrawWeaponWheelSprites(void *, Shared_HudView *, Shared_HudPlayer *);
 void TeamSelect_DrawTeamWheelSprites(void *, Shared_HudView *, Shared_HudPlayer *);
@@ -558,7 +558,7 @@ void Player_DrawHeadsUpDisplay(Shared_HudPlayer *player, Shared_HudView *view) {
             OnScreen_DrawSpriteResource(522, level, x + scaleX * 10.0f, y - scaleY * 140.0f, scaleX, scaleY, 1);
         }
         if (player->weapon == 12 && player->kind != g_fragTagModelId) {
-            ammo = 3 - Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem, player);
+            ammo = 3 - Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem[0], player);
             if (player->ammo < ammo) {
                 ammo = player->ammo;
             }
@@ -659,7 +659,7 @@ extern struct Shared_Floor *g_collisionCurrentActor;
 
 extern struct Shared_StateInfo g_playerSpecialAnimationTable[];
 extern struct Shared_StateInfo g_playerActionStateHandlers[];
-extern void Portal_UpdateActorCurrentNode(void *, void *);
+struct CNavData_t; struct Player; extern void Portal_UpdateActorCurrentNode(struct CNavData_t *graph, struct Player *actor);
 extern void Actor_ApplySupportingPlatformMotion(void *, void *);
 extern void Barrel_FillDamagePacket(void *, s32, s32, s32, s32, s32);
 extern void TeamSelect_UpdateDraftPanel(void *, void *, void *);

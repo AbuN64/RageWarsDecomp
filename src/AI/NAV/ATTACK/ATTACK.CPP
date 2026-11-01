@@ -12,7 +12,7 @@
 extern void ReselectCloseAttack(void *);
 
 
-s32 Scaled_SetBehaviourState(void *, s32);
+struct AiController; s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 
 s32 Reselect_ChooseWeightedAttackBehavior(s32);
 

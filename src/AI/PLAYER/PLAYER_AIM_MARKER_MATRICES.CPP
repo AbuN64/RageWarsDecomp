@@ -29,7 +29,7 @@ extern void Graphu64_MatrixFromEulerXYZ(Matrix *, f32, f32, f32);
 extern void BuildDirectionMatrix(Matrix *, CVector3 *);
 extern void TranslateMatrix(Matrix *, CVector3);
 extern void ScaleMatrixLocal(Matrix *, f32, f32, f32);
-extern f32 Graphu64_GetPointDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 extern void Graphu64_ConvertMatrixToFixed(Matrix *, Matrix *);
 extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
 extern void MatrixFromQuaternion(f32 *q, f32 *m);

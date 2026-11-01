@@ -8,12 +8,12 @@
 #include "AI/NAV/NAV_SETPICKUPGOALWEIGHTS.H"
 #include "AI/NAV/PORTAL.H"
 
-f32 Graphu64_GetSquaredDistance(void *a, void *b);
+f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 extern void Route_ClearGoalList(s32 cNavData);
 
 
-extern void Nav_AddGoalNode(void *, s32);
+struct ObjNavAddGoalNode; extern void Nav_AddGoalNode(struct ObjNavAddGoalNode *obj, int id);
 
 extern void Portal_SearchPath(CNavData *, NavigationSearchNode *);
 

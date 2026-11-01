@@ -11,7 +11,7 @@ extern char g_GameObject_BuildLitActorResourceAddress;
 extern char s_actorLitModelResourceTag;
 
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
 extern s32 Cache_RequestPairedResource(s32, s32, void *, s32, s32, void *, void *, void *, s32);
@@ -27,7 +27,7 @@ static inline void spawn(LevelActor *actor) {
 
     position = actor->position0;
     position.y += Gobjinst_GetActorHeight(actor) * g_actorModelViewEffectHeightScale;
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
                   actor->position1, actor->rotation, position, 0, -1, 0);
 }
 
@@ -67,7 +67,7 @@ void Gobjinst_DrawTeamMaskedModel(LevelActor *actor, s32 unusedShadowContext, Lo
         if ((*node != 0) &&
             (*((s32 *)SetN64_GetPackSection(SetN64_GetPackSection(node, 0), 0)) & 0x8000)) {
             spawn(actor);
-            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem);
+            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem[0]);
             if (effect != 0) {
                 scale = g_actorModelViewEffectScale;
                 effect->radius = Gobjinst_GetActorRadius(actor) * scale;

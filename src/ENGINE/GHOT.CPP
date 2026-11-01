@@ -11,7 +11,7 @@
 #include "TYPES.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
 extern void InstHdr_CopyActorPositionAndModel(void *, Triple, Triple *, s32 *, s32, s32);
 extern struct CacheResourceBlockView Graphu64_BuildDirectionQuaternion(Triple *);
@@ -83,9 +83,9 @@ void Ghot_DispatchAttachmentEffects(ModelAttachmentEffect *effectAttachments, s3
                             g_attachmentParticleEmissionThreshold
 #endif
                         ) {
-                            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 230, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&mapped, 0, -1, attachmentEffectFlags | 1);
+                            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 230, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&mapped, 0, -1, attachmentEffectFlags | 1);
                         }
-                        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 138, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&mapped, 0, -1, attachmentEffectFlags | 1);
+                        Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 138, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&mapped, 0, -1, attachmentEffectFlags | 1);
                     }
                     break;
                 case 128:

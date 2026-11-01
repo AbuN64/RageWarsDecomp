@@ -92,8 +92,8 @@ store_c:
    expired timer to 15 times 3 to 9 frames, and runs Nav_RunBehaviorHandler, Nav_SteerAlongRoute and Nav_UpdatePlayerSteering. */
 
 extern void Nav_RunBehaviorHandler(void *);
-extern void Nav_SteerAlongRoute(void *);
-extern void Nav_UpdatePlayerSteering(void *);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+struct AiController; extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 
 void Nav_UpdateRoamingWithJumps(Shared_Actor *actorContext) {
     void *actor = ((Shared_ActorView *)(actorContext->entity))->owner;

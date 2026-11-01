@@ -57,7 +57,7 @@ s32 Nav_AdvancePickupRouteSelection(Selection *sel)
 /* Records the next stage of a selection: finds the kind-6 link from the selection's node in the route g_navigationGraph (stopping at the stage number at 0x1BC), stores its two node ids in that stage's entry, measures the distance from the selection's own node through Nav_MeasureNodeDistance_de and Graphu64_GetSquaredDistance, multiplies the unit directions from each attached object to the stage's node (Graphu64_NormalizeVector_de) into a facing term, and stores the distance scaled by that term (made positive for a single object) before advancing the stage count. Returns zero. */
 
 extern CVector3 *Portal_GetGraphPoint(PickupGoalNodeList *, s32);
-extern f32 Graphu64_GetSquaredDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 s32 Nav_AppendDirectionalRouteStage(SelectionNavAppendDirectionalRouteStage *sel) {
     CVector3 facing;
@@ -108,7 +108,7 @@ s32 Nav_AppendDirectionalRouteStage(SelectionNavAppendDirectionalRouteStage *sel
     return 0;
 }
 
-extern s32 Portal_FindLinkIndex(PickupGoalNodeList *list, s32 from, s32 to);
+struct Graph; extern int Portal_FindLinkIndex(struct Graph *graph, int from, int to);
 s32 Nav_InsertPickupRouteNode(SelectionNavAppendDirectionalRouteStage *sel) {
     CVector3 avg;
     Shared_PickupGoalNode *info;

@@ -30,21 +30,22 @@ typedef struct Actor {
 extern s32 g_lightingBufferIndex;
 extern char g_navigationGraph[];
 
-extern void Nav_RunBehaviorHandler(Brain *aiController);
-extern s32 Scaled_HasLineOfSight(Brain *, Actor *);
-extern void Scaled_SetBehaviourState(Brain *, s32);
-extern f32 Graphu64_GetSquaredDistance(CVector3 *, CVector3 *);
-extern f32 Scaled_ScaleCharacterSettingByDifficulty(Brain *controller);
+extern void Nav_RunBehaviorHandler(void *aiController);
+struct Player; extern s32 Scaled_HasLineOfSight(struct Player **fromRef, struct Player *target);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
+extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
+struct AiController; extern f32 Scaled_ScaleCharacterSettingByDifficulty(struct AiController *controller);
 extern s32 Graphu64_NextRandom(void);
-extern f32 Scaled_UpdateDifficultyAimJitter(Brain *aiController);
-extern f32 Nav_SteerTowardPoint(Brain *, CVector3 *, f32, f32);
+extern f32 Scaled_UpdateDifficultyAimJitter(void *aiController);
+struct PlayerAimBrainView; struct CVector3_t; extern f32 Nav_SteerTowardPoint(struct PlayerAimBrainView *brain, struct CVector3_t *target, f32 rate, f32 offset);
 extern s32 Wheel_GetDirectionSector(f32);
-extern void Wheel_MeasureWheelClearance(Actor *, s32);
-extern void Portal_DispatchActorBehavior(Brain *controller);
-extern s32 Route_GetRouteRelation(char *, s32, s32);
+struct Player; extern void Wheel_MeasureWheelClearance(struct Player *player, s32 wheel);
+extern void Portal_DispatchActorBehavior(void *controller);
+extern s32 Route_GetRouteRelation(void *relationTable, s32 sourceNode, s32 destinationNode);
 
 
-extern void Nav_SteerAlongRoute(Brain *controller), Nav_UpdatePlayerSteering(Brain *controller);
+struct AiController; struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 void Nav_UpdatePursuitStrafe(Actor *actor) {
     s32 mine, theirs, dir, route;
     Actor *player;

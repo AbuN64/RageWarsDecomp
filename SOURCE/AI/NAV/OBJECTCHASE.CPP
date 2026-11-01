@@ -84,13 +84,13 @@ const float g_Nav_ResetPatrolRouteSelectionConstantWords[2] = {
 extern RouteChaseGraph g_navigationGraph;
 extern const f32 g_Nav_ResetPatrolRouteSelectionConstantWords[2];
 
-extern void Scaled_SetBehaviourState(RouteChaseBot *bot, s32 mode);
-extern void Nav_RunBehaviorHandler(RouteChaseBot *bot);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
+extern void Nav_RunBehaviorHandler(void *aiController);
 extern f32 Scaled_DistanceToNode(RouteChaseBot *bot, s32 node);
-extern void Nav_SteerAlongRoute(RouteChaseBot *bot);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
 extern void Nav_UpdateTargetSteering(RouteChaseBot *bot);
-extern f32 Graphu64_GetPointDistance(CVector3 *a, CVector3 *b);
-extern s32 Portal_CollectDirectedNeighbors(RouteChaseGraph *graph, s32 from, s32 to, s32 *path, s32 flags);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
+struct CNavData_t; extern s32 Portal_CollectDirectedNeighbors(struct CNavData_t *graph, s32 nodeKey, s32 preferredNodeKey, s32 *neighborsOut, s32 reverseDirection);
 extern void Scaled_ClearNodeQueue(RouteChaseBot *bot);
 
 void Nav_UpdateObjectArrivalChase(RouteChaseActor *actor)
@@ -157,13 +157,13 @@ void Nav_UpdateObjectArrivalChase(RouteChaseActor *actor)
 
 extern RouteChaseGraph g_navigationGraph;
 
-extern void Scaled_SetBehaviourState(RouteChaseBot *bot, s32 mode);
-extern void Nav_RunBehaviorHandler(RouteChaseBot *bot);
+struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
+extern void Nav_RunBehaviorHandler(void *aiController);
 extern f32 Scaled_DistanceToNode(RouteChaseBot *bot, s32 node);
-extern void Nav_SteerAlongRoute(RouteChaseBot *bot);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
 extern void Nav_UpdateTargetSteering(RouteChaseBot *bot);
-extern f32 Graphu64_GetPointDistance(CVector3 *a, CVector3 *b);
-extern s32 Portal_CollectDirectedNeighbors(RouteChaseGraph *graph, s32 from, s32 to, s32 *path, s32 flags);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
+struct CNavData_t; extern s32 Portal_CollectDirectedNeighbors(struct CNavData_t *graph, s32 nodeKey, s32 preferredNodeKey, s32 *neighborsOut, s32 reverseDirection);
 extern void Scaled_ClearNodeQueue(RouteChaseBot *bot);
 
 void Nav_UpdateObjectArrivalChase(RouteChaseActor *actor)

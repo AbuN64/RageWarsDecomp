@@ -14,11 +14,11 @@
 
 extern char g_navigationGraph[];
 
-extern s32 Scaled_HasLineOfSight(Brain *, void *);
+struct Player; extern s32 Scaled_HasLineOfSight(struct Player **fromRef, struct Player *target);
 extern void UpdateCloseAttack(Brain *brainAddress);
 extern void *Scaled_GetControllerPosition(Brain *controller);
 extern void *Portal_GetGraphPoint(char *, s32);
-extern f32 Graphu64_GetPointDistance(void *, void *);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 
 s32 Nav_CheckCloseAttackRoute(Brain *brain) {
     void *pos;

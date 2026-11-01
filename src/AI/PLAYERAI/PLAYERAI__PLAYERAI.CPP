@@ -47,7 +47,7 @@
    and moves forward in states 1 and 2 or backward in states 3 and 4; at either end a looping clip
    (mode 1) wraps and a ping-pong clip (mode 0) reverses direction. */
 
-extern Clip *Scene_GetPlatformRoute(char *, s32);
+extern char *Scene_GetPlatformRoute(void *world, s32 index);
 
 void Playerai_AdvanceRouteCursor(Cursor *cursor) {
     Clip *clip;
@@ -104,7 +104,7 @@ void Playerai_InitializeRouteCursor(RouteCursorState *cursorState, s8 initialSta
     cursorState->previous = 0;
 }
 
-extern void *Scene_GetPlatformRoutePoint(char *a, unsigned char b, short c);
+extern void *Scene_GetPlatformRoutePoint(void *a, s32 b, s32 c);
 
 ApproachLocation *Playerai_GetRouteCursorPoint(Cursor *cursor) {
     return Scene_GetPlatformRoutePoint(&g_world, cursor->clip, cursor->frame);
@@ -259,7 +259,7 @@ void Particle_ReleaseOwnerListOneEffects(void *, s32);
 void * Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
 s32 XPlus_NextRandomInteger(void);
 
-extern s32 g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 extern Shared_MatchRules g_matchRoundCounters[];
 
 void Playerai_ApplyDamagePacket(struct Shared_ReactionActor *attacker, void *damageState, struct Shared_ReactionInteraction *packet) {
@@ -1057,8 +1057,8 @@ void Player_ResetPlayerWeapons(struct Player *player) {
 extern s32 g_activeLinkSequenceId;
 extern void Player_ReleaseObjectHandles(void *);
 extern void Scene_SetSelection(void *, s32, s32);
-extern f32 Graphu64_GetPointDistance(void *, void *);
-extern s32 Portal_FindNearestPointIndex(void *, void *);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
+struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern void Control_SetProfileMode(void *, s32);
 extern void Player_InitActorHudState(void *);
 /* Places the player at the matching level spawn. In multiplayer, choose the last

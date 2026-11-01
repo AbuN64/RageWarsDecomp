@@ -32,8 +32,8 @@ void Nav_ResetTargetFollowStateDe(void *object) {
 
 #if !(defined(VERSION_EU))
 extern void Nav_RunBehaviorHandler(void *);
-extern void Nav_SteerAlongRoute(void *);
-extern void Nav_UpdatePlayerSteering(void *controller);
+struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
+struct AiController; extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 
 void Nav_UpdateTargetRouteFollow(void *actorObject)
 {
@@ -75,7 +75,7 @@ void Nav_ResetTargetFollowStateEu(AiTarget *pThis) {
 #endif
 
 #if defined(VERSION_EU)
-extern void Nav_RunBehaviorHandler(AiController *);
+extern void Nav_RunBehaviorHandler(void *aiController);
 extern void Nav_SteerAlongRoute(AiController *);
 extern void Nav_UpdatePlayerSteering(AiController *);
 

@@ -16,7 +16,7 @@ extern void Insthdr_ResetInstanceRenderIndices(signed char *prop);
 extern f32 g_materialCurrentStrengthScales[];
 extern f32 g_frameElapsedTime[];
 
-extern s32 InstHdr_GetActorMotionState(ActorHorizontalMovementView *);
+extern int InstHdr_GetActorMotionState(void *levelActor);
 
 extern f32 Graphu64_GetHorizontalAngle(CVector3 *);
 

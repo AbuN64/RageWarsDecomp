@@ -35,11 +35,11 @@ extern char g_portalNoModelFlagCollisionQuery;
 
 extern char g_portalAlternateCollisionQuery;
 
-extern s32 Insthdr_GetModelCollisionFlag1(ActorInstanceHeader *);
+extern int Insthdr_GetModelCollisionFlag1(void *actorStorage);
 
-extern s32 Insthdr_IsInactiveOrCollisionOption4(ActorInstanceHeader *);
+extern s32 Insthdr_IsInactiveOrCollisionOption4(void *actor);
 
-extern s32 Insthdr_GetModelCollisionFlag8(ActorInstanceHeader *);
+extern int Insthdr_GetModelCollisionFlag8(void *actorStorage);
 
 
 extern f32 Gobjinst_GetActorHeight(ActorInstanceHeader *);

@@ -581,7 +581,7 @@ void Scene_CollectTypeFourteenActors(Shared_World *world) {
 
 extern LevelActor *g_sceneTrackedActors[4];
 extern LevelActor *g_fragTagObjectiveActor;
-extern s32 Scene_GetModelIdAtIndex(Shared_World *world, s32 id);
+extern int Scene_GetModelIdAtIndex(void *world, int modelIndex);
 void Scene_FindTrackedActors(Shared_World *world) {
     LevelActor *actor = world->actors;
     s32 i;

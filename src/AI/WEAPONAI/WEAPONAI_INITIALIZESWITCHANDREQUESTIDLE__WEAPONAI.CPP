@@ -100,7 +100,7 @@ typedef struct WeaponSlot {
     f32 timer148;
 } WeaponSlot;
 s32 Particle_CountOwnerListOneEffects(s32 *, void *);
-extern s32 g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 s32 Weaponai_CanStartFiring(void *owner, void *slot) {
     WeaponOwner *weaponOwner = (WeaponOwner *)owner;
     WeaponSlot *weaponSlot = (WeaponSlot *)slot;

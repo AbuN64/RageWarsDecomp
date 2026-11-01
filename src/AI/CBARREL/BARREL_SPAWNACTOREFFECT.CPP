@@ -15,7 +15,7 @@
  * pass a fourth incoming slot; the callee never reads it. The signature here
  * is the one those callers and this definition agree on across the ROM. */
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern void InstHdr_CopyActorPositionAndModel(void *actor, Triple input, Triple *output,
                           s32 *actorField, s32 unused0, s32 unused1);
@@ -62,7 +62,7 @@ void Barrel_SpawnActorEffect(void *actor, s32 kind, Triple input, s32 unused0) {
         break;
     }
 
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, eventValue, kind,
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, eventValue, kind,
                   position, rotation, *(CVector3 *)&copiedInput, 0, -1, mode);
 
     if ((((CActor_t *)actor)->type == 1) && (typedActor->objectId == 1036)) {

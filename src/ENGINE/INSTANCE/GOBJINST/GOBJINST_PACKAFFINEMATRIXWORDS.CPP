@@ -8,7 +8,7 @@
 #include "COMMON/PROPGEOMETRY.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern f32 Gobjinst_GetActorHeight(FadedActorRenderView *actor);
 
@@ -61,9 +61,9 @@ void Gobjinst_SpawnAnimatedModelViewEffect(FadedActorRenderView *actor, Resource
             (*((s32 *)SetN64_GetPackSection(SetN64_GetPackSection(node, 0), 0)) & 0x8000)) {
             position = actor->position0;
             position.y += Gobjinst_GetActorHeight(actor) * g_maskedModelViewEffectTuning;
-            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem, (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
+            Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
                           actor->position1, actor->rotation, position, 0, -1, 0);
-            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem);
+            effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem[0]);
             if (effect != 0) {
                 scale = *(&g_maskedModelViewEffectTuning + 1);
                 effect->radius = Gobjinst_GetActorRadius(actor) * scale;

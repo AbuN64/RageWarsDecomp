@@ -15,7 +15,7 @@
 
 extern void Graphu64_GetMatrixTranslation(char *, f32 *);
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern void Particle_ReleaseOwnerEmitters(void *world, s32 owner);
 
@@ -81,7 +81,7 @@ int Playerai_IsAlternateFireHeld(struct SharedPlayer *object) {
 }
 
 void Player_ReleasePlayerParticleEmitters(s32 actor) {
-    Particle_ReleaseOwnerEmitters(&g_actorParticleEffectSystem, actor);
+    Particle_ReleaseOwnerEmitters(&g_actorParticleEffectSystem[0], actor);
 }
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))

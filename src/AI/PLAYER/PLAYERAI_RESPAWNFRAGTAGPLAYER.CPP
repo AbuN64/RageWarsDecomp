@@ -22,7 +22,7 @@ extern f32 Graphu64_GetTrianglePlaneHeight(void *node, f32 x, f32 z);
 
 extern f32 Region_GetPolygonHeight(s32, f32, f32);
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 extern s32 Particle_CountOwnerListOneEffects(void *, s32);
 
@@ -199,7 +199,7 @@ s32 Playerai_PlayerHasAmmoForWeapon(void *player, s32 requestedWeaponType) {
     sw_arg1_21:
         return 1;
     check_external:
-        return Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem, (s32)player);
+        return Particle_CountOwnerListOneEffects(&g_actorParticleEffectSystem[0], (s32)player);
     sw_arg1_default:
         return 0;
 

@@ -53,7 +53,7 @@ static inline s32 is_held(char *obj) {
 extern char g_navigationGraph;
 
 
-extern s32 Portal_FindNearestPointIndex(void *, void *);
+struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 
 extern CVector3 *Portal_GetGraphPoint(void *, s32);
 

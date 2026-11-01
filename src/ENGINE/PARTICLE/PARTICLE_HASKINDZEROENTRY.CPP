@@ -99,7 +99,7 @@ s32 Particle_HasKindTwoEntry(ParticleKindListView *obj) {
 }
 
 
-extern char g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 
 
@@ -174,7 +174,7 @@ void Particle_HandlePlayerContact(void *particle, void *player) {
     if (contactSoundId != 0xFFFF) {
         SoundElement_PlaySoundAtPosition((s16)contactSoundId, ((Shared_Particle *)particle)->inst.pos, 0, -1);
     }
-    Particle_Release(&g_actorParticleEffectSystem, particle);
+    Particle_Release(&g_actorParticleEffectSystem[0], particle);
     Particle_StopSound(particle);
 }
 

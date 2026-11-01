@@ -39,7 +39,7 @@ extern s32 g_playerDeathEffectModelIds[2];
 
 
 void *Portal_GetGraphPoint(void *, s32);
-s32 Portal_FindNearestPointIndex(void *, void *);
+struct NavigationSearchGraphView; s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 s32 Player_SetPlayerState(void *, void *, s32);
 void *Gsky_PostScaledScreenMessage(void *, void *, void *, f32); CQuatern Gobjinst_BuildActorAimQuaternion(char *);
 s32 Gobjinst_GetModelRenderMode(void *);
@@ -61,7 +61,7 @@ void Player_PlacePlayerForRound(void *);
 void Player_ReleaseObjectHandles(void *);
 
 
-extern s32 g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 
 
 extern s32 g_navigationGraph;

@@ -99,7 +99,7 @@ extern float k_damageTurnScale;
 
 void Player_TransformPointByViewOrOwnerMatrix(s32, f32 *);
 void CScene_StartEventClips(Shared_World *, s32, s32, CVector3, f32, f32);
-extern s32 g_actorParticleEffectSystem;
+extern char g_actorParticleEffectSystem[];
 extern float k_damageEffectSecondScale;
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
@@ -222,7 +222,7 @@ extern const f32 k_damageEventScaleConstants[16];
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 extern f32 Gobjinst_GetRootMeanSquareScale(void *);
 extern s32 Gobjinst_FindNearestBoneBounds(void *, CVector3, Shield *);
-extern f32 Graphu64_GetPointDistance(CVector3 *, CVector3 *);
+extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 extern f32 Events_GetActorSizeScale(u8 *);
 extern void Barrel_FillDamagePacket(CDamageInfo *, void *, s32, f32, s32, Shield *);
 extern s32 Player_GetMaxHealth(void *);

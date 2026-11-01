@@ -50,9 +50,9 @@ extern f32 g_portalEngagementBase;
 
 /* Find the nearest world object matching each active target ID, clearing its active flag when no object is close enough. */
 
-f32 Graphu64_GetPointDistance(void *firstPoint, void *secondPoint);
+f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 
-s32 Scene_GetModelIdAtIndex(void *world, s16 modelIndex);
+int Scene_GetModelIdAtIndex(void *world, int modelIndex);
 
 /* Preserve the owning controller passed in a0 by the original MIPS. */
 f32 Portal_GetEngagementDistance(AiController *controller) {
@@ -60,8 +60,8 @@ f32 Portal_GetEngagementDistance(AiController *controller) {
 }
 
 
-extern PlatformRoute *Scene_GetPlatformRoute(void *, s32);
-extern CVector3 *Scene_GetPlatformRoutePoint(void *, s32, s32);
+extern char *Scene_GetPlatformRoute(void *world, s32 index);
+extern void *Scene_GetPlatformRoutePoint(void *a, s32 b, s32 c);
 /* Give every platform-flagged (0x200) search node the nearest moving platform (object 0x642) and the
  * nearest point on it: a route platform (mode 4) offers each of its route points, any other platform
  * its base and its top (base + height, pushed out by radius along heading when radial). A node with
@@ -69,10 +69,10 @@ extern CVector3 *Scene_GetPlatformRoutePoint(void *, s32, s32);
 
 typedef struct NavigationCollisionQuery { s32 flags, word4, word8, wordC, word10, word14, word18; } NavigationCollisionQuery;
 extern NavigationCollisionQuery g_portalDefaultCollisionQuery, g_portalModeCollisionQuery, g_portalNoModelFlagCollisionQuery, g_portalAlternateCollisionQuery;
-s32 InstHdr_GetActorMotionState(Player *);
-s32 Insthdr_GetModelCollisionFlag1(Player *);
-s32 Insthdr_IsInactiveOrCollisionOption4(Player *);
-s32 Insthdr_GetModelCollisionFlag8(Player *);
+int InstHdr_GetActorMotionState(void *levelActor);
+int Insthdr_GetModelCollisionFlag1(void *actorStorage);
+s32 Insthdr_IsInactiveOrCollisionOption4(void *actor);
+int Insthdr_GetModelCollisionFlag8(void *actorStorage);
 s32 Unicol_MoveActorWithCollision(Player *, CVector3, NavigationCollisionQuery *);
 void Graphu64_SubtractVectors(struct CVector3_t *difference, struct CVector3_t *leftVector, struct CVector3_t *rightVector);
 
