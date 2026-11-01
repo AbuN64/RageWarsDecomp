@@ -10400,6 +10400,16 @@ segments:
   - name: debug_symbols_16027C
     type: bin
     start: 0x16027C
+  - name: debug_symbols_earlier_1604D4
+    type: code
+    start: 0x1604D4
+    vram: 0x8015D8D4
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x1604D4, data, debug_symbols_earlier_1604D4/g_earlierPoolStr_8015D8D4]
+  - name: debug_symbols_1604E4
+    type: bin
+    start: 0x1604E4
   - name: debug_symbols_earlier_1604F0
     type: code
     start: 0x1604F0

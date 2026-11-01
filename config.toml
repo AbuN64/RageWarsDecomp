@@ -512,6 +512,7 @@ segments = [
     { rom = 0x160234, end = 0x160238, delta = 0x307000 },
     { rom = 0x160238, end = 0x160250, delta = 0x7FFFD400 },
     { rom = 0x160250, end = 0x16027C, delta = 0x7FFFD400 },
+    { rom = 0x1604D4, end = 0x1604E4, delta = 0x7FFFD400 },
     { rom = 0x1604F0, end = 0x1604F4, delta = 0x7FFFD400 },
     { rom = 0x160500, end = 0x16051C, delta = 0x7FFFD400 },
     { rom = 0x16051C, end = 0x160520, delta = 0x307000 },

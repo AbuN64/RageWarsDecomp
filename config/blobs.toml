@@ -88234,15 +88234,6 @@ stored_size = 13
 rom."eu" = [[0x15f554, 0x15f560]]
 evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/338" }]
 
-[blob."unknown-spans.eu.str.1604d4"]
-type = "stale-data"
-format = "c-string"
-codec = "none"
-state = "decoded"
-stored_size = 13
-rom."eu" = [[0x1604d4, 0x1604e1]]
-evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa0054c4662c1aaef675cd2e9e3f5650c0c64493a2b348326fdea05f65a", pointer = "/rows/359" }]
-
 [blob."unknown-spans.eu.str.1604e4"]
 type = "stale-data"
 format = "c-string"

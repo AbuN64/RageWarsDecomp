@@ -3328,6 +3328,7 @@ g_earlierPoolStr_8015D638 = 0x8015D638; // rom:0x160238 size:0x8
 g_earlierPoolFloats_8015D640 = 0x8015D640; // rom:0x160240 size:0x8
 g_earlierPoolStr_8015D648 = 0x8015D648; // rom:0x160248 size:0x8
 g_earlierPoolPointers_8015D650 = 0x8015D650; // rom:0x160250 size:0x2C
+g_earlierPoolStr_8015D8D4 = 0x8015D8D4; // rom:0x1604D4 size:0x10
 g_earlierPoolWords_8015D8F0 = 0x8015D8F0; // rom:0x1604F0 size:0x4
 g_earlierPoolFloats_8015D900 = 0x8015D900; // rom:0x160500 size:0x8
 g_earlierPoolInts_8015D908 = 0x8015D908; // rom:0x160508 size:0x4
