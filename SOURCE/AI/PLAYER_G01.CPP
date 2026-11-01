@@ -17,6 +17,7 @@
 #include "AI/PLAYER_DRAWTINTEDPLAYER.H"
 #include "COMMON/PLAYERPROFILES.H"
 
+/* PLAYER_DRAWTINTEDPLAYER.CPP */
 const float k_PlayerDrawtintedplayerEncodedWords[14] = {
     0.06666667f, 0.016666668f, 6e+01f, 1.0f,
     3e+01f, 0.5f, 0.8f, 1e+01f,
@@ -239,3 +240,8 @@ void Player_GiveAmmoWithMessage(SharedPlayer *player, s32 type, s32 amount) {
 const float k_PlayerDrawtintedplayerEncodedWordsBlock2[3] = {
     256.0f, 11.0f, 255744.0f,
 };
+
+/* G_PLAYERENCODEDBYTES.CPP */
+/* ROM-grounded data: rodata/unresolved/800C7D40 */
+char s_ammoPickupMessageSeparator[4] = " ";
+char s_ammoPickupPluralSuffix[4] = "s";
