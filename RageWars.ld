@@ -1763,8 +1763,6 @@ SECTIONS
         sdk/libultra/os/thread.c.o(.text);
         . = 0xBB4A4; BYTE(0x8C); BYTE(0x63); BYTE(0x52); BYTE(0x70); BYTE(0x27); BYTE(0xBD); BYTE(0xFF); BYTE(0xD8); BYTE(0xAF); BYTE(0xBF); BYTE(0x00); BYTE(0x20);
         . = MAX(., 0xBB4B0);
-        sdk/libultra/os/timerintr.c.o(.text);
-        . = MAX(., 0xBB6AC);
         sdk/libultra/os/timerintr/timerintr.c.o(.text);
         . = 0xBB7B4; BYTE(0x04); BYTE(0x81); BYTE(0x00); BYTE(0x0A); BYTE(0xAF); BYTE(0xBF); BYTE(0x00); BYTE(0x10); BYTE(0x3C); BYTE(0x02); BYTE(0x9F); BYTE(0xFF);
         . = MAX(., 0xBB7C0);
@@ -3613,8 +3611,6 @@ SECTIONS
         sdk/libultra/os/thread.c.o(.text);
         . = 0xBB744; BYTE(0x46); BYTE(0x00); BYTE(0x00); BYTE(0x07); BYTE(0xE7); BYTE(0xA0); BYTE(0x00); BYTE(0x40); BYTE(0x46); BYTE(0x00); BYTE(0xEF); BYTE(0x47);
         . = MAX(., 0xBB750);
-        sdk/libultra/os/timerintr.c.o(.text);
-        . = MAX(., 0xBB94C);
         sdk/libultra/os/timerintr/timerintr.c.o(.text);
         . = 0xBBA54; BYTE(0x28); BYTE(0x62); BYTE(0x00); BYTE(0x04); BYTE(0x14); BYTE(0x40); BYTE(0xFF); BYTE(0xFA); BYTE(0x24); BYTE(0xA5); BYTE(0x00); BYTE(0x04);
         . = MAX(., 0xBBA60);
@@ -5474,8 +5470,6 @@ SECTIONS
         sdk/libultra/os/thread.c.o(.text);
         . = 0xBB784; BYTE(0x08); BYTE(0x0A); BYTE(0xF3); BYTE(0xD6); BYTE(0x00); BYTE(0x00); BYTE(0x10); BYTE(0x21); BYTE(0x8E); BYTE(0x23); BYTE(0x00); BYTE(0x00);
         . = MAX(., 0xBB790);
-        sdk/libultra/os/timerintr.c.o(.text);
-        . = MAX(., 0xBB98C);
         sdk/libultra/os/timerintr/timerintr.c.o(.text);
         . = 0xBBA94; BYTE(0x34); BYTE(0x63); BYTE(0x00); BYTE(0x01); BYTE(0x14); BYTE(0x43); BYTE(0x00); BYTE(0x12); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x00);
         . = MAX(., 0xBBAA0);
@@ -7344,8 +7338,6 @@ SECTIONS
         sdk/libultra/os/thread.c.o(.text);
         . = 0xBB3D4; BYTE(0x6F); BYTE(0x72); BYTE(0x33); BYTE(0x5F); BYTE(0x74); BYTE(0x0F); BYTE(0x6D); BYTE(0x5F); BYTE(0x76); BYTE(0x47); BYTE(0x72); BYTE(0x61);
         . = MAX(., 0xBB3E0);
-        sdk/libultra/os/timerintr.c.o(.text);
-        . = MAX(., 0xBB5DC);
         sdk/libultra/os/timerintr/timerintr.c.o(.text);
         . = 0xBB6E4; BYTE(0x00); BYTE(0x00); BYTE(0x50); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x08); BYTE(0x00); BYTE(0x08); BYTE(0x00); BYTE(0x0C); BYTE(0x00);
         . = MAX(., 0xBB6F0);
@@ -9233,8 +9225,6 @@ SECTIONS
         sdk/libultra/os/thread.c.o(.text);
         . = 0xC0594; BYTE(0x08); BYTE(0x0B); BYTE(0x07); BYTE(0x5A); BYTE(0x00); BYTE(0x00); BYTE(0x10); BYTE(0x21); BYTE(0x8E); BYTE(0x23); BYTE(0x00); BYTE(0x00);
         . = MAX(., 0xC05A0);
-        sdk/libultra/os/timerintr.c.o(.text);
-        . = MAX(., 0xC079C);
         sdk/libultra/os/timerintr/timerintr.c.o(.text);
         . = 0xC08A4; BYTE(0x34); BYTE(0x63); BYTE(0x00); BYTE(0x01); BYTE(0x14); BYTE(0x43); BYTE(0x00); BYTE(0x12); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x00);
         . = MAX(., 0xC08B0);
@@ -9907,7 +9897,6 @@ SECTIONS
         sdk/libultra/os/settimer.c.o(.bss .sbss COMMON);
         sdk/libultra/os/startthread.c.o(.bss .sbss COMMON);
         sdk/libultra/os/thread.c.o(.bss .sbss COMMON);
-        sdk/libultra/os/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/timerintr/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/osyieldthread.CPP.c.o(.bss .sbss COMMON);
         sdk/libultra/os/exceptasm.s.o(.bss .sbss COMMON);
@@ -10511,7 +10500,6 @@ SECTIONS
         sdk/libultra/os/settimer.c.o(.bss .sbss COMMON);
         sdk/libultra/os/startthread.c.o(.bss .sbss COMMON);
         sdk/libultra/os/thread.c.o(.bss .sbss COMMON);
-        sdk/libultra/os/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/timerintr/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/osyieldthread.CPP.c.o(.bss .sbss COMMON);
         sdk/libultra/os/exceptasm.s.o(.bss .sbss COMMON);
@@ -11117,7 +11105,6 @@ SECTIONS
         sdk/libultra/os/settimer.c.o(.bss .sbss COMMON);
         sdk/libultra/os/startthread.c.o(.bss .sbss COMMON);
         sdk/libultra/os/thread.c.o(.bss .sbss COMMON);
-        sdk/libultra/os/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/timerintr/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/osyieldthread.CPP.c.o(.bss .sbss COMMON);
         sdk/libultra/os/exceptasm.s.o(.bss .sbss COMMON);
@@ -11723,7 +11710,6 @@ SECTIONS
         sdk/libultra/os/settimer.c.o(.bss .sbss COMMON);
         sdk/libultra/os/startthread.c.o(.bss .sbss COMMON);
         sdk/libultra/os/thread.c.o(.bss .sbss COMMON);
-        sdk/libultra/os/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/timerintr/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/osyieldthread.CPP.c.o(.bss .sbss COMMON);
         sdk/libultra/os/exceptasm.s.o(.bss .sbss COMMON);
@@ -12341,7 +12327,6 @@ SECTIONS
         sdk/libultra/os/settimer.c.o(.bss .sbss COMMON);
         sdk/libultra/os/startthread.c.o(.bss .sbss COMMON);
         sdk/libultra/os/thread.c.o(.bss .sbss COMMON);
-        sdk/libultra/os/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/timerintr/timerintr.c.o(.bss .sbss COMMON);
         sdk/libultra/os/osyieldthread.CPP.c.o(.bss .sbss COMMON);
         sdk/libultra/os/exceptasm.s.o(.bss .sbss COMMON);
