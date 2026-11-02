@@ -1,37 +1,69 @@
 #include "include_asm.h"
-#include "DATA/UI/EVENT_HANDLER_RECORD.H"
+#include "DATA/UI/NUMERIC_WIDGET_EVENT_TABLE.H"
 
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
-unsigned int g_n64EngDispatchNumericWidgetEventWords[28] = {
-    0x00000E07, 0x00007530, 0x002A1DE4, 0x0000000F, 0x00007530, 0x002A1E20, 0x00000010, 0x00007530,
-    0x002A1E5C, 0x00000008, 0x00007530, 0x002A1EC0, 0x00000007, 0x00007530, 0x002A1F3C, 0x00000E03,
-    0x00007530, 0x002A206C, 0x0000000B, 0x00007530, 0x002A1FB8, 0x00000E08, 0x00007530, 0x002A1FE8,
-    0x00000000, 0x00000000, 0x00000000, 0x00000001,
+NumericWidgetEventTable g_n64EngDispatchNumericWidgetEventWords = {
+    {
+        { 0xe07, 30000, N64Eng_SetLinkedCommand100_EventHandlerAddress },
+        { 0xf, 30000, N64Eng_SetLinkedCommand200_EventHandlerAddress },
+        { 0x10, 30000, N64Eng_SetLinkedCommand100WithSound_EventHandlerAddress },
+        { 0x8, 30000, N64Eng_HandleNumericIncrement_EventHandlerAddress },
+        { 0x7, 30000, N64Eng_HandleNumericDecrement_EventHandlerAddress },
+        { 0xe03, 30000, N64Eng_FreeNumericWidget_EventHandlerAddress },
+        { 0xb, 30000, N64Eng_CancelSelectionRepeat_EventHandlerAddress },
+        { 0xe08, 30000, TickSelectionRepeat_EventHandlerAddress },
+        { 0x0, 0, 0 },
+    },
+    0x1,
 };
 #endif
 #if defined(VERSION_EU)
-unsigned int g_n64EngDispatchNumericWidgetEventWords[28] = {
-    0x00000E07, 0x00007530, 0x002A1F04, 0x0000000F, 0x00007530, 0x002A1F40, 0x00000010, 0x00007530,
-    0x002A1F7C, 0x00000008, 0x00007530, 0x002A1FE0, 0x00000007, 0x00007530, 0x002A205C, 0x00000E03,
-    0x00007530, 0x002A218C, 0x0000000B, 0x00007530, 0x002A20D8, 0x00000E08, 0x00007530, 0x002A2108,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+NumericWidgetEventTable g_n64EngDispatchNumericWidgetEventWords = {
+    {
+        { 0xe07, 30000, N64Eng_SetLinkedCommand100_EventHandlerAddress },
+        { 0xf, 30000, N64Eng_SetLinkedCommand200_EventHandlerAddress },
+        { 0x10, 30000, N64Eng_SetLinkedCommand100WithSound_EventHandlerAddress },
+        { 0x8, 30000, N64Eng_HandleNumericIncrement_EventHandlerAddress },
+        { 0x7, 30000, N64Eng_HandleNumericDecrement_EventHandlerAddress },
+        { 0xe03, 30000, N64Eng_FreeNumericWidget_EventHandlerAddress },
+        { 0xb, 30000, N64Eng_CancelSelectionRepeat_EventHandlerAddress },
+        { 0xe08, 30000, TickSelectionRepeat_EventHandlerAddress },
+        { 0x0, 0, 0 },
+    },
+    0x0,
 };
 #endif
 #if defined(VERSION_EU_X)
-unsigned int g_n64EngDispatchNumericWidgetEventWords[28] = {
-    0x00000E07, 0x00007530, 0x002A1F34, 0x0000000F, 0x00007530, 0x002A1F70, 0x00000010, 0x00007530,
-    0x002A1FAC, 0x00000008, 0x00007530, 0x002A2010, 0x00000007, 0x00007530, 0x002A208C, 0x00000E03,
-    0x00007530, 0x002A21BC, 0x0000000B, 0x00007530, 0x002A2108, 0x00000E08, 0x00007530, 0x002A2138,
-    0x00000000, 0x00000000, 0x00000000, 0x496E7669,
+NumericWidgetEventTable g_n64EngDispatchNumericWidgetEventWords = {
+    {
+        { 0xe07, 30000, N64Eng_SetLinkedCommand100_EventHandlerAddress },
+        { 0xf, 30000, N64Eng_SetLinkedCommand200_EventHandlerAddress },
+        { 0x10, 30000, N64Eng_SetLinkedCommand100WithSound_EventHandlerAddress },
+        { 0x8, 30000, N64Eng_HandleNumericIncrement_EventHandlerAddress },
+        { 0x7, 30000, N64Eng_HandleNumericDecrement_EventHandlerAddress },
+        { 0xe03, 30000, N64Eng_FreeNumericWidget_EventHandlerAddress },
+        { 0xb, 30000, N64Eng_CancelSelectionRepeat_EventHandlerAddress },
+        { 0xe08, 30000, TickSelectionRepeat_EventHandlerAddress },
+        { 0x0, 0, 0 },
+    },
+    0x496e7669,
 };
 #endif
 #if defined(VERSION_US)
-unsigned int g_n64EngDispatchNumericWidgetEventWords[28] = {
-    0x00000E07, 0x00007530, 0x002A1D24, 0x0000000F, 0x00007530, 0x002A1D60, 0x00000010, 0x00007530,
-    0x002A1D9C, 0x00000008, 0x00007530, 0x002A1E00, 0x00000007, 0x00007530, 0x002A1E7C, 0x00000E03,
-    0x00007530, 0x002A1FAC, 0x0000000B, 0x00007530, 0x002A1EF8, 0x00000E08, 0x00007530, 0x002A1F28,
-    0x00000000, 0x00000000, 0x00000000, 0x00000400,
+NumericWidgetEventTable g_n64EngDispatchNumericWidgetEventWords = {
+    {
+        { 0xe07, 30000, N64Eng_SetLinkedCommand100_EventHandlerAddress },
+        { 0xf, 30000, N64Eng_SetLinkedCommand200_EventHandlerAddress },
+        { 0x10, 30000, N64Eng_SetLinkedCommand100WithSound_EventHandlerAddress },
+        { 0x8, 30000, N64Eng_HandleNumericIncrement_EventHandlerAddress },
+        { 0x7, 30000, N64Eng_HandleNumericDecrement_EventHandlerAddress },
+        { 0xe03, 30000, N64Eng_FreeNumericWidget_EventHandlerAddress },
+        { 0xb, 30000, N64Eng_CancelSelectionRepeat_EventHandlerAddress },
+        { 0xe08, 30000, TickSelectionRepeat_EventHandlerAddress },
+        { 0x0, 0, 0 },
+    },
+    0x400,
 };
 #endif
 #endif
