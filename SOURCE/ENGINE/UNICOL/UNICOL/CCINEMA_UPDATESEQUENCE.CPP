@@ -229,11 +229,11 @@ void CCinema_UpdateSequence(void) {
     if (Cinema_IsSequenceActive() != 0 && Cinema_GetPlaybackPauseState() == 0 && g_gameStateBlock.busy == 0 && g_gameStateBlock.paused == 0 &&
         g_cinemaSequenceState->loopBounds[0] == 0) {
         if (g_cinemaSequenceState->time >= g_cinemaSequenceState->end && g_cinemaSequenceState->initialized44 == 0) {
-            FuncPtr cue = g_cinemaSequenceState->callback10;
+            Shared_MenuVoidCallback completion = g_cinemaSequenceState->callback10;
 
-            if (cue != 0) {
+            if (completion != 0) {
                 g_cinemaSequenceState->callback10 = 0;
-                cue();
+                completion();
             }
             g_cinemaSequenceState->initialized44 = 1;
         }

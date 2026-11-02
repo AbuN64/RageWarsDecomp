@@ -27,7 +27,7 @@ extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 extern void Graphu64_IdentityMatrix(Matrix *);
 extern void Graphu64_MatrixFromEulerXYZ(Matrix *, f32, f32, f32);
 extern void BuildDirectionMatrix(Matrix *, CVector3 *);
-extern void TranslateMatrix(Matrix *, CVector3);
+extern void TranslateMatrix(Matrix *, f32 x, f32 y, f32 z);
 extern void ScaleMatrixLocal(Matrix *, f32, f32, f32);
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 extern void Graphu64_ConvertMatrixToFixed(Matrix *, Matrix *);
@@ -67,7 +67,7 @@ void Player_BuildAimMarkerMatrices(SharedPlayer *player, CVector3 *target, CVect
     } else {
         BuildDirectionMatrix(&matrix, &direction);
     }
-    TranslateMatrix(&matrix, eye);
+    TranslateMatrix(&matrix, eye.x, eye.y, eye.z);
     TranslateMatrixLocal(&matrix, 0.0f, 0.0f, g_playerAimMarkerDepth);
     ScaleMatrixLocal(&matrix, 0.05f, 1.0f, g_playerAimMarkerDepth - Graphu64_GetPointDistance(&eye, &to));
     Graphu64_ConvertMatrixToFixed(&matrix, &player->views1480.view1480_1.beams[g_lightingBufferIndex]);
@@ -83,7 +83,7 @@ void Player_BuildAimMarkerMatrices(SharedPlayer *player, CVector3 *target, CVect
     Graphu64_NormalizeVec3(&direction);
     Graphu64_IdentityMatrix(&matrix);
     BuildDirectionMatrix(&matrix, &direction);
-    TranslateMatrix(&matrix, player->views1C.view260_26.muzzle);
+    TranslateMatrix(&matrix, player->views1C.view260_26.muzzle.x, player->views1C.view260_26.muzzle.y, player->views1C.view260_26.muzzle.z);
     scale = 1.0f;
     ScaleMatrixLocal(&matrix, scale, scale, -Graphu64_GetPointDistance(&origin, &player->views1464.view1464_1.aim));
     Graphu64_ConvertMatrixToFixed(&matrix, &player->views1500.view1500_1.lasers[g_lightingBufferIndex]);
@@ -96,7 +96,7 @@ void Player_BuildAimMarkerMatrices(SharedPlayer *player, CVector3 *target, CVect
         Graphu64_NormalizeVec3(&lift);
         Graphu64_ScaleVector(&lift, &lift, 2.048f);
         Graphu64_AddVec3(&eye, &eye, &lift);
-        TranslateMatrix(&matrix, to);
+        TranslateMatrix(&matrix, to.x, to.y, to.z);
         ScaleMatrixLocal(&matrix, 1.536f, scale, 1.536f);
         Graphu64_ConvertMatrixToFixed(&matrix, &player->views1580.view1580_1.dots[g_lightingBufferIndex]);
     }

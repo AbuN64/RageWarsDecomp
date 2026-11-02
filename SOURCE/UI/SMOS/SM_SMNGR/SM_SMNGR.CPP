@@ -340,7 +340,7 @@ s32 DispatchScreenRangeEvent(s32 recurse, s32 event, s32 value, void *argument, 
         switch (event) {
         case 3585:
         case 3586:
-            value = (s32)&g_screenManager->screens[first].data;
+            value = (intptr_t)&g_screenManager->screens[first].data;
             break;
         }
         element = g_screenManager->screens[first].primary;

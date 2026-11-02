@@ -41,7 +41,7 @@ enum { MENU_RESOURCE = 914 };
 #endif
 /* Advances the selected menu item and updates its display state. */
 /* Cycles a menu selection and updates the associated character setting. */
-extern int g_joinRequestRanks[];
+extern struct PlayerJoinRequestEntry g_joinRequestRanks[];
 extern unsigned char g_joinRequestRankBytes[];
 extern void MarkMenuEventHandled();
 extern struct CourseOptionsScreen *g_courseOptionsScreen;
@@ -239,7 +239,7 @@ s32 Join_CycleJoinRequestRank(s32 unused0, s32 unused1, u32 eventData, s32 event
     if ((eventKind == 3) && (eventValue == 0)) {
         MarkMenuEventHandled();
         rowByteOffset = g_courseOptionsScreen->selection * 28;
-        *(s32 *)((char *)g_joinRequestRanks + rowByteOffset) = (*(s32 *)((char *)g_joinRequestRanks + rowByteOffset) + 1) % 5;
+        ((struct PlayerJoinRequestEntry *)((char *)g_joinRequestRanks + rowByteOffset))->id = (((struct PlayerJoinRequestEntry *)((char *)g_joinRequestRanks + rowByteOffset))->id + 1) % 5;
         Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->selection);
         if (Menu_GetPreviousScreenOwner(0) == 22) {
             selectedRow = g_courseOptionsScreen->selection;

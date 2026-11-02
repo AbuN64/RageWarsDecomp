@@ -83,10 +83,10 @@ f32 Menu_MeasureLine(u8 *p, f32 sx, f32 sy) {
 }
 
 /* Returns whether Menu_CreateMenuFromParameters gives a non-zero answer for the third argument. */
-extern s32 Menu_CreateMenuFromParameters(void *);
+extern s32 Menu_CreateMenuFromParameters(void *owner, void *params);
 
 s32 Menu_TryCreateMenu(void *first, void *second, void *third) {
-    return Menu_CreateMenuFromParameters(third) != 0;
+    return Menu_CreateMenuFromParameters(third, second) != 0;
 }
 
 /* Returns zero. */

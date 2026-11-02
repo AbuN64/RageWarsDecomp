@@ -143,7 +143,7 @@ extern u16 g_pakProfileRankScore;
 
 
 
-extern s32 Menu_CountLineChars(void);
+extern s32 Menu_CountLineChars(void *item);
 
 s32 Snapshot_UpdateScoreTitle(PakNoteTextEntry *item) {
     char *title;
@@ -179,7 +179,7 @@ s32 Snapshot_UpdateScoreTitle(PakNoteTextEntry *item) {
         title = g_pakScoreAtLeast9999Title;
     }
     dest = *item->text;
-    dest += Menu_CountLineChars() - 11;
+    dest += Menu_CountLineChars(item) - 11;
     if (title != 0) {
         for (i = 0; i < 11; i++) {
             *dest++ = *title++;

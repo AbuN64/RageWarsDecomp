@@ -56,7 +56,7 @@ void *SetN64_SpawnModelEffect(void *, s32 *, s32, CVector3, CVector3, s32, f32);
 struct EffectPoolNode;
 void SetN64_RecycleGlobalEffectNode(struct EffectPoolNode *);
 s32 XPlus_NextRandomInteger(void);
-s32 Player_ResetPlayerForRound(void *, s8, s32);         /* extern */
+void Player_ResetPlayerForRound(void *, s8, s32);         /* extern */
 void Player_PlacePlayerForRound(void *);
 void Player_ReleaseObjectHandles(void *);
 
@@ -399,9 +399,9 @@ case 7:
             if (state != 31) {
                 deathSound = Playerai_SelectCharacterSound(player, 5015);
             }
-            SoundElement_PlaySoundAtPosition(deathSound, player->position.vector, (s32)&player->position.vector, -1);
+            SoundElement_PlaySoundAtPosition(deathSound, player->position.vector, (intptr_t)&player->position.vector, -1);
         } else {
-            SoundElement_PlaySoundAtPosition(2555, player->position.vector, (s32)&player->position.vector, -1);
+            SoundElement_PlaySoundAtPosition(2555, player->position.vector, (intptr_t)&player->position.vector, -1);
         }
         SoundElement_PlayFlatSound(530);
         if ((((struct Shared_ActorView *)player)->special != 0) || (deathEffectActorKind = ((struct Shared_ActorView *)player)->kind, (deathEffectActorKind == g_playerDeathEffectModelIds[0])) || (deathEffectActorKind == g_playerDeathEffectModelIds[1])) {

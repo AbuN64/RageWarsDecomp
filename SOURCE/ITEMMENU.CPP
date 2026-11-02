@@ -117,28 +117,28 @@ extern s32 g_runtimeHeapStart;
 extern void SetN64_CopyString(char *marker, char *name);
 
 static inline s32 is_restorable(u32 address) {
-    if (address >= (u32)&g_systemBootMarker && address < (u32)&g_systemBootMarker + 16) {
+    if (address >= (uintptr_t)&g_systemBootMarker && address < (uintptr_t)&g_systemBootMarker + 16) {
         return 0;
     }
-    if (address == (u32)&g_systemBootMarkerComparison) {
+    if (address == (uintptr_t)&g_systemBootMarkerComparison) {
         return 0;
     }
     if (g_systemBootMarkerComparison != 0) {
         return 1;
     }
-    if (address >= (u32)&g_controllerActorSnapshot && address < (u32)&g_controllerActorSnapshot + 1072) {
+    if (address >= (uintptr_t)&g_controllerActorSnapshot && address < (uintptr_t)&g_controllerActorSnapshot + 1072) {
         return 0;
     }
-    if (address >= (u32)&g_gameSettings && address < (u32)&g_gameSettings + 1412) {
+    if (address >= (uintptr_t)&g_gameSettings && address < (uintptr_t)&g_gameSettings + 1412) {
         return 0;
     }
-    if (address >= (u32)&g_worldSnapshotNoteData && address < (u32)&g_worldSnapshotNoteData + 22528) {
+    if (address >= (uintptr_t)&g_worldSnapshotNoteData && address < (uintptr_t)&g_worldSnapshotNoteData + 22528) {
         return 0;
     }
-    if (address >= (u32)&g_sceneCollisionStorage && address < (u32)&g_sceneCollisionStorage + 0x5000) {
+    if (address >= (uintptr_t)&g_sceneCollisionStorage && address < (uintptr_t)&g_sceneCollisionStorage + 0x5000) {
         return 0;
     }
-    if (address >= (u32)&g_gameSettings + 1496 && address <= (u32)&g_gameSettings + 1672) {
+    if (address >= (uintptr_t)&g_gameSettings + 1496 && address <= (uintptr_t)&g_gameSettings + 1672) {
         return 0;
     }
     return 1;
@@ -417,7 +417,7 @@ s32 ItemMenu_RestoreBootMemory(void) {
             src++;
         } while (count-- != 0);
     }
-    for (dst = (u32 *)&g_graphicsTaskYieldBuffer; (u32)dst < (u32)&g_runtimeHeapStart; dst++) {
+    for (dst = (u32 *)&g_graphicsTaskYieldBuffer; (u32)dst < (uintptr_t)&g_runtimeHeapStart; dst++) {
         if (is_restorable((u32)dst | 0x80000000)) {
             *dst = 0;
         }
@@ -432,7 +432,7 @@ void ItemMenu_RestoreBootMemoryNoOp(void) {
 
 s32 ItemMenu_IsRestorableAddress(u32 address) {
     address |= 0x80000000;
-    if (((address) >= (u32)&(g_systemBootMarker) && (address) < (u32)&(g_systemBootMarker) + (16)) || address == (u32)&g_systemBootMarkerComparison) {
+    if (((address) >= (u32)&(g_systemBootMarker) && (address) < (u32)&(g_systemBootMarker) + (16)) || address == (uintptr_t)&g_systemBootMarkerComparison) {
         return 0;
     }
     if (g_systemBootMarkerComparison != 0) {
@@ -450,7 +450,7 @@ s32 ItemMenu_IsRestorableAddress(u32 address) {
     if (((address) >= (u32)&(g_sceneCollisionStorage) && (address) < (u32)&(g_sceneCollisionStorage) + (0x5000))) {
         return 0;
     }
-    if (address >= (u32)&g_gameSettings.counters && address <= (u32)&g_gameSettings.counters + 176) {
+    if (address >= (uintptr_t)&g_gameSettings.counters && address <= (uintptr_t)&g_gameSettings.counters + 176) {
         return 0;
     }
     return 1;

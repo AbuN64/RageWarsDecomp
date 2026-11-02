@@ -31,7 +31,7 @@ void Weaponai_DrawRedMarkerQuad(void *object, void *unused) {
     s32 red, alpha;
     node=actor->node;
     if(node->active) {
-        gSPMatrix(g_displayListCursor++, (u32)&node->matrices[g_lightingBufferIndex], G_MTX_LOAD);
+        gSPMatrix(g_displayListCursor++, (uintptr_t)&node->matrices[g_lightingBufferIndex], G_MTX_LOAD);
         gDPPipeSync(g_displayListCursor++);
         Geometry_InvalidateMaterialKeys();
         Geometry_SetModePreset(14);
@@ -82,7 +82,7 @@ void Weaponai_DrawRedMarkerQuad(void *object, void *unused) {
         gSPVertex(g_displayListCursor++, (u32)g_weaponRedMarkerVertices, 4, 0);
         gSP1Triangle(g_displayListCursor++, 0, 1, 2, 0);
         gSP1Triangle(g_displayListCursor++, 1, 2, 3, 0);
-        if(node->extra) Fx_DrawRedParticleQuad((u32)&node->extraMatrices[g_lightingBufferIndex]);
+        if(node->extra) Fx_DrawRedParticleQuad((uintptr_t)&node->extraMatrices[g_lightingBufferIndex]);
     }
 }
 

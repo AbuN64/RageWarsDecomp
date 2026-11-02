@@ -50,7 +50,7 @@ extern char g_particleQuadRenderRestoreList;
 
 void Fx_UpdateAttachedEffects(void *);
 
-s32 Fx_UpdateTimedCallbacks(s32);
+void Fx_UpdateTimedCallbacks(s32);
 
 extern s32 g_particleQuadDisplayListState;
 
@@ -122,7 +122,7 @@ void Fx_DrawBoundedParticleQuads(ParticleQuadPoolScene *scene) {
     }
     gDPPipeSync(g_displayListCursor++);
     gDPSetCycleType(g_displayListCursor++, G_CYC_2CYCLE);
-    gDPSetTextureImage(g_displayListCursor++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (u32)&g_materialIntensityMaskTexture);
+    gDPSetTextureImage(g_displayListCursor++, G_IM_FMT_I, G_IM_SIZ_16b, 1, (uintptr_t)&g_materialIntensityMaskTexture);
     gDPSetTile(g_displayListCursor++, G_IM_FMT_I, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, G_TX_CLAMP, 0, 0, G_TX_CLAMP, 0, 0);
     gDPLoadSync(g_displayListCursor++);
     gDPLoadBlock(g_displayListCursor++, G_TX_LOADTILE, 0, 0, 127, 1024);
@@ -130,7 +130,7 @@ void Fx_DrawBoundedParticleQuads(ParticleQuadPoolScene *scene) {
     gDPSetTile(g_displayListCursor++, G_IM_FMT_I, G_IM_SIZ_8b, 2, 0, G_TX_RENDERTILE, 0, G_TX_CLAMP, 0, 0, G_TX_CLAMP, 0, 0);
     gDPSetTileSize(g_displayListCursor++, G_TX_RENDERTILE, 0, 0, 60, 60);
     gDPSetPrimColor(g_displayListCursor++, 0, 0, 255, 255, 255, 200);
-    gSPDisplayList(g_displayListCursor++, (u32)&g_particleQuadRenderSetup);
+    gSPDisplayList(g_displayListCursor++, (uintptr_t)&g_particleQuadRenderSetup);
     for (i = 0; i < 10; i++) {
         max = (&g_cameraVolumeBoundsMinZ + 1);
         list = &scene->lists[i];
@@ -148,7 +148,7 @@ void Fx_DrawBoundedParticleQuads(ParticleQuadPoolScene *scene) {
                 List_AppendIntrusive(&scene->free, particle);
             } else {
                 gSPMatrix(g_displayListCursor++, (u32)transform, G_MTX_LOAD);
-                gSPVertex(g_displayListCursor++, (u32)&g_particleQuadVertices, 4, 0);
+                gSPVertex(g_displayListCursor++, (uintptr_t)&g_particleQuadVertices, 4, 0);
                 gSP2Triangles(g_displayListCursor++, 0, 1, 2, 0, 2, 3, 0, 0);
             }
             particle = next;

@@ -159,7 +159,7 @@ void Snapshot_CheckControllerPak(Shared_PakMenu *menu) {
     }
     error = Note_NeedsIdRepair(g_introSelectedItem);
     if (error == 0) {
-        SetN64_CommitSessionInputs((s32) &g_gameSession);
+        SetN64_CommitSessionInputs((intptr_t) &g_gameSession);
         if ((menu->slot->inputFlags & 0x1000) && (g_pakStartButtonLatched == 0)) {
             g_pakRequestLatched = 1;
             g_pakStartButtonLatched = 1;
@@ -215,16 +215,16 @@ void Snapshot_CheckControllerPak(Shared_PakMenu *menu) {
                         if (freeBytes >= (s32)minBytes && freeBytes < (s32)maxBytes) {
                             g_pakMenuPromptAccepted = 1;
                             g_pakRequestLatched = 1;
-                            Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_LOW_SPACE, (s32)menu->player, (s32) menu->slot, (s32) &g_pakDialogPromptScannedChannel);
+                            Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_LOW_SPACE, (s32)menu->player, (s32) menu->slot, (intptr_t) &g_pakDialogPromptScannedChannel);
                         } else if (freeBytes < (s32)minBytes) {
                             g_pakMenuPromptAccepted = 1;
                             g_pakRequestLatched = 1;
-                            Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_FULL, (s32)menu->player, (s32) menu->slot, (s32) &g_pakDialogPromptScannedChannel);
+                            Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_FULL, (s32)menu->player, (s32) menu->slot, (intptr_t) &g_pakDialogPromptScannedChannel);
                         }
                     } else {
                         g_pakMenuPromptAccepted = 1;
                         g_pakRequestLatched = 1;
-                        Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_FULL, (s32)menu->player, (s32) menu->slot, (s32) &g_pakDialogPromptScannedChannel);
+                        Menu_OpenDialog(&g_matchEndingTeamWheelClose, &PAK_DIALOG_FULL, (s32)menu->player, (s32) menu->slot, (intptr_t) &g_pakDialogPromptScannedChannel);
                     }
                 }
             }
@@ -235,7 +235,7 @@ void Snapshot_CheckControllerPak(Shared_PakMenu *menu) {
     if (error != 0) {
         g_pakMenuPromptAccepted = 1;
         g_pakRequestLatched = 1;
-        Menu_OpenDialog(&g_matchEndingTeamWheelClose, &g_pakDialogIdRepair_SnapshotCheckeuropeansaveavailability, (s32)menu->player, (s32) menu->slot, (s32) &g_pakDialogPromptScannedChannel);
+        Menu_OpenDialog(&g_matchEndingTeamWheelClose, &g_pakDialogIdRepair_SnapshotCheckeuropeansaveavailability, (s32)menu->player, (s32) menu->slot, (intptr_t) &g_pakDialogPromptScannedChannel);
     }
 finish:
     if (g_pakMenuPromptAccepted == 0) {

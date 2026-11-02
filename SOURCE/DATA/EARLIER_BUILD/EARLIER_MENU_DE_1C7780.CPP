@@ -138,7 +138,7 @@ struct MenuBuildItemData g_earlierMenuItems_44F810[9] = {
     { 0x0000, 0x0000, 0x00010041, 0x0000, 0x0005, 0x00, 0x00, 0x00, 0x00, (int)g_earlierMenuResource18, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_43E1B8, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_44F954 = { (unsigned int)g_earlierMenuItems_44F810, 0x0009, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, (unsigned int)g_earlierMenuPaged_43E180, 0x0008, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_44FA2C };
+struct MenuBuildDefinitionData g_earlierMenuDef_44F954 = { (unsigned int)g_earlierMenuItems_44F810, 0x0009, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, (unsigned int)g_earlierMenuPaged_43E180, 0x0008, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_44FA2C };
 
 struct MenuBuildItemData g_earlierMenuItems_44F978[5] = {
     { 0x0000, 0x0000, 0x00011001, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x02, (int)g_earlierMenuResource15, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_43E3D8, 0x00000000 },
@@ -148,7 +148,7 @@ struct MenuBuildItemData g_earlierMenuItems_44F978[5] = {
     { 0x0000, 0x0000, 0x00010041, 0x0000, 0x0005, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource18, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_43E428, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_44FA2C = { (unsigned int)g_earlierMenuItems_44F978, 0x0005, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, (unsigned int)g_earlierMenuPaged_43E214, 0x0004, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_44FAEC };
+struct MenuBuildDefinitionData g_earlierMenuDef_44FA2C = { (unsigned int)g_earlierMenuItems_44F978, 0x0005, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, (unsigned int)g_earlierMenuPaged_43E214, 0x0004, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_44FAEC };
 
 struct EarlierMenuTuning g_earlierMenuTuning_44FA50 = {
     0x00000460, 0x0000000B, 0x00000000, 0x00000000,
@@ -160,7 +160,7 @@ struct EarlierMenuTuning g_earlierMenuTuning_44FA50 = {
 
 struct MenuBuildItemData g_earlierMenuItems_44FA80[3] = {
     { 0x0001, 0x0000, 0x30000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000387, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },
-    { 0x0003, 0x0000, 0x00410021, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, (int)&g_earlierMenuTuning_44FA50, (unsigned int)g_earlierMenuPaged_4407F8, (unsigned int)g_earlierMenuPaged_43E590, (unsigned int)g_earlierMenuPaged_43DB10, 0x00000000 },
+    { 0x0003, 0x0000, 0x00410021, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, (intptr_t)&g_earlierMenuTuning_44FA50, (unsigned int)g_earlierMenuPaged_4407F8, (unsigned int)g_earlierMenuPaged_43E590, (unsigned int)g_earlierMenuPaged_43DB10, 0x00000000 },
     { 0x0000, 0x0000, 0x00010081, 0x0000, 0x0019, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource14, (unsigned int)g_earlierMenuPaged_442024, (unsigned int)g_earlierMenuPaged_43E588, (unsigned int)g_earlierMenuPaged_43E528, 0x00000000 },
 };
 
@@ -196,7 +196,7 @@ struct MenuBuildItemData g_earlierMenuItems_44FC28[11] = {
     { 0x0000, 0x0000, 0x00010201, 0x0000, 0x002D, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource79, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_442344, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_44FDB4 = { (unsigned int)g_earlierMenuItems_44FC28, 0x000B, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x000A, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_44FE68 };
+struct MenuBuildDefinitionData g_earlierMenuDef_44FDB4 = { (unsigned int)g_earlierMenuItems_44FC28, 0x000B, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x000A, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_44FE68 };
 
 struct MenuBuildItemData g_earlierMenuItems_44FDD8[4] = {
     { 0x0001, 0x0000, 0x10000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000385, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },
@@ -205,7 +205,7 @@ struct MenuBuildItemData g_earlierMenuItems_44FDD8[4] = {
     { 0x0000, 0x0000, 0x00010201, 0x0000, 0x0038, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource79, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_442344, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_44FE68 = { (unsigned int)g_earlierMenuItems_44FDD8, 0x0004, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0002, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_4500CC };
+struct MenuBuildDefinitionData g_earlierMenuDef_44FE68 = { (unsigned int)g_earlierMenuItems_44FDD8, 0x0004, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0002, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_4500CC };
 
 struct MenuBuildItemData g_earlierMenuItems_44FE8C[5] = {
     { 0x0001, 0x0000, 0x10000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000385, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },
@@ -223,7 +223,7 @@ struct MenuBuildItemData g_earlierMenuItems_44FF88[1] = {
     { 0x0001, 0x0000, 0x10000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000385, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_44FFAC = { (unsigned int)g_earlierMenuItems_44FF88, 0x0001, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0002, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_4500CC };
+struct MenuBuildDefinitionData g_earlierMenuDef_44FFAC = { (unsigned int)g_earlierMenuItems_44FF88, 0x0001, 0x0000, 0x00000000, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0002, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_4500CC };
 
 struct MenuBuildItemData g_earlierMenuItems_44FFD0[7] = {
     { 0x0001, 0x0000, 0x10000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000384, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },

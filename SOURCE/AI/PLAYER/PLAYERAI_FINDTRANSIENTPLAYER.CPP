@@ -226,9 +226,9 @@ void Playerai_DrawAimMarker(Player16C0 *player) {
 
     if (player->alive != 0) {
         if (Tsmos_IsFrontendActive() != 0) {
-            gSPMatrix(g_displayListCursor++, (u32) &player->markers[0], G_MTX_LOAD);
+            gSPMatrix(g_displayListCursor++, (uintptr_t) &player->markers[0], G_MTX_LOAD);
         } else {
-            gSPMatrix(g_displayListCursor++, (u32) &player->markers[g_lightingBufferIndex], G_MTX_LOAD);
+            gSPMatrix(g_displayListCursor++, (uintptr_t) &player->markers[g_lightingBufferIndex], G_MTX_LOAD);
         }
         gDPPipeSync(g_displayListCursor++);
         Geometry_InvalidateMaterialKeys();

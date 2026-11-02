@@ -78,7 +78,7 @@ extern void **g_collisionCurrentActor;
 
 
 extern void Player_UpdateViewAngles(void *, void *, void *);
-extern Shared_Quad Playerai_ComputeAimRotation(void *, void **, Shared_Quad *);
+extern CQuatern Playerai_ComputeAimRotation(void *, void **, CVector3 *);
 extern f32 Graphu64_GetPointDistance(f32 *, f32 *);
 extern s32 CCollision_SweepPoint(void *, CVector3, CVector3, void *);
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
@@ -95,7 +95,7 @@ extern f32 Graphu64_GetHorizontalAngle(CVector3 *);
 
 
 void Playerai_UpdateTargetFacing(void *player, void *body) {
-    Shared_Quad aimRotation;
+    CQuatern aimRotation;
     Shared_Quad aimWords;
     CVector3 toTarget;
     void *aimTarget;
@@ -105,7 +105,7 @@ void Playerai_UpdateTargetFacing(void *player, void *body) {
 
     Player_UpdateViewAngles(player, body, &g_playerAirViewAngleParameters);
     if (((Shared_ActorView *)player)->targeting != 0) {
-        aimRotation = Playerai_ComputeAimRotation(player, &aimTarget, &aimWords);
+        aimRotation = Playerai_ComputeAimRotation(player, &aimTarget, (CVector3 *)&aimWords);
         if (aimTarget != 0) {
             position = &((Shared_ActorView *)player)->position.vector.x;
             if (!(g_playerTargetFacingDistanceLimits[1] < Graphu64_GetPointDistance(position, &((Shared_ActorView *)aimTarget)->position.vector.x))) {

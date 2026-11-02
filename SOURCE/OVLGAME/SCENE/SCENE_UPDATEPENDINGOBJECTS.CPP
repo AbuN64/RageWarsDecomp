@@ -7,7 +7,7 @@
 /* Sets the resource transition state and sound, while its adjacent helper refreshes the controller-option bit. */
 
 
-extern void Scene_LoadSceneLight(void);
+extern void Scene_LoadSceneLight(void *scene);
 void Scene_SetSelection(ItemsSelectionState *state,int selection,int mode) {
  state->active=1;
  state->mode=mode;
@@ -15,7 +15,7 @@ void Scene_SetSelection(ItemsSelectionState *state,int selection,int mode) {
  if(mode==2 && selection!=999)SoundElement_PlayFlatSound(540);
 }
 void Scene_LoadSelectionLighting(ItemsSelectionState *state) {
- Scene_LoadSceneLight();
+ Scene_LoadSceneLight(state);
  g_geometryFogEffectEnabled=(state->input->value>>2)&1;
 }
 

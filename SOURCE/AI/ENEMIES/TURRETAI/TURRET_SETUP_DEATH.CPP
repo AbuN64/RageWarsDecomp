@@ -7,10 +7,10 @@
 #include "TYPES.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 
-extern s32 Turret_TrackTarget(void *actor);
+extern s32 Turret_TrackTarget(void *actor, void *riderState);
 
 
-extern s32 Barrel_SpawnFlaggedEffects(void *actor, void *emittedFlags, s32 emissionFlag, s32 primaryEffectMask, s32 secondaryEffectMask);
+extern void Barrel_SpawnFlaggedEffects(void *actor, void *emittedFlags, s32 emissionFlag, s32 primaryEffectMask, s32 secondaryEffectMask);
 
 extern void Rumble_SetActorStateBit(Shared_World *, void *, s32);
 
@@ -21,13 +21,13 @@ s32 Animpool_ReleaseSceneEffect(void *);
 extern s32 Rumble_TestActorStateBit(void *, void *);
 
 void Turret_Code_IDLE(void *actor, void *state) {
-    if (Turret_TrackTarget(actor) != 0) {
+    if (Turret_TrackTarget(actor, state) != 0) {
         Actor_RequestActorState(actor, state, 63);
     }
 }
 
 void Turret_Code_FIRE(void *actor, void *state) {
-    if (Turret_TrackTarget(actor) == 0) {
+    if (Turret_TrackTarget(actor, state) == 0) {
         Actor_RequestActorState(actor, state, 62);
     }
 }

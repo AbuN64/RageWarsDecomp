@@ -85,7 +85,7 @@ void Playerai_DrawForceMarker(char *player) {
     }
     if (index != -1) {
         Geometry_QueueDirectModel(Scene_GetIndexedModelResource(&g_world, index),
-                      (s32)((Shared_ActorView *)player)->transform1600, (s32)&g_defaultParticleLighting, 0, -1);
+                      (s32)((Shared_ActorView *)player)->transform1600, (intptr_t)&g_defaultParticleLighting, 0, -1);
     }
 }
 

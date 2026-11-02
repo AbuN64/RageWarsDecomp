@@ -102,7 +102,7 @@ void SoundElement_PlayDialogGroup(s32 callback) {
 }
 
 void SoundElement_StopDialog(void) {
-    Audio_StopContextDialog((s32) &g_soundElementContext);
+    Audio_StopContextDialog((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_StopSoundsByIdentifier(s32 soundId) {

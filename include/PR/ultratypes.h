@@ -57,6 +57,14 @@ typedef volatile long long          vs64;   /* signed 64-bit */
 typedef float   f32;    /* single prec floating point */
 typedef double  f64;    /* double prec floating point */
 
+/* Integers that hold an address: the width of a pointer (32 bits on the R4300, 64 on a 64-bit port host). */
+#if !defined(_UINTPTR_T) && !defined(_UINTPTR_T_DEFINED)
+#define _UINTPTR_T
+#define _UINTPTR_T_DEFINED
+typedef unsigned int    uintptr_t;
+typedef int             intptr_t;
+#endif
+
 #if !defined(_SIZE_T) && !defined(_SIZE_T_) && !defined(_SIZE_T_DEF)
 #define _SIZE_T
 #define _SIZE_T_DEF         /* exeGCC size_t define label */

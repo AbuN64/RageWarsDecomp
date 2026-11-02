@@ -25,9 +25,9 @@ extern int Playerai_GetFirstPlayer(void *world);
 struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameSession *session, s32 cancelTarget, s32 target);
 
 
-s32 SetN64_DrawCreditsLines(s32);
+void SetN64_DrawCreditsLines(s32);
 
-s32 CCredits_UpdateScroll(s32);
+void CCredits_UpdateScroll(s32);
 
 
 void SetN64_SelectSpawnAfterCredits(void *scene, s32 spawnIndex) {

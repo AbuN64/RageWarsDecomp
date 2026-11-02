@@ -24,41 +24,41 @@ s32 g_frontendLoadoutResourceHalfwords[75] = {
 /* g_LoadoutEquipmentItemsUsRev1_Ovl1J.CPP */
 RestLoadoutEquipmentItemsUsRev1Layout775 g_LoadoutEquipmentItemsUsRev1 = {
     { 152, 5015, 10 },
-    (void *)((char *)&g_weaponLockedNoticeText + 52),
+    (void *)(g_weaponLockedNoticeText + 52),
     { 173, 5014, 12 },
-    (void *)((char *)&g_weaponLockedNoticeText + 60),
+    (void *)(g_weaponLockedNoticeText + 60),
     { 175, 5037, 11 },
-    (void *)((char *)&g_weaponLockedNoticeText + 56),
+    (void *)(g_weaponLockedNoticeText + 56),
 };
 /* g_loadoutWeaponItems_Ovl1J.CPP */
 RestloadoutWeaponItemsLayout776 g_loadoutWeaponItems = {
     { 179, 5033, 1 },
-    (void *)((char *)&g_weaponLockedNoticeText + 16),
+    (void *)(g_weaponLockedNoticeText + 16),
     { 162, 5019, 15 },
-    (void *)((char *)&g_weaponLockedNoticeText + 72),
+    (void *)(g_weaponLockedNoticeText + 72),
     { 154, 5025, 13 },
-    (void *)((char *)&g_weaponLockedNoticeText + 64),
+    (void *)(g_weaponLockedNoticeText + 64),
     { 155, 5026, 9 },
-    (void *)((char *)&g_weaponLockedNoticeText + 48),
+    (void *)(g_weaponLockedNoticeText + 48),
     { 153, 5018, 8 },
-    (void *)((char *)&g_weaponLockedNoticeText + 44),
+    (void *)(g_weaponLockedNoticeText + 44),
     { 170, 5005, 14 },
-    (void *)((char *)&g_weaponLockedNoticeText + 68),
+    (void *)(g_weaponLockedNoticeText + 68),
     { 174, 5007, 7 },
-    (void *)((char *)&g_weaponLockedNoticeText + 40),
+    (void *)(g_weaponLockedNoticeText + 40),
     { 176, 5004, 2 },
-    (void *)((char *)&g_weaponLockedNoticeText + 20),
+    (void *)(g_weaponLockedNoticeText + 20),
 };
 /* g_LoadoutAbilitiesItemsUsRev1_Ovl1J.CPP */
 RestLoadoutAbilitiesItemsUsRev1Layout777 g_LoadoutAbilitiesItemsUsRev1 = {
     { 169, 5031, 5 },
-    (void *)((char *)&g_weaponLockedNoticeText + 32),
+    (void *)(g_weaponLockedNoticeText + 32),
     { 171, 5022, 3 },
-    (void *)((char *)&g_weaponLockedNoticeText + 24),
+    (void *)(g_weaponLockedNoticeText + 24),
     { 172, 5011, 6 },
-    (void *)((char *)&g_weaponLockedNoticeText + 36),
+    (void *)(g_weaponLockedNoticeText + 36),
     { 177, 5003, 4 },
-    (void *)((char *)&g_weaponLockedNoticeText + 28),
+    (void *)(g_weaponLockedNoticeText + 28),
 };
 /* g_MenuEventHandlersE6804UsRev1_Ovl1J.CPP */
 extern char addrLow_Player_StartFourPlayerResults[];

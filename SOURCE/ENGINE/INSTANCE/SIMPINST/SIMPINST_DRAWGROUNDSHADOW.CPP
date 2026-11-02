@@ -35,7 +35,7 @@ extern f32 Gobjinst_GetActorRadius(ActorSimpleInstanceSpawnModelEffect *actor);
  * Geometry_DrawIntensityMask. */
 
 
-extern struct CQuatern_t Insthdr_BuildActorGroundRotation(char *obj);
+extern CQuatern Insthdr_BuildActorGroundRotation(char *obj);
 
 extern void Graphu64_LimitVectorLength(CVector3 *, f32);
 

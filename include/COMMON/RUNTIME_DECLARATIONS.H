@@ -1770,7 +1770,6 @@ extern char *g_profileRank7LocalizedTitles[];
 
 extern CharacterScreenCell g_characterSelectionMenuOptionCells[][9];
 
-extern int g_joinRequestRanks[];
 
 extern u32 g_displayListCapacityUs;
 

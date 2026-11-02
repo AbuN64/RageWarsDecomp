@@ -139,8 +139,14 @@ unsigned int g_itemsConstantWordsBlock1[3] = {
 
 /* MENU_ITEM_STATUS_TEXT_STORAGE.CPP */
 #if defined(VERSION_US)
-unsigned int g_menuItemStatusTextStorage[3] = {
-    0x00001452, 0x41585F50, 0x555F5354,
+struct {
+    unsigned int words0[1];
+    char text1[8];
+} g_menuItemStatusTextStorage = {
+    {
+        0x00001452, 0x41585F50, 0x555F5354,
+    },
+    "AX_PU_ST",
 };
 #endif
 

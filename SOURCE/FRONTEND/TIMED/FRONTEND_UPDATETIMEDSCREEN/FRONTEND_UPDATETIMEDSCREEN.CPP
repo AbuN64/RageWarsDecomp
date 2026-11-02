@@ -2,8 +2,14 @@
 
 /* g_FrontendUpdatetimedscreenEncodedWords_FrontendUpdatetimedscreen.CPP */
 #if defined(VERSION_US)
-unsigned int g_FrontendUpdatetimedscreenEncodedWords[4] = {
-    0x5241585F, 0x56494354, 0x4F52595F, 0x3D888889,
+struct {
+    char text0[12];
+    unsigned int words1[1];
+} g_FrontendUpdatetimedscreenEncodedWords = {
+    "RAX_VICTORY_",
+    {
+        0x3D888889,
+    },
 };
 #endif
 

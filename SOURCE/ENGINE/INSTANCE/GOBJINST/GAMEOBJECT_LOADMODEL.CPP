@@ -87,7 +87,7 @@ void Gobjinst_LoadModel(void *actorStorage, s32 *modelDirectory, s32 directoryBa
 
 /* GOBJINST_3.CPP */
 /* Update or blend object rotation when the movement state permits it. */
-struct CQuatern_t Insthdr_BuildActorGroundRotation(char *obj);
+CQuatern Insthdr_BuildActorGroundRotation(char *obj);
 
  /* extern */
 unsigned int InstHdr_UsesGroundRotation(char *object);

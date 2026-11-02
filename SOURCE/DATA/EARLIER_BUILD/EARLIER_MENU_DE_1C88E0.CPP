@@ -179,7 +179,7 @@ struct MenuBuildItemData g_earlierMenuItems_450E80[5] = {
     { 0x0000, 0x0000, 0x00010101, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource76, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, (unsigned int)g_earlierMenuPaged_442344, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_450F34 = { (unsigned int)g_earlierMenuItems_450E80, 0x0005, 0x0000, (unsigned int)g_earlierMenuPaged_444E30, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0004, 0x0000, 0x0000, 0x0000, (int)&g_earlierMenuDef_4511E0 };
+struct MenuBuildDefinitionData g_earlierMenuDef_450F34 = { (unsigned int)g_earlierMenuItems_450E80, 0x0005, 0x0000, (unsigned int)g_earlierMenuPaged_444E30, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, 0x00000000, 0x0004, 0x0000, 0x0000, 0x0000, (intptr_t)&g_earlierMenuDef_4511E0 };
 
 struct MenuBuildItemData g_earlierMenuItems_450F58[7] = {
     { 0x0001, 0x0000, 0x50000000, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, 0x00000385, (unsigned int)g_earlierMenuPaged_44029C, 0x00000000, 0x00000000, 0x00000000 },

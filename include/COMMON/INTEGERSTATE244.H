@@ -158,7 +158,7 @@ extern void Player_UpdateRunEndPlayer(void *);
 struct PlayerSequenceActorView;
 extern void Playerai_TryStartPlayerSequence(struct PlayerSequenceActorView *a, void *b, int c);
 
-s32 Playerai_ApplyProjectileStatus(s32, void *, s32, s32);
+void Playerai_ApplyProjectileStatus(s32, void *, s32, s32);
 
 
 #endif

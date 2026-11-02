@@ -19,9 +19,15 @@ s32 CBitReader_ReadBits(BitReader *, s32);
 
 extern void AnimPool_InitializeBitReader(BitReader *, void *);
 /* Decode a 17-by-17 region grid, then replace variable cells with stream offsets. */
+/* A region bound as the stream holds it: three float bit patterns, read as words and compared as floats. */
+typedef union VisdataRegionBound {
+    CVector3 v;
+    s32 bits[3];
+} VisdataRegionBound;
+
 void Visdata_DecodeRegionGrid(ResourceBitGrid *grid, s32 originX, s32 originZ,
                    DraftStreamData *source, CVector3 *position) {
-    CVector3 minimum, maximum;
+    VisdataRegionBound minimum, maximum;
     u32 streamCount, streamIndex;
     s32 row, column, cellCode, index;
     s32 *streamTable = &source->count;
@@ -31,15 +37,15 @@ void Visdata_DecodeRegionGrid(ResourceBitGrid *grid, s32 originX, s32 originZ,
     streamIndex = 1;
     while (streamIndex < streamCount) {
         AnimPool_InitializeBitReader(&grid->reader, SetN64_GetPackSection(streamTable, streamIndex));
-        *(s32 *)&minimum.x = CBitReader_ReadBits(&grid->reader, 32);
-        *(s32 *)&minimum.y = CBitReader_ReadBits(&grid->reader, 32);
-        *(s32 *)&minimum.z = CBitReader_ReadBits(&grid->reader, 32);
-        *(s32 *)&maximum.x = CBitReader_ReadBits(&grid->reader, 32);
-        *(s32 *)&maximum.y = CBitReader_ReadBits(&grid->reader, 32);
-        *(s32 *)&maximum.z = CBitReader_ReadBits(&grid->reader, 32);
-        if (position->x > minimum.x && position->x < maximum.x &&
-            position->y > minimum.y && position->y < maximum.y &&
-            position->z > minimum.z && position->z < maximum.z) break;
+        minimum.bits[0] = CBitReader_ReadBits(&grid->reader, 32);
+        minimum.bits[1] = CBitReader_ReadBits(&grid->reader, 32);
+        minimum.bits[2] = CBitReader_ReadBits(&grid->reader, 32);
+        maximum.bits[0] = CBitReader_ReadBits(&grid->reader, 32);
+        maximum.bits[1] = CBitReader_ReadBits(&grid->reader, 32);
+        maximum.bits[2] = CBitReader_ReadBits(&grid->reader, 32);
+        if (position->x > minimum.v.x && position->x < maximum.v.x &&
+            position->y > minimum.v.y && position->y < maximum.v.y &&
+            position->z > minimum.v.z && position->z < maximum.v.z) break;
         streamIndex++;
     }
     if (streamIndex == streamCount) {

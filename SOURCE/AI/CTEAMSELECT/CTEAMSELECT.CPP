@@ -281,7 +281,7 @@ typedef struct WeaponWheelDraftState {
 } WeaponWheelDraftState;
 
 s16 Weaponai_NextAvailableWeapon(void *);
-s32 Rumble_SetEffectOwnerSlot(s32, s32);
+void Rumble_SetEffectOwnerSlot(s32, s32);
 void TeamSelect_UpdateDraftPanel(WeaponWheelDraftState *state, DraftPlayer17F4C *player, s32 unused2)
 {
     if ((u32)(player->type - 17) < 2) return;

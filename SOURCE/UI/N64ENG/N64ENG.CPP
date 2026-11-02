@@ -39,7 +39,7 @@ RecordN64EngCreateNumericWidget *N64Eng_CreateNumericWidget(s32 sourceResourceId
     *(InstanceHdr *)&result->fields_2C = *(InstanceHdr *)&source->fields_2C;
     child = Node_FindWidgetByResourceId((void*)context, childResourceId & 0xFFFF);
     result->childWidget = child;
-    child->fields_2C[3] = (s32)&result->valueText;
+    child->fields_2C[3] = (intptr_t)&result->valueText;
     result->maximumValue = maximumValue;
     result->minimumValue = minimumValue;
     result->value = 0;

@@ -68,7 +68,7 @@ void Playerai_UpdateAimAndLockMarker(AimPlayer *player) {
     localForward.y = 0;
     localForward.z = g_playerAimProbeDistance;
     Graphu64_TransformPoint(matrix, &localForward, &desired);
-    if (CCollision_SweepPoint((char *)player, current, desired, (s32) &g_particleCollisionProbeResult) != 0) {
+    if (CCollision_SweepPoint((char *)player, current, desired, (intptr_t) &g_particleCollisionProbeResult) != 0) {
         player->aim = g_collisionCurrentActor->point;
         player->normal = g_collisionCurrentActor->normal;
         player->target = g_collisionCurrentActor->actor;
@@ -81,7 +81,7 @@ void Playerai_UpdateAimAndLockMarker(AimPlayer *player) {
     localForward.z = g_playerAimLockProbeDistance;
     Graphu64_TransformPoint(matrix, &localForward, &desired);
     if (player->enabled != 0) {
-        if ((CCollision_SweepPoint((char *)player, current, desired, (s32) &g_playerCollisionProbe) != 0) && (rayHitActor = g_collisionCurrentActor->actor, (rayHitActor != NULL))) {
+        if ((CCollision_SweepPoint((char *)player, current, desired, (intptr_t) &g_playerCollisionProbe) != 0) && (rayHitActor = g_collisionCurrentActor->actor, (rayHitActor != NULL))) {
             if (rayHitActor->kind == 1) {
                 if (rayHitActor->flags & 0x300000) {
                     Graphu64_SubtractVectors((CVector3 *)&aimRotation, &rayHitActor->pos, &player->worldPosition);

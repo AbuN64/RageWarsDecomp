@@ -50,7 +50,7 @@ void Cartridge_ReadChunksAndWait(struct CartridgeReadWorker *cartridgeReadWorker
     s32 length;
     Chunk *chunk;
 
-    osCreateMesgQueue(queue, (s32) &queue_init, 1);
+    osCreateMesgQueue(queue, (intptr_t) &queue_init, 1);
     remaining = byteCount;
     do {
         chunk = Cartridge_AcquireReadRequest(cartridgeReadWorker);

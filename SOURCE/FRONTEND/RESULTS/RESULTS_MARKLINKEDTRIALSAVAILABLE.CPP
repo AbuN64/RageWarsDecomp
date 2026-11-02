@@ -29,7 +29,7 @@ void Results_MarkLinkedTrialsAvailable(void *trialBits) {
     s32 value;
     s32 i;
 
-    category=(unsigned int)&g_gameSettingsView;
+    category=(uintptr_t)&g_gameSettingsView;
     globals=(struct GameSettingsModeStatusView *)category;
     switch (globals->mode) {
     case 1:

@@ -5,9 +5,9 @@
 #include "TYPES.H"
 #include "AUDIO/audio_initbitreverseorder.H"
 
-s16 Audio_DecodeFrame();
-u32 Audio_DecodeFrameOk(void) {
-    return (u32) ~Audio_DecodeFrame() >> 31;
+s16 Audio_DecodeFrame(void *stream);
+u32 Audio_DecodeFrameOk(void *stream) {
+    return (u32) ~Audio_DecodeFrame(stream) >> 31;
 }
 
 /* Fills the first N words of an index table with 0..N-1, then applies the bit-reversal

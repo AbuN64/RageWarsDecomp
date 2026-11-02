@@ -5,7 +5,7 @@
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "TYPES.H"
 
-extern s32 Gsky_StartEmitter(void *obj, f32 amplitudeX, f32 amplitudeY, f32 amplitudeZ, f32 scale, s32 value, Triple pos);
+extern void Gsky_StartEmitter(void *obj, f32 amplitudeX, f32 amplitudeY, f32 amplitudeZ, f32 scale, s32 value, Triple pos);
 
 extern f32 k_playerEventClipScale[2];
 

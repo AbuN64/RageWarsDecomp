@@ -116,7 +116,7 @@ extern void Scene_ResetTransitionViewport(void);
 struct Shared_World; extern void Scene_ReleaseCachedLevelData(struct Shared_World *world);
 extern int SetN64_GetDirectoryEntry();
 extern s32 XPlus_NextRandomInteger();
-extern s32 OnScreen_StartFirstStatusBar();
+extern void OnScreen_StartFirstStatusBar();
 extern void OnScreen_StartSecondStatusBar();
 extern void Menu_TriggerTrackEvent(int event);
 extern void Player_RefreshActivePlayerSceneState();

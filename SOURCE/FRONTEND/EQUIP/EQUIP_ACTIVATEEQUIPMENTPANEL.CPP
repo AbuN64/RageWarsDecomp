@@ -157,7 +157,7 @@ void Equip_CycleEquipmentChoice(s32 player, s32 step) {
             if (valid == 1 && (category == 2 || category == 3) &&
                 g_loadoutWeaponItems[value].kind == 15 &&
                 !(g_gameSettingsView.flags & 0x10000000) &&
-                !Player_HasProfileUnlockFlag((s32)&g_localPlayerProfiles[player], 15)) {
+                !Player_HasProfileUnlockFlag((intptr_t)&g_localPlayerProfiles[player], 15)) {
                 value += step;
                 valid = 0;
             }

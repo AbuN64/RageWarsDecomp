@@ -385,7 +385,7 @@ void Sky_DrawDepthSortedSceneEffects(Scene *scene, ClipView *view) {
         return;
     }
     gDPPipeSync(g_displayListCursor++);
-    gSPMatrix(g_displayListCursor++, (u32)(((u32)&g_skyEffectProjectionMatrix)), G_MTX_LOAD);
+    gSPMatrix(g_displayListCursor++, (u32)(((uintptr_t)&g_skyEffectProjectionMatrix)), G_MTX_LOAD);
     gMoveWd(g_displayListCursor++, G_MW_CLIP, 4, (u32)((2)));
     gMoveWd(g_displayListCursor++, G_MW_CLIP, 12, (u32)((2)));
     gMoveWd(g_displayListCursor++, G_MW_CLIP, 20, (u32)((0xFFFE)));

@@ -80,7 +80,7 @@ extern CVector3 g_particleZeroVector;
 extern s32 Region_GetModelBlendByte59(s32);
 
 extern void Events_DeliverContactEffect(void *, void *, u16, s32, CVector3, struct IntPair);
-extern struct CacheResourceBlockView Graphu64_BuildDirectionQuaternion(CVector3 *);
+extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 #include "ENGINE/PARTICLE.H"
@@ -402,7 +402,7 @@ void Particle_Update(Shared_Particle *particle) {
 
 void Particle_HandleInitialMaterialContact(Shared_Particle *particle) {
     struct IntPair pair;
-    struct CacheResourceBlockView rotation;
+    CQuatern rotation;
     CVector3 position;
     s32 surfaceIndex;
     struct Shared_ParticleEvents *events;
@@ -445,7 +445,7 @@ void Particle_HandleInitialMaterialContact(Shared_Particle *particle) {
                           (struct EffectActor *)particle->owner,
                           (s32 *)particle->ownerId,
                           (s32)particle->target, kind,
-                          position, *(CQuatern *)&rotation, g_particlePrimaryContactPosition, 0,
+                          position, rotation, g_particlePrimaryContactPosition, 0,
                           g_particlePrimaryContactRoom,
                           (particle->flags & 0x200006) | 1);
         }
@@ -465,7 +465,7 @@ skip_effects:
 
 void Particle_HandleTypedContact(Shared_Particle *particle) {
     struct IntPair pair;
-    struct CacheResourceBlockView rotation;
+    CQuatern rotation;
     CVector3 position;
     s32 surfaceIndex;
     struct Shared_ParticleEvents *events;
@@ -510,7 +510,7 @@ void Particle_HandleTypedContact(Shared_Particle *particle) {
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
-                      position, *(CQuatern *)&rotation, g_particleTertiaryContactPosition, 0,
+                      position, rotation, g_particleTertiaryContactPosition, 0,
                       -5,
                       (particle->flags & 0x200006) | 1);
     }
@@ -526,7 +526,7 @@ void Particle_HandleTypedContact(Shared_Particle *particle) {
 
 void Particle_HandleSelectedSurfaceContact(Shared_Particle *particle) {
     struct IntPair pair;
-    struct CacheResourceBlockView rotation;
+    CQuatern rotation;
     CVector3 position;
     s32 surfaceIndex;
     struct Shared_ParticleEvents *events;
@@ -567,7 +567,7 @@ void Particle_HandleSelectedSurfaceContact(Shared_Particle *particle) {
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
-                      position, *(CQuatern *)&rotation, g_particleSecondaryContactPosition, 0,
+                      position, rotation, g_particleSecondaryContactPosition, 0,
                       -3,
                       (particle->flags & 0x200006) | 1);
     }
@@ -585,7 +585,7 @@ void Particle_HandleSelectedSurfaceContact(Shared_Particle *particle) {
 
 void Particle_HandleMaterialContact(Shared_Particle *particle) {
     struct IntPair pair;
-    struct CacheResourceBlockView rotation;
+    CQuatern rotation;
     CVector3 position;
     s32 surfaceIndex;
     struct Shared_ParticleEvents *events;
@@ -622,7 +622,7 @@ void Particle_HandleMaterialContact(Shared_Particle *particle) {
                       (struct EffectActor *)particle->owner,
                       (s32 *)particle->ownerId,
                       (s32)particle->target, kind,
-                      position, *(CQuatern *)&rotation, g_particleSecondaryContactPosition, 0,
+                      position, rotation, g_particleSecondaryContactPosition, 0,
                       -2,
                       (particle->flags & 0x200006) | 1);
     }

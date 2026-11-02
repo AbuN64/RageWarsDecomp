@@ -17,7 +17,7 @@ extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
 extern void *Scene_GetStridedWorldRecord(struct Shared_World *object, int index);
 
-void Gdynlight_AccumulateLightDirections(RangeNode **lightList, u32 positionXBits, u32 positionYBits, u32 positionZBits,
+void Gdynlight_AccumulateLightDirections(RangeNode **lightList, CVector3 position,
                    CVector3 *left, f32 *remainingIntensity) {
     CVector3 delta;
     f32 deltaZ;
@@ -35,18 +35,18 @@ void Gdynlight_AccumulateLightDirections(RangeNode **lightList, u32 positionXBit
     if (node != 0) {
         do {
             if (node->active != 0) {
-                absoluteDeltaX = *(f32 *)&positionXBits - (f32)node->x;
+                absoluteDeltaX = position.x - (f32)node->x;
                 radius_ptr = node->radius;
                 if (absoluteDeltaX < 0.0f) {
                     absoluteDeltaX = -absoluteDeltaX;
                 }
-                deltaY = *(f32 *)&positionYBits - (f32)node->y;
+                deltaY = position.y - (f32)node->y;
                 if (deltaY < 0.0f) {
                     distanceXY = absoluteDeltaX - deltaY;
                 } else {
                     distanceXY = absoluteDeltaX + deltaY;
                 }
-                deltaZ = *(f32 *)&positionZBits - (f32)node->z;
+                deltaZ = position.z - (f32)node->z;
                 if (deltaZ < 0.0f) {
                     distanceXYZ = distanceXY - deltaZ;
                 } else {
@@ -54,9 +54,9 @@ void Gdynlight_AccumulateLightDirections(RangeNode **lightList, u32 positionXBit
                 }
                 lightRadius = (f32)*radius_ptr;
                 if (distanceXYZ < lightRadius) {
-                    delta.x = (f32)node->x - *(f32 *)&positionXBits;
-                    delta.y = (f32)node->y - *(f32 *)&positionYBits;
-                    delta.z = (f32)node->z - *(f32 *)&positionZBits;
+                    delta.x = (f32)node->x - position.x;
+                    delta.y = (f32)node->y - position.y;
+                    delta.z = (f32)node->z - position.z;
                     falloffFraction = g_dynamicLightFalloffUnit - (distanceXYZ / lightRadius);
                     Graphu64_NormalizeVec3(&delta);
                     directionWeight = falloffFraction * g_dynamicLightDirectionScale;

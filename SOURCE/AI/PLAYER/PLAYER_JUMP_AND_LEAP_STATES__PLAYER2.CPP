@@ -130,17 +130,17 @@ void Player_BeginJump(Player *player, void *bodyActor) {
         case 0:
             SoundElement_PlaySoundAtPosition(6305,
                           player->pos,
-                          (s32)&player->pos, -1);
+                          (intptr_t)&player->pos, -1);
             break;
         case 1:
             SoundElement_PlaySoundAtPosition(6505,
                           player->pos,
-                          (s32)&player->pos, -1);
+                          (intptr_t)&player->pos, -1);
             break;
         case 2:
             SoundElement_PlaySoundAtPosition(6405,
                           player->pos,
-                          (s32)&player->pos, -1);
+                          (intptr_t)&player->pos, -1);
             break;
             }
         }

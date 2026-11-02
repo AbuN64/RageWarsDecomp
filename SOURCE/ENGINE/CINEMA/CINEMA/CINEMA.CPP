@@ -134,10 +134,10 @@ void Cinema_UpdateSequenceTrack(void *camera) {
     }
 }
 
-void Cinema_DrawSequenceOverlay(void) {
+void Cinema_DrawSequenceOverlay(void *view) {
     Shared_MenuContext *record = g_cinemaSequenceState;
     if (record->active != 0) {
-        Track_DrawTrackOverlay();
+        Track_DrawTrackOverlay((struct ScreenRectangle *)view);
     }
 }
 
@@ -296,14 +296,14 @@ void Cinema_ReleaseSequenceContext(void) {
 /* 80243A80_10.CPP */
 void Cinema_InitializeSequenceOnce(s32 unused) {
     Shared_MenuContext *record;
-    Shared_MenuVoidCallback fn;
+    Shared_MenuVoidCallback completion;
 
     record = g_cinemaSequenceState;
     if (record->initialized44 == 0) {
-        fn = record->callback10;
-        if (fn != 0) {
+        completion = record->callback10;
+        if (completion != 0) {
             record->callback10 = 0;
-            fn();
+            completion();
         }
         record = g_cinemaSequenceState;
         record->initialized44 = 1;

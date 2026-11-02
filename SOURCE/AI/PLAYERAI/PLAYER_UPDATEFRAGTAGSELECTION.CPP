@@ -221,13 +221,13 @@ void Player_UpdateFragTagSelection(s8 *world) {
                                 player->profile->fragTagEnabled = 1;
                                 switch (g_fragTagSelectSoundVariant) {
                                 case 0:
-                                    SoundElement_PlaySoundAtPosition(6305, player->position, (s32)&player->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6305, player->position, (intptr_t)&player->position, -1);
                                     break;
                                 case 1:
-                                    SoundElement_PlaySoundAtPosition(6505, player->position, (s32)&player->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6505, player->position, (intptr_t)&player->position, -1);
                                     break;
                                 case 2:
-                                    SoundElement_PlaySoundAtPosition(6405, player->position, (s32)&player->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6405, player->position, (intptr_t)&player->position, -1);
                                     break;
                                 }
                                 TeamSelect_EmptyWeaponWheelHook(&player->animationState);
@@ -295,13 +295,13 @@ void Player_UpdateFragTagSelection(s8 *world) {
                     rotatingPlayer->profile->fragTagEnabled = 1U;
                     switch (g_fragTagSelectSoundVariant) {
                     case 0:
-                        SoundElement_PlaySoundAtPosition(6305, rotatingPlayer->position, (s32)&rotatingPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6305, rotatingPlayer->position, (intptr_t)&rotatingPlayer->position, -1);
                         break;
                     case 1:
-                        SoundElement_PlaySoundAtPosition(6505, rotatingPlayer->position, (s32)&rotatingPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6505, rotatingPlayer->position, (intptr_t)&rotatingPlayer->position, -1);
                         break;
                     case 2:
-                        SoundElement_PlaySoundAtPosition(6405, rotatingPlayer->position, (s32)&rotatingPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6405, rotatingPlayer->position, (intptr_t)&rotatingPlayer->position, -1);
                         break;
                     }
                     TeamSelect_EmptyWeaponWheelHook(&rotatingPlayer->animationState);
@@ -376,13 +376,13 @@ void Player_UpdateFragTagSelection(s8 *world) {
                     chosenPlayer->profile->fragTagEnabled = 1U;
                     switch (g_fragTagSelectSoundVariant) {
                     case 0:
-                        SoundElement_PlaySoundAtPosition(6305, chosenPlayer->position, (s32)&chosenPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6305, chosenPlayer->position, (intptr_t)&chosenPlayer->position, -1);
                         break;
                     case 1:
-                        SoundElement_PlaySoundAtPosition(6505, chosenPlayer->position, (s32)&chosenPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6505, chosenPlayer->position, (intptr_t)&chosenPlayer->position, -1);
                         break;
                     case 2:
-                        SoundElement_PlaySoundAtPosition(6405, chosenPlayer->position, (s32)&chosenPlayer->position, -1);
+                        SoundElement_PlaySoundAtPosition(6405, chosenPlayer->position, (intptr_t)&chosenPlayer->position, -1);
                         break;
                     }
                     TeamSelect_EmptyWeaponWheelHook(&chosenPlayer->animationState);
@@ -459,13 +459,13 @@ void Player_UpdateFragTagSelection(s8 *world) {
                                 flippedPlayer->profile->fragTagEnabled = 1U;
                                 switch (g_fragTagSelectSoundVariant) {
                                 case 0:
-                                    SoundElement_PlaySoundAtPosition(6305, flippedPlayer->position, (s32)&flippedPlayer->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6305, flippedPlayer->position, (intptr_t)&flippedPlayer->position, -1);
                                     break;
                                 case 1:
-                                    SoundElement_PlaySoundAtPosition(6505, flippedPlayer->position, (s32)&flippedPlayer->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6505, flippedPlayer->position, (intptr_t)&flippedPlayer->position, -1);
                                     break;
                                 case 2:
-                                    SoundElement_PlaySoundAtPosition(6405, flippedPlayer->position, (s32)&flippedPlayer->position, -1);
+                                    SoundElement_PlaySoundAtPosition(6405, flippedPlayer->position, (intptr_t)&flippedPlayer->position, -1);
                                     break;
                                 }
                                 TeamSelect_EmptyWeaponWheelHook(&flippedPlayer->animationState);

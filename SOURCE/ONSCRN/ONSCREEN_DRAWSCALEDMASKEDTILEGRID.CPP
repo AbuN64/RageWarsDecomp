@@ -27,7 +27,7 @@
 #include "ONSCRN/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 
 /* 802A8A94_4.CPP */
-s32 OnScreen_UpdateMoverScript(void *);
+void OnScreen_UpdateMoverScript(void *);
 
 extern void OnScreen_DrawStatusBar(void *hud, int which);
 
@@ -47,11 +47,11 @@ s32 OnScreen_StartMoverScript(void *widget, s32 *script) {
     return OnScreen_UpdateMoverScript(widget);
 }
 
-s32 OnScreen_StartFirstStatusBar(void *widget, s32 owner, s32 target) {
+void OnScreen_StartFirstStatusBar(void *widget, s32 owner, s32 target) {
     (((struct OverlayScriptPrimaryRangeView *) ((s8 *) widget))->owner) = owner;
     (((struct OverlayScriptPrimaryRangeView *) ((s8 *) widget))->target) = target;
     (((struct OverlayScriptPrimaryRangeView *) ((s8 *) widget))->initialPercent) = 100;
-    return OnScreen_StartMoverScript(widget, &g_firstStatusBarMoverScript);
+    OnScreen_StartMoverScript(widget, &g_firstStatusBarMoverScript);
 }
 
 void OnScreen_StartSecondStatusBar(struct OverlayScriptSecondaryRangeView *hud, s32 owner, s32 target) {

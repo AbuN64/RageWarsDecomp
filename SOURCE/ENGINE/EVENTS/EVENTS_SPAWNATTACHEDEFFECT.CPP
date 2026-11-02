@@ -92,7 +92,7 @@ s32 Events_SpawnPositionedEffect(s32 unused0, BarrelTrackActorView *targetActor,
     scale.x = effectParams.scale;
     scale.y = effectParams.scale;
     scale.z = effectParams.scale;
-    return SetN64_SpawnModelEffect((s32)&g_modelEffectPool, 0, effectParams.id, zero, targetActor->vec, 0, 0.0f);
+    return SetN64_SpawnModelEffect((intptr_t)&g_modelEffectPool, 0, effectParams.id, zero, targetActor->vec, 0, 0.0f);
 }
 
 typedef struct SoundDefinition { s32 kind; } SoundDefinition;

@@ -9,7 +9,7 @@
 #include "COMMON/BALLISTICPARAMS.H"
 
 /* 80241170_2.CPP */
-s32 Graphu64_InterpolateVector(CVector3 *, u32, void *, void *);
+void Graphu64_InterpolateVector(CVector3 *, u32, void *, void *);
 
 /* Tests a point against every edge plane of a polygon. */
 

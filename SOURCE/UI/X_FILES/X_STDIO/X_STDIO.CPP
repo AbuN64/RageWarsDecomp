@@ -178,7 +178,7 @@ void XStdio_InitializeStreams(void) {
         write_resource_word(&g_stdioResourceStream.opened,0);
         g_stdioResourceStream.ready = one;
     }
-    XStdio_SetStreamCallbacks((ResourceOpenCallback)&g_stdioResourceOpenRomEntry, (s32) &g_stdioResourceCloseRomEntry, (ResourceReadCallback)&g_stdioResourceReadRomEntry, (s32) &g_stdioResourceWriteRomEntry, (ResourceSeekCallback)&g_stdioResourceSeekRomEntry, (s32) &g_stdioResourceTellRomEntry, (s32) &g_stdioResourceEndRomEntry);
+    XStdio_SetStreamCallbacks((ResourceOpenCallback)&g_stdioResourceOpenRomEntry, (intptr_t) &g_stdioResourceCloseRomEntry, (ResourceReadCallback)&g_stdioResourceReadRomEntry, (intptr_t) &g_stdioResourceWriteRomEntry, (ResourceSeekCallback)&g_stdioResourceSeekRomEntry, (intptr_t) &g_stdioResourceTellRomEntry, (intptr_t) &g_stdioResourceEndRomEntry);
 }
 
 void XStdio_ShutdownStreams(void) {

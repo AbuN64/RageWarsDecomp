@@ -52,10 +52,10 @@ extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
 
 
 
-extern f32 Gobjinst_GetActorHeight(void);
+extern f32 Gobjinst_GetActorHeight(void *actor);
 
 
-void *Playerai_FindNearestPlayer(void *world, s32 point, s32 pointYBits, s32 pointZBits) {
+void *Playerai_FindNearestPlayer(void *world, CVector3 point) {
     f32 nearestDistanceSquared;
     PlayerPositionListNode *candidatePlayer;
     void *result;
@@ -69,11 +69,11 @@ void *Playerai_FindNearestPlayer(void *world, s32 point, s32 pointYBits, s32 poi
     result = 0;
     if (candidatePlayer != 0) {
         do {
-            dx = candidatePlayer->positionX - *(f32 *)&point;
+            dx = candidatePlayer->positionX - point.x;
             dx = dx * dx;
-            dy = candidatePlayer->positionY - *(f32 *)&pointYBits;
+            dy = candidatePlayer->positionY - point.y;
             dy = dy * dy;
-            dz = candidatePlayer->positionZ - *(f32 *)&pointZBits;
+            dz = candidatePlayer->positionZ - point.z;
             dz = dz * dz;
             distSq = (dx + dy) + dz;
             if (distSq < nearestDistanceSquared) {
@@ -495,7 +495,7 @@ f32 Playerai_GetObjectOwnerHeight(void *actorObject) {
 
 f32 Playerai_GetDefinedActorHeight(LevelActor *actor) {
     if (actor->definition != 0) {
-        return Gobjinst_GetActorHeight();
+        return Gobjinst_GetActorHeight(actor);
     } else {
         return g_playerUndefinedActorHeight;
     }

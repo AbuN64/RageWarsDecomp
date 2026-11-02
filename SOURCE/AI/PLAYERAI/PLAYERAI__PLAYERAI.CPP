@@ -95,12 +95,12 @@ void Playerai_AdvanceRouteCursor(Cursor *cursor) {
     }
 }
 
-extern s16 Scene_FindNearestRouteFrame(char *world);
+extern s32 Scene_FindNearestRouteFrame(void *worldPointer, s32 routeIndex, void *queryPosition);
 
-void Playerai_InitializeRouteCursor(RouteCursorState *cursorState, s8 initialState) {
+void Playerai_InitializeRouteCursor(RouteCursorState *cursorState, s8 initialState, void *position) {
     cursorState->state = 1;
     cursorState->clip = initialState;
-    cursorState->frame = Scene_FindNearestRouteFrame(&g_world);
+    cursorState->frame = Scene_FindNearestRouteFrame(&g_world, initialState, position);
     cursorState->previous = 0;
 }
 
@@ -188,7 +188,7 @@ void Playerai_DrawAnimatedSprite(char *object, char *camera) {
     {
         s32 offset = (g_lightingBufferIndex << 6) + 16;
         Geometry_QueueDirectModel(((AnimationSprite *)(object))->model, (s32)(object + offset),
-                       (s32)&g_playerModelLighting, 0, -1);
+                       (intptr_t)&g_playerModelLighting, 0, -1);
     }
     Geometry_FlushModelBatch();
     Geometry_SetColorDither(0);
@@ -958,8 +958,8 @@ spawn:
    sets the starting ammo by whether the player has a definition, and chooses the starting weapon (fixed for states 17 and
    18, none for a bonus profile, the low half of the second loadout word of the definition when the player is a computer, else the first
    action marked 1) before loading the weapon's animation table and count. */
-extern s32 Achieve_ApplyPlayerOptionOverrides(struct Player *);
-extern s32 Achieve_EnableLevelWeapons(struct Player *);
+extern void Achieve_ApplyPlayerOptionOverrides(struct Player *);
+extern void Achieve_EnableLevelWeapons(struct Player *);
 
 void Player_ResetPlayerWeapons(struct Player *player) {
     Shared_Game *game;

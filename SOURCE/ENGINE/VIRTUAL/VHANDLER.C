@@ -185,10 +185,10 @@ void Vhandler_MapResourcePage(s16 flags, ResourcePageMapping *item, s32 unused, 
     mapped = (s16)slot;
     unused = g_pagerTlbSlots[mapped].id << 12;
     if (g_pagerTlbSlots[mapped].team != 0xFF)
-        first = ((u32)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[mapped].team << 12);
+        first = ((uintptr_t)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[mapped].team << 12);
     else first = -1;
     osMapTLB(mapped, 0, unused, first,
-        g_pagerTlbSlots[(s16)slot].slot != 0xFF ? ((u32)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[(s16)slot].slot << 12) : -1, 7);
+        g_pagerTlbSlots[(s16)slot].slot != 0xFF ? ((uintptr_t)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[(s16)slot].slot << 12) : -1, 7);
 }
 
 void Vhandler_UnmapResourcePage(ResourcePageMapping *mapping) {
@@ -204,7 +204,7 @@ void Vhandler_UnmapResourcePage(ResourcePageMapping *mapping) {
             goto unmap;
         }
         osMapTLB(slot, 0, g_pagerTlbSlots[slot].id << 12,
-                      ((s32)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[slot].team << 12), -1, 7);
+                      ((intptr_t)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[slot].team << 12), -1, 7);
     } else {
         g_pagerTlbSlots[mapping->slot].team = 0xFF;
         slot = mapping->slot;
@@ -214,7 +214,7 @@ void Vhandler_UnmapResourcePage(ResourcePageMapping *mapping) {
             g_pagerTlbSlots[mapping->slot].id = 0xFFFF;
         } else {
             osMapTLB(slot, 0, g_pagerTlbSlots[slot].id << 12, -1,
-                          ((s32)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[slot].slot << 12), 7);
+                          ((intptr_t)&g_pagerPageStorage & 0x3FFFFFF) + (g_pagerTlbSlots[slot].slot << 12), 7);
         }
     }
     mapping->slot = 0xFF;
@@ -424,7 +424,7 @@ void Vhandler_FreeVirtualRegion(s32 regionHandle) {
     s32 completionMessage;
     void *unusedPointer;
 
-    osCreateMesgQueue(completionQueueStorage, (s32)&completionMessage, 1);
+    osCreateMesgQueue(completionQueueStorage, (intptr_t)&completionMessage, 1);
     block.type = 2;
     block.value = regionHandle;
     block.data = completionQueueStorage;
@@ -484,7 +484,7 @@ void Vhandler_RunPageLoadWorker(void *unused) {
         osRecvMesg(&g_resourcePager.pending, &message, 1);
         if (*((ResourcePageJob *)message)->slot == 0xFF) {
             Cartridge_ReadChunksAndWait(g_cartridgeReadWorker, ((ResourcePageJob *)message)->source, (void *)((((ResourcePageJob *)message)->size + 1) & ~1),
-                             (u32)&g_pagerPageStorage + (((ResourcePageJob *)message)->mapping->index << 12));
+                             (uintptr_t)&g_pagerPageStorage + (((ResourcePageJob *)message)->mapping->index << 12));
             osInvalDCache(&g_pagerPageStorage + (((ResourcePageJob *)message)->mapping->index << 12), 0x1000);
             osInvalICache(&g_pagerPageStorage + (((ResourcePageJob *)message)->mapping->index << 12), 0x1000);
         }

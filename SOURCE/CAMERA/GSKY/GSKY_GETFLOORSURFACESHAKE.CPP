@@ -133,7 +133,7 @@ void Gsky_ReleaseScreenMessageRendering(struct ScreenMessageOwner *owner) {
     s32 allocation;
 
     owner->state = 1;
-    SoundElement_SetListenerCamera((s32)&owner->rendering);
+    SoundElement_SetListenerCamera((intptr_t)&owner->rendering);
     Cache_DrainAndCompactResources(0);
     allocation = owner->allocation;
     if (allocation != 0) {

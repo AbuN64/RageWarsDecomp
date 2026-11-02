@@ -89,9 +89,19 @@ unsigned int g_GAudiopitchratiocurveWords6[15] = {
 };
 #endif
 #ifdef VERSION_EU
-unsigned int g_GAudiopitchratiocurveWords6[15] = {
-    0x00000000, 0x00000000, 0x52204E4F, 0x55532041, 0x564F4952, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
+struct {
+    unsigned int words0[2];
+    char text1[12];
+    unsigned int words2[10];
+} g_GAudiopitchratiocurveWords6 = {
+    {
+        0x00000000, 0x00000000, 0x52204E4F, 0x55532041, 0x564F4952, 0x00000000, 0x00000000, 0x00000000,
+    },
+    "R NOUS AVOIR",
+    {
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000,
+        0x007F2929, 0x29000000,
+    },
 };
 #endif
 #ifdef VERSION_EU_X

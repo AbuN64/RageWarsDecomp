@@ -113,7 +113,7 @@ extern u8 g_controllerPakFrontendState;
 
 extern char g_controllerSiMessageQueue;
 
-extern s32 Rumble_InitPoolNodes(void *, void *, s32);
+extern void Rumble_InitPoolNodes(void *, void *, s32);
 
 
 

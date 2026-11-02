@@ -354,7 +354,13 @@ s32 Player_DrawFourPlayerResults(void *window, void *item, s32 event) {
 /* s_mitetText_Player.CPP */
 #if defined(VERSION_US)
 /* ROM-grounded data for us; supplied-list member has no us-rev1 placement. */
-unsigned int s_mitetText[4] = {
-    0x52595F4D, 0x49544554, 0x00000400, 0x3F800000,
+struct {
+    char text0[8];
+    unsigned int words1[2];
+} s_mitetText = {
+    "RY_MITET",
+    {
+        0x00000400, 0x3F800000,
+    },
 };
 #endif

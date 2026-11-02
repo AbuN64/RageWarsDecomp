@@ -73,9 +73,9 @@ void Preview_SelectMatchingPreviewModel(ModelPreview *preview, s32 id, s32 extra
 #include <PR/gbi.h>
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
-s32 Gobjinst_DrawVisibleCachedActor(void *, void *);
+void Gobjinst_DrawVisibleCachedActor(void *, void *);
 void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
-s32 PitchMatrixLocal(void *, f32);
+void PitchMatrixLocal(void *, f32);
 extern MenuModelScreen g_fallbackScreenMessageEmitter[];
 void Preview_DrawModelPreview(ModelPreview *self) {
     CVector3 local10;

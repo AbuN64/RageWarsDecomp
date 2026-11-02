@@ -63,30 +63,30 @@ void Scene_LoadSceneResources(SceneLoadResourcesView *sceneToLoad, s32 cartridge
     textureDirectoryKey = SetN64_GetDirectoryEntry(cartridgeDirectory, cartridgeBankKey, 3);
     sceneToLoad->textureDirectoryKey = textureDirectoryKey;
     Cache_RequestWordCountedResourcePinned(0, &sceneToLoad->textureDirectoryHandle, textureDirectoryKey, &g_textureSetsIndex);
-    sceneToLoad->objectTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 2, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_objectTypesText);
+    sceneToLoad->objectTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 2, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_objectTypesText);
     objectDirectoryKey = SetN64_GetDirectoryEntry(cartridgeDirectory, cartridgeBankKey, 0);
     sceneToLoad->objectDirectoryKey = objectDirectoryKey;
     Cache_RequestWordCountedResourcePinned(0, &sceneToLoad->objectDirectoryHandle, objectDirectoryKey, &g_objectsIndex);
-    sceneToLoad->geometry = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 1, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_sceneGeometrySectionTag, &g_sceneGeometryResourceTag);
-    sceneToLoad->particleEffectHandle = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 4, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_sceneParticleEffectSectionTag, &g_particleEffects);
-    sceneToLoad->sectionTenObjectTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 10, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_objectTypesText);
+    sceneToLoad->geometry = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 1, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_sceneGeometrySectionTag, &g_sceneGeometryResourceTag);
+    sceneToLoad->particleEffectHandle = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 4, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_sceneParticleEffectSectionTag, &g_particleEffects);
+    sceneToLoad->sectionTenObjectTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 10, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_objectTypesText);
     binaryDirectoryKey = SetN64_GetDirectoryEntry(cartridgeDirectory, cartridgeBankKey, 9);
     sceneToLoad->binaryDirectoryKey = binaryDirectoryKey;
     Cache_RequestWordCountedResourcePinned(0, &sceneToLoad->binaryDirectoryHandle, binaryDirectoryKey, &g_binariesIndexText);
-    sceneToLoad->particleSwooshes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 11, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_particleSwooshes);
-    sectionTwelveData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 12, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_sceneSectionTwelveResourceTag);
+    sceneToLoad->particleSwooshes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 11, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_particleSwooshes);
+    sectionTwelveData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 12, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_sceneSectionTwelveResourceTag);
     sceneToLoad->placedActorStorage = &g_worldSnapshotNoteData;
     sceneToLoad->sectionTwelveData = sectionTwelveData;
     sceneToLoad->sectionSixAddress = SetN64_LocatePackSection((s32)cartridgeDirectory, cartridgeBankKey, 6, &sceneToLoad->sectionSixSize);
     sceneToLoad->collisionStorage = &g_sceneCollisionStorage;
     sceneToLoad->sectionSevenAddress = SetN64_LocatePackSection((s32)cartridgeDirectory, cartridgeBankKey, 7, &sceneToLoad->sectionSevenSize);
-    warpDestinationsResource = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 8, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_warpDests);
+    warpDestinationsResource = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 8, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_warpDests);
     sceneToLoad->warpDestinationsHandle = warpDestinationsResource;
     sceneToLoad->warpDestinations = (s32) *warpDestinationsResource;
-    sceneToLoad->curves = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 13, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_curves);
-    sceneToLoad->rumbleLabels = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 14, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_rumbleLabels);
-    sceneToLoad->sectionFifteenData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 15, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_sceneSectionFifteenResourceTag);
-    sceneToLoad->graphicsetTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 17, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_graphicsetType);
+    sceneToLoad->curves = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 13, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_curves);
+    sceneToLoad->rumbleLabels = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 14, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_rumbleLabels);
+    sceneToLoad->sectionFifteenData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 15, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_sceneSectionFifteenResourceTag);
+    sceneToLoad->graphicsetTypes = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 17, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_graphicsetType);
     graphicsetDirectoryKey = SetN64_GetDirectoryEntry(cartridgeDirectory, cartridgeBankKey, 16);
     sceneToLoad->graphicsetDirectoryKey = graphicsetDirectoryKey;
     Cache_RequestWordCountedResourcePinned(0, &sceneToLoad->graphicsetDirectoryHandle, graphicsetDirectoryKey, &g_graphicsetIndex);
@@ -94,7 +94,7 @@ void Scene_LoadSceneResources(SceneLoadResourcesView *sceneToLoad, s32 cartridge
     sceneToLoad->sectionEighteenKey = sectionEighteenKey;
     Cache_RequestWordCountedResourcePinned(0, &sceneToLoad->cinemaDirectoryHandle, sectionEighteenKey, &g_cinemasIndexText);
     Menu_RequestTrackBundle();
-    linkGroupTypeData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 19, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_linkGroupTypes);
+    linkGroupTypeData = (s32) *Cache_RequestPackSection(0, (s32)cartridgeDirectory, 19, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_linkGroupTypes);
     sceneToLoad->bloodlustDirectoryKey = 0;
     sceneToLoad->bloodlustDirectorySize = 0;
     sceneToLoad->reservedWord3 = 0;
@@ -112,7 +112,7 @@ void Scene_LoadSceneResources(SceneLoadResourcesView *sceneToLoad, s32 cartridge
         }
     }
     if (*cartridgeDirectory >= 24) {
-        bloodlustWeaponResource = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 23, cartridgeBankKey, (s32)sceneToLoad, (s32)&g_cResource_UnpackRequestEntry, &g_bloodlustWeaponData);
+        bloodlustWeaponResource = Cache_RequestPackSection(0, (s32)cartridgeDirectory, 23, cartridgeBankKey, (s32)sceneToLoad, (intptr_t)&g_cResource_UnpackRequestEntry, &g_bloodlustWeaponData);
         Portal_LoadCollisionTable(*bloodlustWeaponResource);
         Cache_ReleaseResource(0, bloodlustWeaponResource);
     }

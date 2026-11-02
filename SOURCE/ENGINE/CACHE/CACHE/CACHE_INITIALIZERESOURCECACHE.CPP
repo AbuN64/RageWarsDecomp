@@ -35,7 +35,7 @@ extern CMemEntry *g_resourceAllocationCandidate;
 /* The resource manager record at g_resourceCacheManager: node array, free-slot stack, link records, lists and its lock queue.
  * count (0xBDC) and stamp (0xC20) are the Pool fields used by Cache_AcquirePendingResourceEntry. */
 extern s32 Heap_AllocateFromFront(void *, s32);
-extern s32 Mutex_InitializeQueueLock(OSMesgQueue *);
+extern void Mutex_InitializeQueueLock(OSMesgQueue *);
 extern u32 Defs_GetMemorySize(void);
 
 extern void HashTable_InitializeResourceTable(s32);
@@ -323,8 +323,8 @@ void Cache_CompactResourceHeap(s32 unused, s32 compactAll) {
     arena = arena_end - 2;
     do {
         node = (CacheEvictionNode *)pool[0];
-        pool[0] = *(s32 *)&node->next;
-        if (!(*(s32 *)&node->flags & 0x701) && (u32)(*arena_end + 32) < node->start) {
+        pool[0] = (intptr_t)node->next;
+        if (!(node->flags & 0x701) && (u32)(*arena_end + 32) < node->start) {
             Heap_FreeAllocation(arena, node->start);
             split = Heap_AllocateFromFront(arena, node->end);
             if (split < node->start) {

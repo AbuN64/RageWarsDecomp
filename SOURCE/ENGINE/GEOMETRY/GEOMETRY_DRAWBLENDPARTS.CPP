@@ -480,9 +480,9 @@ void Geometry_LoadRenderMicrocode(void) {
     gDPFullSync(cmd);
     gSPLoadUcodeEx(g_displayListCursor++, &g_primaryRenderMicrocodeText, &g_primaryRenderMicrocodeData, 0x800);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (u32) &g_cameraViewDisplayListFirst);
+    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayListFirst);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (u32) &g_cameraViewDisplayListSecond_de);
+    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayListSecond_de);
 }
 
 void Geometry_SwitchRenderMicrocode(void) {
@@ -492,9 +492,9 @@ void Geometry_SwitchRenderMicrocode(void) {
     gDPFullSync(cmd);
     gSPLoadUcodeEx(g_displayListCursor++, &g_alternateRenderMicrocodeText, &g_alternateRenderMicrocodeData, 0x800);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (u32) &g_cameraViewDisplayListFirst);
+    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayListFirst);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (u32) &g_cameraViewDisplayListSecond_de);
+    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayListSecond_de);
 }
 
 /** Initialize the two-word state to minus one and zero. */

@@ -77,7 +77,7 @@ void Link_DispatchTrigger(Trigger *trigger) {
 }
 
 
-extern s32 Scene_FindActorTriggerRange(s8 *world, void *levelActor, s32 *firstIndex, s32 *lastIndex);
+extern void Scene_FindActorTriggerRange(s8 *world, void *levelActor, s32 *firstIndex, s32 *lastIndex);
 
 extern s32 Scene_FindAlternateTriggerRange(s8 *world, s32 triggerIds, s32 *firstIndex, s32 *lastIndex);
 
@@ -85,7 +85,7 @@ extern void Scene_ResetTransitionViewport(void);
 
 extern void Track_RequestTrackByIds(s32, s32);
 
-extern void Barrel_StopActorLoopingSound(void);
+extern void Barrel_StopActorLoopingSound(void *actor, void *soundState);
 
 extern void Animpool_ReleaseSceneEffect(struct Shared_Actor *node);
 
@@ -183,7 +183,7 @@ void Link_DispatchTriggerAudio(s32 actorAddress, s32 event, Trigger *trigger) {
 void Link_DeactivateActorState(struct Shared_Actor *actor, s32 *stateFlags) {
     s32 flags;
 
-    Barrel_StopActorLoopingSound();
+    Barrel_StopActorLoopingSound(actor, stateFlags);
     *stateFlags |= 0x20;
     flags = actor->weaponFlags & 0xFFFEFFFF;
     flags = flags & ~0x2000;

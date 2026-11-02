@@ -312,34 +312,34 @@ f32 Defs_CosineEase(f32 fraction)
 
 /** Return whether an address lies within one of three recognized ranges. */
 int Defs_IsAddressInStaticRanges(u32 callback) {
-    if (callback >= (u32)&g_staticDataRegionStart &&
-        callback < (u32)&g_staticDataRegionStart + (u32)&g_staticDataRegionByteCount) {
+    if (callback >= (uintptr_t)&g_staticDataRegionStart &&
+        callback < (uintptr_t)&g_staticDataRegionStart + (uintptr_t)&g_staticDataRegionByteCount) {
         return 1;
     }
-    if (callback >= (u32)&g_staticJumpTableRegionStart &&
-        callback < (u32)&g_staticJumpTableRegionStart + (u32)&g_staticJumpTableRegionByteCount) {
+    if (callback >= (uintptr_t)&g_staticJumpTableRegionStart &&
+        callback < (uintptr_t)&g_staticJumpTableRegionStart + (uintptr_t)&g_staticJumpTableRegionByteCount) {
         return 1;
     }
-    if (callback >= (u32)&g_cinemaSequenceState &&
-        callback < (u32)&g_cinemaSequenceState + (u32)&g_cinemaStateRegionByteCount) {
+    if (callback >= (uintptr_t)&g_cinemaSequenceState &&
+        callback < (uintptr_t)&g_cinemaSequenceState + (uintptr_t)&g_cinemaStateRegionByteCount) {
         return 1;
     }
     return 0;
 }
 
 int Defs_IsAddressInBufferRanges(u32 address) {
-    if (address >= (u32)&g_graphicsTaskYieldBuffer && address < (u32)&g_runtimeHeapStart) return 1;
-    if (address >= (u32)&g_menuResidentRegionStart && address < (u32)&g_menuResidentRegionEnd) return 1;
+    if (address >= (uintptr_t)&g_graphicsTaskYieldBuffer && address < (uintptr_t)&g_runtimeHeapStart) return 1;
+    if (address >= (uintptr_t)&g_menuResidentRegionStart && address < (uintptr_t)&g_menuResidentRegionEnd) return 1;
     return 0;
 }
 
 int Defs_IsAddressInCodeRanges(u32 callback) {
-    if (callback >= (u32)&addrLow_Libsn_DisableInterrupts &&
-        callback < (u32)&addrLow_Libsn_DisableInterrupts + (u32)&g_mainCodeRegionByteCount) {
+    if (callback >= (uintptr_t)&addrLow_Libsn_DisableInterrupts &&
+        callback < (uintptr_t)&addrLow_Libsn_DisableInterrupts + (uintptr_t)&g_mainCodeRegionByteCount) {
         return 1;
     }
-    if (callback >= (u32)&addrLow_Track_SolveSplineSecondDerivatives &&
-        callback < (u32)&addrLow_Track_SolveSplineSecondDerivatives + (u32)&g_overlayCodeRegionByteCount) {
+    if (callback >= (uintptr_t)&addrLow_Track_SolveSplineSecondDerivatives &&
+        callback < (uintptr_t)&addrLow_Track_SolveSplineSecondDerivatives + (uintptr_t)&g_overlayCodeRegionByteCount) {
         return 1;
     }
     return 0;

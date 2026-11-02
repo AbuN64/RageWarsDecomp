@@ -153,7 +153,7 @@ void Insthdr_PlayActorGraphSound(void *actor, CVector3 pos, s32 sound, f32 volum
     if (sound != 3031) {
         Graphu64_ScaleVector(&velocity, &dir, 409.59998f);
     }
-    SetN64_SpawnModelEffect((s32)&g_modelEffectPool, 0, sound, velocity, at, request.owner, volume);
+    SetN64_SpawnModelEffect((intptr_t)&g_modelEffectPool, 0, sound, velocity, at, request.owner, volume);
 }
 
 /** Reset three byte-sized fields. */

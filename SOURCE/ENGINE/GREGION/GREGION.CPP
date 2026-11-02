@@ -36,7 +36,7 @@ static inline void normalize_copy(CVector3 *out, CVector3 *in) {
     Graphu64_NormalizeVec3(out);
 }
 
-extern void Graphu64_GetCachedSurfaceNormal(CVector3 *);
+extern void Graphu64_GetCachedSurfaceNormal(CVector3 *out, void *node);
 
 CQuatern *Region_GetPolygonUpQuat(CQuatern *out, Triangle *polygon) {
     CVector3 normal;
@@ -105,7 +105,7 @@ CQuatern *Region_GetCachedUpQuat(CQuatern *out, Triangle *polygon) {
     float scale;
     float one;
 
-    Graphu64_GetCachedSurfaceNormal(&a);
+    Graphu64_GetCachedSurfaceNormal(&a, polygon);
     one = g_regionUpQuaternionConstants[1];
     up.x = 0;
     up.y = one;

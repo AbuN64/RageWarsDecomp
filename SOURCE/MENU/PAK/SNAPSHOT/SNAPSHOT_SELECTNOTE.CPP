@@ -86,7 +86,7 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
         }
         if ((status == 0) && (exists != 0)) {
             if (profileMatches != 0) {
-                if (Note_ReadNoteData(channel, noteIndex, (s32)&g_pakControllerRecord, 24)!=0) {
+                if (Note_ReadNoteData(channel, noteIndex, (intptr_t)&g_pakControllerRecord, 24)!=0) {
                     profileMatches=0;
                     goto profile_failed;
                 }
@@ -179,7 +179,7 @@ profile_failed:
             if (((status=Note_ReadNoteInfo(channel, noteIndex, &exists, name, extension, &pages, company, code)) == 0) && (exists != 0)) {
                 Shared_Game *settings = &g_playerViewRenderContext.game;
                 if (XPlus_CompareStrings(name,rw_pak_profile_name(settings)) == 0) {
-                if (Note_ReadNoteData(channel, noteIndex, (s32)&g_pakControllerRecord, 24)!=0) {
+                if (Note_ReadNoteData(channel, noteIndex, (intptr_t)&g_pakControllerRecord, 24)!=0) {
                     readError=1;
                     goto done;
                 }

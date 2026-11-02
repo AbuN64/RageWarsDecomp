@@ -21,7 +21,7 @@ void Simpinst_ClearCachedResource(void *staticObject) {
     ((StaticObject *)(staticObject))->cached = 0;
 }
 
-struct CQuatern_t Insthdr_BuildActorGroundRotation(char *obj);
+CQuatern Insthdr_BuildActorGroundRotation(char *obj);
 CQuatern Simpinst_BuildGroundRotation(void *actor) {
     return Insthdr_BuildActorGroundRotation(actor);
 }

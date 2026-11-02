@@ -221,7 +221,7 @@ extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
 extern f32 Region_GetPolygonHeight(s32, f32, f32);
 
-extern void Region_SetNodeGroupHeight(s32, f32);
+extern f32 Region_SetNodeGroupHeight(s32, f32);
 
 /* Steers an actor along path nodes, blending direction, speed and orientation as it advances waypoints. */
 /* The values Triggered_AdvancePathMotion loads by address:

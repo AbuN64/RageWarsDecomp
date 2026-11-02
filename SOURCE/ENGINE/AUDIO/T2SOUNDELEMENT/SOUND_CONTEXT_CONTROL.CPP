@@ -61,19 +61,19 @@ void SoundElement_SetMusicPlaybackEnabled(s32 a) {
 }
 
 void SoundElement_FadeOutMusic(void) {
-    Audio_FadeOutContextMusic((s32) &g_soundElementContext);
+    Audio_FadeOutContextMusic((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_StopMusic(void) {
-    Audio_StopContextMusic((s32) &g_soundElementContext);
+    Audio_StopContextMusic((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_EnableMusicGainOverride(void) {
-    Audio_EnableContextMusicGainOverride((s32) &g_soundElementContext);
+    Audio_EnableContextMusicGainOverride((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_DisableMusicGainOverride(void) {
-    Audio_DisableContextMusicGainOverride((s32) &g_soundElementContext);
+    Audio_DisableContextMusicGainOverride((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_DisablePeriodicSound(void) {
@@ -97,7 +97,7 @@ void SoundElement_SetClampedAudioLevel(f32 level) {
 }
 
 void SoundElement_ClearVoiceFlags(void) {
-    Audio_ClearContextVoiceFlags((s32) &g_soundElementContext);
+    Audio_ClearContextVoiceFlags((intptr_t) &g_soundElementContext);
 }
 
 void SoundElement_AcquireContextLock(void) {

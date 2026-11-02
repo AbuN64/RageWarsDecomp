@@ -84,13 +84,13 @@ void Barrel_FillDamagePacket(void *packet, s32 damageSource, s32 damage, s32 rad
 }
 
 /* 80213ED4_8.CPP */
-extern void Barrel_StopActorLoopingSound(void);
+extern void Barrel_StopActorLoopingSound(void *actor, void *soundState);
 extern void Actor_ApplySupportingPlatformMotion(SourceBarrelUpdateActorController *, DestBarrelUpdateActorController *);
 extern void Actor_UpdateActorStateAnimation(SourceBarrelUpdateActorController *, DestBarrelUpdateActorController *);
 
 void Barrel_UpdateActorController(SourceBarrelUpdateActorController *src, DestBarrelUpdateActorController *dst) {
     if ((dst->aux != 0) && (dst->aux->flagWord == -1)) {
-        Barrel_StopActorLoopingSound();
+        Barrel_StopActorLoopingSound(src, dst);
     }
     if (dst->timer != 0) {
         dst->timer--;

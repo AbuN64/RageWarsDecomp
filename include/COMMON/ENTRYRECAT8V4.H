@@ -27,7 +27,8 @@ struct TrackOverlayIdEntry;
 typedef struct TrackOverlayIdEntry TrackOverlayIdEntry;
 
 
-extern void Track_DrawTrackOverlay();
+struct ScreenRectangle;
+extern void Track_DrawTrackOverlay(struct ScreenRectangle *rectangle);
 
 struct TriggerStateBitDescriptor;
 typedef struct TriggerStateBitDescriptor TriggerStateBitDescriptor;

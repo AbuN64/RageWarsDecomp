@@ -375,7 +375,7 @@ void Weapon_UpdateTriggerReleaseState(void *actor, void *attack) {
             switch (state->selectedAction) {
             case 8:
                 SoundElement_PlaySoundAtPosition(2622, state->pos,
-                              (s32)&state->pos, -1);
+                              (intptr_t)&state->pos, -1);
             case 0:
             case 14:
                 Playerai_StopSecondaryAttachedSound(state);

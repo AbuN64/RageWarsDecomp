@@ -61,7 +61,7 @@ extern char g_actorParticleEffectSystem[];
 
 extern void Player_TransformPointByViewOrOwnerMatrix(SharedPlayer *, CVector3 *);
 
-extern struct CacheResourceBlockView Graphu64_BuildDirectionQuaternion(CVector3 *);
+extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
 
 extern void InstHdr_CopyActorPositionAndModel(void *, Triple, void *, s32 *, s32, s32);
 
@@ -158,7 +158,7 @@ void Events_SpawnRiderImpactEffect(SharedPlayer *target, ActorEventsSpawnRiderIm
     CVector3 v;
     Triple point;
     Triple zero;
-    struct CacheResourceBlockView rotation;
+    CQuatern rotation;
     s32 unused;
 
     if (target->views5DC.view5DC_5.rider == 0) {
@@ -179,7 +179,7 @@ void Events_SpawnRiderImpactEffect(SharedPlayer *target, ActorEventsSpawnRiderIm
     zero.x = 0;
     zero.y = 0;
     zero.z = 0;
-    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 233, *(CVector3 *)&zero, *(CQuatern *)&rotation, *(CVector3 *)&point, 0, -1, kind == 5 ? 3 : 1);
+    Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 233, *(CVector3 *)&zero, rotation, *(CVector3 *)&point, 0, -1, kind == 5 ? 3 : 1);
     point.x = 0;
     point.y = 0;
     point.z = 0;
@@ -246,5 +246,5 @@ void Events_RequestActorPosition(s32 source, void *target, s32 kind, CVector3 po
     s32 mode = positionParams.first;
     LevelActor *actor = (LevelActor *)target;
     ((Player *)actor->controller)->requestedPosition = position;
-    Weapon_SpawnTargetPlayerFireEffect(actor, (s32) &actor->behaviorFlags, mode);
+    Weapon_SpawnTargetPlayerFireEffect(actor, (intptr_t) &actor->behaviorFlags, mode);
 }

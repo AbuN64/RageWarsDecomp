@@ -745,7 +745,7 @@ typedef struct PowerHudPlayer {
 } PowerHudPlayer;
 extern s32 Frontend_GetScreenMode(void);
 extern s32 Playerai_GetSelectedAmmoIcon(void *);
-extern s32 OnScreen_StartMoverScript(void *,s32 *);
+extern void OnScreen_StartMoverScript(void *,s32 *);
 extern void OnScreen_DrawSpriteNumber(s32,f32,f32,f32,f32,s32,s32,s32);
 extern s32 g_playerAmmoFirstMoverScript[];
 extern s32 g_playerAmmoSecondMoverScript[];

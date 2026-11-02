@@ -29,5 +29,5 @@ struct ConfirmingControllerSettingsView {
     s8 controllerIndex;
 };
 
-extern s32 Player_PlacePlayerForRound(s32 player);
+extern void Player_PlacePlayerForRound(s32 player);
 #endif
