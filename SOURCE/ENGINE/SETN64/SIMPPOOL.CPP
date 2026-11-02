@@ -47,8 +47,8 @@ block_7:
 #endif
 
 struct Context;
-s32 Playerai_ResetPlayerControllers(struct Context *);
-s32 Rumble_FreeAllPoolNodes(s32 *);
+void Playerai_ResetPlayerControllers(struct Context *);
+void Rumble_FreeAllPoolNodes(s32 *);
 extern char g_playerViewRenderContext;
 #if defined(VERSION_DE)
 void Simppool_ResetEffectsAndControllers(void) {
