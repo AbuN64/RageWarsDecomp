@@ -4653,7 +4653,15 @@ segments:
       - [0xF30E4, data, game_data/g_menuBoxCornersData]
       - [0xF31E0, data, game_data/g_floatRecordWordsEu]
       - [0xF3680, data, game_data/g_minusOneSentinelWords]
-      - [0xF3690, data, game_data/g_frontendWidgetEventTableWordsEu]
+      - [0xF3690, data, game_data/g_multiplayerNameEntryStates]
+      - [0xF3694, data, game_data/g_multiplayerNameEntryStatesTimer_de]
+      - [0xF3698, data, game_data/g_multiplayerNameEntryStatesCount]
+      - [0xF369C, data, game_data/g_multiplayerSavedPlayerNames]
+      - [0xF4C00, data, game_data/g_graphicsTaskYieldBuffer]
+      - [0xF6000, data, game_data/g_audioWorkerStack]
+      - [0xF8800, data, game_data/g_bootstrapThreadStack]
+      - [0xF8880, data, game_data/g_gameThreadStack]
+      - [0x100880, data, game_data/g_schedulerThreadStack]
   - name: debug_symbols
     type: bin
     start: 0x101000
