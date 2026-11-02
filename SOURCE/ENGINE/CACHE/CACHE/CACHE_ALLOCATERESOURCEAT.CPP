@@ -278,6 +278,7 @@ s32 Cache_FinishResourceSlot(void) {
     u32 mask;
     u32 releaseInterruptMask;
     s32 result;
+    int *slot;
 
     mask = __osDisableInt();
     lockClaimCount = g_resourceHeapLockUsers + 1;
@@ -289,7 +290,8 @@ s32 Cache_FinishResourceSlot(void) {
         __osRestoreInt(mask);
     }
     base = &g_resourceSlotLockState;
-    result = *(s32 *)((char *)g_resourceSlotProtected + (*base << 2));
+    slot = &g_resourceSlotProtected[*base];
+    result = *slot;
     *base = -1;
     releaseInterruptMask = __osDisableInt();
     lockReleaseCount = g_resourceHeapLockUsers - 1;

@@ -31,6 +31,10 @@ void Visdata_DecodeRegionGrid(ResourceBitGrid *grid, s32 originX, s32 originZ,
     streamIndex = 1;
     while (streamIndex < streamCount) {
         AnimPool_InitializeBitReader(&grid->reader, SetN64_GetPackSection(streamTable, streamIndex));
+        /* Each bound is a 32-bit float bit pattern stored through an s32 lvalue into an f32 member of the same width,
+         * so the store is endian-neutral and portable. Its spelling is kept: gcc 2.8.1 marks a store through a union
+         * member as in-struct, which pins the sixth store ahead of the comparisons instead of in the bc1f delay slot
+         * (a field union, six scalar unions, a vector/word union and a union read helper all change the code). */
         *(s32 *)&minimum.x = CBitReader_ReadBits(&grid->reader, 32);
         *(s32 *)&minimum.y = CBitReader_ReadBits(&grid->reader, 32);
         *(s32 *)&minimum.z = CBitReader_ReadBits(&grid->reader, 32);

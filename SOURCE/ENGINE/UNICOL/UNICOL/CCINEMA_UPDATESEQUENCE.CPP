@@ -251,6 +251,11 @@ void CCinema_UpdateSequence(void) {
                 g_cinemaSequenceState->fadeRequested = 0;
                 if (end != 0) {
                     g_cinemaSequenceState->onClose = 0;
+                    /* onClose holds callbackE4, a context callback (CCinema_RequestTrackWithCallbacks calls it with
+                     * the cinema state when it runs at once); the original calls it with no argument, so a deferred
+                     * one would read a stale $a0. No requester passes one (both pass 0), so the slot is only ever 0
+                     * here. Passing the state moves it to $a0 and changes the code, so the call keeps the original's
+                     * form. */
                     end();
                 }
             }

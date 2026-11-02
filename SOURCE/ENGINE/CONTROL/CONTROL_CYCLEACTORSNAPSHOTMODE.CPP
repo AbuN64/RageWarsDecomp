@@ -80,7 +80,6 @@ void Control_SetControllerMode(s32 a) {
 
 void Control_SaveControllerSetup(void)
 {
-  s32 savedValueOffset;
   s32 profileValue;
   s32 profileIndex;
   s32 profileByteOffset;
@@ -91,7 +90,7 @@ void Control_SaveControllerSetup(void)
   do
   {
     profileValue = *((s32 *) ((&g_controllerProfileModeBase) + profileByteOffset));
- do { savedValueOffset = profileIndex * 4; profileIndex += 1; *((s32 *) (((u8 *) g_controllerSnapshotProfileValues) + savedValueOffset)) = profileValue; profileByteOffset += 548; } while (0);
+ do { g_controllerSnapshotProfileValues[profileIndex] = profileValue; profileIndex += 1; profileByteOffset += 548; } while (0);
   }
   while (profileIndex < 4);
   profilesReset = 0;

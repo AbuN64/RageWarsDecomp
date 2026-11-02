@@ -300,6 +300,15 @@ void *Cache_AcquireResourceNodeWithEviction(s32 unused0, s32 flags) {
     return node;
 }
 
+/* g_resourceCacheManager from reservedWord8 (g_resourceAllocationCandidate) on: the compaction cursor, the
+ * link records, the entries list and the recent list it walks. */
+typedef struct ResourceCompaction {
+    CacheEvictionNode *cursor;
+    struct ResLink *links;
+    IntrusiveList entries;
+    IntrusiveList recent;
+} ResourceCompaction;
+
 void Cache_CompactResourceHeap(s32 unused, s32 compactAll) {
     IntrusiveList queue;
     CacheEvictionNode *node;
@@ -308,36 +317,36 @@ void Cache_CompactResourceHeap(s32 unused, s32 compactAll) {
     u32 split;
     s32 *arena_end;
     s32 *arena;
-    s32 *pool;
+    ResourceCompaction *pool;
 
     List_InitializeIntrusive(&queue, 32, 36);
-    if (compactAll != 0 || ((s32 *)&g_resourceAllocationCandidate)[0] == 0) {
-        ((s32 *)&g_resourceAllocationCandidate)[0] = ((s32 *)&g_resourceAllocationCandidate)[7];
-        if (((s32 *)&g_resourceAllocationCandidate)[7] == 0) {
+    if (compactAll != 0 || ((ResourceCompaction *)&g_resourceAllocationCandidate)->cursor == 0) {
+        ((ResourceCompaction *)&g_resourceAllocationCandidate)->cursor = (CacheEvictionNode *)((ResourceCompaction *)&g_resourceAllocationCandidate)->recent.head;
+        if (((ResourceCompaction *)&g_resourceAllocationCandidate)->recent.head == 0) {
             goto drain;
         }
     }
 
-    pool = (s32 *)&g_resourceAllocationCandidate;
+    pool = (ResourceCompaction *)&g_resourceAllocationCandidate;
     arena_end = &g_runtimeHeap[2];
     arena = arena_end - 2;
     do {
-        node = (CacheEvictionNode *)pool[0];
-        pool[0] = *(s32 *)&node->next;
-        if (!(*(s32 *)&node->flags & 0x701) && (u32)(*arena_end + 32) < node->start) {
+        node = pool->cursor;
+        pool->cursor = node->next;
+        if (!(node->flags & 0x701) && (u32)(*arena_end + 32) < node->start) {
             Heap_FreeAllocation(arena, node->start);
             split = Heap_AllocateFromFront(arena, node->end);
             if (split < node->start) {
                 Defs_MoveMemory(split, node->start, node->end);
                 node->start = split;
-                List_RemoveIntrusive(&pool[7], node);
+                List_RemoveIntrusive(&pool->recent, node);
                 List_AppendIntrusive(&queue, node);
             }
             if (compactAll == 0) {
                 break;
             }
         }
-    } while (((s32 *)&g_resourceAllocationCandidate)[0] != 0);
+    } while (((ResourceCompaction *)&g_resourceAllocationCandidate)->cursor != 0);
 
 drain:
     node = queue.head;
