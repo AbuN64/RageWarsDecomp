@@ -14,7 +14,7 @@ extern struct Record *Cache_AllocateMemory(s32 size);
 extern void *SmpButton_CreateListWidget(s32, s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
-extern void *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 
 #if defined(VERSION_DE)
 enum { k_altPlayerSettingsButtonFirstWrapId = 450, k_altPlayerSettingsWindowWidgetId = 451, k_altPlayerSettingsButtonSecondWrapId = 452, k_altPlayerSettingsListAFirstId = 453, k_altPlayerSettingsListASecondId = 454, k_altPlayerSettingsListCFirstId = 455, k_altPlayerSettingsListCSecondId = 456, k_altPlayerSettingsSliderBFirstId = 457, k_altPlayerSettingsSliderBSecondId = 458, k_altPlayerSettingsSliderAFirstId = 459, k_altPlayerSettingsSliderASecondId = 460, k_altPlayerSettingsListBFirstId = 461, k_altPlayerSettingsListBSecondId = 462 };

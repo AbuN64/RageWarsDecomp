@@ -20,7 +20,7 @@ extern void SmpButton_WrapButtonWidget(s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern void *SmpButton_CreateListWidget(s32, s32);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
-extern *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Player_SelectAlternatePlayerSettingsEntry(s32);
 /* Builds the 0x50-byte confirm popup: its three button rows (ids 0x1C9, 0x1D1, 0x1CB) get the labels of the current language,
    the two fade windows ID(0x1CF)/ID(0x1CD) are created, and item ID(0x1C7) is kept as the cursor. Returns 0. */

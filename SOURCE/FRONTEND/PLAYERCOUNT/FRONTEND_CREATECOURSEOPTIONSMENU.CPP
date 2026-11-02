@@ -17,7 +17,7 @@ extern void Tsmos_ActivateControllerState(void);
 extern void *SmpFade_CreateFadeWidget(s32, s32);
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern void SmpButton_WrapButtonWidget(s32);
-extern void *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 /* Builds a three-row slider popup in its 0x24-byte state g_playerCountScreen: title/list from the ids at 0x39C, the numeric

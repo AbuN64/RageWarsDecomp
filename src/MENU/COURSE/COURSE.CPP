@@ -6,7 +6,7 @@ extern CourseSelectionState *g_courseOptionsScreen;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void *SmpOverlay_CreateOverlayNode(s32, s32);
 extern void SmpOverlay_ShowSlotById(s32, s32, s32);
-extern u8 *Node_FindWidgetByResourceId(s32, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern s32 Menu_GetPreviousScreenOwner(s32);
 extern void Widget_SetWidgetFlag08(void *, s32);
 extern void *Join_CountUsedSlots(void);

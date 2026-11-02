@@ -18,7 +18,7 @@ extern void Tsmos_ActivateControllerState(void);
 extern void *SmpFade_CreateFadeWidget(s32 a, s32 b);
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern void SmpButton_WrapButtonWidget(s32 a);
-extern void *Node_FindWidgetByResourceId(s32 owner, s32 id);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 /* Builds the 0x24-byte state g_playerCountScreen from the resources 0x392 to 0x397, hooks its list at 0x14 into the part Node_FindWidgetByResourceId returns for 0x397 and registers it with XStdio_FormatBuffer; returns zero. */

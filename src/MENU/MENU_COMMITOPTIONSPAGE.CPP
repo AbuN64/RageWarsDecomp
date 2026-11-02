@@ -39,7 +39,7 @@ extern CompactOptionsCommitContext *g_gameOptionsScreenState;
 
 
 
-extern TabOptionsCommitContext *g_optionsShortcutScreen;
+extern struct Shared_OptionsScreen *g_optionsShortcutScreen;
 
 void Menu_CommitOptionsPage(void) {
     Shared_Game *options;

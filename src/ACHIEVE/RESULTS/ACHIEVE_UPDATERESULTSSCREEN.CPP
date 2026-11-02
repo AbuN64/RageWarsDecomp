@@ -71,7 +71,7 @@ extern void Widget_SetWidgetFlag08(void *, s32);
    assembly; the conditional tests the zero case first. */
 
 
-extern void *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 
 extern s32 Widget_ListHasFlag100(struct WidgetNode *node);
 

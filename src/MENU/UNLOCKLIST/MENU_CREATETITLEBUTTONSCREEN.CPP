@@ -18,7 +18,7 @@ extern void *SmpFade_CreateFadeWidget(s32, s32);
 
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 
-extern struct ResourceSmpFlickerCreateFlickerWidget *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 
 /* Releases the object g_titleButtonScreen holds through Cache_FreeMemory, clears g_titleButtonScreen and returns zero. */
 

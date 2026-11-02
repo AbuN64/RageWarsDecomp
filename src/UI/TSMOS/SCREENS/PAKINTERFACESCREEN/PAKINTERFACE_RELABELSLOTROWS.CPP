@@ -13,7 +13,7 @@
    own bytes show; us, us-rev1 and eu share 0x28B. */
 extern char g_localPlayerProfiles[];
 extern s8 g_profileSlotIndices[];
-extern struct ItemFrontendRelabelSlotRows *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Widget_SetWidgetFlag100(MenuWidget *record, int enable);
 extern void *SmpOverlay_GetSlotValue(s32, s32);
 void PAKInterface_RelabelSlotRows(s32 player) {

@@ -19,7 +19,7 @@
 
 
 
-extern struct ScreenMenuFinishTabOptionsTransition *g_optionsShortcutScreen;
+extern struct Shared_OptionsScreen *g_optionsShortcutScreen;
 
 
 

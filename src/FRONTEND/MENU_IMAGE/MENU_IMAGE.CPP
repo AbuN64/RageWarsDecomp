@@ -52,7 +52,7 @@ extern struct Model *Scene_FindActorDefinition(Shared_World *, s32, s32);
 
 extern struct StateFlags g_equipmentPrimaryWidgetIds[];
 
-extern struct ResourceSmpFlickerCreateFlickerWidget *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 

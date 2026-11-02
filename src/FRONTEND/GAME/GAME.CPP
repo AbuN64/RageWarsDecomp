@@ -6,7 +6,7 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 extern char *g_optionsLocalizedShortcutText[];
 extern void MarkMenuEventHandled(void *);
-extern void *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern s32 SoundElement_PlayFlatSound(s32);
 typedef struct { u8 pad0[0x38]; char *text; } LangItemEu;
 /* Language selector, previous entry: on the confirm press (press == 1) steps the language byte down (0 wraps to 2), shows the

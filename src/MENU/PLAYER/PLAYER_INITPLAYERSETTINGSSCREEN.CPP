@@ -26,7 +26,7 @@ extern void *SmpButton_CreateListWidget(s32, s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
-extern void *Node_FindWidgetByResourceId(s32, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 #define ST ((void **)g_playerSettingsScreen)
 /* Builds the five player-settings controls and opens their parent screen. */
 s32 Player_InitPlayerSettingsScreen(s32 root) {
@@ -78,7 +78,7 @@ extern void *SmpButton_CreateListWidget(s32, s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
-extern void *Node_FindWidgetByResourceId(s32, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 #define ST ((void **)g_playerSettingsScreen)
 /* Builds the five player-settings controls (labels picked by the current language) and opens their parent screen. */
 s32 Player_InitPlayerSettingsScreen(s32 root) {

@@ -33,7 +33,7 @@ extern char *g_matchOptionsSelectLabelFirst, *g_matchOptionsSelectLabelSecond, *
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
 extern s32 Join_CountOpenPlayerSlots(void);
-extern void *Node_FindWidgetByResourceId(void *root, s32 identifier);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Widget_SetWidgetFlag100(void *record, s32 enable);
 extern struct RecordN64EngCreateNumericWidget *N64Eng_CreateNumericWidget(s32 sourceResourceId, s32 childResourceId, s32 minimumValue, s32 maximumValue, s32 wrapEnabled);
 extern void *SmpButton_CreateListWidget(s32, s32);
