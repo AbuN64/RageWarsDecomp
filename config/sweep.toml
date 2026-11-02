@@ -89,7 +89,7 @@ unless = 'FuncPtr\s+\w+\s*=|extern'
 id = "address-name"
 kind = "pattern"
 severity = "block"
-why = "An identifier that names an address instead of what it holds (a hex address suffix, a D_/unk_/func_ placeholder, LinkerAlignmentFill): the name says nothing to its reader and moves with every version (DECOMP-STOCK census 11-02: 1,957 such identifiers). The baseline only shrinks."
+why = "An identifier that names an address instead of what it holds (a hex address or ROM offset suffix of 5 to 8 digits with at least one decimal digit, a D_/unk_/func_ placeholder, LinkerAlignmentFill): the name says nothing to its reader and moves with every version (DECOMP-STOCK census 11-02: 1,957 such identifiers; the 5-7 digit ROM offsets added 11-02: 3,500 more). The baseline only shrinks."
 trees = ["rw"]
 paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "SOURCE/**/*.s", "include/**/*.H", "include/**/*.h", "versions/*/symbol_addrs.txt"]
-match = '\b(?:[A-Za-z_]\w*?_[0-9A-Fa-f]{8}|(?:D|unk|func)_[0-9A-Fa-f]+|\w*LinkerAlignmentFill\w*)\b'
+match = '\b(?:[A-Za-z_]\w*?_(?=[0-9A-Fa-f]{0,7}[0-9])[0-9A-Fa-f]{5,8}|(?:D|unk|func)_[0-9A-Fa-f]+|\w*LinkerAlignmentFill\w*)\b'

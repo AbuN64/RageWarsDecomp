@@ -1,22 +1,22 @@
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 /* Older build's rodata of (AI_OBJECT_PC:/Projects/DM/n64/Source/Engine/sched.cpp. */
-char g_earlierSchedStr_4583D4[56] = "(AI_OBJECT_PC:/Projects/DM/n64/Source/Engine/sched.cpp";
-char g_earlierSchedStr_45840C[40] = "(n_pending == 0) || (n_pending == 1)";
-char g_earlierSchedStr_458434[16] = "sc->curRSPTask";
-char g_earlierSchedStr_458444[28] = "t->list.t.type == M_GFXTASK";
-char g_earlierSchedStr_458460[8] = "FALSE";
-char g_earlierSchedStr_458468[16] = "-- MQ FULL --";
-char g_earlierSchedStr_458478[4] = "It$";
-char g_earlierSchedStr_45847C[4] = "It$";
-char g_earlierSchedStr_458480[4] = "It$";
-char g_earlierSchedStr_458484[4] = "It$";
-char g_earlierSchedStr_458488[16] = "sc->curRDPTask";
-char g_earlierSchedStr_458498[44] = "sc->curRDPTask->list.t.type == M_GFXTASK";
-char g_earlierSchedStr_4584C4[4] = "It$";
-char g_earlierSchedStr_4584C8[8] = "t->msgQ";
-char g_earlierSchedStr_4584D0[44] = "(type == M_AUDTASK) || (type == M_GFXTASK)";
-char g_earlierSchedStr_4584FC[20] = "sc->curRSPTask == 0";
-char g_earlierSchedStr_458510[24] = "dp->list.t.output_buff";
-char g_earlierSchedStr_458528[8] = "rv == 0";
-char g_earlierSchedStr_458530[24] = "sc->curRDPTask == gfx";
+char g_earlierSchedStrAiObjectPcProjectsDmN[56] = "(AI_OBJECT_PC:/Projects/DM/n64/Source/Engine/sched.cpp";
+char g_earlierSchedStrNPending0NPending1[40] = "(n_pending == 0) || (n_pending == 1)";
+char g_earlierSchedStrScCurrsptask[16] = "sc->curRSPTask";
+char g_earlierSchedStrTListTTypeMGfxtask[28] = "t->list.t.type == M_GFXTASK";
+char g_earlierSchedStrFalse[8] = "FALSE";
+char g_earlierSchedStrMqFull[16] = "-- MQ FULL --";
+char g_earlierSchedStrIt[4] = "It$";
+char g_earlierSchedStrIt2[4] = "It$";
+char g_earlierSchedStrIt3[4] = "It$";
+char g_earlierSchedStrIt4[4] = "It$";
+char g_earlierSchedStrScCurrdptask[16] = "sc->curRDPTask";
+char g_earlierSchedStrScCurrdptaskListTTypeM[44] = "sc->curRDPTask->list.t.type == M_GFXTASK";
+char g_earlierSchedStrIt5[4] = "It$";
+char g_earlierSchedStrTMsgq[8] = "t->msgQ";
+char g_earlierSchedStrTypeMAudtaskTypeMGfxtask[44] = "(type == M_AUDTASK) || (type == M_GFXTASK)";
+char g_earlierSchedStrScCurrsptask0[20] = "sc->curRSPTask == 0";
+char g_earlierSchedStrDpListTOutputBuff[24] = "dp->list.t.output_buff";
+char g_earlierSchedStrRv0[8] = "rv == 0";
+char g_earlierSchedStrScCurrdptaskGfx[24] = "sc->curRDPTask == gfx";
 #endif

@@ -145,13 +145,13 @@ void Playerai_SetInheritedMotionFlags(void *player, void *source, s32 enabled) {
     s32 flags;
     s32 flag_1000;
     s32 flag_8000;
-    s32 flag_10000;
+    s32 periodicHazardFlag;
 
     if (enabled != 0) {
         flags = argument->flags;
         flag_1000 = flags & 0x1000;
         flag_8000 = flags & 0x8000;
-        flag_10000 = flags & 0x10000;
+        periodicHazardFlag = flags & 0x10000;
         if (flag_1000 == 0) {
             object->effectTimer = 0;
         } else {
@@ -160,7 +160,7 @@ void Playerai_SetInheritedMotionFlags(void *player, void *source, s32 enabled) {
         if (flag_8000) {
             Playerai_NoopDamageSourceCallback_de(player, source);
         }
-        if (flag_10000) {
+        if (periodicHazardFlag) {
             Playerai_ApplyPeriodicHazardDamage(player, source);
         }
     }

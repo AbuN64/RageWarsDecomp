@@ -1,4 +1,4 @@
 #if defined(VERSION_EU)
 /* Older build's short strings. */
-char g_earlierStrings_45D4D4[2][4] = { "T", "R" };
+char g_earlierStringsTR[2][4] = { "T", "R" };
 #endif

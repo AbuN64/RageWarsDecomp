@@ -1,16 +1,16 @@
 #if defined(VERSION_DE)
 #include "MENU/BUILD/DEFINITION_DATA.H"
 
-extern char g_earlierMenuPaged_4415B4[];
-extern char g_earlierMenuPaged_442024[];
-extern char g_earlierMenuPaged_44204C[];
-extern char g_earlierMenuPaged_4456A0[];
-extern char g_earlierMenuPaged_445924[];
-extern char g_earlierMenuPaged_445A74[];
-extern char g_earlierMenuPaged_445B80[];
-extern char g_earlierMenuPaged_445D2C[];
-extern char g_earlierMenuPaged_445DC4[];
-extern char g_earlierMenuPaged_445EB4[];
+extern char g_earlierMenuPaged348[];
+extern char g_earlierMenuPaged350[];
+extern char g_earlierMenuPaged351[];
+extern char g_earlierMenuPaged431[];
+extern char g_earlierMenuPaged438[];
+extern char g_earlierMenuPaged442[];
+extern char g_earlierMenuPaged444[];
+extern char g_earlierMenuPaged448[];
+extern char g_earlierMenuPaged451[];
+extern char g_earlierMenuPaged454[];
 extern char g_earlierMenuResource73[];
 extern char g_earlierMenuResource114[];
 extern char g_earlierMenuResource121[];
@@ -56,56 +56,56 @@ extern char g_earlierMenuResource162[];
 extern char g_earlierMenuResource163[];
 extern char g_earlierMenuResource164[];
 extern char g_earlierMenuResource165[];
-extern struct MenuBuildItemData g_earlierMenuItems_451210[45];
+extern struct MenuBuildItemData g_earlierMenuItems46[45];
 
-struct MenuBuildItemData g_earlierMenuItems_451210[45] = {
-    { 0x0000, 0x0000, 0x00000041, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource73, (unsigned int)g_earlierMenuPaged_442024, 0x00000000, 0x00000000, 0x00000000 },
-    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource162, (unsigned int)g_earlierMenuPaged_445B80, (unsigned int)g_earlierMenuPaged_445924, 0x00000000, 0x00000000 },
-    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource163, (unsigned int)g_earlierMenuPaged_445B80, (unsigned int)g_earlierMenuPaged_445924, 0x00000000, 0x00000000 },
-    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource164, (unsigned int)g_earlierMenuPaged_445B80, (unsigned int)g_earlierMenuPaged_445924, 0x00000000, 0x00000000 },
-    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource165, (unsigned int)g_earlierMenuPaged_445B80, (unsigned int)g_earlierMenuPaged_445924, 0x00000000, 0x00000000 },
-    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x000A, 0x07, 0x01, 0x20, 0x08, (int)g_earlierMenuResource121, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource122, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource123, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource124, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource125, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource126, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource127, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0x20, 0x08, (int)g_earlierMenuResource128, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource129, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource130, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource131, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource132, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource133, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource134, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource135, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource136, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource137, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource138, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource139, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource140, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource141, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource142, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource143, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource144, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource145, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource146, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource147, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource148, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource149, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource150, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource151, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource152, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource153, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource154, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource155, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource156, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource114, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource157, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445A74, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource158, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445D2C, 0x00000000 },
-    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0xE0, (int)g_earlierMenuResource159, (unsigned int)g_earlierMenuPaged_44204C, 0x00000000, (unsigned int)g_earlierMenuPaged_445DC4, 0x00000000 },
+struct MenuBuildItemData g_earlierMenuItems46[45] = {
+    { 0x0000, 0x0000, 0x00000041, 0x0000, 0x0000, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource73, (unsigned int)g_earlierMenuPaged350, 0x00000000, 0x00000000, 0x00000000 },
+    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource162, (unsigned int)g_earlierMenuPaged444, (unsigned int)g_earlierMenuPaged438, 0x00000000, 0x00000000 },
+    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource163, (unsigned int)g_earlierMenuPaged444, (unsigned int)g_earlierMenuPaged438, 0x00000000, 0x00000000 },
+    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource164, (unsigned int)g_earlierMenuPaged444, (unsigned int)g_earlierMenuPaged438, 0x00000000, 0x00000000 },
+    { 0x0000, 0x0000, 0x00210101, 0x0000, 0x0008, 0x00, 0x00, 0xFF, 0x01, (int)g_earlierMenuResource165, (unsigned int)g_earlierMenuPaged444, (unsigned int)g_earlierMenuPaged438, 0x00000000, 0x00000000 },
+    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x000A, 0x07, 0x01, 0x20, 0x08, (int)g_earlierMenuResource121, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource122, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource123, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource124, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource125, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource126, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0x20, 0x08, (int)g_earlierMenuResource127, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0x20, 0x08, (int)g_earlierMenuResource128, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource129, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource130, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource131, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource132, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource133, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource134, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource135, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource136, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource137, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource138, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource139, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource140, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource141, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource142, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource143, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource144, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource145, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource146, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource147, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource148, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource149, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource150, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0x08, (int)g_earlierMenuResource151, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0x08, (int)g_earlierMenuResource152, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00010110, 0x0000, 0x0004, 0x07, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource153, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource154, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource155, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource156, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource114, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource157, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged442, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0x01, 0xF8, 0xE0, (int)g_earlierMenuResource158, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged448, 0x00000000 },
+    { 0x0000, 0x0000, 0x00024110, 0x0006, 0x0000, 0xFF, 0xF9, 0xF8, 0xE0, (int)g_earlierMenuResource159, (unsigned int)g_earlierMenuPaged351, 0x00000000, (unsigned int)g_earlierMenuPaged451, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef_451864 = { (unsigned int)g_earlierMenuItems_451210, 0x002D, 0x0000, (unsigned int)g_earlierMenuPaged_4456A0, 0x00000000, (unsigned int)g_earlierMenuPaged_4415B4, (unsigned int)g_earlierMenuPaged_445EB4, 0x0005, 0x0000, 0x0000, 0x0000, 0x00000000 };
+struct MenuBuildDefinitionData g_earlierMenuDef116 = { (unsigned int)g_earlierMenuItems46, 0x002D, 0x0000, (unsigned int)g_earlierMenuPaged431, 0x00000000, (unsigned int)g_earlierMenuPaged348, (unsigned int)g_earlierMenuPaged454, 0x0005, 0x0000, 0x0000, 0x0000, 0x00000000 };
 
 #endif

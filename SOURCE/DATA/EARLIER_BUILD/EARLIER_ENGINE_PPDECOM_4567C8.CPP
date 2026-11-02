@@ -1,4 +1,4 @@
 #if defined(VERSION_EU_X)
 /* Older build's rodata of C:/Projects/DM/n64/Source/Engine/ppdecom.cpp. */
-float g_earlierPpdecomFloats_4567C8[1] = { 201.431442f };
+float g_earlierPpdecomFloats3[1] = { 201.431442f };
 #endif

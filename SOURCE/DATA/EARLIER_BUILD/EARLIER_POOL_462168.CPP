@@ -1,4 +1,4 @@
 #if defined(VERSION_EU)
 /* Older build's code pointer: offsets of its code, relocated at load. */
-void *g_earlierCodePointer_462168[1] = { (void *)0x00227048 };
+void *g_earlierCodePointer5[1] = { (void *)0x00227048 };
 #endif

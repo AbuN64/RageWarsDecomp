@@ -2,13 +2,9 @@
 # (rule, file, fingerprint of the line text, repeat number)
 hook-called-without-arguments	SOURCE/ENGINE/CINEMA/CINEMA/CINEMA.CPP	0812cd0143c3	0
 hook-called-without-arguments	SOURCE/ENGINE/UNICOL/UNICOL/CCINEMA_UPDATESEQUENCE.CPP	ace121c52cf2	0
-wide-access-through-member-address	SOURCE/ENGINE/CACHE/CACHE/CACHE_INITIALIZERESOURCECACHE.CPP	823bc076cd35	0
-wide-access-through-member-address	SOURCE/ENGINE/CACHE/CACHE/CACHE_INITIALIZERESOURCECACHE.CPP	de312682c633	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	1a79f8330d70	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	67a455d34b74	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	7022db9de922	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	793b1effc233	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	bdc07899ba6d	0
 wide-access-through-member-address	SOURCE/ENGINE/VISDATA2.CPP	e0d50d2a9c16	0
-word-array-byte-use	SOURCE/ENGINE/CACHE/CACHE/CACHE_ALLOCATERESOURCEAT.CPP	ff49551befcd	0
-word-array-byte-use	SOURCE/ENGINE/CONTROL/CONTROL_CYCLEACTORSNAPSHOTMODE.CPP	b44f54bd12e3	0
