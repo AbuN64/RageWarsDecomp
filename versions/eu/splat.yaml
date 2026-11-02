@@ -4841,29 +4841,13 @@ segments:
       - [0x14CEF4, data, debug_symbols_earlier_14CBE8/g_earlierGskyStr_453EF4]
       - [0x14CEFC, data, debug_symbols_earlier_14CBE8/g_earlierGskyFloats_453EFC]
       - [0x14CF50, data, debug_symbols_earlier_14CBE8/g_earlierGskyStr_453F50]
-  - name: debug_symbols_14CF70
-    type: bin
+  - name: debug_symbols_earlier_14CF70
+    type: code
     start: 0x14CF70
-  - name: debug_symbols_earlier_14CF80
-    type: code
-    start: 0x14CF80
-    vram: 0x00453F80
+    vram: 0x00453F70
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x14CF80, data, debug_symbols_earlier_14CF80/g_earlierAnimpoolFloats_453F80]
-  - name: debug_symbols_14CF84
-    type: bin
-    start: 0x14CF84
-  - name: debug_symbols_earlier_14CF88
-    type: code
-    start: 0x14CF88
-    vram: 0x00453F88
-    exclusive_ram_id: "earlier_build"
-    subsegments:
-      - [0x14CF88, data, debug_symbols_earlier_14CF88/g_earlierAnimpoolFloats_453F88]
-  - name: debug_symbols_14CF8C
-    type: bin
-    start: 0x14CF8C
+      - [0x14CF70, data, debug_symbols_earlier_14CF70/g_earlierAnimpoolStr_453F70]
   - name: debug_symbols_earlier_14CF90
     type: code
     start: 0x14CF90
@@ -5545,30 +5529,7 @@ segments:
     vram: 0x004567B0
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x14F7B0, data, debug_symbols_earlier_14F7B0/g_earlierPpdecomFloats_4567B0]
-  - name: debug_symbols_14F7B4
-    type: bin
-    start: 0x14F7B4
-  - name: debug_symbols_earlier_14F7C0
-    type: code
-    start: 0x14F7C0
-    vram: 0x004567C0
-    exclusive_ram_id: "earlier_build"
-    subsegments:
-      - [0x14F7C0, data, debug_symbols_earlier_14F7C0/g_earlierPpdecomFloats_4567C0]
-  - name: debug_symbols_14F7C4
-    type: bin
-    start: 0x14F7C4
-  - name: debug_symbols_earlier_14F7C8
-    type: code
-    start: 0x14F7C8
-    vram: 0x004567C8
-    exclusive_ram_id: "earlier_build"
-    subsegments:
-      - [0x14F7C8, data, debug_symbols_earlier_14F7C8/g_earlierPpdecomFloats_4567C8]
-  - name: debug_symbols_14F7CC
-    type: bin
-    start: 0x14F7CC
+      - [0x14F7B0, data, debug_symbols_earlier_14F7B0/g_earlierPpdecomStr_4567B0]
   - name: debug_symbols_earlier_14F7F0
     type: code
     start: 0x14F7F0
@@ -6125,19 +6086,13 @@ segments:
       - [0x1515E0, data, debug_symbols_earlier_151564/g_earlierSetn64Str_4585E0]
       - [0x1515E8, data, debug_symbols_earlier_151564/g_earlierSetn64Str_4585E8]
       - [0x1515F0, data, debug_symbols_earlier_151564/g_earlierSetn64Str_4585F0]
-  - name: debug_symbols_151608
-    type: bin
-    start: 0x151608
-  - name: debug_symbols_earlier_151618
+  - name: debug_symbols_earlier_151608
     type: code
-    start: 0x151618
-    vram: 0x00458618
+    start: 0x151608
+    vram: 0x00458608
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x151618, data, debug_symbols_earlier_151618/g_earlierSimppoolFloats_458618]
-  - name: debug_symbols_15161C
-    type: bin
-    start: 0x15161C
+      - [0x151608, data, debug_symbols_earlier_151608/g_earlierSimppoolStr_458608]
   - name: debug_symbols_earlier_151630
     type: code
     start: 0x151630
@@ -6262,19 +6217,23 @@ segments:
       - [0x151C90, data, debug_symbols_earlier_151C90/g_earlierVisdataStr_458C90]
       - [0x151CC0, data, debug_symbols_earlier_151C90/g_earlierVisdataStr_458CC0]
       - [0x151CD0, data, debug_symbols_earlier_151C90/g_earlierVisdataStr_458CD0]
-  - name: debug_symbols_151CE8
-    type: bin
-    start: 0x151CE8
-  - name: debug_symbols_earlier_151D0C
+  - name: debug_symbols_earlier_151CE8
     type: code
-    start: 0x151D0C
-    vram: 0x00458D0C
+    start: 0x151CE8
+    vram: 0x00458CE8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x151D0C, data, debug_symbols_earlier_151D0C/g_earlierVolumeFloats_458D0C]
-      - [0x151D14, data, debug_symbols_earlier_151D0C/g_earlierVolumeStr_458D14]
-      - [0x151D40, data, debug_symbols_earlier_151D0C/g_earlierVolumeStr_458D40]
-      - [0x151D48, data, debug_symbols_earlier_151D0C/g_earlierVolumeStr_458D48]
+      - [0x151CE8, data, debug_symbols_earlier_151CE8/g_earlierVolumeStr_458CE8]
+  - name: debug_symbols_earlier_151D10
+    type: code
+    start: 0x151D10
+    vram: 0x00458D10
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x151D10, data, debug_symbols_earlier_151D10/g_earlierVolumeFloats_458D10]
+      - [0x151D14, data, debug_symbols_earlier_151D10/g_earlierVolumeStr_458D14]
+      - [0x151D40, data, debug_symbols_earlier_151D10/g_earlierVolumeStr_458D40]
+      - [0x151D48, data, debug_symbols_earlier_151D10/g_earlierVolumeStr_458D48]
   - name: debug_symbols_earlier_151D64
     type: code
     start: 0x151D64
@@ -6356,7 +6315,7 @@ segments:
     vram: 0x00458FEC
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x151FEC, data, debug_symbols_earlier_151FEC/g_earlierJointcolFloats_458FEC]
+      - [0x151FEC, data, debug_symbols_earlier_151FEC/g_earlierJointcolStr_458FEC]
       - [0x151FF4, data, debug_symbols_earlier_151FEC/g_earlierJointcolStr_458FF4]
       - [0x152038, data, debug_symbols_earlier_151FEC/g_earlierJointcolStr_459038]
   - name: debug_symbols_earlier_152050
@@ -6383,19 +6342,13 @@ segments:
       - [0x1520D0, data, debug_symbols_earlier_152068/g_earlierJointcolStr_4590D0]
       - [0x1520DC, data, debug_symbols_earlier_152068/g_earlierJointcolStr_4590DC]
       - [0x1520F4, data, debug_symbols_earlier_152068/g_earlierJointcolStr_4590F4]
-  - name: debug_symbols_15210C
-    type: bin
-    start: 0x15210C
-  - name: debug_symbols_earlier_15211C
+  - name: debug_symbols_earlier_15210C
     type: code
-    start: 0x15211C
-    vram: 0x0045911C
+    start: 0x15210C
+    vram: 0x0045910C
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15211C, data, debug_symbols_earlier_15211C/g_earlierPathfindFloats_45911C]
-  - name: debug_symbols_152124
-    type: bin
-    start: 0x152124
+      - [0x15210C, data, debug_symbols_earlier_15210C/g_earlierPathfindStr_45910C]
   - name: debug_symbols_earlier_152130
     type: code
     start: 0x152130
@@ -6414,9 +6367,13 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x1521E0, data, debug_symbols_earlier_1521E0/g_earlierPlaneFloats_4591E0]
-  - name: debug_symbols_152218
-    type: bin
+  - name: debug_symbols_earlier_152218
+    type: code
     start: 0x152218
+    vram: 0x00459218
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x152218, data, debug_symbols_earlier_152218/g_earlierPlaneStr_459218]
   - name: debug_symbols_earlier_15222C
     type: code
     start: 0x15222C
@@ -6484,9 +6441,13 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x152670, data, debug_symbols_earlier_152670/g_earlierCinemaFloats_459670]
-  - name: debug_symbols_152694
-    type: bin
+  - name: debug_symbols_earlier_152694
+    type: code
     start: 0x152694
+    vram: 0x00459694
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x152694, data, debug_symbols_earlier_152694/g_earlierCinemaStr_459694]
   - name: debug_symbols_earlier_1526A0
     type: code
     start: 0x1526A0
@@ -6859,19 +6820,13 @@ segments:
       - [0x153FEC, data, debug_symbols_earlier_153E5C/g_earlierHeapStr_45AFEC]
       - [0x15402C, data, debug_symbols_earlier_153E5C/g_earlierHeapStr_45B02C]
       - [0x154050, data, debug_symbols_earlier_153E5C/g_earlierHeapStr_45B050]
-  - name: debug_symbols_154068
-    type: bin
-    start: 0x154068
-  - name: debug_symbols_earlier_154070
+  - name: debug_symbols_earlier_154068
     type: code
-    start: 0x154070
-    vram: 0x0045B070
+    start: 0x154068
+    vram: 0x0045B068
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x154070, data, debug_symbols_earlier_154070/g_earlierListFloats_45B070]
-  - name: debug_symbols_154078
-    type: bin
-    start: 0x154078
+      - [0x154068, data, debug_symbols_earlier_154068/g_earlierListStr_45B068]
   - name: debug_symbols_earlier_154084
     type: code
     start: 0x154084
@@ -6944,35 +6899,28 @@ segments:
     subsegments:
       - [0x154310, data, debug_symbols_earlier_154310/g_earlierMutexStr_45B310]
       - [0x154344, data, debug_symbols_earlier_154310/g_earlierMutexStr_45B344]
-  - name: debug_symbols_154358
-    type: bin
+  - name: debug_symbols_earlier_154358
+    type: code
     start: 0x154358
-  - name: debug_symbols_earlier_154368
-    type: code
-    start: 0x154368
-    vram: 0x0045B368
+    vram: 0x0045B358
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x154368, data, debug_symbols_earlier_154368/g_earlierAudiomgrFloats_45B368]
-  - name: debug_symbols_15436C
-    type: bin
-    start: 0x15436C
-  - name: debug_symbols_earlier_15437C
+      - [0x154358, data, debug_symbols_earlier_154358/g_earlierAudiomgrStr_45B358]
+  - name: debug_symbols_earlier_154380
     type: code
-    start: 0x15437C
-    vram: 0x0045B37C
+    start: 0x154380
+    vram: 0x0045B380
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15437C, data, debug_symbols_earlier_15437C/g_earlierAudiomgrFloats_45B37C]
-      - [0x154380, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B380]
-      - [0x1543B4, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B3B4]
-      - [0x1543C4, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B3C4]
-      - [0x1543D8, data, debug_symbols_earlier_15437C/g_earlierAudiomgrFloats_45B3D8]
-      - [0x1543F0, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B3F0]
-      - [0x154408, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B408]
-      - [0x154410, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B410]
-      - [0x15442C, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B42C]
-      - [0x154448, data, debug_symbols_earlier_15437C/g_earlierAudiomgrStr_45B448]
+      - [0x154380, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B380]
+      - [0x1543B4, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B3B4]
+      - [0x1543C4, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B3C4]
+      - [0x1543D8, data, debug_symbols_earlier_154380/g_earlierAudiomgrFloats_45B3D8]
+      - [0x1543F0, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B3F0]
+      - [0x154408, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B408]
+      - [0x154410, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B410]
+      - [0x15442C, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B42C]
+      - [0x154448, data, debug_symbols_earlier_154380/g_earlierAudiomgrStr_45B448]
   - name: debug_symbols_earlier_154454
     type: code
     start: 0x154454
@@ -7175,10 +7123,7 @@ segments:
     vram: 0x0045BF34
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x154F34, data, debug_symbols_earlier_154F34/g_earlierGastateFloats_45BF34]
-  - name: debug_symbols_154F38
-    type: bin
-    start: 0x154F38
+      - [0x154F34, data, debug_symbols_earlier_154F34/g_earlierGastateStr_45BF34]
   - name: debug_symbols_earlier_154F48
     type: code
     start: 0x154F48
@@ -7293,10 +7238,7 @@ segments:
     vram: 0x0045C710
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x155710, data, debug_symbols_earlier_155710/g_earlierSmxlateFloats_45C710]
-  - name: debug_symbols_155714
-    type: bin
-    start: 0x155714
+      - [0x155710, data, debug_symbols_earlier_155710/g_earlierSmxlateStr_45C710]
   - name: debug_symbols_earlier_155720
     type: code
     start: 0x155720
@@ -7627,10 +7569,7 @@ segments:
     vram: 0x0045D4E8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1564E8, data, debug_symbols_earlier_1564E8/g_earlierTsmosFloats_45D4E8]
-  - name: debug_symbols_1564EC
-    type: bin
-    start: 0x1564EC
+      - [0x1564E8, data, debug_symbols_earlier_1564E8/g_earlierTsmosStr_45D4E8]
   - name: debug_symbols_earlier_1564F0
     type: code
     start: 0x1564F0
@@ -8240,18 +8179,20 @@ segments:
     subsegments:
       - [0x15869C, data, debug_symbols_earlier_15869C/g_earlierPickupFloats_45F69C]
       - [0x1586A0, data, debug_symbols_earlier_15869C/g_earlierPickupStr_45F6A0]
-      - [0x1586AC, data, debug_symbols_earlier_15869C/g_earlierPickupFloats_45F6AC]
-  - name: debug_symbols_1586B4
-    type: bin
-    start: 0x1586B4
-  - name: debug_symbols_earlier_1586BC
+  - name: debug_symbols_earlier_1586AC
     type: code
-    start: 0x1586BC
-    vram: 0x0045F6BC
+    start: 0x1586AC
+    vram: 0x0045F6AC
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1586BC, data, debug_symbols_earlier_1586BC/g_earlierPickupFloats_45F6BC]
-      - [0x1586C8, data, debug_symbols_earlier_1586BC/g_earlierPickupStr_45F6C8]
+      - [0x1586AC, data, debug_symbols_earlier_1586AC/g_earlierPickupStr_45F6AC]
+  - name: debug_symbols_earlier_1586C8
+    type: code
+    start: 0x1586C8
+    vram: 0x0045F6C8
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x1586C8, data, debug_symbols_earlier_1586C8/g_earlierPickupStr_45F6C8]
   - name: debug_symbols_1586E8
     type: bin
     start: 0x1586E8
@@ -8841,9 +8782,13 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x159DA8, data, debug_symbols_earlier_159DA8/g_earlierPickupStr_460DA8]
-  - name: debug_symbols_159DB4
-    type: bin
+  - name: debug_symbols_earlier_159DB4
+    type: code
     start: 0x159DB4
+    vram: 0x00460DB4
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x159DB4, data, debug_symbols_earlier_159DB4/g_earlierPickupStr_460DB4]
   - name: debug_symbols_earlier_159DD0
     type: code
     start: 0x159DD0
@@ -10334,10 +10279,16 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15FF80, data, debug_symbols_earlier_15FF80/g_earlierPoolWords_8015D380]
-      - [0x15FF98, data, debug_symbols_earlier_15FF80/g_earlierPoolFloats_8015D398]
-  - name: debug_symbols_15FFA0
+  - name: debug_symbols_earlier_15FF98
+    type: code
+    start: 0x15FF98
+    vram: 0x00466F98
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x15FF98, data, debug_symbols_earlier_15FF98/g_earlierPoolStr_466F98]
+  - name: debug_symbols_15FFA4
     type: bin
-    start: 0x15FFA0
+    start: 0x15FFA4
   - name: debug_symbols_earlier_15FFE8
     type: code
     start: 0x15FFE8
@@ -10348,10 +10299,16 @@ segments:
       - [0x15FFEC, data, debug_symbols_earlier_15FFE8/g_earlierPoolWords_8015D3EC]
       - [0x16010C, data, debug_symbols_earlier_15FFE8/g_earlierPoolFloats_8015D50C]
       - [0x16011C, data, debug_symbols_earlier_15FFE8/g_earlierPoolWords_8015D51C]
-      - [0x160148, data, debug_symbols_earlier_15FFE8/g_earlierPoolFloats_8015D548]
-  - name: debug_symbols_160150
+  - name: debug_symbols_earlier_160148
+    type: code
+    start: 0x160148
+    vram: 0x00467148
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x160148, data, debug_symbols_earlier_160148/g_earlierPoolStr_467148]
+  - name: debug_symbols_160154
     type: bin
-    start: 0x160150
+    start: 0x160154
   - name: debug_symbols_earlier_16017C
     type: code
     start: 0x16017C
@@ -10417,19 +10374,23 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x1604F0, data, debug_symbols_earlier_1604F0/g_earlierPoolWords_8015D8F0]
-  - name: debug_symbols_1604F4
-    type: bin
-    start: 0x1604F4
-  - name: debug_symbols_earlier_160500
+  - name: debug_symbols_earlier_1604F4
     type: code
-    start: 0x160500
-    vram: 0x8015D900
+    start: 0x1604F4
+    vram: 0x004674F4
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160500, data, debug_symbols_earlier_160500/g_earlierPoolFloats_8015D900]
-      - [0x160508, data, debug_symbols_earlier_160500/g_earlierPoolInts_8015D908]
-      - [0x16050C, data, debug_symbols_earlier_160500/g_earlierPoolStr_8015D90C]
-      - [0x160514, data, debug_symbols_earlier_160500/g_earlierPoolWords_8015D914]
+      - [0x1604F4, data, debug_symbols_earlier_1604F4/g_earlierPoolStr_4674F4]
+  - name: debug_symbols_earlier_160504
+    type: code
+    start: 0x160504
+    vram: 0x8015D904
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x160504, c, debug_symbols_earlier_160504]
+      - [0x160508, data, debug_symbols_earlier_160504/g_earlierPoolInts_8015D908]
+      - [0x16050C, data, debug_symbols_earlier_160504/g_earlierPoolStr_8015D90C]
+      - [0x160514, data, debug_symbols_earlier_160504/g_earlierPoolWords_8015D914]
   - name: debug_symbols_earlier_16051C
     type: code
     start: 0x16051C
@@ -10727,6 +10688,16 @@ segments:
   - name: debug_symbols_1649C8
     type: bin
     start: 0x1649C8
+  - name: debug_symbols_earlier_1649E0
+    type: code
+    start: 0x1649E0
+    vram: 0x0046B9E0
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x1649E0, data, debug_symbols_earlier_1649E0/g_earlierPoolStr_46B9E0]
+  - name: debug_symbols_164A10
+    type: bin
+    start: 0x164A10
   - name: debug_symbols_earlier_165968
     type: code
     start: 0x165968
@@ -10895,6 +10866,16 @@ segments:
   - name: debug_symbols_16B46C
     type: bin
     start: 0x16B46C
+  - name: debug_symbols_earlier_16EDF0
+    type: code
+    start: 0x16EDF0
+    vram: 0x00475DF0
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x16EDF0, data, debug_symbols_earlier_16EDF0/g_earlierTextStr_475DF0]
+  - name: debug_symbols_16EE20
+    type: bin
+    start: 0x16EE20
   - name: debug_symbols_earlier_16F2F4
     type: code
     start: 0x16F2F4
@@ -10905,6 +10886,16 @@ segments:
   - name: debug_symbols_16F318
     type: bin
     start: 0x16F318
+  - name: debug_symbols_earlier_172C10
+    type: code
+    start: 0x172C10
+    vram: 0x00479C10
+    exclusive_ram_id: "earlier_build"
+    subsegments:
+      - [0x172C10, data, debug_symbols_earlier_172C10/g_earlierTextStr_479C10]
+  - name: debug_symbols_172C40
+    type: bin
+    start: 0x172C40
   - name: debug_symbols_earlier_173110
     type: code
     start: 0x173110

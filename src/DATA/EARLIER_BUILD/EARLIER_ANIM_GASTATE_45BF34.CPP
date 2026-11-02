@@ -1,4 +1,6 @@
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#if defined(VERSION_EU)
 /* Older build's rodata of _VIPEReqC:/Projects/DM/n64/Source/Engine/Anim/GAState.cpp. */
+char g_earlierGastateStr_45BF34[20] = "Index < pPAS->Size\000F";
+#elif defined(VERSION_EU_X)
 float g_earlierGastateFloats_45BF34[1] = { 976454.312f };
 #endif

@@ -1,6 +1,8 @@
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#if defined(VERSION_EU_X)
 /* Older build's rodata of C:/Projects/DM/n64/Source/Engine/Audio/AUDIOMGR.cpp. */
 float g_earlierAudiomgrFloats_45B37C[1] = { 44302664.0f };
+#endif
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
 char g_earlierAudiomgrStr_45B380[52] = "C:/Projects/DM/n64/Source/Engine/Audio/AUDIOMGR.cpp";
 char g_earlierAudiomgrStr_45B3B4[16] = "dmaBuffs[i].ptr";
 char g_earlierAudiomgrStr_45B3C4[20] = "__am.ACMDList[i]";
