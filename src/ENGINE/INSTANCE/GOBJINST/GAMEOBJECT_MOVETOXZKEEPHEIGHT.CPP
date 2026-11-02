@@ -14,7 +14,7 @@
 extern void Insthdr_ResetInstanceRenderIndices(signed char *prop);
 
 extern f32 g_materialCurrentStrengthScales[];
-extern f32 g_frameElapsedTime[];
+extern f32 g_frameElapsedTime;
 
 extern int InstHdr_GetActorMotionState(void *levelActor);
 
@@ -107,10 +107,10 @@ void GameObject_ApplyMaterialCurrents(ActorHorizontalMovementView *actor, Horizo
                 }
                 targetAngle=currentTargetYaw; oldAngle=blendedYaw;
                 if (oldAngle < targetAngle) {
-                    blendedYaw=oldAngle+((f32)material->strength*g_materialCurrentStrengthScales[1]*g_frameElapsedTime[0]*0.017453294f);
+                    blendedYaw=oldAngle+((f32)material->strength*g_materialCurrentStrengthScales[1]*g_frameElapsedTime*0.017453294f);
                     if (targetAngle<blendedYaw) blendedYaw=targetAngle;
                 } else {
-                    blendedYaw=oldAngle-((f32)material->strength*g_materialCurrentStrengthScales[1]*g_frameElapsedTime[0]*0.017453294f);
+                    blendedYaw=oldAngle-((f32)material->strength*g_materialCurrentStrengthScales[1]*g_frameElapsedTime*0.017453294f);
                     if (blendedYaw<targetAngle) blendedYaw=targetAngle;
                 }
                 Graphu64_WrapPeriodicValue(&blendedYaw);
@@ -122,7 +122,7 @@ void GameObject_ApplyMaterialCurrents(ActorHorizontalMovementView *actor, Horizo
         v10.y = 0.0f;
         v10.z = 0.0f;
     }
-    currentBlend = (f32) material->strength * g_materialCurrentStrengthScales[0] * g_frameElapsedTime[0];
+    currentBlend = (f32) material->strength * g_materialCurrentStrengthScales[0] * g_frameElapsedTime;
     currentBlend = ((currentBlend < 0.0f ? 0.0f : currentBlend) > 1.0f ? 1.0f : (currentBlend < 0.0f ? 0.0f : currentBlend));
     actorCurrent=&actor->current;
     Graphu64_InterpolateVector(actorCurrent, currentBlend, actorCurrent, &v10);

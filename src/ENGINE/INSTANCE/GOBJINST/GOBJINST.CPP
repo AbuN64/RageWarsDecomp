@@ -33,7 +33,7 @@ extern char g_portalModeCollisionQuery;
 
 extern char g_portalNoModelFlagCollisionQuery;
 
-extern char g_portalAlternateCollisionQuery;
+extern CollisionQuery g_portalAlternateCollisionQuery;
 
 extern int Insthdr_GetModelCollisionFlag1(void *actorStorage);
 
@@ -128,11 +128,11 @@ s32 Gobjinst_ProbeActorMovement(ActorInstanceHeader *actorState, CVector3 positi
     struct BarrelAnchorActorView *actor = (struct BarrelAnchorActorView *)actorState;
 
     if (actor->type == 1 && (actor->flags100 & 0x300000) != 0) {
-        set = &g_portalAlternateCollisionQuery;
+        set = (char *)&g_portalAlternateCollisionQuery;
     } else {
         grounded = Insthdr_GetModelCollisionFlag1(actorState);
         if (Insthdr_IsInactiveOrCollisionOption4(actorState) == 0) {
-            set = &g_portalAlternateCollisionQuery;
+            set = (char *)&g_portalAlternateCollisionQuery;
             if (grounded != 0) {
                 set = &g_portalModeCollisionQuery;
             }

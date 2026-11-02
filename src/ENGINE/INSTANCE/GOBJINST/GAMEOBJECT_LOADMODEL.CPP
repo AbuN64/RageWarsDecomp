@@ -101,7 +101,7 @@ void Graphu64_InterpolateQuaternionWithLinearFallback(struct CQuatern_t *, f32, 
  /* extern */
 
  /* extern */
-extern f32 g_actorGroundRotationBlendRates[], g_actorRotationBlendAndResourceTuning[], g_frameElapsedTime[];
+extern f32 g_actorGroundRotationBlendRates[], g_actorRotationBlendAndResourceTuning[], g_frameElapsedTime;
 
 typedef struct CollisionInfo CollisionInfo;
 
@@ -169,9 +169,9 @@ void Gobjinst_UpdateActorGroundRotation(ActorModelLoadState *actor) {
             }
         } else {
             if ((rotationState != 0) && !(actor->flags & 0x1000)) {
-                rotationBlend = g_frameElapsedTime[0]; rotationBlendRate = g_actorGroundRotationBlendRates[0];
+                rotationBlend = g_frameElapsedTime; rotationBlendRate = g_actorGroundRotationBlendRates[0];
             } else {
-                rotationBlend = g_frameElapsedTime[0]; rotationBlendRate = g_actorGroundRotationBlendRates[1];
+                rotationBlend = g_frameElapsedTime; rotationBlendRate = g_actorGroundRotationBlendRates[1];
             }
             rotationBlend = rotationBlend * rotationBlendRate;
             rotation = actor->rotation;

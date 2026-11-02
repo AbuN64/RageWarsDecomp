@@ -107,7 +107,7 @@ ResourceLoadRequest *Cache_FinalizeResourceLoad(s32 unused, ResourceLoadRequest 
 #include "SCENE/RESOURCE_BINDING_AND_FADE_VIEWS.H"
 
 extern Gfx *g_displayListCursor;
-extern struct MemoryUsageStats g_resourceCacheFrameStamp;
+extern s32 g_resourceCacheFrameStamp;
 extern Manager g_resourceRequestManager;
 extern void Geometry_SetCombineMode(u32);
 extern s32 Geometry_SetModePreset(s32);
@@ -215,7 +215,7 @@ void Cache_DrawMemoryUsage(s32 unused, s32 left, s32 top, s32 right, s32 bottom)
 
             if (!(node->flags & 0x702)) {
                 r = g = b = 0xFF;
-                if ((u32)(g_resourceCacheFrameStamp.value - node->stamp) >= 5U) {
+                if ((u32)(g_resourceCacheFrameStamp - node->stamp) >= 5U) {
                 gDPSetPrimColor(g_displayListCursor++, 0, 0, r, g, b, 255);
                 if (hi < lo) {
                     gDPFillRectangle(g_displayListCursor++, left + 8, hi, right, lo);
