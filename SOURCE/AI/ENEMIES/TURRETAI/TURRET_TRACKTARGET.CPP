@@ -30,7 +30,7 @@ void Barrel_StopActorLoopingSound(void *actor, void *soundState);
 
 f32 Graphu64_ApproachValue(f32 current, f32 target, f32 rate);
 
-typedef union NavRider { TurretRiderTargetView target; Rider rider; struct { char pad0[0x9C]; f32 heading; char padA0[0x124-0xA0]; f32 speed; char setupResetWord[8]; CVector3 aim; } nav; } NavRider;
+typedef union NavRider { TurretRiderTargetView target; Rider rider; struct { char pad0[0x9C]; f32 heading; char padA0[0x124-0xA0]; f32 speed; char pad128[8]; CVector3 aim; } nav; } NavRider;
 
 /* Callers reserve a 136-byte result workspace shared by both target searches. */
 static inline void navRotation(CQuatern *q,CVector3 *aim) {
