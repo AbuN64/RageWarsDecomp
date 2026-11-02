@@ -5,26 +5,26 @@
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 extern char g_ribbonBlendResourceFirstBase_de[];
-unsigned int k_FxSpawnimpactmarkEncodedWords[6] = {
-    (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xC, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x34, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x5C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xD4, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x14C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x174,
+char *k_FxSpawnimpactmarkEncodedWords[6] = {
+    g_ribbonBlendResourceFirstBase_de + 0xC, g_ribbonBlendResourceFirstBase_de + 0x34, g_ribbonBlendResourceFirstBase_de + 0x5C, g_ribbonBlendResourceFirstBase_de + 0xD4, g_ribbonBlendResourceFirstBase_de + 0x14C, g_ribbonBlendResourceFirstBase_de + 0x174,
 };
 #endif
 #if defined(VERSION_EU)
 extern char g_ribbonBlendResourceFirstBase_de[];
-unsigned int k_FxSpawnimpactmarkEncodedWords[6] = {
-    (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xC, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x34, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x5C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xD4, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x14C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x174,
+char *k_FxSpawnimpactmarkEncodedWords[6] = {
+    g_ribbonBlendResourceFirstBase_de + 0xC, g_ribbonBlendResourceFirstBase_de + 0x34, g_ribbonBlendResourceFirstBase_de + 0x5C, g_ribbonBlendResourceFirstBase_de + 0xD4, g_ribbonBlendResourceFirstBase_de + 0x14C, g_ribbonBlendResourceFirstBase_de + 0x174,
 };
 #endif
 #if defined(VERSION_EU_X)
 extern char g_ribbonBlendResourceFirstBase_de[];
-unsigned int k_FxSpawnimpactmarkEncodedWords[6] = {
-    (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xC, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x34, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x5C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xD4, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x14C, (unsigned int)g_ribbonBlendResourceFirstBase_de + 0x174,
+char *k_FxSpawnimpactmarkEncodedWords[6] = {
+    g_ribbonBlendResourceFirstBase_de + 0xC, g_ribbonBlendResourceFirstBase_de + 0x34, g_ribbonBlendResourceFirstBase_de + 0x5C, g_ribbonBlendResourceFirstBase_de + 0xD4, g_ribbonBlendResourceFirstBase_de + 0x14C, g_ribbonBlendResourceFirstBase_de + 0x174,
 };
 #endif
 #if defined(VERSION_US)
 extern char g_ribbonBlendResourceFirstBase_de[];
-unsigned int k_FxSpawnimpactmarkEncodedWords[6] = {
-    (unsigned int)g_ribbonBlendResourceFirstBase_de + 0xC, (unsigned int)g_ribbonBlendResourceSecond_us, (unsigned int)g_ribbonBlendResourceThird_us, (unsigned int)g_ribbonBlendResourceFourthBase_us + 0x60, (unsigned int)g_ribbonBlendResourceFifthBase_us + 0x64, (unsigned int)g_ribbonBlendResourceFifthBase_us + 0x8C,
+char *k_FxSpawnimpactmarkEncodedWords[6] = {
+    g_ribbonBlendResourceFirstBase_de + 0xC, g_ribbonBlendResourceSecond_us, g_ribbonBlendResourceThird_us, g_ribbonBlendResourceFourthBase_us + 0x60, g_ribbonBlendResourceFifthBase_us + 0x64, g_ribbonBlendResourceFifthBase_us + 0x8C,
 };
 #endif
 #endif
