@@ -195,6 +195,7 @@ g_EquipShowequipchoiceHalfwords1 = 0x800F2000;
 g_EquipActivateequipmentpanelHalfwords1 = 0x800F2006;
 g_EncodedInserttextentrycharacterWords1 = 0x800F22C0;
 g_GMenuboxcornersWords1 = 0x800F24B8;
+g_frontendWidgetEventTableWordsEu = 0x800F2A90;
 Multi_FormatTypedMenuVariable = 0x8043FFC0;
 g_Nav_UpdatePlayerSteeringConstantWords_de_eu_eu_x_us = 0x800C1E7C;
 g_Nav_UpdateTargetSteeringConstantWords_de_eu_eu_x_us = 0x800C1EA0;

@@ -13,7 +13,9 @@ extern char huffman_signed7_single_dictionary[];
 #ifdef VERSION_DE
 /* DE ROM 0xD6164..0xDD6F0. Runtime Huffman blocks and retained CPU
  * buffer images precede the RSP images. Their 64-bit C initializers preserve
- * the SDK array contract and alignment; OSTask transfer sizes are bytes. */
+ * the SDK array contract; OSTask transfer sizes are bytes. This object starts
+ * at a four-byte boundary. Keep its original relative four-byte placement;
+ * every RSP image address is already eight-byte aligned in the linked ROM. */
 
 /* ROM 0xD6164..0xD61B4; +0, 80 bytes. Audio_DecodeFrame; four 20-byte kind/start/length/offset/table records. */
 
@@ -920,7 +922,7 @@ u8 g_optionsLocalizedLabelRetainedImage[5980] = {
 
 /* ROM 0xD9810..0xD98E0; +13996, 208 bytes. Audiomgr/SetN64 OSTask.ucode_boot, size rspbootTextEnd-rspbootTextStart. */
 
-s64 rspbootTextStart[26] = {
+s64 rspbootTextStart[26] __attribute__((aligned(4))) = {
     0x0900041920010FC0ULL, 0x8C22001020030F7FULL, 0x2007108040870000ULL, 0x4082080040831000ULL,
     0x400430001480FFFEULL, 0x000000000D00040FULL, 0x0000000000E00008ULL, 0x4080380040082000ULL,
     0x3108008015000002ULL, 0x0000000003E00008ULL, 0x4080380034085200ULL, 0x408820000000000DULL,
@@ -932,7 +934,7 @@ s64 rspbootTextStart[26] = {
 
 /* ROM 0xD98E0..0xDAC70; +14204, 5008 bytes. SetN64 OSTask.ucode; rspbootTextEnd is a shared boundary, no object. */
 
-u64 g_graphicsMicrocodeText[626] = {
+u64 g_graphicsMicrocodeText[626] __attribute__((aligned(4))) = {
     0x4A00002CC81F201BULL, 0xC81E201C20170BA8ULL, 0x20160D004B1F0051ULL, 0x8C0B00F08C0C0FC4ULL,
     0x2001280011600006ULL, 0x40812000318C0001ULL, 0x1180001EAC000FC4ULL, 0x080004598C1A0BF8ULL,
     0x400B5800316B0001ULL, 0x1560000B40024800ULL, 0x8C030FE800625822ULL, 0x1D60000740015000ULL,
@@ -1094,7 +1096,7 @@ u64 g_graphicsMicrocodeText[626] = {
 
 /* ROM 0xDAC70..0xDBE00; +19212, 4496 bytes. SetN64 alternate OSTask.ucode. */
 
-u64 g_alternateGraphicsMicrocodeText[562] = {
+u64 g_alternateGraphicsMicrocodeText[562] __attribute__((aligned(4))) = {
     0x4A00002CC81F201BULL, 0xC81E201C20170A80ULL, 0x20160C684B1F0051ULL, 0x8C0B00F08C0C0FC4ULL,
     0x2001280011600006ULL, 0x40812000318C0001ULL, 0x11800021AC000FC4ULL, 0x080004598C1A0BF8ULL,
     0x400B5800316B0001ULL, 0x1560000B40024800ULL, 0x8C030FE800625822ULL, 0x1D60000740015000ULL,
@@ -1240,7 +1242,7 @@ u64 g_alternateGraphicsMicrocodeText[562] = {
 
 /* ROM 0xDBE00..0xDCC20; +23708, 3616 bytes. Audiomgr OSTask.ucode. */
 
-u64 g_audioMicrocodeText[452] = {
+u64 g_audioMicrocodeText[452] __attribute__((aligned(4))) = {
     0x2018036020170F90ULL, 0x8C3C00308C3B0034ULL, 0x4005580030A40001ULL, 0x1080000630A40100ULL,
     0x1080000400000000ULL, 0x4004580030840100ULL, 0x1C80FFFD00000000ULL, 0x0D00045400000000ULL,
     0x2002000F20010320ULL, 0xAC2000001C40FFFEULL, 0x2042FFFF40023000ULL, 0x1440FFFE201D0380ULL,
@@ -1358,7 +1360,7 @@ u64 g_audioMicrocodeText[452] = {
 
 /* ROM 0xDCC20..0xDD040; +27324, 1056 bytes. SetN64 OSTask.ucode_data. */
 
-u64 g_graphicsMicrocodeData[132] = {
+u64 g_graphicsMicrocodeData[132] __attribute__((aligned(4))) = {
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
@@ -1396,7 +1398,7 @@ u64 g_graphicsMicrocodeData[132] = {
 
 /* ROM 0xDD040..0xDD430; +28380, 1008 bytes. SetN64 alternate OSTask.ucode_data. */
 
-u64 g_alternateGraphicsMicrocodeData[126] = {
+u64 g_alternateGraphicsMicrocodeData[126] __attribute__((aligned(4))) = {
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
     0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL, 0x0000000000000000ULL,
@@ -1433,7 +1435,7 @@ u64 g_alternateGraphicsMicrocodeData[126] = {
 
 /* ROM 0xDD430..0xDD6F0; +29388, 704 bytes. Audiomgr OSTask.ucode_data; slab ends at 0xDD6F0. */
 
-u64 g_audioMicrocodeData[88] = {
+u64 g_audioMicrocodeData[88] __attribute__((aligned(4))) = {
     0x000000010002FFFFULL, 0x002008007FFF4000ULL, 0x1118147011DC1B38ULL, 0x1214187C125412D0ULL,
     0x12EC1328140C1294ULL, 0x1E24138C170C144CULL, 0xF0000F0000F0000FULL, 0x0001001001001000ULL,
     0x0002000400060008ULL, 0x000A000C000E0010ULL, 0x0001000100010001ULL, 0x0001000100010001ULL,
