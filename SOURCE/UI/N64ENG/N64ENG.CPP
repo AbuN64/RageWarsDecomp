@@ -73,40 +73,29 @@ const char g_numericWidgetValueFormat_N64eng[4] =
     "%d\000D";
 #endif
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
-const unsigned char g_numericWidgetValueFormat_N64eng[3] = {
+const unsigned char g_numericWidgetValueFormat_N64eng[] = {
     0x25, 0x64, 0x00,
-};
-#endif
-#endif
-
 #if defined(VERSION_US)
-unsigned char k_N64engEncodedBytesBlock1[13] = {
+    /* Retained suffix 800C5CC3..800C5CD0 in the same object. */
     0x08, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x11, 0x73, 0x5F, 0x43, 0x43,
+#endif
+#if defined(VERSION_EU)
+    /* Retained suffix 800C6033..800C6040 in the same object. */
+    0x08, 0x27, 0xBD, 0x00, 0x18, 0x44, 0x00, 0x00, 0x00, 0xBF, 0x80, 0x00, 0x00,
+#endif
 };
 #endif
-
-#if defined(VERSION_US)
-/* bytes live in the preceding array */
 #endif
+
+
 
 #if defined(VERSION_EU_X)
 char s_NEngWEPURLINText[13] =
     "WE - PURLIN\000\000";
 #endif
 
-#if defined(VERSION_EU_X)
-/* bytes live in the preceding array */
-#endif
 
-#if defined(VERSION_EU)
-unsigned char k_N64engEncodedBytesBlock2[13] = {
-    0x08, 0x27, 0xBD, 0x00, 0x18, 0x44, 0x00, 0x00, 0x00, 0xBF, 0x80, 0x00, 0x00,
-};
-#endif
 
-#if defined(VERSION_EU)
-/* bytes live in the preceding array */
-#endif
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/g_numericWidgetValueFormat_N64eng.c */

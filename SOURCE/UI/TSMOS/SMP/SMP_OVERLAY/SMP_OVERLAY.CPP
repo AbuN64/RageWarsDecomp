@@ -804,8 +804,10 @@ s32 SmpOverlay_DispatchPakDialogEvent(void *widget, s32 eventId, s32 eventData0,
 /* 800E1470_2.CPP */
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #if defined(VERSION_EU)
-const unsigned char s_SmpOverlay_RefreshPakDialogTextDePart2[3] = {
+const unsigned char s_SmpOverlay_RefreshPakDialogTextDePart2[16] = {
     0x25, 0x64, 0x00,
+    /* Retained suffix 800EDAD3..800EDAE0 in this same object. */
+    0x2F, 0x01, 0x29, 0x01, 0x2C, 0x01, 0x2A, 0x01, 0x2B, 0x08, 0x00, 0xFF, 0xE5,
 };
 #endif
 #if defined(VERSION_EU_X)
@@ -815,11 +817,6 @@ const unsigned int s_SmpOverlay_RefreshPakDialogTextDePart2[1] = {
 #endif
 #endif
 
-#if defined(VERSION_EU)
-unsigned char k_SmpOverlayEncodedBytes[13] = {
-    0x2F, 0x01, 0x29, 0x01, 0x2C, 0x01, 0x2A, 0x01, 0x2B, 0x08, 0x00, 0xFF, 0xE5,
-};
-#endif
 
 /* DEBUG_MENU_RETAINED_STORAGE_FLOAT_WORDS_EU_X.CPP */
 #if defined(VERSION_EU_X)
