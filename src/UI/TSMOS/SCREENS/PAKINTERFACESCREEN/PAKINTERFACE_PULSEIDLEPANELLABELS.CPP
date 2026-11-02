@@ -9,7 +9,7 @@
    and stores the unsigned result as the alpha byte at 0x10 of items 0x2C2 and 0x2C3 of the
    entry's window. */
 
-extern struct ResourceSmpFlickerCreateFlickerWidget *Node_FindWidgetByResourceId(void *, s32);
+extern struct MenuWidget *Node_FindWidgetByResourceId(void *, s32);
 void PAKInterface_PulseIdlePanelLabels(s32 index) {
     float f;
     u32 alpha;

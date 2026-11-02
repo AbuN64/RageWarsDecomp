@@ -63,7 +63,7 @@ extern void Tsmos_DeactivateControllerState(void);
 
 /* The message screen g_gameOptionsScreenState; its word at 0xC marks the message handled. */
 extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
-extern struct MessageScreen *g_optionsShortcutScreen;
+extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern void Frontend_StartMenuImageTransition(s32 *record);
 
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
