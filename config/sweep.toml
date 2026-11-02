@@ -34,7 +34,9 @@ kind = "pattern"
 why = "A word read or written through the address of a struct member: if the member is narrower the access spans its neighbour and its half depends on byte order (sw/lhu at one offset, cycle 3)."
 trees = ["rw"]
 paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
-match = '\*\s*\(\s*(?:u32|s32|unsigned int)\s*\*\s*\)\s*&\s*[A-Za-z_]\w*\s*(?:->|\.)\s*\w+'
+match = '\*\s*\(\s*(?:u32|s32|unsigned int)\s*\*\s*\)\s*&\s*(?P<var>[A-Za-z_]\w*)\s*(?:->|\.)\s*(?P<member>\w+)'
+# a member declared 32 bits wide (a float's bit pattern stored through an s32 lvalue) spans no neighbour
+unless_type = '(?:(?:un)?signed\s+)?(?:s32|u32|f32|int|long|float)'
 
 [[rule]]
 id = "pointer-to-word"
@@ -82,8 +84,10 @@ kind = "pattern"
 why = "A function pointer typed with no parameters and called with none: the callee reads its arguments from the registers the wrapper happened to hold (Barrel_RunDamageHook ran its hook with the actor, state and damage record it had itself received); on a native host the arguments live on the stack and the hook reads garbage (Playerai_ApplyDamagePacket, first seen in monkey-wl8-options-menu). Type the pointer with the parameters the hook takes and forward them."
 trees = ["rw"]
 paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C"]
-match = '^\s*(?:\(\s*\*\s*)?\b(?:fn|cb|hook|callback|func|handler|end|cue)\b\s*\)?\s*\(\s*\)\s*;'
+match = '^\s*(?:\(\s*\*\s*)?\b(?P<var>fn|cb|hook|callback|func|handler|end|cue)\b\s*\)?\s*\(\s*\)\s*;'
 unless = 'FuncPtr\s+\w+\s*=|extern'
+# a pointer whose type is prototyped `(void)` takes no arguments, so a call with none forwards nothing it should
+unless_type = '.*\(\s*void\s*\)'
 
 [[rule]]
 id = "address-name"
