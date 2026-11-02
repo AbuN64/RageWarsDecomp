@@ -55326,12 +55326,13 @@ stored_size = 343
 rom."us" = [[0x15fca9, 0x15fe00]]
 evidence = [{ artifact = "pad-receipt.json", sha256 = "ef9ae7ec40dc18a5a07f730d42a5f4b306a01d90af50d1c0b9ed8279d5164850", pointer = "/us" }]
 
-[blob."resource.bank-directory.us-rev1"]
+[blob."resource.bank-directory"]
 type = "world"
 format = "directory-header"
 codec = "none"
 state = "decoded"
 stored_size = 104
+rom."us" = [[0x50f768, 0x50f7d0]]
 rom."us-rev1" = [[0x50f768, 0x50f7d0]]
 evidence = [{ artifact = "proof-receipt.json", sha256 = "b3bf2a99e6ea2260d01a28950590f4286ee7c51c7d5b5e6798d442c42f749550", pointer = "/rows/2" }]
 
@@ -88317,18 +88318,9 @@ evidence = [{ artifact = "unknown-spans-pass1-receipt.json", sha256 = "baed5aa00
 
 [blob."world.eu-x.copy.5148a8"]
 type = "world"
-format = "same bytes as us 0x50f768 world.us.copy.50f768, a world row"
+format = "same bytes as us 0x50f768 resource.bank-directory, a world row"
 codec = "none"
 state = "identified"
 stored_size = 99
 rom."eu-x" = [[0x5148a8, 0x51490b]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/289" }]
-
-[blob."world.us.copy.50f768"]
-type = "world"
-format = "same bytes as us-rev1 0x50f768 resource.bank-directory.us-rev1, a world row"
-codec = "none"
-state = "identified"
-stored_size = 104
-rom."us" = [[0x50f768, 0x50f7d0]]
-evidence = [{ artifact = "stale-us.json", sha256 = "ad34c25989d073496d848f9ab3e5a45d2d5c626773d85eaee6278c302cf884b4", pointer = "/rows/6" }]
