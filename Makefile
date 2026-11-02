@@ -335,8 +335,7 @@ tools/gcc-2.8.1-sn64/.stamp:
 	$(Q)mkdir -p tools/gcc-2.8.1-sn64 && curl -fsSL https://github.com/pmret/gcc-papermario/releases/download/master/linux.tar.gz -o tools/gcc-2.8.1-sn64.tar.gz && echo '1156cf0d6a88a64c20e2a10fc9445d99cb9a38518f432b1669528dfa82ebb45f  tools/gcc-2.8.1-sn64.tar.gz' | sha256sum -c - >/dev/null && tar -xzf tools/gcc-2.8.1-sn64.tar.gz -C tools/gcc-2.8.1-sn64 cc1 && rm -f tools/gcc-2.8.1-sn64.tar.gz && cd tools/gcc-2.8.1-sn64 && printf '%s\n' 'd1ddfe21dfa61840a83f833c8bd45ed7e2f606c3d9c351d2ec732fb6e4f97c89  cc1' | sha256sum -c - >/dev/null && touch .stamp
 
 
-# The rules of every project's Makefile, the same text for each: `unbake sync` writes the project's facts above them
-# (from config.toml and the toolchain rows) and each version's facts live in versions/<version>/text_sizes.mk.
+# The build rules. The project facts sit above them and each version's facts live in versions/<version>/text_sizes.mk.
 #
 # make check             builds every version ROM from the committed sources and verifies its SHA-1.
 # make check CHECK=tree  verifies only that the committed generated files are present (no ROMs needed).
@@ -344,7 +343,7 @@ tools/gcc-2.8.1-sn64/.stamp:
 #                        A build extracts a version that has no asm/<version>/ yet on its own.
 # make nm                (or NON_MATCHING=1) links one ROM per version with every draft compiled in (see below).
 # make V=1               echoes every command; JOBS (local.mk) sets the parallel jobs.
-# local.mk (machine-local, written by `unbake sync --makefile`) names the tools: compilers, CCPY, MKTOOLS (the folder
+# local.mk (machine-local) names the tools: compilers, CCPY, MKTOOLS (the folder
 # of the build's helper programs), SPLAT, CPP...
 SHELL := /bin/sh
 .SUFFIXES:
