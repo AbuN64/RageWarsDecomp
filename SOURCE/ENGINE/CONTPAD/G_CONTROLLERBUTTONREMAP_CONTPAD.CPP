@@ -1,13 +1,6 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
 #include "ENGINE/CONTPAD.H"
+#if defined(VERSION_US_REV1)
 
-/* GControllerbuttonremapBlock1.CPP */
-
-/* k_GControllerbuttonremapEncodedWordsBlock2_GControllerbuttonremap.CPP */
-#if defined(VERSION_EU_X)
-RestAlignPad12 g_GControllerbuttonremapBlock2AlignPad = {
-    { 63, 138, 67, 147, 63, 138, 31, 64, 63, 137, 250, 231 },
-};
 ButtonRemap g_controllerButtonRemap[19] = {
     { 0x8000, 0x8000 },
     { 0x4000, 0x4000 },
@@ -29,7 +22,13 @@ ButtonRemap g_controllerButtonRemap[19] = {
     { 0x80000, 0x80000 },
     { 0, 0 },
 };
-float k_GControllerbuttonremapEncodedWordsBlock3[2] = {
-    1.0341676f, 1.0330299f,
+#endif
+#if defined(VERSION_US_REV1)
+
+/* 800D0E48.CPP */
+/* ROM-grounded data: rodata/unresolved/800D0DA4_unclaimed_D1A48 */
+/* Alignment fill to the next 16-byte object boundary. */
+unsigned int g_GControllerbuttonremapEncodedWordsAlignmentPad[2] = {
+    0x3F84F47C, 0x3F84CF4E,
 };
 #endif

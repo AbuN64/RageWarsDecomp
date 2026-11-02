@@ -1,7 +1,7 @@
+#if defined(VERSION_US)
 
 
 /* g_taskNames_us.CPP */
-#if defined(VERSION_US)
 struct {
     unsigned int w0[3];
     unsigned char b1[88];
@@ -19,14 +19,9 @@ struct {
     },
 };
 #endif
-
-/* g_taskNamesPrefix_eu_x.CPP */
-#if defined(VERSION_EU_X)
-char g_ControlRestoreactorsnapshotEncodedBytes[12] = "\000\000\000\000binaries";
-#endif
+#if defined(VERSION_EU)
 
 /* g_taskNames_eu.CPP */
-#if defined(VERSION_EU)
 struct {
     unsigned int w0[3];
     unsigned char b1[88];

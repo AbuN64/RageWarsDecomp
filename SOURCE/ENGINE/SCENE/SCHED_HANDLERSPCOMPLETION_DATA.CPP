@@ -1,41 +1,51 @@
 #include "SYSTEM/ENGINE_DATA_SOURCE.H"
 #include "include_asm.h"
+#ifdef VERSION_DE
+#if defined(VERSION_US)
 
 /* g_SchedHandlerspcompletionEncodedWordsBlock1.CPP */
 /* ROM-grounded data: rodata/writable/800D299C */
-#ifdef VERSION_DE
 EngineSchedulerState g_SchedHandlerspcompletionEncodedWordsBlock1 = {
     0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)0x800E4C00,
     2048, 0, 0, 1, 1, 0, 0
 };
 #endif
+#endif
 #ifdef VERSION_EU
+#if defined(VERSION_US)
 EngineSchedulerState g_SchedHandlerspcompletionEncodedWordsBlock1 = {
     0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)0x800F4C00,
     2048, 0, 0, 1, 1, 0, 0
 };
 #endif
+#endif
 #ifdef VERSION_EU_X
+#if defined(VERSION_US)
 EngineSchedulerState g_SchedHandlerspcompletionEncodedWordsBlock1 = {
     0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)0x800EEC00,
     2048, 0, 0, 1, 1, 0, 0
 };
 #endif
+#endif
 #ifdef VERSION_US
+#if defined(VERSION_US)
 EngineSchedulerState g_SchedHandlerspcompletionEncodedWordsBlock1 = {
     0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)0x800E2C00,
     2048, 0, 0, 1, 1, 0, 0
 };
 #endif
+#endif
 #ifdef VERSION_US_REV1
+#if defined(VERSION_US)
 EngineSchedulerState g_SchedHandlerspcompletionEncodedWordsBlock1 = {
     0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)0x800E8C00,
     2048, 0, 0, 1, 1, 0, 0
 };
 #endif
-
+#endif
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
+
 struct GameSession; extern void SetN64_AdvanceIntroForMemorySize(struct GameSession *session);
 extern void SetN64_AdvanceToModeEight(struct GameSession *session);
 extern void SetN64_AdvanceToModeFive(struct GameSession *session);
@@ -97,12 +107,6 @@ extern void SetN64_UpdateMode18();
 extern void SetN64_UpdateMode19();
 extern void SetN64_UpdateMode6();
 extern void SetN64_UpdateMode8();
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
-    { (EngineSessionCallback)((char *)SetN64_InitializeFrontendScreenState - 0x80000000), (EngineSessionCallback)((char *)SetN64_ExitSessionAndDisablePaks - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawRoundTimeoutSession - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetSceneForIntro - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceIntroForMemorySize - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawIntroBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode2 - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFive - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawCenteredIntroText - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ClearSessionPlayerPools - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFour - 0x80000000), (EngineSessionCallback)((char *)SetN64_SetupLoadingBackdropDe - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode4Effects - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeEight - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode4Backdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode5Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode5Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode5Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode6 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_SetMode7AudioState - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode7Transition - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawFullscreenBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode8Scene - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode8 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode8Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode9Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode9Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode9Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode10Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode10Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode10Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode11Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode11Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode11Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_ResetMode12Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode12Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode12Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_StartRound - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResumeSelectedSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode15 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode16Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode16CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode16Credits - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode17Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode17CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode17Credits - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode18 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode19 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeTransitionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_EnterPendingSessionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawTransitionMode - 0x80000000) },
-};
 #endif
 #if defined(VERSION_EU)
 struct GameSession; extern void SetN64_AdvanceIntroForMemorySize(struct GameSession *session);
@@ -166,12 +170,6 @@ extern void SetN64_UpdateMode18();
 extern void SetN64_UpdateMode19();
 extern void SetN64_UpdateMode6();
 extern void SetN64_UpdateMode8();
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
-    { (EngineSessionCallback)((char *)SetN64_InitializeFrontendScreenState - 0x80000000), (EngineSessionCallback)((char *)SetN64_ExitSessionAndDisablePaks - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawRoundTimeoutSession - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetSceneForIntro - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceIntroForMemorySize - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawIntroBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode2 - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFive - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawCenteredIntroText - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ClearSessionPlayerPools - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFour - 0x80000000), (EngineSessionCallback)((char *)SetN64_SetupLoadingBackdropEu - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode4Effects - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeEight - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode4Backdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode5Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode5Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode5Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode6 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_SetMode7AudioState - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode7Transition - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawFullscreenBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode8Scene - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode8 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode8Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode9Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode9Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode9Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode10Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode10Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode10Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode11Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode11Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode11Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_ResetMode12Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode12Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode12Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_StartRound - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResumeSelectedSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode15 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode16Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode16CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode16Credits - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode17Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode17CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode17Credits - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode18 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode19 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeTransitionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_EnterPendingSessionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawTransitionMode - 0x80000000) },
-};
 #endif
 #if defined(VERSION_EU_X)
 struct GameSession; extern void SetN64_AdvanceIntroForMemorySize(struct GameSession *session);
@@ -235,16 +233,10 @@ extern void SetN64_UpdateMode18();
 extern void SetN64_UpdateMode19();
 extern void SetN64_UpdateMode6();
 extern void SetN64_UpdateMode8();
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
-    { (EngineSessionCallback)((char *)SetN64_InitializeFrontendScreenState - 0x80000000), (EngineSessionCallback)((char *)SetN64_ExitSessionAndDisablePaks - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawRoundTimeoutSession - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetSceneForIntro - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceIntroForMemorySize - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawIntroBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode2 - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFive - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawCenteredIntroText - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ClearSessionPlayerPools - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeFour - 0x80000000), (EngineSessionCallback)((char *)SetN64_SetupLoadingBackdropEuX - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode4Effects - 0x80000000), (EngineSessionCallback)((char *)SetN64_AdvanceToModeEight - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode4Backdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode5Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode5Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode5Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode6 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode6 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_SetMode7AudioState - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode7Transition - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawFullscreenBackdrop - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode8Scene - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode8 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode8Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode9Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode9Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode9Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode10Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode10Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode10Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResetMode11Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode11Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode11Session - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_ResetMode12Items - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode12Input - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode12Session - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_StartRound - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_ResumeSelectedSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateActiveSession - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawSessionWithRoundTimeout - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode15 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode15 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode16Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode16CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode16Credits - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode17Credits - 0x80000000), (EngineSessionCallback)((char *)SetN64_HandleMode17CreditsInput - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode17Credits - 0x80000000) },
-    { (EngineSessionCallback)((char *)SetN64_InitializeMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode18 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode18 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_UpdateMode19 - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawMode19 - 0x80000000) }, { (EngineSessionCallback)((char *)SetN64_InitializeTransitionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_EnterPendingSessionMode - 0x80000000), (EngineSessionCallback)((char *)SetN64_DrawTransitionMode - 0x80000000) },
-};
 #endif
 #endif
-
 #if defined(VERSION_US_REV1)
+
 /* ROM-grounded exact candidate, normalized from prior lane proof. */
 extern char g_setN64_InitializeFrontendScreenStateEntry[];
 extern char g_setN64_ExitSessionAndDisablePaksEntry[];
@@ -255,8 +247,4 @@ extern char g_setN64_DrawIntroBackdropEntry[];
 extern char g_setN64_InitializeMode2Entry[];
 extern char g_setN64_AdvanceToModeFiveEntry[];
 extern char g_setN64_DrawCenteredIntroTextEntry[];
-
-EngineSessionHandlers g_SchedHandlerspcompletionEncodedWords[3] = {
-    { (EngineSessionCallback)g_setN64_InitializeFrontendScreenStateEntry, (EngineSessionCallback)g_setN64_ExitSessionAndDisablePaksEntry, (EngineSessionCallback)g_setN64_DrawRoundTimeoutSessionEntry }, { (EngineSessionCallback)g_setN64_ResetSceneForIntroEntry, (EngineSessionCallback)g_setN64_AdvanceIntroForMemorySizeEntry, (EngineSessionCallback)g_setN64_DrawIntroBackdropEntry }, { (EngineSessionCallback)g_setN64_InitializeMode2Entry, (EngineSessionCallback)g_setN64_AdvanceToModeFiveEntry, (EngineSessionCallback)g_setN64_DrawCenteredIntroTextEntry },
-};
 #endif

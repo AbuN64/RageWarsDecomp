@@ -2,8 +2,8 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
-
 #include "include_asm.h"
+
 
 /* 800D0B2C.CPP */
 float g_audioPitchRatioCurve[121] = {
@@ -29,10 +29,10 @@ float g_audioPitchRatioCurve[121] = {
     1.63f, 1.68f, 1.74f, 1.8f, 1.87f, 1.93f,
     2.0f,
 };
+#if defined(VERSION_DE)
 
 /* 800D0D10.CPP */
 /* ROM-grounded data: rodata/writable/800D0D10 */
-#if defined(VERSION_DE)
 f32 g_GAudiopitchratiocurveWords5 = 26214400.0f;
 #endif
 #if defined(VERSION_EU)
@@ -47,9 +47,9 @@ f32 g_GAudiopitchratiocurveWords5 = 26214400.0f;
 #if defined(VERSION_US_REV1)
 f32 g_GAudiopitchratiocurveWords5 = 26214400.0f;
 #endif
+#if defined(VERSION_DE)
 
 /* 800D0D14.CPP */
-#if defined(VERSION_DE)
 s32 g_GAudiopitchratiocurveWords1[10] = {
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1
@@ -79,10 +79,10 @@ s32 g_GAudiopitchratiocurveWords1[10] = {
     1, 1
 };
 #endif
+#ifdef VERSION_DE
 
 /* 800D0D14_2.CPP */
 /* ROM-grounded data: rodata/writable/800D0D3C */
-#ifdef VERSION_DE
 unsigned int g_GAudiopitchratiocurveWords6[15] = {
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
@@ -121,117 +121,4 @@ unsigned int g_GAudiopitchratiocurveWords6[15] = {
     0x00000000, 0x00000000, 0x3F8E3441, 0x3F8E1080, 0x3F8DECBA, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
 };
-#endif
-
-/* 800D0D78.CPP */
-#if !(defined(VERSION_US_REV1))
-#if defined(VERSION_DE)
-unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12] = {
-    0x800C, 0xBB20, 0x800C, 0xBB30, 0x8010, 0x8060, 0x403F, 0x0000, 0x3442, 0x0010, 0x8C42, 0x0000,
-};
-#endif
-#if defined(VERSION_EU)
-unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12] = {
-    0x800C, 0xC700, 0x800C, 0xC710, 0x8011, 0x8060, 0x403F, 0x0000, 0x2054, 0x5520, 0x4D45, 0x204D,
-};
-#endif
-#if defined(VERSION_EU_X)
-unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12] = {
-    0x800C, 0xD0D0, 0x800C, 0xD0E0, 0x8011, 0x2060, 0x403F, 0x0000, 0x3F8B, 0x4141, 0x3F8B, 0x1D14,
-};
-#endif
-#if defined(VERSION_US)
-unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12] = {
-    0x800C, 0xBA30, 0x800C, 0xBA40, 0x8010, 0x6060, 0x403F, 0x0000, 0x4252, 0x414C, 0x5F42, 0x4F52,
-};
-#endif
-#endif
-
-#if defined(VERSION_US_REV1)
-/* ROM-grounded exact candidate, normalized from prior lane proof. */
-unsigned int g_GAudiopitchratiocurveWords3[6] = {
-    0x800D0D60, 0x800D0D70, 0x8010C060, 0x403F0000, 0x3F8BD1C1, 0x3F8BADA9,
-};
-#endif
-
-/* 800D0D78_2.CPP */
-/* ROM-grounded data: rodata/writable/800D0D90 */
-#ifdef VERSION_DE
-#if defined(VERSION_DE)
-struct {
-    s32 g_musicRequestedTrack;
-    s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
-} g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
-    0,
-    0,
-    { 0x3c, 0x3, 0xa4, 0x60, 0x34, 0x63, 0x0, 0x10 }
-};
-typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocurveWords4) == 16) ? 1 : -1];
-#endif
-#endif
-#ifdef VERSION_EU
-#if defined(VERSION_EU)
-char g_GAudiopitchratiocurveWords4[16] __attribute__((aligned(4))) = "\000\000\000\000\000\000\000\000DR. DON ";
-#endif
-#endif
-#ifdef VERSION_EU_X
-#if defined(VERSION_EU_X)
-struct {
-    s32 g_musicRequestedTrack;
-    s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
-} g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
-    0,
-    0,
-    { 0x3f, 0x8a, 0xb0, 0x6c, 0x3f, 0x8a, 0x8c, 0x29 }
-};
-typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocurveWords4) == 16) ? 1 : -1];
-#endif
-#endif
-#ifdef VERSION_US
-#if defined(VERSION_US)
-struct {
-    s32 g_musicRequestedTrack;
-    s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
-} g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
-    0,
-    0,
-    { 0x65, 0x71, 0x75, 0x4, 0x2e, 0x65, 0x6f, 0x73 }
-};
-typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocurveWords4) == 16) ? 1 : -1];
-#endif
-#endif
-#ifdef VERSION_US_REV1
-#if defined(VERSION_US_REV1)
-struct {
-    s32 g_musicRequestedTrack;
-    s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
-} g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
-    0,
-    0,
-    { 0x3f, 0x8b, 0x41, 0x41, 0x3f, 0x8b, 0x1d, 0x14 }
-};
-typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocurveWords4) == 16) ? 1 : -1];
-#endif
-#endif
-
-/* 800D0DA0.CPP */
-/* ROM-grounded data: src/g_GAudiopitchratiocurveWords2_GAudiopitchratiocurve.c */
-#if defined(VERSION_DE)
-const f32 g_GAudiopitchratiocurveWords2 = 90.0f;
-#endif
-#if defined(VERSION_EU)
-const f32 g_GAudiopitchratiocurveWords2 = 90.0f;
-#endif
-#if defined(VERSION_EU_X)
-const f32 g_GAudiopitchratiocurveWords2 = 90.0f;
-#endif
-#if defined(VERSION_US)
-const f32 g_GAudiopitchratiocurveWords2 = 90.0f;
-#endif
-#if defined(VERSION_US_REV1)
-const f32 g_GAudiopitchratiocurveWords2 = 90.0f;
 #endif

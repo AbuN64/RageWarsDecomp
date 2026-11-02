@@ -1,30 +1,11 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "COMMON/FORMAT.H"
+#include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
+#if defined(VERSION_US)
 
-/* g_overlayOneCFloatConstantWords_Ovl1C.CPP */
-/* ROM-grounded data: rodata/writable/800D1610 */
-#ifdef VERSION_DE
-float g_overlayOneCFloatConstantWords[4] = {
-    0.0f, 0.0f, 0.0f, 1.5707964f,
-};
-#endif
-#ifdef VERSION_EU
-RestoverlayOneCFloatConstantWordsLayout634 g_overlayOneCFloatConstantWords = {
-    { 0, 0, 2814880, 2814880 },
-};
-#endif
-#if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-float g_overlayOneCFloatConstantWords[4] = {
-    0.0f, 0.0f, 0.08846038f, 0.07660268f,
-};
-#endif
-#ifdef VERSION_US
-char g_overlayOneCFloatConstantWords[16] = "\000\000\000\000\000\000\000\000MPACT_FL";
-#endif
-
-/* g_overlayOneCArcCosineTable.CPP */
-#if defined(VERSION_EU)
-f32 g_overlayOneCArcCosineTable[1026] = {
+/* 800CC2E0.CPP */
+f32 g_arcCosTable_us[1026] = {
     0.0f, 1.0f, 0.0f, 1.57079637f, 1.56981885f, 1.56884134f,
     1.56786382f, 1.56688631f, 1.56590867f, 1.56493115f, 1.56395364f, 1.56297612f,
     1.56199861f, 1.56102097f, 1.56004345f, 1.55906582f, 1.5580883f, 1.55711067f,

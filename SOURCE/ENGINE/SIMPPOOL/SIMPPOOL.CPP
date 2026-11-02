@@ -18,6 +18,7 @@ int Menu_CountLiveNodes(struct CMenu_t **head);
 
 
 extern SequencePromptStateView g_matchEndingTeamWheelClose;
+#if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
 
 s32 Simppool_CheckSequencePromptRequest(SequencePromptRequestView *request) {
     s32 unusedInteger1;
@@ -43,15 +44,14 @@ block_7:
     }
     return 0;
 }
-
+#endif
 struct Context;
 void Playerai_ResetPlayerControllers(struct Context *);
 void Rumble_FreeAllPoolNodes(s32 *);
 extern char g_playerViewRenderContext;
+#if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
 void Simppool_ResetEffectsAndControllers(void) {
     Rumble_FreeAllPoolNodes(&g_controllerRumblePool);
     Playerai_ResetPlayerControllers(&g_playerViewRenderContext);
 }
-
-
-
+#endif

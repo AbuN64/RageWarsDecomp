@@ -20,7 +20,7 @@ Deviation from the ultralib text
   follow it at their ROM offsets; SetN64_AdvanceDisplayFrame (SOURCE/ENGINE/SETN64/SETN64_ADVANCEDISPLAYFRAME.CPP) loads
   ring.current with lw, not ulw.
   sched.h: OSSched holds prenmiMsg before retraceMsg (ultralib: retraceMsg first); the matched
-  sdk/libultra/sched/sched_handleretrace.CPP, sched_runeventloop.CPP and sched_runeventloopus.CPP send &sc->retraceMsg at +32.
+  sdk/libultra/sched/sched_handleretrace.CPP, sched_runeventloop.CPP and SOURCE/ENGINE/SCHED/sched_runeventloopus.CPP send &sc->retraceMsg at +32.
   ultratypes.h: the C typedefs are also skipped when _LANGUAGE_ASSEMBLY is defined. config.toml cppflags reach the assembler
   preprocessor (AS_CPPFLAGS) too, and the hand-written .s files (sdk/boot/entry.s, sdk/libsn/debugexcept.s, debugger.s,
   pfs_setwatchpoint.s, ...) include <PR/R4300.h>, which includes ultratypes.h.

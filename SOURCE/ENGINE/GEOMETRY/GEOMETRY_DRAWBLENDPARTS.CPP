@@ -591,23 +591,17 @@ void Geometry_InsertMaterialNode(TreeNode **root, TreeNode **empty_root, TreeNod
         node->link10 = 0;
     }
 }
+#if !(defined(VERSION_US_REV1))
 
 
 /* 800C979C.CPP */
-#if !(defined(VERSION_US_REV1))
 const float g_geometryInitialModelScale[1] = {
     2.0f,
 };
 #endif
-
-#if defined(VERSION_DE)
-const float g_geometryMaterialSetupConstantsDe[3] = {
-    15.0f, 5.0f, 256.0f,
-};
-#endif
-
-
 #if defined(VERSION_US_REV1)
+
+
 /* ROM-grounded data: src/g_geometryInitialModelScaleUsRev1_GeometryDrawblendparts.c */
 const float g_geometryInitialModelScaleUsRev1[1] = {
     2.0f,

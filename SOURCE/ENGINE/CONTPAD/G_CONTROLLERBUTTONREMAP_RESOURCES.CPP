@@ -1,14 +1,6 @@
 #include "TYPES.H"
-
 #include "ENGINE/CONTPAD.H"
-
-/* 800CC574.CPP */
-
-/* 800CC744.CPP */
 #if defined(VERSION_EU)
-#if defined(VERSION_EU)
-char k_GControllerbuttonremapEncodedWords[12] __attribute__((aligned(4))) = "UEY, JR., D.";
-#endif
 ButtonRemap g_controllerButtonRemap[19] = {
     { 0x8000, 0x8000 },
     { 0x4000, 0x4000 },

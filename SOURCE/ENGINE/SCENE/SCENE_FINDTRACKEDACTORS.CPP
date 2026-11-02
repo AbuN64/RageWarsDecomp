@@ -1,4 +1,4 @@
-#include "../../../sdk/include/LIBC.H"
+#include "LIBC.H"
 #include "include_asm.h"
 #include "COMMON/WORLDRECAT1B6A4.H"
 #include "COMMON/MEASUREDRECAT14V4.H"
@@ -335,11 +335,13 @@ void Scene_CacheBlLevelData(void *world, s32 sectionIndex) {
         }
     }
 }
-
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
+#if defined(VERSION_US)
+
 float k_SceneFindtrackedactorsEncodedWords[3] = {
     1.0f, 1.0f, 1.0f,
 };
+#endif
 #endif
 
 /* 8028B64C_9.CPP */

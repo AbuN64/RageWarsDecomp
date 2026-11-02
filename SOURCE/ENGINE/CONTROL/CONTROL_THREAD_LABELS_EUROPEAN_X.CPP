@@ -1,7 +1,7 @@
+#if defined(VERSION_EU_X)
 
 
 /* g_threadLabelWordsEuropeanX_ControlThreadLabelsEuropeanX.CPP */
-#if defined(VERSION_EU_X)
 struct {
     unsigned int w0[3];
     unsigned char b1[88];
@@ -19,10 +19,3 @@ struct {
     },
 };
 #endif
-
-/* g_ControlThreadLabelsEuropeanXEncodedBytes_ControlThreadLabelsEuropeanX.CPP */
-#if defined(VERSION_US)
-char g_ControlThreadLabelsEuropeanXEncodedBytes[12] = "wport_tR";
-#endif
-
-/* g_ControlThreadLabelsEuropeanXEncodedWords_ControlThreadLabelsEuropeanX.CPP */

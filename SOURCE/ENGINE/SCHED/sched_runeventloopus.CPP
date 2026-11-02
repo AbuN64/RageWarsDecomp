@@ -6,7 +6,7 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/WORLDSORTENTRY.H"
 #include "TYPES.H"
-#include "../../include/SCHED/sched_runeventloopus.H"
+#include "SCHED/sched_runeventloopus.H"
 #include <ultra64.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
@@ -54,8 +54,4 @@ void Sched_RunEventLoopUs(OSSched *sc) {
         }
     }
 }
-#endif
-#if defined(VERSION_US)
-char s_SchedRuneventloopusBAdvanceCameText[12] =
-    "bAdvanceCame";
 #endif
