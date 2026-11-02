@@ -255,8 +255,8 @@ code_17:
 retry:
     Tsmos_DeactivateControllerState();
     if (ScenarioSetup_StartRandomCupStage() == 0) {
-        g_optionsShortcutScreen->mode = 5;
-        g_optionsShortcutScreen->next_mode = 4;
+        g_optionsShortcutScreen->messageMode = 5;
+        g_optionsShortcutScreen->messageNextMode = 4;
         g_optionsShortcutScreen->timer = 20;
     } else {
         Frontend_StartMenuImageTransition(g_optionsShortcutScreen);

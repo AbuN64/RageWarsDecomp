@@ -1,6 +1,7 @@
 #ifndef COMMON_MENU_OPTIONS_AND_RESULTS_H
 #define COMMON_MENU_OPTIONS_AND_RESULTS_H
 #include "TYPES.H"
+#include "MENU/OPTIONS_TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 struct PlayerStatisticsCountView;
