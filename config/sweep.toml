@@ -84,3 +84,12 @@ trees = ["rw"]
 paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C"]
 match = '^\s*(?:\(\s*\*\s*)?\b(?:fn|cb|hook|callback|func|handler|end|cue)\b\s*\)?\s*\(\s*\)\s*;'
 unless = 'FuncPtr\s+\w+\s*=|extern'
+
+[[rule]]
+id = "address-name"
+kind = "pattern"
+severity = "block"
+why = "An identifier that names an address instead of what it holds (a hex address suffix, a D_/unk_/func_ placeholder, LinkerAlignmentFill): the name says nothing to its reader and moves with every version (DECOMP-STOCK census 11-02: 1,957 such identifiers). The baseline only shrinks."
+trees = ["rw"]
+paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "src/**/*.s", "include/**/*.H", "include/**/*.h", "versions/*/symbol_addrs.txt"]
+match = '\b(?:[A-Za-z_]\w*?_[0-9A-Fa-f]{8}|(?:D|unk|func)_[0-9A-Fa-f]+|\w*LinkerAlignmentFill\w*)\b'
