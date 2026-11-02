@@ -1812,7 +1812,7 @@ SECTIONS
         sdk/libultra/libc/sprintf.c.o(.text);
         . = 0xBD024; BYTE(0xAF); BYTE(0xB4); BYTE(0x00); BYTE(0x78); BYTE(0x00); BYTE(0x80); BYTE(0xA0); BYTE(0x21); BYTE(0xAF); BYTE(0xB3); BYTE(0x00); BYTE(0x74);
         . = MAX(., 0xBD030);
-        sdk/libultra/libc/xprintf.c.o(.text);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.text);
         . = MAX(., 0xBDC30);
         sdk/libultra/libc/ldiv.c.o(.text);
         . = 0xBDCB8; BYTE(0xC4); BYTE(0x20); BYTE(0x62); BYTE(0x64); BYTE(0x0C); BYTE(0x09); BYTE(0x78); BYTE(0x43);
@@ -3657,7 +3657,7 @@ SECTIONS
         sdk/libultra/libc/sprintf.c.o(.text);
         . = 0xBD2C4; BYTE(0x8C); BYTE(0x68); BYTE(0x00); BYTE(0x00); BYTE(0x8C); BYTE(0x69); BYTE(0x00); BYTE(0x04); BYTE(0x8C); BYTE(0x6A); BYTE(0x00); BYTE(0x08);
         . = MAX(., 0xBD2D0);
-        sdk/libultra/libc/xprintf.c.o(.text);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.text);
         . = MAX(., 0xBDED0);
         sdk/libultra/libc/ldiv.c.o(.text);
         . = 0xBDF58; BYTE(0xAE); BYTE(0x22); BYTE(0x00); BYTE(0x04); BYTE(0x96); BYTE(0x02); BYTE(0x00); BYTE(0x18);
@@ -5512,7 +5512,7 @@ SECTIONS
         sdk/libultra/libc/sprintf.c.o(.text);
         . = 0xBD304; BYTE(0x00); BYTE(0x02); BYTE(0x10); BYTE(0x40); BYTE(0x00); BYTE(0x62); BYTE(0x18); BYTE(0x21); BYTE(0x08); BYTE(0x0A); BYTE(0xF9); BYTE(0xC8);
         . = MAX(., 0xBD310);
-        sdk/libultra/libc/xprintf.c.o(.text);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.text);
         . = MAX(., 0xBDF10);
         sdk/libultra/libc/ldiv.c.o(.text);
         . = 0xBDF98; BYTE(0x00); BYTE(0x00); BYTE(0x38); BYTE(0x21); BYTE(0xAF); BYTE(0xA8); BYTE(0x00); BYTE(0x20);
@@ -7381,7 +7381,7 @@ SECTIONS
         sdk/libultra/libc/sprintf.c.o(.text);
         . = 0xBCF54; BYTE(0x0C); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x00); BYTE(0x08); BYTE(0x6D); BYTE(0x5F); BYTE(0x54); BYTE(0x65); BYTE(0x78);
         . = MAX(., 0xBCF60);
-        sdk/libultra/libc/xprintf.c.o(.text);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.text);
         . = MAX(., 0xBDB60);
         sdk/libultra/libc/ldiv.c.o(.text);
         . = 0xBDBE8; BYTE(0x49); BYTE(0x4F); BYTE(0x52); BYTE(0x00); BYTE(0x00); BYTE(0x01); BYTE(0x00); BYTE(0x00);
@@ -9259,7 +9259,7 @@ SECTIONS
         sdk/libultra/libc/sprintf.c.o(.text);
         . = 0xC2114; BYTE(0x00); BYTE(0x02); BYTE(0x10); BYTE(0x40); BYTE(0x00); BYTE(0x62); BYTE(0x18); BYTE(0x21); BYTE(0x08); BYTE(0x0B); BYTE(0x0D); BYTE(0x4C);
         . = MAX(., 0xC2120);
-        sdk/libultra/libc/xprintf.c.o(.text);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.text);
         . = MAX(., 0xC2D20);
         sdk/libultra/libc/ldiv.c.o(.text);
         . = 0xC2DA8; BYTE(0x00); BYTE(0x00); BYTE(0x38); BYTE(0x21); BYTE(0xAF); BYTE(0xA8); BYTE(0x00); BYTE(0x20);
@@ -9887,7 +9887,7 @@ SECTIONS
         sdk/libultra/os/writebackdcache.s.o(.bss .sbss COMMON);
         sdk/libultra/os/writebackdcacheall.s.o(.bss .sbss COMMON);
         sdk/libultra/libc/sprintf.c.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/ldiv.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xldtob.c.o(.bss .sbss COMMON);
         sdk/libultra/audio/load.c.o(.bss .sbss COMMON);
@@ -10482,7 +10482,7 @@ SECTIONS
         sdk/libultra/os/writebackdcache.s.o(.bss .sbss COMMON);
         sdk/libultra/os/writebackdcacheall.s.o(.bss .sbss COMMON);
         sdk/libultra/libc/sprintf.c.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/ldiv.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xldtob.c.o(.bss .sbss COMMON);
         sdk/libultra/audio/load.c.o(.bss .sbss COMMON);
@@ -11079,7 +11079,7 @@ SECTIONS
         sdk/libultra/os/writebackdcache.s.o(.bss .sbss COMMON);
         sdk/libultra/os/writebackdcacheall.s.o(.bss .sbss COMMON);
         sdk/libultra/libc/sprintf.c.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/ldiv.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xldtob.c.o(.bss .sbss COMMON);
         sdk/libultra/audio/load.c.o(.bss .sbss COMMON);
@@ -11677,7 +11677,7 @@ SECTIONS
         sdk/libultra/os/writebackdcache.s.o(.bss .sbss COMMON);
         sdk/libultra/os/writebackdcacheall.s.o(.bss .sbss COMMON);
         sdk/libultra/libc/sprintf.c.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/ldiv.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xldtob.c.o(.bss .sbss COMMON);
         sdk/libultra/audio/load.c.o(.bss .sbss COMMON);
@@ -12285,7 +12285,7 @@ SECTIONS
         sdk/libultra/os/writebackdcache.s.o(.bss .sbss COMMON);
         sdk/libultra/os/writebackdcacheall.s.o(.bss .sbss COMMON);
         sdk/libultra/libc/sprintf.c.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/ldiv.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xldtob.c.o(.bss .sbss COMMON);
         sdk/libultra/audio/load.c.o(.bss .sbss COMMON);
@@ -14210,10 +14210,10 @@ SECTIONS
         . = MAX(., 0x6150);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x6158);
-        . = ALIGN(8) /* sdk/libultra/libc/xprintf.c.o */;
-        sdk/libultra/libc/xprintf.c.o(.rodata .rdata);
+        . = ALIGN(8) /* sdk/libultra/libc/xprintf_text/xprintf.c.o */;
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.rodata .rdata);
         . = MAX(., 0x62A8);
-        sdk/libultra/libc/xprintf.c.o(.data);
+        sdk/libultra/libc/xprintf_data/xprintf.c.o(.data);
         . = MAX(., 0x6300);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.rodata .rdata);
         . = MAX(., 0x6318);
@@ -14435,9 +14435,9 @@ SECTIONS
         . = MAX(., 0x13940);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x13954);
-        sdk/libultra/libc/xprintf_data.CPP.o(.rodata .rdata);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x13965);
-        sdk/libultra/libc/xprintf_data.CPP.o(.data);
+        sdk/libultra/libc/xprintf_data/xprintf_data.CPP.o(.data);
         . = MAX(., 0x13970);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.data);
         . = MAX(., 0x13980);
@@ -17144,8 +17144,8 @@ SECTIONS
         . = MAX(., 0x6AA0);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x6AA8);
-        . = ALIGN(8) /* sdk/libultra/libc/xprintf.c.o */;
-        sdk/libultra/libc/xprintf.c.o(.rodata .rdata);
+        . = ALIGN(8) /* sdk/libultra/libc/xprintf_text/xprintf.c.o */;
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.rodata .rdata);
         . = MAX(., 0x6BF8);
         sdk/libultra/libc/xprintf/ACTOR_BEHAVIOR_TABLES.CPP.o(.data);
         . = MAX(., 0x6C50);
@@ -17369,9 +17369,9 @@ SECTIONS
         . = MAX(., 0x23D20);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x23D34);
-        sdk/libultra/libc/xprintf_data.CPP.o(.rodata .rdata);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x23D45);
-        sdk/libultra/libc/xprintf_data.CPP.o(.data);
+        sdk/libultra/libc/xprintf_data/xprintf_data.CPP.o(.data);
         . = MAX(., 0x23D50);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.data);
         . = MAX(., 0x23D60);
@@ -20080,8 +20080,8 @@ SECTIONS
         . = MAX(., 0x7430);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x7438);
-        . = ALIGN(8) /* sdk/libultra/libc/xprintf.c.o */;
-        sdk/libultra/libc/xprintf.c.o(.rodata .rdata);
+        . = ALIGN(8) /* sdk/libultra/libc/xprintf_text/xprintf.c.o */;
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.rodata .rdata);
         . = MAX(., 0x7588);
         sdk/libultra/libc/xprintf/XPRINTF.CPP.o(.data);
         . = MAX(., 0x75E0);
@@ -20308,7 +20308,7 @@ SECTIONS
         . = MAX(., 0x1EEA0);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x1EEB4);
-        sdk/libultra/libc/xprintf_data.CPP.o(.rodata .rdata);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x1EED0);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.data);
         . = MAX(., 0x1EEE0);
@@ -23015,8 +23015,8 @@ SECTIONS
         . = MAX(., 0x6140);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x6148);
-        . = ALIGN(8) /* sdk/libultra/libc/xprintf.c.o */;
-        sdk/libultra/libc/xprintf.c.o(.rodata .rdata);
+        . = ALIGN(8) /* sdk/libultra/libc/xprintf_text/xprintf.c.o */;
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.rodata .rdata);
         . = MAX(., 0x6298);
         src/DATA/OVLTBL/XPRINTF/XPRINTF.CPP.o(.data);
         . = MAX(., 0x62F0);
@@ -23280,7 +23280,7 @@ SECTIONS
         . = MAX(., 0x126C0);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x126D4);
-        sdk/libultra/libc/xprintf_data.CPP.o(.rodata .rdata);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x126E8);
         src/DATA/FRONTEND/H/CONSTANTS/G_CONSTANTSENCODEDWORDS.CPP.o(.data);
         . = MAX(., 0x12878);
@@ -26229,8 +26229,8 @@ SECTIONS
         . = MAX(., 0x62B0);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x62B8);
-        . = ALIGN(8) /* sdk/libultra/libc/xprintf.c.o */;
-        sdk/libultra/libc/xprintf.c.o(.rodata .rdata);
+        . = ALIGN(8) /* sdk/libultra/libc/xprintf_text/xprintf.c.o */;
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.rodata .rdata);
         . = MAX(., 0x6408);
         sdk/libultra/xprintf.CPP.o(.data);
         . = MAX(., 0x6460);
@@ -27587,7 +27587,7 @@ SECTIONS
         . = MAX(., 0x12880);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x12894);
-        sdk/libultra/libc/xprintf_data.CPP.o(.rodata .rdata);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.rodata .rdata);
         . = MAX(., 0x128B0);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.data);
         . = MAX(., 0x128C0);
@@ -28149,7 +28149,8 @@ SECTIONS
         sdk/libultra/libc/xprintf_flags/xprintf_flags.c.o(.bss .sbss COMMON);
         src/DATA/OVLTBL/XPRINTF.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_data/xprintf.c.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/DECODE/DECODE.CPP.o(.bss .sbss COMMON);
@@ -28242,7 +28243,8 @@ SECTIONS
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_data/xprintf_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         SOURCE/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_INITDECODESTREAM_DATA.CPP.o(.bss .sbss COMMON);
@@ -29021,7 +29023,7 @@ SECTIONS
         sdk/libultra/libc/xprintf_flags/xprintf_flags.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf/ACTOR_BEHAVIOR_TABLES.CPP.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP.o(.bss .sbss COMMON);
@@ -29117,7 +29119,8 @@ SECTIONS
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_data/xprintf_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         SOURCE/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_INITDECODESTREAM_DATA.CPP.o(.bss .sbss COMMON);
@@ -29885,7 +29888,7 @@ SECTIONS
         sdk/libultra/libc/xprintf_flags/xprintf_flags.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP.o(.bss .sbss COMMON);
@@ -29983,7 +29986,7 @@ SECTIONS
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         SOURCE/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_INITDECODESTREAM_DATA.CPP.o(.bss .sbss COMMON);
@@ -30743,7 +30746,7 @@ SECTIONS
         sdk/libultra/libc/xprintf_flags/xprintf_flags.c.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         src/DATA/OVLTBL/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP.o(.bss .sbss COMMON);
@@ -30857,7 +30860,7 @@ SECTIONS
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.bss .sbss COMMON);
         src/DATA/FRONTEND/H/CONSTANTS/G_CONSTANTSENCODEDWORDS.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_INITDECODESTREAM_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/GFXDATA/GFXDATA/AUDIO_DECODEFRAME_DATA.CPP.o(.bss .sbss COMMON);
@@ -31760,7 +31763,7 @@ SECTIONS
         sdk/libultra/byte_link_halfword_tables.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/xprintf_flags/xprintf_flags.c.o(.bss .sbss COMMON);
         sdk/libultra/libc_formattocallback_data/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf.c.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_text/xprintf.c.o(.bss .sbss COMMON);
         sdk/libultra/xprintf.CPP.o(.bss .sbss COMMON);
         src/DATA/OVL1_C/XPRINTF/XPRINTF.CPP.o(.bss .sbss COMMON);
         src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP.o(.bss .sbss COMMON);
@@ -32422,7 +32425,7 @@ SECTIONS
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
-        sdk/libultra/libc/xprintf_data.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/libc/xprintf_rodata/xprintf_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/audio/load/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         SOURCE/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_READPACKEDSAMPLES_DATA.CPP.o(.bss .sbss COMMON);

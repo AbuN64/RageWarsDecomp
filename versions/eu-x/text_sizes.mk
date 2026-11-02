@@ -217,7 +217,7 @@ build/eu-x/sdk/libultra/libc/gfx_getconvertedcounterratio_data.CPP.c.o: TEXTSIZE
 build/eu-x/sdk/libultra/libc/ldiv.c.o: TEXTSIZE := 0x90
 build/eu-x/sdk/libultra/libc/sprintf.c.o: TEXTSIZE := 0x110
 build/eu-x/sdk/libultra/libc/xldtob.c.o: TEXTSIZE := 0x10
-build/eu-x/sdk/libultra/libc/xprintf.c.o: TEXTSIZE := 0xC00
+build/eu-x/sdk/libultra/libc/xprintf_text/xprintf.c.o: TEXTSIZE := 0xC00
 build/eu-x/sdk/libultra/os/control_updatecontrollerrumble_data.CPP.c.o: TEXTSIZE := 0x388
 build/eu-x/sdk/libultra/os/controller.CPP/controller.CPP.c.o: TEXTSIZE := 0x4C0
 build/eu-x/sdk/libultra/os/createmesgqueue.c.o: TEXTSIZE := 0x30

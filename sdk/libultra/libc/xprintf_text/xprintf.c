@@ -1,11 +1,11 @@
-#include "../../include/LIBC.H"
+#include "../../../include/LIBC.H"
 #include "include_asm.h"
-#include "../../include/EXTERNS.H"
+#include "../../../include/EXTERNS.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/LLDIVRESULT.H"
 #include <stdarg.h>
 #include "TYPES.H"
-#include "../../include/PRINTF/_LDTOB.H"
+#include "../../../include/PRINTF/_LDTOB.H"
 #include "COMMON/AUDIO_CALLBACKS.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
@@ -13,13 +13,6 @@
 #include "stdarg.h"
 
 /* 800C7C68.CPP */
-#if defined(VERSION_DE)
-unsigned int g_XprintfWords1[22] = {
-    0x40590000, 0x00000000, 0x40240000, 0x00000000, 0x40590000, 0x00000000, 0x40C38800, 0x00000000,
-    0x4197D784, 0x00000000, 0x4341C379, 0x37E08000, 0x4693B8B5, 0xB5056E17, 0x4D384F03, 0xE93FF9F5,
-    0x5A827748, 0xF9301D32, 0x75154FDD, 0x7F73BF3C, 0x3B490FDB, 0x3C490FDB,
-};
-#endif
 
 /* 802C2520.CPP */
 /* _Printf core of the SDK: scans the format, parses flags, width, precision and size qualifier, and emits each field through prout. */
@@ -118,8 +111,6 @@ s32 _Printf(void *(*prout)(void *, const char *, s32), void *arg, const char *fm
         fmt = (const char *)s + 1;
     }
 }
-
-
 
 void _Putfld(_Pft *px, va_list *pap, int code, unsigned char *ac)
 {
@@ -243,12 +234,11 @@ case_default:
 extern u8 g_lowercaseHexDigitsText[];
 extern u8 g_printfDigitCharacters[];
 
-
-
 static inline void lldivInline(LldivResult *result, s64 numerator, s64 denominator) {
     result->quot = Libc_SignedDivide(numerator, denominator);
     result->rem = Libc_SignedRemainder(numerator, denominator);
 }
+
 /* Formats px->v.ll into px->s in the radix selected by code (o/x/X/d/i/u), zero-padding to the precision
  * (libc _Litob). The first digit and quotient use the u64 '%' and '/' operators (__umoddi3/__udivdi3 libcalls). */
 void _Litob(_Pft *px, unsigned char code) {
