@@ -32,9 +32,11 @@ const unsigned int k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock1[2]
 };
 #endif
 
+/* Keep the original four-byte constant-pool alignment; the linked coefficient
+ * arrays themselves remain eight-byte aligned at their ROM addresses. */
 #if defined(VERSION_US)
 #if defined(VERSION_US)
-const double k_xmathEvaluatereciprocalsquarerootDataConstantWords[12] = {
+const double k_xmathEvaluatereciprocalsquarerootDataConstantWords[12] __attribute__((aligned(4))) = {
     -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
     1.4426950216293335, 0.5, 0.693359375,
     0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
@@ -45,7 +47,7 @@ const double k_xmathEvaluatereciprocalsquarerootDataConstantWords[12] = {
 
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
-const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock4[12] = {
+const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock4[12] __attribute__((aligned(4))) = {
     -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
     1.4426950216293335, 0.5, 0.693359375,
     0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
@@ -56,7 +58,7 @@ const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock4[12] = {
 
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
-const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock3[12] = {
+const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock3[12] __attribute__((aligned(4))) = {
     -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
     1.4426950216293335, 0.5, 0.693359375,
     0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
@@ -67,7 +69,7 @@ const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock3[12] = {
 
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock2[12] = {
+const double k_xmathEvaluatereciprocalsquarerootDataConstantWordsBlock2[12] __attribute__((aligned(4))) = {
     -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
     1.4426950216293335, 0.5, 0.693359375,
     0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
