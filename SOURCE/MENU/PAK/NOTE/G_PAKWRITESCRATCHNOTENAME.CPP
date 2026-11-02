@@ -7,14 +7,14 @@
 const char s_mempakWriteTempDataText[23] = "Mempak write temp data\000";
 #endif
 #if defined(VERSION_US)
-const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000\000S";
+const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000S";
 #endif
 #if defined(VERSION_EU_X)
-const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000\000|";
+const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000|";
 #endif
 #if defined(VERSION_DE)
-const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000\000p";
+const char s_mempakWriteTempDataText[24] = "Mempak write temp data\000p";
 #endif
 #if defined(VERSION_US_REV1)
-const char g_pakWriteScratchNoteName[24] = "Mempak write temp data\000\000l";
+const char g_pakWriteScratchNoteName[24] = "Mempak write temp data\000l";
 #endif
