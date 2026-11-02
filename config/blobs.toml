@@ -45380,8 +45380,8 @@ stored_size = 392
 rom."us-rev1" = [[0x1f2b28, 0x1f2b44], [0x1f3b28, 0x1f3b44], [0x1f4b28, 0x1f4b44], [0x1f5b28, 0x1f5b44], [0x1f6b28, 0x1f6b44], [0x1f7b28, 0x1f7b44], [0x1f8b28, 0x1f8b44], [0x1f9b28, 0x1f9b44], [0x1fab28, 0x1fab44], [0x1fbb28, 0x1fbb44], [0x1fcb28, 0x1fcb44], [0x1fdb28, 0x1fdb44], [0x1feb28, 0x1feb44], [0x1ffb28, 0x1ffb44]]
 evidence = [{ artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/46" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/48" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/50" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/52" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/54" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/56" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/58" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/60" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/62" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/63" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/64" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/65" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/66" }, { artifact = "leftover.json", sha256 = "5672d5235c5b3f9ade5e2b1121c8c6ca1c386d3f7ab06dcbe3110101dd0ac197", pointer = "/versions/us-rev1/pieces/67" }, { artifact = "005-decode.json", sha256 = "23b7fb0dae31423e69410fc672b73a77528bcd3da3b5ab31a7e368591fea27b5", pointer = "/rows/leftover.us-rev1.archive-image.99" }]
 
-[blob."leftover.us-rev1.copy.e233c"]
-type = "leftover"
+[blob."stale-data.us-rev1.copy.e233c"]
+type = "stale-data"
 format = "copy"
 codec = "none"
 state = "decoded"
@@ -45767,8 +45767,8 @@ stored_size = 2560
 rom."us-rev1" = [[0x16d600, 0x16e000]]
 evidence = [{ artifact = "190-earlier-link.json", sha256 = "32704a58261fe6a9ccb8821ce434197c85fc1d3a2e1abc4294f48c076f19823c", pointer = "/proof" }]
 
-[blob."leftover.us-rev1.sn-debug.101000"]
-type = "leftover"
+[blob."sn-debug.us-rev1.debug.101000"]
+type = "sn-debug"
 format = "sn-debug"
 codec = "none"
 state = "decoded"
@@ -45776,8 +45776,8 @@ stored_size = 389120
 rom."us-rev1" = [[0x101000, 0x160000]]
 evidence = [{ artifact = "sn-debug-us-rev1-101000.json", sha256 = "8fca7e0d0d31e7cef82ec2aac3512717df24bfb5643dc591956303f469fa20f6" }]
 
-[blob."leftover.us-rev1.sn-debug.1c0869"]
-type = "leftover"
+[blob."sn-debug.us-rev1.debug.1c0869"]
+type = "sn-debug"
 format = "sn-debug"
 codec = "none"
 state = "decoded"
