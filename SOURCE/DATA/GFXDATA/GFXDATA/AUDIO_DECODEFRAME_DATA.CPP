@@ -12,7 +12,7 @@ extern char huffman_signed7_single_dictionary[];
 /* Initialized Huffman/runtime data and RSP program images. */
 #ifdef VERSION_DE
 /* DE ROM 0xD6164..0xDD6F0. Runtime Huffman blocks and retained CPU
- * buffer images precede the RSP images. Their u64 C initializers preserve
+ * buffer images precede the RSP images. Their 64-bit C initializers preserve
  * the SDK array contract and alignment; OSTask transfer sizes are bytes. */
 
 /* ROM 0xD6164..0xD61B4; +0, 80 bytes. Audio_DecodeFrame; four 20-byte kind/start/length/offset/table records. */
@@ -920,7 +920,7 @@ u8 g_optionsLocalizedLabelRetainedImage[5980] = {
 
 /* ROM 0xD9810..0xD98E0; +13996, 208 bytes. Audiomgr/SetN64 OSTask.ucode_boot, size rspbootTextEnd-rspbootTextStart. */
 
-u64 rspbootTextStart[26] = {
+s64 rspbootTextStart[26] = {
     0x0900041920010FC0ULL, 0x8C22001020030F7FULL, 0x2007108040870000ULL, 0x4082080040831000ULL,
     0x400430001480FFFEULL, 0x000000000D00040FULL, 0x0000000000E00008ULL, 0x4080380040082000ULL,
     0x3108008015000002ULL, 0x0000000003E00008ULL, 0x4080380034085200ULL, 0x408820000000000DULL,
