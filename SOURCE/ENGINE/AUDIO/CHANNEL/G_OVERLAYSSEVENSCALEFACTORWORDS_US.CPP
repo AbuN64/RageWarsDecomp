@@ -7,7 +7,7 @@
 #if defined(VERSION_US)
 
 struct {
-    u8 alignmentFill0[4];
+    u8 retainedUnreText[4];
     u32 g_soundVolumeScales[62];
 } g_overlaysSevenScaleFactorWords_us __attribute__((aligned(4))) = {
     { 0x55, 0x4e, 0x52, 0x45 },

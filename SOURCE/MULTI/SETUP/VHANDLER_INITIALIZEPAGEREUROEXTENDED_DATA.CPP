@@ -10,7 +10,7 @@ u32 k_VhandlerInitializepagereuroextendedEncodedBlockDe[30] = {
 };
 #if defined(VERSION_DE)
 struct {
-    u8 alignmentFill[8];
+    u8 retainedRecordWords[8];
 } k_VhandlerInitializepagereuroextendedEncodedWords __attribute__((aligned(4))) = {
     { 0xB2, 0xE0, 0x1E, 0xF1, 0xE1, 0xCD, 0xFF, 0xF3 }
 };

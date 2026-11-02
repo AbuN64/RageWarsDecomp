@@ -12,7 +12,7 @@ struct {
     f32 fillAlpha;
     f32 fillTargetAlpha;
     u8 primitiveOverride[6];
-    u8 alignmentFill[2];
+    u8 alignmentFill[2]; /* Tail at 0x4E rounds the 4-byte-aligned record to 0x50. */
 } g_geometryDrawResourceModelWritableWords_eu_x __attribute__((aligned(4))) = {
     { 0xffffffff, 0xffffffff, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x10000, 0xc4000000, 0xc8000000 },
     0,

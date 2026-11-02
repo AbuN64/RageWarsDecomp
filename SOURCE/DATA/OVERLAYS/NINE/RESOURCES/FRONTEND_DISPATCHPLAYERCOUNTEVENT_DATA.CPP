@@ -26,7 +26,7 @@ extern char g_Frontend_UpdatePlayerCountScreenPackedAddress24[];
 #if defined(VERSION_DE)
 struct {
     ResidentEventHandlerEntry eventHandlers0[8];
-    u8 alignmentFill96[12];
+    u8 retainedEventWords[12];
 } g_frontendDispatchPlayerCountEventRecord __attribute__((aligned(4))) = {
     { { 3592, 26, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePlayerCountScreen - 0x80000000U) }, { 3590, 26, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePlayerCountScreenDe - 0x80000000U) }, { 3587, 26, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyPlayerCountScreen - 0x80000000U) }, { 2, 26, (ResidentEventHandler)(void *)((char *)&Frontend_CancelPlayerCount - 0x80000000U) }, { 1, 26, (ResidentEventHandler)(void *)((char *)&Frontend_ConfirmPlayerCount - 0x80000000U) }, { 8, 26, (ResidentEventHandler)(void *)((char *)&Frontend_IncreasePlayerCount - 0x80000000U) }, { 7, 26, (ResidentEventHandler)(void *)((char *)&Frontend_DecreasePlayerCount - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xe, 0x7, 0x0, 0x0, 0x0, 0x13 }
@@ -38,7 +38,7 @@ typedef char g_frontendDispatchPlayerCountEventRecordSizeCheck[(sizeof(g_fronten
 #if defined(VERSION_EU)
 struct {
     ResidentEventHandlerEntry handlers[8];
-    u32 alignmentFill[3];
+    u32 retainedRecordWords[3];
 } g_frontendDispatchPlayerCountEventRecord __attribute__((aligned(4))) = {
     { { 3592, 26, (ResidentEventHandler)(void *)&g_Frontend_UpdatePlayerCountScreenPackedAddress24 }, { 3590, 26, (ResidentEventHandler)(void *)&g_Frontend_CreatePlayerCountScreenEuPackedAddress24 }, { 3587, 26, (ResidentEventHandler)(void *)&g_Frontend_DestroyPlayerCountScreenPackedAddress24 }, { 2, 26, (ResidentEventHandler)(void *)&g_Frontend_CancelPlayerCountPackedAddress24 }, { 1, 26, (ResidentEventHandler)(void *)&g_Frontend_ConfirmPlayerCountPackedAddress24 }, { 8, 26, (ResidentEventHandler)(void *)&g_Frontend_IncreasePlayerCountPackedAddress24 }, { 7, 26, (ResidentEventHandler)(void *)&g_Frontend_DecreasePlayerCountPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x020712D0, 0x00000250, 0x021712D0 }

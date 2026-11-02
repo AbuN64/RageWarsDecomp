@@ -32,7 +32,7 @@ const f32 k_AlcseqsectoticksEncodedWords[3] = {
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedFrameTagWords[12];
 } k_AlcseqsectoticksEncodedWordsBlock1 __attribute__((aligned(4))) = {
     { 0x40, 0x01, 0x00, 0x00, 0x00, 0x00, 0x0C, 0x43, 0x46, 0x72, 0x61, 0x6D }
 };
@@ -42,7 +42,7 @@ struct {
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedRecordWords[12];
 } k_AlcseqsectoticksEncodedWordsBlock3 __attribute__((aligned(4))) = {
     { 0x00, 0x27, 0x91, 0xAC, 0x00, 0x27, 0x91, 0xEC, 0x00, 0x27, 0x90, 0xF0 }
 };
@@ -52,7 +52,7 @@ struct {
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedRecordWords[12];
 } k_AlcseqsectoticksEncodedWordsBlock2 __attribute__((aligned(4))) = {
     { 0x00, 0x22, 0x9E, 0xD8, 0x00, 0x22, 0x9E, 0xE0, 0x00, 0x22, 0x9E, 0xE8 }
 };

@@ -8,7 +8,7 @@ extern char g_playerModelLighting[];
 
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-struct { Gfx commands[35]; u8 alignmentFill[8]; } k_ItemmenuRestorebootmemoryEncodedWords = {
+struct { Gfx commands[35]; u8 retainedLetterEWord[8]; } k_ItemmenuRestorebootmemoryEncodedWords = {
     {
     gsSPSetOtherMode(G_SETOTHERMODE_H, 14, 2, 0x00000000),
     gsSPTexture(0x8000, 0x8000, 0, 0, 1),

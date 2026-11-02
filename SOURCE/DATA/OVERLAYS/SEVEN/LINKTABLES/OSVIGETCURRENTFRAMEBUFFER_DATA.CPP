@@ -21,7 +21,7 @@ void * g_osViGetCurrentFramebufferPointers[4] = {
 struct {
     void * __osViCurr;
     void * __osViNext;
-    u8 alignmentFill8[8];
+    u8 retainedPrimageText[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
     (void *)g_viDataZeroWords + 0x30,
@@ -35,7 +35,7 @@ typedef char g_osViGetCurrentFramebufferPointersSizeCheck[(sizeof(g_osViGetCurre
 struct {
     void * __osViCurr;
     void * __osViNext;
-    u8 alignmentFill8[8];
+    u8 retainedRecordWords[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
     (void *)g_viDataZeroWords + 0x30,
@@ -49,7 +49,7 @@ typedef char g_osViGetCurrentFramebufferPointersSizeCheck[(sizeof(g_osViGetCurre
 struct {
     void * __osViCurr;
     void * __osViNext;
-    u8 alignmentFill8[8];
+    u8 retainedFireboText[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
     (void *)g_viDataZeroWords + 0x30,

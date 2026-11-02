@@ -17,7 +17,7 @@ extern char g_Frontend_CancelNodePairMenuPackedAddress24[];
 #if defined(VERSION_EU)
 struct {
     ResidentEventHandlerEntry eventHandlers0[7];
-    u8 alignmentFill84[8];
+    u8 retainedRecordWords[8];
     ResidentEventHandlerEntry eventHandlers92[4];
 } k_FrontendDispatchprofilereseteventEncodedWords __attribute__((aligned(4))) = {
     { { 3592, 24, (ResidentEventHandler)(void *)&g_Frontend_PulseProfileResetWidgetPackedAddress24 }, { 3590, 24, (ResidentEventHandler)(void *)&g_Frontend_CreateProfileResetScreenEuropeanPackedAddress24 }, { 3587, 24, (ResidentEventHandler)(void *)&g_Frontend_FreeProfileResetScreenPackedAddress24 }, { 1, 24, (ResidentEventHandler)(void *)&g_Frontend_ProfileResetEvent01HandlerPackedAddress24 }, { 2, 24, (ResidentEventHandler)(void *)&g_Frontend_AcknowledgeProfileResetEventPackedAddress24 }, { 10, 24, (ResidentEventHandler)(void *)&g_Frontend_HandleProfileResetConfirmPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },

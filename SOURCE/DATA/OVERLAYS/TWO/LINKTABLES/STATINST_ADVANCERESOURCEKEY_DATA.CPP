@@ -8,20 +8,20 @@
 #if defined(VERSION_US)
 struct {
     s32 g_staticObjectResourceSerial;
-    u8 alignmentFill4[12];
+    u8 retainedSfxTagWords[12];
     s32 g_resourceCacheNodeCapacity;
-    u8 alignmentFill20[12];
+    u8 retainedChamberTagText[12];
     s32 g_resourceHashBucketCount;
     u32 g_resourceHashSlotCount;
     s32 g_resourceHashInitialized;
-    u8 alignmentFill44[4];
+    u8 retainedHashWords[4];
     u32 g_audioTaskFrameIndex;
     u32 g_audioDmaPendingReadCount;
     s32 g_audioCommandBufferIndex;
     u32 g_audioWorkerEventCount;
     u32 g_audioWorkerElapsedTicks;
     s32 g_audioCacheEntryAllocCount;
-    u8 alignmentFill72[8];
+    u8 retainedHissTagText[8];
     s32 g_audioContextInitialized;
 } g_statinstAdvanceResourceKeyDataWords __attribute__((aligned(4))) = {
     3670016,

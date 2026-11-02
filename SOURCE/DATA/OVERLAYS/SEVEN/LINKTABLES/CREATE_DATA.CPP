@@ -31,9 +31,9 @@ char g_createDataTextFragment_us[28] =
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 struct {
-    u8 alignmentFill0[12];
+    u8 retainedOffsetPrefixWords[12];
     s32 g_serialInterfaceAccessQueueInitialized;
-    u8 alignmentFill16[12];
+    u8 retainedOffsetSuffixWords[12];
 } g_createDataOffsetTable_eu_x __attribute__((aligned(2))) = {
     { 0x80, 0x0, 0x0, 0x0, 0x0, 0x4, 0x0, 0x8, 0x0, 0xc, 0x0, 0x12 },
     0,

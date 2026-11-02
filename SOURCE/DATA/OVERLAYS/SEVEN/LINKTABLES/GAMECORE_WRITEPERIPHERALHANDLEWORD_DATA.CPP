@@ -12,7 +12,7 @@ extern struct OSPiHandle_s g_diskPeripheralHandle;
 #if defined(VERSION_DE)
 struct {
     void * g_peripheralDomainHandles[2];
-    u8 alignmentFill8[8];
+    u8 retainedFloatWords[8];
 } g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x3f, 0x40, 0x0, 0x0, 0x3f, 0x0, 0x0, 0x0 }
@@ -24,7 +24,7 @@ typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gameco
 #if defined(VERSION_EU)
 struct {
     void * g_peripheralDomainHandles[2];
-    u8 alignmentFill8[8];
+    u8 retainedHiveText[8];
 } g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x68, 0x69, 0x76, 0x65, 0x20, 0x6f, 0x66, 0x20 }
@@ -36,7 +36,7 @@ typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gameco
 #if defined(VERSION_EU_X)
 struct {
     void * g_peripheralDomainHandles[2];
-    u8 alignmentFill8[8];
+    u8 retainedFlagWords[8];
 } g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x2, 0x0, 0x4, 0x0, 0x8, 0x0, 0x10, 0x0 }
@@ -48,7 +48,7 @@ typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gameco
 #if defined(VERSION_US)
 struct {
     void * g_peripheralDomainHandles[2];
-    u8 alignmentFill8[8];
+    u8 retainedRecordWords[8];
 } g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x0, 0x4, 0x0, 0x0, 0x0, 0x1c, 0x53, 0x46 }

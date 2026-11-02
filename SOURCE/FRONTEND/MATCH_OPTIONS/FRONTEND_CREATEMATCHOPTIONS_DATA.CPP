@@ -67,7 +67,7 @@ typedef char g_FrontendCreatematchoptionsWords1SizeCheck[(sizeof(g_FrontendCreat
 /* 800E4EF4.CPP */
 struct {
     ResidentEventHandlerEntry eventHandlers0[7];
-    u8 alignmentFill84[8];
+    u8 retainedRecordWords[8];
 } g_frontendCreateMatchOptionsRecord __attribute__((aligned(4))) = {
     { { 3590, 21, (ResidentEventHandler)(void *)((char *)&Frontend_CreateMatchOptions - 0x80000000U) }, { 3587, 21, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyMatchOptions - 0x80000000U) }, { 3594, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnMatchOptionsEventZero - 0x80000000U) }, { 2, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ExitMatchOptions - 0x80000000U) }, { 1, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateMatchOptionAction - 0x80000000U) }, { 10, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ResetMatchOptionOnEvent - 0x80000000U) }, { 8, 874, (ResidentEventHandler)(void *)((char *)&Frontend_RefreshMatchSlotsOnZeroEventAlt - 0x80000000U) } },
     { 0x0, 0x0, 0x0, 0x7, 0x0, 0x0, 0x3, 0x6a }

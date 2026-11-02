@@ -5,7 +5,7 @@
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
 struct {
-    u8 alignmentFill[4];
+    u8 retainedRecordWords[4];
 } k_ResourcesEncodedWordsBlock9 __attribute__((aligned(4))) = {
     { 0x54, 0xF2, 0x08, 0xE0 }
 };

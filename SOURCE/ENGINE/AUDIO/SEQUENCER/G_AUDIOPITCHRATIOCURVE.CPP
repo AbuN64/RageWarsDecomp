@@ -11,7 +11,7 @@
 struct {
     s32 g_musicRequestedTrack;
     s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
+    u8 retainedInstructionWords[8];
 } g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
     0,
     0,
@@ -30,7 +30,7 @@ char g_GAudiopitchratiocurveWords4[16] __attribute__((aligned(4))) = "\000\000\0
 struct {
     s32 g_musicRequestedTrack;
     s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
+    u8 retainedPitchRatioWords[8];
 } g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
     0,
     0,
@@ -44,7 +44,7 @@ typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocu
 struct {
     s32 g_musicRequestedTrack;
     s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
+    u8 retainedEosTagWords[8];
 } g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
     0,
     0,
@@ -58,7 +58,7 @@ typedef char g_GAudiopitchratiocurveWords4SizeCheck[(sizeof(g_GAudiopitchratiocu
 struct {
     s32 g_musicRequestedTrack;
     s32 g_musicStartupFrameCount;
-    u8 alignmentFill8[8];
+    u8 retainedPitchRatioWords[8];
 } g_GAudiopitchratiocurveWords4 __attribute__((aligned(4))) = {
     0,
     0,

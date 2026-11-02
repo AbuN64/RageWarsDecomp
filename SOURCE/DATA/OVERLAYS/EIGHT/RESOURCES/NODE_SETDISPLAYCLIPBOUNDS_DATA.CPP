@@ -15,7 +15,7 @@ struct {
     s32 g_widgetTextBatchMode;
     s32 g_frontendWidgetStateChanged;
     s32 g_frontendArchiveResident;
-    u8 alignmentFill24[8];
+    u8 retainedHandlerWords[8];
 } g_NodeSetdisplayclipboundsPointerWords1 __attribute__((aligned(4))) = {
     1,
     1,
@@ -37,7 +37,7 @@ struct {
     s32 g_widgetTextBatchMode;
     s32 g_frontendWidgetStateChanged;
     s32 g_frontendArchiveResident;
-    u8 alignmentFill24[8];
+    u8 zeroHandlerTail[8];
 } g_NodeSetdisplayclipboundsPointerWords1 __attribute__((aligned(4))) = {
     1,
     1,
@@ -59,7 +59,7 @@ struct {
     s32 g_widgetTextBatchMode;
     s32 g_frontendWidgetStateChanged;
     s32 g_frontendArchiveResident;
-    u8 alignmentFill24[8];
+    u8 retainedHandlerWords[8];
 } g_NodeSetdisplayclipboundsPointerWords1 __attribute__((aligned(4))) = {
     1,
     1,
@@ -79,7 +79,7 @@ struct {
     s32 g_widgetTextBatchMode;
     s32 g_frontendWidgetStateChanged;
     s32 g_frontendArchiveResident;
-    u8 alignmentFill24[8];
+    u8 retainedHandlerWords[8];
 } g_NodeSetdisplayclipboundsPointerWords1 __attribute__((aligned(4))) = {
     1,
     1,
@@ -101,7 +101,7 @@ struct {
     s32 g_widgetTextBatchMode;
     s32 g_frontendWidgetStateChanged;
     s32 g_frontendArchiveResident;
-    u8 alignmentFill24[8];
+    u8 retainedFontSmallText[8];
 } g_NodeSetdisplayclipboundsPointerWords1 __attribute__((aligned(4))) = {
     1,
     1,

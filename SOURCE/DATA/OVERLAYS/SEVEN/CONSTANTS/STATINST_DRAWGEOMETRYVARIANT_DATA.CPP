@@ -8,20 +8,20 @@
 #if defined(VERSION_EU_X)
 struct {
     s32 g_staticObjectResourceSerial;
-    u8 alignmentFill4[12];
+    u8 retainedResourceSerialFloatWords[12];
     s32 g_resourceCacheNodeCapacity;
-    u8 alignmentFill20[12];
+    u8 retainedCacheCapacityFloatWords[12];
     s32 g_resourceHashBucketCount;
     u32 g_resourceHashSlotCount;
     s32 g_resourceHashInitialized;
-    u8 alignmentFill44[4];
+    u8 retainedHashSizeFloatWord[4];
     u32 g_audioTaskFrameIndex;
     u32 g_audioDmaPendingReadCount;
     s32 g_audioCommandBufferIndex;
     u32 g_audioWorkerEventCount;
     u32 g_audioWorkerElapsedTicks;
     s32 g_audioCacheEntryAllocCount;
-    u8 alignmentFill72[8];
+    u8 retainedResourceStateFloatWords[8];
     s32 g_audioContextInitialized;
 } g_statinstDrawGeometryVariantTable_eu_x __attribute__((aligned(4))) = {
     3670016,

@@ -5,7 +5,7 @@
 /* ROM-grounded data: rodata/unresolved/800D9370_unclaimed_D9F7C */
 #if defined(VERSION_US_REV1)
 struct {
-    u8 alignmentFill[4];
+    u8 zeroTail[4];
 } g_audioReadpackedsamplesDataZeroWords __attribute__((aligned(4))) = {
     { 0x00, 0x00, 0x00, 0x00 }
 };

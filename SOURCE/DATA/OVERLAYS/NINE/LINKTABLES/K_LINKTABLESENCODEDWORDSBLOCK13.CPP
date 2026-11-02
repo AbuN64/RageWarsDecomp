@@ -5,7 +5,7 @@
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 struct {
-    u8 alignmentFill[4];
+    u8 retainedRecordWords[4];
 } k_LinktablesEncodedWordsBlock15 __attribute__((aligned(4))) = {
     { 0x32, 0x74, 0x04, 0x0A }
 };

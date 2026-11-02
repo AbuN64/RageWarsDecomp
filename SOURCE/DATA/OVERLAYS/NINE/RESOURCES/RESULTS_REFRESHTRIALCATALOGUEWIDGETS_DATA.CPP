@@ -46,7 +46,7 @@ extern char g_Results_ShowResultsPlayerModelsPackedAddress24[];
 #if defined(VERSION_DE)
 struct {
     s32 g_currentStagePreset;
-    u8 alignmentFill4[12];
+    u8 retainedEventWords[12];
     void * g_trialCatalogueScreen;
 } g_ResultsRefreshtrialcataloguewidgetsWords2 __attribute__((aligned(4))) = {
     0,
@@ -60,7 +60,7 @@ typedef char g_ResultsRefreshtrialcataloguewidgetsWords2SizeCheck[(sizeof(g_Resu
 #if defined(VERSION_EU)
 struct {
     s32 g_currentStagePreset;
-    u8 alignmentFill4[12];
+    u8 retainedInstructionWords[12];
     void * g_trialCatalogueScreen;
 } g_ResultsRefreshtrialcataloguewidgetsWords2 __attribute__((aligned(4))) = {
     0,
@@ -74,7 +74,7 @@ typedef char g_ResultsRefreshtrialcataloguewidgetsWords2SizeCheck[(sizeof(g_Resu
 #if defined(VERSION_EU_X)
 struct {
     s32 g_currentStagePreset;
-    u8 alignmentFill4[12];
+    u8 retainedInstructionWords[12];
     void * g_trialCatalogueScreen;
 } g_ResultsRefreshtrialcataloguewidgetsWords2 __attribute__((aligned(4))) = {
     0,
@@ -93,7 +93,7 @@ char g_ResultsRefreshtrialcataloguewidgetsWords2[20] __attribute__((aligned(4)))
 #if defined(VERSION_US_REV1)
 struct {
     s32 g_currentStagePreset;
-    u8 alignmentFill4[12];
+    u8 retainedRecordWords[12];
     void * g_trialCatalogueScreen;
 } g_ResultsRefreshtrialcataloguewidgetsWords2 __attribute__((aligned(4))) = {
     0,
@@ -113,7 +113,7 @@ struct {
     OverlayTrialWidgetGroup trialWidgets[64];
     ResidentEventHandlerEntry eventHandlers1776[13];
     ResidentEventHandlerEntry eventHandlers1932[13];
-    u8 alignmentFill2088[4];
+    u8 retainedRecordWord[4];
     ResidentEventHandlerEntry eventHandlers2092[4];
 } g_resultsRefreshTrialCatalogueWidgetsRecord __attribute__((aligned(4))) = {
     { { 420, 2, 0, { 1, -1, 2, -1 } }, { 342, 2, 1, { -1, 2, -1, 0 } }, { 341, 2, 2, { 1, 3, 4, 0 } }, { 343, 2, 3, { -1, -1, 4, 2 } }, { 410, 3, 4, { 5, 29, 13, 2 } }, { 345, 2, 5, { -1, 13, 6, 4 } }, { 352, 1, 6, { -1, 14, 7, 5 } }, { 349, 0, 7, { -1, 9, 8, 6 } }, { 350, 3, 8, { -1, 9, -1, 7 } }, { 417, 3, 9, { 15, 27, -1, 14 } }, { 351, 3, 10, { 9, 28, 27, 11 } }, { 353, 2, 11, { 14, 28, 10, 12 } }, { 354, 2, 12, { 13, 28, 11, 4 } }, { 347, 3, 13, { 6, 11, 14, 4 } }, { 348, 2, 14, { 7, 10, 9, 13 } }, { 422, 1, 15, { -1, 9, 16, -1 } }, { 359, 0, 16, { -1, 17, 19, 15 } }, { 363, 2, 17, { 16, -1, 18, 15 } }, { 362, 2, 18, { 19, -1, 20, 17 } }, { 360, 2, 19, { -1, 18, 20, 16 } }, { 361, 3, 20, { -1, 22, 21, 19 } }, { 377, 1, 21, { 20, 22, -1, -1 } }, { 429, 3, 22, { 20, 23, -1, -1 } }, { 395, 0, 23, { 24, -1, 22, 26 } }, { 432, 2, 24, { 22, 23, -1, 25 } }, { 375, 3, 25, { -1, 23, 24, 27 } }, { 394, 1, 26, { 25, -1, 23, 27 } }, { 392, 2, 27, { 9, 31, 25, 10 } }, { 357, 3, 28, { 11, 31, 27, -1 } }, { 421, 1, 29, { 4, 30, 31, -1 } }, { 356, 3, 30, { 29, -1, 31, -1 } }, { 355, 3, 31, { 28, -1, 32, 30 } }, { 399, 3, 32, { -1, -1, 33, 31 } }, { 400, 0, 33, { -1, -1, 34, 32 } }, { 401, 1, 34, { -1, -1, 35, 33 } }, { 412, 3, 35, { -1, -1, -1, 34 } } },
@@ -133,7 +133,7 @@ struct {
     OverlayTrialWidgetGroup trialWidgets[64];
     ResidentEventHandlerEntry eventHandlers1776[13];
     ResidentEventHandlerEntry eventHandlers1932[13];
-    u8 alignmentFill2088[4];
+    u8 retainedInstructionWord[4];
     ResidentEventHandlerEntry eventHandlers2092[4];
 } g_resultsRefreshTrialCatalogueWidgetsRecord __attribute__((aligned(4))) = {
     { { 426, 2, 0, { 1, -1, 2, -1 } }, { 348, 2, 1, { -1, 2, -1, 0 } }, { 347, 2, 2, { 1, 3, 4, 0 } }, { 349, 2, 3, { -1, -1, 4, 2 } }, { 416, 3, 4, { 5, 29, 13, 2 } }, { 351, 2, 5, { -1, 13, 6, 4 } }, { 358, 1, 6, { -1, 14, 7, 5 } }, { 355, 0, 7, { -1, 9, 8, 6 } }, { 356, 3, 8, { -1, 9, -1, 7 } }, { 423, 3, 9, { 15, 27, -1, 14 } }, { 357, 3, 10, { 9, 28, 27, 11 } }, { 359, 2, 11, { 14, 28, 10, 12 } }, { 360, 2, 12, { 13, 28, 11, 4 } }, { 353, 3, 13, { 6, 11, 14, 4 } }, { 354, 2, 14, { 7, 10, 9, 13 } }, { 428, 1, 15, { -1, 9, 16, -1 } }, { 365, 0, 16, { -1, 17, 19, 15 } }, { 369, 2, 17, { 16, -1, 18, 15 } }, { 368, 2, 18, { 19, -1, 20, 17 } }, { 366, 2, 19, { -1, 18, 20, 16 } }, { 367, 3, 20, { -1, 22, 21, 19 } }, { 383, 1, 21, { 20, 22, -1, -1 } }, { 435, 3, 22, { 20, 23, -1, -1 } }, { 401, 0, 23, { 24, -1, 22, 26 } }, { 438, 2, 24, { 22, 23, -1, 25 } }, { 381, 3, 25, { -1, 23, 24, 27 } }, { 400, 1, 26, { 25, -1, 23, 27 } }, { 398, 2, 27, { 9, 31, 25, 10 } }, { 363, 3, 28, { 11, 31, 27, -1 } }, { 427, 1, 29, { 4, 30, 31, -1 } }, { 362, 3, 30, { 29, -1, 31, -1 } }, { 361, 3, 31, { 28, -1, 32, 30 } }, { 405, 3, 32, { -1, -1, 33, 31 } }, { 406, 0, 33, { -1, -1, 34, 32 } }, { 407, 1, 34, { -1, -1, 35, 33 } }, { 418, 3, 35, { -1, -1, -1, 34 } } },
@@ -182,7 +182,7 @@ struct {
     OverlayTrialWidgetGroup trialWidgets[64];
     ResidentEventHandlerEntry eventHandlers768[13];
     ResidentEventHandlerEntry eventHandlers924[13];
-    u8 alignmentFill1080[4];
+    u8 retainedCescText[4];
     ResidentEventHandlerEntry eventHandlers1084[4];
 } g_resultsRefreshTrialCatalogueWidgetsWords_us __attribute__((aligned(4))) = {
     { { 422, 344, 368 }, { 422, 343, 360 }, { 344, 343, 366 }, { 343, 345, 346 }, { 343, 412, 373 }, { 345, 412, 411 }, { 412, 423, 413 }, { 412, 349, 380 }, { 412, 347, 415 }, { 347, 349, 367 }, { 347, 354, 384 }, { 354, 350, 370 }, { 354, 351, 385 }, { 351, 419, 417 }, { 351, 352, 383 }, { 352, 419, 416 }, { 419, 394, 421 }, { 419, 424, 420 }, { 353, 359, 438 }, { 353, 394, 395 }, { 353, 419, 418 }, { 355, 359, 407 }, { 355, 353, 389 }, { 355, 350, 391 }, { 356, 359, 439 }, { 356, 355, 388 }, { 356, 349, 387 }, { 349, 355, 386 }, { 349, 350, 381 }, { 349, 354, 371 }, { 350, 353, 390 }, { 350, 419, 382 }, { 350, 351, 369 }, { 424, 365, 425 }, { 424, 361, 378 }, { 361, 365, 374 }, { 361, 362, 375 }, { 365, 364, 426 }, { 365, 362, 427 }, { 364, 363, 392 }, { 362, 364, 393 }, { 362, 363, 376 }, { 363, 379, 429 }, { 363, 431, 428 }, { 379, 431, 430 }, { 431, 397, 432 }, { 431, 434, 433 }, { 397, 396, 400 }, { 397, 377, 398 }, { 434, 397, 435 }, { 434, 377, 436 }, { 377, 396, 399 }, { 377, 394, 372 }, { 396, 394, 437 }, { 394, 359, 441 }, { 394, 357, 442 }, { 359, 357, 408 }, { 423, 358, 410 }, { 423, 357, 440 }, { 358, 357, 409 }, { 357, 401, 406 }, { 401, 402, 404 }, { 402, 403, 405 }, { 403, 414, 348 } },
@@ -201,7 +201,7 @@ struct {
     OverlayTrialWidgetGroup trialWidgets[64];
     ResidentEventHandlerEntry eventHandlers768[13];
     ResidentEventHandlerEntry eventHandlers924[13];
-    u8 alignmentFill1080[4];
+    u8 retainedInstructionWord[4];
     ResidentEventHandlerEntry eventHandlers1084[4];
 } g_resultsRefreshTrialCatalogueWidgetsWords_eu __attribute__((aligned(4))) = {
     { { 422, 344, 368 }, { 422, 343, 360 }, { 344, 343, 366 }, { 343, 345, 346 }, { 343, 412, 373 }, { 345, 412, 411 }, { 412, 423, 413 }, { 412, 349, 380 }, { 412, 347, 415 }, { 347, 349, 367 }, { 347, 354, 384 }, { 354, 350, 370 }, { 354, 351, 385 }, { 351, 419, 417 }, { 351, 352, 383 }, { 352, 419, 416 }, { 419, 394, 421 }, { 419, 424, 420 }, { 353, 359, 438 }, { 353, 394, 395 }, { 353, 419, 418 }, { 355, 359, 407 }, { 355, 353, 389 }, { 355, 350, 391 }, { 356, 359, 439 }, { 356, 355, 388 }, { 356, 349, 387 }, { 349, 355, 386 }, { 349, 350, 381 }, { 349, 354, 371 }, { 350, 353, 390 }, { 350, 419, 382 }, { 350, 351, 369 }, { 424, 365, 425 }, { 424, 361, 378 }, { 361, 365, 374 }, { 361, 362, 375 }, { 365, 364, 426 }, { 365, 362, 427 }, { 364, 363, 392 }, { 362, 364, 393 }, { 362, 363, 376 }, { 363, 379, 429 }, { 363, 431, 428 }, { 379, 431, 430 }, { 431, 397, 432 }, { 431, 434, 433 }, { 397, 396, 400 }, { 397, 377, 398 }, { 434, 397, 435 }, { 434, 377, 436 }, { 377, 396, 399 }, { 377, 394, 372 }, { 396, 394, 437 }, { 394, 359, 441 }, { 394, 357, 442 }, { 359, 357, 408 }, { 423, 358, 410 }, { 423, 357, 440 }, { 358, 357, 409 }, { 357, 401, 406 }, { 401, 402, 404 }, { 402, 403, 405 }, { 403, 414, 348 } },

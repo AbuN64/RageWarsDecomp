@@ -33,7 +33,7 @@ ResidentEventHandlerEntry g_MenuEventHandlersPointerWords3[8] = {
 /* ROM-grounded data: rodata/unresolved/800E555C_unclaimed_E61C8_unclaimed_E6228_unclaimed_E6288 */
 #if defined(VERSION_US_REV1)
 struct {
-    u8 alignmentFill[8];
+    u8 retainedEosTagWords[8];
 } g_FrontendDispatchresidentactoreventWords1 __attribute__((aligned(4))) = {
     { 0x71, 0x75, 0x04, 0x2E, 0x65, 0x6F, 0x73, 0x00 }
 };

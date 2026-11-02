@@ -69,7 +69,7 @@ ResidentEventHandlerEntry g_MenuEventHandlersPointerWords5[13] = {
 #if defined(VERSION_US_REV1)
 #if defined(VERSION_US_REV1)
 struct {
-    u8 alignmentFill0[4];
+    u8 retainedFloatWord[4];
     ResidentEventHandlerEntry eventHandlers4[4];
 } g_GArenacompatibilitytablePointerWords1 __attribute__((aligned(4))) = {
     { 0x3f, 0x19, 0x99, 0x9a },

@@ -14,7 +14,7 @@ extern char g_gfx_BlinkVideoUnlessBypassedEntry[];
 #if defined(VERSION_DE)
 struct {
     ResidentEventHandlerEntry eventHandlers0[6];
-    u8 alignmentFill72[8];
+    u8 retainedRecordWords[8];
     struct Format pixelFormats[36];
     char text1952[16];
 } g_nodeDispatchTypedWidgetEventTable_de __attribute__((aligned(4))) = {

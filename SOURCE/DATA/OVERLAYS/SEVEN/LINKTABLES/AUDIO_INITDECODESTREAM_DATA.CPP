@@ -63,7 +63,7 @@ struct {
     s16 g_audioDecodeFrameHeaderRead;
     s16 g_audioTransformTablesInitialized;
     u16 g_audioDecodedBlockCounter;
-    u8 alignmentFill12[12];
+    u8 zeroConstantTail[12];
 } g_audioInitdecodestreamDataConstantWords __attribute__((aligned(4))) = {
     0x0,
     0x0,

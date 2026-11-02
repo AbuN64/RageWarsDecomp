@@ -37,7 +37,7 @@ typedef char g_resourcesEncodedWordsBlockSizeCheck[(sizeof(g_resourcesEncodedWor
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 struct {
-    u8 alignmentFill[8];
+    u8 retainedRecordWords[8];
 } k_ResourcesEncodedWordsBlock8 __attribute__((aligned(4))) = {
     { 0x60, 0x62, 0x04, 0x02, 0xB3, 0x01, 0x0A, 0x62 }
 };

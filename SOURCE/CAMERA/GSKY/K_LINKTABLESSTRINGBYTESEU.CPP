@@ -11,7 +11,7 @@ const char k_linkTablesStringBytesEu[3] __attribute__((aligned(1))) = "B@\000";
 /* 800C869C.CPP */
 /* ROM-grounded data: rodata/unresolved/800C869C */
 struct {
-    u8 alignmentFill[4];
+    u8 retainedRecordWords[4];
 } g_LinktablesEncodedWordsBlock19 __attribute__((aligned(4))) = {
     { 0x00, 0x26, 0x98, 0x04 }
 };

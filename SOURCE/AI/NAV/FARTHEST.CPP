@@ -329,12 +329,12 @@ void Nav_FollowMarkerCarrierRoute(AiTarget *aiTarget) {
 #if defined(VERSION_US)
 struct {
     f32 g_patrolGoalArrivalDistance;
-    u8 alignmentFill4[12];
+    u8 retainedArrivalWords[12];
     f32 g_objectChaseRouteDistanceLimit;
     f32 g_objectChaseArrivalDistance;
-    u8 alignmentFill24[8];
+    u8 retainedEffectTagText[8];
     f32 g_timedJumpRouteArrivalDistance;
-    u8 alignmentFill36[12];
+    u8 retainedJumpWords[12];
 } g_NavUpdatepatrolrouteWords2 __attribute__((aligned(4))) = {
     102.399994f,
     { 0x52, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xa, 0x0, 0x8, 0x0, 0x1c },

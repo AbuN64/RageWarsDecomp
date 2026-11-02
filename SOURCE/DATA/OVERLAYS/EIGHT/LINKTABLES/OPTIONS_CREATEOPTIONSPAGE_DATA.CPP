@@ -134,7 +134,7 @@ struct {
     ResidentEventHandlerEntry eventHandlers0[8];
     ResidentEventHandlerEntry eventHandlers96[6];
     ResidentEventHandlerEntry eventHandlers168[7];
-    u8 alignmentFill252[8];
+    u8 retainedEventWords[8];
 } g_optionsCreateOptionsPageEventHandlers __attribute__((aligned(4))) = {
     { { 3592, 4, (ResidentEventHandler)(void *)((char *)&Frontend_UpdateOptionsPageExit - 0x80000000U) }, { 3590, 4, (ResidentEventHandler)(void *)((char *)&Menu_CreateLocalizedSettingsPage - 0x80000000U) }, { 3587, 4, (ResidentEventHandler)(void *)((char *)&Menu_DestroyEuxOptionsAndReloadLanguage - 0x80000000U) }, { 2, 4, (ResidentEventHandler)(void *)((char *)&Frontend_CloseOptionsPage - 0x80000000U) }, { 1, 4, (ResidentEventHandler)(void *)((char *)&Frontend_HandleOptionsPageShortcut - 0x80000000U) }, { 8, 93, (ResidentEventHandler)(void *)((char *)&Frontend_SelectNextLanguage - 0x80000000U) }, { 7, 93, (ResidentEventHandler)(void *)((char *)&Frontend_SelectPreviousLanguage - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3592, 11, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateCompactOptionsPage - 0x80000000U) }, { 3590, 11, (ResidentEventHandler)(void *)((char *)&Menu_CreateSessionSettingsControls - 0x80000000U) }, { 3587, 11, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyCompactOptionsPage - 0x80000000U) }, { 2, 11, (ResidentEventHandler)(void *)((char *)&Frontend_CloseCompactOptionsPage - 0x80000000U) }, { 1, 11, (ResidentEventHandler)(void *)((char *)&Frontend_HandleCompactOptionsShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },

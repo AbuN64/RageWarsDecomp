@@ -20,7 +20,7 @@ ResidentEventHandlerEntry g_EventHandlersPointerWords1[6] = {
 /* ROM-grounded data: rodata/unresolved/800E2AD0_unclaimed_E3718 */
 #if defined(VERSION_US_REV1)
 struct {
-    u8 alignmentFill[8];
+    u8 retainedRecordWords[8];
 } g_GPixelformatdescriptorsWords1 __attribute__((aligned(4))) = {
     { 0xC2, 0xA0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 };

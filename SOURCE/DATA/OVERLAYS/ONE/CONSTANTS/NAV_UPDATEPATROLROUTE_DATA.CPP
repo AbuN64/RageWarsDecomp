@@ -21,7 +21,7 @@ const f32 k_navUpdatepatrolrouteDataFloatConstantWords = 102.399994f;
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedRecordWords[12];
 } k_NavUpdatepatrolrouteEncodedWordsBlock1 __attribute__((aligned(4))) = {
     { 0x3C, 0x8E, 0xFA, 0x36, 0x41, 0x80, 0x00, 0x00, 0x4F, 0x00, 0x00, 0x00 }
 };
@@ -31,7 +31,7 @@ struct {
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedRecordWords[12];
 } k_NavUpdatepatrolrouteEncodedWords __attribute__((aligned(4))) = {
     { 0x42, 0x4C, 0xCC, 0xCC, 0xAF, 0xB1, 0x00, 0x14, 0x00, 0xC0, 0x88, 0x21 }
 };

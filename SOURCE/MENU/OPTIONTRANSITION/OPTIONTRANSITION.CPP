@@ -223,7 +223,7 @@ extern char g_Menu_DispatchSixChoiceEventAddress[];
 #if defined(VERSION_DE)
 struct {
     ResidentEventHandlerEntry handlers[8];
-    u32 alignmentFill[3];
+    u32 retainedEventWords[3];
 } g_optiontransitionRecord __attribute__((aligned(4))) = {
     { { 3590, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1120) }, { 3587, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1192) }, { 2, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1628) }, { 1, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1604) }, { 3594, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1240) }, { 3592, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1392) }, { 10, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1532) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00000000, 0x00000000, 0x00000E08 }
@@ -234,7 +234,7 @@ struct {
 #if defined(VERSION_EU)
 struct {
     ResidentEventHandlerEntry handlers[8];
-    u32 alignmentFill[3];
+    u32 retainedInstructionWords[3];
 } g_optiontransitionRecord __attribute__((aligned(4))) = {
     { { 3590, 25, (ResidentEventHandler)(void *)&g_Menu_CreateOptionsImageTransitionPackedAddress24 }, { 3587, 25, (ResidentEventHandler)(void *)&g_Menu_DestroyOptionsImageTransitionPackedAddress24 }, { 2, 25, (ResidentEventHandler)(void *)&g_Menu_ConsumeOptionsTransitionEventPackedAddress24 }, { 1, 25, (ResidentEventHandler)(void *)&g_Menu_RequestOptionsImageTransitionPackedAddress24 }, { 3594, 25, (ResidentEventHandler)(void *)&g_Menu_DrawOptionsImageTransitionPackedAddress24 }, { 3592, 25, (ResidentEventHandler)(void *)&g_Menu_StartOptionsImageTransitionPackedAddress24 }, { 10, 25, (ResidentEventHandler)(void *)&g_Menu_HandleOptionsTransitionRequestPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0xA702000C, 0x001A1402, 0x30410008 }

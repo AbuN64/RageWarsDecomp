@@ -16,7 +16,7 @@ struct {
     s32 g_collisionSweepCount;
     s32 g_collisionPeakSweepCount;
     s32 g_cinemaLastUpdatedFrame;
-    u8 alignmentFill20[12];
+    u8 retainedFloatAndInstructionWords[12];
 } g_GameobjectMovetoxzkeepheightWords2 __attribute__((aligned(4))) = {
     0,
     0,
@@ -40,7 +40,7 @@ struct {
     s32 g_collisionSweepCount;
     s32 g_collisionPeakSweepCount;
     s32 g_cinemaLastUpdatedFrame;
-    u8 alignmentFill20[12];
+    u8 retainedDinosoidsText[12];
 } g_GameobjectMovetoxzkeepheightWords2 __attribute__((aligned(4))) = {
     0,
     0,
@@ -64,7 +64,7 @@ struct {
     s32 g_collisionSweepCount;
     s32 g_collisionPeakSweepCount;
     s32 g_cinemaLastUpdatedFrame;
-    u8 alignmentFill20[12];
+    u8 retainedFloatWords[12];
 } g_GameobjectMovetoxzkeepheightWords2 __attribute__((aligned(4))) = {
     0,
     0,
@@ -88,7 +88,7 @@ struct {
     s32 g_collisionSweepCount;
     s32 g_collisionPeakSweepCount;
     s32 g_cinemaLastUpdatedFrame;
-    u8 alignmentFill20[12];
+    u8 retainedParticleTagText[12];
 } g_GameobjectMovetoxzkeepheightWords2 __attribute__((aligned(4))) = {
     0,
     0,
@@ -112,7 +112,7 @@ struct {
     s32 g_collisionSweepCount;
     s32 g_collisionPeakSweepCount;
     s32 g_cinemaLastUpdatedFrame;
-    u8 alignmentFill20[12];
+    u8 retainedFloatWords[12];
 } g_GameobjectMovetoxzkeepheightWords2 __attribute__((aligned(4))) = {
     0,
     0,

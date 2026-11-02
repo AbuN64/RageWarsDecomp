@@ -15,7 +15,7 @@
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
 struct {
-    u8 alignmentFill[12];
+    u8 retainedRecordWords[12];
 } g_NavUpdatepatrolrouteWords3 __attribute__((aligned(4))) = {
     { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0B, 0x28, 0x00 }
 };

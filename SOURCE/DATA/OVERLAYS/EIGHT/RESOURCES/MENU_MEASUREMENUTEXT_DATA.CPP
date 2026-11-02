@@ -39,10 +39,10 @@ extern char g_Gfx_BlinkVideoUnlessBypassedPackedAddress24[];
 #if defined(VERSION_EU)
 struct {
     ResidentEventHandlerEntry eventHandlers0[6];
-    u8 alignmentFill72[8];
+    u8 zeroHandlerTail[8];
     struct Format pixelFormats[36];
     void * videoCallbacks[2];
-    u8 alignmentFill1960[8];
+    u8 retainedCallbackWords[8];
 } g_gridListEventHandlerRows __attribute__((aligned(4))) = {
     { { 5, 30000, (ResidentEventHandler)(void *)&g_Node_SelectPreviousGridRowPackedAddress24 }, { 6, 30000, (ResidentEventHandler)(void *)&g_Node_SelectNextGridRowPackedAddress24 }, { 7, 30000, (ResidentEventHandler)(void *)&g_Node_SelectPreviousGridColumnPackedAddress24 }, { 8, 30000, (ResidentEventHandler)(void *)&g_Node_SelectNextGridColumnPackedAddress24 }, { 3587, 30000, (ResidentEventHandler)(void *)&g_Node_DestroyGridListPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 },

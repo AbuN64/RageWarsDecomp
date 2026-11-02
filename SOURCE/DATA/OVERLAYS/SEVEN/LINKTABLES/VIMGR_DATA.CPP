@@ -6,7 +6,7 @@
 #if defined(VERSION_DE)
 struct {
     VideoDeviceManager manager;
-    u32 alignmentFill;
+    u32 retainedVideoBurstWord;
     OSViMode modes[44];
     struct { u8 type; OSViCommonRegs common; OSViFieldRegs even; u32 oddOrigin; } lastMode;
 } g_vimgrLinkTableWords_de __attribute__((aligned(4))) = {
