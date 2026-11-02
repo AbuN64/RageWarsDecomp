@@ -14326,11 +14326,11 @@ stored_size = 38
 rom."de" = [[0x1dd959, 0x1dd97f]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/18" }]
 
-[blob."leftover.de.copy.1dd988"]
-type = "leftover"
-format = "copy"
+[blob."model.de.copy.1dd988"]
+type = "model"
+format = "same bytes as eu 0x50fd60 model.0, a model row"
 codec = "none"
-state = "decoded"
+state = "identified"
 stored_size = 43
 rom."de" = [[0x1dd988, 0x1dd9b3]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/19" }]
@@ -14479,20 +14479,20 @@ stored_size = 56
 rom."de" = [[0x1fcc10, 0x1fcc48]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/46" }]
 
-[blob."leftover.de.copy.1fd582"]
-type = "leftover"
-format = "copy"
+[blob."model.de.copy.1fd582"]
+type = "model"
+format = "same bytes as eu 0x557339 model.174, a model row"
 codec = "none"
-state = "decoded"
+state = "identified"
 stored_size = 60
 rom."de" = [[0x1fd582, 0x1fd5be]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/50" }]
 
-[blob."leftover.de.copy.1fd5c1"]
-type = "leftover"
-format = "copy"
+[blob."model.de.copy.1fd5c1"]
+type = "model"
+format = "same bytes as eu 0x557378 model.174, a model row"
 codec = "none"
-state = "decoded"
+state = "identified"
 stored_size = 36
 rom."de" = [[0x1fd5c1, 0x1fd5e5]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/51" }]
