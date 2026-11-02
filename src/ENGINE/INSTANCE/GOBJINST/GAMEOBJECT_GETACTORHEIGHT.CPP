@@ -46,8 +46,8 @@ void GameObject_BuildQuaternionTranslationMatrix(f32 *m, f32 *q, f32 *t)
     m[15] = g_actorAffineMatrixHomogeneousUnit;
 }
 
-extern int Lighting_BuildLitModel(int a, int b, void *c, void *d, int e, void *f);
-extern void Cache_ReplaceResourcePairFirst(int a, int **b, int c);
+struct Bounds; struct PackedMatrixWords; extern s32 Lighting_BuildLitModel(s32 modelResource, void *lightResource, struct Bounds *bounds, struct PackedMatrixWords *matrices, s32 skinned, u8 *wanted);
+struct ResourceNodePair; struct CacheResourceNode; extern void Cache_ReplaceResourcePairFirst(s32 unusedCache, struct ResourceNodePair *resourcePair, struct CacheResourceNode *replacementResource);
 
 void GameObject_BuildLitActorResource(void *levelActor, int **resourcePair) {
     struct LevelActor *object = levelActor;

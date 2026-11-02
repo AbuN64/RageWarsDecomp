@@ -304,7 +304,7 @@ typedef struct HitSelf {
 extern LevelActor **g_collisionCurrentActor;
 extern char CInstanceCollision_SwapSortedContacts[], CInstanceCollision_CompareSortedContacts[];
 extern void PpDecom_QuickSortRecords();
-extern void CInstanceCollision_BuildSweepQuery(void *, void *);
+struct ActorMotion; extern void CInstanceCollision_BuildSweepQuery(struct ActorMotion *motion, f32 *queryStorage);
 void InstCol_ProcessEntityContacts(HitSelf *self) {
     HitState *state = self->state;
     u8 scratch[48];

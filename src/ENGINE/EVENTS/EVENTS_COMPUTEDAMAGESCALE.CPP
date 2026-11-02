@@ -34,7 +34,7 @@ extern void Events_ApplyDamageEvent(void *, s32, s32, Triple, struct IntPair, s3
 extern Carrier g_currentActorInstance;
 
 
-extern s32 Gobjinst_FindNearestBoneBounds(ActorEventsComputeDamageScale *, CVector3, Shield *);
+struct CVector3_t; struct Box70; extern s32 Gobjinst_FindNearestBoneBounds(char *obj, struct CVector3_t point, struct Box70 *out);
 
 extern f32 Gobjinst_GetActorHeight(ActorEventsComputeDamageScale *);
 
@@ -55,7 +55,7 @@ extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 
 
 
-extern f32 k_playerEventClipScale;
+extern f32 k_playerEventClipScale[];
 
 extern char g_actorParticleEffectSystem[];
 
@@ -183,7 +183,7 @@ void Events_SpawnRiderImpactEffect(SharedPlayer *target, ActorEventsSpawnRiderIm
     point.x = 0;
     point.y = 0;
     point.z = 0;
-    CScene_StartEventClips(&g_world, &((ControllerProfile *)player->views5E8.view698_37.emitter)->effectPool, 3, point, *(&k_playerEventClipHeightAndAngle + 1), k_playerEventClipScale);
+    CScene_StartEventClips(&g_world, &((ControllerProfile *)player->views5E8.view698_37.emitter)->effectPool, 3, point, *(&k_playerEventClipHeightAndAngle + 1), k_playerEventClipScale[0]);
 }
 
 void Events_ApplyDirectDamage(unsigned char *source, s32 target, s32 kind, Triple position, struct IntPair params) {

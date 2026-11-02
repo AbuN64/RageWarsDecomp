@@ -113,7 +113,7 @@ extern void Scene_CopyLevelName(struct Shared_World *world, s32 type, void *leve
 extern void Scene_ClearSceneObjectCounts(void *object);
 extern void Scene_UnlockActiveSectionResources(struct OwnerSceneUnlockActiveSectionResources *owner);
 extern void Scene_ResetTransitionViewport(void);
-extern void Scene_ReleaseCachedLevelData();
+struct Shared_World; extern void Scene_ReleaseCachedLevelData(struct Shared_World *world);
 extern int SetN64_GetDirectoryEntry();
 extern s32 XPlus_NextRandomInteger();
 extern s32 OnScreen_StartFirstStatusBar();
@@ -143,20 +143,20 @@ extern unsigned char g_spatialSoundPoolNodes[];
 extern struct Shared_SceneResources g_tutorialStatusBars;
 extern unsigned char g_matchRoundCounters[];
 
-extern unsigned char s_matricesText[];                          /* unable to generate initializer: unknown type; const */
+extern const unsigned char s_matricesText[];                          /* unable to generate initializer: unknown type; const */
 
                           /* unable to generate initializer: unknown type; const */
-extern unsigned char s_collisionText[];                          /* unable to generate initializer: unknown type; const */
+extern const char s_collisionText[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_gridBoundsAndSectionsIndexText[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_sceneIndexResourceTag[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char s_visibilityText[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_visibilityHeaderResourceTag[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_linksText[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_levelPathsText[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_levelInfoText[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char g_levelNavigationResourceNames[];                          /* unable to generate initializer: unknown type; const */
+extern const char s_linksText[];                          /* unable to generate initializer: unknown type; const */
+extern const char s_levelPathsText[];                          /* unable to generate initializer: unknown type; const */
+extern const unsigned char s_levelInfoText[];                          /* unable to generate initializer: unknown type; const */
+extern const char g_levelNavigationResourceNames[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_navigationLinksResourceName[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_levelNavVisionText[];                          /* unable to generate initializer: unknown type; const */
+extern const unsigned char s_levelNavVisionText[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char s_skyLayersText[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char s_animatedInstancesText[];                          /* unable to generate initializer: unknown type; const */
 extern s32 g_gameLoopFrameCount;                          /* const */
@@ -769,14 +769,14 @@ typedef struct LightVolumeRecord {
     u8 data[76];
 } LightVolumeRecord;
 
-extern s32 SetN64_GetPackSize(void *table);
+extern s32 SetN64_GetPackSize(s32 *bitSet);
 extern void *Cache_AllocResourceBlock(s32 pool, void *handle, s32 size);
 extern void Cache_ReplaceResourceBlock(s32 pool, void *handle, void *block);
 
 extern void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing);
 extern void Statinst_InitPlacedProp(PlacedProp *prop, PlacedPropRecord *record, s32 owner, char *segments);
-extern void Simple_InitSimpleInstance(SimpleInstance *instance, CROMSimpleInstance *record, s32 owner, char *segments);
-extern void Lighting_DecodeBoxTransform(SceneLightVolume *volume, LightVolumeRecord *record);
+struct SimpleInstanceOut; struct CROMSimpleInstance; extern void Simple_InitSimpleInstance(struct SimpleInstanceOut *inst, struct CROMSimpleInstance *rec, s32 owner, char *segments);
+extern void Lighting_DecodeBoxTransform(u8 *self, u8 *src);
 
 #define ALIGN8(size) (((size) + 7) & ~7)
 
@@ -942,7 +942,7 @@ extern s32 InstHdr_HasEnabledMotionHooks(void *actor);
 extern void Gobjinst_RotatePoseMatrixBuffers(void *actor);
 extern f32 Gsky_GetDistanceTo(void *camera, CVector3 *position);
 extern s32 Visdata_TestBoxAgainstFrustum(void *planes, void *bounds);
-extern void Animpool_UpdateSceneEffects(struct CAnimPool *scene, void *world);
+struct CAnimPool; extern void Animpool_UpdateSceneEffects(struct CAnimPool *scene, s32 world);
 
 typedef struct SceneVisibilitySettings {
     u32 mask;

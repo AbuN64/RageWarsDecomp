@@ -24,7 +24,7 @@ extern f32 Gobjinst_GetActorHeight(ActorSimpleInstanceSpawnModelEffect *actor);
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
-extern SpawnedEffectMotionView *Particle_GetLastSpawnedEffect(void *system);
+struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
 extern f32 Gobjinst_GetActorRadius(ActorSimpleInstanceSpawnModelEffect *actor);
 
@@ -35,7 +35,7 @@ extern f32 Gobjinst_GetActorRadius(ActorSimpleInstanceSpawnModelEffect *actor);
  * Geometry_DrawIntensityMask. */
 
 
-extern CQuatern Insthdr_BuildActorGroundRotation(void *);
+extern struct CQuatern_t Insthdr_BuildActorGroundRotation(char *obj);
 
 extern void Graphu64_LimitVectorLength(CVector3 *, f32);
 

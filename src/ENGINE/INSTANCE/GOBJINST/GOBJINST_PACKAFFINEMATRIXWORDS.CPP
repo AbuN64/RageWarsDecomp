@@ -14,7 +14,7 @@ extern f32 Gobjinst_GetActorHeight(FadedActorRenderView *actor);
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 
-extern SpawnedEffectMotionView *Particle_GetLastSpawnedEffect(void *system);
+struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
 extern f32 Gobjinst_GetActorRadius(FadedActorRenderView *actor);
 

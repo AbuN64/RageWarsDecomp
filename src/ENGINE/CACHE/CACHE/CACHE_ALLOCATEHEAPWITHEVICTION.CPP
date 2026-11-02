@@ -12,7 +12,7 @@
 #include "ENGINE/CACHE/LIST.H"
 
 
-extern void Cache_DetachResourceRequest(void *unused0, struct IntrusiveList *resourceCacheEntry);
+extern void Cache_DetachResourceRequest(void *unused0, void *resourceCacheEntry);
 
 extern void Heap_FreeAllocation(void *arena, s32 dataToFree);
 

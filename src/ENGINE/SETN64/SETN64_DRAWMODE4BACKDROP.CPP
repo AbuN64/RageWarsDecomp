@@ -28,7 +28,7 @@ extern s32 g_hudReferenceViewportWidth;
 
 
 
-extern void SetN64_HandleSessionTransitionInput(s32 session, s32 cancelTarget, s32 target);
+struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameSession *session, s32 cancelTarget, s32 target);
 
 extern void SetN64_ResetSessionPlayerPools(void *session, s32 count, s32 force_active);
 

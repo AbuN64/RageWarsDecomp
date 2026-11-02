@@ -62,7 +62,8 @@ Vhandler_InitializePagerEuroExtended
 
 #include "COMMON/AUDIO_INITIALIZE.H"
 #include "COMMON/ALAUXBUS_S.H"
-extern u32 g_audioSamplesPerFrame, g_audioCommandBufferSamples;
+extern u32 g_audioSamplesPerFrame;
+extern g_audioCommandBufferSamples;
 extern struct CacheEntry *g_audioCacheCountdownHead;
 extern ALHeap *g_audioHeap;
 extern AudioCacheEntry g_audioDmaCacheEntries[60];

@@ -14,13 +14,13 @@ extern char s_actorLitModelResourceTag;
 extern char g_actorParticleEffectSystem[];
 
 extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
-extern s32 Cache_RequestPairedResource(s32, s32, void *, s32, s32, void *, void *, void *, s32);
+struct CachedResource; extern struct CachedResource *Cache_RequestPairedResource(s32 unused, s32 key, struct CachedResource *first, struct CachedResource *second, s32 mode, void *owner, void *tag, void *spare, s32 async);
 extern void Link_AnimateVertexColors(void *object, void *colors);
 
 extern void Cache_UnlockResource(s32, s32);
 extern s32 Geometry_GetViewEffect(void);
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
-extern SpawnedEffectMotionView *Particle_GetLastSpawnedEffect(void *system);
+struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
 static inline void spawn(LevelActor *actor) {
     CVector3 position;

@@ -14,7 +14,7 @@ extern s32 CCollision_HasMatchingNormal(struct Input *input, PolygonCCollisionTe
 
 extern void CCollision_CopyPolygonNormal(void *contactStorage, void *polygonStorage);
 
-extern void InstCol_ProcessEntityContacts(void *self);
+struct HitSelf; extern void InstCol_ProcessEntityContacts(struct HitSelf *self);
 
 extern void CCollision_Initialize(void);
 extern void CCollision_ResetResult(void);

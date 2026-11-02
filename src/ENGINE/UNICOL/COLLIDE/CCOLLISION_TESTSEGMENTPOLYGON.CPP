@@ -27,11 +27,11 @@ extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
 
 
 
-extern s32 CCollision_IntersectFrontPlaneFraction(PolygonCCollisionTestSegmentPolygon *, CVector3 *, CVector3 *, f32 *);
+extern s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void *segmentEnd, f32 *outputFraction);
 
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
-extern s32 CCollision_IsPointInsidePolygon(PolygonCCollisionTestSegmentPolygon *, CVector3 *);
+struct LinkedWorldFlagsView; extern s32 CCollision_IsPointInsidePolygon(struct LinkedWorldFlagsView *poly, void *testPoint);
 
 static inline s32 accepts(CapsuleSweep *ray, PolygonCCollisionTestSegmentPolygon *poly) {
     if (poly->t <= 0.0f) {

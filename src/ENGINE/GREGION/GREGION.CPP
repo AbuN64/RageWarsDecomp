@@ -376,7 +376,7 @@ static inline void cross_node_edges(Node75 *node) {
 
 extern void *Scene_GetModelRecordByIndexPointer(Shared_World *world, s32 modelId);
 
-extern void Gregion_ExpandHorizontalBounds(void *bounds, s32 pointCount, void *points);
+struct CVector3_t; extern void Gregion_ExpandHorizontalBounds(f32 *bounds, s32 pointCount, struct CVector3_t *points);
 
 f32 Region_GetPolygonHeight(Node75 *node, f32 x, f32 z) {
     CVector3 normal;

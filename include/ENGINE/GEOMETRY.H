@@ -3,7 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/GEOMETRY_BLEND_AND_INSTANCE_VIEWS.H"
 
-extern s32 g_geometryEffectGeometryMode;
+extern u32 g_geometryEffectGeometryMode;
 
 extern void Geometry_AlternateNoOperation(void);
 

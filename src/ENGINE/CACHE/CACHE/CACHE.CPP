@@ -12,10 +12,10 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 
 /* 802508E0_10.CPP */
-extern s32 g_resourceRequestManager;
+extern struct Manager g_resourceRequestManager;
 void Cache_SendCompletionMessage(s32 unusedCache, s32 message)
 {
-  osSendMesg(&g_resourceRequestManager, message, 1);
+  osSendMesg(&(*(int *)&g_resourceRequestManager), message, 1);
 }
 
 /* 802508E0_11.CPP */
@@ -35,7 +35,7 @@ extern s32 g_resourceHashBuckets;
 
 extern void List_MoveIntrusiveToHead(void *, s32);
 
-extern void Cache_ReleaseResourceCompletely(void *, void *);
+struct IntrusiveList; extern void Cache_ReleaseResourceCompletely(void *unused, struct IntrusiveList *resource);
 
 extern const char s_headerText[];
 

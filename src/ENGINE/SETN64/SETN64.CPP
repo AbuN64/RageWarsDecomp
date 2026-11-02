@@ -155,7 +155,7 @@ void GameObject_ResetActorMotion(void *);
 s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
 s32 Scene_GetIndexedModelResource(void *, s32);
 void Scene_SampleWorldLighting(void *, CVector3 *, void *);
-void SetN64_RecycleEffectNode(void *, void *);
+struct EffectPoolNode; void SetN64_RecycleEffectNode(void *container, struct EffectPoolNode *node);
 
 extern s32 g_screenImageResourcesEnabled[];
 
@@ -309,7 +309,7 @@ void SetN64_InitializeEffectSlot(struct EffectSlot *effectSlot) {
 extern char g_primaryCollisionContext;
 extern char g_secondaryCollisionContext;
 
-extern void Simpinst_UpdateModelAndScale(SceneEffect *);
+extern void Simpinst_UpdateModelAndScale(void *staticObject);
 extern void Unicol_MoveActorWithCollision(SceneEffect *, f32, f32, f32, void *);
 
 void SetN64_UpdateEffectMotionAndBounds(SceneEffect *effect)
@@ -355,7 +355,7 @@ void SetN64_UpdateEffectMotionAndBounds(SceneEffect *effect)
 /* 8028FD2C_12.CPP */
 extern s32 Visdata_TestBoxAgainstFrustum(void *frustum, void *box);
 
-extern void Simple_DrawCachedModel(void *obj);
+struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
 
 extern f32 g_cameraVolumeBoundsMinZ[];
 

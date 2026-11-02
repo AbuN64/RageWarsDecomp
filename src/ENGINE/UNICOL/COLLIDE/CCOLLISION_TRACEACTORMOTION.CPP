@@ -55,9 +55,9 @@ void CCollision_IntegrateGravityAndDrag(ActorMotion *motion) {
 }
 
 /* 8023CFD0.CPP */
-extern void CInstanceCollision_TraceInteractiveActors(void *obj);
-extern void CPolyCollision_TraceWorldElements(void *ray);
-extern void CPolyCollision_TraceCeilingTriangle(void *actor);
+extern void CInstanceCollision_TraceInteractiveActors(char *obj);
+struct Ray180; extern void CPolyCollision_TraceWorldElements(struct Ray180 *ray);
+struct ActorB0; extern void CPolyCollision_TraceCeilingTriangle(struct ActorB0 *actor);
 
 s32 CCollision_TraceActorMotion(ActorMotion *object) {
     u32 *flags = &object->surface->dwFlags;

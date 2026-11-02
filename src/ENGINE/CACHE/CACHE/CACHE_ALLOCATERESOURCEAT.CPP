@@ -14,11 +14,11 @@
 
 
 
-extern struct CacheResourceBlockView *Cache_AllocateResourceNodeStorage(s32, s32, u32, void *);
+extern struct CacheAllocationNodeView *Cache_AllocateResourceNodeStorage(s32, s32, u32, s32 *);
 
 extern s8 g_runtimeHeap;
 
-extern struct CacheResourceBlockView *Cache_AcquireResourceNodeWithEviction(s32, u32);
+extern void *Cache_AcquireResourceNodeWithEviction(s32 unused0, s32 flags);
 
 extern s32 Heap_AllocateAtAddress(s8 *, void *, s32);
 
@@ -26,9 +26,9 @@ extern void Cache_InsertResourceByAddress(s32 unused, void *object);
 
 extern void Cache_ReleasePendingResourceEntry(s32 unused0, s32 entryAddress);
 
-extern void Cache_TouchResource(void *, CacheResourceNode *);
+extern void Cache_TouchResource(void *unused0, void *resource);
 
-extern void Cache_ReleaseResourceCompletely(void *, void *);
+struct IntrusiveList; extern void Cache_ReleaseResourceCompletely(void *unused, struct IntrusiveList *resource);
 
 extern void Cache_WaitForResourceSlotRelease(s32);
 

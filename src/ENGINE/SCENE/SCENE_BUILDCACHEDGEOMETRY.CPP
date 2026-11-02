@@ -125,9 +125,9 @@ finished:
 typedef struct ScenePoint { s16 x, y, z; } ScenePoint;
 extern Gfx *g_displayListCursor;
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
-extern s32 Statinst_GetPropModelIndex(ObjectSceneDrawCachedOpaqueGeometry *object);
+extern int Statinst_GetPropModelIndex(char *object);
 extern s32 Statinst_GetPropGeometryIndex(ObjectSceneDrawCachedOpaqueGeometry *object);
-extern DraftStreamHandle **Statinst_CollectPropResources(ObjectSceneDrawCachedOpaqueGeometry *object, s32 model, s32 index, DraftStreamHandle **nextResource);
+extern s32 *Statinst_CollectPropResources(void *prop, s32 model, s32 geometryVariant, s32 *nextResource);
 extern void Statinst_DrawModel(ObjectSceneDrawCachedOpaqueGeometry *object, void *camera);
 extern DraftStreamHandle *Statinst_AcquireGeometry(ObjectSceneDrawCachedOpaqueGeometry *object, s32 index);
 extern void Graphu64_ConvertMatrixToFloat(f32 *dst, PackedMatrixWords *src);
@@ -403,10 +403,10 @@ extern SharedCameraOwnerView *Gsky_FindScreenMessage(GameplayCamera *camera);
 extern s32 Visdata_TestVisibilityGridBit(void *grid, s32 x, s32 z, s32 index);
 extern s32 Visdata_TestBoxAgainstFrustum(void *planes, void *bounds);
 extern void Statinst_RegisterGeometryResources(CGameStaticInstance_t *prop, GameplayCamera *camera);
-extern s32 Statinst_UpdateDistanceFade(CGameStaticInstance_t *prop, GameplayCamera *camera);
+extern s32 Statinst_UpdateDistanceFade(void *prop, s32 cameraAddress);
 extern void Statinst_DrawDistanceFadedModel(CGameStaticInstance_t *prop, GameplayCamera *camera);
 extern void Simpinst_RegisterModelVariantResources(CGameSimpleInstance_t *object, GameplayCamera *camera);
-extern void Simple_DrawCachedModel(CGameSimpleInstance_t *object);
+struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
 
 static __inline__ s32 SceneFindShip(SceneModelIdTable *table) {
     s32 i;

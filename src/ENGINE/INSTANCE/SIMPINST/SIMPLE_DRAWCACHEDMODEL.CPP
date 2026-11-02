@@ -113,7 +113,7 @@ extern void TranslateMatrix(MatrixF *, f32, f32, f32);
 extern void SwapMatrixUpForward(MatrixF *);
 extern void Graphu64_ConvertMatrixToFixed(MatrixF *, char *);
 
-extern void Simpinst_SpawnModelEffect(StaticObject *, void **);
+struct ActorSimpleInstanceSpawnModelEffect; extern void Simpinst_SpawnModelEffect(struct ActorSimpleInstanceSpawnModelEffect *actor, void **resource);
 
 void Simple_DrawCachedModel(StaticObject *obj) {
     MatrixF matrix;

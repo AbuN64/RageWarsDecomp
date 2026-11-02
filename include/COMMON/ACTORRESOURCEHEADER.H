@@ -214,8 +214,8 @@ extern void Geometry_DrawResourceModel(s32, s32, void *, s32, void *, s32, s32);
 
 extern CVector3 *Region_GetNodeEdgeCross(CVector3 *out, Node75 *node);
 
-extern char g_unitScaleMultiplierAnimObjectInfoRev1Text;
+extern const char g_unitScaleMultiplierAnimObjectInfoRev1Text[];
 extern char g_Geometry_ExpandExtendedModelAddress;
-extern char s_animModelIndexText;
-extern char s_animatedModelText;
+extern const char s_animModelIndexText[];
+extern const char s_animatedModelText[];
 #endif

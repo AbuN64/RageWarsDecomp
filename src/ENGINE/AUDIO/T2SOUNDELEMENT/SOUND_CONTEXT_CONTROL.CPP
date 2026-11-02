@@ -22,7 +22,7 @@ extern void Audio_ClearContextVoiceFlags(int contextAddress);
 
 /** Read the global word at VRAM 0x8010DE0C. */
 
-s32 Audio_SetClampedAudioLevel(s32 *, f32);
+struct AudioLevelSettingView; void Audio_SetClampedAudioLevel(struct AudioLevelSettingView *obj, float value);
 
 void SoundElement_SetTrackAndPeriodicPlayback(int trackId)
 {

@@ -40,7 +40,7 @@ extern void Graphu64_ConvertMatrixToFloat(f32 *, char *);
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
 
-extern TypeEntry *g_actorTypeOperations[];
+extern void *g_actorTypeOperations[];
 
 extern char *g_gamePlayerAndMenuState;
 

@@ -63,7 +63,7 @@ extern char *g_gamePlayerAndMenuState;
 
 extern void *g_actorTypeOperations[];
 
-extern char g_actorDefinitionTable;
+extern char g_actorDefinitionTable[];
 
 extern void g_Gobjinst_DrawTeamMaskedModelAddress();
 
@@ -74,9 +74,9 @@ extern void GameObject_ResetActorMotion(char *);
 
 extern CQuatern Insthdr_BuildActorGroundRotation(char *);
 
-extern void Gastate_ResetAnimationReference(char *);
+extern void Gastate_ResetAnimationReference(void *record);
 
-extern void Gobjinst_QueueAnimation(char *, s32);
+extern void Gobjinst_QueueAnimation(void *actorStorage, unsigned int animationIndex);
 
 extern void Graphu64_IdentityMatrix(char *);
 
@@ -103,14 +103,14 @@ static inline void *body_setup(char *obj) {
                 return 0;
             }
             if ((char *)&((SharedPlayer *)player)->views1C.view2E8_27.weapon == obj) {
-                return &g_actorDefinitionTable;
+                return &g_actorDefinitionTable[0];
             }
         }
     }
     return g_actorTypeOperations[kind];
 }
 
-extern s32 g_lookupAIAnimTypeAnimObjectInfoText[];
+extern const char g_lookupAIAnimTypeAnimObjectInfoText[];
 
 
 

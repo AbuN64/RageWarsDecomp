@@ -19,7 +19,7 @@ void Simpinst_ClearCachedResource(void *staticObject) {
     ((StaticObject *)(staticObject))->cached = 0;
 }
 
-CQuatern Insthdr_BuildActorGroundRotation(void *);
+struct CQuatern_t Insthdr_BuildActorGroundRotation(char *obj);
 CQuatern Simpinst_BuildGroundRotation(void *actor) {
     return Insthdr_BuildActorGroundRotation(actor);
 }
@@ -191,7 +191,7 @@ s32 Simpinst_SelectModelVariant(StaticObject *staticObject) {
     return value;
 }
 
-extern void Cache_ReplaceResourcePairFirst(s32 a, s32 **b, s32 c);
+struct ResourceNodePair; struct CacheResourceNode; extern void Cache_ReplaceResourcePairFirst(s32 unusedCache, struct ResourceNodePair *resourcePair, struct CacheResourceNode *replacementResource);
 
 void Simpinst_BuildLitGeometryResource(void *wanted, s32 **resourcePair) {
     s32 sourceGeometryResource;

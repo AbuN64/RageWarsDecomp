@@ -16,9 +16,9 @@
 
 
 
-extern f32 g_collisionSlackThresholdFactors_de;
+extern f32 g_collisionSlackThresholdFactors_de[];
 
-extern s32 CCollision_IntersectFrontPlaneFraction(Polygon *, CVector3 *, CVector3 *, f32 *);
+extern s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void *segmentEnd, f32 *outputFraction);
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
@@ -31,7 +31,7 @@ static inline s32 accepts(CapsuleSweep *ray, Polygon *poly) {
         if ((u32)(poly->type - 5) < 2) {
             return 0;
         }
-        if (poly->t * ray->slack < -(g_collisionSlackThreshold * g_collisionSlackThresholdFactors_de)) {
+        if (poly->t * ray->slack < -(g_collisionSlackThreshold * g_collisionSlackThresholdFactors_de[0])) {
             return 0;
         }
     }

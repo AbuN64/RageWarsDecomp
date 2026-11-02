@@ -18,9 +18,9 @@
 
 extern Gfx *g_displayListCursor;
 #include "COMMON/DISPLAY.H"
-extern char g_tintedModelSharedMaterial;
+extern struct SharedModelTintMaterial g_tintedModelSharedMaterial;
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
-extern s32 Geometry_SetupMaterial(void *material, s32 pass);
+struct Shared_GfxMaterial; extern s32 Geometry_SetupMaterial(struct Shared_GfxMaterial *mat, s32 pass);
 extern void Geometry_SetCombineMode(u32 mode);
 
 void Geometry_DrawSharedMaterialModel(void **resource, s32 matrix, s32 segment, s32 lights, void *textures, s32 pass) {
@@ -34,7 +34,7 @@ void Geometry_DrawSharedMaterialModel(void **resource, s32 matrix, s32 segment, 
     if (g_displayListCapacityUsRev1 - ((u32)g_displayListCursor - (u32)g_gameSession.ring.current->commands) / sizeof(Gfx) < 3000) {
         return;
     }
-    if (Geometry_SetupMaterial(&g_tintedModelSharedMaterial, pass) == 0) {
+    if (Geometry_SetupMaterial(&(*(char *)&g_tintedModelSharedMaterial), pass) == 0) {
         return;
     }
     gDPSetRenderMode(g_displayListCursor++, 0x0C184F50, 0);
@@ -183,7 +183,7 @@ void Geometry_DrawCharacterEffectParts(void **resource, struct Player *owner, vo
     if (g_matchRoundCounters.m_bCTFOn != 0 && owner->profile->bonus == 1) {
         bonus = 1;
     }
-    shared = (MeshMaterial *)&g_tintedModelSharedMaterial;
+    shared = (MeshMaterial *)&(*(char *)&g_tintedModelSharedMaterial);
     flags = shared->flags;
     shared->flags = flags | 0x400;
     g_menuModelFillColor[0] = g_menuModelFillColor[1] = g_menuModelFillColor[2] = g_geometryDefaultTintColor;
@@ -293,7 +293,7 @@ void Geometry_DrawModelWithSharedMaterial(void **resource, void *matrix, s32 seg
         return;
     }
     XPlus_NextRandomInteger();
-    shared = (MeshMaterial *)&g_tintedModelSharedMaterial;
+    shared = (MeshMaterial *)&(*(char *)&g_tintedModelSharedMaterial);
     flags = shared->flags;
     shared->secondaryColor[0] = 128;
     shared->secondaryColor[1] = 95;

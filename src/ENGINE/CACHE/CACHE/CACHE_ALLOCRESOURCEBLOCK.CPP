@@ -12,7 +12,7 @@
 /* 802508E0_12.CPP */
 extern OSMesgQueue g_resourceHeapLockQueue;
 
-extern struct CacheResourceBlockView *Cache_AcquireResourceNodeWithEviction(s32, u32);
+extern void *Cache_AcquireResourceNodeWithEviction(s32 unused0, s32 flags);
 
 extern void Cache_InsertResourceByAddress(s32 unused, void *object);
 

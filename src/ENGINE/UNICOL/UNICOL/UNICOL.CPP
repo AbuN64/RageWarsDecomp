@@ -11,9 +11,9 @@
 #include "GAME/BUILDDIRECTIONMATRIX.H"
 
 /* 80243A80.CPP */
-void CCollision_StoreContactResult(void *);
+struct Input; void CCollision_StoreContactResult(struct Input *contactInput);
 
-void CCollision_ProjectSegmentOntoSurface(void *, void *);
+struct CollisionSegmentSurface; struct Query; void CCollision_ProjectSegmentOntoSurface(struct CollisionSegmentSurface *segment, struct Query *query);
 
 void CCollision_ResetContactNormal(void *);
 
@@ -37,7 +37,7 @@ f32 Region_GetPolygonHeight(void *, f32, f32);
 
 void * Scene_ResolveFloorPolygon(void *, CVector3 *);
 
-s32 CCollision_IntegrateGravityAndDrag();
+struct ActorMotion; void CCollision_IntegrateGravityAndDrag(struct ActorMotion *motion);
 
                      /* extern */
 

@@ -237,7 +237,7 @@ Player *Scene_FindNearestObjectToFirstPlayer(ScenePlayerObjectListView *world) {
 
 extern void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
 extern s32 InstHdr_CanActorReceiveInteraction(ObjectSceneRegisterActorInSceneLists *object);
-extern s32 InstHdr_HasEnabledMotionHooks(ObjectSceneRegisterActorInSceneLists *object);
+extern s32 InstHdr_HasEnabledMotionHooks(void *actor);
 
 void Scene_RegisterActorInSceneLists(SceneActorCategoryListsView *world, ObjectSceneRegisterActorInSceneLists *object) {
     Gobjinst_RotatePoseMatrixBuffers(object);

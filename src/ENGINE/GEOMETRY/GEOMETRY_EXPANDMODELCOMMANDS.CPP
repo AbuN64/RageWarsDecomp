@@ -40,7 +40,7 @@ extern signed char g_geometryMaterialLightDirection[3];
 
 extern char g_playerViewRenderContext;
 
-extern void Graphu64_UnpackFixedMatrix(f32 *matrix, void *model);
+struct PackedMatrixWords; extern void Graphu64_UnpackFixedMatrix(f32 *dst, struct PackedMatrixWords *src);
 
 extern void Graphu64_GetMatrixTranslation(f32 *matrix, CVector3 *position);
 
@@ -342,7 +342,7 @@ s32 Geometry_ApplyMaterialLighting(void *model, void *lights, ModelMaterial *mat
 extern u32 g_displayListCapacityUsRev1;
 extern CGameStatus g_matchRoundCounters;
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
-extern s32 Geometry_SetupMaterial(void *material, s32 pass);
+struct Shared_GfxMaterial; extern s32 Geometry_SetupMaterial(struct Shared_GfxMaterial *mat, s32 pass);
 /* Draws an actor model's parts, choosing each part by the 0x38 bits of its material byte 6: on the special
  * character 0x12 the part must equal the bits for its variant (or be a fade/bonus part whose flag is set),
  * otherwise the 0x38/0x30/0x10 groups are drawn only when the matching flag (fade, bonus, glow) is set. */

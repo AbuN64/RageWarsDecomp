@@ -60,7 +60,7 @@ extern char g_Visdata_EmptyReleaseHookUsPackedAddress24[];
 extern void SetN64_EmptyVideoModeHookSecondUs(void);
 extern void Visdata_EmptyInitializeHookSecondUs(void);
 extern void Visdata_EmptyReleaseHookSecondUs(void);
-extern void SetN64_DrawFullscreenBackdrop();
+extern void SetN64_DrawFullscreenBackdrop(void *unused);
 extern void SetN64_SetupLoadingBackdropUs();
 EngineSessionHandlers g_Setn64ConfigurevideoandentermodeusPointerWords1[21] = {
     { (EngineSessionCallback)g_SetN64_InitializeFrontendScreenStatePackedAddress24, (EngineSessionCallback)g_SetN64_ExitSessionAndDisablePaksPackedAddress24, (EngineSessionCallback)g_SetN64_DrawRoundTimeoutSessionPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ResetSceneForIntroPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceIntroForMemorySizePackedAddress24, (EngineSessionCallback)g_SetN64_DrawIntroBackdropPackedAddress24 }, { (EngineSessionCallback)g_SetN64_InitializeMode2PackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeFivePackedAddress24, (EngineSessionCallback)g_SetN64_DrawCenteredIntroTextPackedAddress24 }, { (EngineSessionCallback)g_SetN64_ClearSessionPlayerPoolsPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeFourPackedAddress24, (EngineSessionCallback)((char *)SetN64_SetupLoadingBackdropUs - 0x80000000) }, { (EngineSessionCallback)g_SetN64_ResetMode4EffectsPackedAddress24, (EngineSessionCallback)g_SetN64_AdvanceToModeEightPackedAddress24, (EngineSessionCallback)g_modeLifecycleHandlers1_us_rev1 }, { (EngineSessionCallback)g_SetN64_ResetMode5ItemsPackedAddress24, (EngineSessionCallback)g_SetN64_HandleMode5InputPackedAddress24, (EngineSessionCallback)g_SetN64_DrawMode5SessionPackedAddress24 },

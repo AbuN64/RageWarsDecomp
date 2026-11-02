@@ -41,11 +41,11 @@ extern struct {
     EntryC entries[1];
 } g_worldCollisionElementTable;
 
-extern s32 CCollision_IntersectSegmentBox(Ray180 *, Box *, f32 *);
+struct Ray; struct Box; extern s32 CCollision_IntersectSegmentBox(struct Ray *ray, struct Box *box, f32 *out);
 
-extern s32 CCollision_IntersectSegmentRectangle(Ray180 *, CQuatern *, f32 *);
+struct Ray; struct CQuatern_t; extern s32 CCollision_IntersectSegmentRectangle(struct Ray *ray, struct CQuatern_t *rect, f32 *t);
 
-extern void CPolyCollision_TraceElementMesh(ContextB0 *);
+extern void CPolyCollision_TraceElementMesh(void *contextAddress);
 
 extern void PpDecom_QuickSortRecords(char *, u32, u32, void *, void *);
 

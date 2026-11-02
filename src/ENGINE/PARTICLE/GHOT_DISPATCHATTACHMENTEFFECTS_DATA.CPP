@@ -31,7 +31,7 @@ extern f32 g_particleInitialVelocityScale;
 
 extern void Graphu64_TransformDirection(MatrixF *, CVector3 *, CVector3 *);
 extern void Graphu64_IdentityMatrix(MatrixF *);
-extern CQuatern Gobjinst_BuildTargetAimOrientation(EffectActor *, CVector3);
+struct CVector3_t; extern struct CQuatern_t Gobjinst_BuildTargetAimOrientation(char *actor, struct CVector3_t point);
 extern void BuildDirectionMatrix(MatrixF *, CVector3 *);
 extern void Graphu64_ConvertMatrixToFloat(MatrixF *, PackedMatrixWords *);
 extern void ScaleMatrixLocal(MatrixF *, f32, f32, f32);
@@ -50,7 +50,7 @@ extern f32 Rumble_SamplePackedFloatRange(CharacterScreenCell);
 extern void Playerai_StartTransitionState(s32, ParticleEffect *);
 extern void Fx_AttachActorRibbon(void *, ParticleEffect *, s32);
 extern s32 Gdynlight_AllocateWorldLight(void *, s32);
-extern void Particle_PlayAttachedSound(ParticleEffect *, s32);
+extern void Particle_PlayAttachedSound(void *soundParticle, s32 soundId);
 extern void SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 extern void Gregion_ShiftColorHue(s8, u8, u8, u8, u8 *, u8 *, u8 *);
 

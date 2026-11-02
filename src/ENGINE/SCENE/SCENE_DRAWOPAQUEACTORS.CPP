@@ -64,7 +64,7 @@ void Scene_DrawOpaqueActors(SceneActorUpdateLists *scene, void *camera) {
 }
 
 
-extern void Particle_DrawRenderList(s32 world, s32 view);
+struct ParticleDrawWorld; struct GameplayCamera; extern void Particle_DrawRenderList(struct ParticleDrawWorld *world, struct GameplayCamera *view);
 
 
 void Scene_DrawWorldParticles(s32 world, s32 view) {

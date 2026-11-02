@@ -27,9 +27,9 @@ ALSndPlayer;
 extern s32 Gsky_FindNearestCamera(MenuMatchGlobals *, Triple *);
 
 
-extern void Channel_UpdateVoiceVolume(ViewChannelUpdateVoicePlayback *);
-extern void Channel_UpdateVoicePan(ViewChannelUpdateVoicePlayback *);
-extern void Channel_UpdateVoicePitch(ViewChannelUpdateVoicePlayback *);
+struct AudioVolumeVoice; extern void Channel_UpdateVoiceVolume(struct AudioVolumeVoice *voice);
+struct VoiceChannelUpdateVoicePan; extern void Channel_UpdateVoicePan(struct VoiceChannelUpdateVoicePan *voice);
+struct ViewChannelUpdateVoicePitch; extern void Channel_UpdateVoicePitch(struct ViewChannelUpdateVoicePitch *view);
 
 
 

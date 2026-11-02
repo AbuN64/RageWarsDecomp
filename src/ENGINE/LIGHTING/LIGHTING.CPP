@@ -546,7 +546,7 @@ s32 Lighting_QueryWorldLightVolumes(Bounds *box, void **out, s32 *outCount) {
    reports their number through countOut, and returns 1 when any accepted record has its byte at
    record offset 0xBA set. With no table (table null) it defers to Lighting_QueryWorldLightVolumes. */
 
-extern s32 Statinst_FindPlacedPropIndex(void *wanted, void *table);
+extern int Statinst_FindPlacedPropIndex(void *wanted,int key);
 
 typedef struct IdList {
     u16 count;

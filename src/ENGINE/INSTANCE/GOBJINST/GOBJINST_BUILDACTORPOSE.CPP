@@ -78,13 +78,13 @@ extern Shared_FrameProfile g_actorPoseTiming;
 extern s32 g_gameSettings;
 
 extern s32 Cinema_IsSequenceInWindow(void);
-extern void Gobjinst_ApplyImpactBoneTwist(Shared_PoseActor *, Shared_PosePart *, PoseMatrix, CVector3, CVector3, s32);
-extern void Gobjinst_ApplyTimedMatrixWobble(Shared_PoseActor *, s32, PoseMatrix);
+struct CVector3_t; extern void Gobjinst_ApplyImpactBoneTwist(char *actor, char *twistState, char *boneMatrix, struct CVector3_t impactPosition, struct CVector3_t impactDirection, s32 hitBoneIndex);
+extern void Gobjinst_ApplyTimedMatrixWobble(s32 time, s32 flags, f32 *matrix);
 extern f32 Gobjinst_GetActorHeight(Shared_PoseActor *);
-extern void Gastate_SwitchRequestedAnimation(Shared_AnimState *, s32, s32, s32, s32, s32);
+struct Anim; extern void Gastate_SwitchRequestedAnimation(struct Anim *anim, s32 table, s32 key, s32 blend, s32 *switched, struct Anim *previous);
 extern void Gastate_PrepareAnimationFrames();
-extern void Gastate_ReleaseAnimationResource(Shared_AnimState *);
-extern s32 Gastate_IsAnimationResourceRetained(Shared_AnimState *);
+extern void Gastate_ReleaseAnimationResource(void *animationState);
+extern s32 Gastate_IsAnimationResourceRetained(void *animationState);
 extern void Ghot_DispatchAttachmentEffects(u8 *, s32, PoseMatrix *, Shared_PoseActor *, void *);
 extern void Graphu64_MultiplyAffineMatrices(PoseMatrix, PoseMatrix, PoseMatrix);
 extern void Graphu64_ConvertMatrixToFloat(PoseMatrix, u8 *);

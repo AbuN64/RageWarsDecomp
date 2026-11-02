@@ -21,7 +21,7 @@ extern void Graphu64_MultiplyAffineMatrices(void *, void *, void *);
 
 extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
 
-extern void CPlane_BuildTriangleNormal(QueryE0 *query);
+extern void CPlane_BuildTriangleNormal(void *query);
 
 /** Swap two pairs of words. */
 void CPolyCollision_SwapHits(Hit8 *leftHit, Hit8 *rightHit) {

@@ -145,7 +145,7 @@ block_21:
 extern char g_actorParticleEffectSystem[];
 extern void Player_TransformPointByViewOrOwnerMatrix(void *, CVector3 *);
 extern void Particle_DispatchActorContactEvents(void *);
-extern void Particle_Release(void *, void *);
+struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 /* Steers a homing particle (sound 0x8AC) at its target, or straight ahead when it has none: keeps its loop
  * sound alive, drops the target after g_homingParticleSteeringStartTime seconds, ends the particle when it gets close enough,
  * otherwise turns the direction toward the target by a blend rate chosen from the turn angle and age,

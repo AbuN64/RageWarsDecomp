@@ -13,7 +13,7 @@
 #include "ENGINE/LISTS.H"
 
 extern s32 Cinema_IsSequenceInWindow(void);
-extern CQuatern Gobjinst_BuildActorDirectionTilt(void *input);
+struct ActorDirectionTiltInput; extern struct CQuatern_t Gobjinst_BuildActorDirectionTilt(struct ActorDirectionTiltInput *input);
 
 
 extern void MultiplyQuaternions(CQuatern *productQuaternion, CQuatern *leftQuaternion, CQuatern *rightQuaternion);
@@ -129,7 +129,7 @@ s16 Gobjinst_ChooseAvailableAnimationKind(void *actor, s16 *callback, s32 exclud
 }
 
 extern s32 *Gobjinst_RequestAnimatedModelVariant(void *actor, s8 variantIndex);
-extern s32 Gobjinst_BuildActorPose(void *actor, s32 modelPack, void *model);
+struct Shared_PoseActor; extern s32 Gobjinst_BuildActorPose(struct Shared_PoseActor *actor, void *modelPack, s32 model);
 extern void Cache_UnlockResource(s32 cache, s32 resource);
 
 s32 Gobjinst_BuildAnimatedPose(void *actorStorage, s32 resourceRequestMode)
@@ -177,7 +177,7 @@ void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState) {
 
 extern s32 g_lightingBufferIndex;
 extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
-extern void Gobjinst_SpawnAnimatedModelViewEffect(void *actor, void *lookup);
+struct FadedActorRenderView; struct ResourceLookupPointerView; extern void Gobjinst_SpawnAnimatedModelViewEffect(struct FadedActorRenderView *actor, struct ResourceLookupPointerView *lookup);
 
 void Gobjinst_DrawMaskedModel(void *actor, void *unusedShadowContext, void *renderSettings) {
     s8 index;

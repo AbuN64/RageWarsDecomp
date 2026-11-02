@@ -143,7 +143,7 @@ typedef struct SoundEnvelopeControl {
 typedef struct VoiceScaleEntry { f32 soundId, scale; } VoiceScaleEntry;
 extern VoiceScaleEntry g_soundVolumeScales[];
 extern float g_voiceDefaultGain;
-extern SoundEnvelope *Audio_GetMetadataSectionThreeEntry(GameAudioContext *context, int index);
+extern char *Audio_GetMetadataSectionThreeEntry(char *object, int index);
 static inline s32 lookupPanValue(s32 panAngle) {
     if ((f32)panAngle < 0.0f) return g_voiceAttenuationTable[-panAngle];
     return g_voiceAttenuationTable[panAngle];

@@ -27,11 +27,11 @@
 
 
 
-extern s32 CCollision_IntersectFrontPlaneFraction(PolygonCCollisionTestSegmentPolygon *, CVector3 *, CVector3 *, f32 *);
+extern s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void *segmentEnd, f32 *outputFraction);
 
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
-extern s32 CCollision_IsPointInsideDisk(PolygonCCollisionTestSegmentPolygon *, CVector3 *, f32, CVector3 *);
+extern s32 CCollision_IsPointInsideDisk(void *poly, void *point, f32 radius, void *testPoint);
 
 static inline s32 accepts(CapsuleSweep *ray, PolygonCCollisionTestSegmentPolygon *poly) {
     if (poly->t <= 0.0f) {

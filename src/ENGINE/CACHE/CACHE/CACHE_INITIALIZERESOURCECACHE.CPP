@@ -27,7 +27,7 @@ extern OSMesgQueue g_resourceHeapLockQueue;
 extern CMemEntry **g_resourceFreeNodeStack;
 extern s32 Heap_FreeAllocation(void *, s32);
 extern s32 g_runtimeHeap[3];
-extern char g_resourceRecencyList;
+extern s32 g_resourceRecencyList;
 extern CMemEntry *g_resourceAllocationCandidate;
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
 
@@ -128,7 +128,7 @@ void Cache_InitializeResourceCache(s32 unused, s32 count) {
 
 
 
-extern void Cache_DetachResourceRequest(void *, CMemEntry *);
+extern void Cache_DetachResourceRequest(void *unused0, void *resourceCacheEntry);
 
 static inline CMemEntry *find_stale(CMemEntry **recent) {
     CMemEntry *node;

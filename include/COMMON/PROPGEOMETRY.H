@@ -186,11 +186,11 @@ typedef struct OwnerStaticInstanceDrawDistanceFadedModel OwnerStaticInstanceDraw
 
 extern char g_Simpinst_BuildLitGeometryResourceAddress;
 extern char g_simpObjectIndexText[];
-extern char s_litVerticesText;
+extern const char s_litVerticesText[];
 
 typedef struct ResourceOwner { u8 pad0[0x1c]; s32 key; u8 pad20[0x88]; s32 index; s32 selected; s32 size; void *resource; } ResourceOwner;
-extern char s_statModelsIndexText[];
-extern char s_statModelText[];
+extern const char s_statModelsIndexText[];
+extern const char s_statModelText[];
 extern char g_Geometry_ExpandBasicModelAddressDe[];
 
 extern char s_staticObjectResourceTag[];

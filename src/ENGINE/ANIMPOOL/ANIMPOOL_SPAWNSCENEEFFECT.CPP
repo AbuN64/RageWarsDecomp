@@ -58,7 +58,7 @@ static inline SceneEffect *take_effect(struct CAnimPool *scene, s32 *ref) {
 
 extern f32 g_cameraVolumeBoundsMinZ;
 
-extern void Scene_RegisterActorInSceneLists(s32, EffectAnimPoolUpdateSceneEffects *);
+struct SceneActorCategoryListsView; struct ObjectSceneRegisterActorInSceneLists; extern void Scene_RegisterActorInSceneLists(struct SceneActorCategoryListsView *world, struct ObjectSceneRegisterActorInSceneLists *object);
 
 static inline s32 overlaps(EffectAnimPoolUpdateSceneEffects *effect, f32 *max) {
     if (max[0] > effect->min[0] && max[-3] < effect->max[0] && max[2] > effect->min[2] &&

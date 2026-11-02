@@ -109,7 +109,7 @@ extern void CScene_StartEventClips(void *, void *, s32, Triple, f32, f32);
 
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, CVector3, struct IntPair);
 extern void Particle_SpawnChildEffect(void *, s32, s8, s32);
-extern void Particle_Release(void *, void *);
+struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 
 
 

@@ -16,7 +16,7 @@ extern Gfx *g_displayListCursor;
 #include "COMMON/DISPLAY.H"
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
 extern s32 Geometry_ApplyMaterialLighting(s32 matrix, s32 lights, void *material);
-extern s32 Geometry_SetupMaterial(void *material, s32 pass);
+struct Shared_GfxMaterial; extern s32 Geometry_SetupMaterial(struct Shared_GfxMaterial *mat, s32 pass);
 
 void Geometry_DrawVisibleOwnerParts(void **resource, struct Owner104 *owner, s32 matrix, s32 segment, s32 lights, void *textures, s32 pass) {
     void *header;
@@ -91,8 +91,8 @@ extern NodeGeometryGroupModelInstances *g_opaqueMaterialGroupTree;
 extern NodeGeometryGroupModelInstances *g_opaqueMaterialGroupList;
 extern NodeGeometryGroupModelInstances *g_translucentMaterialGroupTree;
 extern NodeGeometryGroupModelInstances *g_translucentMaterialGroupList;
-extern void **g_modelBatchResource;
-extern struct CacheResourceBlockView g_modelInstanceQueue[];
+extern s32 **g_modelBatchResource;
+extern struct QueuedModelInstance g_modelInstanceQueue[];
 
 
 /* Returns the node keyed key in the tree under n, or the node a new key would hang from. */

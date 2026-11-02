@@ -22,13 +22,13 @@
 #include "include_asm.h"
 
 /* GOBJINST_4.CPP */
-extern void Gastate_SwitchRequestedAnimation(void *, s32, s32, s32, s32 *, void *);
+struct Anim; extern void Gastate_SwitchRequestedAnimation(struct Anim *anim, s32 table, s32 key, s32 blend, s32 *switched, struct Anim *previous);
 
 extern s32 Gastate_IsAnimationResourceRetained(void *);
 
-extern void Gastate_AdvanceRootMotion(void *, CVector3 *, f32 *, void *);
+struct CGameAnimateState_t; struct CVector3_t; struct RootActor; extern void Gastate_AdvanceRootMotion(struct CGameAnimateState_t *animationChannel, struct CVector3_t *translationDeltaOut, f32 *angleDeltaOut, struct RootActor *rootMotionActor);
 
-extern void *Gastate_GetAnimationPoseSection(void *);
+extern char *Gastate_GetAnimationPoseSection(void *animationState);
 
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
@@ -43,7 +43,7 @@ extern char g_actorRotationBlendAndResourceTuning;
  * effect flagged 4 fires only if its bone's hit box shares the object's mask; each fired event spawns its
  * effect through Events_DeliverContactEffect_ActorAnimationRootAndEventOperations and is counted in g_actorRootMotionSampleCount. */
 
-extern CROMEventEntry *Gastate_GetAnimationEventEntries(void *);
+extern s32 Gastate_GetAnimationEventEntries(void *animationState);
 
 extern s32 *Gobjinst_RequestAnimatedModelVariant(char *, s8);
 

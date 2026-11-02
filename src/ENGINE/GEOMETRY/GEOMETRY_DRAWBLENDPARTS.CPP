@@ -35,7 +35,7 @@ extern u32 g_displayListCapacityUsRev1;
 extern SharedModelTintMaterial g_tintedModelSharedMaterial;
 
 extern s32 Geometry_ApplyMaterialLighting(void *matrix, void *lights, void *material);
-extern s32 Geometry_SetupMaterial(void *material, s32 pass);
+struct Shared_GfxMaterial; extern s32 Geometry_SetupMaterial(struct Shared_GfxMaterial *mat, s32 pass);
 extern void Geometry_SetCombineMode(u32 mode);
 
 void Geometry_DrawTintedModelParts(void **resource, void *unused, void *matrix, s32 segment, void *lights, void *textures, s32 pass, u8 r, u8 g, u8 b, u8 a) {
@@ -106,7 +106,7 @@ void Geometry_DrawTintedModelParts(void **resource, void *unused, void *matrix, 
     g_menuModelFillEnabled = 0;
 }
 
-extern void Geometry_ExpandModelCommands(s32 unused, s32 res, s32 extra, s32 sentinel);
+struct CacheResourceBlockView; extern void Geometry_ExpandModelCommands(s32 unused, struct CacheResourceBlockView **res, s32 extra, s32 sentinel);
 
 void Geometry_ExpandBasicModel(s32 unused, s32 modelResource) {
     Geometry_ExpandModelCommands(unused, modelResource, 0, 0);
@@ -131,25 +131,25 @@ extern void Graphu64_BuildScaleMatrix(void *, float, float, float);
 
 extern void GraphU64_PackFixedMatrix(void *, void *);
 
-extern s32 g_opaqueMaterialGroupTree;
+extern struct NodeGeometryGroupModelInstances *g_opaqueMaterialGroupTree;
 
-extern s32 g_opaqueMaterialGroupList;
+extern struct NodeGeometryGroupModelInstances *g_opaqueMaterialGroupList;
 
-extern s32 g_translucentMaterialGroupTree;
+extern struct NodeGeometryGroupModelInstances *g_translucentMaterialGroupTree;
 
-extern s32 g_translucentMaterialGroupList;
+extern struct NodeGeometryGroupModelInstances *g_translucentMaterialGroupList;
 
-extern s32 g_modelBatchResource;
+extern s32 **g_modelBatchResource;
 
 extern QueuedModelInstance g_modelInstanceQueue[];
 
-extern void Cache_LockResource(s32, s32);
+struct CacheResourceNode; extern void Cache_LockResource(void *,struct CacheResourceNode *);
 
 extern void Geometry_QueueModelById(s32 modelIndex, void *matrix, void *lights, s32 textures, s32 pass, s32 direct);
 
 extern s32 Geometry_SetModePreset(s32 mode);
 
-extern void **Textload_RequestTextureVariationSync(void *resource, s32 variation);
+extern void **Textload_RequestTextureVariationSync(s32 *resource, s32 variation);
 
 void Geometry_InitializeModelRenderState(void) {
     char local[64];

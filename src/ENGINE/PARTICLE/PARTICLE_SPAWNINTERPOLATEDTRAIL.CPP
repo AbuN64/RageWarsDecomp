@@ -531,7 +531,7 @@ static inline void nearby(s32 unused, ObjParticleMarkNearbyObjects *center, ObjP
   }
  }
 }
-extern void Particle_MarkCrowdedActor(int,ObjParticleMarkNearbyObjects *,ObjParticleMarkNearbyObjects **,int);
+struct ActorParticleMarkCrowdedActor; extern void Particle_MarkCrowdedActor(s32 unused, struct ActorParticleMarkCrowdedActor *actor, struct ActorParticleMarkCrowdedActor **others, s32 count);
 void Particle_UpdateNearbyObjectFlags(int context,ObjParticleMarkNearbyObjects **objects,int count) {
  int i; ObjParticleMarkNearbyObjects *obj;
  for(i=0;i<count;i++) {

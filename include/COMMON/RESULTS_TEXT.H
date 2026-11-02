@@ -34,7 +34,7 @@ extern char *g_resultsMinutesSecondsOneFormatLocalized[];
 extern char *g_resultsMinutesSecondsTwoFormatLocalized[];
 extern char *g_resultsMinutesOneFormatLocalized[];
 extern char *g_resultsMinutesTwoFormatLocalized[];
-extern char *g_resultsPlayerOrLivesOneFormatLocalized[];
+extern *g_resultsPlayerOrLivesOneFormatLocalized[];
 extern char *g_resultsPlayerOrLivesTwoFormatLocalized[];
 extern char *g_resultsGoalLabelFormatLocalized[];
 extern char *g_resultsGoalValueFormatLocalized[];

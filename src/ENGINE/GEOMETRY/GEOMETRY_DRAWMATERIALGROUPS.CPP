@@ -10,15 +10,16 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 
-extern Group18 *g_opaqueMaterialGroupList,*g_translucentMaterialGroupList;
+extern struct NodeGeometryGroupModelInstances *g_opaqueMaterialGroupList;
+extern struct NodeGeometryGroupModelInstances *g_translucentMaterialGroupList;
 
 extern Gfx *g_displayListCursor;
 
-extern s32 Geometry_SetupMaterial(Material18 *,s8);
+struct Shared_GfxMaterial; extern s32 Geometry_SetupMaterial(struct Shared_GfxMaterial *mat, s32 pass);
 
 extern void Geometry_ApplyMaterialLighting(u32,u32,Material18 *),Geometry_SetupIntensityPass(void);
 
-void Cache_LockResource(void *, void *);
+struct CacheResourceNode; void Cache_LockResource(void *,struct CacheResourceNode *);
 
 void Cache_UnlockResource(void *, void *);
 
@@ -38,13 +39,13 @@ extern s32 **g_modelBatchResource;
 
 extern QueuedModelInstance g_modelInstanceQueue[];
 
-extern s32 s_simpObjectIndexText;
+extern const char s_simpObjectIndexText[];
 
                           /* unable to generate initializer: unknown type */
-extern s32 s_simpModelsIndexText;
+extern const char s_simpModelsIndexText[];
 
                           /* unable to generate initializer: unknown type */
-extern s32 s_simpModelText;
+extern const char s_simpModelText[];
 
 void Geometry_DrawMaterialGroups(void) {
  Group18 *group=g_opaqueMaterialGroupList,*deferred=0;

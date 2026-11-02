@@ -14,7 +14,7 @@ extern void SetN64_DrawColorRectangle(void *unused, s8 *color, s32 left, s32 top
                           s32 right, s32 bottom);
 
 
-s32 SetN64_StartGameThreadAndIdle(s32 *, s32);
+void SetN64_StartGameThreadAndIdle(s32 *gameSession, s32 threadArgument);
 
 #include "COMMON/GAME_SESSION.H"
 

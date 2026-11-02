@@ -32,7 +32,7 @@ extern void Fx_DetachParticleSwooshes(void *effectWorld, void *detachedEntity);
 
 extern char g_actorParticleEffectSystem[];
 
-extern void Particle_Release(void *a, void *b);
+struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 
 extern CVector3 g_particleZeroVector;
 

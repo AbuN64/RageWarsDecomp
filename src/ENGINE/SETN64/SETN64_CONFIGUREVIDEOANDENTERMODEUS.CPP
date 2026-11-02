@@ -14,7 +14,7 @@ void SetN64_InitializeTransitionMode(void) {
 #if defined(VERSION_US)
 extern s32 g_frontendCurrentVideoModeIndex;
 extern char g_videoModeDefaultLabel[], g_videoModeLabels[];
-extern f32 g_Setn64Initializemode17creditsWords1;
+extern const float g_Setn64Initializemode17creditsWords1;
 extern void *g_Setn64ConfigurevideoandentermodeusPointerWords1[];
 extern void osViSetYScale(f32);
 extern void Cinema_EndSequence(void);
@@ -29,7 +29,7 @@ void SetN64_ConfigureVideoAndEnterModeUs(char *state) {
             label = g_videoModeLabels;
         }
         osViSetMode(label);
-        osViSetYScale(g_Setn64Initializemode17creditsWords1);
+        osViSetYScale((*(float *)&g_Setn64Initializemode17creditsWords1));
         osViSetSpecialFeatures(2);
     }
     if (g_gameModeTransitionFrames == 2 && SCR_W(state, 0x26DD0) == 0) {

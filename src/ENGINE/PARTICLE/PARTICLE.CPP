@@ -40,7 +40,7 @@ s32 Graphu64_NextRandom(void);
 
 void Particle_UpdateTypedMotion(Shared_Particle *particle);
 
-void Particle_DispatchOwnerContactLinks(Shared_Particle *particle);
+struct ActorParticleDispatchOwnerContactLinks; void Particle_DispatchOwnerContactLinks(struct ActorParticleDispatchOwnerContactLinks *actor);
 
 void Particle_HandleInitialMaterialContact(Shared_Particle *particle);
 
@@ -54,13 +54,13 @@ void Particle_HitTarget(void *particle);
 
 void Particle_ApplyImpactResponse(Shared_Particle *particle);
 
-void Particle_HandlePlayerContact(Shared_Particle *particle, SharedPlayer *player);
+void Particle_HandlePlayerContact(void *particle, void *player);
 
-void Particle_DispatchSpatialContactEvents(Shared_Particle *particle);
+void Particle_DispatchSpatialContactEvents(void *particle);
 
-void Particle_DispatchParticleContactEvents(Shared_Particle *particle);
+void Particle_DispatchParticleContactEvents(void *particle);
 
-void Particle_SpawnInterpolatedTrail(Shared_Particle *particle);
+struct TrailActor; void Particle_SpawnInterpolatedTrail(struct TrailActor *actor);
 
 /* Squared distance from the particle to a player's position, raised by half the player's height unless the particle
  * is type 0x40F. */
@@ -88,7 +88,7 @@ extern struct CacheResourceBlockView Graphu64_BuildDirectionQuaternion(CVector3 
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 
 extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
-extern void Particle_Release(void *, void *);
+struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 /* Picks an animation slot from a global mode, then plays the slot's effect, spawns its object at the owner or a fixed position, plays its sound, and flags the owner. Adapted from Particle_HandleMaterialContact, with the slot chosen by a switch on g_particleContactMode (the extra case below 7 that shares the default body is needed for the decision tree; its value is not recoverable), the constant triple, one argument, the dropped Graphu64_ScaleVector call, and the final test changed. */
 
 
@@ -99,7 +99,7 @@ extern CVector3 g_particleTertiaryContactPosition;
 
 extern CVector3 g_particleSecondaryContactPosition;
 
-extern s32 Region_TestPolygonSlopeFlag(s32);
+struct Triangle; extern s32 Region_TestPolygonSlopeFlag(struct Triangle *polygon);
 
 extern s32 Region_GetModelBlendByte58(s32);
 
@@ -649,7 +649,7 @@ extern LiveParticle *g_particleLinkedAttachmentEffect;
 
 int InstHdr_UsesDefaultDefinitionHandling(struct LevelActor *source);
 void Graphu64_ConvertMatrixToFloat(f32 *, void *);
-void Gobjinst_ApplyImpactBoneTwist(void *, void *, void *, CVector3, CVector3, s32);
+struct CVector3_t; void Gobjinst_ApplyImpactBoneTwist(char *actor, char *twistState, char *boneMatrix, struct CVector3_t impactPosition, struct CVector3_t impactDirection, s32 hitBoneIndex);
 void Graphu64_InvertAffineMatrix(f32 *, f32 *);
 void Graphu64_TransformDirection(f32 *, CVector3 *, CVector3 *);
 s32 InstHdr_ReturnUnusedActorStatus(void *);

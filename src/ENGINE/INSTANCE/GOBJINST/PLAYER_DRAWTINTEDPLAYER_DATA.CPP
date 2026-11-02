@@ -21,7 +21,7 @@ extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
 
 extern s32 Geometry_GetViewEffect(void);
 
-extern SpawnedEffectMotionView *Particle_GetLastSpawnedEffect(void *system);
+struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
 extern f32 Gobjinst_GetActorRadius(void *actor);
 extern f32 Gobjinst_GetActorHeight(void *actor);
@@ -104,7 +104,7 @@ void Gobjinst_DrawActorPartsWithViewEffects(LevelActor *actor, PlayerControllerV
 /* GOBJINST_7.CPP */
 /* Optionally runs GameObject_DrawActorShadow, then starts the actor's current block through Geometry_DrawBlendParts and, when the resulting animation node is flagged, spawns an effect at the actor raised by its height and scales it to the actor's size, always clearing g_menuModelFillEnabled at the end. Adapted from Gobjinst_DrawActorPartsWithViewEffects with Geometry_DrawActorModelParts changed to Geometry_DrawBlendParts and the height and scale constants taken from g_actorBlendedViewEffectTuning[1] and g_actorBlendedViewEffectScale. */
 
-extern void Geometry_DrawBlendParts(void **value, s32 unused, s32 matrix, s32 segment, BlendPartBlockView *block, s32 textures, s32 pass);
+extern void Geometry_DrawBlendParts(void **resource, s32 unused, s32 matrix, s32 segment, s32 lights, void *textures, s32 pass);
 
 
 

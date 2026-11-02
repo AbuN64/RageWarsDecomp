@@ -9,7 +9,7 @@
 
 typedef struct Owner Owner;
 
-extern void *Particle_GetEffectResource(void *particle);
+extern int Particle_GetEffectResource(void *particle);
 extern s32 Playerai_IsPlayerInactive(void *player);
 extern void Player_GiveAmmoWithMessage(void *player, s32 type, s32 amount);
 

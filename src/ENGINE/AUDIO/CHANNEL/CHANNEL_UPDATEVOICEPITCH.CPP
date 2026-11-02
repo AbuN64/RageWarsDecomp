@@ -7,7 +7,7 @@
 
 /* Ramps a voice pitch toward its target, interpolates the pitch curve and applies its scaled value to the context channel. */
 
-extern void Channel_UpdateDistancePitchFactor(ViewChannelUpdateVoicePitch *);
+struct Emitter; extern void Channel_UpdateDistancePitchFactor(struct Emitter *emitter);
 
 
 

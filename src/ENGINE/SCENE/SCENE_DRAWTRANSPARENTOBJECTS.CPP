@@ -202,7 +202,7 @@ typedef struct SortEntry { void *object; f32 distance; } SortEntry;
 extern void Gsky_GetObjectPositionAt260(void *, void *);
 extern void PpDecom_QuickSortRecords(void *, s32, s32, void *, void *);
 extern void Statinst_DrawForGameMode(void *, void *);
-extern void Simple_DrawCachedModel(void *);
+struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
 extern void Gobjinst_DrawVisibleCachedActor(void *, void *);
 /* Draws a world's scene objects back to front: emits the world's static display list if there is one, then
  * measures each object's squared distance to the camera (offset by a jittered vector from Gsky_GetObjectPositionAt260De),

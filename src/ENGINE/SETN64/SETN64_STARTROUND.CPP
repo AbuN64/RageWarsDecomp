@@ -14,7 +14,7 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/GAME_SESSION.H"
 
-extern void SetN64_HandleSessionTransitionInput(s32 session, s32 cancelTarget, s32 target);
+struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameSession *session, s32 cancelTarget, s32 target);
 
 
 /* Resets the menu viewport and selects the row identified by the owner's current index. */

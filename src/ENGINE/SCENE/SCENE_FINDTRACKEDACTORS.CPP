@@ -40,11 +40,11 @@ extern s32 g_cResource_UnpackRequestEntry;
 
 extern void Cache_UnlockResource(s32 cacheContext, s32 resource);
 
-s32 SetN64_CollectVisibleEffectNodes(s32, s32);
+struct VisibleEffectPoolView; struct Results; void SetN64_CollectVisibleEffectNodes(struct VisibleEffectPoolView *effectPool, struct Results *results);
 
 /* Advances the fractional animation clock and updates every active object with the resulting tick flag. */
 
-extern void Statinst_DispatchAttachmentEvents(s32, s32);
+extern void Statinst_DispatchAttachmentEvents(void *object, s32 all);
 
 /* Releases the resource of each of the owner's listed entries through Cache_UnlockResource, then clears the counters at 0x944, 0xC4C and 0x10BC, and moves the entry count to 0x1500 and zeroes it. */
 

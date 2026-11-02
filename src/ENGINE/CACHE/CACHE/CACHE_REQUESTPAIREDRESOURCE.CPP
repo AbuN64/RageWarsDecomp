@@ -48,7 +48,7 @@ extern s32 g_resourceHashBuckets;
 
 
 
-extern ResourceLoadRequest *Cache_AcquireLoadRequestWithEviction(s32, s32);
+extern void *Cache_AcquireLoadRequestWithEviction(s32 unused,s32 flags);
 
 extern void Cache_SubmitResourceLoadAndWait(s32 *, ResourceLoadRequest *);
 
@@ -111,10 +111,10 @@ static inline void release(void) {
 
 
 
-extern void Cache_AcknowledgeResourceSlotRelease(s32, RequestCacheRunResourceCompletionWorker *);
+extern void Cache_AcknowledgeResourceSlotRelease(s32 unused, s32 request);
 extern s32 Cache_TrySubmitResourceLoad(void *, void *, Manager *);
 
-extern void Cache_DetachResourceRequest(s32, NodeCacheRunResourceCompletionWorker *);
+extern void Cache_DetachResourceRequest(void *unused0, void *resourceCacheEntry);
 
 extern void Heap_FreeAllocation(void *, void *);
 

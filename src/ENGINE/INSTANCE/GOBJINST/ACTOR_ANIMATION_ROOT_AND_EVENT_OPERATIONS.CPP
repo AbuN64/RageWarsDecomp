@@ -32,12 +32,12 @@ void Gobjinst_NoOperationAnimationHookAlternateUs(void) {
 /* GOBJINST_16.CPP */
 /* Spawns the standing effects of an animation for an object: every event whose effect id is 6 or 7 is placed by transforming its local point through the object's matrix at 0x74 and spawned through Events_DeliverContactEffect_ActorAnimationRootAndEventOperations with its parameters. */
 
-extern CROMEventEntry *Gastate_GetAnimationEventEntries(void *);
+extern s32 Gastate_GetAnimationEventEntries(void *animationState);
 
 extern void Events_DeliverContactEffect(char *, char *, u16, s32, CVector3, struct IntPair);
 
 extern void Cache_UnlockResource(s32 cache, s32 resource);
-extern void Polytrak2_SampleVectorTrack(CGameAnimateState_t *, s32, f32, f32 *);
+struct AnimRef; struct CVector3_t; extern void Polytrak2_SampleVectorTrack(struct AnimRef *anim, s32 index, f32 time, struct CVector3_t *out);
 
 void *Gobjinst_GetAnimationRootOffset(Triple *outOffset, void *actor, CGameAnimateState_t *anim) {
     char *o1 = (char *) actor;

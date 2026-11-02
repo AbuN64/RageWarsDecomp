@@ -24,7 +24,7 @@ extern char g_animationText;
 extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
 
 
-extern s32 Gastate_IsAnimationResourceRetained(Anim *);
+extern s32 Gastate_IsAnimationResourceRetained(void *animationState);
 
 
 static inline s32 load(Anim *anim, s32 table, s32 key, s32 id) {
@@ -48,7 +48,7 @@ static inline s32 load(Anim *anim, s32 table, s32 key, s32 id) {
     return 1;
 }
 
-extern void Polytrak2_SampleVectorTrack(void *,s32,f32,CVector3 *);
+struct AnimRef; struct CVector3_t; extern void Polytrak2_SampleVectorTrack(struct AnimRef *anim, s32 index, f32 time, struct CVector3_t *out);
 
 extern f32 g_rootMotionAngleScale;
 

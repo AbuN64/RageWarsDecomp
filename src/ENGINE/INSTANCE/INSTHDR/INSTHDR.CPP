@@ -21,16 +21,16 @@
  * objects without a floor or held players get the identity. The sine is kept in g_turretAimSine. */
 
 
-extern s32 Region_TestPolygonSlopeFlag(s32);
+struct Triangle; extern s32 Region_TestPolygonSlopeFlag(struct Triangle *polygon);
 
-extern void Region_GetNodeNormal(CVector3 *, s32);
+struct CVector3_t; struct Node75; extern struct CVector3_t *Region_GetNodeNormal(struct CVector3_t *out, struct Node75 *node);
 
 extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
 
 
-extern CQuatern Gobjinst_BuildActorDirectionTilt(char *);
+struct ActorDirectionTiltInput; extern struct CQuatern_t Gobjinst_BuildActorDirectionTilt(struct ActorDirectionTiltInput *input);
 
-extern f32 CPlane_GetSlopeAngle(Probe *, f32, f32, f32, f32);
+struct Plane; extern f32 CPlane_GetSlopeAngle(struct Plane *p,f32 x0,f32 z0,f32 x1,f32 z1);
 
 extern void Graphu64_InterpolateQuaternionWithLinearFallback(CQuatern *, f32, CQuatern *, CQuatern *);
 

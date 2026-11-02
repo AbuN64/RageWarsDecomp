@@ -530,11 +530,32 @@ typedef struct LevelChallenge {
 extern ResultsCourse *g_currentStagePreset;
 extern ResultsHeadingCharacter g_resultCharacterHeadings[];
 extern char g_levelNameText[], g_resultsNameFormat_de[], g_cResource_UnpackRequestEntry[];
-extern char *g_characterPreviewTextReferenceShared1, *g_characterPreviewTextReferenceShared2, *g_characterPreviewTextReferenceShared3, *g_characterPreviewTextReferenceShared4, *g_characterPreviewTextReferenceShared5, *g_resultsRoundsOneFormat, *g_resultsRoundsTwoFormat,
-    *g_resultsRoundsThreeFormat, *g_resultsLapsOneFormat, *g_resultsLapsTwoFormat, *g_resultsLapsThreeFormat, *g_resultsLapsFourFormat, *g_resultsLapsFiveFormat, *g_resultsGoalOneFormat,
-    *g_resultsGoalTwoFormat, *g_resultsTimeLimitFormat, *g_resultsMinutesSecondsOneFormat, *g_resultsMinutesSecondsTwoFormat, *g_resultsMinutesOneFormat, *g_resultsMinutesTwoFormat, *g_resultsPlayerOrLivesOneFormat,
-    *g_pakDialogTextReferenceShared1, *g_resultsGoalLabelFormat, *g_resultsGoalValueFormat, *g_slotSelectionTextReferenceShared4;
-extern void Cinema_AddMessage(char *);
+extern char *g_characterPreviewTextReferenceShared1;
+extern char *g_characterPreviewTextReferenceShared2;
+extern char *g_characterPreviewTextReferenceShared3;
+extern char *g_characterPreviewTextReferenceShared4;
+extern char *g_characterPreviewTextReferenceShared5;
+extern char *g_resultsRoundsOneFormat;
+extern char *g_resultsRoundsTwoFormat;
+extern char *g_resultsRoundsThreeFormat;
+extern char *g_resultsLapsOneFormat;
+extern char *g_resultsLapsTwoFormat;
+extern char *g_resultsLapsThreeFormat;
+extern char *g_resultsLapsFourFormat;
+extern char *g_resultsLapsFiveFormat;
+extern char *g_resultsGoalOneFormat;
+extern char *g_resultsGoalTwoFormat;
+extern char *g_resultsTimeLimitFormat;
+extern char *g_resultsMinutesSecondsOneFormat;
+extern char *g_resultsMinutesSecondsTwoFormat;
+extern char *g_resultsMinutesOneFormat;
+extern char *g_resultsMinutesTwoFormat;
+extern *g_resultsPlayerOrLivesOneFormat;
+extern char *g_pakDialogTextReferenceShared1;
+extern char *g_resultsGoalLabelFormat;
+extern char *g_resultsGoalValueFormat;
+extern char *g_slotSelectionTextReferenceShared4;
+extern void Cinema_AddMessage(int goal);
 extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
 extern void *Cache_RequestWordCountedResourcePinned(s32, void **, s32, void *);
 extern ResultsText *Cache_RequestPackSection(s32, void *, s32, s32, void *, s32, void *);
