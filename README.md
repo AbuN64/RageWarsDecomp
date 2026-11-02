@@ -32,6 +32,23 @@ A matching decompilation of *Turok: Rage Wars* for the Nintendo 64.
 | <pre><code>code      [████████████████████]  100.00%  1,132,592 of 1,132,592</code><br><code>data      [████████████████████]  100.00%  237,616 of 237,616</code><br><code>functions [████████████████████]  100.00%  4,355 of 4,355</code><br><code>blobs     [████████████████████]  100.00%  6,998,140 of 6,998,140</code></pre> |
 <!-- /progress -->
 
+`unbake sync` writes the block above from `progress.json`; every figure is measured against the five ROMs on each sync.
+
+- **ROM line**: matched code, matched data, decoded blobs and the cartridge header, as a share of the 8 MiB ROM. Linker
+  fill (the linker's alignment padding) and unknown bytes (ROM spans no class holds) are shown beside it and are not
+  part of it. `(~x%)` also counts fuzzy code and data and blobs only identified, not decoded.
+- **code / data**: bytes of the text and data sections that a source compiles to exactly. Hand-written SDK assembly
+  (`.s`, 44 to 45 functions per version) is counted as matched.
+- **functions**: functions whose bytes match, of all functions in the version.
+- **blobs**: non-code ROM content listed in `config/blobs.toml`; decoded rows over all blob bytes. A decoded row is
+  either typed (audio, graphics, model, world, text, fill, stale data) or a `leftover` copy: raw bytes held exactly,
+  with no type yet. `progress.json` counts the leftover bytes as `untyped`: de 124,963 (562 rows), eu 600,694
+  (1,340), eu-x 681,115 (1,401), us 709,351 (73), us-rev1 649,204 (45). A blob line at 100% still holds these.
+
+The source layout is moving from `src/` to the original object-file layout under `SOURCE/`. At 9170ae1f6,
+`find src -type f | wc -l` gives 2,692 files (all `.CPP`) and `find SOURCE -type f | wc -l` gives 263; the move ends
+when `src/` is gone.
+
 ## Development & Contributions
 
 Contributions and corrections are welcome. Run `make check` before opening a pull request.
