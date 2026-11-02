@@ -145,7 +145,6 @@ g_audioAbortdisktransferDataConstantWords = 0x800D5258;
 k_OsstartthreadEncodedWords = 0x800D5268;
 g_audioLoaddecodedsamplesDataAddressWords = 0x800D5330;
 g_audioInitdecodestreamDataConstantWords = 0x800D54B8;
-g_AudioDecodeframeEncodedWords = 0x800D5564;
 g_cinemaDirectoryText = 0x800DCAFC;
 g_pakPakStateNoteName = 0x800DCCC0;
 g_pakReadScratchNoteName = 0x800DCCD0;
