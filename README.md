@@ -45,9 +45,9 @@ A matching decompilation of *Turok: Rage Wars* for the Nintendo 64.
   with no type yet. `progress.json` counts the leftover bytes as `untyped`: de 124,824 (559 rows), eu 600,694
   (1,340), eu-x 681,115 (1,401), us 709,351 (73), us-rev1 649,204 (45). A blob line at 100% still holds these.
 
-The source layout is moving from `src/` to the original object-file layout under `SOURCE/`. At 9170ae1f6,
-`find src -type f | wc -l` gives 2,692 files (all `.CPP`) and `find SOURCE -type f | wc -l` gives 263; the move ends
-when `src/` is gone.
+The game sources live in the original object-file layout under `SOURCE/` (the paths the debug symbols name); there is
+no `src/`. `find SOURCE -type f | wc -l` gives 2,955 files, each its own translation unit: several units under one
+object directory (for example `SOURCE/AI/ENEMIES/TURRETAI/`) are later merged into that object as plain source work.
 
 ## Development & Contributions
 

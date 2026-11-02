@@ -9,17 +9,17 @@ readme_map_link = "https://itsmo.me/attic/cake-unbake/"
 readme_map_repo = "ragewars-decomp"
 
 [layout]
-source_roots = ["src", "sdk", "include", "SOURCE"]
+source_roots = ["SOURCE", "sdk", "include"]
 header_roots = ["include", "sdk/include"]
 library_source = "sdk/{library}"
 library_header = "sdk/include/{library}.h"
-subsystem_source = "src/{subsystem}"
-subsystem_header = "src/{subsystem}.h"
+subsystem_source = "SOURCE/{subsystem}"
+subsystem_header = "SOURCE/{subsystem}.h"
 
 [cheat]
-source = ["src", "include", "sdk", "SOURCE"]
+source = ["SOURCE", "include", "sdk"]
 asm_home = ["sdk/"]
-makefile_row = "^(FILE|CPPFLAGS|CFLAGS)\\.(src|sdk)/[^ ]+ :="
+makefile_row = "^(FILE|CPPFLAGS|CFLAGS)\\.(SOURCE|sdk)/[^ ]+ :="
 
 [non_matching]
 
@@ -1100,52 +1100,52 @@ toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/UI/SMOS/SM_XLATE/SM_XLATE.CPP"]
+[file."SOURCE/UI/SMOS/SM_XLATE/SM_XLATE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fno-thread-jumps", "-fno-rerun-cse-after-loop"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_DRAWSPRITE.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_DRAWSPRITE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_RECYCLERELEASEDEFFECTS.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_RECYCLERELEASEDEFFECTS.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_UPDATESYSTEM.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_UPDATESYSTEM.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_HASKINDZEROENTRY.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_HASKINDZEROENTRY.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_BUILDMATRIX.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_BUILDMATRIX.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
 
-[file."src/ENGINE/PARTICLE/PARTICLE_UPDATETYPEDMOTION.CPP"]
+[file."SOURCE/ENGINE/PARTICLE/PARTICLE_UPDATETYPEDMOTION.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-ffast-math"]
 omit = []
@@ -1179,267 +1179,267 @@ cflags = ["-msplit-addresses"]
 omit = []
 hilo_nops = true
 
-[file."src/ENGINE/AUDIO/DECODER/DECODE.CPP"]
+[file."SOURCE/ENGINE/AUDIO/DECODER/DECODE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES.CPP"]
+[file."SOURCE/ENGINE/AUDIO/DECODER/AUDIO_LOADDECODEDSAMPLES.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP"]
+[file."SOURCE/ENGINE/AUDIO/DECODER/AUDIO_DECODETRANSFORMBLOCK.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/ENGINE/AUDIO/DECODER/AUDIO_INITBITREVERSEORDER.CPP"]
+[file."SOURCE/ENGINE/AUDIO/DECODER/AUDIO_INITBITREVERSEORDER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/ENGINE/AUDIO/DECODER/AUDIO_NEXTDECODEDSAMPLEBLOCK.CPP"]
+[file."SOURCE/ENGINE/AUDIO/DECODER/AUDIO_NEXTDECODEDSAMPLEBLOCK.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."src/MULTI/SLOTS/PLAYERSLOTS_COUNTLIVE.CPP"]
+[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTLIVE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/MULTI/SLOTS/PLAYERSLOTS_COUNTUNRELEASED.CPP"]
+[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTUNRELEASED.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/MULTI/SLOTS/PLAYERSLOTS_COUNTOCCUPIED.CPP"]
+[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTOCCUPIED.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/MULTI/SLOTS/PLAYERSLOTS_FINDSTAGEDWHENIDLE.CPP"]
+[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_FINDSTAGEDWHENIDLE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/MULTI/SLOTS/PLAYERSLOTS_ASSERTSLOTINDEX.CPP"]
+[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_ASSERTSLOTINDEX.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_CALCSAVEGAMESIZE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_CALCSAVEGAMESIZE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONINITIALUPDATE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONINITIALUPDATE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_REMOVEQUICKPLAYERFROMGLOBAL.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_REMOVEQUICKPLAYERFROMGLOBAL.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONDESTROY.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONDESTROY.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_GETGLOBALPLAYERBYMARKER.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETGLOBALPLAYERBYMARKER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_VALIDATEPAKAGAINSTGLOBAL.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_VALIDATEPAKAGAINSTGLOBAL.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_UPDATEPAK.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_UPDATEPAK.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_INITUPDATEINFO.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INITUPDATEINFO.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_RESETCONTROLBACKTOCOPYPLAYER.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_RESETCONTROLBACKTOCOPYPLAYER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_INCPLAYERNAMECHARACTER.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INCPLAYERNAMECHARACTER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_DECPLAYERNAMECHARACTER.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_DECPLAYERNAMECHARACTER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONBUTTONUP.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONBUTTONUP.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_CHECKFORROOMONPAK.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_CHECKFORROOMONPAK.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_PREPARESAVEBLOCKFORSAVE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_PREPARESAVEBLOCKFORSAVE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_PREPAREDATAAFTERLOAD.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_PREPAREDATAAFTERLOAD.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_COPYMIDDLEPLAYERSTOGLOBAL.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_COPYMIDDLEPLAYERSTOGLOBAL.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_GETPLAYERINMIDDLESLOT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETPLAYERINMIDDLESLOT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_FINDEMPTYMIDDLESLOT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_FINDEMPTYMIDDLESLOT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_ISMIDDLELISTEMPTY.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_ISMIDDLELISTEMPTY.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_ISPLAYERDATALISTEMPTY.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_ISPLAYERDATALISTEMPTY.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_FINDEMPTYPLAYERDATASLOT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_FINDEMPTYPLAYERDATASLOT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_ADDPLAYERTOMIDDLE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_ADDPLAYERTOMIDDLE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_ADDPLAYERTOSPECIFICMIDDLESLOT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_ADDPLAYERTOSPECIFICMIDDLESLOT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_REMOVEPLAYERFROMMIDDLE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_REMOVEPLAYERFROMMIDDLE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONRIGHT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONRIGHT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONCREATE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONCREATE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONRENDER.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONRENDER.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONLEFT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONLEFT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_COPYSPECIFICMIDDLEPLAYERTOGLOBAL.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_COPYSPECIFICMIDDLEPLAYERTOGLOBAL.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_SAVEGAME.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_SAVEGAME.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_LOADGAME.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_LOADGAME.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_INITPAKMANAGEMENT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INITPAKMANAGEMENT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_SCROLLMANAGEMENTLIST.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_SCROLLMANAGEMENTLIST.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_REORDERGLOBALPLAYERSTOSELECTED.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_REORDERGLOBALPLAYERSTOSELECTED.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_EXITSCREEN.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_EXITSCREEN.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_ADDQUICKPLAYERTOGLOBAL.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_ADDQUICKPLAYERTOGLOBAL.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_PRESSEDSTART.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_PRESSEDSTART.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_REFRESHMIDDLENAMESFORPLAYERNAME.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_REFRESHMIDDLENAMESFORPLAYERNAME.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_REFRESHMIDDLENAMESFORCOPY.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_REFRESHMIDDLENAMESFORCOPY.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_CHECKPAK.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_CHECKPAK.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_INITPLAYERMODE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INITPLAYERMODE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_UPDATEGROUPS.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_UPDATEGROUPS.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0", "-fno-builtin"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."src/UI/TSMOS/SCREENS/PAKINTERFACE_INITNAMEMANAGEMENT.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INITNAMEMANAGEMENT.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]

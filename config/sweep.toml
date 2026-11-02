@@ -63,7 +63,7 @@ kind = "word-alias"
 why = "A halfword extern whose address lies inside a data array defined as 32-bit words: the original reads the low half of a big-endian word at +2, the native word holds it at +0 (Results_AnimateResultsOptionsScreen read D_800E0646_de as 0 and built a null menu widget; first seen in monkey-wl1-start-pak-prompt). Read the word and cast, or define the data as the narrow type."
 trees = ["rw"]
 paths = ["src/**/*.CPP", "src/**/*.c", "src/**/*.C", "include/**/*.H", "include/**/*.h"]
-declare_paths = ["src/DATA/**/*.CPP", "src/DATA/**/*.c"]
+declare_paths = ["SOURCE/DATA/**/*.CPP", "SOURCE/DATA/**/*.c"]
 symbols = "versions/us-rev1/symbol_addrs.txt"
 defines = ["VERSION_US_REV1"]
 array = '^\s*(?:static\s+)?(?:const\s+)?(?:unsigned int|unsigned long|u32|s32|int)\s+(?P<datum>\w+)\s*\[(?P<count>\d+)\]\s*='
