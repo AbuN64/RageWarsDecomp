@@ -93,7 +93,7 @@ type = "stale-code"
 format = "accounting observations: stale-code; per-range readers and limits in evidence"
 state = "observed"
 stored_size = 6558
-rom."eu" = [[0x122d2c, 0x122d30], [0x15dedd, 0x15dee0], [0x15f25d, 0x15f260], [0x15f4de, 0x15f4e0], [0x1604d4, 0x1604f0], [0x1604f4, 0x160500], [0x165ec4, 0x165ed3], [0x169700, 0x16972a], [0x172be0, 0x172c00], [0x1c9f2c, 0x1c9f30], [0x1ca224, 0x1ca228], [0x1cb20c, 0x1cb210], [0x1cba8c, 0x1cba90], [0x1cc3a4, 0x1cc3e0], [0x1cd1b8, 0x1cd1c0], [0x1cd568, 0x1cd570], [0x1d0828, 0x1d0830], [0x1d9ab8, 0x1d9ac0], [0x1de324, 0x1de330], [0x1e205c, 0x1e2060], [0x1e2974, 0x1e2980], [0x1e49b8, 0x1e49c0], [0x1f6e44, 0x1f6e50], [0x1f8c1c, 0x1f8c20], [0x1f8e08, 0x1f8e49], [0x1f9588, 0x1f95c9], [0x1f9a78, 0x1f9a80], [0x1fd54c, 0x1fd550]]
+rom."eu" = [[0x122d2c, 0x122d30], [0x15dedd, 0x15dee0], [0x15f25d, 0x15f260], [0x15f4de, 0x15f4e0], [0x1604e4, 0x1604f0], [0x1604f4, 0x160500], [0x165ec4, 0x165ed3], [0x169700, 0x16972a], [0x172be0, 0x172c00], [0x1cba8c, 0x1cba90], [0x1cc3a4, 0x1cc3e0], [0x1cd1b8, 0x1cd1c0], [0x1cd568, 0x1cd570], [0x1d0828, 0x1d0830], [0x1d9ab8, 0x1d9ac0], [0x1de324, 0x1de330], [0x1e2974, 0x1e2980], [0x1e49b8, 0x1e49c0], [0x1f6e44, 0x1f6e50], [0x1f8e08, 0x1f8e49], [0x1f9588, 0x1f95c9], [0x1f9a78, 0x1f9a80]]
 evidence = [{ artifact = "accounting-regions.json", sha256 = "165115fdd2e78a248d600fbf2952e7deee77163e6cf36fad3853a75838b392d0", pointer = "/groups/accounting.stale-code.eu" }]
 
 [blob."accounting.stale-code.eu-x"]
@@ -19359,6 +19359,69 @@ decoded_size = 78
 rom."eu-x" = [[0x1526d4, 0x152720]]
 evidence = [{ artifact = "blobs-spans-piece-copies.json", sha256 = "c9320c9ac9d49b3d6411b6b8bc6dcfe31d62eb1838c6c7e8ba31cd401dcc17e7", pointer = "/rows/9" }]
 
+[blob."stale-data.eu-x.copy.143294"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x143294, 0x1432a0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/10" }]
+
+[blob."stale-data.eu-x.copy.1436c0"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x1436c0, 0x1436c8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/11" }]
+
+[blob."stale-data.eu-x.copy.144ab4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x144ab4, 0x144abc]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/12" }]
+
+[blob."stale-data.eu-x.copy.144b14"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x144b14, 0x144b20]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/13" }]
+
+[blob."stale-data.eu-x.copy.144c94"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x144c94, 0x144ca0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/14" }]
+
+[blob."stale-data.eu-x.copy.144cac"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 28
+rom."eu-x" = [[0x144cac, 0x144cc8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/15" }]
+
+[blob."stale-data.eu-x.copy.144da0"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x144da0, 0x144da8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/16" }]
+
 [blob."leftover.eu-x.copy.14841c"]
 type = "leftover"
 format = "copy"
@@ -19368,6 +19431,24 @@ stored_size = 65
 rom."eu-x" = [[0x148450, 0x14845d]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/60" }]
 
+[blob."stale-data.eu-x.copy.1499a8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x1499a8, 0x1499b0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/17" }]
+
+[blob."stale-data.eu-x.copy.149b8c"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x149b8c, 0x149b94]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/18" }]
+
 [blob."leftover.eu-x.copy.14a94a"]
 type = "leftover"
 format = "copy"
@@ -19376,6 +19457,24 @@ state = "decoded"
 stored_size = 46
 rom."eu-x" = [[0x14a950, 0x14a954]]
 evidence = [{ artifact = "copy-xrom.json", sha256 = "e6d1c3536ef8d4d594e60c4fde80ca7a2613fe83cae4d483e6694940e0a03ce9", pointer = "/rows/1258" }]
+
+[blob."stale-data.eu-x.copy.14ad70"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x14ad70, 0x14ad78]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/19" }]
+
+[blob."stale-data.eu-x.copy.14ad7c"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x14ad7c, 0x14ad84]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/20" }]
 
 [blob."leftover.eu-x.copy.14e697"]
 type = "leftover"
@@ -19395,6 +19494,15 @@ stored_size = 85
 rom."eu-x" = [[0x14e764, 0x14e765]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/67" }]
 
+[blob."stale-data.eu-x.copy.14e928"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x14e928, 0x14e930]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/21" }]
+
 [blob."leftover.eu-x.copy.14ec30"]
 type = "leftover"
 format = "copy"
@@ -19412,6 +19520,15 @@ state = "decoded"
 stored_size = 126
 rom."eu-x" = [[0x14ecde, 0x14ece0], [0x14ed4c, 0x14ed50]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/71" }]
+
+[blob."stale-data.eu-x.copy.14edc3"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 13
+rom."eu-x" = [[0x14edc3, 0x14edd0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/22" }]
 
 [blob."leftover.eu-x.copy.14ee5f"]
 type = "leftover"
@@ -19449,6 +19566,15 @@ stored_size = 1048
 rom."eu-x" = [[0x14f144, 0x14f240], [0x14f244, 0x14f340], [0x14f344, 0x14f440], [0x14f444, 0x14f540]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/74" }]
 
+[blob."stale-data.eu-x.copy.14f750"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 268
+rom."eu-x" = [[0x14f750, 0x14f85c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/1" }]
+
 [blob."leftover.eu-x.copy.1507b0"]
 type = "leftover"
 format = "copy"
@@ -19457,6 +19583,15 @@ state = "decoded"
 stored_size = 126
 rom."eu-x" = [[0x1507c4, 0x1507c8], [0x1507d8, 0x1507dc], [0x1507ec, 0x1507f0]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/79" }]
+
+[blob."stale-data.eu-x.copy.151b24"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x151b24, 0x151b30]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/23" }]
 
 [blob."leftover.eu-x.copy.151be0"]
 type = "leftover"
@@ -19602,6 +19737,150 @@ stored_size = 638
 rom."eu-x" = [[0x154260, 0x1544de]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/93" }]
 
+[blob."stale-data.eu-x.copy.1545a8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 20
+rom."eu-x" = [[0x1545a8, 0x1545bc]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/24" }]
+
+[blob."stale-data.eu-x.copy.1546a4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x1546a4, 0x1546b0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/25" }]
+
+[blob."stale-data.eu-x.copy.1546d8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x1546d8, 0x1546e4]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/26" }]
+
+[blob."stale-data.eu-x.copy.154758"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x154758, 0x154764]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/27" }]
+
+[blob."stale-data.eu-x.copy.154804"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 13
+rom."eu-x" = [[0x154804, 0x154811]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/28" }]
+
+[blob."stale-data.eu-x.copy.154898"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 28
+rom."eu-x" = [[0x154898, 0x1548b4]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/29" }]
+
+[blob."stale-data.eu-x.copy.1548c8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 9
+rom."eu-x" = [[0x1548c8, 0x1548d1]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/30" }]
+
+[blob."stale-data.eu-x.copy.1548df"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 9
+rom."eu-x" = [[0x1548df, 0x1548e8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/31" }]
+
+[blob."stale-data.eu-x.copy.1548f0"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 28
+rom."eu-x" = [[0x1548f0, 0x15490c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/32" }]
+
+[blob."stale-data.eu-x.copy.154910"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 32
+rom."eu-x" = [[0x154910, 0x154930]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/2" }]
+
+[blob."stale-data.eu-x.copy.154974"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x154974, 0x15497c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/33" }]
+
+[blob."stale-data.eu-x.copy.154a08"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 9
+rom."eu-x" = [[0x154a08, 0x154a11]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/34" }]
+
+[blob."stale-data.eu-x.copy.154a94"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x154a94, 0x154a9c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/35" }]
+
+[blob."stale-data.eu-x.copy.154af4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x154af4, 0x154b00]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/36" }]
+
+[blob."stale-data.eu-x.copy.154cc4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 56
+rom."eu-x" = [[0x154cc4, 0x154cfc]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/3" }]
+
+[blob."stale-data.eu-x.copy.154e20"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 20
+rom."eu-x" = [[0x154e20, 0x154e34]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/37" }]
+
 [blob."leftover.eu-x.copy.154f40"]
 type = "leftover"
 format = "copy"
@@ -19665,6 +19944,24 @@ stored_size = 788
 rom."eu-x" = [[0x155620, 0x155934]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/99" }]
 
+[blob."stale-data.eu-x.copy.155978"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x155978, 0x155980]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/38" }]
+
+[blob."stale-data.eu-x.copy.155998"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x155998, 0x1559a0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/39" }]
+
 [blob."leftover.eu-x.copy.1559d0"]
 type = "leftover"
 format = "copy"
@@ -19683,6 +19980,15 @@ stored_size = 76
 rom."eu-x" = [[0x155a20, 0x155a6c]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/101" }]
 
+[blob."stale-data.eu-x.copy.155a88"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x155a88, 0x155a90]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/40" }]
+
 [blob."leftover.eu-x.copy.155b00"]
 type = "leftover"
 format = "copy"
@@ -19691,6 +19997,15 @@ state = "decoded"
 stored_size = 401
 rom."eu-x" = [[0x155b00, 0x155c91]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/102" }]
+
+[blob."stale-data.eu-x.copy.155c91"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 23
+rom."eu-x" = [[0x155c91, 0x155ca8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/41" }]
 
 [blob."leftover.eu-x.copy.155ca8"]
 type = "leftover"
@@ -19710,6 +20025,15 @@ stored_size = 181
 rom."eu-x" = [[0x155d08, 0x155dbd]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/104" }]
 
+[blob."stale-data.eu-x.copy.155dc8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x155dc8, 0x155dd0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/42" }]
+
 [blob."leftover.eu-x.copy.155dd0"]
 type = "leftover"
 format = "copy"
@@ -19718,6 +20042,24 @@ state = "decoded"
 stored_size = 584
 rom."eu-x" = [[0x155dd0, 0x156018]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/105" }]
+
+[blob."stale-data.eu-x.copy.156018"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 12
+rom."eu-x" = [[0x156018, 0x156024]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/43" }]
+
+[blob."stale-data.eu-x.copy.1564a4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 8
+rom."eu-x" = [[0x1564a4, 0x1564ac]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/44" }]
 
 [blob."leftover.eu-x.copy.1564dc"]
 type = "leftover"
@@ -19754,6 +20096,15 @@ state = "decoded"
 stored_size = 2705
 rom."eu-x" = [[0x159ed8, 0x15a968]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/108" }]
+
+[blob."stale-data.eu-x.copy.15a9ec"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 48
+rom."eu-x" = [[0x15a9ec, 0x15aa1c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/4" }]
 
 [blob."leftover.eu-x.copy.15aa34"]
 type = "leftover"
@@ -19863,6 +20214,87 @@ stored_size = 415
 rom."eu-x" = [[0x15ffba, 0x160159]]
 evidence = [{ artifact = "stale-eu-x.json", sha256 = "7a3e69fc2e5214a79cfe44b1a7428ab3b1268173d468e6138c43132bc59badb2", pointer = "/rows/120" }]
 
+[blob."stale-data.eu-x.copy.160159"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 23
+rom."eu-x" = [[0x160159, 0x160170]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/45" }]
+
+[blob."stale-data.eu-x.copy.1601cc"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 20
+rom."eu-x" = [[0x1601cc, 0x1601e0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/46" }]
+
+[blob."stale-data.eu-x.copy.1601f0"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 16
+rom."eu-x" = [[0x1601f0, 0x160200]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/47" }]
+
+[blob."stale-data.eu-x.copy.160220"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 36
+rom."eu-x" = [[0x160220, 0x160244]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/5" }]
+
+[blob."stale-data.eu-x.copy.160254"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 20
+rom."eu-x" = [[0x160254, 0x160268]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/48" }]
+
+[blob."stale-data.eu-x.copy.160294"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 16
+rom."eu-x" = [[0x160294, 0x1602a4]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/49" }]
+
+[blob."stale-data.eu-x.copy.1602b8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 16
+rom."eu-x" = [[0x1602b8, 0x1602c8]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/50" }]
+
+[blob."stale-data.eu-x.copy.1602f8"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 64
+rom."eu-x" = [[0x1602f8, 0x160338]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/6" }]
+
+[blob."stale-data.eu-x.copy.1603ac"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 16
+rom."eu-x" = [[0x1603ac, 0x1603bc]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/51" }]
+
 [blob."leftover.eu-x.copy.160414"]
 type = "leftover"
 format = "copy"
@@ -19871,6 +20303,15 @@ state = "decoded"
 stored_size = 38
 rom."eu-x" = [[0x160414, 0x16043a]]
 evidence = [{ artifact = "receiptE1.json", sha256 = "c907351b20182c29b114ae2673af10099d13c4efa12c9300d4ee9b3ce8fec4d8", pointer = "/rows/4" }]
+
+[blob."stale-data.eu-x.copy.160448"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 36
+rom."eu-x" = [[0x160448, 0x16046c]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/7" }]
 
 [blob."leftover.eu-x.copy.16046c"]
 type = "leftover"
@@ -19917,6 +20358,15 @@ stored_size = 1055
 rom."eu-x" = [[0x163ecd, 0x1642ec]]
 evidence = [{ artifact = "receiptE2.json", sha256 = "c8af971365701715b29da0d3a8de4ce7f771c734ab40d486ec960f04c57ce86b", pointer = "/rows/3" }]
 
+[blob."stale-data.eu-x.copy.1642f4"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 36
+rom."eu-x" = [[0x1642f4, 0x164318]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/8" }]
+
 [blob."leftover.eu-x.copy.164318"]
 type = "leftover"
 format = "copy"
@@ -19952,6 +20402,15 @@ state = "decoded"
 stored_size = 1059
 rom."eu-x" = [[0x167ced, 0x168110]]
 evidence = [{ artifact = "receiptE1.json", sha256 = "c907351b20182c29b114ae2673af10099d13c4efa12c9300d4ee9b3ce8fec4d8", pointer = "/rows/5" }]
+
+[blob."stale-data.eu-x.copy.168110"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 32
+rom."eu-x" = [[0x168110, 0x168130]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/9" }]
 
 [blob."leftover.eu-x.copy.1bd4ac"]
 type = "leftover"
@@ -31789,6 +32248,15 @@ state = "decoded"
 stored_size = 132
 rom."eu" = [[0x159c6c, 0x159c70]]
 evidence = [{ artifact = "stale-eu.json", sha256 = "df2aea21a816498f817b1fab2201337d0bfe5d8ffe8b392a05caa6ed03015d21", pointer = "/rows/89" }]
+
+[blob."stale-data.eu.copy.159dc3"]
+type = "stale-data"
+format = "copy"
+codec = "none"
+state = "decoded"
+stored_size = 13
+rom."eu" = [[0x159dc3, 0x159dd0]]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "1078e26a8dd1b8226e29d607baef7c04bf26ec449d88240ed55bd44d1ab21a7a", pointer = "/rows/0" }]
 
 [blob."leftover.eu.copy.159e5f"]
 type = "leftover"
@@ -55308,15 +55776,6 @@ stored_size = 1
 rom."eu" = [[0x1599b8, 0x1599b9]]
 evidence = [{ artifact = "pad-sliver-receipt.json", sha256 = "1bcca6dfe3e1c91628983eee75b7b21b819c80ff7e1352a927385f5ace6d9477", pointer = "/eu" }]
 
-[blob."pad.eu.stale-de-b"]
-type = "fill"
-format = "pad"
-state = "decoded"
-limit = 512
-stored_size = 10
-rom."eu" = [[0x15f5c0, 0x15f5c1], [0x15f660, 0x15f661], [0x15f7a0, 0x15f7a1], [0x15f7e0, 0x15f7e1], [0x15f830, 0x15f831], [0x15f860, 0x15f861], [0x15f880, 0x15f881], [0x15fa34, 0x15fa35], [0x15fa64, 0x15fa65], [0x15fad4, 0x15fad5]]
-evidence = [{ artifact = "pad-stale-de-b-receipt.json", sha256 = "caa3ca8b2e7d0621d56c8c47bba629641d3b054b7e01146aaf0965cc65160b0d", pointer = "/eu" }]
-
 [blob."pad.us"]
 type = "fill"
 format = "pad"
@@ -59841,7 +60300,7 @@ codec = "none"
 state = "decoded"
 stored_size = 23
 rom."de" = [[0x1ff653, 0x1ff66a]]
-evidence = [{ artifact = "receipt.json", sha256 = "8d253fef6721df1dc718c47934530be92aaacf1955994e3284c5c0934bbbb25d", pointer = "/rows/0" }]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "8d253fef6721df1dc718c47934530be92aaacf1955994e3284c5c0934bbbb25d", pointer = "/rows/0" }]
 
 [blob."stale-data.de.rnc-stream.1ffffe"]
 type = "stale-data"
@@ -59850,7 +60309,7 @@ codec = "none"
 state = "decoded"
 stored_size = 2
 rom."de" = [[0x1ffffe, 0x200000]]
-evidence = [{ artifact = "receipt.json", sha256 = "8d253fef6721df1dc718c47934530be92aaacf1955994e3284c5c0934bbbb25d", pointer = "/rows/1" }]
+evidence = [{ artifact = "stale-eux-copy-receipt.json", sha256 = "8d253fef6721df1dc718c47934530be92aaacf1955994e3284c5c0934bbbb25d", pointer = "/rows/1" }]
 
 [blob."stale-data.eu-x.language-addresses.168154"]
 type = "stale-data"
