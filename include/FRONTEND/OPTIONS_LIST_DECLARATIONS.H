@@ -6,5 +6,6 @@ struct MenuListWidget;
 extern struct MenuListWidget *SmpButton_CreateListWidget(s32, s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
 extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
-extern u8 *g_optionsSecondListPrimaryLabels, *g_optionsSecondListSecondaryLabels, *g_optionsSecondListTertiaryLabels;
+extern u8 *g_optionsSecondListPrimaryLabels[1];
+extern u8 *g_optionsSecondListSecondaryLabels, *g_optionsSecondListTertiaryLabels;
 #endif

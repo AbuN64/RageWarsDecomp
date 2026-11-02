@@ -11,7 +11,7 @@ extern char *g_optionsFirstListPrimaryLabel, *g_optionsFirstListSecondaryLabel, 
 #endif
 static inline char *gameOptionsLabel(s32 index) {
 #if defined(VERSION_DE)
-switch (index) { case 3: return g_optionsSecondListPrimaryLabels; case 4: return g_optionsSecondListSecondaryLabels; case 5: return g_optionsSecondListTertiaryLabels; }
+switch (index) { case 3: return (char *)g_optionsSecondListPrimaryLabels[0]; case 4: return (char *)g_optionsSecondListSecondaryLabels; case 5: return (char *)g_optionsSecondListTertiaryLabels; }
 #else
 switch (index) { case 0: return g_toggleListClearLabel[0]; case 1: return g_optionsFirstListPrimaryLabel; case 2: return g_optionsFirstListSecondaryLabel; case 3: return g_optionsResolutionFirstChoiceLabels; case 4: return g_optionsResolutionSecondChoiceLabels; case 5: return g_optionsResolutionThirdChoiceLabels; }
 #endif

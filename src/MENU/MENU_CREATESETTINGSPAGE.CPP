@@ -40,7 +40,7 @@ s32 Menu_CreateSettingsPage(void) {
     SmpButton_SelectListEntry(g_optionsPage->twoPlayerScreenList, settings->twoPlayerScreenPreference);
     thirdList = SmpButton_CreateListWidget(83, 84);
     g_optionsPage->resolutionList = thirdList;
-    SmpButton_AppendListText(thirdList, g_optionsSecondListPrimaryLabels);
+    SmpButton_AppendListText(thirdList, g_optionsSecondListPrimaryLabels[0]);
     if (Defs_GetMemorySize() != 0x400000) {
         SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsSecondListSecondaryLabels);
         SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsSecondListTertiaryLabels);

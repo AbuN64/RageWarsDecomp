@@ -98,7 +98,7 @@ s32 Menu_OpenGameOptionsScreen(void *node) {
     SmpButton_WrapButtonWidget(890);
     secondListHandle = SmpButton_CreateListWidget(887, 888);
     g_optionsShortcutScreen->secondList = secondListHandle;
-    SmpButton_AppendListText(secondListHandle, g_optionsSecondListPrimaryLabels);
+    SmpButton_AppendListText(secondListHandle, g_optionsSecondListPrimaryLabels[0]);
     if (Defs_GetMemorySize() != 0x400000) {
         SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsSecondListSecondaryLabels);
         SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsSecondListTertiaryLabels);
