@@ -6,7 +6,6 @@ mkdir -p roms
 cp "$dir"/baserom.*.z64 roms/
 command -v unbake
 unbake setup
-unbake sync
 make check
 for d in versions/*/; do
   v=$(basename "$d")
