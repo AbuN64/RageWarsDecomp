@@ -12,6 +12,8 @@
 #include "TYPES.H"
 #include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
 #include "FRONTEND/FRONTEND_DRAWMODELPREVIEW.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView ((HudStatusShared_Settings *)&g_gameSettings)
 
 
 
@@ -24,7 +26,6 @@ extern Gfx *g_displayListCursor;
 
 extern void Preview_DrawModelPreview(struct ModelPreview *self);
 extern u8 g_profileCharacterUnlockCounts[][0x190];
-extern HudStatusShared_Settings g_gameSettings[];
 
 /* Enables character choices unlocked by active players and highlights the selected profile's unlocked characters. */
 #if defined(VERSION_DE)
@@ -128,7 +129,7 @@ extern void SmpOverlay_SetSlotValue(void *, int, int);
 
 extern void Preview_SetPreviewTransformUpdate(struct Object49C *object, s32 value);
 
-extern void SmXlate_SwitchScreen(int);
+extern void SmXlate_SwitchScreen(s32);
 
 /* Chooses a different enabled random character, updates its preview and selects an available costume. */
 
@@ -211,20 +212,20 @@ void Menu_RefreshCharacterUnlocks(void) {
                 found = found || Player_TestAchievementFlag7(g_localPlayerProfiles[j], g_frontendKeyUnlockEntries[i][0]);
             }
         }
-        if (g_gameSettings->trialKind == 0 || g_gameSettings->trialKind == 2) {
-            if (g_gameSettings->flags & 0x8000000) {
+        if (g_gameSettingsView->trialKind == 0 || g_gameSettingsView->trialKind == 2) {
+            if (g_gameSettingsView->flags & 0x8000000) {
                 found = 1;
             }
         }
         Defs_SetBitValue(bits, i, found);
     }
-    if (g_gameSettings->trialKind == 1) {
+    if (g_gameSettingsView->trialKind == 1) {
         Defs_SetBitValue(bits, 11, 0);
         Defs_SetBitValue(bits, 12, 0);
         Defs_SetBitValue(bits, 13, 0);
         Defs_SetBitValue(bits, 14, 0);
     }
-    if (g_gameSettings->trialKind == 0 || g_gameSettings->trialKind == 2) {
+    if (g_gameSettingsView->trialKind == 0 || g_gameSettingsView->trialKind == 2) {
         Defs_SetBitValue(bits, 1, 1);
     }
     for (i = 0; i < 17; i++) {
@@ -235,7 +236,7 @@ void Menu_RefreshCharacterUnlocks(void) {
                 Widget_SetWidgetFlag100(widget, 1);
                 Widget_SetWidgetFlag08(widget, 0);
             }
-        } else if (g_gameSettings->trialKind == 1 && Defs_TestBit(g_profileUnlockedTrialBits, g_frontendKeyUnlockEntries[i][0]) == 1) {
+        } else if (g_gameSettingsView->trialKind == 1 && Defs_TestBit(g_profileUnlockedTrialBits, g_frontendKeyUnlockEntries[i][0]) == 1) {
             mark = Node_FindWidgetByResourceId(widget, UNLOCK_MARK);
             Widget_SetWidgetFlag08(mark, 1);
             mark->alpha = 50;
@@ -333,7 +334,7 @@ void Menu_ApplySlotValueGfx(int player, int choice) {
         return;
     }
 
-    slot = g_gameSettings->roster;
+    slot = g_gameSettingsView->roster;
     for (i = 0; i < 8; i++) {
         slot[i].active = 0;
         if (g_characterSelectionMenu->players[i].selectionState == 3) {
@@ -342,13 +343,13 @@ void Menu_ApplySlotValueGfx(int player, int choice) {
             slot[i].m_nController = i;
             kind = Key_GetCharacterPreviewModel(g_characterSelectionMenu->players[i].kind);
             slot[i].m_nCharacter = kind;
-            if (g_gameSettings->trialKind == 1) {
+            if (g_gameSettingsView->trialKind == 1) {
                 g_profileCharacterSelections[i * 400] = kind;
             }
             slot[i].variant = (u8)g_characterSelectionMenu->players[i].choice;
         }
     }
-    SmXlate_SwitchScreen(g_gameSettings->trialKind == 1 ? 10 : 8);
+    SmXlate_SwitchScreen(g_gameSettingsView->trialKind == 1 ? 10 : 8);
 }
 
 void Menu_RandomizeCharacterPreview(s32 player) {

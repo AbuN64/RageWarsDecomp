@@ -2,11 +2,12 @@
 #include "COMMON/INTEGERSTATE1250.H"
 #include "RENDER/WEAPON_INITIALIZECHARGEANDSTARTUPCUES_DATA.H"
 #include "TYPES.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 extern void Barrel_FillDamagePacket(void *packet, s32 damageSource, s32 damage, f32 radius, s32 damageFlags, s32 shield);
 extern void Playerai_ApplyDamagePacket(void *attacker, void *damageState, void *packet);
 extern f32 g_frameElapsedTime;
-extern s32 g_gameSettings;
 
 
 
@@ -22,7 +23,7 @@ void Playerai_UpdateDelayedDamage(void *player) {
     if (previousDelay > 0.0f) {
         remainingDelay = previousDelay - g_frameElapsedTime;
         ((PlayerWeaponDelayStateView *)(player))->delayedDamageTimer = remainingDelay;
-        if ((remainingDelay <= 0.0f) && !(g_gameSettings & 1)) {
+        if ((remainingDelay <= 0.0f) && !(g_gameSettingsView & 1)) {
             Barrel_FillDamagePacket(&damage,
                           ((PlayerWeaponDelayStateView *)(player))->damageSource,
                           ((PlayerWeaponDelayStateView *)(player))->delayedDamage + 6400,

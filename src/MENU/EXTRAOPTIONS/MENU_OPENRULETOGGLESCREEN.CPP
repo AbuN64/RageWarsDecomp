@@ -3,6 +3,8 @@
 #include "COMMON/SELECTIONSCREENSTATE.H"
 #include "TYPES.H"
 #include "MENU/MENU_REFRESHEXTRAOPTIONLOCKS.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Opens the options screen: allocates its 0x3C-byte state into g_extraOptionsScreen for window window, builds
    its title, heading and the four toggle buttons 0x3B4, 0x3B1, 0x3AD and 0x3AF set from bits of
@@ -10,20 +12,18 @@
 
 extern struct OptionsOpenScreen *g_extraOptionsScreen;
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-#include "COMMON/SHARED_GAMESLOT.H"
 /* Per-language label pointer tables, indexed by the settings language byte (0x581). */
 extern u8 *g_optionsFirstChoiceLabels[];
 extern char *g_alternateSettingsControlLabels[];
 #define SETTINGS_DECL Shared_Game *settings;
-#define SETTINGS_INIT settings = &g_gameSettings;
+#define SETTINGS_INIT settings = &g_gameSettingsView;
 #define SETTINGS_FLAGS (*(s32 *) settings)
 #define LABEL0 g_optionsFirstChoiceLabels[settings->language]
 #define LABEL1 g_alternateSettingsControlLabels[settings->language]
 #else
-extern s32 g_gameSettings;
 #define SETTINGS_DECL
 #define SETTINGS_INIT
-#define SETTINGS_FLAGS g_gameSettings
+#define SETTINGS_FLAGS g_gameSettingsView
 #define LABEL0 g_toggleListClearLabel[0]
 #define LABEL1 g_toggleListSetLabel[0]
 #endif

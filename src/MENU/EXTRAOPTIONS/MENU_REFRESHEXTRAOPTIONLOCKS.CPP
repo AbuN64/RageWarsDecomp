@@ -4,6 +4,8 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "TYPES.H"
 #include "MENU/MENU_REFRESHEXTRAOPTIONLOCKS.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(struct MemoryUsageStats *)&g_gameSettings)
 extern NumberPadScreen *g_extraOptionsScreen;
 
 /* Copies the four checkboxes at 0xC to 0x18 of the screen g_extraOptionsScreen into the game flags word
@@ -14,7 +16,6 @@ extern NumberPadScreen *g_extraOptionsScreen;
 
 
 
-extern struct MemoryUsageStats g_gameSettings;
 
 extern s32 SmpButton_GetListSelection(s32 *record);
 
@@ -47,7 +48,7 @@ enum { k_extraOptionLockAtTotal12 = 941, k_extraOptionLockAtTotal14 = 943, k_ext
 
 
 
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 extern void Menu_AdvanceTextRows();
 
@@ -61,24 +62,24 @@ enum { k_keypadHiddenWidget = 939, k_keypadKeyWidgetDigit0 = 952, k_keypadKeyWid
 
 void Menu_ApplyExtraOptionFlags(void) {
     if (SmpButton_GetListSelection(g_extraOptionsScreen->buttons[0]) == 0) {
-        g_gameSettings.value &= ~0x08000000;
+        g_gameSettingsView.value &= ~0x08000000;
     } else {
-        g_gameSettings.value |= 0x08000000;
+        g_gameSettingsView.value |= 0x08000000;
     }
     if (SmpButton_GetListSelection(g_extraOptionsScreen->buttons[1]) == 0) {
-        g_gameSettings.value &= ~0x10000000;
+        g_gameSettingsView.value &= ~0x10000000;
     } else {
-        g_gameSettings.value |= 0x10000000;
+        g_gameSettingsView.value |= 0x10000000;
     }
     if (SmpButton_GetListSelection(g_extraOptionsScreen->buttons[2]) == 0) {
-        g_gameSettings.value &= ~0x8;
+        g_gameSettingsView.value &= ~0x8;
     } else {
-        g_gameSettings.value |= 0x8;
+        g_gameSettingsView.value |= 0x8;
     }
     if (SmpButton_GetListSelection(g_extraOptionsScreen->buttons[3]) == 0) {
-        g_gameSettings.value &= ~0x20000000;
+        g_gameSettingsView.value &= ~0x20000000;
     } else {
-        g_gameSettings.value |= 0x20000000;
+        g_gameSettingsView.value |= 0x20000000;
     }
 }
 

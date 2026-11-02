@@ -16,7 +16,7 @@ extern void Tsmos_InitializeEuropeanFrontend(void);
 #else
 extern void InitFrontendMenus(void);
 #endif
-extern void SmXlate_SwitchScreen(int);
+extern void SmXlate_SwitchScreen(s32);
 
 void Frontend_OpenGameplayFrontend(void) {
 

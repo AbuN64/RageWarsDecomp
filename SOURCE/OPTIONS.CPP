@@ -85,7 +85,7 @@ s32 Options_CreateOptionsPage(void) {
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern void Tsmos_DeactivateControllerState(void);
 extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
@@ -209,8 +209,8 @@ s32 Options_OpenOptionsScreen(void *node) {
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;
-extern void *Cache_AllocateMemory(s32);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern struct Record *Cache_AllocateMemory(s32 size);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern s32 Defs_GetMemorySize(void);
 extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
@@ -221,5 +221,5 @@ extern void SmpSlider_SetSliderItem(Scroll *, s32);
 extern s32 ScenarioSetup_IsCupSelected(void);
 extern void Tsmos_DeactivateControllerState(void);
 extern void Frontend_InitMenuImage(Shared_OptionsScreen *, s32, s32, s32, s32);
-extern void Frontend_StartMenuImageTransition(Shared_OptionsScreen *);
+extern void Frontend_StartMenuImageTransition(s32 *record);
 #endif

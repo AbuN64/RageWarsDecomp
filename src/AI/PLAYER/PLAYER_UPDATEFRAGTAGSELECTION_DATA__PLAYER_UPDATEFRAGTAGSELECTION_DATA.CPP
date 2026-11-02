@@ -12,6 +12,8 @@
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+extern FragTagMatchRulesView g_gameSettingsView __asm__("g_gameSettings");
 
 extern void Playerai_ApplyPeriodicDamage(s32 player, s32 unused, s32 period, s32 kind);
 
@@ -28,7 +30,6 @@ extern f32 g_frameElapsedTime;
 
 
 
-extern FragTagMatchRulesView g_gameSettings;
 
 extern Course *g_currentStagePreset;
 
@@ -110,11 +111,11 @@ void Playerai_UpdateCountdown(void *player) {
 void Playerai_InitializeLivesAndRespawn(PlayerFragTagSelectionView *player) {
     short state;
 
-    if (g_gameSettings.started != 0) {
-        if (g_gameSettings.mode == 1 && player->isBot == 0) {
+    if (g_gameSettingsView.started != 0) {
+        if (g_gameSettingsView.mode == 1 && player->isBot == 0) {
             player->lives = (unsigned char)Player_GetLevelProgress(g_localPlayerProfiles[player->character], player->info->characterKind) / 2 + 1;
         }
-        if (g_gameSettings.mode == 4 && player->isBot == 0 && g_currentStagePreset != 0) {
+        if (g_gameSettingsView.mode == 4 && player->isBot == 0 && g_currentStagePreset != 0) {
             player->lives = g_currentStagePreset->laps;
         }
         state = 1;

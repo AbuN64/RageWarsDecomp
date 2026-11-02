@@ -34,7 +34,7 @@ extern void SetN64_ResetSessionPlayerPools(void *session, s32 count, s32 force_a
 
 extern void Scene_LoadLevelResources(void *, s32, s32);
 
-extern void SmXlate_SwitchScreen(s32 index);
+extern void SmXlate_SwitchScreen(s32);
 
 
 /* Cinema_SetResponse_Setn64Drawmode4backdrop: types.abi.declared: reuse existing C; propagated semantic conflicts remain named */

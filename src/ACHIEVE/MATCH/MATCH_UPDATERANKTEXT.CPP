@@ -5,6 +5,8 @@
 
 
 #include "TYPES.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(Settings *)&g_gameSettings)
 typedef struct AchieveRecord { u8 pad0[0x78]; u8 active; u8 pad79[0x18]; u8 team; u8 pad92[4]; } AchieveRecord;
 extern u8 g_profileAchievementProgressRows[][0x96];
 extern s32 g_profileAchievementCountRows[][100];
@@ -14,7 +16,6 @@ extern s8 g_matchAchievementQualificationFlagB;
 extern AchieveRecord g_playerSettings[];
 extern s32 g_playerCountedShots[];
 typedef struct { s8 pad[0x24]; s8 a; s8 b; } Settings;
-extern Settings g_gameSettings;
 /* Increment the capped player match count and eligible level count. */
 void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
     s32 count;
@@ -54,7 +55,7 @@ void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
         result = eligible;
     }
     if (result == 1) {
-        cfg = &g_gameSettings;
+        cfg = &g_gameSettingsView;
         if (cfg->a >= 10 || cfg->b >= 10) {
             value = g_profileAchievementCounters[counterIndex + playerIndex * 400] + 1;
             if (value >= 6) {

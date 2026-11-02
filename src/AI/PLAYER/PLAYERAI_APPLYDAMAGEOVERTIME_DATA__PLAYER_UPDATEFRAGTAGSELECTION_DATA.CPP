@@ -8,6 +8,8 @@
 #include "COMMON/RESOURCELOADSTATE.H"
 #include "COMMON/VIEWFLAGS.H"
 #include "GFX/TEXT/PLAYERAI_APPLYDAMAGEOVERTIME_DATA.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Drains a player's ammunition over time: unless Cinema_IsSequenceActive reports a pause, Playerai_IsRoundEndState blocks
    the player, g_worldFrozenFlag is set, bit 1 of g_gameSettings is set or the player's state is below 2, it
@@ -15,7 +17,6 @@
    only kind 0x20 while the value at 0x670 is positive, and on each wrap takes one from each of the
    three slot counts at 0x5F4 without going below zero. Written from its own assembly with early
    returns and a clamp-at-zero decrement. */
-extern s32 g_gameSettings;
 
 
 
@@ -39,7 +40,7 @@ void Playerai_ApplyPeriodicDamage(void *player, s32 unused, s32 period, s32 kind
     if (g_world.frozen != 0) {
         return;
     }
-    if (g_gameSettings & 1) {
+    if (g_gameSettingsView & 1) {
         return;
     }
     if ((u16)(((SharedPlayer *)(player))->views5E8.view650_15.actionState) < 2) {

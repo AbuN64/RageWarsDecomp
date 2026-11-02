@@ -54,7 +54,7 @@ extern void Tsmos_ActivateControllerState(void);
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern s32 Defs_TestBit(void *bitArray, s32 index);
 extern void Widget_SetWidgetFlag100(void *, s32);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void SmpButton_WrapButtonWidget(s32);
 extern void Focus_AdvanceActiveSlot(int *);
 extern s32 Control_IsControllerConnected(s32);

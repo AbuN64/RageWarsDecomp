@@ -8,7 +8,7 @@ extern void *SmpOverlay_CreateOverlayNode(s32, s32);
 extern void SmpOverlay_ShowSlotById(s32, s32, s32);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern s32 Menu_GetPreviousScreenOwner(s32);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void *Join_CountUsedSlots(void);
 extern void Tsmos_ActivateControllerState(void);
 extern void Join_UpdateJoinRequestDisplay(s32);

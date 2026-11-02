@@ -11,6 +11,8 @@
 #include "COMMON/STATERECAT91.H"
 #include "TYPES.H"
 #include "ACHIEVE/achieve_match_setup.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(MatchMenuApplySlotValueGfx *)&g_gameSettings)
 
 /* Copies a player's enabled options into its option list: unless the player's info (at 0x5D8) is
    locked (byte 0x91 is 1) or absent (byte 0x78 is 0), each of the 22 option flags at 0x4C that is 1
@@ -60,7 +62,6 @@ void Achieve_EnableLevelWeapons(WeaponPlayer *player) {
 }
 
 #include "COMMON/CHARACTERSELECTIONROOT.H"
-extern MatchMenuApplySlotValueGfx g_gameSettings;
 
 s32 Achieve_MatchQualifies(void) {
     MatchMenuApplySlotValueGfx *match;
@@ -69,14 +70,14 @@ s32 Achieve_MatchQualifies(void) {
     s32 result;
     RosterSlot *slot;
 
-    match = &g_gameSettings;
+    match = &g_gameSettingsView;
     if (match->matchQualifierFirst <= 0 && match->matchQualifierSecond <= 0) {
         return 0;
     }
     result = 1;
     count = 0;
     for (i = 0; i < 8; i++) {
-        slot = &g_gameSettings.slots[i];
+        slot = &g_gameSettingsView.slots[i];
         if (slot->active == 1 && slot->m_IsBot != slot->active && g_playerCountedShots[i] >= 76) {
             count++;
         }

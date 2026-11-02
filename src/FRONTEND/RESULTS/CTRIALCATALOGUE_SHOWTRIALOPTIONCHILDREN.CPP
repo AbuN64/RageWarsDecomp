@@ -15,6 +15,8 @@
 #include "FRONTEND/CTRIALCATALOGUE_SHOWTRIALOPTIONCHILDREN.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView ((u8 *)&g_gameSettings)
 
 extern ResultsOptionsScreen *g_trialCatalogueScreen;
 
@@ -24,7 +26,7 @@ extern ResultsOptionsScreen *g_trialCatalogueScreen;
    its own pointer, as the cartridge's strength-reduced dispatch does. */
 
 
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 #if defined(VERSION_DE)
 enum { RESULTS_OPTION_329 = 327, RESULTS_OPTION_331 = 329, RESULTS_OPTION_332 = 330, RESULTS_OPTION_333 = 331, RESULTS_OPTION_334 = 332, RESULTS_OPTION_335 = 333 };
@@ -66,7 +68,6 @@ extern void Tsmos_ActivateControllerState(void);
 
 
 
-extern u8 g_gameSettings[];
 
 extern s32 Defs_TestBit(void *bitArray, s32 index);
 
@@ -211,7 +212,7 @@ s32 CTrialCatalogue_SelectNeighborTwo(void *parent, s32 unused1, s32 unused2, s3
     g_trialCatalogueScreen->selection = next;
     g_trialCatalogueScreen->window = Node_FindWidgetByResourceId(parent, entryWindowKey(next));
     Results_RefreshTrialSelectionLabel();
-    options = g_gameSettings;
+    options = g_gameSettingsView;
     if (options[13] != 2) {
         Results_ShowTrialPreviewBanner();
         g_trialCatalogueScreen->frames = 0;
@@ -249,7 +250,7 @@ s32 CTrialCatalogue_SelectNeighborThree(void *parent, s32 unused1, s32 unused2, 
     g_trialCatalogueScreen->selection = next;
     g_trialCatalogueScreen->window = Node_FindWidgetByResourceId(parent, entryWindowKey(next));
     Results_RefreshTrialSelectionLabel();
-    options = g_gameSettings;
+    options = g_gameSettingsView;
     if (options[13] != 2) {
         Results_ShowTrialPreviewBanner();
         g_trialCatalogueScreen->frames = 0;
@@ -287,7 +288,7 @@ s32 CTrialCatalogue_SelectNeighborOne(void *parent, s32 unused1, s32 unused2, s3
     g_trialCatalogueScreen->selection = next;
     g_trialCatalogueScreen->window = Node_FindWidgetByResourceId(parent, entryWindowKey(next));
     Results_RefreshTrialSelectionLabel();
-    options = g_gameSettings;
+    options = g_gameSettingsView;
     if (options[13] != 2) {
         Results_ShowTrialPreviewBanner();
         g_trialCatalogueScreen->frames = 0;
@@ -325,7 +326,7 @@ s32 CTrialCatalogue_SelectNeighborZero(void *parent, s32 unused1, s32 unused2, s
     g_trialCatalogueScreen->selection = next;
     g_trialCatalogueScreen->window = Node_FindWidgetByResourceId(parent, entryWindowKey(next));
     Results_RefreshTrialSelectionLabel();
-    options = g_gameSettings;
+    options = g_gameSettingsView;
     if (options[13] != 2) {
         Results_ShowTrialPreviewBanner();
         g_trialCatalogueScreen->frames = 0;

@@ -3,6 +3,8 @@
 #include "COMMON/CHEATCODE.H"
 #include "TYPES.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+extern struct IntPair g_gameSettingsView __asm__("g_gameSettings");
 
 /* Checks the entered code g_encodedCheatCode against the twelve cheat codes of g_encodedCheatDefinitions (each stored with
    every character xored with its index): for each one that matches, ors its flags into the cheat word of g_gameSettings,
@@ -14,7 +16,6 @@ extern CheatCode g_encodedCheatDefinitions[];
 extern u8 g_encodedCheatCode[];
 
 
-extern struct IntPair g_gameSettings;
 
 extern u32 g_encodedCheatCharacterIndex;
 
@@ -50,8 +51,8 @@ s32 Encoded_ApplyCheatCode(void)
             }
         }
         if (match) {
-            g_gameSettings.second |= g_encodedCheatDefinitions[i].flags;
-            settings = &g_gameSettings;
+            g_gameSettingsView.second |= g_encodedCheatDefinitions[i].flags;
+            settings = &g_gameSettingsView;
             do {
                 g_persistedOptionUnlockFlags = settings->second;
             } while (0);

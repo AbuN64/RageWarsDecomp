@@ -152,7 +152,7 @@ s32 Menu_CreateSessionSettingsControls(void) {
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
 extern void Frontend_StartMenuImageTransition(s32 *record);

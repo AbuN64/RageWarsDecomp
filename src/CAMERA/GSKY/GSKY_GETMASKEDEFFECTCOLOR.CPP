@@ -2,12 +2,13 @@
 #include "CAMERA/FADE_AND_COLOR_BLEND_VIEWS.H"
 #include "TYPES.H"
 #include "CAMERA/GSKY.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
-extern s32 g_gameSettings;
 
 
 void Gsky_GetMaskedEffectColor(ThreeChannels *threeChannels, s8 *red, s8 *green, s8 *blue) {
-    if (g_gameSettings & 0x4000) {
+    if (g_gameSettingsView & 0x4000) {
         *red = 0;
         *green = 0;
         *blue = 0;

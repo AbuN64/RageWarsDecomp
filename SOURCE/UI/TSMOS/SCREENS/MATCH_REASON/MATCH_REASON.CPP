@@ -24,7 +24,7 @@
 
 extern MatchScoreScreen *g_matchResultBadgeScreen;
 extern Shared_Rec3 g_playerSettings[8];
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 /* Calls InitFrontendMenus and Tsmos_DeactivateControllerState, then SmXlate_SwitchScreen with 0x11. */
 #if defined(VERSION_EU)

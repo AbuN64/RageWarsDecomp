@@ -21,13 +21,14 @@ struct Shared_AnimInfo;
 
 extern Gfx *g_displayListCursor;
 #include "COMMON/DISPLAY.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 extern f32 g_frameElapsedTime;
 extern s32 g_lightingBufferIndex;
 extern char g_defaultProbeMotionSettings;
 extern s32 g_playerWeaponClassMode;
 extern GlobalsMenuSetOptionsSceneSelection g_gameplayCameraList;
 
-extern s32 g_gameSettings;
 
 extern char g_particleSpriteVertices;
 
@@ -270,9 +271,9 @@ void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view) {
     } else if ((desc->flags & 0x400) && desc->fade->modeSelector != 4) {
         Geometry_SetModePreset(15);
     } else if (desc->flags & 0x4000) {
-        Geometry_SetModePreset(!(g_gameSettings & 0x200) ? 13 : 17);
+        Geometry_SetModePreset(!(g_gameSettingsView & 0x200) ? 13 : 17);
     } else {
-        Geometry_SetModePreset((g_gameSettings & 0x200) ? 18 : 19);
+        Geometry_SetModePreset((g_gameSettingsView & 0x200) ? 18 : 19);
     }
 
     alpha = 0xFF;

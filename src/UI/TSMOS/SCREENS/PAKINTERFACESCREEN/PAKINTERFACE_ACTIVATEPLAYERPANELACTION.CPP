@@ -26,7 +26,7 @@ extern void SmpOverlay_SetSlotValue(s32, s32, s32);
 extern void PAKInterface_RefreshPlayerPanel(s32);
 extern s32 PAKInterface_CheckRecordsNoteCapacity(void *slot, s32 *out);
 extern s32 PAKInterface_SavePlayerRecords(s32);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 extern s32 Note_DeleteNote(s32, s32);
 

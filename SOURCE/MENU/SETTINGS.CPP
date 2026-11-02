@@ -11,7 +11,7 @@
 #include "COMMON/OWNERRECAT8V1.H"
 #include "COMMON/MENU_OPTIONS_AND_RESULTS.H"
 #include "TYPES.H"
-extern void *Cache_AllocateMemory(s32);
+extern struct Record *Cache_AllocateMemory(s32 size);
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);
 #endif
 #if defined(VERSION_DE)

@@ -5,6 +5,8 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/SELECTIONSCREENSTATE.H"
 #include "UI/TSMOS/SCREENS/PAKINTERFACESCREEN.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView ((u8 *)&g_gameSettings)
 
 extern char *g_pakDefaultNoteNameFixed;
 
@@ -30,14 +32,12 @@ extern void PAKInterface_ScrollNoteList(s32, s32);
 enum { PAK_RESOURCE_2D7 = 750, PAK_RESOURCE_2D8 = 749, PAK_RESOURCE_2DB = 746, PAK_RESOURCE_2DC = 745, PAK_RESOURCE_2DD = 747 };
 #elif defined(VERSION_EU)
 
-extern u8 g_gameSettings[];
 
 extern char *g_pakDefaultNoteNamesLocalized[];
 extern void *g_slotSelectionTextReferenceShared7[];
 enum { PAK_RESOURCE_2D7 = 727, PAK_RESOURCE_2D8 = 728, PAK_RESOURCE_2DB = 731, PAK_RESOURCE_2DC = 732, PAK_RESOURCE_2DD = 733 };
 #elif defined(VERSION_EU_X)
 
-extern u8 g_gameSettings[];
 
 extern char *g_pakUnnamedNoteTextsEuX[];
 extern void *g_slotSelectionTextReferenceShared6[];
@@ -74,7 +74,7 @@ void PAKInterface_LoadNoteList(s32 player)
         note_status = Note_ReadNoteInfo(player, i, &status, name, ext, &size, extra1, extra2);
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-        settings = (GameLocalizationState *)g_gameSettings;
+        settings = (GameLocalizationState *)g_gameSettingsView;
 
 #else
 #endif

@@ -11,6 +11,8 @@
 #include "WORLD/BARREL_SPAWNACTOREFFECT_DATA.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "include_asm.h"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
@@ -162,7 +164,6 @@ void **Simpinst_RequestModelVariant(void *staticObject, s32 modelVariant) {
 }
 
 
-extern s32 g_gameSettings;
 extern s32 Scene_GetModelIdAtIndex(void *world, s32 modelIndex);
 
 s32 Simpinst_SelectModelVariant(StaticObject *staticObject) {
@@ -181,10 +182,10 @@ s32 Simpinst_SelectModelVariant(StaticObject *staticObject) {
         if (index < 1705) {
             return value;
         }
-        if (g_gameSettings & 0x800) {
+        if (g_gameSettingsView & 0x800) {
             value = 1;
         }
-        if (g_gameSettings & 0x1000) {
+        if (g_gameSettingsView & 0x1000) {
             value = 2;
         }
     }

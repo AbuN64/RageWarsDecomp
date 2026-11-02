@@ -15,6 +15,8 @@
 #include "ENGINE/INSTANCE/GOBJINST.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Complete nonpadded pose records recovered from the pinned shared pose header. */
 typedef struct Shared_PoseJointRef Shared_PoseJointRef;
@@ -75,7 +77,6 @@ extern Shared_FrameProfile g_actorPoseTiming;
 
 
 
-extern s32 g_gameSettings;
 
 extern s32 Cinema_IsSequenceInWindow(void);
 struct CVector3_t; extern void Gobjinst_ApplyImpactBoneTwist(char *actor, char *twistState, char *boneMatrix, struct CVector3_t impactPosition, struct CVector3_t impactDirection, s32 hitBoneIndex);
@@ -364,7 +365,7 @@ s32 Gobjinst_BuildActorPose(Shared_PoseActor *actor, void *modelPack, s32 model)
                 f.mode = 1;
             }
             if (!(actor->flags & 0x200000) && (kind == 1 || kind == 11)) {
-                if (g_gameSettings & 0x100) {
+                if (g_gameSettingsView & 0x100) {
                     id0 = 195;
                     id1 = 199;
                     id2 = 194;
@@ -376,10 +377,10 @@ s32 Gobjinst_BuildActorPose(Shared_PoseActor *actor, void *modelPack, s32 model)
                     id3 = -1;
                 }
                 id4 = -1;
-                if (g_gameSettings & 0x20) {
+                if (g_gameSettingsView & 0x20) {
                     id4 = 1;
                 }
-                if (g_gameSettings & 0x80) {
+                if (g_gameSettingsView & 0x80) {
                     scaled = 1;
                     Graphu64_ScaleVector(&scale, &scale, 0.5f);
                 }

@@ -47,6 +47,8 @@ s32 Frontend_DispatchOptionsPageEvent(void *menuActor, s32 eventKind, s32 eventD
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 #include "FRONTEND/GAME_OPTIONS_LABELS.H"
 #include "TYPES.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(SliderSettings *)&g_gameSettings)
 
 /* Builds screen state g_gameOptionsScreenState: allocates its 0x10 bytes, registers resources (0x1BD - OPTIONS_RESOURCE_SHIFT) and (0x1C2 - OPTIONS_RESOURCE_SHIFT),
    creates list 0x1BB/0x1BC at 0x4 with the three texts gameOptionsLabel(0), gameOptionsLabel(1) and gameOptionsLabel(2) and
@@ -64,7 +66,6 @@ struct SliderScreen {
 
 extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
 typedef struct SliderSettings { char pad0[0x10]; s32 value; char pad14[7]; u8 first; char pad1C[0x564]; u8 second; } SliderSettings;
-extern SliderSettings g_gameSettings;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void SmpButton_WrapButtonWidget(s32);
 extern s32 SmpButton_CreateListWidget(s32, s32);
@@ -91,7 +92,7 @@ s32 Frontend_CreateGameOptionsScreen(void) {
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(0));
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(1));
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(2));
-    settings = &g_gameSettings;
+    settings = &g_gameSettingsView;
     SmpButton_SelectListEntry(g_gameOptionsScreenState->first_list, settings->first);
     }
     list = SmpButton_CreateListWidget((446 - OPTIONS_RESOURCE_SHIFT), (447 - OPTIONS_RESOURCE_SHIFT));
@@ -101,7 +102,7 @@ s32 Frontend_CreateGameOptionsScreen(void) {
         SmpButton_AppendListText(g_gameOptionsScreenState->second_list, gameOptionsLabel(4));
         SmpButton_AppendListText(g_gameOptionsScreenState->second_list, gameOptionsLabel(5));
     }
-    if (!OPTIONS_HAS_FIRST_LIST) settings = &g_gameSettings;
+    if (!OPTIONS_HAS_FIRST_LIST) settings = &g_gameSettingsView;
     SmpButton_SelectListEntry(g_gameOptionsScreenState->second_list, settings->second);
     slider = SmpSlider_CreateSliderWidget((448 - OPTIONS_RESOURCE_SHIFT), (449 - OPTIONS_RESOURCE_SHIFT), 128);
     g_gameOptionsScreenState->slider = slider;

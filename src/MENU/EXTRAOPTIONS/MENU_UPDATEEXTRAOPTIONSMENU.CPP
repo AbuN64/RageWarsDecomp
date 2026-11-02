@@ -14,7 +14,7 @@ extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);
    the word at offset 0x34. */
 
 
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 /* Advances the animation frame countdown and wraps exhausted frames. */
 

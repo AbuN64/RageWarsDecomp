@@ -10,6 +10,8 @@
 #include "FRONTEND/EQUIP_ACTIVATEEQUIPMENTPANEL.H"
 #include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
 #include "COMMON/PLAYERPROFILES.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(HudStatusShared_Settings *)&g_gameSettings)
 
 /* Moves player p's column cursor on the screen g_equipmentAndResultsScreen: fades the shown item of the current
    column (g_equipmentSecondaryWidgetIds[p][column]) to alpha 0x23, calls Widget_SetWidgetFlag08_EquipActivateequipmentpanel(0) on the item g_equipmentPrimaryWidgetIds[p][column]
@@ -29,7 +31,7 @@
 
 extern struct StateFlags g_equipmentPrimaryWidgetIds[][19];
 
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern FourPlayerResultsScreen *g_equipmentAndResultsScreen;
 
 
@@ -41,7 +43,6 @@ typedef struct EquipEntry {
 } EquipEntry;
 extern EquipEntry g_loadoutWeaponItems[];
 
-extern HudStatusShared_Settings g_gameSettings;
 
 
 extern s32 Player_HasProfileUnlockFlag(u8 *profileBytes, s32 unlockIndex);
@@ -155,7 +156,7 @@ void Equip_CycleEquipmentChoice(s32 player, s32 step) {
             }
             if (valid == 1 && (category == 2 || category == 3) &&
                 g_loadoutWeaponItems[value].kind == 15 &&
-                !(g_gameSettings.flags & 0x10000000) &&
+                !(g_gameSettingsView.flags & 0x10000000) &&
                 !Player_HasProfileUnlockFlag((s32)&g_localPlayerProfiles[player], 15)) {
                 value += step;
                 valid = 0;

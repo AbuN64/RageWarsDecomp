@@ -30,7 +30,7 @@ enum { SHORTCUT_RESET = 92, SHORTCUT_SIX = 82, SHORTCUT_FIVE = 85 };
 
 
 extern void MarkMenuEventHandled(void);
-extern Menu_CommitOptionsPage(void);
+extern void Menu_CommitOptionsPage(void);
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);
 
 extern s32 Menu_GetFocusedElementId(void);

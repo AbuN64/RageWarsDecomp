@@ -77,5 +77,5 @@ typedef struct { char pad0[0x14]; char *text; } PakOperationLabelItem;
 #endif
 #if defined(VERSION_EU)
 #include "COMMON/REQUESTRECAT10.H"
-extern void *Cache_AllocateMemory(s32);
+extern struct Record *Cache_AllocateMemory(s32 size);
 #endif

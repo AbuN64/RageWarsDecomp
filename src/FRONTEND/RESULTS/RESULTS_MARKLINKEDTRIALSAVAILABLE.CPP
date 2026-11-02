@@ -3,6 +3,8 @@
 #include "FRONTEND/ENTRYRECAT4D4.H"
 #include "FRONTEND/RESULTS_MARKLINKEDTRIALSAVAILABLE.H"
 #include "ACHIEVE/ACHIEVE.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(struct GameSettingsModeStatusView *)&g_gameSettings)
 
 /* Grants unowned unlocks for the completed game using its mode and player kind; an unsigned local carries the globals address before the category value to preserve register scheduling, and the default kind calls the table selector directly. */
 
@@ -14,7 +16,6 @@
 
 
 
-extern struct GameSettingsModeStatusView g_gameSettings;
 extern s8 g_activeProfileCharacterSelections[]; /* MIXED: this unit views g_gameSettings as GameSettingsModeStatusView */
 extern struct ScreenFrontendMarkLinkedTrialsAvailable *g_trialCatalogueScreen;
 extern s32 Defs_TestBit(void *bitArray, s32 index);
@@ -28,7 +29,7 @@ void Results_MarkLinkedTrialsAvailable(void *trialBits) {
     s32 value;
     s32 i;
 
-    category=(unsigned int)&g_gameSettings;
+    category=(unsigned int)&g_gameSettingsView;
     globals=(struct GameSettingsModeStatusView *)category;
     switch (globals->mode) {
     case 1:

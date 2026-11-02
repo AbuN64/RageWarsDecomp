@@ -2,8 +2,9 @@
 #include "COMMON/EFFECTRENDER.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView ((s32 *)&g_gameSettings)
 
-extern s32 g_gameSettings[];
 
 extern s32 g_selectedLevel0Label;
 
@@ -31,7 +32,7 @@ extern char *g_unlockedLevelResultLabel[];
 
 /* Toggles the bits optionMask names in the settings flag word g_gameSettings and returns 0. */
 s32 Menu_ToggleGameOptionBits(s32 unused0, s32 optionMask) {
-    s32 *flags = g_gameSettings;
+    s32 *flags = g_gameSettingsView;
 
     *flags ^= optionMask;
     return 0;

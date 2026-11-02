@@ -3,8 +3,9 @@
 #include "COMMON/RG.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "OVLGAME/SHAREDRECAT224.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+extern s32 g_gameSettingsView __asm__("g_gameSettings");
 
-extern s32 g_gameSettings;
 extern s32 g_menuOptionAvailabilityFlags;
 
 /* Updates the option item's flag bit and selects its associated text pointer. */
@@ -14,7 +15,7 @@ s32 Option_UpdateOptionBit0Item(TextBoundsText *optionItem) {
     } else {
         optionItem->flags &= 0xFEFFFFFF;
     }
-    if (g_gameSettings & 1) {
+    if (g_gameSettingsView & 1) {
         optionItem->text = &g_menuOptionBit0EnabledText;
     } else {
         optionItem->text = &g_menuOptionBit0DisabledText;
@@ -25,16 +26,16 @@ s32 Option_UpdateOptionBit0Item(TextBoundsText *optionItem) {
 
 /* Toggles bit 1 of the settings flag word g_gameSettings and returns 0. */
 s32 Option_ToggleOptionBit1(void) {
-    g_gameSettings ^= 2;
+    g_gameSettingsView ^= 2;
     return 0;
 }
 
 #if !(defined(VERSION_US_REV1))
 s32 Option_UpdateOptionBit1Item(TextBoundsText *item) {
-    extern s32 g_gameSettings, g_menuOptionAvailabilityFlags;
+    extern s32 g_menuOptionAvailabilityFlags;
     extern s32 g_menuOptionBit1EnabledText, g_menuOptionBit1DisabledText;
     if (g_menuOptionAvailabilityFlags & 2) item->flags |= 0x01000000; else item->flags &= 0xFEFFFFFF;
-    if (g_gameSettings & 2) item->text = &g_menuOptionBit1EnabledText; else item->text = &g_menuOptionBit1DisabledText;
+    if (g_gameSettingsView & 2) item->text = &g_menuOptionBit1EnabledText; else item->text = &g_menuOptionBit1DisabledText;
     return 0;
 }
 #endif
@@ -50,7 +51,7 @@ s32 Option_RefreshOptionBit1Item(struct MenuOptionLabel *optionItem) {
     } else {
         optionItem->flags &= 0xFEFFFFFF;
     }
-    if (g_gameSettings & 2) {
+    if (g_gameSettingsView & 2) {
         optionItem->text = &g_menuOptionBit1EnabledText;
     } else {
         optionItem->text = &g_menuOptionBit1DisabledText;
@@ -63,7 +64,7 @@ s32 Option_RefreshOptionBit1Item(struct MenuOptionLabel *optionItem) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit2(void) {
-    g_gameSettings ^= 4;
+    g_gameSettingsView ^= 4;
     return 0;
 }
 
@@ -79,7 +80,7 @@ s32 Option_UpdateOptionBit2Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x4) {
+    if (g_gameSettingsView & 0x4) {
         item->label = g_menuOptionBit2EnabledText;
     } else {
         item->label = g_menuOptionBit2DisabledText;
@@ -91,7 +92,7 @@ s32 Option_UpdateOptionBit2Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit3(void) {
-    g_gameSettings ^= 8;
+    g_gameSettingsView ^= 8;
     return 0;
 }
 
@@ -107,7 +108,7 @@ s32 Option_UpdateOptionBit3Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x8) {
+    if (g_gameSettingsView & 0x8) {
         item->label = g_menuOptionBit3EnabledText;
     } else {
         item->label = g_menuOptionBit3DisabledText;
@@ -119,7 +120,7 @@ s32 Option_UpdateOptionBit3Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit4(void) {
-    g_gameSettings ^= 0x10;
+    g_gameSettingsView ^= 0x10;
     return 0;
 }
 
@@ -135,7 +136,7 @@ s32 Option_UpdateOptionBit4Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x10) {
+    if (g_gameSettingsView & 0x10) {
         item->label = g_menuOptionBit4EnabledText;
     } else {
         item->label = g_menuOptionBit4DisabledText;
@@ -147,7 +148,7 @@ s32 Option_UpdateOptionBit4Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit5(void) {
-    g_gameSettings ^= 0x20;
+    g_gameSettingsView ^= 0x20;
     return 0;
 }
 
@@ -163,7 +164,7 @@ s32 Option_UpdateOptionBit5Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x20) {
+    if (g_gameSettingsView & 0x20) {
         item->label = g_menuOptionBit5EnabledText;
     } else {
         item->label = g_menuOptionBit5DisabledText;
@@ -175,7 +176,7 @@ s32 Option_UpdateOptionBit5Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit6(void) {
-    g_gameSettings ^= 0x40;
+    g_gameSettingsView ^= 0x40;
     return 0;
 }
 
@@ -191,7 +192,7 @@ s32 Option_UpdateOptionBit6Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x40) {
+    if (g_gameSettingsView & 0x40) {
         item->label = g_menuOptionBit6EnabledText;
     } else {
         item->label = g_menuOptionBit6DisabledText;
@@ -203,7 +204,7 @@ s32 Option_UpdateOptionBit6Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit7(void) {
-    g_gameSettings ^= 0x80;
+    g_gameSettingsView ^= 0x80;
     return 0;
 }
 
@@ -219,7 +220,7 @@ s32 Option_UpdateOptionBit7Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x80) {
+    if (g_gameSettingsView & 0x80) {
         item->label = g_menuOptionBit7EnabledText;
     } else {
         item->label = g_menuOptionBit7DisabledText;
@@ -231,7 +232,7 @@ s32 Option_UpdateOptionBit7Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit8(void) {
-    g_gameSettings ^= 0x100;
+    g_gameSettingsView ^= 0x100;
     return 0;
 }
 
@@ -247,7 +248,7 @@ s32 Option_UpdateOptionBit8Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x100) {
+    if (g_gameSettingsView & 0x100) {
         item->label = g_menuOptionBit8EnabledText;
     } else {
         item->label = g_menuOptionBit8DisabledText;
@@ -259,7 +260,7 @@ s32 Option_UpdateOptionBit8Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit9(void) {
-    g_gameSettings ^= 0x200;
+    g_gameSettingsView ^= 0x200;
     return 0;
 }
 
@@ -275,7 +276,7 @@ s32 Option_UpdateOptionBit9Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x200) {
+    if (g_gameSettingsView & 0x200) {
         item->label = g_menuOptionBit9EnabledText;
     } else {
         item->label = g_menuOptionBit9DisabledText;
@@ -287,7 +288,7 @@ s32 Option_UpdateOptionBit9Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit10(void) {
-    g_gameSettings ^= 0x400;
+    g_gameSettingsView ^= 0x400;
     return 0;
 }
 
@@ -303,7 +304,7 @@ s32 Option_UpdateOptionBit10Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x400) {
+    if (g_gameSettingsView & 0x400) {
         item->label = g_menuOptionBit10EnabledText;
     } else {
         item->label = g_menuOptionBit10DisabledText;
@@ -315,7 +316,7 @@ s32 Option_UpdateOptionBit10Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit11(void) {
-    g_gameSettings ^= 0x800;
+    g_gameSettingsView ^= 0x800;
     return 0;
 }
 
@@ -331,7 +332,7 @@ s32 Option_UpdateOptionBit11Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x800) {
+    if (g_gameSettingsView & 0x800) {
         item->label = g_menuOptionBit11EnabledText;
     } else {
         item->label = g_menuOptionBit11DisabledText;
@@ -343,7 +344,7 @@ s32 Option_UpdateOptionBit11Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit12(void) {
-    g_gameSettings ^= 0x1000;
+    g_gameSettingsView ^= 0x1000;
     return 0;
 }
 
@@ -359,7 +360,7 @@ s32 Option_UpdateOptionBit12Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x1000) {
+    if (g_gameSettingsView & 0x1000) {
         item->label = g_menuOptionBit12EnabledText;
     } else {
         item->label = g_menuOptionBit12DisabledText;
@@ -371,7 +372,7 @@ s32 Option_UpdateOptionBit12Item(struct MenuOptionLabelView *item) {
    run each toggle the next bit. */
 
 s32 Option_ToggleOptionBit13(void) {
-    g_gameSettings ^= 0x2000;
+    g_gameSettingsView ^= 0x2000;
     return 0;
 }
 
@@ -387,7 +388,7 @@ s32 Option_UpdateOptionBit13Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x2000) {
+    if (g_gameSettingsView & 0x2000) {
         item->label = g_menuOptionBit13EnabledText;
     } else {
         item->label = g_menuOptionBit13DisabledText;
@@ -399,7 +400,7 @@ s32 Option_UpdateOptionBit13Item(struct MenuOptionLabelView *item) {
    functions that each toggle one bit of that word. */
 
 s32 Option_ToggleOptionBit14(void) {
-    g_gameSettings ^= 0x4000;
+    g_gameSettingsView ^= 0x4000;
     return 0;
 }
 
@@ -415,7 +416,7 @@ s32 Option_UpdateOptionBit14Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x4000) {
+    if (g_gameSettingsView & 0x4000) {
         item->label = g_menuOptionBit14EnabledText;
     } else {
         item->label = g_menuOptionBit14DisabledText;
@@ -427,7 +428,7 @@ s32 Option_UpdateOptionBit14Item(struct MenuOptionLabelView *item) {
    functions that each toggle one bit of that word. */
 
 s32 Option_ToggleOptionBit15(void) {
-    g_gameSettings ^= 0x8000;
+    g_gameSettingsView ^= 0x8000;
     return 0;
 }
 
@@ -443,7 +444,7 @@ s32 Option_UpdateOptionBit15Item(struct MenuOptionLabelView *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings & 0x8000) {
+    if (g_gameSettingsView & 0x8000) {
         item->label = g_menuOptionBit15EnabledText;
     } else {
         item->label = g_menuOptionBit15DisabledText;

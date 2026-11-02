@@ -89,7 +89,7 @@ extern s8 g_profileSlotIndices[], g_profileSlotEnabledFlags[];
 
 extern void Frontend_InitMenuImage(s32 *, s32, s32, s32, s32);
 
-extern void Frontend_StartMenuImageTransition(s32 *);
+extern void Frontend_StartMenuImageTransition(s32 *record);
 
 extern void Frontend_AccumulatePlayerStatistics(void);
 

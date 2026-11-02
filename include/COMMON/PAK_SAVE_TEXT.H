@@ -1,15 +1,15 @@
 #ifndef COMMON_PAK_SAVE_TEXT_H
 #define COMMON_PAK_SAVE_TEXT_H
 #include "COMMON/ITEMRECAT20V1.H"
+#include "COMMON/SHARED_GAMESLOT.H"
 /* Localized Controller Pak note metadata and result dialog resources. */
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-extern struct MenuSettings g_gameSettings;
 extern char *g_pakProfileGameNames[], *g_pakSnapshotGameNames[], *g_pakLegacySnapshotGameNames[];
 extern char g_pakNoSpaceDialogEu[], g_pakSaveSuccessDialogEu[], g_pakSaveErrorDialogEu[];
 static __inline__ char *rw_pak_save_name(void) { return g_pakProfileGameNames[g_gameSettings.language]; }
 /* Note titles are indexed through the menu settings view, the game code straight from its table:
  * both shapes are what the PAL save code compiles from (Snapshot_SaveControllerRecord, Snapshot_SaveSnapshotAndClose). */
-static __inline__ struct MenuSettings *rw_pak_settings(void) { return &g_gameSettings; }
+static __inline__ Shared_Game *rw_pak_settings(void) { return &g_gameSettings; }
 #define RW_PAK_RECORD_TITLE (g_pakProfileGameNames[rw_pak_settings()->language])
 #define RW_PAK_SNAPSHOT_TITLE (g_pakSnapshotGameNames[rw_pak_settings()->language])
 #define RW_PAK_GAME_CODE (g_pakLegacySnapshotGameNames[g_gameSettings.language])

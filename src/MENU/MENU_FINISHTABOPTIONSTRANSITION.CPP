@@ -29,7 +29,7 @@ extern struct Shared_OptionsScreen *g_optionsShortcutScreen;
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
 extern void Frontend_DrawMenuImage(struct MenuImage *menu);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Track_RequestTrackByKey(s32);
 extern void MarkMenuEventHandled(void);
 

@@ -2,6 +2,8 @@
 #include "FRONTEND/PAKMENU.H"
 #include "TYPES.H"
 #include "UI/TSMOS/SCREENS/PAKINTERFACESCREEN.H"
+#include "COMMON/SHARED_GAMESLOT.H"
+#define g_gameSettingsView (*(MatchSetupGlobals *)&g_gameSettings)
 
 /* Labels player p's roster rows: for each of the four 400-byte records of g_localPlayerProfiles whose byte
    0xE is clear and whose owner byte 0xD is p, when the matching 150-byte status record at 0xD0 of
@@ -12,7 +14,6 @@
 extern u8 g_localPlayerProfiles[];
 extern s8 g_profileSlotIndices[];
 extern s8 g_profileSlotEnabledFlags[];
-extern struct MatchSetupGlobals g_gameSettings;
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 void PAKInterface_LabelActiveProfileRows(s32 player) {
     struct MatchSetupGlobals *globals;
@@ -20,7 +21,7 @@ void PAKInterface_LabelActiveProfileRows(s32 player) {
     s32 id;
     s32 i;
     row = 0;
-    globals = &g_gameSettings;
+    globals = &g_gameSettingsView;
     for (i = 0; i < 4; i++) {
         switch (row) {
         case 0:

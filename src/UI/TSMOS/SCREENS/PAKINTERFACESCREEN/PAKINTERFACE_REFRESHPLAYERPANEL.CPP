@@ -70,7 +70,7 @@ void PAKInterface_LoadNoteList(s32);
 void PAKInterface_LabelActiveProfileRows(s32);
 s32 PAKInterface_CountPendingPlayerPanels(void);
 void PAKInterface_BeginScreenExit(s32);
-void Frontend_StartMenuImageTransition(s32 *);
+void Frontend_StartMenuImageTransition(s32 *record);
 void PAKInterface_UpdatePlayerControlRows(s32);                    /* extern */
 
 

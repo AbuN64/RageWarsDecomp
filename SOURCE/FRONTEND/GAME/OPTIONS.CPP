@@ -12,7 +12,7 @@
 #include "TYPES.H"
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 #include "COMMON/SHARED_GAMESLOT.H"
-extern void *Cache_AllocateMemory(s32);
+extern struct Record *Cache_AllocateMemory(s32 size);
 extern s32 Defs_GetMemorySize(void);
 extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
@@ -23,11 +23,11 @@ extern void SmpSlider_SetSliderItem(Scroll *, s32);
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern void Tsmos_DeactivateControllerState(void);
 extern void Frontend_InitMenuImage(Shared_OptionsScreen *, s32, s32, s32, s32);
-extern void Frontend_StartMenuImageTransition(Shared_OptionsScreen *);
+extern void Frontend_StartMenuImageTransition(s32 *record);
 #endif
 #if defined(VERSION_DE)
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
@@ -42,7 +42,7 @@ extern u8 *g_optionsSecondListPrimaryLabels[1];
 extern u8 *g_optionsSecondListSecondaryLabels;
 extern u8 *g_optionsSecondListTertiaryLabels;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern s32 Defs_GetMemorySize(void);
 extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);

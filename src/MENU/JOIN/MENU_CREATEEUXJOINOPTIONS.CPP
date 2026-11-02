@@ -9,7 +9,7 @@ extern struct Record *Cache_AllocateMemory(s32 size);
 extern s32 SmpOverlay_CreateOverlayNode(void *, s32);
 extern void SmpOverlay_ShowSlotById(void *, s32, s32);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
-extern void Widget_SetWidgetFlag08(void *, s32);
+extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Menu_GetPreviousScreenOwner(s32);
 extern s32 Join_CountUsedSlots(void);
 extern void Join_UpdateJoinRequestDisplay(s32);
