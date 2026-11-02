@@ -53,13 +53,13 @@ void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
         g_joinRequestEntries[i].variantC = tier;
         do {
             pick = Graphu64_NextRandom() % 17;
-            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].first;
+            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
             name = g_joinRequestEntries[i].name;
             game = &g_gameSettings;
-            XPlus_CopyString(name, ((char **)g_rewardItemTiers[tier][pick].second)[game->language]);
+            XPlus_CopyString(name, g_rewardItemTiers[tier][pick].text[game->language]);
 #else
-            XPlus_CopyString(g_joinRequestEntries[i].name, *(char **)g_rewardItemTiers[tier][pick].second);
+            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
 #endif
         } while (g_joinRequestEntries[i].id == -1);
     }
@@ -73,23 +73,12 @@ void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
    in g_joinRequestEntries's 0x1C-byte records and draws random tier items from the seventeen per tier in
    g_rewardItemTiers, copying the item's name, until it gets one that exists. */
 #include "TYPES.H"
-
-typedef struct {
-    s32 id;
-    char **name;
-} Prize;
-
-typedef struct {
-    s32 id;
-    s32 tier;
-    s32 mode;
-    s32 shown;
-    char name[12];
-} Reward;
+#include "COMMON/ITEMRECAT20V1.H"
+#include "COMMON/REQUESTRECAT10.H"
 
 extern s32 g_rewardScoreBudgets[];
-extern Prize g_rewardItemTiers[][17];
-extern Reward g_joinRequestEntries[];
+extern struct TextEntry g_rewardItemTiers[][17];
+extern struct PlayerJoinRequestEntry g_joinRequestEntries[3];
 
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
 
@@ -134,13 +123,13 @@ void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
     }
     for (i = 0; i < count; i++) {
         tier = points[i] / 10;
-        g_joinRequestEntries[i].mode = 4;
-        g_joinRequestEntries[i].tier = tier;
-        g_joinRequestEntries[i].shown = tier;
+        g_joinRequestEntries[i].word8 = 4;
+        g_joinRequestEntries[i].variant = tier;
+        g_joinRequestEntries[i].variantC = tier;
         do {
             pick = Graphu64_NextRandom() % 17;
             g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
-            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].name);
+            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
         } while (g_joinRequestEntries[i].id == -1);
     }
 }

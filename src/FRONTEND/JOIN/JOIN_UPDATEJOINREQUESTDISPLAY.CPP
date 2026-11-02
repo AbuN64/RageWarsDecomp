@@ -8,7 +8,6 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 
-extern void *g_courseOptionsScreen;
 extern struct TextEntry g_rewardItemTiers[][17];
 extern u8 *XPlus_CopyString(u8 *, u8 *);
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
@@ -32,7 +31,7 @@ void Join_UpdateJoinRequestDisplay(s32 index) {
     void *widgetObject;
     void *variantObject;
     char ***variantSlot;
-    screen = g_courseOptionsScreen;
+    screen = (RequestDrawScreen *)g_courseOptionsScreen;
     window = screen->roots[index];
     if (screen->count < index || g_joinRequestEntries[index].id < 0) {
         Widget_SetWidgetFlag08(window, 0);

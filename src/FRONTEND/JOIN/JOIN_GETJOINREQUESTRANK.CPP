@@ -8,7 +8,7 @@
 
 
 
-extern InstanceHdr g_rewardScoreBudgets[];
+extern InstanceHdr g_rewardScoreBudgetRows[] asm("g_rewardScoreBudgets");
 
 static inline s32 entryScore(void) {
     s32 score;
@@ -63,7 +63,7 @@ s32 Join_GetJoinRequestRank(void) {
         return 0;
     }
     for (i = 0; i < 5; i++) {
-        if (g_rewardScoreBudgets[i].w[count - 1] >= score) {
+        if (g_rewardScoreBudgetRows[i].w[count - 1] >= score) {
             rank = i;
             break;
         }

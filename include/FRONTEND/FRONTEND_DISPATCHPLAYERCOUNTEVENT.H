@@ -7,5 +7,6 @@ typedef struct SettingsScreenState {
     char text[12]; /* 0x14 */
     s32 count; /* 0x20, also the counter value */
 } SettingsScreenState;
+extern SettingsScreenState *g_playerCountScreen;
 extern s32 Frontend_DispatchPlayerCountEvent(void *eventTarget, s32 eventId, s32 eventCode, s32 eventValue, s32 repeatCount);
 #endif

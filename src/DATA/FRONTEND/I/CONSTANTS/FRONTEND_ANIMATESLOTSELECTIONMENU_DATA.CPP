@@ -30,7 +30,7 @@ extern char g_slotSelectionTextReferenceEuX6[];
 extern char g_slotSelectionTextReferenceEuX7[];
 extern char g_slotSelectionTextReferenceEuX8[];
 extern char g_slotSelectionTextReferenceEuX9[];
-extern char g_slotSelectionTextReferenceShared1[];
+extern void *g_slotSelectionTextReferenceShared1[];
 extern char g_slotSelectionTextReferenceShared2[];
 extern char g_slotSelectionTextReferenceShared3[];
 extern char g_slotSelectionTextReferenceShared4[];
@@ -48,7 +48,7 @@ s32 g_slotSelectionMenuInitialWord[1] = {
 /* k_FrontendAnimateslotselectionmenuEncodedWords_FrontendAnimateslotselectionmenuData.CPP */
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
-extern char g_slotSelectionTextReferenceShared1[];
+extern void *g_slotSelectionTextReferenceShared1[];
 extern char g_slotSelectionTextReferenceShared2[];
 extern char g_slotSelectionTextReferenceShared3[];
 extern char g_slotSelectionTextReferenceShared4[];
@@ -694,7 +694,7 @@ RestFrontendAnimateslotselectionmenuEncodedWordsLayout435 k_FrontendAnimateslots
 };
 #endif
 #if defined(VERSION_US)
-extern char g_slotSelectionTextReferenceShared1[];
+extern void *g_slotSelectionTextReferenceShared1[];
 extern char g_slotSelectionTextReferenceShared3[];
 extern char g_slotSelectionTextReferenceShared4[];
 RestFrontendAnimateslotselectionmenuEncodedWordsLayout436 k_FrontendAnimateslotselectionmenuEncodedWords = {

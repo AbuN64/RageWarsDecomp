@@ -1,4 +1,5 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "COMMON/ITEMRECAT20V1.H"
 
 
 /* g_slotSelectionMenuEventHandlerRecordsUsRev1_GRewarditemtiers.CPP */
@@ -66,35 +67,66 @@ s32 g_rewardScoreBudgets[25] = {
 
 /* g_rewardItemTiers_GRewarditemtiers.CPP */
 #if defined(VERSION_US_REV1)
-extern char g_slotSelectionTextReferenceShared1[];
+extern void *g_slotSelectionTextReferenceShared1[];
 extern char g_slotSelectionTextReferenceShared3[];
-unsigned int g_rewardItemTiers[102] = {
-    0, (unsigned int)(g_slotSelectionTextReferenceShared1 + 8), 1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 80),
-    2, (unsigned int)(g_slotSelectionTextReferenceShared1 + 32), 3, (unsigned int)(g_slotSelectionTextReferenceShared1 + 44),
-    4, (unsigned int)(g_slotSelectionTextReferenceShared1 + 92), 5, (unsigned int)(g_slotSelectionTextReferenceShared1 + 20),
-    6, (unsigned int)(g_slotSelectionTextReferenceShared3 + 16), 7, (unsigned int)(g_slotSelectionTextReferenceShared3 + 28),
-    8, (unsigned int)(g_slotSelectionTextReferenceShared3 + 4), 9, (unsigned int)(g_slotSelectionTextReferenceShared1 + 68),
-    10, (unsigned int)(g_slotSelectionTextReferenceShared3 + 40), -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 104),
-    -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 112), -1, (unsigned int)g_slotSelectionTextReferenceShared3,
-    -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 108), 17, (unsigned int)(g_slotSelectionTextReferenceShared3 + 52),
-    18, (unsigned int)(g_slotSelectionTextReferenceShared1 + 56), 0, (unsigned int)(g_slotSelectionTextReferenceShared1 + 12),
-    1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 84), 2, (unsigned int)(g_slotSelectionTextReferenceShared1 + 36),
-    3, (unsigned int)(g_slotSelectionTextReferenceShared1 + 48), 4, (unsigned int)(g_slotSelectionTextReferenceShared1 + 96),
-    5, (unsigned int)(g_slotSelectionTextReferenceShared1 + 24), 6, (unsigned int)(g_slotSelectionTextReferenceShared3 + 20),
-    7, (unsigned int)(g_slotSelectionTextReferenceShared3 + 32), 8, (unsigned int)(g_slotSelectionTextReferenceShared3 + 8),
-    9, (unsigned int)(g_slotSelectionTextReferenceShared1 + 72), 10, (unsigned int)(g_slotSelectionTextReferenceShared3 + 44),
-    -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 104), -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 112),
-    -1, (unsigned int)g_slotSelectionTextReferenceShared3, -1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 108),
-    17, (unsigned int)(g_slotSelectionTextReferenceShared3 + 56), 18, (unsigned int)(g_slotSelectionTextReferenceShared1 + 60),
-    0, (unsigned int)(g_slotSelectionTextReferenceShared1 + 16), 1, (unsigned int)(g_slotSelectionTextReferenceShared1 + 88),
-    2, (unsigned int)(g_slotSelectionTextReferenceShared1 + 40), 3, (unsigned int)(g_slotSelectionTextReferenceShared1 + 52),
-    4, (unsigned int)(g_slotSelectionTextReferenceShared1 + 100), 5, (unsigned int)(g_slotSelectionTextReferenceShared1 + 28),
-    6, (unsigned int)(g_slotSelectionTextReferenceShared3 + 24), 7, (unsigned int)(g_slotSelectionTextReferenceShared3 + 36),
-    8, (unsigned int)(g_slotSelectionTextReferenceShared3 + 12), 9, (unsigned int)(g_slotSelectionTextReferenceShared1 + 76),
-    10, (unsigned int)(g_slotSelectionTextReferenceShared3 + 48), 11, (unsigned int)(g_slotSelectionTextReferenceShared1 + 104),
-    12, (unsigned int)(g_slotSelectionTextReferenceShared1 + 112), 13, (unsigned int)g_slotSelectionTextReferenceShared3,
-    14, (unsigned int)(g_slotSelectionTextReferenceShared1 + 108), 17, (unsigned int)(g_slotSelectionTextReferenceShared3 + 60),
-    18, (unsigned int)(g_slotSelectionTextReferenceShared1 + 64),
+struct TextEntry g_rewardItemTiers[3][17] = {
+    {
+        {0, (char **)((char *)g_slotSelectionTextReferenceShared1 + 8)},
+        {1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 80)},
+        {2, (char **)((char *)g_slotSelectionTextReferenceShared1 + 32)},
+        {3, (char **)((char *)g_slotSelectionTextReferenceShared1 + 44)},
+        {4, (char **)((char *)g_slotSelectionTextReferenceShared1 + 92)},
+        {5, (char **)((char *)g_slotSelectionTextReferenceShared1 + 20)},
+        {6, (char **)((char *)g_slotSelectionTextReferenceShared3 + 16)},
+        {7, (char **)((char *)g_slotSelectionTextReferenceShared3 + 28)},
+        {8, (char **)((char *)g_slotSelectionTextReferenceShared3 + 4)},
+        {9, (char **)((char *)g_slotSelectionTextReferenceShared1 + 68)},
+        {10, (char **)((char *)g_slotSelectionTextReferenceShared3 + 40)},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 104)},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 112)},
+        {-1, (char **)g_slotSelectionTextReferenceShared3},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 108)},
+        {17, (char **)((char *)g_slotSelectionTextReferenceShared3 + 52)},
+        {18, (char **)((char *)g_slotSelectionTextReferenceShared1 + 56)},
+    },
+    {
+        {0, (char **)((char *)g_slotSelectionTextReferenceShared1 + 12)},
+        {1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 84)},
+        {2, (char **)((char *)g_slotSelectionTextReferenceShared1 + 36)},
+        {3, (char **)((char *)g_slotSelectionTextReferenceShared1 + 48)},
+        {4, (char **)((char *)g_slotSelectionTextReferenceShared1 + 96)},
+        {5, (char **)((char *)g_slotSelectionTextReferenceShared1 + 24)},
+        {6, (char **)((char *)g_slotSelectionTextReferenceShared3 + 20)},
+        {7, (char **)((char *)g_slotSelectionTextReferenceShared3 + 32)},
+        {8, (char **)((char *)g_slotSelectionTextReferenceShared3 + 8)},
+        {9, (char **)((char *)g_slotSelectionTextReferenceShared1 + 72)},
+        {10, (char **)((char *)g_slotSelectionTextReferenceShared3 + 44)},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 104)},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 112)},
+        {-1, (char **)g_slotSelectionTextReferenceShared3},
+        {-1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 108)},
+        {17, (char **)((char *)g_slotSelectionTextReferenceShared3 + 56)},
+        {18, (char **)((char *)g_slotSelectionTextReferenceShared1 + 60)},
+    },
+    {
+        {0, (char **)((char *)g_slotSelectionTextReferenceShared1 + 16)},
+        {1, (char **)((char *)g_slotSelectionTextReferenceShared1 + 88)},
+        {2, (char **)((char *)g_slotSelectionTextReferenceShared1 + 40)},
+        {3, (char **)((char *)g_slotSelectionTextReferenceShared1 + 52)},
+        {4, (char **)((char *)g_slotSelectionTextReferenceShared1 + 100)},
+        {5, (char **)((char *)g_slotSelectionTextReferenceShared1 + 28)},
+        {6, (char **)((char *)g_slotSelectionTextReferenceShared3 + 24)},
+        {7, (char **)((char *)g_slotSelectionTextReferenceShared3 + 36)},
+        {8, (char **)((char *)g_slotSelectionTextReferenceShared3 + 12)},
+        {9, (char **)((char *)g_slotSelectionTextReferenceShared1 + 76)},
+        {10, (char **)((char *)g_slotSelectionTextReferenceShared3 + 48)},
+        {11, (char **)((char *)g_slotSelectionTextReferenceShared1 + 104)},
+        {12, (char **)((char *)g_slotSelectionTextReferenceShared1 + 112)},
+        {13, (char **)g_slotSelectionTextReferenceShared3},
+        {14, (char **)((char *)g_slotSelectionTextReferenceShared1 + 108)},
+        {17, (char **)((char *)g_slotSelectionTextReferenceShared3 + 60)},
+        {18, (char **)((char *)g_slotSelectionTextReferenceShared1 + 64)},
+    },
 };
 #endif
 

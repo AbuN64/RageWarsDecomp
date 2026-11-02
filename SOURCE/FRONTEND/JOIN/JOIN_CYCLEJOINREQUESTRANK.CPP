@@ -6,12 +6,13 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "TYPES.H"
+#include "COMMON/SELECTIONSCREENSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 /* Resets the three 28-byte entries of g_joinRequestEntries: -1 in the first word and zero in the next
    three. */
 /* Counts the four player records whose byte 0x78 is one and returns 3, 2 or 1 for one, two or three such players, otherwise zero. */
-extern PlayerFrontendCountOpenPlayerSlots g_playerSettings[];
+extern SlotSelectionPlayerConfig g_playerSettings[];
 /* Counts how many of the three 28-byte entries of g_joinRequestEntries hold a non-negative first word. */
 /* Returns entry column - 1 of row r in the five-word table g_rewardScoreBudgets, or zero when the column is
    not positive. */
@@ -40,7 +41,7 @@ enum { MENU_RESOURCE = 914 };
 #endif
 /* Advances the selected menu item and updates its display state. */
 /* Cycles a menu selection and updates the associated character setting. */
-extern s32 g_joinRequestRanks[];
+extern int g_joinRequestRanks[];
 extern unsigned char g_joinRequestRankBytes[];
 extern void MarkMenuEventHandled(void);
 extern struct CourseOptionsScreen *g_courseOptionsScreen;
@@ -62,7 +63,7 @@ s32 Join_CountOpenPlayerSlots(void) {
     PlayerFrontendCountOpenPlayerSlots *player;
 
     count = 0;
-    player = g_playerSettings;
+    player = (PlayerFrontendCountOpenPlayerSlots *)g_playerSettings;
     for (i = 0; i < 4; i++) {
         if (player[i].active == 1) {
             count++;
@@ -130,7 +131,7 @@ s32 Join_FindJoinModelIndex(s32 row, s32 id) {
     s32 i;
 
     for (i = 0; i < 17; i++) {
-        if (g_rewardItemTiers[row][i].first == id) {
+        if (g_rewardItemTiers[row][i].id == id) {
             return i;
         }
     }

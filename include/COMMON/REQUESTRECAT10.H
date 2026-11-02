@@ -50,6 +50,7 @@ struct CourseOptionsScreen {
     s32 timer;           /* +0x18 */
     s32 step;            /* +0x1C */
 };
+extern struct CourseOptionsScreen *g_courseOptionsScreen;
 extern s32 Menu_GetPreviousScreenOwner(s32);
 extern void Join_UpdateJoinRequestDisplay(s32);
 #endif

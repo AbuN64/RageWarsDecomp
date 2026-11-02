@@ -41,7 +41,6 @@ s32 Frontend_DispatchUsJoinOptionsEvent(ActorDefinitionHeader *actor, s32 event,
    g_joinRequestEntries, copies the name of the entry the found id selects in that variant row to 0x10, redraws through Join_UpdateJoinRequestDisplay and plays sound
    0xE81. Returns zero. */
 
-extern struct LinkedWorldFlagsView *g_courseOptionsScreen;
 extern struct TextEntry g_rewardItemTiers[][17];
 extern void MarkMenuEventHandled();
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
@@ -58,8 +57,8 @@ s32 Frontend_SelectPreviousJoinModel(void *unused0, void *unused1, void *unused2
     if (Menu_GetPreviousScreenOwner(0) == 22) {
         return 0;
     }
-    variant = g_joinRequestEntries[g_courseOptionsScreen->flags].variant;
-    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->flags].id);
+    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
+    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
     do {
         variant--;
         if (variant < 0) {
@@ -71,17 +70,17 @@ s32 Frontend_SelectPreviousJoinModel(void *unused0, void *unused1, void *unused2
         }
         id = g_rewardItemTiers[variant][model].id;
     } while (id == -1);
-    g_joinRequestEntries[g_courseOptionsScreen->flags].variant = variant;
-    g_joinRequestEntries[g_courseOptionsScreen->flags].id = id;
-    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->flags].name,
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
+    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
+    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
         g_rewardItemTiers[variant][id].text[g_languageIndex]
 #else
         *g_rewardItemTiers[variant][id].text
 #endif
     );
-    g_joinRequestEntries[g_courseOptionsScreen->flags].variantC = variant;
-    Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->flags);
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
+    Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->selection);
     SoundElement_PlayFlatSound(3713);
     return 0;
 }
@@ -107,8 +106,8 @@ s32 Frontend_SelectNextJoinModel(void *unused0, void *unused1, void *unused2, s3
     if (Menu_GetPreviousScreenOwner(0) == 22) {
         return 0;
     }
-    variant = g_joinRequestEntries[g_courseOptionsScreen->flags].variant;
-    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->flags].id);
+    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
+    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
     do {
         variant++;
         if (variant >= 3) {
@@ -120,17 +119,17 @@ s32 Frontend_SelectNextJoinModel(void *unused0, void *unused1, void *unused2, s3
         }
         id = g_rewardItemTiers[variant][model].id;
     } while (id == -1);
-    g_joinRequestEntries[g_courseOptionsScreen->flags].variant = variant;
-    g_joinRequestEntries[g_courseOptionsScreen->flags].id = id;
-    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->flags].name,
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
+    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
+    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
         g_rewardItemTiers[variant][id].text[g_languageIndex]
 #else
         *g_rewardItemTiers[variant][id].text
 #endif
     );
-    g_joinRequestEntries[g_courseOptionsScreen->flags].variantC = variant;
-    id = g_courseOptionsScreen->flags;
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
+    id = g_courseOptionsScreen->selection;
     Join_UpdateJoinRequestDisplay(id);
     SoundElement_PlayFlatSound(3713);
     return 0;

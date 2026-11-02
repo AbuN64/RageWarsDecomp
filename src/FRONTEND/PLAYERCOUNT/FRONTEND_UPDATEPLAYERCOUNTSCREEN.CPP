@@ -3,6 +3,7 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/SETTINGSRECAT24.H"
 #include "TYPES.H"
+#include "COMMON/SELECTIONSCREENSTATE.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/PAKQUEUESTATE.H"
 #include "COMMON/INTEGERSTATE530.H"
@@ -49,7 +50,7 @@ extern void SmXlate_SwitchScreen(s32);
 
 
 
-extern PlayerCountSettingsSlotView g_playerSettings[];
+extern SlotSelectionPlayerConfig g_playerSettings[];
 
 extern s8 g_profileSlotIndices[];
 
@@ -135,7 +136,7 @@ int Frontend_ConfirmPlayerCount(void) {
     g_playerCountScreen->head.target = 7;
     SmpSlider_SetTransitionMode(g_playerCountScreen->head.menu, 2);
     for (i = 0; i < g_playerCountScreen->count; i++) {
-        slot = &g_playerSettings[i];
+        slot = (PlayerCountSettingsSlotView *)&g_playerSettings[i];
         slot->active = 1;
         slot->index = i;
         if (g_profileSlotIndices[i * 400] < 0) {
