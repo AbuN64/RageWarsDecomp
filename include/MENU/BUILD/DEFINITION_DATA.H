@@ -1,6 +1,8 @@
 #ifndef MENU_BUILD_DEFINITION_DATA_H
 #define MENU_BUILD_DEFINITION_DATA_H
 
+#include "PR/ultratypes.h"
+
 /* ROM menu records consumed by Menu_InitializeMenu through the cartridge window.
  * Keep halfwords and color bytes at their load widths; callback words retain
  * the relocations of their paged entry points. Both records are 0x24 bytes. */

@@ -97,7 +97,7 @@ void Playerai_AdvanceRouteCursor(Cursor *cursor) {
 
 extern s32 Scene_FindNearestRouteFrame(void *worldPointer, s32 routeIndex, void *queryPosition);
 
-void Playerai_InitializeRouteCursor(RouteCursorState *cursorState, s8 initialState, void *position) {
+void Playerai_InitializeRouteCursor(RouteCursorState *cursorState, s32 initialState, void *position) {
     cursorState->state = 1;
     cursorState->clip = initialState;
     cursorState->frame = Scene_FindNearestRouteFrame(&g_world, initialState, position);

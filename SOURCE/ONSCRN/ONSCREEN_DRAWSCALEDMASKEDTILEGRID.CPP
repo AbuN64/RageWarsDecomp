@@ -41,10 +41,10 @@ void OnScreen_InitMover(void *moverStorage, s16 x, s16 y)
   mover->y = (f32) y;
 }
 
-s32 OnScreen_StartMoverScript(void *widget, s32 *script) {
+void OnScreen_StartMoverScript(void *widget, s32 *script) {
     (((struct OverlayScriptTableView *) ((s8 *) widget))->script) = script;
     (((struct OverlayScriptTableView *) ((s8 *) widget))->state) = 2;
-    return OnScreen_UpdateMoverScript(widget);
+    OnScreen_UpdateMoverScript(widget);
 }
 
 void OnScreen_StartFirstStatusBar(void *widget, s32 owner, s32 target) {
