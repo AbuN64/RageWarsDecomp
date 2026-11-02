@@ -108,7 +108,8 @@ s32 osMotorInit(OSMesgQueue *mq, OSPfs *pfs, int channel)
 }
 
 #if defined(VERSION_US)
-unsigned char g_OsmotorinitTrailingBytes[4] = { 0x00, 0x0B, 0x00, 0x00 };
+/* Stale bytes 00 0B 00 00; no instruction reads it. */
+unsigned char g_osMotorInitStaleBytes[4] = { 0x00, 0x0B, 0x00, 0x00 };
 #endif
 
 #if defined(VERSION_US)

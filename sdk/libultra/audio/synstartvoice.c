@@ -36,7 +36,8 @@ void alSynStartVoice(ALSynth *synth, ALVoice *voice, ALWaveTable *waveTable) {
 /* 8025DE50_19.CPP */
 
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-unsigned char g_AlsynstartvoiceTrailingBytesBlock2[8] = { 0x03, 0xE0, 0x00, 0x08, 0x27, 0xBD, 0x00, 0x18 };
+/* Stale code jr ra; addiu sp,24; no instruction reads it. */
+unsigned char g_alSynStartVoiceStaleCode[8] = { 0x03, 0xE0, 0x00, 0x08, 0x27, 0xBD, 0x00, 0x18 };
 #endif
 
 /* 8025DE50_9.CPP */

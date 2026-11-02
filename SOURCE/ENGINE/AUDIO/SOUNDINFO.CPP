@@ -76,8 +76,8 @@ int SoundInfo_GetHalfwordC_de(void *soundDescriptor) {
 }
 
 #if defined(VERSION_US)
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_SoundinfoObjectAlignmentPadUs1[1] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_soundinfoZeroTail[1] = {
     0x00000000,
 };
 #endif

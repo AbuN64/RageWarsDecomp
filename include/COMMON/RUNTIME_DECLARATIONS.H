@@ -1167,7 +1167,7 @@ extern struct
   u16 value;
 } g_pakProfileSavedWordOne;
 
-extern char g_frontendVideoModeRenderConfigsFirstPad1;
+extern char g_frontendVideoModeRenderConfigsFirstWord4;
 
 extern UnitVtx g_playerDeathEffectVertices[];
 
@@ -2274,7 +2274,7 @@ extern char g_compressedSequencePlayerAssertText[];
 
 extern char g_playerDeathDialogSlotThird;
 
-extern char g_frontendVideoModeRenderConfigsFirstPad0;
+extern char g_frontendVideoModeRenderConfigsFirstWord3;
 
 extern int g_geometryPreviousCombineMode;
 

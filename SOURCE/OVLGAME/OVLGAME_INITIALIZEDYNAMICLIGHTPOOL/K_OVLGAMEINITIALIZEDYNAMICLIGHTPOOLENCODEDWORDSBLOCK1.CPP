@@ -62,7 +62,7 @@ struct {
     unsigned int words55[7];
     char text56[8];
     unsigned int words57[2];
-} g_ovlgameInitializeDynamicLightPoolStalePad = {
+} g_ovlgameInitializeDynamicLightPoolStaleData = {
     {
         0x24050002, 0x0C0A3F65, 0x11000354, 0x68757737, 0x65545532, 0x34589668, 0x11122588, 0x88876788,
     },

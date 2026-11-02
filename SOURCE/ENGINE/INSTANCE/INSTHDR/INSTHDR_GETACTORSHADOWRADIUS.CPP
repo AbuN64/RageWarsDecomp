@@ -483,7 +483,8 @@ int InstHdr_UsesDefaultDefinitionHandling(LevelActor *source) {
 }
 
 #if defined(VERSION_EU_X)
-const unsigned int k_InstHdrUsesDefaultDefinitionHandlingJumpTablePad = 0x00000000;
+/* Zero word after the jump table; no instruction reads it. */
+const unsigned int k_instHdrUsesDefaultDefinitionHandlingZeroTail = 0x00000000;
 #endif
 
 /* 800C3D3C.CPP */

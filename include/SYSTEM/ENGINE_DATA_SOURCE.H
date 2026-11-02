@@ -37,15 +37,15 @@ typedef struct EngineSchedulerState {
 
 typedef struct EngineRenderState {
     u32 maximumDisplayListBytes;
-    u8 alignmentPad[8];
+    u8 leadingStaleBytes[8];
     s32 textureCacheResource;
     s32 texturePaletteOverrideEnabled;
-    u8 trailingAlignmentPad[8];
+    u8 trailingStaleBytes[8];
 } EngineRenderState;
 
 typedef struct EnginePreviewRenderState {
     u32 maximumDisplayListBytes;
-    u8 alignmentPad[8];
+    u8 leadingStaleBytes[8];
     s32 textureVariationBypassEnabled;
     s32 previousTextureHeld;
     s32 nextTextureHeld;
@@ -56,7 +56,7 @@ typedef struct EnginePreviewRenderState {
     s32 toggleButtonHeld;
     s32 textureCacheResource;
     s32 texturePaletteOverrideEnabled;
-    u8 trailingAlignmentPad[8];
+    u8 trailingStaleBytes[8];
 } EnginePreviewRenderState;
 
 typedef struct EngineGeometryState {
@@ -82,7 +82,7 @@ typedef struct EngineGeometryState {
 
 typedef struct EngineRuntimeIoState {
     s32 randomState;
-    u8 randomAlignmentPad[12];
+    u8 randomStaleBytes[12];
     s32 resourceOpenCount;
     u32 resourceReadyCookie;
     s32 formattedLength;
@@ -96,7 +96,7 @@ typedef struct EngineRuntimeIoState {
     void *tellCallback;
     void *endCallback;
     MemoryStreamBuffer resourceStream;
-    u8 streamAlignmentPad[12];
+    u8 streamStaleBytes[12];
     s32 frameHeapsAllocated;
     s32 frameHeapBuffers[2];
     f32 frameHeapFreeByteStats[3];
@@ -109,9 +109,9 @@ typedef struct EngineRuntimeIoState {
 } EngineRuntimeIoState;
 
 typedef struct EngineStdioCarriageReturn {
-    u8 leadingAlignmentPad[8];
+    u8 leadingStaleBytes[8];
     char carriageReturn;
-    u8 trailingAlignmentPad[15];
+    u8 trailingStaleBytes[15];
 } EngineStdioCarriageReturn;
 
 /* PakModelDefinition consumed by Menu_DrawMenuModel. */

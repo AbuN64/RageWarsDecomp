@@ -430,7 +430,7 @@ extern char g_earlierLinkTarget427[];
 extern char g_earlierLinkTarget428[];
 extern char addrLow_SmpList_HandleStopEvent[];
 extern char addrLow_SmpOverlay_ReturnUnhandledPakDialogEvent[];
-extern char g_Frontend_GetMenuImageStatePaddingAddress[];
+extern char g_Frontend_GetMenuImageStateTailAddress[];
 extern char g_Frontend_SelectNextJoinModelAddress[];
 extern char g_Frontend_SelectPreviousJoinModelAddress[];
 extern char g_Join_CycleJoinRequestRankAddress[];
@@ -715,7 +715,7 @@ struct EarlierLinkDataDe g_earlierLinkDataDe __attribute__((aligned(8))) = {
         0x0043C304, 0x0043C504, 0x0043C374, 0x0043C384, 0x0043C3A4, 0x0043C394, 0x0043C334, 0x0043C344,
         0x0043C414, 0x0043C354, 0x0043C3B4, 0x0043C3C4, 0x0043C3D4, 0x0043C464, 0x0043C364, 0x0043C3E4,
         0x0043C3F4, 0x0043C404, 0x0043C474, 0x0043C434, 0x0043C444, 0x0043C484, 0x0043C454, 0x0043C494,
-        0x0043C4A4, 0x0043C4C4, 0x0043C4B4, 0x0043C4E4, 0x0043C4D4, 0x0043C424, (unsigned int)g_Frontend_GetMenuImageStatePaddingAddress, (unsigned int)g_Level_GetScreenEventTablePlus4Address,
+        0x0043C4A4, 0x0043C4C4, 0x0043C4B4, 0x0043C4E4, 0x0043C4D4, 0x0043C424, (unsigned int)g_Frontend_GetMenuImageStateTailAddress, (unsigned int)g_Level_GetScreenEventTablePlus4Address,
         0x0043C4F4, 0x1325122E, 0x33F09313, 0x45431EDF, 0x4A404C46, 0x57524949, 0x4C4C584D, 0x59415940,
         0x425D5600, 0x42445542, 0x56404945, 0x44405C42, 0x4343475C, 0x51455A52, 0x5A510000, 0x46534D4C,
         0x50565255, 0x41594F00, 0x4C48454B, 0x50564952, 0x5C000000, 0x41404A44, 0x4B4A0000, 0x48444746,

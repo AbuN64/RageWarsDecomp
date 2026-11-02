@@ -451,7 +451,8 @@ f64 _ldexpf(f64 value, s32 shift) {
 }
 
 #if defined(VERSION_US)
-unsigned int g_LdexpfTrailingPad[1] = {
+/* Zero word ending env's object; no instruction reads it. */
+unsigned int g_ldexpfZeroTail[1] = {
     0x00000000,
 };
 #endif

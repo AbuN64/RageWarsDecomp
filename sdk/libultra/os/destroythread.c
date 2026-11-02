@@ -45,7 +45,8 @@ void osDestroyThread(OSThread *thread) {
 }
 
 #if defined(VERSION_US)
-unsigned int g_OsInvalICacheTrailingPad[1] = {
+/* Zero word ending destroythread's object; no instruction reads it. */
+unsigned int g_osInvalICacheZeroTail[1] = {
     0x00000000,
 };
 #endif

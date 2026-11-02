@@ -8,7 +8,7 @@ float g_teamWheelTuningFloats[3] = {
 };
 
 /* stale word completing the 16-byte literal group (0x000C0000 here, 0x2E656F73 in the US image); read by nothing */
-u32 g_teamWheelTuningPad = 0x000C0000;
+u32 g_teamWheelTuningStaleWord = 0x000C0000;
 
 /* eight (id, 0) halfword pairs */
 u16 g_teamWheelSlotOrder[8][2] = {

@@ -172,8 +172,8 @@ CacheEvictionEntry *Cache_FindEvictableResource(s32 unused, EntryList *list, Cac
 }
 
 #if defined(VERSION_US)
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_CacheAcquireloadrequestwithevictionObjectAlignmentPadUs1[1] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_cacheAcquireLoadRequestWithEvictionZeroTail[1] = {
     0x00000000,
 };
 #endif

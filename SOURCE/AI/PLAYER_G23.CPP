@@ -42,7 +42,7 @@ f32 g_playerTargetFacingEaseRate = 0.35f;
 f32 g_playerReactionReserveApproachRate = 0.00625f;
 
 /* Linker fill between the rate and the next constant: no instruction reads it and the other builds hold other words here. */
-u32 g_playerReactionReserveApproachRatePad[2] = {
+u32 g_playerReactionReserveApproachRateStaleWords[2] = {
     0xFFFFFFFF, 0xFFFF0000,
 };
 

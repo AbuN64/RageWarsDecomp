@@ -620,7 +620,8 @@ void Nav_InitVisiblePursuit(CloseAttackActor *actor) {
 #endif
 
 #if defined(VERSION_US)
-unsigned int g_CombatInitTrailingPad[1] = {
+/* Zero word ending the COMBAT init object; no instruction reads it. */
+unsigned int g_combatInitZeroTail[1] = {
     0x00000000,
 };
 #endif

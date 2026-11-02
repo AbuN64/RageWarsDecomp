@@ -298,5 +298,6 @@ RestsmpSliderListEventRecordsUsRev1Record879 g_smpSliderListEventRecordsUsRev1 =
     { 0x00000000, 0x00000000, 0x00000000 },
 };
 
-unsigned int g_listButtonEventTablePrefixUsRev1AlignPad[1] = { 0x00000000 };
+/* Zero word after the list button event table; no instruction reads it. */
+unsigned int g_listButtonEventTableZeroTailUsRev1[1] = { 0x00000000 };
 #endif

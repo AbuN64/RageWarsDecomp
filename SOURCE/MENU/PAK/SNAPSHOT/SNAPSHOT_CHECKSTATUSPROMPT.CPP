@@ -216,7 +216,7 @@ extern void Cache_ReleaseResource(s32, void *);
 extern s32 g_pakSaveMenuActiveDe, g_pakNoteSelectProbesNote, g_pakProfileLoadActive, g_pakProfileLoadMode_de, g_pakNoteTitleSelector, g_pakMenuPromptAccepted, g_pakUseScannedChannel, g_pakPlayerMessagePending, g_introSelectedItem;
 extern struct Saved g_pakControllerRecord;
 extern struct { u8 value; } g_controllerPakPreviewProfileFlags;
-extern u8 g_pakPreviewProfilePaddingByte1, g_pakPreviewProfilePaddingByte2, g_pakPreviewProfilePaddingByte3;
+extern u8 g_controllerPakPreviewProfileReservedByte1, g_controllerPakPreviewProfileReservedByte2, g_controllerPakPreviewProfileReservedByte3;
 extern u8 g_controllerPakPreviewProfileName[];
 extern struct { u16 value; } g_pakProfileSavedWordOne, g_pakProfileSavedWordTwo, g_pakProfileSavedWordThree;
 extern char g_pakDialogDamagedPak[], g_playerMenuDialogRomResource[], g_pakChannelNotReadyDialog_SnapshotCheckstatusprompt[], g_matchEndingTeamWheelClose[];
@@ -266,9 +266,9 @@ void Snapshot_BeginProfileSave(Shared_PakMenu *menu) {
         g_pakProfileSavedWordOne.value = profile->words[1];
         g_pakProfileSavedWordTwo.value = profile->words[2];
         g_pakProfileSavedWordThree.value = profile->words[3];
-        g_pakPreviewProfilePaddingByte1 = 0;
-        g_pakPreviewProfilePaddingByte2 = 0;
-        g_pakPreviewProfilePaddingByte3 = 0;
+        g_controllerPakPreviewProfileReservedByte1 = 0;
+        g_controllerPakPreviewProfileReservedByte2 = 0;
+        g_controllerPakPreviewProfileReservedByte3 = 0;
         for (i = 0; i < 8; i++) {
             g_controllerPakPreviewProfileName[i] = profile->name[i];
         }

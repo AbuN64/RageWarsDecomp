@@ -1041,7 +1041,8 @@ RestOvldat10EncodedWordsBlock17Layout611 k_Ovldat10EncodedWordsBlock17 = {
     { 1, 0 },
     { 2, 22, 0 },
 };
-RestAlignPad2 g_Ovldat10Block17TailAlignPad = {
+/* Zero halfword ending block 17; no instruction reads it. */
+RestBytes2 g_ovldat10Block17ZeroTail = {
     { 0, 0 },
 };
 #endif

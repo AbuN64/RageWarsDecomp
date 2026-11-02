@@ -19104,8 +19104,8 @@ SECTIONS
         . = DEFINED(__align8_literals_InstHdr_UsesDefaultDefinitionHandling) ? ALIGN(8) : .;
         SOURCE/ENGINE/INSTANCE/INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.CPP.o(.rodata.literals_InstHdr_UsesDefaultDefinitionHandling .rdata.literals_InstHdr_UsesDefaultDefinitionHandling);
         . = MAX(., 0x238C);
-        . = DEFINED(__align8_k_InstHdrUsesDefaultDefinitionHandlingJumpTablePad) ? ALIGN(8) : .;
-        SOURCE/ENGINE/INSTANCE/INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.CPP.o(.rodata.k_InstHdrUsesDefaultDefinitionHandlingJumpTablePad .rdata.k_InstHdrUsesDefaultDefinitionHandlingJumpTablePad);
+        . = DEFINED(__align8_k_instHdrUsesDefaultDefinitionHandlingZeroTail) ? ALIGN(8) : .;
+        SOURCE/ENGINE/INSTANCE/INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.CPP.o(.rodata.k_instHdrUsesDefaultDefinitionHandlingZeroTail .rdata.k_instHdrUsesDefaultDefinitionHandlingZeroTail);
         . = MAX(., 0x2390);
         . = DEFINED(__align8_literals_InstHdr_GetActorShadowRadius) ? ALIGN(8) : .;
         SOURCE/ENGINE/INSTANCE/INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.CPP.o(.rodata.literals_InstHdr_GetActorShadowRadius .rdata.literals_InstHdr_GetActorShadowRadius);

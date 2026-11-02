@@ -17,7 +17,8 @@ f32 Menu_ExpandFloatHighWord(u32 value) {
     u32 bits = value << 16;
     return *(f32 *)&bits;
 }
-unsigned int g_floatConvertTextPadding[4] = {
+/* Stale code words (j, move, jr ra, nop); no instruction reads it. */
+unsigned int g_floatConvertStaleCode[4] = {
     0x080AA151, 0x02602821, 0x03E00008, 0x00000000,
 };
 #endif

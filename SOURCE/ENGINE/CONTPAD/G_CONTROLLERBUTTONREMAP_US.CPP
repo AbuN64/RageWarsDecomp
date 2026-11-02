@@ -21,8 +21,8 @@ ButtonRemap g_controllerButtonRemap[19] = {
     { 0x80000, 0x80000 },
     { 0, 0 },
 };
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_ContpadEncodedWordsAlignmentPad[2] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_contpadStaleTagText[2] = {
     0x4E476571, 0x75520000,
 };
 #endif

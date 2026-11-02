@@ -141,14 +141,14 @@ s32 Initial_RequestTransitionWithPakDisabled(void *unused0, ControllerPortOwnerV
 /* 800DD010: the 120.0f Initial_ResetPlayerGameOverTimer stores into g_gameSettings.counters.m_GameOverTimer. */
 const float k_InitialGameOverTimer = 120.0f;
 /* 12 stale bytes between the timer and the item alpha scales: no instruction reads them. */
-const unsigned int k_InitialStalePadBefore[3] = {
+const unsigned int k_initialStaleWordsBefore[3] = {
     0x04000000, 0x16524158, 0x5F50555F,
 };
 /* 800DD020: alpha multipliers of Multi_DrawPlayerItemAvailability (ITEM.CPP) */
 const float g_playerItemAlphaScale[2] = { 255.0f, 255.0f };
 const float g_playerItemDisabledAlphaScale = 255.0f;
 /* 4 stale bytes after the alpha scales, read by nothing. */
-const unsigned int k_InitialStalePadAfter[1] = {
+const unsigned int k_initialStaleTagAfter[1] = {
     0x65717552,
 };
 #endif

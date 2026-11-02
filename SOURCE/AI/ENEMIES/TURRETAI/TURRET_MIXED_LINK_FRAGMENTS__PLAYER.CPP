@@ -16,7 +16,7 @@
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
 #if defined(VERSION_DE)
 /* 8 bytes of stale fill (0x00209EF4 twice) padding the rodata between g_difficultyAimNegativeJitter and the Portal_DispatchActorBehavior literals to 16; read by nothing */
-unsigned int g_difficultyAimJitterPad[2] = {
+unsigned int g_difficultyAimJitterStaleWords[2] = {
     0x00209EF4, 0x00209EF4,
 };
 #endif

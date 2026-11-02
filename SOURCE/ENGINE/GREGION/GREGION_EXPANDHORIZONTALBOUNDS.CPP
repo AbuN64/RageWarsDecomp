@@ -46,7 +46,7 @@ void Gregion_NoOperation(void)
 }
 
 #if defined(VERSION_US)
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned char g_GregionExpandhorizontalboundsTrailingBytesAlignmentPad[4] = { 0x00, 0x06, 0x00, 0x00 };
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned char g_gregionExpandHorizontalBoundsStaleBytes[4] = { 0x00, 0x06, 0x00, 0x00 };
 #endif
 

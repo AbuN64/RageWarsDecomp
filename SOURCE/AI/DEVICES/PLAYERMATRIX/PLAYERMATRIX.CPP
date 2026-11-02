@@ -303,7 +303,8 @@ s32 PlayerMatrix_ClearCollisionBit(void *player) {
 }
 
 #if defined(VERSION_EU_X)
-unsigned int g_PlayerMatrixClearCollisionBitTrailingPad[1] = {
+/* Zero word ending PlayerMatrix_ClearCollisionBit's object; no instruction reads it. */
+unsigned int g_playerMatrixClearCollisionBitZeroTail[1] = {
     0x00000000,
 };
 #endif

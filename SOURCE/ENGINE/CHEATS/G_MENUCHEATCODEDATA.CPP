@@ -339,8 +339,8 @@ struct {
     },
 };
 
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_GMenucheatcodedataEncodedWordsBlock2AlignmentPad[1] = { 0x00010201 };
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_menuCheatCodeDataStaleWordBlock2[1] = { 0x00010201 };
 
 struct MenuCheatCodeData g_menuCheatCodeData[12] = {
     { 0x800E21AC, 0x800D7AE0, 0x00000020, 0x00000001 },
@@ -428,8 +428,8 @@ struct {
     },
 };
 
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_GMenucheatcodedataEncodedWordsBlock3AlignmentPad[1] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_menuCheatCodeDataZeroTailBlock3[1] = {
     0x00000000,
 };
 
@@ -580,8 +580,8 @@ struct {
     },
 };
 
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_GMenucheatcodedataEncodedWordsAlignmentPad[1] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_menuCheatCodeDataZeroTail[1] = {
     0x00000000,
 };
 
@@ -598,8 +598,8 @@ struct {
     },
 };
 
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_GMenucheatcodedataEncodedWordsBlock1AlignmentPad[1] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_menuCheatCodeDataStaleWordBlock1[1] = {
     0x00020000,
 };
 

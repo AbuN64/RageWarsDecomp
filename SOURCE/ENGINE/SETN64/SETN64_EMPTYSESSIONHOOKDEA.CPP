@@ -21,8 +21,8 @@ void SetN64_EmptySessionHookDeA(void) {
 
 }
 
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned char g_SessionRetainedStorageTrailingBytesBlock1AlignmentPad[8] = { 0x03, 0xE0, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 };
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned char g_sessionRetainedStorageStaleCode[8] = { 0x03, 0xE0, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00 };
 #endif
 
 /* 80290A80.CPP */

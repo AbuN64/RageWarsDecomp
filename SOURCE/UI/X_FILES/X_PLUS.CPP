@@ -1067,7 +1067,8 @@ void XPlus_ReleaseSemaphore(s32 *queue) {
 }
 
 #if defined(VERSION_US)
-unsigned int g_XPlusReleaseSemaphoreTrailingPad[1] = {
+/* Zero word ending X_PLUS's object; no instruction reads it. */
+unsigned int g_xPlusReleaseSemaphoreZeroTail[1] = {
     0x00000000,
 };
 #endif

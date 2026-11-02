@@ -67,7 +67,7 @@ extern char g_Join_RequestJoinOptionsExitAlternateAddress[];
 extern char g_Join_SelectPreviousJoinRowAddress[];
 extern char g_Join_SelectNextJoinRowAddress[];
 extern char g_Join_CycleJoinRequestRankAddress[];
-extern char g_Frontend_GetMenuImageStatePaddingAddress[];
+extern char g_Frontend_GetMenuImageStateTailAddress[];
 extern char g_Level_GetScreenEventTablePlus4Address[];
 extern char g_initial_ToggleMenuRowOptionEntry[];
 struct {

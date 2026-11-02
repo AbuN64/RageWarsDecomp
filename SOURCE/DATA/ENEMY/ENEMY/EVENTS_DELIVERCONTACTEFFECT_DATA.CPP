@@ -95,7 +95,7 @@ RestEventsDelivercontacteffectWords2Layout318 g_EventsDelivercontacteffectWords2
 /* g_EventsDelivercontacteffectWords1_EventsDelivercontacteffectData.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800D0F00_unclaimed_D1BA0_unclaimed_D1E68_unclaimed_D1F78 */
-RestAlignPad8 g_EventsDelivercontacteffect1AlignPad = {
+RestBytes8 g_eventsDeliverContactEffectStaleFloats1 = {
     { 63, 22, 156, 251, 63, 22, 41, 101 },
 };
 
@@ -171,7 +171,7 @@ ResteffectCallbackFlagsLayout320 g_effectCallbackFlags = {
 /* g_EventsDelivercontacteffectWords3_EventsDelivercontacteffectData.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800D0F00_unclaimed_D1BA0_unclaimed_D1E68_unclaimed_D1F78_unclaimed_D20A8 */
-RestAlignPad8 g_EventsDelivercontacteffect3AlignPad = {
+RestBytes8 g_eventsDeliverContactEffectStaleFloats3 = {
     { 62, 223, 149, 71, 62, 222, 101, 149 },
 };
 #endif

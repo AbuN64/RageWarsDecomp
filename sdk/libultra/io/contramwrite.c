@@ -107,7 +107,8 @@ void __osPackRamWriteData(s32 channel, s32 blockAddress, u8 *inputData) {
 }
 
 #if defined(VERSION_US)
-unsigned int g_OsPackRamWriteDataTrailingPad[1] = {
+/* Zero word ending contramwrite's object; no instruction reads it. */
+unsigned int g_osPackRamWriteDataZeroTail[1] = {
     0x00000000,
 };
 #endif

@@ -27,8 +27,8 @@ ButtonRemap g_controllerButtonRemap[19] = {
 
 /* 800D0E48.CPP */
 /* ROM-grounded data: rodata/unresolved/800D0DA4_unclaimed_D1A48 */
-/* Alignment fill to the next 16-byte object boundary. */
-unsigned int g_GControllerbuttonremapEncodedWordsAlignmentPad[2] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+unsigned int g_controllerButtonRemapStaleFloats[2] = {
     0x3F84F47C, 0x3F84CF4E,
 };
 #endif

@@ -40,13 +40,16 @@ s32 osRecvMesg(OSMesgQueue *queue, OSMesg *message, s32 block)
 }
 
 #if defined(VERSION_EU_X)
-unsigned int g_OsRecvMesgTrailingPad[1] = {
+/* Zero word ending osRecvMesg; no instruction reads it. */
+unsigned int g_osRecvMesgZeroTail[1] = {
     0x00000000,
 };
 
-float g_osRecvMesgAlignPad[1] = { 879.875f };
+/* Stale float 879.875f; no instruction reads it. */
+float g_osRecvMesgStaleFloat[1] = { 879.875f };
 
-unsigned int g_OsRecvMesgSecondTrailingPad[1] = {
+/* Zero word after the stale float; no instruction reads it. */
+unsigned int g_osRecvMesgSecondZeroTail[1] = {
     0x00000000,
 };
 #endif
@@ -56,5 +59,6 @@ unsigned int g_OsRecvMesgSecondTrailingPad[1] = {
 /* ROM-grounded data: zero word after osRecvMesg */
 unsigned char g_osRecvMesgZeroWord[4] = { 0, 0, 0, 0 };
 
-float g_osRecvMesgAlignPad[1] = { 879.875f };
+/* Stale float 879.875f; no instruction reads it. */
+float g_osRecvMesgStaleFloat[1] = { 879.875f };
 #endif

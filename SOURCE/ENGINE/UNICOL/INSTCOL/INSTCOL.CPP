@@ -296,8 +296,8 @@ const float k_InstcolEncodedWordsBlock3[2] = {
 
 
 #if defined(VERSION_DE)
-/* Alignment fill to the next 16-byte object boundary. */
-const unsigned int k_InstcolEncodedWordsBlock1AlignmentPad[2] = {
+/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
+const unsigned int k_instcolStaleWordsBlock1[2] = {
     0x0023F858, 0x0023F880,
 };
 #endif

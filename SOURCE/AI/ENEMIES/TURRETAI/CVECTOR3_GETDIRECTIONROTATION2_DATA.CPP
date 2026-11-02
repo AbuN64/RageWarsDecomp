@@ -4,7 +4,7 @@
 /* 800C19E8.CPP */
 #if defined(VERSION_DE)
 /* two stale words ahead of the up vector (0, 0.99999f): linker fill, read by nothing */
-unsigned int g_cvector3Getdirectionrotation2DataPad[2] = {
+unsigned int g_turretUpDirectionStaleWords[2] = {
     0x00000000, 0x3F7FFF58,
 };
 /* 800C19F0: world up, copied to the stack by CVector3_GetDirectionRotation2 (lw x3) */

@@ -3,17 +3,17 @@
 #include "TYPES.H"
 
 /* Source records for the fixed data/link sections. Field layouts follow consumers. */
-typedef struct RestAlignPad4 {
-    u8 linkerAlignmentFill[4];
-} RestAlignPad4;
+typedef struct RestBytes4 {
+    u8 bytes[4];
+} RestBytes4;
 
-typedef struct RestAlignPad12 {
-    u8 linkerAlignmentFill[12];
-} RestAlignPad12;
+typedef struct RestBytes12 {
+    u8 bytes[12];
+} RestBytes12;
 
-typedef struct RestAlignPad8 {
-    u8 linkerAlignmentFill[8];
-} RestAlignPad8;
+typedef struct RestBytes8 {
+    u8 bytes[8];
+} RestBytes8;
 
 typedef struct RestCharacterPreviewKeys05Words1Record270 {
     s32 resource;
@@ -6047,9 +6047,9 @@ typedef struct RestplayerControllerStateEndUsRev1Record399 {
     s32 endState;
 } RestplayerControllerStateEndUsRev1Record399;
 
-typedef struct RestAlignPad2 {
-    u8 linkerAlignmentFill[2];
-} RestAlignPad2;
+typedef struct RestBytes2 {
+    u8 bytes[2];
+} RestBytes2;
 
 typedef struct RestDecimalPowersPool621 { u32 prefix[2]; double powers[9]; char tail[8]; } RestDecimalPowersPool621;
 

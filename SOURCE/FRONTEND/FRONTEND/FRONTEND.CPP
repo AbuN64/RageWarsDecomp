@@ -23,7 +23,8 @@ s32 Frontend_DispatchPakProfileEventUs(ActorDefinitionHeader *actor, s32 event, 
 #endif
 
 #if defined(VERSION_US)
-char g_FrontendTrailingBytesBlock7[8] =
+/* Stale tag text "gHdrR"; no instruction reads it. */
+char g_frontendStaleTagText[8] =
     "gHdrR\000\000";
 #endif
 

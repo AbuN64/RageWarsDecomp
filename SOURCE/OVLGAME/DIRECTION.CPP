@@ -18,7 +18,8 @@ void Ovlgame_InitializeRenderDirection(RenderSettings *state) {
 }
 
 #if defined(VERSION_EU_X)
-unsigned int g_OvlgameInitializeRenderDirectionTrailingPad[1] = {
+/* Zero word ending DIRECTION's object; no instruction reads it. */
+unsigned int g_ovlgameInitializeRenderDirectionZeroTail[1] = {
     0x00000000,
 };
 #endif

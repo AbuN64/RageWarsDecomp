@@ -7,7 +7,8 @@ const char s_CmenuprofileFormatprofilequantitylabelEquEosRText[12] =
     "equ\004.eosR\000\000\000";
 #endif
 #if defined(VERSION_DE)
-const RestAlignPad12 g_profileQuantityThreeColumnFormatAlignPad = {
+/* Stale "%3d" format text bytes; no instruction reads it. */
+const RestBytes12 g_profileQuantityStaleFormatText = {
     { 0, 0, 0, 0, 37, 51, 100, 0, 0, 0, 0, 0 },
 };
 #endif

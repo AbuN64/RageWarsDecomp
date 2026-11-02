@@ -5,7 +5,7 @@
 /* GControllerbuttonremapBlock1.CPP */
 
 /* k_GControllerbuttonremapEncodedWordsBlock2_GControllerbuttonremap.CPP */
-RestAlignPad12 g_GControllerbuttonremapBlock2AlignPad = {
+RestBytes12 g_controllerButtonRemapStaleFloatsBlock2 = {
     { 63, 138, 67, 147, 63, 138, 31, 64, 63, 137, 250, 231 },
 };
 #endif

@@ -273,7 +273,8 @@ f32 _getDelta(ALDelay28 *d, s32 count)
 }
 
 #if defined(VERSION_EU) || defined(VERSION_US)
-unsigned int g_GetDeltaTrailingPad[1] = {
+/* Zero word ending reverb's object; no instruction reads it. */
+unsigned int g_getDeltaZeroTail[1] = {
     0x00000000,
 };
 #endif

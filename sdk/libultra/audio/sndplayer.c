@@ -303,7 +303,8 @@ const char s_audioSndplayerText[] = "audio/sndplayer.c";
 #endif
 
 #if defined(VERSION_EU_X)
-unsigned int g_DivS32ByF32TrailingPad[1] = {
+/* Zero word ending the sndplayer object; no instruction reads it. */
+unsigned int g_divS32ByF32ZeroTail[1] = {
     0x00000000,
 };
 #endif

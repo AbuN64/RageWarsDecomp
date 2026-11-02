@@ -10,7 +10,7 @@ GameplaySoundEntry g_gameplaySoundTable[2] = {
     { 0, 0 },
 };
 /* 12 bytes of stale fill behind the table (0x000E0204, 2, 0x500), read by nothing */
-unsigned int g_gameplaySoundTablePad[3] = {
+unsigned int g_gameplaySoundTableStaleWords[3] = {
     0x000E0204, 0x00000002, 0x00000500,
 };
 #endif

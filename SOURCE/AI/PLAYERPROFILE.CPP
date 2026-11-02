@@ -430,7 +430,8 @@ extern char addrLow_Weapon_ReleaseLinkedActorHandles[];
 s32 g_weaponHandMirrorX = 0;
 s32 g_weaponHandMirrorY = 0;
 s32 g_weaponHandMirrorZ = 0;
-s32 g_weaponHandMirrorPad[2] = { 0, 0 };
+/* Unused zero words after the mirror flags; no instruction reads it. */
+s32 g_weaponHandMirrorZeroTail[2] = { 0, 0 };
 
 f32 k_PlayeraiInitializeplayerhealthNegativeThree = -3.0f;
 
