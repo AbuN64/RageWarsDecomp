@@ -25,7 +25,7 @@ s32 g_MenuCreatesoundoptionsscreenWords1[2] = {
 #if defined(VERSION_DE)
 extern char g_Achieve_DispatchResultsActorEventAddress[];
 extern char g_Menu_DispatchSoundOptionsEventAddress[];
-RestD_src_3cb405cbLayout499 D_src_3cb405cb = {
+RestMenuCreateSoundOptionsScreenDataLayout499 g_menuCreateSoundOptionsScreenData = {
     { 3591, 6 },
     (unsigned int)(g_Achieve_DispatchResultsActorEventAddress + 404),
     { 3592, 6 },
@@ -66,7 +66,7 @@ extern char g_Menu_CreateSoundSlidersPackedAddress24[];
 extern char g_Menu_FreeSoundSlidersPackedAddress24[];
 extern char g_Menu_CancelSoundSliderPopupPackedAddress24[];
 extern char g_Menu_ConfirmSoundSliderPopupPackedAddress24[];
-RestD_src_3cb405cbLayout500 D_src_3cb405cb = {
+RestMenuCreateSoundOptionsScreenDataLayout500 g_menuCreateSoundOptionsScreenData = {
     { 3591, 6 },
     (void *)&g_Menu_SoundOptionsReturnZeroPackedAddress24,
     { 3592, 6 },
@@ -96,7 +96,7 @@ RestD_src_3cb405cbLayout500 D_src_3cb405cb = {
 #if defined(VERSION_EU_X)
 extern char g_Achieve_DispatchResultsActorEventAddress[];
 extern char g_Menu_DispatchSoundOptionsEventAddress[];
-RestD_src_3cb405cbLayout501 D_src_3cb405cb = {
+RestMenuCreateSoundOptionsScreenDataLayout501 g_menuCreateSoundOptionsScreenData = {
     { 3591, 6 },
     (unsigned int)(g_Achieve_DispatchResultsActorEventAddress + 400),
     { 3592, 6 },

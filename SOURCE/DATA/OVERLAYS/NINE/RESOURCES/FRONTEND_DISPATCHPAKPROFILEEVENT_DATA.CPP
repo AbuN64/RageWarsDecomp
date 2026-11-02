@@ -91,7 +91,7 @@ typedef char g_FrontendDispatchpakprofileeventWords1SizeCheck[(sizeof(g_Frontend
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-ResidentEventHandlerEntry D_src_95297a43[14] = {
+ResidentEventHandlerEntry g_frontendDispatchPakProfileEventEventHandlers[14] = {
     { 3591, 19, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnProfileEventZero - 0x80000000U) }, { 3594, 19, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePakScreenExit - 0x80000000U) }, { 3592, 19, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePakScreenPanels - 0x80000000U) }, { 3590, 19, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePakProfileScreenDe - 0x80000000U) }, { 3587, 19, (ResidentEventHandler)(void *)&Frontend_DestroyPakProfileScreen_Address }, { 2, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandlePlayerPanelBack - 0x80000000U) }, { 1, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_ActivatePlayerPanelAction - 0x80000000U) }, { 10, 19, (ResidentEventHandler)(void *)((char *)&Frontend_HandlePakProfileInput - 0x80000000U) },
     { 11, 19, (ResidentEventHandler)(void *)((char *)&Frontend_ResetNameRepeatOnEvent - 0x80000000U) }, { 5, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandlePakMenuConfirm - 0x80000000U) }, { 6, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandleNextPanelSelection - 0x80000000U) }, { 8, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_MoveNameCursorForward - 0x80000000U) }, { 7, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_MoveNameCursorBackward - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 }
 };
@@ -99,7 +99,7 @@ ResidentEventHandlerEntry D_src_95297a43[14] = {
 #endif
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
-ResidentEventHandlerEntry D_src_95297a43[14] = {
+ResidentEventHandlerEntry g_frontendDispatchPakProfileEventEventHandlers[14] = {
     { 3591, 19, (ResidentEventHandler)(void *)&g_Frontend_ReturnProfileEventZeroPackedAddress24 }, { 3594, 19, (ResidentEventHandler)(void *)&g_Frontend_UpdatePakScreenExitPackedAddress24 }, { 3592, 19, (ResidentEventHandler)(void *)&g_Frontend_UpdatePakScreenPanelsPackedAddress24 }, { 3590, 19, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePakProfileScreenEu - 0x80000000U) }, { 3587, 19, (ResidentEventHandler)(void *)&g_Frontend_DestroyPakProfileScreenPackedAddress24 }, { 2, 19, (ResidentEventHandler)(void *)&g_PAKInterface_HandlePlayerPanelBackPackedAddress24 }, { 1, 19, (ResidentEventHandler)(void *)&g_PAKInterface_ActivatePlayerPanelActionPackedAddress24 }, { 10, 19, (ResidentEventHandler)(void *)&g_Frontend_HandlePakProfileInputPackedAddress24 },
     { 11, 19, (ResidentEventHandler)(void *)&g_Frontend_ResetNameRepeatOnEventPackedAddress24 }, { 5, 19, (ResidentEventHandler)(void *)&g_PAKInterface_HandlePakMenuConfirmPackedAddress24 }, { 6, 19, (ResidentEventHandler)(void *)&g_PAKInterface_HandleNextPanelSelectionPackedAddress24 }, { 8, 19, (ResidentEventHandler)(void *)&g_PAKInterface_MoveNameCursorForwardPackedAddress24 }, { 7, 19, (ResidentEventHandler)(void *)&g_PAKInterface_MoveNameCursorBackwardPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }
 };
@@ -107,7 +107,7 @@ ResidentEventHandlerEntry D_src_95297a43[14] = {
 #endif
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
-ResidentEventHandlerEntry D_src_95297a43[14] = {
+ResidentEventHandlerEntry g_frontendDispatchPakProfileEventEventHandlers[14] = {
     { 3591, 19, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnProfileEventZero - 0x80000000U) }, { 3594, 19, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePakScreenExit - 0x80000000U) }, { 3592, 19, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePakScreenPanels - 0x80000000U) }, { 3590, 19, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePakProfileScreenEux - 0x80000000U) }, { 3587, 19, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyPakProfileScreen - 0x80000000U) }, { 2, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandlePlayerPanelBack - 0x80000000U) }, { 1, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_ActivatePlayerPanelAction - 0x80000000U) }, { 10, 19, (ResidentEventHandler)(void *)((char *)&Frontend_HandlePakProfileInput - 0x80000000U) },
     { 11, 19, (ResidentEventHandler)(void *)((char *)&Frontend_ResetNameRepeatOnEvent - 0x80000000U) }, { 5, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandlePakMenuConfirm - 0x80000000U) }, { 6, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandleNextPanelSelection - 0x80000000U) }, { 8, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_MoveNameCursorForward - 0x80000000U) }, { 7, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_MoveNameCursorBackward - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 }
 };

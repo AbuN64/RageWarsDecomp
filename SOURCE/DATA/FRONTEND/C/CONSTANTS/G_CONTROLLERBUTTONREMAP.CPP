@@ -5,7 +5,7 @@
 
 /* k_GControllerbuttonremapEncodedWordsBlock2_GControllerbuttonremap.CPP */
 #if defined(VERSION_EU_X)
-RestLinkerAlignmentFill12 g_GControllerbuttonremapBlock2LinkerAlignmentFill381 = {
+RestAlignPad12 g_GControllerbuttonremapBlock2AlignPad = {
     { 63, 138, 67, 147, 63, 138, 31, 64, 63, 137, 250, 231 },
 };
 ButtonRemap g_controllerButtonRemap[19] = {

@@ -106,7 +106,7 @@ Gfx k_GeometryDrawintensitymaskEncodedWords[89] = {
 #if defined(VERSION_US)
 /* Display-list commands are logical 32-bit words on every host. */
 #if defined(VERSION_US)
-Gfx D_src_d4ac59de[17] = {
+Gfx g_geometryDrawIntensityMaskDisplayList[17] = {
     gsSPSetOtherMode(G_SETOTHERMODE_H, 14, 2, 0x00000000),
     gsSPTexture(0x8000, 0x8000, 0, 0, 1),
     gsSPGeometryMode(0x060400, 0x00000000),
@@ -130,7 +130,7 @@ Gfx D_src_d4ac59de[17] = {
 #if defined(VERSION_US_REV1)
 /* Display-list commands are logical 32-bit words on every host. */
 #if defined(VERSION_US_REV1)
-Gfx D_src_d4ac59de[17] = {
+Gfx g_geometryDrawIntensityMaskDisplayList[17] = {
     gsSPSetOtherMode(G_SETOTHERMODE_H, 14, 2, 0x00000000),
     gsSPTexture(0x8000, 0x8000, 0, 0, 1),
     gsSPGeometryMode(0x060400, 0x00000000),

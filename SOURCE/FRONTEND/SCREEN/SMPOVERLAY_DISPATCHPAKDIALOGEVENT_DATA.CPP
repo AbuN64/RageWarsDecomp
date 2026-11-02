@@ -5,7 +5,7 @@ extern char *g_pakDialogTextReferenceShared1;
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 extern char *g_pakDialogTextReferenceShared1;
-RestD_src_897c5b16Layout455 D_src_897c5b16 = {
+RestSmpOverlayDispatchPakDialogEventDataLayout455 g_smpOverlayDispatchPakDialogEventData = {
     { 3592, 29, 4310028, 3590, 29, 4309676, 3587, 29, 4309980, 1, 29, 4310164, 2, 29, 4310132, 10, 29, 4310124, 0, 0, 0 },
     0x96969600,
     0x96969600,
@@ -16,7 +16,7 @@ RestD_src_897c5b16Layout455 D_src_897c5b16 = {
 };
 #endif
 #if defined(VERSION_EU)
-RestD_src_897c5b16Layout456 D_src_897c5b16 = {
+RestSmpOverlayDispatchPakDialogEventDataLayout456 g_smpOverlayDispatchPakDialogEventData = {
     { 3592, 29, 4311132, 3590, 29, 4310780, 3587, 29, 4311084, 1, 29, 4311268, 2, 29, 4311236, 10, 29, 4311228, 0, 0, 0 },
     0x96969600,
     0x96969600,
@@ -27,7 +27,7 @@ RestD_src_897c5b16Layout456 D_src_897c5b16 = {
 };
 #endif
 #if defined(VERSION_EU_X)
-RestD_src_897c5b16Layout457 D_src_897c5b16 = {
+RestSmpOverlayDispatchPakDialogEventDataLayout457 g_smpOverlayDispatchPakDialogEventData = {
     { 3592, 29, 4311132, 3590, 29, 4310780, 3587, 29, 4311084, 1, 29, 4311268, 2, 29, 4311236, 10, 29, 4311228, 0, 0, 0 },
     0x96969600,
     0x96969600,

@@ -1,4 +1,4 @@
 #if defined(VERSION_EU_X)
 /* Older build's rodata pool. */
-char g_earlierPoolStr_8015C9BC[4] = "**D";
+char g_earlierPoolStr3[4] = "**D";
 #endif

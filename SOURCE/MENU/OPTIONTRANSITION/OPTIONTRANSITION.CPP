@@ -224,7 +224,7 @@ extern char g_Menu_DispatchSixChoiceEventAddress[];
 struct {
     ResidentEventHandlerEntry handlers[8];
     u32 alignmentFill[3];
-} D_src_d9561b8a __attribute__((aligned(4))) = {
+} g_optiontransitionRecord __attribute__((aligned(4))) = {
     { { 3590, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1120) }, { 3587, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1192) }, { 2, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1628) }, { 1, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1604) }, { 3594, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1240) }, { 3592, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1392) }, { 10, 25, (ResidentEventHandler)(void *)(g_Menu_DispatchSixChoiceEventAddress + 1532) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00000000, 0x00000000, 0x00000E08 }
 };
@@ -235,7 +235,7 @@ struct {
 struct {
     ResidentEventHandlerEntry handlers[8];
     u32 alignmentFill[3];
-} D_src_d9561b8a __attribute__((aligned(4))) = {
+} g_optiontransitionRecord __attribute__((aligned(4))) = {
     { { 3590, 25, (ResidentEventHandler)(void *)&g_Menu_CreateOptionsImageTransitionPackedAddress24 }, { 3587, 25, (ResidentEventHandler)(void *)&g_Menu_DestroyOptionsImageTransitionPackedAddress24 }, { 2, 25, (ResidentEventHandler)(void *)&g_Menu_ConsumeOptionsTransitionEventPackedAddress24 }, { 1, 25, (ResidentEventHandler)(void *)&g_Menu_RequestOptionsImageTransitionPackedAddress24 }, { 3594, 25, (ResidentEventHandler)(void *)&g_Menu_DrawOptionsImageTransitionPackedAddress24 }, { 3592, 25, (ResidentEventHandler)(void *)&g_Menu_StartOptionsImageTransitionPackedAddress24 }, { 10, 25, (ResidentEventHandler)(void *)&g_Menu_HandleOptionsTransitionRequestPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0xA702000C, 0x001A1402, 0x30410008 }
 };
@@ -243,7 +243,7 @@ struct {
 #endif
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
-ResidentEventHandlerEntry D_src_d9561b8a[9] = {
+ResidentEventHandlerEntry g_optiontransitionRecord[9] = {
     { 3590, 25, (ResidentEventHandler)(void *)((char *)&Menu_CreateOptionsImageTransition - 0x80000000U) }, { 3587, 25, (ResidentEventHandler)(void *)((char *)&Menu_DestroyOptionsImageTransition - 0x80000000U) }, { 2, 25, (ResidentEventHandler)(void *)((char *)&Menu_ConsumeOptionsTransitionEvent - 0x80000000U) }, { 1, 25, (ResidentEventHandler)(void *)((char *)&Menu_RequestOptionsImageTransition - 0x80000000U) }, { 3594, 25, (ResidentEventHandler)(void *)((char *)&Menu_DrawOptionsImageTransition - 0x80000000U) }, { 3592, 25, (ResidentEventHandler)(void *)((char *)&Menu_StartOptionsImageTransition - 0x80000000U) }, { 10, 25, (ResidentEventHandler)(void *)((char *)&Menu_HandleOptionsTransitionRequest - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 },
     { 2, 19, (ResidentEventHandler)(void *)((char *)&PAKInterface_HandlePlayerPanelBack - 0x80000000U) }
 };

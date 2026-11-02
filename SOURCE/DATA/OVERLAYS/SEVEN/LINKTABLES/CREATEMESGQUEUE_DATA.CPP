@@ -10,31 +10,31 @@ extern char __osThreadTail[];
 struct {
     void * next;
     s32 priority;
-} D_src_f0222606 __attribute__((aligned(4))) = {
+} g_createmesgqueueRecord __attribute__((aligned(4))) = {
     0,
     -1
 };
-typedef char D_src_f0222606SizeCheck[(sizeof(D_src_f0222606) == 8) ? 1 : -1];
+typedef char g_createmesgqueueRecordSizeCheck[(sizeof(g_createmesgqueueRecord) == 8) ? 1 : -1];
 #endif
 #if defined(VERSION_EU)
 struct {
     void * next;
     s32 priority;
-} D_src_f0222606 __attribute__((aligned(4))) = {
+} g_createmesgqueueRecord __attribute__((aligned(4))) = {
     0,
     -1
 };
-typedef char D_src_f0222606SizeCheck[(sizeof(D_src_f0222606) == 8) ? 1 : -1];
+typedef char g_createmesgqueueRecordSizeCheck[(sizeof(g_createmesgqueueRecord) == 8) ? 1 : -1];
 #endif
 #if defined(VERSION_EU_X)
 struct {
     void * next;
     s32 priority;
-} D_src_f0222606 __attribute__((aligned(4))) = {
+} g_createmesgqueueRecord __attribute__((aligned(4))) = {
     0,
     -1
 };
-typedef char D_src_f0222606SizeCheck[(sizeof(D_src_f0222606) == 8) ? 1 : -1];
+typedef char g_createmesgqueueRecordSizeCheck[(sizeof(g_createmesgqueueRecord) == 8) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_US)
@@ -43,12 +43,12 @@ struct {
     void * next;
     s32 priority;
     void * runQueue;
-} D_src_f0222606 __attribute__((aligned(4))) = {
+} g_createmesgqueueRecord __attribute__((aligned(4))) = {
     0,
     -1,
-    (void *)&D_src_f0222606
+    (void *)&g_createmesgqueueRecord
 };
-typedef char D_src_f0222606SizeCheck[(sizeof(D_src_f0222606) == 12) ? 1 : -1];
+typedef char g_createmesgqueueRecordSizeCheck[(sizeof(g_createmesgqueueRecord) == 12) ? 1 : -1];
 #endif
 #endif
 #endif
@@ -56,7 +56,7 @@ typedef char D_src_f0222606SizeCheck[(sizeof(D_src_f0222606) == 12) ? 1 : -1];
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 void * __osActiveQueue_CreatemesgqueueData[1] = {
-    &D_src_f0222606,
+    &g_createmesgqueueRecord,
 };
 #endif
 #endif

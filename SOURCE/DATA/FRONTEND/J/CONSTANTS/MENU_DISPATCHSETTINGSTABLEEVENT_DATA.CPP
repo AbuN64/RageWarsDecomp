@@ -27,7 +27,7 @@ extern char g_Menu_WrapTitleButtonScreenNodesPackedAddress24[];
 extern char g_Menu_FreeTitleButtonScreenPackedAddress242[];
 extern char g_Menu_HandleTitleButtonChoicePackedAddress242[];
 extern char g_Menu_CancelTitleButtonScreenPackedAddress242[];
-RestD_src_846838eaLayout505 D_src_846838ea = {
+RestMenuDispatchSettingsTableEventDataLayout505 g_menuDispatchSettingsTableEventData = {
     { 3592, 9 },
     (void *)&g_Menu_UpdateScrollingChoiceScreenPackedAddress242,
     { 3590, 9 },
@@ -57,7 +57,7 @@ RestD_src_846838eaLayout505 D_src_846838ea = {
 #if defined(VERSION_EU_X)
 extern char g_Player_DispatchAlternatePlayerSettingsEventAddress[];
 extern char g_Menu_DispatchScrollingChoiceEventAddress[];
-RestD_src_846838eaLayout506 D_src_846838ea = {
+RestMenuDispatchSettingsTableEventDataLayout506 g_menuDispatchSettingsTableEventData = {
     { 3592, 9 },
     (unsigned int)(g_Player_DispatchAlternatePlayerSettingsEventAddress + 456),
     { 3590, 9 },

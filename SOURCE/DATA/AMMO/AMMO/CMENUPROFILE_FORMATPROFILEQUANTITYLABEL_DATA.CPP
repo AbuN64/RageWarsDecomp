@@ -7,7 +7,7 @@ const char s_CmenuprofileFormatprofilequantitylabelEquEosRText[12] =
     "equ\004.eosR\000\000\000";
 #endif
 #if defined(VERSION_DE)
-const RestLinkerAlignmentFill12 g_profileQuantityThreeColumnFormatLinkerAlignmentFill7 = {
+const RestAlignPad12 g_profileQuantityThreeColumnFormatAlignPad = {
     { 0, 0, 0, 0, 37, 51, 100, 0, 0, 0, 0, 0 },
 };
 #endif

@@ -1041,7 +1041,7 @@ RestOvldat10EncodedWordsBlock17Layout611 k_Ovldat10EncodedWordsBlock17 = {
     { 1, 0 },
     { 2, 22, 0 },
 };
-RestLinkerAlignmentFill2 g_Ovldat10Block17TailLinkerAlignmentFill612 = {
+RestAlignPad2 g_Ovldat10Block17TailAlignPad = {
     { 0, 0 },
 };
 #endif

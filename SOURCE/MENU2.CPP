@@ -101,7 +101,7 @@ extern char Menu_DestroyExtraOptionsMenu_Address[];
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_16391c30 __attribute__((aligned(4))) = {
+} g_menuOpenOptionsKeypadRecord __attribute__((aligned(4))) = {
     { { 3592, 28, (ResidentEventHandler)(void *)&Menu_UpdateExtraOptionsMenu_Address }, { 3590, 28, (ResidentEventHandler)(void *)&Menu_OpenRuleToggleScreen_Address }, { 3587, 28, (ResidentEventHandler)(void *)&Menu_DestroyExtraOptionsMenu_Address }, { 2, 28, (ResidentEventHandler)(void *)(Menu_UpdateExtraOptionsMenu_Address + 348) }, { 1, 28, (ResidentEventHandler)(void *)(Menu_UpdateExtraOptionsMenu_Address + 164) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00421BAC }
 };

@@ -123,13 +123,13 @@ struct {
     ResidentEventHandlerEntry eventHandlers108[8];
     ResidentEventHandlerEntry eventHandlers204[8];
     u8 alignmentFill300[8];
-} D_src_2527d91d __attribute__((aligned(4))) = {
+} g_frontendDestroyPauseMenuRecord __attribute__((aligned(4))) = {
     { { 3591, 1, (ResidentEventHandler)(void *)((char *)&Frontend_SetPauseMenuInputMode - 0x80000000U) }, { 3592, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnPauseEventZeroAlt - 0x80000000U) }, { 3594, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnPauseEventZero - 0x80000000U) }, { 3590, 1, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePauseMenu - 0x80000000U) }, { 3587, 1, (ResidentEventHandler)(void *)&Frontend_DestroyPauseMenu_Address }, { 1, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ActivatePauseMenuAction - 0x80000000U) }, { 2, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumePauseMenuEvent - 0x80000000U) }, { 10, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ResumeMatchOnInput - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3591, 31, (ResidentEventHandler)(void *)((char *)&Timed_SetConfirmationInputMode - 0x80000000U) }, { 3592, 31, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnConfirmationEventZero - 0x80000000U) }, { 3594, 31, (ResidentEventHandler)(void *)((char *)&Timed_FinishPauseConfirmationTransition - 0x80000000U) }, { 3590, 31, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePauseConfirmation - 0x80000000U) }, { 3587, 31, (ResidentEventHandler)(void *)((char *)&Timed_DestroyPauseConfirmation - 0x80000000U) }, { 1, 31, (ResidentEventHandler)(void *)((char *)&Timed_UpdateTimedScreen - 0x80000000U) }, { 2, 31, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeConfirmationEvent - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3591, 32, (ResidentEventHandler)(void *)((char *)&Frontend_ClearPage67ModeFlag - 0x80000000U) }, { 3592, 32, (ResidentEventHandler)(void *)((char *)&Frontend_IgnorePage67Event - 0x80000000U) }, { 3594, 32, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePage67Exit - 0x80000000U) }, { 3590, 32, (ResidentEventHandler)(void *)((char *)&Frontend_CreateTimedMenu - 0x80000000U) }, { 3587, 32, (ResidentEventHandler)(void *)((char *)&Frontend_FreePage67Screen - 0x80000000U) }, { 1, 32, (ResidentEventHandler)(void *)((char *)&Frontend_HandlePage67Choice - 0x80000000U) }, { 2, 32, (ResidentEventHandler)(void *)((char *)&Frontend_AcknowledgePage67Event - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x0, 0x0, 0xe, 0x7, 0x0, 0x0, 0x0, 0x5 }
 };
-typedef char D_src_2527d91dSizeCheck[(sizeof(D_src_2527d91d) == 308) ? 1 : -1];
+typedef char g_frontendDestroyPauseMenuRecordSizeCheck[(sizeof(g_frontendDestroyPauseMenuRecord) == 308) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_EU)
@@ -137,7 +137,7 @@ typedef char D_src_2527d91dSizeCheck[(sizeof(D_src_2527d91d) == 308) ? 1 : -1];
 struct {
     ResidentEventHandlerEntry handlers[25];
     u32 alignmentFill[2];
-} D_src_2527d91d __attribute__((aligned(4))) = {
+} g_frontendDestroyPauseMenuRecord __attribute__((aligned(4))) = {
     { { 3591, 1, (ResidentEventHandler)(void *)&g_Frontend_SetPauseMenuInputModePackedAddress24 }, { 3592, 1, (ResidentEventHandler)(void *)&g_Frontend_ReturnPauseEventZeroAltPackedAddress24 }, { 3594, 1, (ResidentEventHandler)(void *)&g_Frontend_ReturnPauseEventZeroPackedAddress24 }, { 3590, 1, (ResidentEventHandler)(void *)&g_Frontend_CreatePauseMenuPackedAddress24 }, { 3587, 1, (ResidentEventHandler)(void *)&g_Frontend_DestroyPauseMenuPackedAddress24 }, { 1, 1, (ResidentEventHandler)(void *)&g_Frontend_ActivatePauseMenuActionPackedAddress24 }, { 2, 1, (ResidentEventHandler)(void *)&g_Frontend_ConsumePauseMenuEventPackedAddress24 }, { 10, 1, (ResidentEventHandler)(void *)&g_Frontend_ResumeMatchOnInputPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }, { 3591, 31, (ResidentEventHandler)(void *)&g_Timed_SetConfirmationInputModePackedAddress24 }, { 3592, 31, (ResidentEventHandler)(void *)&g_Frontend_ReturnConfirmationEventZeroPackedAddress24 }, { 3594, 31, (ResidentEventHandler)(void *)&g_Timed_FinishPauseConfirmationTransitionPackedAddress24 }, { 3590, 31, (ResidentEventHandler)(void *)&g_Frontend_CreatePauseConfirmationPackedAddress24 }, { 3587, 31, (ResidentEventHandler)(void *)&g_Timed_DestroyPauseConfirmationPackedAddress24 }, { 1, 31, (ResidentEventHandler)(void *)&g_Timed_UpdateTimedScreenPackedAddress24 }, { 2, 31, (ResidentEventHandler)(void *)&g_Frontend_ConsumeConfirmationEventPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }, { 3591, 32, (ResidentEventHandler)(void *)&g_Frontend_ClearPage67ModeFlagPackedAddress24 }, { 3592, 32, (ResidentEventHandler)(void *)&g_Frontend_IgnorePage67EventPackedAddress24 }, { 3594, 32, (ResidentEventHandler)(void *)&g_Frontend_UpdatePage67ExitPackedAddress24 }, { 3590, 32, (ResidentEventHandler)(void *)&g_Frontend_CreateTimedMenuPackedAddress24 }, { 3587, 32, (ResidentEventHandler)(void *)&g_Frontend_FreePage67ScreenPackedAddress24 }, { 1, 32, (ResidentEventHandler)(void *)&g_Frontend_HandlePage67ChoicePackedAddress24 }, { 2, 32, (ResidentEventHandler)(void *)&g_Frontend_AcknowledgePage67EventPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00000000, 0x00800000 }
 };
@@ -150,13 +150,13 @@ struct {
     ResidentEventHandlerEntry eventHandlers108[8];
     ResidentEventHandlerEntry eventHandlers204[8];
     u8 alignmentFill300[8];
-} D_src_2527d91d __attribute__((aligned(4))) = {
+} g_frontendDestroyPauseMenuRecord __attribute__((aligned(4))) = {
     { { 3591, 1, (ResidentEventHandler)(void *)((char *)&Frontend_SetPauseMenuInputMode - 0x80000000U) }, { 3592, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnPauseEventZeroAlt - 0x80000000U) }, { 3594, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnPauseEventZero - 0x80000000U) }, { 3590, 1, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePauseMenu - 0x80000000U) }, { 3587, 1, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyPauseMenu - 0x80000000U) }, { 1, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ActivatePauseMenuAction - 0x80000000U) }, { 2, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumePauseMenuEvent - 0x80000000U) }, { 10, 1, (ResidentEventHandler)(void *)((char *)&Frontend_ResumeMatchOnInput - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3591, 31, (ResidentEventHandler)(void *)((char *)&Timed_SetConfirmationInputMode - 0x80000000U) }, { 3592, 31, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnConfirmationEventZero - 0x80000000U) }, { 3594, 31, (ResidentEventHandler)(void *)((char *)&Timed_FinishPauseConfirmationTransition - 0x80000000U) }, { 3590, 31, (ResidentEventHandler)(void *)((char *)&Frontend_CreatePauseConfirmation - 0x80000000U) }, { 3587, 31, (ResidentEventHandler)(void *)((char *)&Timed_DestroyPauseConfirmation - 0x80000000U) }, { 1, 31, (ResidentEventHandler)(void *)((char *)&Timed_UpdateTimedScreen - 0x80000000U) }, { 2, 31, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeConfirmationEvent - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3591, 32, (ResidentEventHandler)(void *)((char *)&Frontend_ClearPage67ModeFlag - 0x80000000U) }, { 3592, 32, (ResidentEventHandler)(void *)((char *)&Frontend_IgnorePage67Event - 0x80000000U) }, { 3594, 32, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePage67Exit - 0x80000000U) }, { 3590, 32, (ResidentEventHandler)(void *)((char *)&Frontend_CreateTimedMenu - 0x80000000U) }, { 3587, 32, (ResidentEventHandler)(void *)((char *)&Frontend_FreePage67Screen - 0x80000000U) }, { 1, 32, (ResidentEventHandler)(void *)((char *)&Frontend_HandlePage67Choice - 0x80000000U) }, { 2, 32, (ResidentEventHandler)(void *)((char *)&Frontend_AcknowledgePage67Event - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x8f, 0xa7, 0x0, 0x28, 0x24, 0x2, 0x0, 0x33 }
 };
-typedef char D_src_2527d91dSizeCheck[(sizeof(D_src_2527d91d) == 308) ? 1 : -1];
+typedef char g_frontendDestroyPauseMenuRecordSizeCheck[(sizeof(g_frontendDestroyPauseMenuRecord) == 308) ? 1 : -1];
 #endif
 #endif
 #endif

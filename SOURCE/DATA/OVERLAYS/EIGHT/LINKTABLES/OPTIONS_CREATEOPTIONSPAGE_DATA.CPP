@@ -112,7 +112,7 @@ typedef char g_OptionsCreateoptionspageEncodedWordsBlock1SizeCheck[(sizeof(g_Opt
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-ResidentEventHandlerEntry D_src_4b23fe05[19] = {
+ResidentEventHandlerEntry g_optionsCreateOptionsPageEventHandlers[19] = {
     { 3592, 4, (ResidentEventHandler)(void *)((char *)&Frontend_UpdateOptionsPageExit - 0x80000000U) }, { 3590, 4, (ResidentEventHandler)(void *)((char *)&Menu_CreateSettingsPage - 0x80000000U) }, { 3587, 4, (ResidentEventHandler)(void *)((char *)&Frontend_CloseSettingsPage - 0x80000000U) }, { 2, 4, (ResidentEventHandler)(void *)((char *)&Frontend_CloseOptionsPage - 0x80000000U) }, { 1, 4, (ResidentEventHandler)(void *)((char *)&Frontend_HandleOptionsPageShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 }, { 3592, 11, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateCompactOptionsPage - 0x80000000U) }, { 3590, 11, (ResidentEventHandler)(void *)((char *)&Frontend_CreateGameOptionsScreen - 0x80000000U) },
     { 3587, 11, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyCompactOptionsPage - 0x80000000U) }, { 2, 11, (ResidentEventHandler)(void *)((char *)&Frontend_CloseCompactOptionsPage - 0x80000000U) }, { 1, 11, (ResidentEventHandler)(void *)((char *)&Frontend_HandleCompactOptionsShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 }, { 3592, 22, (ResidentEventHandler)(void *)((char *)&Menu_AnimateTabOptionsMenu - 0x80000000U) }, { 3594, 22, (ResidentEventHandler)(void *)((char *)&Menu_FinishTabOptionsTransition - 0x80000000U) }, { 3590, 22, (ResidentEventHandler)(void *)((char *)&Menu_OpenGameOptionsScreen - 0x80000000U) }, { 3587, 22, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyTabOptionsPage - 0x80000000U) },
     { 2, 22, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeTabOptionsEvent - 0x80000000U) }, { 1, 22, (ResidentEventHandler)(void *)((char *)&Frontend_HandleTabOptionsShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 }
@@ -121,7 +121,7 @@ ResidentEventHandlerEntry D_src_4b23fe05[19] = {
 #endif
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
-ResidentEventHandlerEntry D_src_4b23fe05[19] = {
+ResidentEventHandlerEntry g_optionsCreateOptionsPageEventHandlers[19] = {
     { 3592, 4, (ResidentEventHandler)(void *)&g_Frontend_UpdateOptionsPageExitPackedAddress24 }, { 3590, 4, (ResidentEventHandler)(void *)&g_Menu_CreateEuropeanSettingsPagePackedAddress24 }, { 3587, 4, (ResidentEventHandler)(void *)&g_Menu_DestroyOptionsPagePackedAddress24 }, { 2, 4, (ResidentEventHandler)(void *)&g_Frontend_CloseOptionsPagePackedAddress24 }, { 1, 4, (ResidentEventHandler)(void *)&g_Frontend_HandleOptionsPageShortcutPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }, { 3592, 11, (ResidentEventHandler)(void *)&g_Frontend_ActivateCompactOptionsPagePackedAddress24 }, { 3590, 11, (ResidentEventHandler)(void *)&g_Menu_CreateSessionSettingsControlsPackedAddress24 },
     { 3587, 11, (ResidentEventHandler)(void *)&g_Frontend_DestroyCompactOptionsPagePackedAddress24 }, { 2, 11, (ResidentEventHandler)(void *)&g_Frontend_CloseCompactOptionsPagePackedAddress24 }, { 1, 11, (ResidentEventHandler)(void *)&g_Frontend_HandleCompactOptionsShortcutPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }, { 3592, 22, (ResidentEventHandler)(void *)&g_Menu_AnimateTabOptionsMenuPackedAddress24 }, { 3594, 22, (ResidentEventHandler)(void *)&g_Menu_FinishTabOptionsTransitionPackedAddress24 }, { 3590, 22, (ResidentEventHandler)(void *)&g_Menu_OpenLocalizedGameOptionsPackedAddress24 }, { 3587, 22, (ResidentEventHandler)(void *)&g_Frontend_DestroyTabOptionsPagePackedAddress24 },
     { 2, 22, (ResidentEventHandler)(void *)&g_Frontend_TabOptionsEvent02PlayModeEvent01HandlerPackedAddress24 }, { 1, 22, (ResidentEventHandler)(void *)&g_Frontend_HandleTabOptionsShortcutPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 }
@@ -135,13 +135,13 @@ struct {
     ResidentEventHandlerEntry eventHandlers96[6];
     ResidentEventHandlerEntry eventHandlers168[7];
     u8 alignmentFill252[8];
-} D_src_4b23fe05 __attribute__((aligned(4))) = {
+} g_optionsCreateOptionsPageEventHandlers __attribute__((aligned(4))) = {
     { { 3592, 4, (ResidentEventHandler)(void *)((char *)&Frontend_UpdateOptionsPageExit - 0x80000000U) }, { 3590, 4, (ResidentEventHandler)(void *)((char *)&Menu_CreateLocalizedSettingsPage - 0x80000000U) }, { 3587, 4, (ResidentEventHandler)(void *)((char *)&Menu_DestroyEuxOptionsAndReloadLanguage - 0x80000000U) }, { 2, 4, (ResidentEventHandler)(void *)((char *)&Frontend_CloseOptionsPage - 0x80000000U) }, { 1, 4, (ResidentEventHandler)(void *)((char *)&Frontend_HandleOptionsPageShortcut - 0x80000000U) }, { 8, 93, (ResidentEventHandler)(void *)((char *)&Frontend_SelectNextLanguage - 0x80000000U) }, { 7, 93, (ResidentEventHandler)(void *)((char *)&Frontend_SelectPreviousLanguage - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3592, 11, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateCompactOptionsPage - 0x80000000U) }, { 3590, 11, (ResidentEventHandler)(void *)((char *)&Menu_CreateSessionSettingsControls - 0x80000000U) }, { 3587, 11, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyCompactOptionsPage - 0x80000000U) }, { 2, 11, (ResidentEventHandler)(void *)((char *)&Frontend_CloseCompactOptionsPage - 0x80000000U) }, { 1, 11, (ResidentEventHandler)(void *)((char *)&Frontend_HandleCompactOptionsShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { { 3592, 22, (ResidentEventHandler)(void *)((char *)&Menu_AnimateTabOptionsMenu - 0x80000000U) }, { 3594, 22, (ResidentEventHandler)(void *)((char *)&Menu_FinishTabOptionsTransition - 0x80000000U) }, { 3590, 22, (ResidentEventHandler)(void *)((char *)&Menu_OpenLocalizedGameOptions - 0x80000000U) }, { 3587, 22, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyTabOptionsPage - 0x80000000U) }, { 2, 22, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeTabOptionsEvent - 0x80000000U) }, { 1, 22, (ResidentEventHandler)(void *)((char *)&Frontend_HandleTabOptionsShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x0, 0x0, 0xe, 0x3, 0x0, 0x0, 0x0, 0x1f }
 };
-typedef char D_src_4b23fe05SizeCheck[(sizeof(D_src_4b23fe05) == 260) ? 1 : -1];
+typedef char g_optionsCreateOptionsPageEventHandlersSizeCheck[(sizeof(g_optionsCreateOptionsPageEventHandlers) == 260) ? 1 : -1];
 #endif
 #endif
 #endif

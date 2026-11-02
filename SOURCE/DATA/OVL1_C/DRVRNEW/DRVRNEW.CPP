@@ -3,7 +3,7 @@
 #include "COMMON/ALFXPARAM.H"
 
 /* ROM-grounded us-rev1 data; explicit withholding in other holders. */
-const RestLinkerAlignmentFill8 g_Drvrnew1LinkerAlignmentFill625 = {
+const RestAlignPad8 g_Drvrnew1AlignPad = {
     { 63, 16, 0, 0, 0, 0, 0, 0 },
 };
 

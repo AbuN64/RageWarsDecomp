@@ -19,10 +19,10 @@ struct {
 struct {
     s16 resource;
     s16 sentinel;
-} D_src_2c85611a __attribute__((aligned(2))) = {
+} g_weaponPresentationResource1219Record __attribute__((aligned(2))) = {
     0,
     -1
 };
-typedef char D_src_2c85611aSizeCheck[(sizeof(D_src_2c85611a) == 4) ? 1 : -1];
+typedef char g_weaponPresentationResource1219RecordSizeCheck[(sizeof(g_weaponPresentationResource1219Record) == 4) ? 1 : -1];
 #endif
 #endif

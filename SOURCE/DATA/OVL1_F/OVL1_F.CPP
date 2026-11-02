@@ -222,7 +222,7 @@ void * g_overlayOneFLinkRecordLinkWordsBlock8[3] = {
 /* g_overlayOneFLinkRecordConstantWordsBlock8_Ovl1F.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/rw_weapon_state_animation_D0314_us_rev1.c */
-RestLinkerAlignmentFill12 g_overlayOneFLinkRecordConstantBlock8LinkerAlignmentFill727 = {
+RestAlignPad12 g_overlayOneFLinkRecordConstantBlock8AlignPad = {
     { 63, 128, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0 },
 };
 #endif

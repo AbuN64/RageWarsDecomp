@@ -15,7 +15,7 @@ s32 g_FrontendPulseprofileresetwidgetWords1[1] = {
 extern char g_Menu_DispatchSoundSliderEventAddress[];
 extern char Frontend_HandleProfileResetConfirm_Address[];
 extern char g_Frontend_DispatchProfileResetEventAddress[];
-RestD_src_9d8a2047Layout476 D_src_9d8a2047 = {
+RestFrontendPulseProfileResetWidgetDataLayout476 g_frontendPulseProfileResetWidgetData = {
     { 3592, 24 },
     (unsigned int)(g_Menu_DispatchSoundSliderEventAddress + 476),
     { 3590, 24 },
@@ -39,7 +39,7 @@ RestD_src_9d8a2047Layout476 D_src_9d8a2047 = {
 };
 #endif
 #if defined(VERSION_EU_X)
-RestD_src_9d8a2047Layout477 D_src_9d8a2047 = {
+RestFrontendPulseProfileResetWidgetDataLayout477 g_frontendPulseProfileResetWidgetData = {
     { 3592, 24, 4433448, 3590, 24, 4433120, 3587, 24, 4433400, 1, 24, 4433744, 2, 24, 4433712, 10, 24, 4433648, 0, 0, 0 },
     0xACC200B8,
     0xACC4000C,

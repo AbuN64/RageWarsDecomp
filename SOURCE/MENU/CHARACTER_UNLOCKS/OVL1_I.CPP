@@ -12,7 +12,7 @@ RestoverlayOneIPreviewConstantWordsRecord755 g_overlayOneIPreviewConstantWords =
 #if defined(VERSION_US_REV1)
 /* g_overlayOneIPreviewAddressWords_Ovl1I.CPP */
 /* ROM-grounded data: rodata/unresolved/800E3A7F_remaining_E4680_unclaimed_E46AC_unclaimed_E46BC */
-RestLinkerAlignmentFill4 g_overlayOneIPreviewAddressLinkerAlignmentFill757 = {
+RestAlignPad4 g_overlayOneIPreviewAddressAlignPad = {
     { 128, 13, 115, 52 },
 };
 /* g_overlayOneIPreviewConstantWordsBlock1_Ovl1I.CPP */
@@ -41,7 +41,7 @@ RestoverlayOneIPreviewConstantWordsBlock3Record760 g_overlayOneIPreviewConstantW
 };
 /* g_overlayOneIPreviewAddressWordsBlock1_Ovl1I.CPP */
 /* ROM-grounded data: rodata/unresolved/800E3A7F_remaining_E4680_unclaimed_E471C_unclaimed_E472C */
-RestLinkerAlignmentFill4 g_overlayOneIPreviewAddressBlock1LinkerAlignmentFill761 = {
+RestAlignPad4 g_overlayOneIPreviewAddressBlock1AlignPad = {
     { 128, 13, 115, 56 },
 };
 /* ROM-grounded data: src/ragewars_character_preview_keys_02_us_rev1.c */
@@ -69,7 +69,7 @@ RestoverlayOneIPreviewConstantWordsBlock6Record764 g_overlayOneIPreviewConstantW
 };
 /* g_overlayOneIPreviewAddressWordsBlock2_Ovl1I.CPP */
 /* ROM-grounded data: rodata/unresolved/800E3A7F_remaining_E4680_unclaimed_E478C_unclaimed_E479C */
-RestLinkerAlignmentFill4 g_overlayOneIPreviewAddressBlock2LinkerAlignmentFill765 = {
+RestAlignPad4 g_overlayOneIPreviewAddressBlock2AlignPad = {
     { 128, 13, 115, 60 },
 };
 /* ROM-grounded data: src/ragewars_character_preview_keys_03_us_rev1.c */
@@ -97,7 +97,7 @@ RestoverlayOneIPreviewConstantWordsBlock9Record768 g_overlayOneIPreviewConstantW
 };
 /* g_overlayOneIPreviewAddressWordsBlock3_Ovl1I.CPP */
 /* ROM-grounded data: rodata/unresolved/800E3A7F_remaining_E4680_unclaimed_E47FC_unclaimed_E480C */
-RestLinkerAlignmentFill4 g_overlayOneIPreviewAddressBlock3LinkerAlignmentFill769 = {
+RestAlignPad4 g_overlayOneIPreviewAddressBlock3AlignPad = {
     { 128, 13, 115, 64 },
 };
 /* ROM-grounded data: src/ragewars_character_preview_keys_04_us_rev1.c */

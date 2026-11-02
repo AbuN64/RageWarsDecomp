@@ -66,16 +66,16 @@ extern char g_playerSettingsSlotNumberFormat[];
 struct {
     ResidentEventHandlerEntry eventHandlers0[7];
     void * links84[10];
-} D_src_6bb6ec48 __attribute__((aligned(4))) = {
+} g_frontendApplyModeChoiceRecord __attribute__((aligned(4))) = {
     { { 3592, 3, (ResidentEventHandler)(void *)((char *)&Frontend_UpdatePlayModeMenu - 0x80000000U) }, { 3590, 3, (ResidentEventHandler)(void *)((char *)&Frontend_InitPlayModeMenu - 0x80000000U) }, { 3587, 3, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyPlayModeMenu - 0x80000000U) }, { 2, 3, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumePlayModeEvent - 0x80000000U) }, { 1, 3, (ResidentEventHandler)(void *)((char *)&Frontend_ApplyModeChoice - 0x80000000U) }, { 10, 3, (ResidentEventHandler)(void *)((char *)&Frontend_HandlePlayModeShortcut - 0x80000000U) }, { 0, 0, (ResidentEventHandler)0 } },
     { (void *)&g_playerSettingsSecondChoiceText, (void *)&g_playerSettingsFirstChoiceText, (void *)g_playerSettingsSlotNumberFormat + 0x4, (void *)g_playerSettingsSlotNumberFormat + 0x10, (void *)g_playerSettingsSlotNumberFormat + 0xC, (void *)g_playerSettingsSlotNumberFormat + 0x8, (void *)g_playerSettingsSlotNumberFormat + 0xC, (void *)g_playerSettingsSlotNumberFormat + 0x8, (void *)g_playerSettingsSlotNumberFormat + 0x10, (void *)g_playerSettingsSlotNumberFormat + 0x4 }
 };
-typedef char D_src_6bb6ec48SizeCheck[(sizeof(D_src_6bb6ec48) == 124) ? 1 : -1];
+typedef char g_frontendApplyModeChoiceRecordSizeCheck[(sizeof(g_frontendApplyModeChoiceRecord) == 124) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_EU)
 extern s32 g_playerSettingsSlotNumberTranslations[];
-unsigned int D_src_6bb6ec48[31] = {
+unsigned int g_frontendApplyModeChoiceRecord[31] = {
     0x00000E08, 0x00000003, 0x0042495C, 0x00000E06, 0x00000003, 0x004241E0, 0x00000E03, 0x00000003,
     0x0042492C, 0x00000002, 0x00000003, 0x00424AC8, 0x00000001, 0x00000003, 0x004246E8, 0x0000000A,
     0x00000003, 0x00424A74, 0x00000000, 0x00000000, 0x00000000, 0x97150000, 0x4A19CE6C, (unsigned int)g_playerSettingsSlotNumberTranslations + 0x10,
@@ -84,7 +84,7 @@ unsigned int D_src_6bb6ec48[31] = {
 #endif
 #if defined(VERSION_EU_X)
 extern s32 g_playerSettingsSlotNumberTranslations[];
-unsigned int D_src_6bb6ec48[31] = {
+unsigned int g_frontendApplyModeChoiceRecord[31] = {
     0x00000E08, 0x00000003, 0x00424AAC, 0x00000E06, 0x00000003, 0x00424330, 0x00000E03, 0x00000003,
     0x00424A7C, 0x00000002, 0x00000003, 0x00424C18, 0x00000001, 0x00000003, 0x00424838, 0x0000000A,
     0x00000003, 0x00424BC4, 0x00000000, 0x00000000, 0x00000000, 0x00000E03, 0x00000020, (unsigned int)g_playerSettingsSlotNumberTranslations + 0xC,

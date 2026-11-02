@@ -68,16 +68,16 @@ typedef char g_FrontendCreatematchoptionsWords1SizeCheck[(sizeof(g_FrontendCreat
 struct {
     ResidentEventHandlerEntry eventHandlers0[7];
     u8 alignmentFill84[8];
-} D_src_8e351802 __attribute__((aligned(4))) = {
+} g_frontendCreateMatchOptionsRecord __attribute__((aligned(4))) = {
     { { 3590, 21, (ResidentEventHandler)(void *)((char *)&Frontend_CreateMatchOptions - 0x80000000U) }, { 3587, 21, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyMatchOptions - 0x80000000U) }, { 3594, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnMatchOptionsEventZero - 0x80000000U) }, { 2, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ExitMatchOptions - 0x80000000U) }, { 1, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateMatchOptionAction - 0x80000000U) }, { 10, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ResetMatchOptionOnEvent - 0x80000000U) }, { 8, 874, (ResidentEventHandler)(void *)((char *)&Frontend_RefreshMatchSlotsOnZeroEventAlt - 0x80000000U) } },
     { 0x0, 0x0, 0x0, 0x7, 0x0, 0x0, 0x3, 0x6a }
 };
-typedef char D_src_8e351802SizeCheck[(sizeof(D_src_8e351802) == 92) ? 1 : -1];
+typedef char g_frontendCreateMatchOptionsRecordSizeCheck[(sizeof(g_frontendCreateMatchOptionsRecord) == 92) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
-ResidentEventHandlerEntry D_src_8e351802[9] = {
+ResidentEventHandlerEntry g_frontendCreateMatchOptionsRecord[9] = {
     { 3590, 21, (ResidentEventHandler)(void *)&g_Frontend_CreateMatchOptionsPackedAddress24 }, { 3587, 21, (ResidentEventHandler)(void *)&g_Frontend_MatchOptionsEvent0E03ScenarioSetupEvent0E08HandlerPackedAddress24 }, { 3594, 21, (ResidentEventHandler)(void *)&g_Frontend_ReturnMatchOptionsEventZeroPackedAddress24 }, { 2, 21, (ResidentEventHandler)(void *)&g_Frontend_ExitMatchOptionsPackedAddress24 }, { 1, 21, (ResidentEventHandler)(void *)&g_Frontend_ActivateMatchOptionActionPackedAddress24 }, { 10, 21, (ResidentEventHandler)(void *)&g_Frontend_ResetMatchOptionOnEventPackedAddress24 }, { 8, 878, (ResidentEventHandler)(void *)&g_Frontend_RefreshMatchSlotsOnZeroEventAltPackedAddress24 }, { 7, 878, (ResidentEventHandler)(void *)&g_Frontend_RefreshMatchSlotsOnZeroEventPackedAddress24 },
     { 0, 0, (ResidentEventHandler)0 }
 };
@@ -85,7 +85,7 @@ ResidentEventHandlerEntry D_src_8e351802[9] = {
 #endif
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
-ResidentEventHandlerEntry D_src_8e351802[9] = {
+ResidentEventHandlerEntry g_frontendCreateMatchOptionsRecord[9] = {
     { 3590, 21, (ResidentEventHandler)(void *)((char *)&Frontend_CreateMatchOptions - 0x80000000U) }, { 3587, 21, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyMatchOptions - 0x80000000U) }, { 3594, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ReturnMatchOptionsEventZero - 0x80000000U) }, { 2, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ExitMatchOptions - 0x80000000U) }, { 1, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateMatchOptionAction - 0x80000000U) }, { 10, 21, (ResidentEventHandler)(void *)((char *)&Frontend_ResetMatchOptionOnEvent - 0x80000000U) }, { 8, 882, (ResidentEventHandler)(void *)((char *)&Frontend_RefreshMatchSlotsOnZeroEventAlt - 0x80000000U) }, { 7, 882, (ResidentEventHandler)(void *)((char *)&Frontend_RefreshMatchSlotsOnZeroEvent - 0x80000000U) },
     { 0, 0, (ResidentEventHandler)0 }
 };

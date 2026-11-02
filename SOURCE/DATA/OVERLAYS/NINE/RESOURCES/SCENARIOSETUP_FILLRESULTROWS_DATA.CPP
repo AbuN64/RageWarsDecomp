@@ -67,7 +67,7 @@ typedef char g_ScenariosetupFillresultrowsWords1SizeCheck[(sizeof(g_Scenariosetu
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-ResidentEventHandlerEntry D_src_6d0863ff[9] = {
+ResidentEventHandlerEntry g_scenarioSetupFillResultRowsEventHandlers[9] = {
     { 3592, 17, (ResidentEventHandler)(void *)((char *)&Frontend_HandleResultsConfirmation - 0x80000000U) }, { 3590, 17, (ResidentEventHandler)(void *)((char *)&ScenarioSetup_OpenResultsScreen - 0x80000000U) }, { 3587, 17, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyMatchResults - 0x80000000U) }, { 2, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeResultsEvent - 0x80000000U) }, { 1, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateResultsAction - 0x80000000U) }, { 3594, 17, (ResidentEventHandler)(void *)((char *)&Frontend_UpdateMatchResultsTransition - 0x80000000U) }, { 5, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ScrollResultsBackward - 0x80000000U) }, { 6, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ScrollResultsForward - 0x80000000U) },
     { 0, 0, (ResidentEventHandler)0 }
 };
@@ -75,7 +75,7 @@ ResidentEventHandlerEntry D_src_6d0863ff[9] = {
 #endif
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
-ResidentEventHandlerEntry D_src_6d0863ff[9] = {
+ResidentEventHandlerEntry g_scenarioSetupFillResultRowsEventHandlers[9] = {
     { 3592, 17, (ResidentEventHandler)(void *)&g_Frontend_HandleResultsConfirmationPackedAddress24 }, { 3590, 17, (ResidentEventHandler)(void *)&g_ScenarioSetup_OpenResultsScreenPackedAddress24 }, { 3587, 17, (ResidentEventHandler)(void *)&g_Frontend_DestroyMatchResultsPackedAddress24 }, { 2, 17, (ResidentEventHandler)(void *)&g_Frontend_ConsumeResultsEventPackedAddress24 }, { 1, 17, (ResidentEventHandler)(void *)&g_Frontend_ActivateResultsActionPackedAddress24 }, { 3594, 17, (ResidentEventHandler)(void *)&g_Frontend_UpdateMatchResultsTransitionPackedAddress24 }, { 5, 17, (ResidentEventHandler)(void *)&g_Frontend_ScrollResultsBackwardPackedAddress24 }, { 6, 17, (ResidentEventHandler)(void *)&g_Frontend_ScrollResultsForwardPackedAddress24 },
     { 0, 0, (ResidentEventHandler)0 }
 };
@@ -83,7 +83,7 @@ ResidentEventHandlerEntry D_src_6d0863ff[9] = {
 #endif
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
-ResidentEventHandlerEntry D_src_6d0863ff[9] = {
+ResidentEventHandlerEntry g_scenarioSetupFillResultRowsEventHandlers[9] = {
     { 3592, 17, (ResidentEventHandler)(void *)((char *)&Frontend_HandleResultsConfirmation - 0x80000000U) }, { 3590, 17, (ResidentEventHandler)(void *)((char *)&ScenarioSetup_OpenResultsScreen - 0x80000000U) }, { 3587, 17, (ResidentEventHandler)(void *)((char *)&Frontend_DestroyMatchResults - 0x80000000U) }, { 2, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ConsumeResultsEvent - 0x80000000U) }, { 1, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ActivateResultsAction - 0x80000000U) }, { 3594, 17, (ResidentEventHandler)(void *)((char *)&Frontend_UpdateMatchResultsTransition - 0x80000000U) }, { 5, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ScrollResultsBackward - 0x80000000U) }, { 6, 17, (ResidentEventHandler)(void *)((char *)&Frontend_ScrollResultsForward - 0x80000000U) },
     { 0, 0, (ResidentEventHandler)0 }
 };

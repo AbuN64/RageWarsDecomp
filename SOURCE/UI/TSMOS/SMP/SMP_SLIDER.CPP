@@ -298,5 +298,5 @@ RestsmpSliderListEventRecordsUsRev1Record879 g_smpSliderListEventRecordsUsRev1 =
     { 0x00000000, 0x00000000, 0x00000000 },
 };
 
-unsigned int g_listButtonEventTablePrefixUsRev1LinkerAlignmentFill450[1] = { 0x00000000 };
+unsigned int g_listButtonEventTablePrefixUsRev1AlignPad[1] = { 0x00000000 };
 #endif

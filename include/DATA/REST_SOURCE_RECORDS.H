@@ -3,17 +3,17 @@
 #include "TYPES.H"
 
 /* Source records for the fixed data/link sections. Field layouts follow consumers. */
-typedef struct RestLinkerAlignmentFill4 {
+typedef struct RestAlignPad4 {
     u8 linkerAlignmentFill[4];
-} RestLinkerAlignmentFill4;
+} RestAlignPad4;
 
-typedef struct RestLinkerAlignmentFill12 {
+typedef struct RestAlignPad12 {
     u8 linkerAlignmentFill[12];
-} RestLinkerAlignmentFill12;
+} RestAlignPad12;
 
-typedef struct RestLinkerAlignmentFill8 {
+typedef struct RestAlignPad8 {
     u8 linkerAlignmentFill[8];
-} RestLinkerAlignmentFill8;
+} RestAlignPad8;
 
 typedef struct RestCharacterPreviewKeys05Words1Record270 {
     s32 resource;
@@ -1329,7 +1329,7 @@ typedef struct RestpakDialogEventHandlerRecordsUsRecord458 {
     u32 eventTableTail[3];
 } RestpakDialogEventHandlerRecordsUsRecord458;
 
-typedef struct RestD_src_e3e7c440Record462 {
+typedef struct RestAchieveCreateResultsScreenDataRecord462 {
     u32 event0;
     u32 widgetType0;
     u32 callbackAddress0;
@@ -1352,9 +1352,9 @@ typedef struct RestD_src_e3e7c440Record462 {
     u32 widgetType6;
     u32 callbackAddress6;
     u32 eventTableTail[6];
-} RestD_src_e3e7c440Record462;
+} RestAchieveCreateResultsScreenDataRecord462;
 
-typedef struct RestD_src_e3e7c440Record463 {
+typedef struct RestAchieveCreateResultsScreenDataRecord463 {
     u32 event0;
     u32 widgetType0;
     u32 callbackAddress0;
@@ -1377,9 +1377,9 @@ typedef struct RestD_src_e3e7c440Record463 {
     u32 widgetType6;
     u32 callbackAddress6;
     u32 eventTableTail[6];
-} RestD_src_e3e7c440Record463;
+} RestAchieveCreateResultsScreenDataRecord463;
 
-typedef struct RestD_src_e3e7c440Record464 {
+typedef struct RestAchieveCreateResultsScreenDataRecord464 {
     u32 event0;
     u32 widgetType0;
     u32 callbackAddress0;
@@ -1402,7 +1402,7 @@ typedef struct RestD_src_e3e7c440Record464 {
     u32 widgetType6;
     u32 callbackAddress6;
     u32 eventTableTail[6];
-} RestD_src_e3e7c440Record464;
+} RestAchieveCreateResultsScreenDataRecord464;
 
 typedef struct RestAchieveCreateresultsscreenPointerWords1Record465 {
     u32 event0;
@@ -2805,7 +2805,7 @@ typedef struct RestOsstartthreadEncodedWordsLayout422 {
     float constantsAt20;
 } RestOsstartthreadEncodedWordsLayout422;
 
-typedef struct RestD_src_567cc0c4Layout424 {
+typedef struct RestCharacterPreviewDefinitionsDataLayout424 {
     float constantsAt0[13];
     s32 idsAt52[2];
     void * referencesAt60;
@@ -2874,7 +2874,7 @@ typedef struct RestD_src_567cc0c4Layout424 {
     s32 idsAt1844[2];
     void * referencesAt1852;
     s32 idsAt1856[68];
-} RestD_src_567cc0c4Layout424;
+} RestCharacterPreviewDefinitionsDataLayout424;
 
 typedef struct RestcharacterPreviewDefinitionsEuXLayout425 {
     s32 idsAt0[4];
@@ -3969,7 +3969,7 @@ typedef struct RestbuttonWidgetHandlerTailUsRev1Layout454 {
     s32 idsAt112;
 } RestbuttonWidgetHandlerTailUsRev1Layout454;
 
-typedef struct RestD_src_897c5b16Layout455 {
+typedef struct RestSmpOverlayDispatchPakDialogEventDataLayout455 {
     s32 idsAt0[21];
     u32 packedValueAt84;
     u32 packedValueAt88;
@@ -3977,9 +3977,9 @@ typedef struct RestD_src_897c5b16Layout455 {
     s32 idsAt100[2];
     void * referencesAt108;
     s32 idsAt112;
-} RestD_src_897c5b16Layout455;
+} RestSmpOverlayDispatchPakDialogEventDataLayout455;
 
-typedef struct RestD_src_897c5b16Layout456 {
+typedef struct RestSmpOverlayDispatchPakDialogEventDataLayout456 {
     s32 idsAt0[21];
     u32 packedValueAt84;
     u32 packedValueAt88;
@@ -3987,15 +3987,15 @@ typedef struct RestD_src_897c5b16Layout456 {
     s32 idsAt100[2];
     float constantsAt108;
     u32 packedValueAt112;
-} RestD_src_897c5b16Layout456;
+} RestSmpOverlayDispatchPakDialogEventDataLayout456;
 
-typedef struct RestD_src_897c5b16Layout457 {
+typedef struct RestSmpOverlayDispatchPakDialogEventDataLayout457 {
     s32 idsAt0[21];
     u32 packedValueAt84;
     u32 packedValueAt88;
     float constantsAt92[2];
     s32 idsAt100[4];
-} RestD_src_897c5b16Layout457;
+} RestSmpOverlayDispatchPakDialogEventDataLayout457;
 
 typedef struct RestpakDialogStyleAndTextWords_usLayout459 {
     u32 packedValueAt0;
@@ -4103,7 +4103,7 @@ typedef struct RestEncodedInserttextentrycharacterEncodedHalfwordsLayout471 {
     s32 idsAt300[28];
 } RestEncodedInserttextentrycharacterEncodedHalfwordsLayout471;
 
-typedef struct RestD_src_9d8a2047Layout476 {
+typedef struct RestFrontendPulseProfileResetWidgetDataLayout476 {
     s32 idsAt0[2];
     u32 packedCallbackAt8;
     s32 idsAt12[2];
@@ -4124,14 +4124,14 @@ typedef struct RestD_src_9d8a2047Layout476 {
     s32 idsAt116[2];
     u32 packedCallbackAt124;
     s32 idsAt128[3];
-} RestD_src_9d8a2047Layout476;
+} RestFrontendPulseProfileResetWidgetDataLayout476;
 
-typedef struct RestD_src_9d8a2047Layout477 {
+typedef struct RestFrontendPulseProfileResetWidgetDataLayout477 {
     s32 idsAt0[21];
     u32 packedValueAt84;
     u32 packedValueAt88;
     s32 idsAt92[12];
-} RestD_src_9d8a2047Layout477;
+} RestFrontendPulseProfileResetWidgetDataLayout477;
 
 typedef struct RestFrontendPulseprofileresetwidgetPointerWordsTailUsLayout479 {
     u32 packedValueAt0;
@@ -4173,7 +4173,7 @@ typedef struct RestGMenuboxcornersWords1Layout485 {
     s32 idsAt40;
 } RestGMenuboxcornersWords1Layout485;
 
-typedef struct RestD_src_afbf569bLayout486 {
+typedef struct RestMenuBoxCornersDataLayout486 {
     s32 idsAt0;
     float constantsAt4[4];
     u32 packedValueAt20;
@@ -4206,7 +4206,7 @@ typedef struct RestD_src_afbf569bLayout486 {
     float constantsAt228[4];
     u32 packedValueAt244;
     char textAt248[4];
-} RestD_src_afbf569bLayout486;
+} RestMenuBoxCornersDataLayout486;
 
 typedef struct RestGMenuboxcornersLevelTextWords1Layout487 {
     s32 idsAt0[2];
@@ -4234,7 +4234,7 @@ typedef struct RestGMenuboxcornersLevelTextWords1Layout487 {
     void * referencesAt176;
 } RestGMenuboxcornersLevelTextWords1Layout487;
 
-typedef struct RestD_src_afbf569bLayout488 {
+typedef struct RestMenuBoxCornersDataLayout488 {
     s32 idsAt0;
     float constantsAt4[4];
     u32 packedValueAt20;
@@ -4267,7 +4267,7 @@ typedef struct RestD_src_afbf569bLayout488 {
     float constantsAt228[4];
     u32 packedValueAt244;
     char textAt248[4];
-} RestD_src_afbf569bLayout488;
+} RestMenuBoxCornersDataLayout488;
 
 typedef struct RestGMenuboxcornersOurclevelTextWords1Layout489 {
     s32 idsAt0[2];
@@ -4551,7 +4551,7 @@ typedef struct RestminusOneSentinelWordsLayout496 {
     u32 packedValueAt12;
 } RestminusOneSentinelWordsLayout496;
 
-typedef struct RestD_src_3cb405cbLayout499 {
+typedef struct RestMenuCreateSoundOptionsScreenDataLayout499 {
     s32 idsAt0[2];
     u32 packedCallbackAt8;
     s32 idsAt12[2];
@@ -4577,9 +4577,9 @@ typedef struct RestD_src_3cb405cbLayout499 {
     s32 idsAt144[2];
     u32 packedCallbackAt152;
     s32 idsAt156[3];
-} RestD_src_3cb405cbLayout499;
+} RestMenuCreateSoundOptionsScreenDataLayout499;
 
-typedef struct RestD_src_3cb405cbLayout500 {
+typedef struct RestMenuCreateSoundOptionsScreenDataLayout500 {
     s32 idsAt0[2];
     void * referencesAt8;
     s32 idsAt12[2];
@@ -4604,9 +4604,9 @@ typedef struct RestD_src_3cb405cbLayout500 {
     void * referencesAt140;
     s32 idsAt144[2];
     void * referencesAt152[4];
-} RestD_src_3cb405cbLayout500;
+} RestMenuCreateSoundOptionsScreenDataLayout500;
 
-typedef struct RestD_src_3cb405cbLayout501 {
+typedef struct RestMenuCreateSoundOptionsScreenDataLayout501 {
     s32 idsAt0[2];
     u32 packedCallbackAt8;
     s32 idsAt12[2];
@@ -4632,7 +4632,7 @@ typedef struct RestD_src_3cb405cbLayout501 {
     s32 idsAt144[2];
     u32 packedCallbackAt152;
     s32 idsAt156[3];
-} RestD_src_3cb405cbLayout501;
+} RestMenuCreateSoundOptionsScreenDataLayout501;
 
 typedef struct RestMenuCreatesoundoptionsscreenPointerWordsTailUsLayout503 {
     s32 idsAt0[2];
@@ -4683,7 +4683,7 @@ typedef struct RestMenuDispatchsettingscolumneventPointerWords1Layout504 {
     void * referencesAt152[4];
 } RestMenuDispatchsettingscolumneventPointerWords1Layout504;
 
-typedef struct RestD_src_846838eaLayout505 {
+typedef struct RestMenuDispatchSettingsTableEventDataLayout505 {
     s32 idsAt0[2];
     void * referencesAt8;
     s32 idsAt12[2];
@@ -4708,9 +4708,9 @@ typedef struct RestD_src_846838eaLayout505 {
     void * referencesAt140;
     s32 idsAt144[2];
     void * referencesAt152[4];
-} RestD_src_846838eaLayout505;
+} RestMenuDispatchSettingsTableEventDataLayout505;
 
-typedef struct RestD_src_846838eaLayout506 {
+typedef struct RestMenuDispatchSettingsTableEventDataLayout506 {
     s32 idsAt0[2];
     u32 packedCallbackAt8;
     s32 idsAt12[2];
@@ -4736,9 +4736,9 @@ typedef struct RestD_src_846838eaLayout506 {
     s32 idsAt144[2];
     u32 packedCallbackAt152;
     s32 idsAt156[3];
-} RestD_src_846838eaLayout506;
+} RestMenuDispatchSettingsTableEventDataLayout506;
 
-typedef struct RestD_src_638b7747Layout508 {
+typedef struct RestPlayerDispatchPlayerSettingsEventDataLayout508 {
     s32 idsAt0[2];
     u32 packedCallbackAt8;
     s32 idsAt12[2];
@@ -4774,9 +4774,9 @@ typedef struct RestD_src_638b7747Layout508 {
     s32 idsAt204[2];
     u32 packedCallbackAt212;
     s32 idsAt216[4];
-} RestD_src_638b7747Layout508;
+} RestPlayerDispatchPlayerSettingsEventDataLayout508;
 
-typedef struct RestD_src_638b7747Layout509 {
+typedef struct RestPlayerDispatchPlayerSettingsEventDataLayout509 {
     s32 idsAt0[2];
     void * referencesAt8;
     s32 idsAt12[2];
@@ -4811,12 +4811,12 @@ typedef struct RestD_src_638b7747Layout509 {
     void * referencesAt200;
     s32 idsAt204[2];
     void * referencesAt212[5];
-} RestD_src_638b7747Layout509;
+} RestPlayerDispatchPlayerSettingsEventDataLayout509;
 
-typedef struct RestD_src_638b7747Layout510 {
+typedef struct RestPlayerDispatchPlayerSettingsEventDataLayout510 {
     s32 idsAt0[57];
     float constantsAt228;
-} RestD_src_638b7747Layout510;
+} RestPlayerDispatchPlayerSettingsEventDataLayout510;
 
 typedef struct RestplayerSettingsEventHandlersUsLayout512 {
     s32 idsAt0[51];
@@ -6047,9 +6047,9 @@ typedef struct RestplayerControllerStateEndUsRev1Record399 {
     s32 endState;
 } RestplayerControllerStateEndUsRev1Record399;
 
-typedef struct RestLinkerAlignmentFill2 {
+typedef struct RestAlignPad2 {
     u8 linkerAlignmentFill[2];
-} RestLinkerAlignmentFill2;
+} RestAlignPad2;
 
 typedef struct RestDecimalPowersPool621 { u32 prefix[2]; double powers[9]; char tail[8]; } RestDecimalPowersPool621;
 

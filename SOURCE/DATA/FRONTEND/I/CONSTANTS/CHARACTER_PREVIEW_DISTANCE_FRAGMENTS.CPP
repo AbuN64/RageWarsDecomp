@@ -6,7 +6,7 @@
 const float g_characterPreviewDistance160De = 160.0f;
 #endif
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
-const unsigned char D_src_1fb9cba3[3] = {
+const unsigned char g_characterPreviewDistanceFragmentsBytes[3] = {
     0x43, 0x20, 0x00,
 };
 #endif

@@ -9,7 +9,7 @@ struct {
 #endif
 
 #if defined(VERSION_US_REV1)
-unsigned short D_src_edf5fa7e[2] = {
+unsigned short g_weaponPresentation8Halfwords[2] = {
     0x0000, 0xFFFF,
 };
 #endif

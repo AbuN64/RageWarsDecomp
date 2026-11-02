@@ -12,7 +12,7 @@ extern char g_characterPreviewTextReferenceShared2[];
 extern char g_characterPreviewTextReferenceShared3[];
 extern char g_characterPreviewTextReferenceShared4[];
 extern char g_characterPreviewTextReferenceShared5[];
-RestD_src_567cc0c4Layout424 D_src_567cc0c4 = {
+RestCharacterPreviewDefinitionsDataLayout424 g_characterPreviewDefinitionsData = {
     { -6e+01f, -1e+02f, -4e+01f, -6e+01f, -1e+02f, 29.0f, -95.0f, -7e+01f, -29.0f, -95.0f, -7e+01f, 0.0f, 0.0f },
     { -20, -20 },
     (void *)((char *)&g_characterPreviewTextReferenceShared1 + 0x4),

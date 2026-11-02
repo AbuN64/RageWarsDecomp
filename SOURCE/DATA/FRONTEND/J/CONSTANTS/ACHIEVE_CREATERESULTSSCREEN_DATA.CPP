@@ -12,7 +12,7 @@ s32 g_AchieveCreateresultsscreenWords1[1] = {
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 extern char g_Menu_DispatchTitleButtonEventAddress[];
-RestD_src_e3e7c440Record462 D_src_e3e7c440 = {
+RestAchieveCreateResultsScreenDataRecord462 g_achieveCreateResultsScreenData = {
     3592,
     18,
     (unsigned int)(g_Menu_DispatchTitleButtonEventAddress + 4812),
@@ -38,7 +38,7 @@ RestD_src_e3e7c440Record462 D_src_e3e7c440 = {
 };
 #endif
 #if defined(VERSION_EU)
-RestD_src_e3e7c440Record463 D_src_e3e7c440 = {
+RestAchieveCreateResultsScreenDataRecord463 g_achieveCreateResultsScreenData = {
     3592,
     18,
     0x00439B58,
@@ -64,7 +64,7 @@ RestD_src_e3e7c440Record463 D_src_e3e7c440 = {
 };
 #endif
 #if defined(VERSION_EU_X)
-RestD_src_e3e7c440Record464 D_src_e3e7c440 = {
+RestAchieveCreateResultsScreenDataRecord464 g_achieveCreateResultsScreenData = {
     3592,
     18,
     0x00439C88,

@@ -61,7 +61,7 @@ extern char g_Menu_DispatchSixChoiceEventAddress[];
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_3fb7e4b3 __attribute__((aligned(4))) = {
+} g_menuCreateSixChoiceMenuRecord __attribute__((aligned(4))) = {
     { { 3592, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 404) }, { 3590, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 152) }, { 3587, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 356) }, { 2, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 828) }, { 1, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 656) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x004221F0 }
 };
@@ -72,7 +72,7 @@ struct {
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_3fb7e4b3 __attribute__((aligned(4))) = {
+} g_menuCreateSixChoiceMenuRecord __attribute__((aligned(4))) = {
     { { 3592, 27, (ResidentEventHandler)(void *)&g_Menu_UpdateSixChoiceMenuPackedAddress24 }, { 3590, 27, (ResidentEventHandler)(void *)&g_Menu_CreateSixChoiceMenuPackedAddress24 }, { 3587, 27, (ResidentEventHandler)(void *)&g_Menu_DestroySixChoiceMenuPackedAddress24 }, { 2, 27, (ResidentEventHandler)(void *)&g_Menu_CancelSixChoiceMenuPackedAddress24 }, { 1, 27, (ResidentEventHandler)(void *)&g_Menu_ChooseSixChoiceOptionPackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x40013000 }
 };
@@ -84,7 +84,7 @@ extern char g_Menu_DispatchExtraOptionsEventAddress[];
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_3fb7e4b3 __attribute__((aligned(4))) = {
+} g_menuCreateSixChoiceMenuRecord __attribute__((aligned(4))) = {
     { { 3592, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 404) }, { 3590, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 152) }, { 3587, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 356) }, { 2, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 828) }, { 1, 27, (ResidentEventHandler)(void *)(g_Menu_DispatchExtraOptionsEventAddress + 656) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00000007 }
 };

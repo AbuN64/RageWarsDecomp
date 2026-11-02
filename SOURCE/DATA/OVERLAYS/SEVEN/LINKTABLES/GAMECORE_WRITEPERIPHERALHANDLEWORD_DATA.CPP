@@ -13,11 +13,11 @@ extern struct OSPiHandle_s g_diskPeripheralHandle;
 struct {
     void * g_peripheralDomainHandles[2];
     u8 alignmentFill8[8];
-} D_src_af61b546 __attribute__((aligned(2))) = {
+} g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x3f, 0x40, 0x0, 0x0, 0x3f, 0x0, 0x0, 0x0 }
 };
-typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
+typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gamecoreWriteperipheralhandlewordRecord) == 16) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_EU)
@@ -25,11 +25,11 @@ typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
 struct {
     void * g_peripheralDomainHandles[2];
     u8 alignmentFill8[8];
-} D_src_af61b546 __attribute__((aligned(2))) = {
+} g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x68, 0x69, 0x76, 0x65, 0x20, 0x6f, 0x66, 0x20 }
 };
-typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
+typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gamecoreWriteperipheralhandlewordRecord) == 16) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_EU_X)
@@ -37,11 +37,11 @@ typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
 struct {
     void * g_peripheralDomainHandles[2];
     u8 alignmentFill8[8];
-} D_src_af61b546 __attribute__((aligned(2))) = {
+} g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x2, 0x0, 0x4, 0x0, 0x8, 0x0, 0x10, 0x0 }
 };
-typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
+typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gamecoreWriteperipheralhandlewordRecord) == 16) ? 1 : -1];
 #endif
 #endif
 #if defined(VERSION_US)
@@ -49,11 +49,11 @@ typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
 struct {
     void * g_peripheralDomainHandles[2];
     u8 alignmentFill8[8];
-} D_src_af61b546 __attribute__((aligned(2))) = {
+} g_gamecoreWriteperipheralhandlewordRecord __attribute__((aligned(2))) = {
     { (void *)&g_diskPiHandle, (void *)&g_diskPeripheralHandle },
     { 0x0, 0x4, 0x0, 0x0, 0x0, 0x1c, 0x53, 0x46 }
 };
-typedef char D_src_af61b546SizeCheck[(sizeof(D_src_af61b546) == 16) ? 1 : -1];
+typedef char g_gamecoreWriteperipheralhandlewordRecordSizeCheck[(sizeof(g_gamecoreWriteperipheralhandlewordRecord) == 16) ? 1 : -1];
 #endif
 #endif
 #endif

@@ -59,7 +59,7 @@ RestGMenuboxcornersWords1Layout485 g_GMenuboxcornersWords1 = {
 /* FloatRecordWords.CPP */
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
-RestD_src_afbf569bLayout486 D_src_afbf569b = {
+RestMenuBoxCornersDataLayout486 g_menuBoxCornersData = {
     0,
     { 21.599998f, 24.0f, 0.9f, 1.0f },
     0x02FFFFC8,
@@ -130,7 +130,7 @@ RestGMenuboxcornersLevelTextWords1Layout487 g_menuBoxLevelStatusText = {
 };
 #endif
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
-RestD_src_afbf569bLayout488 D_src_afbf569b = {
+RestMenuBoxCornersDataLayout488 g_menuBoxCornersData = {
     0,
     { 24.0f, 24.0f, 1.0f, 1.0f },
     0x02FFFFC8,

@@ -15,10 +15,10 @@ struct {
 struct {
     s16 resource;
     s16 sentinel;
-} D_src_e2644080 __attribute__((aligned(2))) = {
+} g_weaponSlot5PresentationRecord __attribute__((aligned(2))) = {
     0,
     -1
 };
-typedef char D_src_e2644080SizeCheck[(sizeof(D_src_e2644080) == 4) ? 1 : -1];
+typedef char g_weaponSlot5PresentationRecordSizeCheck[(sizeof(g_weaponSlot5PresentationRecord) == 4) ? 1 : -1];
 #endif
 #endif

@@ -4102,7 +4102,7 @@ segments:
       - [0xC8D90, rodata, game_data/literals_alFxNew]
       - [0xC8DB0, rodata, game_data/g_audioDriverFractionalConstant]
       - [0xC8DB8, rodata, game_data/g_alFxNewConstantWords_de_eu_eu_x_us]
-      - [0xC8DD8, rodata, game_data/g_Drvrnew1LinkerAlignmentFill625]
+      - [0xC8DD8, rodata, game_data/g_Drvrnew1AlignPad]
       - [0xC8DE0, rodata, game_data/k_DrvrnewEncodedWords]
       - [0xC8DE8, data, game_data/k_DrvrnewEncodedWordsBlock2]
       - [0xC8DF0, rodata, game_data/k_AudioPullenvelopeEncodedBytes]
@@ -4294,7 +4294,7 @@ segments:
       - [0xCEF18, rodata, game_data/literals_Scene_GetPlatformRoutePoint]
       - [0xCEF1C, data, game_data/k_SceneFindtrackedactorsEncodedWords]
       - [0xCEF2C, data, game_data/g_SchedHandlerspcompletionEncodedWordsBlock1]
-      - [0xCEF68, data, game_data/D_src_55fe5453]
+      - [0xCEF68, data, game_data/g_schedHandleRspCompletionSessionHandlers]
       - [0xCF064, data, game_data/g_Setn64BuildandsubmitsessionframeEncodedWords]
       - [0xCF080, data, game_data/k_SSmackformatEncodedWordsBlock1]
       - [0xCF0C0, data, game_data/s_smackFormat]
@@ -4302,7 +4302,7 @@ segments:
       - [0xCF0E0, data, game_data/g_xplusRandomStateBlock_eu]
       - [0xCF180, rodata, game_data/literals_N64Eng_SetClipBounds]
       - [0xCF188, data, game_data/g_N64EngEncodedWords]
-      - [0xCF190, data, game_data/D_src_c44120b0]
+      - [0xCF190, data, game_data/g_n64EngDispatchNumericWidgetEventWords]
       - [0xCF200, data, game_data/g_tsmosFloatWordTable]
       - [0xCF3B0, data, game_data/k_FxSpawnimpactmarkEncodedWords]
       - [0xCF3C8, data, game_data/g_FxSpawnimpactmarkEncodedWords]
@@ -4316,11 +4316,11 @@ segments:
       - [0xE51F0, data, game_data/g_capturedTlbMappings]
       - [0xE52F0, data, game_data/g_audioGlobals]
       - [0xE55FC, data, game_data/g_peripheralHandleList]
-      - [0xE5600, data, game_data/D_src_af61b546]
+      - [0xE5600, data, game_data/g_gamecoreWriteperipheralhandlewordRecord]
       - [0xE5610, data, game_data/g_createDataZeroWords]
       - [0xE5614, data, game_data/g_createDataTextFragment_eu]
       - [0xE5630, data, game_data/g_viDataZeroWords]
-      - [0xE5690, data, game_data/D_src_c0f3ff2a]
+      - [0xE5690, data, game_data/g_osViGetCurrentFramebufferPointers]
       - [0xE56A0, data, game_data/g_videoDeviceManager]
       - [0xE56BC, data, game_data/g_videoDeviceManagerNextWord]
       - [0xE56C0, data, game_data/osViModeTable]
@@ -4328,7 +4328,7 @@ segments:
       - [0xE64D4, data, game_data/g_preNmiShutdownFlagEu]
       - [0xE64D8, data, game_data/g_audioAbortdisktransferDataConstantWords]
       - [0xE64DC, data, game_data/g_audioDiskTransferLinkTableEntryPointer_eu]
-      - [0xE64E0, data, game_data/D_src_f0222606]
+      - [0xE64E0, data, game_data/g_createmesgqueueRecord]
       - [0xE64E8, data, game_data/k_OsstartthreadEncodedWords]
       - [0xE6500, data, game_data/D_src_2a6b81e8]
       - [0xE6530, rodata, game_data/g_libcSpacePaddingText]
@@ -4338,7 +4338,7 @@ segments:
       - [0xE6594, rodata, game_data/g_printfUppercaseDigitsLegacy]
       - [0xE65A5, data, game_data/k_XprintfDataEncodedBytesBlock1]
       - [0xE65B0, data, game_data/g_audioLoaddecodedsamplesDataAddressWords]
-      - [0xE65C0, data, game_data/D_src_1a91a118]
+      - [0xE65C0, data, game_data/g_audioLoadDecodedSamplesHalfwords]
       - [0xE6738, data, game_data/g_audioInitdecodestreamDataConstantWords]
       - [0xE67E4, data, game_data/g_AudioDecodeframeEncodedWords]
       - [0xEDD70, rodata, game_data/literals_Track_SolveSplineSecondDerivatives]
@@ -4597,13 +4597,13 @@ segments:
       - [0xF04C4, data, game_data/g_smpControllerStateAndEventWords]
       - [0xF0520, data, game_data/g_smpEventHandlerTables]
       - [0xF0730, data, game_data/g_pakDialogProbeStateStorage]
-      - [0xF073C, data, game_data/D_src_897c5b16]
+      - [0xF073C, data, game_data/g_smpOverlayDispatchPakDialogEventData]
       - [0xF07B0, data, game_data/g_slotSelectionMenuInitialWord]
       - [0xF07B4, data, game_data/k_FrontendAnimateslotselectionmenuEncodedWords]
       - [0xF0BE0, data, game_data/g_joinOptionsInitialWord]
       - [0xF0BE4, data, game_data/g_joinOptionsEventHandlerRecords]
       - [0xF0C70, data, game_data/g_joinOptionsTrailingWords]
-      - [0xF0C8C, rodata, game_data/D_src_1fb9cba3]
+      - [0xF0C8C, rodata, game_data/g_characterPreviewDistanceFragmentsBytes]
       - [0xF0C8F, data, game_data/k_CharacterPreviewDistanceFragmentsEncodedBytesBlock2]
       - [0xF0C9C, rodata, game_data/g_characterPreviewVerticalOffset]
       - [0xF0CA0, data, game_data/g_characterPreviewPositionsUsRev1]
@@ -4611,39 +4611,39 @@ segments:
       - [0xF14F0, data, game_data/g_selectionStateAndFirstKind]
       - [0xF14F8, data, game_data/g_menuKindSevenWidgetAndEventDefinitionsEu]
       - [0xF1620, data, game_data/k_MenuOpenoptionskeypadZeroWords]
-      - [0xF1624, data, game_data/D_src_16391c30]
+      - [0xF1624, data, game_data/g_menuOpenOptionsKeypadRecord]
       - [0xF1670, data, game_data/k_MenuCreatesixchoicemenuZeroWords]
-      - [0xF1674, data, game_data/D_src_3fb7e4b3]
+      - [0xF1674, data, game_data/g_menuCreateSixChoiceMenuRecord]
       - [0xF16C0, data, game_data/k_MenuDrawoptionsimagetransitionZeroWords]
-      - [0xF16C4, data, game_data/D_src_d9561b8a]
+      - [0xF16C4, data, game_data/g_optiontransitionRecord]
       - [0xF1730, data, game_data/g_OptionsCreateoptionspageEncodedWordsBlock1]
-      - [0xF173C, data, game_data/D_src_4b23fe05]
+      - [0xF173C, data, game_data/g_optionsCreateOptionsPageEventHandlers]
       - [0xF1820, data, game_data/g_FrontendApplymodechoiceWords1]
-      - [0xF1824, data, game_data/D_src_6bb6ec48]
+      - [0xF1824, data, game_data/g_frontendApplyModeChoiceRecord]
       - [0xF18A0, data, game_data/g_ResultsRefreshtrialcataloguewidgetsWords2]
       - [0xF18B4, data, game_data/g_ResultsRefreshtrialcataloguewidgetsWords1]
       - [0xF1CA4, data, game_data/g_resultsRefreshTrialCatalogueWidgetsWords_eu]
       - [0xF2110, data, game_data/g_FrontendCreatematchoptionsWords1]
-      - [0xF2114, data, game_data/D_src_8e351802]
+      - [0xF2114, data, game_data/g_frontendCreateMatchOptionsRecord]
       - [0xF2180, data, game_data/k_OvldatZeroWords]
       - [0xF2188, data, game_data/g_ScenariosetupHidearenacataloguewidgetsEncodedWords]
       - [0xF25E0, data, game_data/g_ScenariosetupFillresultrowsWords1]
-      - [0xF25E4, data, game_data/D_src_6d0863ff]
+      - [0xF25E4, data, game_data/g_scenarioSetupFillResultRowsEventHandlers]
       - [0xF2650, data, game_data/g_FrontendUpdateplayercountscreenWords1]
-      - [0xF2654, data, game_data/D_src_c64ed94a]
+      - [0xF2654, data, game_data/g_frontendDispatchPlayerCountEventRecord]
       - [0xF26C0, data, game_data/g_FrontendDispatchpakprofileeventWords1]
-      - [0xF26C8, data, game_data/D_src_95297a43]
+      - [0xF26C8, data, game_data/g_frontendDispatchPakProfileEventEventHandlers]
       - [0xF2770, data, game_data/g_FrontendDestroypausemenuWords1]
-      - [0xF277C, data, game_data/D_src_2527d91d]
+      - [0xF277C, data, game_data/g_frontendDestroyPauseMenuRecord]
       - [0xF28B0, data, game_data/g_PlayerInitplayersettingsscreenWords1]
-      - [0xF28B8, data, game_data/D_src_638b7747]
+      - [0xF28B8, data, game_data/g_playerDispatchPlayerSettingsEventData]
       - [0xF29A0, data, game_data/g_unlockGatedListScreen]
       - [0xF29A4, data, game_data/g_titleButtonScreen]
-      - [0xF29A8, data, game_data/D_src_846838ea]
+      - [0xF29A8, data, game_data/g_menuDispatchSettingsTableEventData]
       - [0xF2A50, data, game_data/g_AchieveCreateresultsscreenWords1]
-      - [0xF2A54, data, game_data/D_src_e3e7c440]
+      - [0xF2A54, data, game_data/g_achieveCreateResultsScreenData]
       - [0xF2AC0, data, game_data/g_MenuCreatesoundoptionsscreenWords1]
-      - [0xF2AC8, data, game_data/D_src_3cb405cb]
+      - [0xF2AC8, data, game_data/g_menuCreateSoundOptionsScreenData]
       - [0xF2B70, data, game_data/g_FrontendPulseprofileresetwidgetWords1]
       - [0xF2B74, data, game_data/k_FrontendDispatchprofilereseteventEncodedWords]
       - [0xF2C00, data, game_data/g_EquipShowequipchoiceHalfwords1]
@@ -4652,7 +4652,7 @@ segments:
       - [0xF2EC0, data, game_data/g_EncodedInserttextentrycharacterWords1]
       - [0xF2ECC, data, game_data/k_EncodedInserttextentrycharacterEncodedHalfwords]
       - [0xF30B8, data, game_data/g_GMenuboxcornersWords1]
-      - [0xF30E4, data, game_data/D_src_afbf569b]
+      - [0xF30E4, data, game_data/g_menuBoxCornersData]
       - [0xF31E0, data, game_data/g_floatRecordWordsEu]
       - [0xF3680, data, game_data/g_minusOneSentinelWords]
       - [0xF3690, data, game_data/g_frontendWidgetEventTableWordsEu]
@@ -9720,21 +9720,21 @@ segments:
     vram: 0x80159F30
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15CB30, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers_80159F30]
+      - [0x15CB30, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers1]
       - [0x15CB60, data, debug_symbols_earlier_15CB30/g_earlierObjectBytes1]
-      - [0x15CB7C, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers_80159F7C]
+      - [0x15CB7C, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers2]
       - [0x15CB80, data, debug_symbols_earlier_15CB30/g_earlierObjectWord1]
-      - [0x15CB84, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats_80159F84]
+      - [0x15CB84, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats1]
       - [0x15CB88, data, debug_symbols_earlier_15CB30/g_earlierObjectBytes2]
-      - [0x15CB9C, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers_80159F9C]
+      - [0x15CB9C, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers3]
       - [0x15CBA0, data, debug_symbols_earlier_15CB30/g_earlierObjectWord2]
-      - [0x15CBA4, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats_80159FA4]
+      - [0x15CBA4, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats2]
       - [0x15CBA8, data, debug_symbols_earlier_15CB30/g_earlierObjectBytes3]
-      - [0x15CBBC, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers_80159FBC]
+      - [0x15CBBC, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers4]
       - [0x15CBC0, data, debug_symbols_earlier_15CB30/g_earlierObjectWord3]
-      - [0x15CBC4, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats_80159FC4]
+      - [0x15CBC4, data, debug_symbols_earlier_15CB30/g_earlierPoolFloats3]
       - [0x15CBC8, data, debug_symbols_earlier_15CB30/g_earlierObjectBytes4]
-      - [0x15CBDC, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers_80159FDC]
+      - [0x15CBDC, data, debug_symbols_earlier_15CB30/g_earlierPoolPointers5]
   - name: debug_symbols_15CBE0
     type: bin
     start: 0x15CBE0
@@ -9745,17 +9745,17 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15CC10, data, debug_symbols_earlier_15CC10/g_earlierObjectBytes5]
-      - [0x15CC60, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers_8015A060]
+      - [0x15CC60, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers6]
       - [0x15CC64, data, debug_symbols_earlier_15CC10/g_earlierObjectWord4]
-      - [0x15CC68, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats_8015A068]
+      - [0x15CC68, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats4]
       - [0x15CC74, data, debug_symbols_earlier_15CC10/g_earlierObjectBytes6]
-      - [0x15CC80, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers_8015A080]
+      - [0x15CC80, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers7]
       - [0x15CC84, data, debug_symbols_earlier_15CC10/g_earlierObjectWord5]
-      - [0x15CC88, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats_8015A088]
+      - [0x15CC88, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats5]
       - [0x15CC94, data, debug_symbols_earlier_15CC10/g_earlierObjectBytes7]
-      - [0x15CCA0, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers_8015A0A0]
-      - [0x15CCA8, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats_8015A0A8]
-      - [0x15CCB4, data, debug_symbols_earlier_15CC10/g_earlierPoolInts_8015A0B4]
+      - [0x15CCA0, data, debug_symbols_earlier_15CC10/g_earlierPoolPointers8]
+      - [0x15CCA8, data, debug_symbols_earlier_15CC10/g_earlierPoolFloats6]
+      - [0x15CCB4, data, debug_symbols_earlier_15CC10/g_earlierPoolInts1]
       - [0x15CCD4, data, debug_symbols_earlier_15CC10/g_earlierObjectBytes8]
   - name: debug_symbols_15CD34
     type: bin
@@ -9767,11 +9767,11 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15CD40, data, debug_symbols_earlier_15CD40/g_earlierObjectBytes9]
-      - [0x15CD6C, data, debug_symbols_earlier_15CD40/g_earlierPoolPointers_8015A16C]
+      - [0x15CD6C, data, debug_symbols_earlier_15CD40/g_earlierPoolPointers9]
       - [0x15CD70, data, debug_symbols_earlier_15CD40/g_earlierObjectWord6]
-      - [0x15CD74, data, debug_symbols_earlier_15CD40/g_earlierPoolFloats_8015A174]
+      - [0x15CD74, data, debug_symbols_earlier_15CD40/g_earlierPoolFloats7]
       - [0x15CD80, data, debug_symbols_earlier_15CD40/g_earlierObjectBytes10]
-      - [0x15CD8C, data, debug_symbols_earlier_15CD40/g_earlierPoolPointers_8015A18C]
+      - [0x15CD8C, data, debug_symbols_earlier_15CD40/g_earlierPoolPointers10]
   - name: debug_symbols_15CD90
     type: bin
     start: 0x15CD90
@@ -9782,18 +9782,18 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15CDC0, data, debug_symbols_earlier_15CDC0/g_earlierObjectBytes11]
-      - [0x15CE0C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers_8015A20C]
+      - [0x15CE0C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers11]
       - [0x15CE10, data, debug_symbols_earlier_15CDC0/g_earlierObjectWord7]
-      - [0x15CE14, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats_8015A214]
+      - [0x15CE14, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats8]
       - [0x15CE20, data, debug_symbols_earlier_15CDC0/g_earlierObjectBytes12]
-      - [0x15CE2C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers_8015A22C]
+      - [0x15CE2C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers12]
       - [0x15CE30, data, debug_symbols_earlier_15CDC0/g_earlierPoolWord1]
-      - [0x15CE34, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats_8015A234]
+      - [0x15CE34, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats9]
       - [0x15CE40, data, debug_symbols_earlier_15CDC0/g_earlierPoolBytes1]
-      - [0x15CE4C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers_8015A24C]
+      - [0x15CE4C, data, debug_symbols_earlier_15CDC0/g_earlierPoolPointers13]
       - [0x15CE50, data, debug_symbols_earlier_15CDC0/g_earlierPoolWord2]
-      - [0x15CE54, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats_8015A254]
-      - [0x15CE60, data, debug_symbols_earlier_15CDC0/g_earlierPoolInts_8015A260]
+      - [0x15CE54, data, debug_symbols_earlier_15CDC0/g_earlierPoolFloats10]
+      - [0x15CE60, data, debug_symbols_earlier_15CDC0/g_earlierPoolInts2]
       - [0x15CE80, data, debug_symbols_earlier_15CDC0/g_earlierPoolBytes2]
   - name: debug_symbols_earlier_15CEC8
     type: code
@@ -9808,7 +9808,7 @@ segments:
     vram: 0x8015A2CC
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15CECC, data, debug_symbols_earlier_15CECC/g_earlierPoolFloats_8015A2CC]
+      - [0x15CECC, data, debug_symbols_earlier_15CECC/g_earlierPoolFloats11]
   - name: debug_symbols_15CED0
     type: bin
     start: 0x15CED0
@@ -9819,7 +9819,7 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15CF30, data, debug_symbols_earlier_15CF30/g_earlierPoolBytes3]
-      - [0x15CF40, data, debug_symbols_earlier_15CF30/g_earlierPoolFloats_8015A340]
+      - [0x15CF40, data, debug_symbols_earlier_15CF30/g_earlierPoolFloats12]
       - [0x15CF48, data, debug_symbols_earlier_15CF30/g_earlierPoolBytes4]
   - name: debug_symbols_15CF58
     type: bin
@@ -9845,34 +9845,34 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15CFB0, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes6]
-      - [0x15CFDC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A3DC]
+      - [0x15CFDC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers14]
       - [0x15CFE0, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord3]
-      - [0x15CFE4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A3E4]
-      - [0x15CFF0, data, debug_symbols_earlier_15CFB0/g_earlierPoolInts_8015A3F0]
+      - [0x15CFE4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats13]
+      - [0x15CFF0, data, debug_symbols_earlier_15CFB0/g_earlierPoolInts3]
       - [0x15D010, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes7]
-      - [0x15D08C, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A48C]
+      - [0x15D08C, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers15]
       - [0x15D090, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord4]
-      - [0x15D094, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A494]
+      - [0x15D094, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats14]
       - [0x15D09C, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes8]
-      - [0x15D0AC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A4AC]
+      - [0x15D0AC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers16]
       - [0x15D0B0, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord5]
-      - [0x15D0B4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A4B4]
+      - [0x15D0B4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats15]
       - [0x15D0C0, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes9]
-      - [0x15D0CC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A4CC]
+      - [0x15D0CC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers17]
       - [0x15D0D0, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord6]
-      - [0x15D0D4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A4D4]
+      - [0x15D0D4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats16]
       - [0x15D0DC, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes10]
-      - [0x15D0EC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A4EC]
+      - [0x15D0EC, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers18]
       - [0x15D0F0, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord7]
-      - [0x15D0F4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A4F4]
+      - [0x15D0F4, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats17]
       - [0x15D100, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes11]
-      - [0x15D10C, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers_8015A50C]
+      - [0x15D10C, data, debug_symbols_earlier_15CFB0/g_earlierPoolPointers19]
       - [0x15D110, data, debug_symbols_earlier_15CFB0/g_earlierPoolWord8]
-      - [0x15D114, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A514]
-      - [0x15D120, data, debug_symbols_earlier_15CFB0/g_earlierPoolInts_8015A520]
+      - [0x15D114, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats18]
+      - [0x15D120, data, debug_symbols_earlier_15CFB0/g_earlierPoolInts4]
       - [0x15D140, data, debug_symbols_earlier_15CFB0/g_earlierPoolBytes12]
-      - [0x15D1A0, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats_8015A5A0]
-      - [0x15D1A8, data, debug_symbols_earlier_15CFB0/g_earlierPoolDoubles_8015A5A8]
+      - [0x15D1A0, data, debug_symbols_earlier_15CFB0/g_earlierPoolFloats19]
+      - [0x15D1A8, data, debug_symbols_earlier_15CFB0/g_earlierPoolDoubles1]
   - name: debug_symbols_15D1B0
     type: bin
     start: 0x15D1B0
@@ -9893,7 +9893,7 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15D720, data, debug_symbols_earlier_15D720/g_earlierPoolBytes14]
-      - [0x15D770, data, debug_symbols_earlier_15D720/g_earlierPoolPointers_8015AB70]
+      - [0x15D770, data, debug_symbols_earlier_15D720/g_earlierPoolPointers20]
   - name: debug_symbols_15D7A8
     type: bin
     start: 0x15D7A8
@@ -9904,31 +9904,31 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15D7B0, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes15]
-      - [0x15D7E4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015ABE4]
+      - [0x15D7E4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats20]
       - [0x15D7E8, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes16]
-      - [0x15D804, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AC04]
+      - [0x15D804, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats21]
       - [0x15D808, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes17]
-      - [0x15D824, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AC24]
+      - [0x15D824, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats22]
       - [0x15D828, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes18]
-      - [0x15D844, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AC44]
+      - [0x15D844, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats23]
       - [0x15D848, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes19]
-      - [0x15D864, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AC64]
+      - [0x15D864, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats24]
       - [0x15D868, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes20]
-      - [0x15D884, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AC84]
+      - [0x15D884, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats25]
       - [0x15D888, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes21]
-      - [0x15D8A4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015ACA4]
+      - [0x15D8A4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats26]
       - [0x15D8A8, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes22]
-      - [0x15D8C4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015ACC4]
+      - [0x15D8C4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats27]
       - [0x15D8C8, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes23]
-      - [0x15D8E4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015ACE4]
+      - [0x15D8E4, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats28]
       - [0x15D8E8, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes24]
-      - [0x15D904, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AD04]
+      - [0x15D904, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats29]
       - [0x15D908, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes25]
-      - [0x15D924, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AD24]
+      - [0x15D924, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats30]
       - [0x15D928, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes26]
-      - [0x15D944, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AD44]
+      - [0x15D944, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats31]
       - [0x15D948, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes27]
-      - [0x15D964, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats_8015AD64]
+      - [0x15D964, data, debug_symbols_earlier_15D7B0/g_earlierPoolFloats32]
       - [0x15D968, data, debug_symbols_earlier_15D7B0/g_earlierPoolBytes28]
   - name: debug_symbols_15D97C
     type: bin
@@ -9940,7 +9940,7 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15D9B0, data, debug_symbols_earlier_15D9B0/g_earlierPoolBytes29]
-      - [0x15D9B8, data, debug_symbols_earlier_15D9B0/g_earlierPoolFloats_8015ADB8]
+      - [0x15D9B8, data, debug_symbols_earlier_15D9B0/g_earlierPoolFloats33]
   - name: debug_symbols_earlier_15D9CC
     type: code
     start: 0x15D9CC
@@ -9957,7 +9957,7 @@ segments:
     vram: 0x8015AE70
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15DA70, data, debug_symbols_earlier_15DA70/g_earlierPoolInts_8015AE70]
+      - [0x15DA70, data, debug_symbols_earlier_15DA70/g_earlierPoolInts5]
       - [0x15DA80, data, debug_symbols_earlier_15DA70/g_earlierPoolBytes30]
   - name: debug_symbols_15DA90
     type: bin
@@ -9968,10 +9968,10 @@ segments:
     vram: 0x8015AEB0
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15DAB0, data, debug_symbols_earlier_15DAB0/g_earlierPoolPointers_8015AEB0]
-      - [0x15DAD8, data, debug_symbols_earlier_15DAB0/g_earlierPoolInts_8015AED8]
+      - [0x15DAB0, data, debug_symbols_earlier_15DAB0/g_earlierPoolPointers21]
+      - [0x15DAD8, data, debug_symbols_earlier_15DAB0/g_earlierPoolInts6]
       - [0x15DADC, data, debug_symbols_earlier_15DAB0/g_earlierPoolWord9]
-      - [0x15DAE0, data, debug_symbols_earlier_15DAB0/g_earlierPoolFloats_8015AEE0]
+      - [0x15DAE0, data, debug_symbols_earlier_15DAB0/g_earlierPoolFloats34]
   - name: debug_symbols_15DAE4
     type: bin
     start: 0x15DAE4
@@ -9995,7 +9995,7 @@ segments:
     vram: 0x8015AEF8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15DAF8, data, debug_symbols_earlier_15DAF8/g_earlierPoolStr_8015AEF8]
+      - [0x15DAF8, data, debug_symbols_earlier_15DAF8/g_earlierPoolStr1]
       - [0x15DAFC, data, debug_symbols_earlier_15DAF8/g_earlierPoolWord10]
   - name: debug_symbols_15DB00
     type: bin
@@ -10007,9 +10007,9 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15DF98, data, debug_symbols_earlier_15DF98/g_earlierPoolWord11]
-      - [0x15DF9C, data, debug_symbols_earlier_15DF98/g_earlierPoolFloats_8015B39C]
+      - [0x15DF9C, data, debug_symbols_earlier_15DF98/g_earlierPoolFloats35]
       - [0x15DFA0, data, debug_symbols_earlier_15DF98/g_earlierPoolBytes31]
-      - [0x15E0C8, data, debug_symbols_earlier_15DF98/g_earlierPoolFloats_8015B4C8]
+      - [0x15E0C8, data, debug_symbols_earlier_15DF98/g_earlierPoolFloats36]
       - [0x15E0CC, data, debug_symbols_earlier_15DF98/g_earlierPoolWord12]
   - name: debug_symbols_15E0D0
     type: bin
@@ -10044,8 +10044,8 @@ segments:
     vram: 0x8015C8E0
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15F4E0, data, debug_symbols_earlier_15F4E0/g_earlierPoolPointers_8015C8E0]
-      - [0x15F528, data, debug_symbols_earlier_15F4E0/g_earlierPoolFloats_8015C928]
+      - [0x15F4E0, data, debug_symbols_earlier_15F4E0/g_earlierPoolPointers22]
+      - [0x15F528, data, debug_symbols_earlier_15F4E0/g_earlierPoolFloats37]
   - name: debug_symbols_15F554
     type: bin
     start: 0x15F554
@@ -10056,11 +10056,11 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15F560, data, debug_symbols_earlier_15F560/g_earlierPoolBytes33]
-      - [0x15F584, data, debug_symbols_earlier_15F560/g_earlierPoolFloats_8015C984]
+      - [0x15F584, data, debug_symbols_earlier_15F560/g_earlierPoolFloats38]
       - [0x15F590, data, debug_symbols_earlier_15F560/g_earlierPoolWord13]
-      - [0x15F594, data, debug_symbols_earlier_15F560/g_earlierPoolStr_8015C994]
+      - [0x15F594, data, debug_symbols_earlier_15F560/g_earlierPoolStr2]
       - [0x15F5A0, data, debug_symbols_earlier_15F560/g_earlierPoolWord14]
-      - [0x15F5A4, data, debug_symbols_earlier_15F560/g_earlierPoolFloats_8015C9A4]
+      - [0x15F5A4, data, debug_symbols_earlier_15F560/g_earlierPoolFloats39]
   - name: debug_symbols_earlier_15F5A8
     type: code
     start: 0x15F5A8
@@ -10075,63 +10075,63 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x15FB00, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes48]
-      - [0x15FB0C, data, debug_symbols_earlier_15FB00/g_earlierPoolFloats_8015CF0C]
+      - [0x15FB0C, data, debug_symbols_earlier_15FB00/g_earlierPoolFloats79]
       - [0x15FB10, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes49]
-      - [0x15FB30, data, debug_symbols_earlier_15FB00/g_earlierPoolFloats_8015CF30]
+      - [0x15FB30, data, debug_symbols_earlier_15FB00/g_earlierPoolFloats80]
       - [0x15FB34, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes50]
-      - [0x15FB64, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CF64]
+      - [0x15FB64, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers23]
       - [0x15FB68, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes51]
-      - [0x15FB70, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CF70]
+      - [0x15FB70, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers24]
       - [0x15FB74, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes52]
-      - [0x15FB7C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CF7C]
+      - [0x15FB7C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers25]
       - [0x15FB80, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes53]
-      - [0x15FB88, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CF88]
+      - [0x15FB88, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers26]
       - [0x15FB8C, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes54]
-      - [0x15FB94, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CF94]
+      - [0x15FB94, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers27]
       - [0x15FB98, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes55]
-      - [0x15FBA0, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFA0]
+      - [0x15FBA0, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers28]
       - [0x15FBA4, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes56]
-      - [0x15FBAC, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFAC]
+      - [0x15FBAC, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers29]
       - [0x15FBB0, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes57]
-      - [0x15FBB8, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFB8]
+      - [0x15FBB8, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers30]
       - [0x15FBBC, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes58]
-      - [0x15FBC4, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFC4]
+      - [0x15FBC4, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers31]
       - [0x15FBC8, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes59]
-      - [0x15FBD0, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFD0]
+      - [0x15FBD0, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers32]
       - [0x15FBD4, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes60]
-      - [0x15FBDC, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFDC]
+      - [0x15FBDC, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers33]
       - [0x15FBE0, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes61]
-      - [0x15FBE8, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFE8]
+      - [0x15FBE8, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers34]
       - [0x15FBEC, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes62]
-      - [0x15FBF4, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015CFF4]
+      - [0x15FBF4, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers35]
       - [0x15FBF8, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes63]
-      - [0x15FC00, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D000]
+      - [0x15FC00, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers36]
       - [0x15FC04, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes64]
-      - [0x15FC0C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D00C]
+      - [0x15FC0C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers37]
       - [0x15FC10, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes65]
-      - [0x15FC18, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D018]
+      - [0x15FC18, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers38]
       - [0x15FC1C, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes66]
-      - [0x15FC24, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D024]
+      - [0x15FC24, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers39]
       - [0x15FC28, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes67]
-      - [0x15FC30, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D030]
+      - [0x15FC30, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers40]
       - [0x15FC34, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes68]
-      - [0x15FC3C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D03C]
+      - [0x15FC3C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers41]
       - [0x15FC40, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes69]
-      - [0x15FC48, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D048]
+      - [0x15FC48, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers42]
       - [0x15FC4C, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes70]
-      - [0x15FC54, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D054]
+      - [0x15FC54, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers43]
       - [0x15FC58, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes71]
-      - [0x15FC60, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D060]
+      - [0x15FC60, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers44]
       - [0x15FC64, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes72]
-      - [0x15FC6C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D06C]
+      - [0x15FC6C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers45]
       - [0x15FC70, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes73]
-      - [0x15FC78, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D078]
+      - [0x15FC78, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers46]
       - [0x15FC7C, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes74]
-      - [0x15FC84, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D084]
+      - [0x15FC84, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers47]
       - [0x15FC88, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes75]
-      - [0x15FC90, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D090]
+      - [0x15FC90, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers48]
       - [0x15FC94, data, debug_symbols_earlier_15FB00/g_earlierPoolBytes76]
-      - [0x15FC9C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers_8015D09C]
+      - [0x15FC9C, data, debug_symbols_earlier_15FB00/g_earlierPoolPointers49]
   - name: debug_symbols_earlier_15FCAC
     type: code
     start: 0x15FCAC
@@ -10145,9 +10145,9 @@ segments:
     vram: 0x8015D0B4
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15FCB4, data, debug_symbols_earlier_15FCB4/g_earlierPoolPointers_8015D0B4]
-      - [0x15FCB8, data, debug_symbols_earlier_15FCB4/g_earlierPoolFloats_8015D0B8]
-      - [0x15FCC0, data, debug_symbols_earlier_15FCB4/g_earlierPoolPointers_8015D0C0]
+      - [0x15FCB4, data, debug_symbols_earlier_15FCB4/g_earlierPoolPointers50]
+      - [0x15FCB8, data, debug_symbols_earlier_15FCB4/g_earlierPoolFloats81]
+      - [0x15FCC0, data, debug_symbols_earlier_15FCB4/g_earlierPoolPointers51]
   - name: debug_symbols_earlier_15FCC4
     type: code
     start: 0x15FCC4
@@ -10161,53 +10161,53 @@ segments:
     vram: 0x8015D0FC
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15FCFC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D0FC]
+      - [0x15FCFC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers52]
       - [0x15FD00, data, debug_symbols_earlier_15FCFC/g_earlierPoolJumpTable1]
-      - [0x15FD08, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D108]
+      - [0x15FD08, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers53]
       - [0x15FD0C, data, debug_symbols_earlier_15FCFC/g_earlierPoolJumpTable2]
-      - [0x15FD14, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D114]
+      - [0x15FD14, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers54]
       - [0x15FD18, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes77]
-      - [0x15FD20, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D120]
+      - [0x15FD20, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers55]
       - [0x15FD24, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes78]
-      - [0x15FD2C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D12C]
+      - [0x15FD2C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers56]
       - [0x15FD30, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes79]
-      - [0x15FD38, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D138]
+      - [0x15FD38, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers57]
       - [0x15FD3C, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes80]
-      - [0x15FD44, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D144]
+      - [0x15FD44, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers58]
       - [0x15FD48, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes81]
-      - [0x15FD50, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D150]
+      - [0x15FD50, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers59]
       - [0x15FD54, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes82]
-      - [0x15FD5C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D15C]
+      - [0x15FD5C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers60]
       - [0x15FD60, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes83]
-      - [0x15FD68, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D168]
+      - [0x15FD68, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers61]
       - [0x15FD6C, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes84]
-      - [0x15FD74, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D174]
+      - [0x15FD74, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers62]
       - [0x15FD78, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes85]
-      - [0x15FD80, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D180]
+      - [0x15FD80, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers63]
       - [0x15FD84, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes86]
-      - [0x15FD8C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D18C]
+      - [0x15FD8C, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers64]
       - [0x15FD90, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes87]
-      - [0x15FD98, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D198]
+      - [0x15FD98, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers65]
       - [0x15FD9C, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes88]
-      - [0x15FDA4, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1A4]
+      - [0x15FDA4, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers66]
       - [0x15FDA8, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes89]
-      - [0x15FDB0, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1B0]
+      - [0x15FDB0, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers67]
       - [0x15FDB4, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes90]
-      - [0x15FDBC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1BC]
+      - [0x15FDBC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers68]
       - [0x15FDC0, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes91]
-      - [0x15FDC8, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1C8]
+      - [0x15FDC8, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers69]
       - [0x15FDCC, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes92]
-      - [0x15FDD4, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1D4]
+      - [0x15FDD4, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers70]
       - [0x15FDD8, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes93]
-      - [0x15FDE0, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1E0]
+      - [0x15FDE0, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers71]
       - [0x15FDE4, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes94]
-      - [0x15FDEC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1EC]
+      - [0x15FDEC, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers72]
       - [0x15FDF0, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes95]
-      - [0x15FDF8, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D1F8]
+      - [0x15FDF8, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers73]
       - [0x15FDFC, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes96]
-      - [0x15FE04, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D204]
+      - [0x15FE04, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers74]
       - [0x15FE08, data, debug_symbols_earlier_15FCFC/g_earlierPoolBytes97]
-      - [0x15FE10, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers_8015D210]
+      - [0x15FE10, data, debug_symbols_earlier_15FCFC/g_earlierPoolPointers75]
   - name: debug_symbols_earlier_15FE20
     type: code
     start: 0x15FE20
@@ -10221,47 +10221,47 @@ segments:
     vram: 0x8015D234
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15FE34, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D234]
+      - [0x15FE34, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers76]
       - [0x15FE38, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes98]
-      - [0x15FE40, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D240]
+      - [0x15FE40, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers77]
       - [0x15FE44, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes99]
-      - [0x15FE4C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D24C]
+      - [0x15FE4C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers78]
       - [0x15FE50, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes100]
-      - [0x15FE58, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D258]
+      - [0x15FE58, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers79]
       - [0x15FE5C, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes101]
-      - [0x15FE64, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D264]
+      - [0x15FE64, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers80]
       - [0x15FE68, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes102]
-      - [0x15FE70, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D270]
+      - [0x15FE70, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers81]
       - [0x15FE74, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes103]
-      - [0x15FE7C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D27C]
+      - [0x15FE7C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers82]
       - [0x15FE80, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes104]
-      - [0x15FE88, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D288]
+      - [0x15FE88, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers83]
       - [0x15FE8C, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes105]
-      - [0x15FE94, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D294]
+      - [0x15FE94, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers84]
       - [0x15FE98, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes106]
-      - [0x15FEA0, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2A0]
+      - [0x15FEA0, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers85]
       - [0x15FEA4, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes107]
-      - [0x15FEAC, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2AC]
+      - [0x15FEAC, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers86]
       - [0x15FEB0, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes108]
-      - [0x15FEB8, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2B8]
+      - [0x15FEB8, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers87]
       - [0x15FEBC, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes109]
-      - [0x15FEC4, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2C4]
+      - [0x15FEC4, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers88]
       - [0x15FEC8, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes110]
-      - [0x15FED0, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2D0]
+      - [0x15FED0, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers89]
       - [0x15FED4, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes111]
-      - [0x15FEDC, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2DC]
+      - [0x15FEDC, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers90]
       - [0x15FEE0, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes112]
-      - [0x15FEE8, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2E8]
+      - [0x15FEE8, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers91]
       - [0x15FEEC, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes113]
-      - [0x15FEF4, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D2F4]
+      - [0x15FEF4, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers92]
       - [0x15FEF8, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes114]
-      - [0x15FF00, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D300]
+      - [0x15FF00, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers93]
       - [0x15FF04, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes115]
-      - [0x15FF0C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D30C]
+      - [0x15FF0C, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers94]
       - [0x15FF10, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes116]
-      - [0x15FF18, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D318]
+      - [0x15FF18, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers95]
       - [0x15FF1C, data, debug_symbols_earlier_15FE34/g_earlierPoolBytes117]
-      - [0x15FF24, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers_8015D324]
+      - [0x15FF24, data, debug_symbols_earlier_15FE34/g_earlierPoolPointers96]
   - name: debug_symbols_earlier_15FF3C
     type: code
     start: 0x15FF3C
@@ -10295,9 +10295,9 @@ segments:
     vram: 0x8015D3E8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x15FFE8, data, debug_symbols_earlier_15FFE8/g_earlierPoolPointers_8015D3E8]
+      - [0x15FFE8, data, debug_symbols_earlier_15FFE8/g_earlierPoolPointers97]
       - [0x15FFEC, data, debug_symbols_earlier_15FFE8/g_earlierPoolBytes119]
-      - [0x16010C, data, debug_symbols_earlier_15FFE8/g_earlierPoolFloats_8015D50C]
+      - [0x16010C, data, debug_symbols_earlier_15FFE8/g_earlierPoolFloats83]
       - [0x16011C, data, debug_symbols_earlier_15FFE8/g_earlierPoolBytes120]
   - name: debug_symbols_earlier_160148
     type: code
@@ -10315,8 +10315,8 @@ segments:
     vram: 0x8015D57C
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x16017C, data, debug_symbols_earlier_16017C/g_earlierPoolFloats_8015D57C]
-      - [0x160180, data, debug_symbols_earlier_16017C/g_earlierPoolInts_8015D580]
+      - [0x16017C, data, debug_symbols_earlier_16017C/g_earlierPoolFloats85]
+      - [0x160180, data, debug_symbols_earlier_16017C/g_earlierPoolInts7]
       - [0x160184, data, debug_symbols_earlier_16017C/g_earlierPoolBytes121]
   - name: debug_symbols_160190
     type: bin
@@ -10327,10 +10327,10 @@ segments:
     vram: 0x8015D5E8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1601E8, data, debug_symbols_earlier_1601E8/g_earlierPoolInts_8015D5E8]
-      - [0x1601F0, data, debug_symbols_earlier_1601E8/g_earlierPoolFloats_8015D5F0]
+      - [0x1601E8, data, debug_symbols_earlier_1601E8/g_earlierPoolInts8]
+      - [0x1601F0, data, debug_symbols_earlier_1601E8/g_earlierPoolFloats86]
       - [0x1601FC, data, debug_symbols_earlier_1601E8/g_earlierPoolBytes122]
-      - [0x160230, data, debug_symbols_earlier_1601E8/g_earlierPoolInts_8015D630]
+      - [0x160230, data, debug_symbols_earlier_1601E8/g_earlierPoolInts9]
   - name: debug_symbols_earlier_160234
     type: code
     start: 0x160234
@@ -10344,16 +10344,16 @@ segments:
     vram: 0x8015D638
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160238, data, debug_symbols_earlier_160238/g_earlierPoolStr_8015D638]
-      - [0x160240, data, debug_symbols_earlier_160238/g_earlierPoolFloats_8015D640]
-      - [0x160248, data, debug_symbols_earlier_160238/g_earlierPoolStr_8015D648]
+      - [0x160238, data, debug_symbols_earlier_160238/g_earlierPoolStr12]
+      - [0x160240, data, debug_symbols_earlier_160238/g_earlierPoolFloats87]
+      - [0x160248, data, debug_symbols_earlier_160238/g_earlierPoolStr13]
   - name: debug_symbols_earlier_160250
     type: code
     start: 0x160250
     vram: 0x8015D650
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160250, data, debug_symbols_earlier_160250/g_earlierPoolPointers_8015D650]
+      - [0x160250, data, debug_symbols_earlier_160250/g_earlierPoolPointers98]
   - name: debug_symbols_16027C
     type: bin
     start: 0x16027C
@@ -10363,7 +10363,7 @@ segments:
     vram: 0x8015D8D4
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1604D4, data, debug_symbols_earlier_1604D4/g_earlierPoolStr_8015D8D4]
+      - [0x1604D4, data, debug_symbols_earlier_1604D4/g_earlierPoolStr14]
   - name: debug_symbols_1604E4
     type: bin
     start: 0x1604E4
@@ -10388,8 +10388,8 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x160504, c, debug_symbols_earlier_160504]
-      - [0x160508, data, debug_symbols_earlier_160504/g_earlierPoolInts_8015D908]
-      - [0x16050C, data, debug_symbols_earlier_160504/g_earlierPoolStr_8015D90C]
+      - [0x160508, data, debug_symbols_earlier_160504/g_earlierPoolInts10]
+      - [0x16050C, data, debug_symbols_earlier_160504/g_earlierPoolStr15]
       - [0x160514, data, debug_symbols_earlier_160504/g_earlierPoolBytes123]
   - name: debug_symbols_earlier_16051C
     type: code
@@ -10405,7 +10405,7 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x160520, data, debug_symbols_earlier_160520/g_earlierPoolBytes124]
-      - [0x160548, data, debug_symbols_earlier_160520/g_earlierPoolStr_8015D948]
+      - [0x160548, data, debug_symbols_earlier_160520/g_earlierPoolStr16]
       - [0x16054C, data, debug_symbols_earlier_160520/g_earlierPoolWord24]
   - name: debug_symbols_160550
     type: bin
@@ -10423,8 +10423,8 @@ segments:
     vram: 0x8015DD68
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160968, data, debug_symbols_earlier_160968/g_earlierPoolPointers_8015DD68]
-      - [0x160974, data, debug_symbols_earlier_160968/g_earlierPoolFloats_8015DD74]
+      - [0x160968, data, debug_symbols_earlier_160968/g_earlierPoolPointers99]
+      - [0x160974, data, debug_symbols_earlier_160968/g_earlierPoolFloats89]
   - name: debug_symbols_earlier_160978
     type: code
     start: 0x160978
@@ -10438,7 +10438,7 @@ segments:
     vram: 0x8015DD80
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160980, data, debug_symbols_earlier_160980/g_earlierPoolFloats_8015DD80]
+      - [0x160980, data, debug_symbols_earlier_160980/g_earlierPoolFloats90]
   - name: debug_symbols_earlier_16098C
     type: code
     start: 0x16098C
@@ -10452,7 +10452,7 @@ segments:
     vram: 0x8015DD90
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160990, data, debug_symbols_earlier_160990/g_earlierPoolFloats_8015DD90]
+      - [0x160990, data, debug_symbols_earlier_160990/g_earlierPoolFloats91]
   - name: debug_symbols_earlier_160998
     type: code
     start: 0x160998
@@ -10467,8 +10467,8 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x1609A0, data, debug_symbols_earlier_1609A0/g_earlierPoolBytes125]
-      - [0x1609AC, data, debug_symbols_earlier_1609A0/g_earlierPoolStr_8015DDAC]
-      - [0x1609B4, data, debug_symbols_earlier_1609A0/g_earlierPoolFloats_8015DDB4]
+      - [0x1609AC, data, debug_symbols_earlier_1609A0/g_earlierPoolStr17]
+      - [0x1609B4, data, debug_symbols_earlier_1609A0/g_earlierPoolFloats92]
       - [0x1609C0, data, debug_symbols_earlier_1609A0/g_earlierPoolWord25]
   - name: debug_symbols_earlier_1609C4
     type: code
@@ -10483,7 +10483,7 @@ segments:
     vram: 0x8015DDC8
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1609C8, data, debug_symbols_earlier_1609C8/g_earlierPoolStr_8015DDC8]
+      - [0x1609C8, data, debug_symbols_earlier_1609C8/g_earlierPoolStr18]
       - [0x1609CC, data, debug_symbols_earlier_1609C8/g_earlierPoolWord26]
   - name: debug_symbols_1609D0
     type: bin
@@ -10494,7 +10494,7 @@ segments:
     vram: 0x8015DE6C
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x160A6C, data, debug_symbols_earlier_160A6C/g_earlierPoolStr_8015DE6C]
+      - [0x160A6C, data, debug_symbols_earlier_160A6C/g_earlierPoolStr19]
       - [0x160A74, data, debug_symbols_earlier_160A6C/g_earlierPoolBytes126]
   - name: debug_symbols_earlier_160A88
     type: code
@@ -10510,7 +10510,7 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x160A90, data, debug_symbols_earlier_160A90/g_earlierPoolBytes127]
-      - [0x160AFC, data, debug_symbols_earlier_160A90/g_earlierPoolFloats_8015DEFC]
+      - [0x160AFC, data, debug_symbols_earlier_160A90/g_earlierPoolFloats93]
   - name: debug_symbols_160B00
     type: bin
     start: 0x160B00
@@ -10555,109 +10555,109 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x161024, data, debug_symbols_earlier_161024/g_earlierPoolBytes128]
-      - [0x161038, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E438]
+      - [0x161038, data, debug_symbols_earlier_161024/g_earlierPoolPointers100]
       - [0x16103C, data, debug_symbols_earlier_161024/g_earlierPoolBytes129]
-      - [0x161050, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E450]
+      - [0x161050, data, debug_symbols_earlier_161024/g_earlierPoolPointers101]
       - [0x161054, data, debug_symbols_earlier_161024/g_earlierPoolBytes130]
-      - [0x161068, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E468]
+      - [0x161068, data, debug_symbols_earlier_161024/g_earlierPoolPointers102]
       - [0x16106C, data, debug_symbols_earlier_161024/g_earlierPoolBytes131]
-      - [0x161080, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E480]
+      - [0x161080, data, debug_symbols_earlier_161024/g_earlierPoolPointers103]
       - [0x161084, data, debug_symbols_earlier_161024/g_earlierPoolBytes132]
-      - [0x161094, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E494]
+      - [0x161094, data, debug_symbols_earlier_161024/g_earlierPoolPointers104]
       - [0x161098, data, debug_symbols_earlier_161024/g_earlierPoolBytes133]
-      - [0x1610A8, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E4A8]
+      - [0x1610A8, data, debug_symbols_earlier_161024/g_earlierPoolPointers105]
       - [0x1610AC, data, debug_symbols_earlier_161024/g_earlierPoolBytes134]
-      - [0x1610BC, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E4BC]
+      - [0x1610BC, data, debug_symbols_earlier_161024/g_earlierPoolPointers106]
       - [0x1610C0, data, debug_symbols_earlier_161024/g_earlierPoolBytes135]
-      - [0x1610D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E4D0]
+      - [0x1610D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers107]
       - [0x1610D4, data, debug_symbols_earlier_161024/g_earlierPoolBytes136]
-      - [0x1610E4, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E4E4]
+      - [0x1610E4, data, debug_symbols_earlier_161024/g_earlierPoolPointers108]
       - [0x1610E8, data, debug_symbols_earlier_161024/g_earlierPoolBytes137]
-      - [0x1610F8, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E4F8]
+      - [0x1610F8, data, debug_symbols_earlier_161024/g_earlierPoolPointers109]
       - [0x1610FC, data, debug_symbols_earlier_161024/g_earlierPoolBytes138]
-      - [0x161110, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E510]
+      - [0x161110, data, debug_symbols_earlier_161024/g_earlierPoolPointers110]
       - [0x161114, data, debug_symbols_earlier_161024/g_earlierPoolBytes139]
-      - [0x161128, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E528]
+      - [0x161128, data, debug_symbols_earlier_161024/g_earlierPoolPointers111]
       - [0x16112C, data, debug_symbols_earlier_161024/g_earlierPoolBytes140]
-      - [0x161140, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E540]
+      - [0x161140, data, debug_symbols_earlier_161024/g_earlierPoolPointers112]
       - [0x161144, data, debug_symbols_earlier_161024/g_earlierPoolBytes141]
-      - [0x161158, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E558]
+      - [0x161158, data, debug_symbols_earlier_161024/g_earlierPoolPointers113]
       - [0x16115C, data, debug_symbols_earlier_161024/g_earlierPoolBytes142]
-      - [0x161170, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E570]
+      - [0x161170, data, debug_symbols_earlier_161024/g_earlierPoolPointers114]
       - [0x161174, data, debug_symbols_earlier_161024/g_earlierPoolBytes143]
-      - [0x161188, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E588]
+      - [0x161188, data, debug_symbols_earlier_161024/g_earlierPoolPointers115]
       - [0x16118C, data, debug_symbols_earlier_161024/g_earlierPoolBytes144]
-      - [0x1611A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E5A0]
+      - [0x1611A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers116]
       - [0x1611A4, data, debug_symbols_earlier_161024/g_earlierPoolBytes145]
-      - [0x1611E0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E5E0]
+      - [0x1611E0, data, debug_symbols_earlier_161024/g_earlierPoolPointers117]
       - [0x1611E4, data, debug_symbols_earlier_161024/g_earlierPoolBytes146]
-      - [0x1611F0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E5F0]
+      - [0x1611F0, data, debug_symbols_earlier_161024/g_earlierPoolPointers118]
       - [0x1611F4, data, debug_symbols_earlier_161024/g_earlierPoolBytes147]
-      - [0x161200, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E600]
+      - [0x161200, data, debug_symbols_earlier_161024/g_earlierPoolPointers119]
       - [0x161204, data, debug_symbols_earlier_161024/g_earlierPoolBytes148]
-      - [0x161210, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E610]
+      - [0x161210, data, debug_symbols_earlier_161024/g_earlierPoolPointers120]
       - [0x161214, data, debug_symbols_earlier_161024/g_earlierPoolBytes149]
-      - [0x161220, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E620]
+      - [0x161220, data, debug_symbols_earlier_161024/g_earlierPoolPointers121]
       - [0x161224, data, debug_symbols_earlier_161024/g_earlierPoolBytes150]
-      - [0x161230, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E630]
+      - [0x161230, data, debug_symbols_earlier_161024/g_earlierPoolPointers122]
       - [0x161234, data, debug_symbols_earlier_161024/g_earlierPoolBytes151]
-      - [0x161240, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E640]
+      - [0x161240, data, debug_symbols_earlier_161024/g_earlierPoolPointers123]
       - [0x161244, data, debug_symbols_earlier_161024/g_earlierPoolBytes152]
-      - [0x161250, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E650]
+      - [0x161250, data, debug_symbols_earlier_161024/g_earlierPoolPointers124]
       - [0x161254, data, debug_symbols_earlier_161024/g_earlierPoolBytes153]
-      - [0x161260, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E660]
+      - [0x161260, data, debug_symbols_earlier_161024/g_earlierPoolPointers125]
       - [0x161264, data, debug_symbols_earlier_161024/g_earlierPoolBytes154]
-      - [0x161270, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E670]
+      - [0x161270, data, debug_symbols_earlier_161024/g_earlierPoolPointers126]
       - [0x161274, data, debug_symbols_earlier_161024/g_earlierPoolBytes155]
-      - [0x161280, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E680]
+      - [0x161280, data, debug_symbols_earlier_161024/g_earlierPoolPointers127]
       - [0x161284, data, debug_symbols_earlier_161024/g_earlierPoolBytes156]
-      - [0x161290, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E690]
+      - [0x161290, data, debug_symbols_earlier_161024/g_earlierPoolPointers128]
       - [0x161294, data, debug_symbols_earlier_161024/g_earlierPoolBytes157]
-      - [0x1612A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6A0]
+      - [0x1612A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers129]
       - [0x1612A4, data, debug_symbols_earlier_161024/g_earlierPoolBytes158]
-      - [0x1612B0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6B0]
+      - [0x1612B0, data, debug_symbols_earlier_161024/g_earlierPoolPointers130]
       - [0x1612B4, data, debug_symbols_earlier_161024/g_earlierPoolBytes159]
-      - [0x1612C0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6C0]
+      - [0x1612C0, data, debug_symbols_earlier_161024/g_earlierPoolPointers131]
       - [0x1612C4, data, debug_symbols_earlier_161024/g_earlierPoolBytes160]
-      - [0x1612D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6D0]
+      - [0x1612D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers132]
       - [0x1612D4, data, debug_symbols_earlier_161024/g_earlierPoolBytes161]
-      - [0x1612E0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6E0]
+      - [0x1612E0, data, debug_symbols_earlier_161024/g_earlierPoolPointers133]
       - [0x1612E4, data, debug_symbols_earlier_161024/g_earlierPoolBytes162]
-      - [0x1612F0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E6F0]
+      - [0x1612F0, data, debug_symbols_earlier_161024/g_earlierPoolPointers134]
       - [0x1612F4, data, debug_symbols_earlier_161024/g_earlierPoolBytes163]
-      - [0x161300, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E700]
+      - [0x161300, data, debug_symbols_earlier_161024/g_earlierPoolPointers135]
       - [0x161304, data, debug_symbols_earlier_161024/g_earlierPoolBytes164]
-      - [0x161310, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E710]
+      - [0x161310, data, debug_symbols_earlier_161024/g_earlierPoolPointers136]
       - [0x161314, data, debug_symbols_earlier_161024/g_earlierPoolBytes165]
-      - [0x161328, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E728]
+      - [0x161328, data, debug_symbols_earlier_161024/g_earlierPoolPointers137]
       - [0x16132C, data, debug_symbols_earlier_161024/g_earlierPoolBytes166]
-      - [0x161340, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E740]
+      - [0x161340, data, debug_symbols_earlier_161024/g_earlierPoolPointers138]
       - [0x161344, data, debug_symbols_earlier_161024/g_earlierPoolBytes167]
-      - [0x161358, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E758]
+      - [0x161358, data, debug_symbols_earlier_161024/g_earlierPoolPointers139]
       - [0x16135C, data, debug_symbols_earlier_161024/g_earlierPoolBytes168]
-      - [0x161370, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E770]
+      - [0x161370, data, debug_symbols_earlier_161024/g_earlierPoolPointers140]
       - [0x161374, data, debug_symbols_earlier_161024/g_earlierPoolBytes169]
-      - [0x161388, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E788]
+      - [0x161388, data, debug_symbols_earlier_161024/g_earlierPoolPointers141]
       - [0x16138C, data, debug_symbols_earlier_161024/g_earlierPoolBytes170]
-      - [0x1613A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E7A0]
+      - [0x1613A0, data, debug_symbols_earlier_161024/g_earlierPoolPointers142]
       - [0x1613A4, data, debug_symbols_earlier_161024/g_earlierPoolBytes171]
-      - [0x1613B8, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E7B8]
+      - [0x1613B8, data, debug_symbols_earlier_161024/g_earlierPoolPointers143]
       - [0x1613BC, data, debug_symbols_earlier_161024/g_earlierPoolBytes172]
-      - [0x1613D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E7D0]
+      - [0x1613D0, data, debug_symbols_earlier_161024/g_earlierPoolPointers144]
       - [0x1613D4, data, debug_symbols_earlier_161024/g_earlierPoolBytes173]
-      - [0x1613E8, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E7E8]
+      - [0x1613E8, data, debug_symbols_earlier_161024/g_earlierPoolPointers145]
       - [0x1613EC, data, debug_symbols_earlier_161024/g_earlierPoolBytes174]
-      - [0x161400, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E800]
+      - [0x161400, data, debug_symbols_earlier_161024/g_earlierPoolPointers146]
       - [0x161404, data, debug_symbols_earlier_161024/g_earlierPoolBytes175]
-      - [0x161418, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E818]
+      - [0x161418, data, debug_symbols_earlier_161024/g_earlierPoolPointers147]
       - [0x16141C, data, debug_symbols_earlier_161024/g_earlierPoolBytes176]
-      - [0x161430, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E830]
+      - [0x161430, data, debug_symbols_earlier_161024/g_earlierPoolPointers148]
       - [0x161434, data, debug_symbols_earlier_161024/g_earlierPoolBytes177]
-      - [0x161448, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E848]
+      - [0x161448, data, debug_symbols_earlier_161024/g_earlierPoolPointers149]
       - [0x16144C, data, debug_symbols_earlier_161024/g_earlierPoolBytes178]
-      - [0x161460, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E860]
+      - [0x161460, data, debug_symbols_earlier_161024/g_earlierPoolPointers150]
       - [0x161464, data, debug_symbols_earlier_161024/g_earlierPoolBytes179]
-      - [0x161478, data, debug_symbols_earlier_161024/g_earlierPoolPointers_8015E878]
+      - [0x161478, data, debug_symbols_earlier_161024/g_earlierPoolPointers151]
       - [0x16147C, data, debug_symbols_earlier_161024/g_earlierPoolBytes180]
   - name: debug_symbols_earlier_1614A4
     type: code
@@ -10673,8 +10673,8 @@ segments:
     exclusive_ram_id: "earlier_build"
     subsegments:
       - [0x1614AC, data, debug_symbols_earlier_1614AC/g_earlierPoolWord27]
-      - [0x1614B0, data, debug_symbols_earlier_1614AC/g_earlierPoolStr_8015E8B0]
-      - [0x1614B8, data, debug_symbols_earlier_1614AC/g_earlierPoolPointers_8015E8B8]
+      - [0x1614B0, data, debug_symbols_earlier_1614AC/g_earlierPoolStr20]
+      - [0x1614B8, data, debug_symbols_earlier_1614AC/g_earlierPoolPointers152]
   - name: debug_symbols_1614DC
     type: bin
     start: 0x1614DC
@@ -10684,7 +10684,7 @@ segments:
     vram: 0x80161DB0
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x1649B0, data, debug_symbols_earlier_1649B0/g_earlierPoolStr_80161DB0]
+      - [0x1649B0, data, debug_symbols_earlier_1649B0/g_earlierPoolStr21]
   - name: debug_symbols_1649C8
     type: bin
     start: 0x1649C8
@@ -10704,7 +10704,7 @@ segments:
     vram: 0x80162D68
     exclusive_ram_id: "earlier_build"
     subsegments:
-      - [0x165968, data, debug_symbols_earlier_165968/g_earlierPoolPointers_80162D68]
+      - [0x165968, data, debug_symbols_earlier_165968/g_earlierPoolPointers153]
   - name: debug_symbols_1659D0
     type: bin
     start: 0x1659D0

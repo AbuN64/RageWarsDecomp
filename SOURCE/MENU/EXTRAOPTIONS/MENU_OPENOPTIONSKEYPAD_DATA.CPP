@@ -45,7 +45,7 @@ typedef char k_MenuOpenoptionskeypadZeroWordsSizeCheck[(sizeof(k_MenuOpenoptions
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_16391c30 __attribute__((aligned(4))) = {
+} g_menuOpenOptionsKeypadRecord __attribute__((aligned(4))) = {
     { { 3592, 28, (ResidentEventHandler)(void *)&g_Menu_UpdateExtraOptionsMenuPackedAddress24 }, { 3590, 28, (ResidentEventHandler)(void *)&g_Menu_OpenRuleToggleScreenPackedAddress24 }, { 3587, 28, (ResidentEventHandler)(void *)&g_Menu_DestroyExtraOptionsMenuPackedAddress24 }, { 2, 28, (ResidentEventHandler)(void *)&g_Menu_ConfirmExtraOptionsPackedAddress24 }, { 1, 28, (ResidentEventHandler)(void *)&g_Menu_HandleExtraOptionsChoicePackedAddress24 }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x8C850320 }
 };
@@ -57,7 +57,7 @@ extern char g_Selection_DispatchCharacterSelectionEventAddress[];
 struct {
     ResidentEventHandlerEntry handlers[6];
     u32 alignmentFill[1];
-} D_src_16391c30 __attribute__((aligned(4))) = {
+} g_menuOpenOptionsKeypadRecord __attribute__((aligned(4))) = {
     { { 3592, 28, (ResidentEventHandler)(void *)(g_Selection_DispatchCharacterSelectionEventAddress + 2956) }, { 3590, 28, (ResidentEventHandler)(void *)(g_Selection_DispatchCharacterSelectionEventAddress + 144) }, { 3587, 28, (ResidentEventHandler)(void *)(g_Selection_DispatchCharacterSelectionEventAddress + 2908) }, { 2, 28, (ResidentEventHandler)(void *)(g_Selection_DispatchCharacterSelectionEventAddress + 3264) }, { 1, 28, (ResidentEventHandler)(void *)(g_Selection_DispatchCharacterSelectionEventAddress + 3120) }, { 0, 0, (ResidentEventHandler)0 } },
     { 0x00000000 }
 };

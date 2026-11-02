@@ -15,10 +15,10 @@ struct {
 struct {
     s16 resource;
     s16 sentinel;
-} D_src_5ef0e8ff __attribute__((aligned(2))) = {
+} g_weaponPresentationDescriptor1Rev1Terminator __attribute__((aligned(2))) = {
     0,
     -1
 };
-typedef char D_src_5ef0e8ffSizeCheck[(sizeof(D_src_5ef0e8ff) == 4) ? 1 : -1];
+typedef char g_weaponPresentationDescriptor1Rev1TerminatorSizeCheck[(sizeof(g_weaponPresentationDescriptor1Rev1Terminator) == 4) ? 1 : -1];
 #endif
 #endif

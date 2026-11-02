@@ -25,7 +25,7 @@ extern char g_Player_UpdatePlayerSettingsExitPackedAddress24[];
 extern char g_Frontend_DispatchResidentActorEventAddress[];
 extern char Player_FreeAlternatePlayerSettingsScreen_Address[];
 extern char g_Player_DispatchPlayerSettingsEventAddress[];
-RestD_src_638b7747Layout508 D_src_638b7747 = {
+RestPlayerDispatchPlayerSettingsEventDataLayout508 g_playerDispatchPlayerSettingsEventData = {
     { 3591, 5 },
     (unsigned int)(g_Frontend_DispatchResidentActorEventAddress + 1812),
     { 3592, 5 },
@@ -81,7 +81,7 @@ extern char g_Player_CancelAlternatePlayerSettingsEntryPackedAddress24[];
 extern char g_Player_ConfirmAlternatePlayerSettingsEntryPackedAddress24[];
 extern char g_Player_SelectNextAlternatePlayerSettingsEntryPackedAddress24[];
 extern char g_Player_SelectPreviousAlternatePlayerSettingsEntryPackedAddress24[];
-RestD_src_638b7747Layout509 D_src_638b7747 = {
+RestPlayerDispatchPlayerSettingsEventDataLayout509 g_playerDispatchPlayerSettingsEventData = {
     { 3591, 5 },
     (void *)&g_Player_PlayerSettingsEvent0E07HandlerPackedAddress24,
     { 3592, 5 },
@@ -119,7 +119,7 @@ RestD_src_638b7747Layout509 D_src_638b7747 = {
 };
 #endif
 #if defined(VERSION_EU_X)
-RestD_src_638b7747Layout510 D_src_638b7747 = {
+RestPlayerDispatchPlayerSettingsEventDataLayout510 g_playerDispatchPlayerSettingsEventData = {
     { 3591, 5, 4422680, 3592, 5, 4422688, 3590, 5, 4420432, 3587, 5, 4422632, 10, 5, 4422812, 2, 5, 4422920, 1, 5, 4422820, 8, 98, 4422980, 7, 98, 4423180, 0, 0, 0, 3591, 12, 4423572, 3592, 12, 4423580, 3590, 12, 4421564, 3587, 12, 4423524, 2, 12, 4423700, 1, 12, 4423588, 8, 458, 4423772, 7, 458, 4423964, 0, 0, 0 },
     2096.0002f,
 };

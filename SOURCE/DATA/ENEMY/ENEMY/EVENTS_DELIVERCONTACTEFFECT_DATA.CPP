@@ -41,7 +41,7 @@ extern char g_particleQuadVertices[];
 /* g_EventsDelivercontacteffectWords2_EventsDelivercontacteffectData.CPP */
 #if defined(VERSION_US)
 #if defined(VERSION_US)
-unsigned short D_src_a9295539[68] = {
+unsigned short g_eventsDeliverContactEffectHalfwords[68] = {
     0xE300, 0x1001, 0x0000, 0x0000, 0xD7FF, 0x0002, 0x8000, 0x8000, 0xD9F9, 0xFBFF, 0x0000, 0x0000,
     0xD9FF, 0xFFFF, 0x0021, 0x0004, 0xFCFF, 0x97FF, 0xFFFF, 0xFE38, 0xE200, 0x001C, 0xC810, 0x4E50,
     0xDB04, 0x0004, 0x0000, 0x0001, 0xDB04, 0x000C, 0x0000, 0x0001, 0xDB04, 0x0014, 0x0000, 0xFFFF,
@@ -95,7 +95,7 @@ RestEventsDelivercontacteffectWords2Layout318 g_EventsDelivercontacteffectWords2
 /* g_EventsDelivercontacteffectWords1_EventsDelivercontacteffectData.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800D0F00_unclaimed_D1BA0_unclaimed_D1E68_unclaimed_D1F78 */
-RestLinkerAlignmentFill8 g_EventsDelivercontacteffect1LinkerAlignmentFill319 = {
+RestAlignPad8 g_EventsDelivercontacteffect1AlignPad = {
     { 63, 22, 156, 251, 63, 22, 41, 101 },
 };
 
@@ -171,7 +171,7 @@ ResteffectCallbackFlagsLayout320 g_effectCallbackFlags = {
 /* g_EventsDelivercontacteffectWords3_EventsDelivercontacteffectData.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800D0F00_unclaimed_D1BA0_unclaimed_D1E68_unclaimed_D1F78_unclaimed_D20A8 */
-RestLinkerAlignmentFill8 g_EventsDelivercontacteffect3LinkerAlignmentFill321 = {
+RestAlignPad8 g_EventsDelivercontacteffect3AlignPad = {
     { 62, 223, 149, 71, 62, 222, 101, 149 },
 };
 #endif
