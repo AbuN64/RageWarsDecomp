@@ -14425,7 +14425,7 @@ SECTIONS
         . = MAX(., 0x138A8);
         sdk/libultra/os/createmesgqueue.c.o(.data);
         . = MAX(., 0x138C0);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.data);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.data);
         . = MAX(., 0x138F0);
         sdk/libultra/libc/libcdata.CPP.o(.rodata .rdata);
         . = MAX(., 0x13914);
@@ -17359,7 +17359,7 @@ SECTIONS
         . = MAX(., 0x23C88);
         sdk/libultra/os/createmesgqueue.c.o(.data);
         . = MAX(., 0x23CA0);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.data);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.data);
         . = MAX(., 0x23CD0);
         sdk/libultra/libc/libcdata.CPP.o(.rodata .rdata);
         . = MAX(., 0x23CF4);
@@ -20298,7 +20298,7 @@ SECTIONS
         . = MAX(., 0x1EE08);
         sdk/libultra/os/createmesgqueue.c.o(.data);
         . = MAX(., 0x1EE20);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.data);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.data);
         . = MAX(., 0x1EE50);
         sdk/libultra/libc/libcdata.CPP.o(.rodata .rdata);
         . = MAX(., 0x1EE74);
@@ -23242,7 +23242,11 @@ SECTIONS
         . = MAX(., 0x11330);
         sdk/libsn/G_CAPTUREDTLBMAPPINGS.CPP.o(.data);
         . = MAX(., 0x11430);
-        src/DATA/COMMON/COMMON/ALCSPNEW_DATA.CPP.o(.data);
+        sdk/libultra/os/unmaptlb/ALCSPNEW_DATA.CPP.o(.data);
+        . = MAX(., 0x11440);
+        sdk/libultra/audio/drvrnew/ALCSPNEW_DATA.CPP.o(.data);
+        . = MAX(., 0x115D0);
+        sdk/libultra/audio/env/ALCSPNEW_DATA.CPP.o(.data);
         . = MAX(., 0x1173C);
         sdk/libultra/G_PERIPHERALHANDLELIST.CPP.o(.data);
         . = MAX(., 0x11740);
@@ -27575,7 +27579,7 @@ SECTIONS
         . = MAX(., 0x127F4);
         sdk/libultra/OSFAULTEDTHREAD.CPP.o(.data);
         . = MAX(., 0x12800);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.data);
+        sdk/libultra/os/exceptasm/TIMERINTR_DATA.CPP.o(.data);
         . = MAX(., 0x12830);
         sdk/libultra/libc/libcdata.CPP.o(.rodata .rdata);
         . = MAX(., 0x12854);
@@ -28234,7 +28238,7 @@ SECTIONS
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_ABORTDISKTRANSFER_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/CREATEMESGQUEUE_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/os/createmesgqueue.c.o(.bss .sbss COMMON);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
@@ -29109,7 +29113,7 @@ SECTIONS
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_ABORTDISKTRANSFER_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/CREATEMESGQUEUE_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/os/createmesgqueue.c.o(.bss .sbss COMMON);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
@@ -29975,7 +29979,7 @@ SECTIONS
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/AUDIO_ABORTDISKTRANSFER_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/CREATEMESGQUEUE_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/os/createmesgqueue.c.o(.bss .sbss COMMON);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/os/createmesgqueue/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
@@ -30835,7 +30839,9 @@ SECTIONS
         SOURCE/FX/SKY_POSTSCALEDSCREENMESSAGE_DATA.CPP.o(.bss .sbss COMMON);
         SOURCE/FX/PAK_ADJUSTOWNERNOTIFICATIONOPTION_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libsn/G_CAPTUREDTLBMAPPINGS.CPP.o(.bss .sbss COMMON);
-        src/DATA/COMMON/COMMON/ALCSPNEW_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/os/unmaptlb/ALCSPNEW_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/audio/drvrnew/ALCSPNEW_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/audio/env/ALCSPNEW_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/G_PERIPHERALHANDLELIST.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/GAMECORE_WRITEPERIPHERALHANDLEWORD_DATA.CPP.o(.bss .sbss COMMON);
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/CREATE_DATA.CPP.o(.bss .sbss COMMON);
@@ -32412,7 +32418,7 @@ SECTIONS
         src/DATA/OVERLAYS/SEVEN/LINKTABLES/CREATEMESGQUEUE_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/OSRUNNINGTHREAD.CPP.o(.bss .sbss COMMON);
         sdk/libultra/OSFAULTEDTHREAD.CPP.o(.bss .sbss COMMON);
-        src/DATA/OVERLAYS/SEVEN/LINKTABLES/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
+        sdk/libultra/os/exceptasm/TIMERINTR_DATA.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libcdata.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formattocallback_data.CPP.o(.bss .sbss COMMON);
         sdk/libultra/libc/libc_formatinteger_data.CPP.o(.bss .sbss COMMON);
