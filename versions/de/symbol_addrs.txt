@@ -8839,5 +8839,3 @@ N64Eng_HandleNumericDecrement_EventHandlerAddress = 0x002A1F3C; // encoded overl
 N64Eng_FreeNumericWidget_EventHandlerAddress = 0x002A206C; // encoded overlay handler for N64Eng_FreeNumericWidget
 N64Eng_CancelSelectionRepeat_EventHandlerAddress = 0x002A1FB8; // encoded overlay handler for N64Eng_CancelSelectionRepeat
 TickSelectionRepeat_EventHandlerAddress = 0x002A1FE8; // encoded overlay handler for TickSelectionRepeat
-g_huffmanDecodeRetainedImage = 0x800D55B4; // rom:0xD61B4
-g_optionsLocalizedLabelRetainedImage = 0x800D74B4; // rom:0xD80B4
