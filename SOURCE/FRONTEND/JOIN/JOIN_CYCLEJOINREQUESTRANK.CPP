@@ -26,7 +26,7 @@ extern SlotSelectionPlayerConfig g_playerSettings[];
 extern void MarkMenuEventHandled();
 extern void Menu_ReturnToPreviousScreen(void);
 /* Steps the selected menu item backwards and updates its display state. */
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 #if defined(VERSION_DE)
 enum { MENU_RESOURCE = 908 };
@@ -43,7 +43,7 @@ enum { MENU_RESOURCE = 914 };
 /* Cycles a menu selection and updates the associated character setting. */
 extern int g_joinRequestRanks[];
 extern unsigned char g_joinRequestRankBytes[];
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 extern struct CourseOptionsScreen *g_courseOptionsScreen;
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);
 void Join_ResetJoinRequestEntries(void) {

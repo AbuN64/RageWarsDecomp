@@ -29,7 +29,6 @@ enum { SHORTCUT_RESET = 92, SHORTCUT_SIX = 82, SHORTCUT_FIVE = 85 };
 /* Handles the menu shortcut codes by selecting an entry and refreshing the screen. */
 
 
-extern void MarkMenuEventHandled(void);
 extern void Menu_CommitOptionsPage(void);
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);
 

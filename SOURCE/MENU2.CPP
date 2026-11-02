@@ -24,7 +24,7 @@ enum { menu_id_3ac = 934, menu_id_3b6 = 944 };
    zero; otherwise handles the menu message Menu_GetFocusedElementId reports: menu_id_3ac closes the screen's first
    word through SmpSlider_SetTransitionMode with 2 and calls Menu_ApplyExtraOptionFlags, and menu_id_3b6 calls Menu_OpenOptionsKeypad.
    Returns zero. */
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 /* Calls MarkMenuEventHandled, then Menu_ShowExtraOptionsPanel when the word at offset 0x34 of the object g_extraOptionsScreen
    points to is clear, or SmpSlider_SetTransitionMode on its first word with 2 and Menu_ApplyExtraOptionFlags otherwise.
    Returns zero. */

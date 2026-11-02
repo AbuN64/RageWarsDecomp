@@ -1,4 +1,5 @@
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
+#include "FRONTEND/OPTIONS_LIST_DECLARATIONS.H"
 #include "include_asm.h"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/GAME_SESSION.H"
@@ -14,9 +15,6 @@ extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 #include "COMMON/SHARED_GAMESLOT.H"
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern s32 Defs_GetMemorySize(void);
-extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
-extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
-extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);
 #include "TYPES.H"
@@ -38,16 +36,10 @@ extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;
 /* Localized label pointers for the memory-mode list (rev1 g_optionsResolutionFirstChoiceLabels..g_optionsResolutionThirdChoiceLabels). */
-extern u8 *g_optionsSecondListPrimaryLabels[1];
-extern u8 *g_optionsSecondListSecondaryLabels;
-extern u8 *g_optionsSecondListTertiaryLabels;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Widget_SetWidgetFlag100(void *, s32);
 extern s32 Defs_GetMemorySize(void);
-extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
-extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
-extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);
 extern s32 ScenarioSetup_IsCupSelected(void);
@@ -106,7 +98,7 @@ s32 Menu_OpenGameOptionsScreen(void *node) {
     SmpButton_WrapButtonWidget(890);
     secondListHandle = SmpButton_CreateListWidget(887, 888);
     g_optionsShortcutScreen->secondList = secondListHandle;
-    SmpButton_AppendListText(secondListHandle, g_optionsSecondListPrimaryLabels[0]);
+    SmpButton_AppendListText(secondListHandle, g_optionsSecondListPrimaryLabels);
     if (Defs_GetMemorySize() != 0x400000) {
         SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsSecondListSecondaryLabels);
         SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsSecondListTertiaryLabels);

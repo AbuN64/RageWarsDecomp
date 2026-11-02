@@ -5,7 +5,7 @@
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 extern char *g_optionsLocalizedShortcutText[];
-extern void MarkMenuEventHandled(void *);
+extern void MarkMenuEventHandled();
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern s32 SoundElement_PlayFlatSound(s32);
 typedef struct { u8 pad0[0x38]; char *text; } LangItemEu;

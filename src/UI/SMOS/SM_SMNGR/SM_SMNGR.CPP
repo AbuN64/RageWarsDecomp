@@ -77,7 +77,7 @@ void MoveMenuFocus(s32 direction) {
 }
 
 extern Element *FindMenuElement(s32);
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 extern void SmXlate_SwitchScreen(s32);
 
 static inline s32 eventCategory(u32 event) {

@@ -31,7 +31,7 @@ extern s32 Frontend_GetMenuImageState(s32 *record);
 extern void Frontend_DrawMenuImage(struct MenuImage *menu);
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Track_RequestTrackByKey(s32);
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 
 extern void Tsmos_RequestFrontendShutdown(void);
 extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);

@@ -9,7 +9,7 @@
    Returns zero. */
 
 extern struct NumberPadScreen *g_extraOptionsScreen;
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 extern s32 Menu_GetFocusedElementId(void);
 extern void Menu_ShowExtraOptionsPanel(void);
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);

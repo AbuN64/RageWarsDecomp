@@ -46,6 +46,7 @@ s32 Frontend_DispatchOptionsPageEvent(void *menuActor, s32 eventKind, s32 eventD
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 #include "FRONTEND/GAME_OPTIONS_LABELS.H"
+#include "FRONTEND/OPTIONS_LIST_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #define g_gameSettingsView (*(SliderSettings *)&g_gameSettings)
@@ -59,8 +60,8 @@ s32 Frontend_DispatchOptionsPageEvent(void *menuActor, s32 eventKind, s32 eventD
    zero. */
 struct SliderScreen {
     s32 slider;
-    s32 first_list;
-    s32 second_list;
+    struct MenuListWidget *first_list;
+    struct MenuListWidget *second_list;
     s32 state;
 };
 
@@ -68,9 +69,6 @@ extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
 typedef struct SliderSettings { char pad0[0x10]; s32 value; char pad14[7]; u8 first; char pad1C[0x564]; u8 second; } SliderSettings;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void SmpButton_WrapButtonWidget(s32);
-extern s32 SmpButton_CreateListWidget(s32, s32);
-extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
-extern void SmpButton_SelectListEntry(s32, s32);
 extern s32 Defs_GetMemorySize(void);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item);
@@ -80,7 +78,7 @@ extern void Tsmos_DeactivateControllerState(void);
 s32 Frontend_CreateGameOptionsScreen(void) {
 
     SliderSettings *settings;
-    s32 list;
+    struct MenuListWidget *list;
     s32 slider;
 
     g_gameOptionsScreenState = Cache_AllocateMemory(16);
@@ -88,7 +86,7 @@ s32 Frontend_CreateGameOptionsScreen(void) {
     SmpButton_WrapButtonWidget((450 - OPTIONS_RESOURCE_SHIFT));
     if (OPTIONS_HAS_FIRST_LIST) {
     list = SmpButton_CreateListWidget(443, 444);
-    {s32 *handle = &g_gameOptionsScreenState->first_list; *handle = list;}
+    {struct MenuListWidget **handle = &g_gameOptionsScreenState->first_list; *handle = list;}
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(0));
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(1));
     SmpButton_AppendListText(g_gameOptionsScreenState->first_list, gameOptionsLabel(2));
@@ -96,7 +94,7 @@ s32 Frontend_CreateGameOptionsScreen(void) {
     SmpButton_SelectListEntry(g_gameOptionsScreenState->first_list, settings->first);
     }
     list = SmpButton_CreateListWidget((446 - OPTIONS_RESOURCE_SHIFT), (447 - OPTIONS_RESOURCE_SHIFT));
-    {s32 *handle = &g_gameOptionsScreenState->second_list; *handle = list;}
+    {struct MenuListWidget **handle = &g_gameOptionsScreenState->second_list; *handle = list;}
     SmpButton_AppendListText(g_gameOptionsScreenState->second_list, gameOptionsLabel(3));
     if (Defs_GetMemorySize() != 0x400000) {
         SmpButton_AppendListText(g_gameOptionsScreenState->second_list, gameOptionsLabel(4));

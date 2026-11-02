@@ -54,7 +54,7 @@ extern SlotSelectionPlayerConfig g_playerSettings[];
 
 extern s8 g_profileSlotIndices[];
 
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 
 /* Calls MarkMenuEventHandled, then sets the word at offset 0x10 of the object g_playerCountScreen points to to -1 and
    calls SmpSlider_SetTransitionMode on the object's first word with 2, returning zero. */

@@ -18,7 +18,7 @@ extern s32 g_currentStagePreset;
 /* g_playerSettings_Achieve is the hub's SlotSelectionPlayerConfig array: eight 0x96-byte records at Game+0xD0.
    This unit reaches them only as settings->playerSettings and declares nothing here. */
 
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 
 extern s32 Menu_GetFocusedElementId(void);
 

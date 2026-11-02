@@ -28,7 +28,7 @@ struct Stage {
 extern struct Stage *g_currentStagePreset;
 extern s32 g_selectedLevelId;
 
-extern void MarkMenuEventHandled(void);
+extern void MarkMenuEventHandled();
 extern void SmXlate_SwitchScreen(s32);
 extern void Tsmos_RequestFrontendShutdown(void);
 

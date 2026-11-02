@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "FRONTEND/OPTIONS_LIST_DECLARATIONS.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/GAME_SESSION.H"
 #include "MENU.H"
@@ -14,15 +15,9 @@ struct MenuResourceWidget;
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 extern OptionsCommitContext *g_optionsPage;
 /* Localized label pointers for the two option lists (rev1 g_optionsSecondListPrimaryLabelsUsRev1..B0, g_optionsResolutionFirstChoiceLabels..213C). */
-extern u8 *g_optionsSecondListPrimaryLabels[1];
-extern u8 *g_optionsSecondListSecondaryLabels;
-extern u8 *g_optionsSecondListTertiaryLabels;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern struct MenuFadeWidget *SmpFade_CreateFadeWidget(s32, s32);
 extern s32 Defs_GetMemorySize(void);
-extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
-extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
-extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);
 /* German Options_CreateOptionsPage: the same options-commit page without the first (blood) list, so the
@@ -45,7 +40,7 @@ s32 Menu_CreateSettingsPage(void) {
     SmpButton_SelectListEntry(g_optionsPage->twoPlayerScreenList, settings->twoPlayerScreenPreference);
     thirdList = SmpButton_CreateListWidget(83, 84);
     g_optionsPage->resolutionList = thirdList;
-    SmpButton_AppendListText(thirdList, g_optionsSecondListPrimaryLabels[0]);
+    SmpButton_AppendListText(thirdList, g_optionsSecondListPrimaryLabels);
     if (Defs_GetMemorySize() != 0x400000) {
         SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsSecondListSecondaryLabels);
         SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsSecondListTertiaryLabels);
