@@ -107,7 +107,7 @@ struct Profile {
     s8 player;
     s8 fresh; /* +0xE: cleared once the profile has been shown */
     u8 slot;
-    char pad10[4];
+    s32 progress; /* +0x10: Player_SetProfileProgress */
     u8 bonus2;
     u8 bonus0;
     u8 bonus1;
@@ -117,7 +117,8 @@ struct Profile {
     u8 plays[36]; /* +0x26: per-character match count */
     u8 achievementFlags[0x54 - 0x4A]; /* +0x4A: one bit per achievement */
     u8 kindFlags[0x6C - 0x54]; /* +0x54: one bit per character kind finished with */
-    char pad6C[0x79 - 0x6C];
+    s32 totals[3]; /* +0x6C: initialized alongside statistics */
+    u8 resetByte; /* +0x78: explicitly cleared by Player_InitializeProfile */
     u8 unlockFlags[4]; /* +0x79: Player_HasProfileUnlockFlag / Player_SetAchievementFlag2F */
     u8 groupFlags; /* +0x7D: bits 0-2 for the level-count milestones */
     u8 levelFlags[4][5]; /* +0x7E: one bit per level finished, per game mode 1-4 (Achieve_MarkLevelPlayed) */
@@ -244,7 +245,7 @@ struct Shared_Input {
 struct Shared_Slot;
 struct Shared_Slot {
     s8 owned;
-    s8 pad1;
+    s8 action; /* Shared_Slot: -1 is free; 3 and 7 are mutually exclusive powerups. */
 };
 
 struct Body;

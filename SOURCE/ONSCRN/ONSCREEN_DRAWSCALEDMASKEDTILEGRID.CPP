@@ -144,7 +144,7 @@ void OnScreen_GetImageEntry(OnScreenImageTableView **handle, s32 index, void **o
         remainder *= 8;
         remainder += (s32)entry;
         entry = (ImageTableEntry *)remainder;
-        entryTag = entry->pad4[0];
+        entryTag = entry->tag[0];
         result = (u8 *)table + entry->offset;
         *tag = entryTag;
         *out = result;
@@ -345,7 +345,7 @@ void OnScreen_LoadFontTexture(void) {
         entry += remainder;
         base = table;
         result = base + entry->offset;
-        entryTag = entry->pad4[0];
+        entryTag = entry->tag[0];
         view.type = entryTag;
         view.data = result;
         if (view.data != 0) {

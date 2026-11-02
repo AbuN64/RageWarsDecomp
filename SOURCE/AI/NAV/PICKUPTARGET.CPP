@@ -432,7 +432,7 @@ s32 Nav_AddInactiveObjectGoals(void) {
             result = Portal_GetGraphPoint(base, node->key);
             if ((navigation_point_flags((NavigationPoint *)result) & 1) &&
                 navigation_point_object_id((NavigationPoint *)result) == 1614 &&
-                (s8)((LevelActor *)node->object)->pad1A4 == 0) {
+                (s8)((LevelActor *)node->object)->aiMode == 0) {
                 Nav_AddGoalNode(base, node->key);
                 count += 1;
             }

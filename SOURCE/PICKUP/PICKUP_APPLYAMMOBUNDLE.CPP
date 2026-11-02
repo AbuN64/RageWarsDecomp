@@ -106,7 +106,7 @@ s32 Pickup_ToggleEffectAndFlash(Shared_ActorView *actorView) {
         actorView->pickupEffectToggle == 0;
     if (actorView->message != 0) {
         input = k_pickupBonusSelectionConstants;
-        ((RacerViewport *)actorView->message)->pad124 = 0;
+        ((RacerViewport *)actorView->message)->kickStep = 0;
         value = Graphu64_RandomFloat(input);
         threshold = (&k_pickupBonusSelectionConstants)[1];
         if (!(threshold <= value)) {

@@ -99,8 +99,8 @@ s32 AudioWorld_QueuePrioritizedSound(AudioPriorityQueueManagerView *manager, voi
         node->time = 0;
         node->frame = ((GameAudioContext *)manager->scene)->frame;
         node->position = *position;
-        node->pad58 = 0;
-        node->padB4 = 0;
+        node->playbackResetWord = 0;
+        node->mixResetWord = 0;
         Audio_SetVoiceTrackId(node->channel, ((struct GameAudioContext *)manager->scene)->selectedSound);
         node->mix = ((GameAudioContext *)manager->scene)->voiceMixValue;
         Audio_InitializeVoiceParameters(node->channel, desc, extra);
@@ -261,7 +261,7 @@ void AudioWorld_StartSpatialVoice(AudioSpatialVoiceManagerView *manager, s32 ind
         first->prev->next = first->next;
         first->next->prev = first->prev;
         node = first;
-        Libc_CopyBytes(node->pad8, entry, 204);
+        Libc_CopyBytes(node->soundDescriptorStart, entry, 204);
         node->owner = owner;
         node->position.x = position->x;
         node->position.y = position->y;

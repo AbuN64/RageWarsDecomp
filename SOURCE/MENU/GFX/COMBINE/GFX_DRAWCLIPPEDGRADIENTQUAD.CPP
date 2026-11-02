@@ -248,7 +248,7 @@ static inline void Combine_PipeSync(void) {
 
 void Combine_ConfigurePrimitiveRenderFlags(s32 flags) {
     s32 plain;
-    RecGobjinstSampleBoneTranslation groups;
+    PrimitiveRenderSwitches groups;
     s32 mode;
     u32 cycle1;
     u32 cycle2;
@@ -256,8 +256,8 @@ void Combine_ConfigurePrimitiveRenderFlags(s32 flags) {
     groups.x = (flags & 0x5) == 0x5;
     groups.y = (flags & 0x30) == 0x30;
     groups.z = (flags & 0x300) == 0x300;
-    groups.pad0 = (flags & 0x3000) == 0x3000;
-    groups.pad1 = (flags & 0x30000) == 0x30000;
+    groups.coverageBlend = (flags & 0x3000) == 0x3000;
+    groups.depthBufferEnabled = (flags & 0x30000) == 0x30000;
     Rect_ResetRenderState();
     g_combinePipelineSyncPending = 0;
     Combine_PipeSync();
@@ -266,11 +266,11 @@ void Combine_ConfigurePrimitiveRenderFlags(s32 flags) {
     gDPSetCycleType(g_displayListCursor++, G_CYC_1CYCLE);
     gSPGeometryMode(g_displayListCursor++, G_ZBUFFER | G_SHADE | G_CULL_FRONT | G_CULL_BACK | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_SHADING_SMOOTH, 0);
     gSPGeometryMode(g_displayListCursor++, 0, G_SHADE | G_CULL_BACK | G_SHADING_SMOOTH);
-    if (groups.pad1) gSPGeometryMode(g_displayListCursor++, 0, G_ZBUFFER);
+    if (groups.depthBufferEnabled) gSPGeometryMode(g_displayListCursor++, 0, G_ZBUFFER);
     cycle1 = 0;
     cycle2 = 0;
-    mode = groups.pad0 != 0;
-    if (groups.pad1) {
+    mode = groups.coverageBlend != 0;
+    if (groups.depthBufferEnabled) {
         mode += 2;
     }
     switch (mode) {

@@ -21,24 +21,11 @@ struct RotationMatrixWords {
     f32 m32;
     f32 m33;
 };
-struct RotationMatrixElementsView {
-    f32 f00;
-    f32 f04;
-    f32 f08;
-    f32 pad0C;
-    f32 pad10;
-    f32 f14;
-    f32 pad18;
-    f32 pad1C;
-    f32 f20;
-    f32 f24;
-    f32 f28;
-};
 
 extern void XMath_BuildYxzRotationMatrix(RotationMatrixWords *matrixOut, CVector3 *angles);
 extern void XMath_OrthogonalizeMatrixBasis(PlaneEquation *m);
-extern void XMath_ExtractYxzAngles(RotationMatrixElementsView *matrix, CVector3 *anglesOut);
-extern void XMath_ExtractZyxAngles(RotationMatrixElementsView *matrix, CVector3 *anglesOut);
+extern void XMath_ExtractYxzAngles(RotationMatrixWords *matrix, CVector3 *anglesOut);
+extern void XMath_ExtractZyxAngles(RotationMatrixWords *matrix, CVector3 *anglesOut);
 extern s32 XMath_InvertAffineMatrix(f32 *out, f32 *input);
 
 extern void Vector3AnglesInverse(f32 *vector, f32 *pitchOut, f32 *yawOut);

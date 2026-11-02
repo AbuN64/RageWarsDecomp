@@ -99,7 +99,7 @@ struct RacerViewport {
     f32 viewportScaleY; /* 0x114 */
     char pad118[8];
     s32 effect;
-    u16 pad124;
+    u16 kickStep;
     u16 effectArg;
     char pad128[0x174];
     f32 viewportWidth; /* 0x29C */

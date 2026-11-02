@@ -20,7 +20,7 @@ extern s32 g_hudReferenceViewportWidth;
 extern s32 g_frontendCurrentVideoModeIndex;
 extern FrontendVideoDimensions g_frontendRegionVideoModes[2][5];
 extern struct FrontendVideoModeParameters g_frontendDefaultVideoModes[];
-extern RecGobjinstSampleBoneTranslation g_frontendVideoModeRenderConfigs[];
+extern struct FrontendRenderConfig g_frontendVideoModeRenderConfigs[];
 extern u8 g_frontendSavedVideoModeIndex;
 static inline void set_config(int a,int b,int c,int d,int e) {
         g_frontendViDitherFilterEnabled = a;
@@ -55,8 +55,8 @@ void Frontend_ApplyVideoMode(void) {
     case 0:case 2:videoMode=&g_frontendDefaultVideoModes[g_frontendCurrentVideoModeIndex];break;
     }
     if (videoMode != NULL) {
-        RecGobjinstSampleBoneTranslation config=g_frontendVideoModeRenderConfigs[g_frontendCurrentVideoModeIndex];
-        set_config(config.x,config.y,config.z,config.pad0,config.pad1);
+        FrontendRenderConfig config=g_frontendVideoModeRenderConfigs[g_frontendCurrentVideoModeIndex];
+        set_config(config.viDitherFilterEnabled,config.antialiasingEnabled,config.videoModeVariant,config.textureFilterOverride,config.texturePerspectiveOverride);
         set_mode((s32 *)videoMode);
         featureCommands = 128;
         if (g_frontendViDitherFilterEnabled != 0) {

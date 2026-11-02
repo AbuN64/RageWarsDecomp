@@ -175,7 +175,7 @@ void Node_CloseResourceArchive(void) {
     if (tables[7]) Cache_FreeMemory(tables[7]);
     if (first[5]) Cache_FreeMemory(first[5]);
     if (second[3]) Cache_FreeMemory(second[3]);
-    XPlus_FillBytes((char *)tables - ((char *)&((FileState *)0)->pad26C - (char *)0), 0, 680);
+    XPlus_FillBytes((char *)tables - ((char *)&((FileState *)0)->imagePoolAnchor - (char *)0), 0, 680);
 }
 
 void Node_EvictExpiredImages(void) {

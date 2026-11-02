@@ -223,7 +223,7 @@ struct FileState {
     struct ArchiveTextureDataEntryView *entries;
     char pad264[4];
     struct FrontendTextureTimerEntry *resources;
-    char pad26C[4];
+    char imagePoolAnchor[4]; /* g_frontendResourceImagePool is addressed here. */
     s16 chunkCount;
     char pad272[6];
     struct ChunkFrontendEvictExpiredImages *chunks;

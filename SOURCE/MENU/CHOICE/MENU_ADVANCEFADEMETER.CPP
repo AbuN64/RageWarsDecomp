@@ -265,23 +265,23 @@ s32 Menu_DispatchSixChoiceEvent(void *menuActor, s32 eventKind, s32 eventDataOne
 }
 
 /* Returns the word at offset 0x4 of a record. */
-s32 Menu_GetFadeMeterDone(s32 *record) {
-    return ((struct Triple *)record)->y;
+s32 Menu_GetFadeMeterDone(struct Meter *record) {
+    return record->done;
 }
 
 /* Switches a timer record to a new mode: when the mode at offset 8 changes it stores the mode,
    loads the countdown at offset 0 with 1000 for a non-zero mode or zero otherwise, and clears the
    word at offset 4. */
 
-void Menu_SetFadeMeterDirection(struct Triple *timer, s32 mode) {
-    if (timer->z != mode) {
-        timer->z = mode;
+void Menu_SetFadeMeterDirection(struct Meter *timer, s32 mode) {
+    if (timer->falling != mode) {
+        timer->falling = mode;
         if (mode == 0) {
-            timer->x = 0;
+            timer->amount = 0;
         } else {
-            timer->x = 1000;
+            timer->amount = 1000;
         }
-        timer->y = 0;
+        timer->done = 0;
     }
 }
 
@@ -328,12 +328,12 @@ s32 Menu_AdvanceFadeMeter(struct Meter *meter, s32 step) {
     return meter->done;
 }
 
-void Menu_InitializeFadeMeter(struct RecGobjinstSampleBoneTranslation *record, s32 value) {
-    record->y = 0;
-    record->x = 0;
-    record->z = 0;
-    record->pad0 = value;
-    record->pad1 = 1;
+void Menu_InitializeFadeMeter(struct Meter *record, s32 value) {
+    record->done = 0;
+    record->amount = 0;
+    record->falling = 0;
+    record->bar = (struct ResourceSmpFlickerCreateFlickerWidget *)value;
+    record->initialized = 1;
     Tsmos_DeactivateControllerState();
 }
 

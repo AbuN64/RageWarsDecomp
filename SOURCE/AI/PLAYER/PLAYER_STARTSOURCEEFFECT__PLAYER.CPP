@@ -103,7 +103,7 @@ void Player_StartSourceEffect(void *actor, void *effectSource) {
     Libc_FormatString(payload, g_playerSourceEffectOwnerFormat,
 #endif
 #endif
-                  source->controls->pad84);
+                  source->controls->name);
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Camera_PostScreenMessage(game, state->message, payload);
 #else

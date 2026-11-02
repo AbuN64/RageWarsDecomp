@@ -367,7 +367,7 @@ typedef struct ImageTableEntry ImageTableEntry;
 struct ImageTableEntry;
 struct ImageTableEntry {
     s32 offset;
-    u8 pad4[4];
+    u8 tag[4];
 };
 
 struct ControllerPortView;
@@ -1539,7 +1539,7 @@ struct World {
     signed int placedObjectGroup;
     char pad1B410[0xC];
     signed int placementInitialized;
-    char pad1B420[20];
+    char nearestPlacementResult[20]; /* Scene_FindNearestPlacedObject output record */
     signed int nearestPlacedObjectKey;
     char pad1B438[0x1DC];
     float spawnOffsetX;

@@ -80,7 +80,7 @@ struct ResourceBank {
 struct MatchScoreScreen {
     s32 transition[7];
     s32 active;
-    char pad20[0xC0];
+    char modelPreview[0xC0]; /* Preview_DrawMenuModelItem receives this embedded record. */
     void * window;
     s32 buttonAddress;
     s32 first, count;

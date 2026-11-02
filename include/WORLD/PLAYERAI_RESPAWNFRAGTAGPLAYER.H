@@ -354,27 +354,6 @@ struct PlayerRespawnHealthView {
     char pad0[0x5EA];
     s16 health;
 };
-struct PlayerProfileStorage {
-    char pad[8];
-    s32 state; /* 0x08 */
-    u8 reservedByteC;
-    s8 resetSentinelByte;
-    u8 reservedByteE, reservedByteBeforeProgress;
-    s32 progress;
-    u8 value14;
-    u8 value15;
-    u8 value16;
-    char pad17;
-    char slots[13];
-    u8 pad25[0x6C - 0x25];
-    s32 totals[3]; /* 0x6C */
-    u8 pad78; /* padding: no reader; cleared by Player_InitializeProfile */
-    u8 sensitivity[2]; /* 0x79: AiProfile yawSensitivity, sensitivity */
-    u8 controlRemap[2]; /* 0x7B: AiProfile controlMode, remap */
-    u8 pad7D[0x94 - 0x7D];
-    s32 counters[36]; /* 0x94 */
-    u8 pad124[0x190 - 0x124];
-};
 extern void Playerai_ResetMotionAndSelectIdleAnimation(FragTagRespawnActorView *actor);
 extern void Playerai_SelectMovementAnimation(FragTagRespawnActorView *object);
 extern void Playerai_ReleasePlayerResource(ResourceLoadState *resourceLoadState);

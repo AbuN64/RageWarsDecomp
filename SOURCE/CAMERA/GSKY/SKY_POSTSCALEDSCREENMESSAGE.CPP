@@ -91,9 +91,9 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
                     message->m_nAlpha = 0;
                     message->alpha = 1.0f;
                     message->target = target;
-                    message->pad20 = 0;
+                    message->smallText = 0;
                     message->m_ModeTime = 0;
-                    message->pad2C = 0;
+                    message->resetModeWord = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;
@@ -190,7 +190,7 @@ f32 Gsky_GetMeanViewDistance(Race *viewOwner, void *targetPosition) {
 void *Gsky_PostFlaggedScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text) {
     struct CCameraText_t *message = Camera_PostScreenMessage(owner, pool, text);
     if (message != 0) {
-        message->pad20 = 1;
+        message->smallText = 1;
     }
     return message;
 }

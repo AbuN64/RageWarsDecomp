@@ -4,7 +4,15 @@
 #include "COMMON/ITEMRECAT20V1.H"
 
 /* Five cached flag groups written together by Combine_ConfigurePrimitiveRenderFlags. */
-extern RecGobjinstSampleBoneTranslation g_combineRenderSwitches;
+struct PrimitiveRenderSwitches {
+    s32 x; /* texture enabled */
+    s32 y; /* combine enabled */
+    s32 z; /* translucent */
+    s32 coverageBlend;
+    s32 depthBufferEnabled;
+};
+typedef struct PrimitiveRenderSwitches PrimitiveRenderSwitches;
+extern PrimitiveRenderSwitches g_combineRenderSwitches;
 extern s32 g_combineTextureTileMode;
 extern s32 g_combineTextureRenderMode;
 extern s32 g_combineRectangleColor;

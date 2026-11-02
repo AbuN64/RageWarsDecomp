@@ -11,14 +11,12 @@ typedef struct RotationMatrixWords RotationMatrixWords;
 struct RotationMatrixWords;
 
 
-typedef struct RotationMatrixElementsView RotationMatrixElementsView;
 
 
 
 extern float k_zyxExtractionPolynomialCoefficientsThree;
 
 
-struct RotationMatrixElementsView;
 
 extern float k_yxzExtractionPolynomialCoefficientsOne;
 

@@ -95,7 +95,7 @@ struct GameplayCamera {
     f32 bobPhaseY; /* +0x94: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     f32 bobRateX; /* +0x98: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     f32 bobRateY; /* +0x9C: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char padA0[0x18];
+    char transformDefaults[0x18];
     char shakeAxisX[20]; /* +0xB8: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     char shakeAxisY[20]; /* +0xCC: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     char shakeAxisZ[20]; /* 0xE0: third CShakeAxis */

@@ -53,7 +53,7 @@ struct AudioPrioritizedSoundNode;
 struct AudioPrioritizedSoundNode {
     struct AudioPrioritizedSoundNode *prev;
     struct AudioPrioritizedSoundNode *next;
-    char pad8[0x14];
+    char soundDescriptorStart[0x14]; /* copy destination for the 204-byte sound descriptor */
     s32 timer;
     char pad20[0x20];
     s16 priority;
@@ -226,12 +226,12 @@ struct AudioQueuedSoundNode {
     char pad46[2];
     s32 voice;
     Vec3Words position;
-    s32 pad58;
+    s32 playbackResetWord; /* cleared when the voice is queued */
     u8 pan;
     char pad5D[0x4F];
     s32 flags;
     char padB0[4];
-    s32 padB4;
+    s32 mixResetWord; /* cleared when the voice is queued */
     char padB8[0x10];
     s32 mix;
 };

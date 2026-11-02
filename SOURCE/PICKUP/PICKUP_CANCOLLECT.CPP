@@ -48,13 +48,13 @@ s32 Pickup_CanCollect(s32 prop, ActorPickupCanCollect *actor) {
             if (player->team == g_playerSpecialModelIds[0] || player->team == g_playerSpecialModelIds[1]) {
                 return 1;
             }
-            if (player->slots[powerup->index].pad1 != -1) {
+            if (player->slots[powerup->index].action != -1) {
                 return 0;
             }
             for (i = 0; i < 22; i++) {
-                if (player->slots[i].pad1 == 3) {
+                if (player->slots[i].action == 3) {
                     noState3 = 0;
-                } else if (player->slots[i].pad1 == 7) {
+                } else if (player->slots[i].action == 7) {
                     noState7 = 0;
                 }
             }

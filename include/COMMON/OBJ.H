@@ -26,7 +26,7 @@ struct TurretSetupState {
     void *third;
     void *fourth;
     f32 speed;
-    s32 pad128;
+    s32 setupResetWord;
     s32 rate;
     s32 a;
     f32 range;

@@ -79,7 +79,7 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     camera->verticalFieldOfView = (f32) 47.5f;
     camera->reservedFloatC = (f32) 47.5f;
     Gsky_ResetFadeState(camera);
-    transformDefaults = ((void *)&((GameplayCamera *)camera)->padA0);
+    transformDefaults = ((void *)&((GameplayCamera *)camera)->transformDefaults);
     camera->shakeHorizontal = zero;
     camera->shakeVertical = zero;
     transformDefaults->floatAt8 = zero;

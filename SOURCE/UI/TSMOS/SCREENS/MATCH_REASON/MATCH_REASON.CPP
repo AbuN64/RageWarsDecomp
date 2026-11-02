@@ -296,9 +296,9 @@ void Frontend_DrawResultSelectionPreview(void) {
         g_menuModelFillEnabled = 1;
         *level = g_resultBadgeDrawParameters[1];
 #if defined(VERSION_DE)
-        Frontend_DrawResultModelPreviewDe((char *)&state->pad20);
+        Frontend_DrawResultModelPreviewDe((char *)&state->modelPreview);
 #else
-        Preview_DrawMenuModelItem((char *)&state->pad20);
+        Preview_DrawMenuModelItem((char *)&state->modelPreview);
 #endif
         g_menuModelFillEnabled = 0;
         *level = g_resultBadgeDefaultAlpha;

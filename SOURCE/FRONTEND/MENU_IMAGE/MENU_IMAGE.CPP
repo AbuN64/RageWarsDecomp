@@ -271,7 +271,7 @@ int Frontend_CancelEquipmentSelection(int a,int b,unsigned int player) {
  MarkMenuEventHandled();player &= 0xFFFF;
  switch(g_equipmentAndResultsScreen->panels[player].state) {
  case 1:g_equipmentAndResultsScreen->state=5;g_equipmentAndResultsScreen->timer=4;g_equipmentAndResultsScreen->next=7;break;
- case 2:g_equipmentAndResultsScreen->panels[player].state=0;SmpOverlay_SetSlotValue(g_equipmentAndResultsScreen->menu,player,0);Preview_SetPreviewTransformUpdate(g_equipmentAndResultsScreen->panels[player].pad0,1);Equip_ActivateEquipmentPanel(player);break;
+ case 2:g_equipmentAndResultsScreen->panels[player].state=0;SmpOverlay_SetSlotValue(g_equipmentAndResultsScreen->menu,player,0);Preview_SetPreviewTransformUpdate(g_equipmentAndResultsScreen->panels[player].previewTransform,1);Equip_ActivateEquipmentPanel(player);break;
  }
  return 0;
 }

@@ -29,7 +29,7 @@ struct ScreenFrontendLoadEquipmentSelections {
 
 struct ResultsPlayerPanel;
 struct ResultsPlayerPanel {
-    char pad0[0x4A8];
+    char previewTransform[0x4A8]; /* passed to Preview_SetPreviewTransformUpdate */
     s32 state;
     s32 selection;
     s32 values[6];

@@ -1,6 +1,14 @@
 #ifndef FRONTEND_SCREEN_H
 #define FRONTEND_SCREEN_H
 #include "TYPES.H"
+struct FrontendRenderConfig {
+    s32 viDitherFilterEnabled;
+    s32 antialiasingEnabled;
+    s32 videoModeVariant;
+    s32 textureFilterOverride;
+    s32 texturePerspectiveOverride;
+};
+typedef struct FrontendRenderConfig FrontendRenderConfig;
 extern void Frontend_ApplyVideoMode(void);
 extern void Frontend_SetVideoViewport(s32 width, s32 height, s32 x, s32 y, s32 borderX, s32 borderY);
 extern void Frontend_AdvanceVideoMode(void);

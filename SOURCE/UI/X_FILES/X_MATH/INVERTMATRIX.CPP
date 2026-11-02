@@ -69,7 +69,7 @@ void XMath_BuildYxzRotationMatrix(RotationMatrixWords *outputMatrix, CVector3 *a
 }
 
 
-void XMath_ExtractYxzAngles(RotationMatrixElementsView *inputMatrix, CVector3 *outputAngles) {
+void XMath_ExtractYxzAngles(RotationMatrixWords *inputMatrix, CVector3 *outputAngles) {
     f32 clamped;
     f32 magnitude;
     f32 polynomial;
@@ -80,7 +80,7 @@ void XMath_ExtractYxzAngles(RotationMatrixElementsView *inputMatrix, CVector3 *o
     f32 angle_temp;
     f32 out2;
     s32 negative;
-    clamped = inputMatrix->f24;
+    clamped = inputMatrix->m21;
     if (k_yxzExtractionClampAndZero < clamped) {
         clamped = k_yxzExtractionClampAndZero;
     }
@@ -115,11 +115,11 @@ void XMath_ExtractYxzAngles(RotationMatrixElementsView *inputMatrix, CVector3 *o
     angle = angle_temp;
     test = XMath_EvaluateSine(angle + k_yxzExtractionHalfPi);
     if ((*(&k_yxzExtractionHalfPi + 1) < test) || (test < *(&k_yxzExtractionHalfPi + 1))) {
-        polynomial = XMath_EvaluateArcTangentTwo(inputMatrix->f20, inputMatrix->f28);
-        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->f04, inputMatrix->f14);
+        polynomial = XMath_EvaluateArcTangentTwo(inputMatrix->m20, inputMatrix->m22);
+        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->m01, inputMatrix->m11);
     } else {
         polynomial = 0.0f;
-        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->f08, inputMatrix->f00);
+        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->m02, inputMatrix->m00);
     }
     outputAngles->x = angle;
     outputAngles->y = polynomial;
@@ -128,7 +128,7 @@ void XMath_ExtractYxzAngles(RotationMatrixElementsView *inputMatrix, CVector3 *o
 /* Computes an arcsine-style angle from a clamped matrix element by polynomial approximation, then derives the other two Euler angles with atan2-style calls and writes the triple. Adapted from XMath_ExtractYxzAngles, with the source element, the zero test, the branch operands, and the stored order changed. */
 
 
-void XMath_ExtractZyxAngles(RotationMatrixElementsView *inputMatrix, CVector3 *outputAngles) {
+void XMath_ExtractZyxAngles(RotationMatrixWords *inputMatrix, CVector3 *outputAngles) {
     f32 clamped;
     f32 magnitude;
     f32 polynomial;
@@ -139,7 +139,7 @@ void XMath_ExtractZyxAngles(RotationMatrixElementsView *inputMatrix, CVector3 *o
     f32 angle_temp;
     f32 out2;
     s32 negative;
-    clamped = inputMatrix->f08;
+    clamped = inputMatrix->m02;
     if (k_zyxExtractionClampAndZero < clamped) {
         clamped = k_zyxExtractionClampAndZero;
     }
@@ -174,10 +174,10 @@ void XMath_ExtractZyxAngles(RotationMatrixElementsView *inputMatrix, CVector3 *o
     angle = angle_temp;
     test = XMath_EvaluateSine(angle + k_zyxExtractionHalfPi);
     if ((0.0f < test) || (test < 0.0f)) {
-        polynomial = XMath_EvaluateArcTangentTwo(inputMatrix->pad18, inputMatrix->f28);
-        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->f04, inputMatrix->f00);
+        polynomial = XMath_EvaluateArcTangentTwo(inputMatrix->m12, inputMatrix->m22);
+        out2 = XMath_EvaluateArcTangentTwo(inputMatrix->m01, inputMatrix->m00);
     } else {
-        polynomial = XMath_EvaluateArcTangentTwo(-inputMatrix->f24, inputMatrix->f14);
+        polynomial = XMath_EvaluateArcTangentTwo(-inputMatrix->m21, inputMatrix->m11);
         out2 = 0.0f;
     }
     outputAngles->x = polynomial;

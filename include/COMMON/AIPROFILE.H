@@ -236,10 +236,10 @@ struct CCameraText_t {
     s32 kind;
     s32 m_nAlpha;
     s32 target;
-    s32 pad20;
+    s32 smallText;
     u8 *text;
     f32 m_ModeTime;
-    s32 pad2C;
+    s32 resetModeWord;
     f32 x;
     f32 y;
     f32 m_XScale;

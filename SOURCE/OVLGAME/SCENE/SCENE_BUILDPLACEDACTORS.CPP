@@ -82,7 +82,7 @@ void Scene_BuildPlacedActors(World *world, struct CacheResourceBlockView **handl
             records = node->records;
             objects = hdr->objects;
             if (world->placementInitialized == 0) {
-                world->nearestPlacedObjectKey = Scene_FindNearestPlacedObject(world, node->records[0].vec4, world->placedObjectGroup, world->pad1B420);
+                world->nearestPlacedObjectKey = Scene_FindNearestPlacedObject(world, node->records[0].vec4, world->placedObjectGroup, world->nearestPlacementResult);
                 if (world->nearestPlacedObjectKey != 0) {
                     world->placementInitialized = 1;
                 }
@@ -133,7 +133,7 @@ void Scene_BuildPlacedActors(World *world, struct CacheResourceBlockView **handl
                             } else {
                                 spawn = &spawns[spawnIndex];
                             }
-                            rec->resource20 = (u16)spawn->pad12;
+                            rec->resource20 = (u16)spawn->modelSectionIndex;
                             Graphu64_WrapPeriodicValue(&spawn->heading);
                             angle = spawn->heading;
                             if (!(angle > 3.1415927f)) {

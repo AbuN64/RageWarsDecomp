@@ -9,6 +9,7 @@
 #include "COMMON/PARTICLE_LIGHTING.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "TYPES.H"
+#include "FRONTEND/SCREEN.H"
 #include "COMMON/SESSION_STATE.H"
 
 
@@ -2154,7 +2155,7 @@ extern char g_SelectPromptTextGroupFourCase7Text[];
 
 extern char g_menuOptionBit3EnabledText[];
 
-extern RecGobjinstSampleBoneTranslation g_frontendVideoModeRenderConfigs[];
+extern struct FrontendRenderConfig g_frontendVideoModeRenderConfigs[];
 
 extern char g_SelectPromptTextGroupThreeCase7Text[];
 

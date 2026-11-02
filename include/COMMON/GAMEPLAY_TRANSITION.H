@@ -200,7 +200,7 @@ struct Shared_ControlView {
     u8 playerId; /* 0x81 */
     u8 pad82;
     u8 selection; /* 0x83: menu option adjusted by CMenuProfile_AdjustControllerSelection */
-    char pad84[0xA];
+    char name[0xA]; /* Player_StartSourceEffect formats this as the owner name. */
     u8 roundEnded; /* 0x8E */
     u8 transientFlag; /* +0x8F: src/Playerai_HandlePlayerDeath_GameplaySettings.c */
     s8 resetFlag; /* +0x90: src/Playerai_HandlePlayerDeath_GameplaySettings.c */
