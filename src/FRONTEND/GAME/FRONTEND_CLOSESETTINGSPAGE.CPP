@@ -5,7 +5,7 @@
 #include "SCENE/CACHE_FREEMEMORY.H"
 /* German Menu_DestroyOptionsPage: releases the object g_optionsPage holds through Cache_FreeMemory, clears
    g_optionsPage, reloads the default language strings and returns zero. */
-extern void *g_optionsPage;
+extern struct OptionsCommitContext *g_optionsPage;
 extern void Node_LoadLanguageStringsIfAny(s32);
 s32 Frontend_CloseSettingsPage(void) {
     Cache_FreeMemory(g_optionsPage);

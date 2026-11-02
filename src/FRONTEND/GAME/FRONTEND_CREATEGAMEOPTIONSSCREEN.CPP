@@ -62,7 +62,7 @@ struct SliderScreen {
     s32 state;
 };
 
-extern struct SliderScreen *g_gameOptionsScreenState;
+extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
 typedef struct SliderSettings { char pad0[0x10]; s32 value; char pad14[7]; u8 first; char pad1C[0x564]; u8 second; } SliderSettings;
 extern SliderSettings g_gameSettings;
 extern struct Record *Cache_AllocateMemory(s32 size);

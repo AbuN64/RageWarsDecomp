@@ -110,7 +110,7 @@ typedef struct GameOptionsScreen {
     void *secondList;
     s32 state;
 } GameOptionsScreen;
-extern GameOptionsScreen *g_gameOptionsScreenState;
+extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
 /* PAL Frontend_CreateGameOptionsScreen: the list labels come from the per-language tables. */
 s32 Menu_CreateSessionSettingsControls(void) {
     Shared_Game *settings;

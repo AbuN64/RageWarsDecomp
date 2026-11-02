@@ -88,11 +88,7 @@ struct MessageScreen {
 
 
 struct CompactOptionsCommitContext;
-struct CompactOptionsCommitContext {
-    void * gammaSlider;
-    void * bloodModeList;
-    void * resolutionList;
-};
+struct CompactOptionsCommitContext { union { struct { void *gammaSlider; void *bloodModeList; void *resolutionList; }; char pad0[0xC]; struct { void *slider; void *firstList; void *secondList; }; struct { s32 slider; s32 first_list; s32 second_list; }; }; union { s32 flagWord; s32 state; }; };
 
 
 struct OptionsCommitContext;

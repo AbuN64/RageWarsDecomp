@@ -10,7 +10,7 @@
 /* 80408AC4_14.CPP */
 /* 80406A88_8.CPP */
 extern void Node_LoadLanguageStringsIfAny(int);
-extern void *g_optionsPage;
+extern struct OptionsCommitContext *g_optionsPage;
 int Menu_DestroyEuxOptionsAndReloadLanguage(void) {
     Cache_FreeMemory(g_optionsPage);
     g_optionsPage = 0;

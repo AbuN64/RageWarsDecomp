@@ -10,7 +10,7 @@
 
 
 
-extern struct StateFrontendUpdateOptionsPageExit *g_optionsPage;
+extern struct OptionsCommitContext *g_optionsPage;
 
 extern s32 SmpSlider_GetTransitionMode(s32 *record);
 

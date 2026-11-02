@@ -62,7 +62,7 @@ extern void Cinema_ReleaseSequenceContext(void);
 extern void Tsmos_DeactivateControllerState(void);
 
 /* The message screen g_gameOptionsScreenState; its word at 0xC marks the message handled. */
-extern struct CompactOptionsPageView *g_gameOptionsScreenState;
+extern struct CompactOptionsCommitContext *g_gameOptionsScreenState;
 extern struct MessageScreen *g_optionsShortcutScreen;
 extern void Frontend_StartMenuImageTransition(s32 *record);
 
