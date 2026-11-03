@@ -10,14 +10,14 @@
 /* __osViSwapContext, drafted from ultralib src/io/viswapcontext.c (2.0I: vStart straight from the
    field registers). The unsigned-to-float and float-to-unsigned conversions of the y scale use the
    cartridge's 2^32 and 2^31 constants, so both are written out. */
-extern ViSwapContextView *__osViCurr;
-extern ViSwapContextView *__osViNext;
+extern __OSViContext *__osViCurr;
+extern __OSViContext *__osViNext;
  /* 2^32 */
  /* 2^31 */
 void __osViSwapContext(void)
 {
     register Modep *vm;
-    register ViSwapContextView *vc;
+    register __OSViContext *vc;
     u32 origin;
     u32 hStart;
     u32 nomValue;
@@ -26,7 +26,7 @@ void __osViSwapContext(void)
     f32 scale;
     u32 yscale;
     u32 *yscalep;
-    ViSwapContextView **curr;
+    __OSViContext **curr;
     field = 0;
     vc = __osViNext;
     vm = vc->modep;

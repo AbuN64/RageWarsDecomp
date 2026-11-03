@@ -8,12 +8,12 @@
 #include "UI/X_FILES/X_PLUS.H"
 #include "../../../include/libultra/audio/vi.h"
 
-extern ViSwapContextView *__osViCurr;
-extern ViSwapContextView *__osViNext;
+extern __OSViContext *__osViCurr;
+extern __OSViContext *__osViNext;
 
 void __osViInit(void)
 {
-    ViSwapContextView *contexts = g_videoInterfaceContexts;
+    __OSViContext *contexts = g_videoInterfaceContexts;
     s32 tv_type;
 
     XPlus_FillMemory(contexts, 0, sizeof(g_videoInterfaceContexts));

@@ -14,8 +14,8 @@
 #include "../../../sdk/include/SCHED/osscremoveclient.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-/** Return the address 0x78 bytes into the supplied object. */
+/** Return the scheduler command queue at offset 0x78. */
 void *Sched_GetCommandQueue(void *object) {
-    SchedulerCommandQueueView *record = object;
-    return &record->commandQueue;
+    OSSched *record = object;
+    return &record->cmdQ;
 }

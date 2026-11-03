@@ -3247,8 +3247,6 @@ struct Slider;
 struct _Pft;
 typedef struct _Pft _Pft;
 
-struct __OSViContext;
-typedef struct __OSViContext __OSViContext;
 
 union du;
 typedef union du du;
@@ -4646,7 +4644,6 @@ struct _Pft {
     unsigned int flags;
     unsigned char qual;
 };
-struct __OSViContext;
 union du;
 union du {
     struct {

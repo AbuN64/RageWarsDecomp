@@ -6,12 +6,12 @@
 
 #include "include_asm.h"
 
-extern ViSwapContextView g_viDataZeroWords[];
+extern __OSViContext g_viDataZeroWords[];
 
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
-void * g_osViGetCurrentFramebufferPointers[4] = {
+__OSViContext * g_osViGetCurrentFramebufferPointers[4] = {
     (void *)&g_viDataZeroWords, (void *)g_viDataZeroWords + 0x30, 0, 0
 };
 #endif
@@ -19,8 +19,8 @@ void * g_osViGetCurrentFramebufferPointers[4] = {
 #if defined(VERSION_EU)
 #if defined(VERSION_EU)
 struct {
-    void * __osViCurr;
-    void * __osViNext;
+    __OSViContext * __osViCurr;
+    __OSViContext * __osViNext;
     u8 retainedPrimageText[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
@@ -33,8 +33,8 @@ typedef char g_osViGetCurrentFramebufferPointersSizeCheck[(sizeof(g_osViGetCurre
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 struct {
-    void * __osViCurr;
-    void * __osViNext;
+    __OSViContext * __osViCurr;
+    __OSViContext * __osViNext;
     u8 retainedRecordWords[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
@@ -47,8 +47,8 @@ typedef char g_osViGetCurrentFramebufferPointersSizeCheck[(sizeof(g_osViGetCurre
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 struct {
-    void * __osViCurr;
-    void * __osViNext;
+    __OSViContext * __osViCurr;
+    __OSViContext * __osViNext;
     u8 retainedFireboText[8];
 } g_osViGetCurrentFramebufferPointers __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
@@ -64,8 +64,8 @@ typedef char g_osViGetCurrentFramebufferPointersSizeCheck[(sizeof(g_osViGetCurre
 /* ROM-grounded us-rev1 data; explicit withholding in other holders. */
 #if defined(VERSION_US_REV1)
 struct {
-    void * __osViCurr;
-    void * __osViNext;
+    __OSViContext * __osViCurr;
+    __OSViContext * __osViNext;
 } g_osvigetcurrentframebufferDataAddressWords __attribute__((aligned(4))) = {
     (void *)&g_viDataZeroWords,
     (void *)((char *)&g_viDataZeroWords + 48)

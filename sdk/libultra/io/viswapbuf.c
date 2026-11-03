@@ -6,14 +6,14 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 
-extern StateosViSetSpecialFeatures *__osViNext;
+extern __OSViContext *__osViNext;
 
 void osViSwapBuffer(void *framebuffer) {
     u32 savedMask;
 
     savedMask = __osDisableInt();
-    __osViNext->word4 = framebuffer;
-    __osViNext->status |= 0x10;
+    __osViNext->framep = framebuffer;
+    __osViNext->state |= 0x10;
     __osRestoreInt(savedMask);
 }
 

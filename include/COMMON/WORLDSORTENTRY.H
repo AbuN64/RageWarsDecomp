@@ -93,8 +93,6 @@ struct OSScClientWork {
 
 
 
-struct SchedulerCommandQueueView;
-typedef struct SchedulerCommandQueueView SchedulerCommandQueueView;
 
 struct IntPair;
 
@@ -132,7 +130,6 @@ struct NearbySpecialActorView;
 typedef struct NearbySpecialActorView NearbySpecialActorView;
 
 
-struct SchedulerCommandQueueView;
 
 
 

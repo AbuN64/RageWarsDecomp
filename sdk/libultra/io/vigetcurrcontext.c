@@ -7,23 +7,23 @@
 #include <PR/os_internal_si.h>
 
 /** Returns __osViCurr. */
-extern void *__osViCurr;
+extern __OSViContext *__osViCurr;
 
-void *__osViGetCurrentContext(void) {
+__OSViContext *__osViGetCurrentContext(void) {
     return __osViCurr;
 }
 
-extern void *__osViNext;
+extern __OSViContext *__osViNext;
 
 void osViSetEvent(OSMesgQueue *messageQueue, OSMesg retraceMessage, u32 retraceInterval) {
     u32 savedInterruptMask;
-    VideoContextEventView *rec;
+    __OSViContext *rec;
 
     savedInterruptMask = __osDisableInt();
     rec = __osViNext;
-    rec->f10 = messageQueue;
-    rec->f14 = retraceMessage;
-    rec->f2 = retraceInterval;
+    rec->msgq = messageQueue;
+    rec->msg = retraceMessage;
+    rec->retraceCount = retraceInterval;
     __osRestoreInt(savedInterruptMask);
 }
 

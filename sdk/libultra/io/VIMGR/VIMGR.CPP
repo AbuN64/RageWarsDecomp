@@ -134,7 +134,7 @@ void System_CreateVideoManagerEu(s32 managerPriority) {
 
 extern u16 g_videoManagerRetraceCountdown;
 
-extern struct __OSViContext *__osViGetCurrentContext(void);
+extern __OSViContext *__osViGetCurrentContext(void);
 
 extern void __osTimerInterrupt(void);
 
@@ -145,7 +145,7 @@ static inline u16 *viRetrace(void)
 
 void System_RunVideoManager(OSDevMgr *arg)
 {
-    struct __OSViContext *vc;
+    __OSViContext *vc;
     OSDevMgr *dm;
     OSIoMesg *mb;
     s32 first;

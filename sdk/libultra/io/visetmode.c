@@ -15,7 +15,7 @@
 
 
 
-extern ViModeContextView *__osViNext;
+extern __OSViContext *__osViNext;
 
 void osViSetMode(OSViMode *modep) {
     register u32 saveMask = __osDisableInt();
