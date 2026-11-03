@@ -321,23 +321,19 @@ extern void addrLow_Pickup_ToggleEffectAndFlash(void);
 extern void addrLow_Pickup_HandleItemUpdate(void);
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 
-typedef struct PickupPowerupDefinitionView PickupPowerupDefinitionView;
 typedef struct PickupPowerupPayloadView PickupPowerupPayloadView;
-struct PickupPowerupDefinitionView {
-    char pad0[0x18];
-    PickupPowerupPayloadView *payloadRecord;
-};
+
 typedef struct EffectAmount { char pad[0xC]; f32 amount; } EffectAmount;
 struct PickupPowerupPayloadView { char pad[0x14]; EffectAmount payload; };
 /** Apply a scripted effect command and its optional sound callbacks. */
-s32 Pickup_ApplyPowerup(Player *player, PowerupIdEntry *pickup, PickupPowerupDefinitionView *effectDefinition) {
+s32 Pickup_ApplyPowerup(Player *player, PowerupIdEntry *pickup, LevelActor *effectActor) {
     void **resource;
     EffectAmount *state_value;
     s32 sound;
     s32 callback;
     s16 command;
 
-    state_value = &effectDefinition->payloadRecord->payload;
+    state_value = &((PickupPowerupPayloadView *)effectActor->definition)->payload;
     command = (u16)pickup->id - 1800;
     switch (command) {
     case 0:

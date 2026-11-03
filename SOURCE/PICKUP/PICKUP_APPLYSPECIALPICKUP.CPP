@@ -685,7 +685,7 @@ s32 Pickup_ApplyEuropeanExtendedPowerup(struct Player *player, PowerupEntry *pic
     case 1: player->europeanEffectTimer = k_pickupEuropeanSecondEffectValue; break;
     case 2:
     case 3: player->rangeTimer += data[3]; break;
-    case 7: ItemMenu_SetEntry((u8 *)(char *)&((SharedPlayer *)player)->views5E8.viewD40_165.toggleMenu, 1, 0, 2045, 0, 0, 0, g_pickupEuropeanEffectUpdateRomEntry, g_pickupEuropeanEffectDrawRomEntry); break;
+    case 7: ItemMenu_SetEntry(&player->itemMenu, 1, 0, 2045, 0, 0, 0, g_pickupEuropeanEffectUpdateRomEntry, g_pickupEuropeanEffectDrawRomEntry); break;
     case 4:
     case 5:
     case 6:
@@ -722,7 +722,7 @@ s32 Pickup_ApplyEuropeanPowerup(struct Player *player, PowerupEntry *pickup, Lev
     case 1: player->europeanEffectTimer = k_pickupEuropeanSecondEffectValue; break;
     case 2:
     case 3: player->rangeTimer += data[3]; break;
-    case 7: ItemMenu_SetEntry((u8 *)(char *)&((SharedPlayer *)player)->views5E8.viewD40_165.toggleMenu, 1, 0, 2045, 0, 0, 0, g_pickupEuropeanEffectUpdateRomEntry, g_pickupEuropeanEffectDrawRomEntry); break;
+    case 7: ItemMenu_SetEntry(&player->itemMenu, 1, 0, 2045, 0, 0, 0, g_pickupEuropeanEffectUpdateRomEntry, g_pickupEuropeanEffectDrawRomEntry); break;
     case 4:
     case 5:
     case 6:
