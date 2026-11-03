@@ -91,13 +91,7 @@ struct ItemsPreviewStateB {
     char pad1b410[12];
     int changed;
 };
-struct ObjA {
-    s8 pad0;
-    s8 type;
-    char pad2[0x20 - 2];
-    void **block;
-    char pad24[0xE8 - 0x24];
-};
+
 struct ItemsSelectionState {
     char pad[0x1B2B0];
     ResourceSmpFlickerCreateFlickerWidget *input;

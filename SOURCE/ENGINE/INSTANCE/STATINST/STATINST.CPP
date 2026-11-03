@@ -1,3 +1,5 @@
+#include "COMMON/OBJB.H"
+#include "MENU/SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS.H"
 #include "COMMON/MODEL_RENDER.H"
 #include "RENDER/MATERIAL_COLOR_AND_FOG_VIEWS.H"
 #include "COMMON/PROPGEOMETRY.H"
@@ -60,7 +62,7 @@ extern s32 SetN64_LocatePackSection(s32 *, s32, s32, s32 *);
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, Triple, ResourceManagerState);
 
 s32 Statinst_UpdateDistanceFade(void *prop, s32 cameraAddress) {
-    OwnerStaticInstanceDrawDistanceFadedModel *owner = prop;
+    ObjA *owner = prop;
     GameplayCamera *camera = (void *)cameraAddress;
     CVector3 cameraOffset;
     f32 distanceSquared;
@@ -129,7 +131,7 @@ block_20:
     return 1;
 }
 
-void Statinst_DrawDistanceFadedModel(OwnerStaticInstanceDrawDistanceFadedModel *owner) {
+void Statinst_DrawDistanceFadedModel(ObjA *owner) {
     StaticModelAnimationDescriptor *descriptor;
     s32 remaining;
     s32 key;
@@ -164,7 +166,7 @@ void Statinst_DrawDistanceFadedModel(OwnerStaticInstanceDrawDistanceFadedModel *
     }
     instance = Statinst_AcquireGeometry(owner, key);
     if (instance != 0) {
-        resource = Cache_RequestPairedResource(0, owner->flagsD0 | g_litGeometryResourceKeyFlags, instance, (CachedResource *)owner->pairedResource, 8, owner, &g_Statinst_BuildLitGeometryResourceAddress,
+        resource = Cache_RequestPairedResource(0, owner->flagsD0 | g_litGeometryResourceKeyFlags, instance, (CachedResource *)(s32)owner->block, 8, owner, &g_Statinst_BuildLitGeometryResourceAddress,
                                  s_staticLitGeometryResourceTag, 0);
         if (resource != 0) {
             Cache_MarkResourceInUse(0, resource);
@@ -194,7 +196,7 @@ void Statinst_DrawDistanceFadedModel(OwnerStaticInstanceDrawDistanceFadedModel *
     g_menuModelFillColor[3] = g_staticObjectOpaqueAlpha;
 }
 
-void Statinst_DrawModel(ModelOwner *owner) {
+void Statinst_DrawModel(ObjA *owner) {
     s32 remaining;
     void *instance;
     CachedResource *resource;
@@ -209,7 +211,7 @@ void Statinst_DrawModel(ModelOwner *owner) {
     if (instance == 0) {
         return;
     }
-    resource = Cache_RequestPairedResource(0, owner->flagsD0 | g_litGeometryResourceKeyFlags, instance, (CachedResource *)owner->pairedResource, 8, owner, &g_Statinst_BuildLitGeometryResourceAddress,
+    resource = Cache_RequestPairedResource(0, owner->flagsD0 | g_litGeometryResourceKeyFlags, instance, (CachedResource *)(s32)owner->block, 8, owner, &g_Statinst_BuildLitGeometryResourceAddress,
                              s_staticLitGeometryResourceTag, 0);
     if (resource != 0) {
         Cache_MarkResourceInUse(0, resource);
@@ -248,12 +250,12 @@ void Statinst_DispatchAttachmentEvents(void *object, s32 all) {
     s32 count;
     s32 i;
 
-    model = Cache_RequestResource(0, ((PlacedProp *)object)->owner, ((PlacedProp *)object)->owner, 24, 4, 0, 0,
+    model = Cache_RequestResource(0, ((ObjA *)object)->owner, ((ObjA *)object)->owner, 24, 4, 0, 0,
                           &g_statObjectIndexText, 0);
     if (model == 0) {
         return;
     }
-    name = SetN64_LocatePackSection(*model, ((PlacedProp *)object)->owner, 3, &size);
+    name = SetN64_LocatePackSection(*model, ((ObjA *)object)->owner, 3, &size);
 #if defined(VERSION_DE)
     table = Cache_RequestResource(0, name, name, size, 0, 0, 0, s_staticObjectResourceTag, 0);
 #elif defined(VERSION_EU)
@@ -272,7 +274,7 @@ void Statinst_DispatchAttachmentEvents(void *object, s32 all) {
         for (i = 0; i < count; i++) {
             attachment = &entries[i];
             if (all != 0 || attachment->type == 8) {
-                Graphu64_TransformPoint(((PlacedProp *)object)->matrix, &attachment->offset, &position);
+                Graphu64_TransformPoint(((ObjA *)object)->matrix, &attachment->offset, &position);
                 Events_DeliverContactEffect(object, object, attachment->type, -1, position, attachment->params);
             }
         }

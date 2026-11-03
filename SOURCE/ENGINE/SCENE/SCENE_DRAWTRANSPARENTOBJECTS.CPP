@@ -1,3 +1,4 @@
+#include "COMMON/OBJB.H"
 #include "ENGINE/SCENE.H"
 #include "COMMON/LONE/SCREEN_IMAGE_RESOURCES_ENABLED.H"
 #include "include_asm.h"
@@ -202,7 +203,7 @@ typedef struct SortEntry { void *object; f32 distance; } SortEntry;
 extern void Gsky_GetObjectPositionAt260(void *, void *);
 extern void PpDecom_QuickSortRecords(void *, s32, s32, void *, void *);
 extern void Statinst_DrawForGameMode(void *, void *);
-struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
+struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
 extern void Gobjinst_DrawVisibleCachedActor(void *, void *);
 /* Draws a world's scene objects back to front: emits the world's static display list if there is one, then
  * measures each object's squared distance to the camera (offset by a jittered vector from Gsky_GetObjectPositionAt260De),
@@ -210,11 +211,6 @@ extern void Gobjinst_DrawVisibleCachedActor(void *, void *);
 #include "COMMON/WORLD.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include <PR/gbi.h>
-/* The static-instance bounds view also used by the adjacent scene pass. */
-typedef struct SceneStaticBounds {
-    u8 pad0[0xB8];
-    Box bounds;
-} SceneStaticBounds;
 void Scene_DrawTransparentObjects(Shared_World *world, void *camera) {
     LevelActor *object;
     SortEntry entries[2048];
@@ -248,9 +244,9 @@ void Scene_DrawTransparentObjects(Shared_World *world, void *camera) {
         object = world->drawables[i];
         switch (object->kind) {
         case 0:
-            x = ((SceneStaticBounds *)object)->bounds.min.x + ((SceneStaticBounds *)object)->bounds.max.x + ox;
-            y = ((SceneStaticBounds *)object)->bounds.min.y + ((SceneStaticBounds *)object)->bounds.max.y + oy;
-            z = ((SceneStaticBounds *)object)->bounds.min.z + ((SceneStaticBounds *)object)->bounds.max.z + oz;
+            x = ((ObjA *)object)->bounds.min.x + ((ObjA *)object)->bounds.max.x + ox;
+            y = ((ObjA *)object)->bounds.min.y + ((ObjA *)object)->bounds.max.y + oy;
+            z = ((ObjA *)object)->bounds.min.z + ((ObjA *)object)->bounds.max.z + oz;
             break;
         case 1:
         case 3:

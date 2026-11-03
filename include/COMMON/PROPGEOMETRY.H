@@ -7,7 +7,6 @@
 #include "COMMON/MANAGER.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/PROBE.H"
-struct StaticObject;
 
 
 
@@ -22,8 +21,6 @@ extern float g_simpleObjectAlternateScaleTransitionTarget;
 
 
 
-struct ActorSimpleInstanceSpawnModelEffect;
-typedef struct ActorSimpleInstanceSpawnModelEffect ActorSimpleInstanceSpawnModelEffect;
 
 
 struct PropGeometry;
@@ -46,8 +43,6 @@ struct PackedPlacedPropDefinition {
     u8 cellZ;
 };
 
-struct ModelOwner;
-typedef struct ModelOwner ModelOwner;
 
 
 struct PlacedPropRecord;
@@ -78,56 +73,26 @@ struct PropGeometry {
     u32 radiusSquared;
 };
 
-struct PlacedProp;
-struct PropGeometry;
-struct PlacedProp {
-    u8 state;
-    char pad1[3];
-    u16 id;
-    char pad6[2];
-    CVector3 position;
-    void *segment;
-    struct PropGeometry *model;
-    s32 owner;
-    char pad20[8];
-    char transform[64];
-    char matrix[64];
-    s32 reservedWord;
-    s32 reservedWord1;
-    s32 reservedWord2;
-    s32 reservedWord3;
-    CVector3 min;
-    CVector3 max;
-    s32 key;
-    s32 surfaceType;
-    u16 flags;
-    u8 colorFrame;
-    char padDB;
-    s32 animationTimer;
-    u8 fade;
-    char padE1[0xE8 - 0xE1];
-};
-
-struct PlacedProp;
-typedef struct PlacedProp PlacedProp;
-
 struct StaticModelAnimationDescriptor;
 typedef struct StaticModelAnimationDescriptor StaticModelAnimationDescriptor;
 
 
 struct StaticModelAnimationDescriptor;
 struct StaticModelAnimationDescriptor {
-    char pad0[0xE];
+    s32 kind;
+    s32 gate;
+    char pad8[6];
     s8 key;
     s8 key2;
     char pad10[2];
     s8 argument;
-    char pad13[0x24 - 0x13];
+    char pad13;
+    s32 flags; /* +0x14: scene visibility */
+    char pad18[0xC];
     s32 period;
 };
 
 struct StaticModelAnimationDescriptor;
-struct OwnerStaticInstanceDrawDistanceFadedModel;
 
 
 
@@ -136,14 +101,10 @@ extern float g_simpleObjectViewEffectScale;
 
 
 
-struct ModelEffectSpawnState;
-typedef struct ModelEffectSpawnState ModelEffectSpawnState;
-
-struct ModelEffectSpawnState;
 
 
 
-struct StaticObject;
+
 
 struct StaticModelMaterialDescriptor;
 struct StaticModelMaterialDescriptor {
@@ -153,15 +114,11 @@ struct StaticModelMaterialDescriptor {
     s8 argument;
 };
 struct StaticModelMaterialDescriptor;
-struct ModelOwner;
 
 
-struct StaticObject;
-typedef struct StaticObject StaticObject;
 
 extern f32 g_staticObjectSharedAngle;
 
-struct ActorSimpleInstanceSpawnModelEffect;
 
 struct PlacedPropRecord;
 typedef struct PlacedPropRecord PlacedPropRecord;
@@ -177,8 +134,6 @@ typedef struct PackedPlacedPropDefinition PackedPlacedPropDefinition;
 extern float g_simpleObjectAlternateScaleTransitionTiming;
 
 
-struct OwnerStaticInstanceDrawDistanceFadedModel;
-typedef struct OwnerStaticInstanceDrawDistanceFadedModel OwnerStaticInstanceDrawDistanceFadedModel;
 
 
 

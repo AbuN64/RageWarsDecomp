@@ -1,3 +1,4 @@
+#include "COMMON/OBJB.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "COMMON/PROPGEOMETRY.H"
 #include "WORLD/STATIC_MODEL_INSTANCE_VIEWS.H"
@@ -19,14 +20,14 @@ extern char g_actorParticleEffectSystem[];
 
 
 
-extern f32 Gobjinst_GetActorHeight(ActorSimpleInstanceSpawnModelEffect *actor);
+extern f32 Gobjinst_GetActorHeight(ObjB *actor);
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
-extern f32 Gobjinst_GetActorRadius(ActorSimpleInstanceSpawnModelEffect *actor);
+extern f32 Gobjinst_GetActorRadius(ObjB *actor);
 
 /* Places an actor's ground shadow: the shadow size is the smaller of half the vertical offset from
  * InstHdr_GetActorShadowRadius and that minus a tenth of the actor's height above its ground height at 0x40, vanishing
@@ -64,7 +65,7 @@ extern char g_simpleModelResourceCallbackAddress;
 
 
 
-void Simpinst_SpawnModelEffect(ActorSimpleInstanceSpawnModelEffect *actor, void **resource) {
+void Simpinst_SpawnModelEffect(ObjB *actor, void **resource) {
     CVector3 position;
     CQuatern rotation;
     SpawnedEffectMotionView *effect;
@@ -77,10 +78,10 @@ void Simpinst_SpawnModelEffect(ActorSimpleInstanceSpawnModelEffect *actor, void 
         node = SetN64_GetPackSection(*resource, 2);
         if ((*node != 0) &&
             (*((s32 *)SetN64_GetPackSection(SetN64_GetPackSection(node, 0), 0)) & 0x8000)) {
-            position = actor->position0;
+            position = actor->position;
             position.y += Gobjinst_GetActorHeight(actor) * *(&g_simpleObjectViewEffectRotationAndHeight + 1);
             Particle_SpawnEffectGroup((struct EffectSystem *)&g_actorParticleEffectSystem[0], (struct EffectActor *)actor, (struct EffectActor *)actor, 0, 0, 148,
-                          actor->position1, rotation, position, 0, -1, 0);
+                          actor->effectPosition, rotation, position, 0, -1, 0);
             effect = Particle_GetLastSpawnedEffect(&g_actorParticleEffectSystem[0]);
             if (effect != 0) {
                 scale = g_simpleObjectViewEffectScale;
@@ -117,15 +118,15 @@ void Simpinst_DrawGroundShadow(void *actor) {
     Geometry_DrawIntensityMask((char *)actor + ((g_lightingBufferIndex << 6) + ((char *)&((LevelActor *)0)->bounds - (char *)0)), 1, 150);
 }
 
-void Simpinst_RefreshModelResourceUsage(StaticObject *staticObject) {
+void Simpinst_RefreshModelResourceUsage(ObjB *staticObject) {
     void *variantDirectory;
     void **resource;
     s32 key;
     s32 found;
     s32 index;
 
-    index = staticObject->model;
-    if (index != staticObject->animation) {
+    index = staticObject->type;
+    if (index != staticObject->loadedType) {
         resource = Cache_RequestResource(0, staticObject->animationKey,
                                 staticObject->animationKey, 24,
                                 0, 0, 0, &g_simpleObjectModelResourceTagData + 4, 1);
@@ -137,7 +138,7 @@ void Simpinst_RefreshModelResourceUsage(StaticObject *staticObject) {
                 staticObject->resource = SetN64_LocatePackSection((s32)variantDirectory, key,
                                                     index % *(s32 *)variantDirectory,
                                                     &staticObject->resourceSize);
-                staticObject->animation = index;
+                staticObject->loadedType = index;
                 Cache_ReleaseResource(0, (void *)found);
             }
         }

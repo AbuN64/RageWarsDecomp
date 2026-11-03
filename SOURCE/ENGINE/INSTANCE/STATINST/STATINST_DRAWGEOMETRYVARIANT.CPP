@@ -1,3 +1,4 @@
+#include "COMMON/OBJB.H"
 #include "COMMON/MODEL_RENDER.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "RENDER/MATERIAL_COLOR_AND_FOG_VIEWS.H"
@@ -78,8 +79,8 @@ int Statinst_GetPropModelIndex(char *object) {
 }
 
 /** Read the signed byte at offset 0xE from the object's linked record. */
-signed char Statinst_GetPropGeometryIndex(struct PlacedProp *object) {
-    void *linked = object->model;
+signed char Statinst_GetPropGeometryIndex(struct ObjA *object) {
+    void *linked = object->descriptor;
     return ((struct ResourceFadeDefinition *)linked)->nearValue;
 }
 

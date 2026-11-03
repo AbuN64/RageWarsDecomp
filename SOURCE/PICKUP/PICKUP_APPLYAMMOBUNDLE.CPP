@@ -1,3 +1,4 @@
+#include "COMMON/AIPROFILE.H"
 #include "COMMON/ENTRYRECATE.H"
 #include "COMMON/LONE/G_LANGUAGEINDEX.H"
 #include "COMMON/ITEMRECAT20V1.H"
@@ -18,7 +19,7 @@
 extern void Player_AddAmmo(void *, s16, s16);
 
 /** Apply a three-channel effect descriptor and its optional payloads. */
-s32 Pickup_ApplyAmmoBundle(ActorPickupCanCollect *player, MultiChannelItemEffect *ammoBundle) {
+s32 Pickup_ApplyAmmoBundle(Player *player, MultiChannelItemEffect *ammoBundle) {
     void *resource;
     s32 sound;
     s32 callback;
@@ -30,12 +31,12 @@ s32 Pickup_ApplyAmmoBundle(ActorPickupCanCollect *player, MultiChannelItemEffect
     resource = ammoBundle->effect.resource;
     sound = ammoBundle->effect.sound;
     callback = ammoBundle->effect.callback;
-    if (player->owner != 0) {
-        Gsky_StartFade(player->owner,
+    if (player->camera != 0) {
+        Gsky_StartFade(player->camera,
                       128, 50, 50, 75, 0, 0, 2);
         if (resource != 0) {
             Camera_PostScreenMessage(&g_frontendScreenStatus,
-                          player->owner,
+                          player->camera,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
                           ((void **)resource)[g_languageIndex]);
 #else
@@ -45,7 +46,7 @@ s32 Pickup_ApplyAmmoBundle(ActorPickupCanCollect *player, MultiChannelItemEffect
     }
     if (sound != 0) {
         SoundElement_PlaySoundAtPosition(sound,
-                      player->position, 0, -1);
+                      player->pos, 0, -1);
     }
     if (callback != 0) {
         SoundElement_PlayDialogGroup(callback);

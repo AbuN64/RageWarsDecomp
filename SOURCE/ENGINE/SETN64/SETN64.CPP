@@ -1,3 +1,4 @@
+#include "COMMON/OBJB.H"
 #include "WORLD/STATIC_MODEL_INSTANCE_VIEWS.H"
 #include "../../../sdk/include/LIBC.H"
 #include "COMMON/RESULTS.H"
@@ -236,7 +237,7 @@ void *SetN64_SpawnModelEffect(char *container, s32 *referenceCounter, s32 modelI
   center.x = ((SceneEffect *)(effectActor))->position.x;
   center.y = (((SceneEffect *)(effectActor))->position.y) + (Gobjinst_GetActorHeight(effectActor) * 0.5f);
   center.z = ((SceneEffect *)(effectActor))->position.z;
-  Scene_SampleWorldLighting(&g_world, &center, &((StaticObject *)effectActor)->lights);
+  Scene_SampleWorldLighting(&g_world, &center, &((ObjB *)effectActor)->lights);
   return effectActor;
 }
 
@@ -355,7 +356,7 @@ void SetN64_UpdateEffectMotionAndBounds(SceneEffect *effect)
 /* 8028FD2C_12.CPP */
 extern s32 Visdata_TestBoxAgainstFrustum(void *frustum, void *box);
 
-struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
+struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
 
 extern f32 g_cameraVolumeBoundsMinZ[];
 

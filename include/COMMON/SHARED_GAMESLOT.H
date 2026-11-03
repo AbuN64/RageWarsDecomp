@@ -69,7 +69,9 @@ struct Shared_Game {
             u8 language;
             u8 reserved582[0x32];
             s32 state;
-            u8 reserved5B8[0x20];
+            u8 reserved5B8[0x14];
+            s32 simpleObjectsPaused; /* +0x5CC: g_simpleObjectPauseState */
+            u8 reserved5D0[8];
             CGameStatus counters; /* +0x5D8: g_matchRoundCounters */
         };
     };

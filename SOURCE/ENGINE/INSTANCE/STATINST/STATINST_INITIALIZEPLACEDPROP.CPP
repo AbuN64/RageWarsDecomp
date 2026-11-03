@@ -1,3 +1,4 @@
+#include "COMMON/OBJB.H"
 #include "COMMON/WORLD.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/SHAREDPLAYER.H"
@@ -32,7 +33,7 @@ extern s32 g_defaultCameraSurfaceType[];
 
 
 
-extern void Insthdr_ResetInstanceRenderIndices(PlacedProp *, PackedPlacedPropDefinition *, s32, char *);
+extern void Insthdr_ResetInstanceRenderIndices(ObjA *, PackedPlacedPropDefinition *, s32, char *);
 extern PropGeometry *Scene_GetActorDefinition(void *, s32);
 extern void ScaleMatrixLocal(char *, f32, f32, f32);
 extern void TranslateMatrix(char *, f32, f32, f32);
@@ -54,7 +55,7 @@ static inline s32 advancePropKey(void) {
     return g_staticObjectResourceSerial;
 }
 
-void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing) {
+void Statinst_InitializePlacedProp(ObjA *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing) {
     char matrix[64];
     CVector3 position;
     PropGeometry *model;
@@ -66,15 +67,15 @@ void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition 
     prop->state = 0;
     prop->id = record->id;
     prop->owner = owner;
-    prop->reservedWord = -1;
-    prop->reservedWord1 = 0;
-    prop->reservedWord2 = 0;
-    prop->reservedWord3 = 0;
+    prop->renderIndex = -1;
+    prop->renderState[0] = 0;
+    prop->renderState[1] = 0;
+    prop->renderState[2] = 0;
     turn = 0.0f;
-    prop->model = Scene_GetActorDefinition(&g_world, record->model);
+    prop->descriptor = Scene_GetActorDefinition(&g_world, record->model);
     prop->fade = 16;
-    prop->animationTimer = 0;
-    model = prop->model;
+    prop->timer = 0;
+    model = (PropGeometry *)prop->descriptor;
     model->radiusSquared = model->radius * model->radius;
     x = record->cellX * spacing;
     position.x = x;
@@ -101,26 +102,26 @@ void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition 
         turn = 4.712389469f;
         break;
     }
-    prop->flags = record->flags;
+    prop->flagsD8 = record->flags;
     BuildYawMatrix(matrix, turn);
     ScaleMatrixLocal(matrix, record->scale, record->scale, record->scale);
     TranslateMatrix(matrix, position.x, position.y, position.z);
     SwapMatrixUpForward(matrix);
-    if (prop->flags & 0x40) {
-        prop->min.x = position.x - 102.3999939f;
-        prop->min.y = position.y - 102.3999939f;
-        prop->min.z = position.z - 102.3999939f;
-        prop->max.x = position.x + 102.3999939f;
-        prop->max.y = position.y + 102.3999939f;
-        prop->max.z = position.z + 102.3999939f;
+    if (prop->flagsD8 & 0x40) {
+        prop->bounds.min.x = position.x - 102.3999939f;
+        prop->bounds.min.y = position.y - 102.3999939f;
+        prop->bounds.min.z = position.z - 102.3999939f;
+        prop->bounds.max.x = position.x + 102.3999939f;
+        prop->bounds.max.y = position.y + 102.3999939f;
+        prop->bounds.max.z = position.z + 102.3999939f;
         prop->surfaceType = g_defaultCameraSurfaceType[0];
     } else {
-        prop->min.x = position.x + record->extents[0] * 10.23999977f - 0.5f;
-        prop->min.y = position.y + record->extents[2] * 10.23999977f - 0.5f;
-        prop->min.z = position.z + record->extents[4] * 10.23999977f - 0.5f;
-        prop->max.x = position.x + record->extents[1] * 10.23999977f + 0.5f;
-        prop->max.y = position.y + record->extents[3] * 10.23999977f + 0.5f;
-        prop->max.z = position.z + record->extents[5] * 10.23999977f + 0.5f;
+        prop->bounds.min.x = position.x + record->extents[0] * 10.23999977f - 0.5f;
+        prop->bounds.min.y = position.y + record->extents[2] * 10.23999977f - 0.5f;
+        prop->bounds.min.z = position.z + record->extents[4] * 10.23999977f - 0.5f;
+        prop->bounds.max.x = position.x + record->extents[1] * 10.23999977f + 0.5f;
+        prop->bounds.max.y = position.y + record->extents[3] * 10.23999977f + 0.5f;
+        prop->bounds.max.z = position.z + record->extents[5] * 10.23999977f + 0.5f;
         prop->surfaceType = record->value;
     }
     CopyMatrix(prop->matrix, matrix);
@@ -131,11 +132,11 @@ void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition 
     } else {
         prop->segment = segments + record->segment * 32;
     }
-    prop->key = advancePropKey() << 10;
+    prop->flagsD0 = advancePropKey() << 10;
     prop->colorFrame = (u8)g_gameFrameCounter - 1;
 #if defined(VERSION_DE)
     if ((u32)(InstHdr_GetActorType(prop) - 9) < 2) {
-        prop->flags |= 0x50;
+        prop->flagsD8 |= 0x50;
     }
 #endif
 }

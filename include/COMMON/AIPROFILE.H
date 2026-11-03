@@ -6,10 +6,14 @@ struct GameplayCamera;
 #include "COMMON/MODEL_INSTANCE.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/VECTOR4F.H"
+#include "COMMON/LEVEL_ACTOR.H"
+#include "COMMON/OBJRECAT18V6.H"
 struct Player;
 struct RangeNode;
 typedef struct AiProfile {
-    u8 pad0[0x79];
+    s16 roundTotals[6]; /* +0x00: round-reset totals */
+    s16 roundCounts[4][8]; /* +0x0C */
+    u8 pad4C[0x79 - 0x4C];
     u8 yawSensitivity; /* 0x79: Player_UpdateViewAngles */
     u8 sensitivity; /* 0x7A: ContPad_BuildControllerState */
     s8 controlMode; /* 0x7B */
@@ -28,7 +32,17 @@ typedef struct AiProfile {
 } AiProfile;
 
 
+/* Handle and bookkeeping words cleared together when releasing this resource. */
+typedef struct ResourceLoadState {
+    s32 handle;
+    s32 state4;
+    s32 state8;
+} ResourceLoadState;
+
 struct Player {
+    union {
+        LevelActor actorParts[2]; /* +0x000, +0x2E8 */
+        struct {
     u8 kind; /* 0x0 */
     u8 pad1[2];
     u8 playerId; /* 0x3 */
@@ -36,8 +50,9 @@ struct Player {
     CVector3 pos; /* 0x8 */
     u8 pad14[0x4];
     void * definition; /* 0x18 */
-    u8 pad1C[0x1C];
-    s32 movementFlags; /* 0x38 */
+    s32 actorMotionWords[3]; /* +0x1C */
+    u8 pad28[0x10];
+    s32 movementFlags; /* +0x38 */
     u8 pad3C[0x14];
     CVector3 scale; /* 0x50 */
     CQuatern orientation; /* 0x5C */
@@ -51,7 +66,7 @@ struct Player {
     u8 pad104[0xA];
     s8 animationDone; /* 0x10E */
     u8 pad10F[0x61];
-    u8 motion[368]; /* 0x170 */
+    u8 motion[368]; /* +0x170: controller state; actorParts[0] owns its fields */
     u8 pad2E0[8];
     struct ObjectSceneChangeInstanceModel weaponModel; /* 0x2E8 */
     u8 pad3CE[0xB6];
@@ -63,17 +78,21 @@ struct Player {
     u8 pad584[0xC];
     s32 weaponReset; /* 0x590: weapon state +0x138 */
     s32 gear; /* 0x594 */
-    u8 pad598[0x3C];
+    u8 pad598[0x38];
+        };
+    };
+    s32 actorState; /* +0x5D0 */
     s32 slot; /* 0x5D4 */
     AiProfile * profile; /* 0x5D8 */
     struct GameplayCamera *camera; /* 0x5DC: the camera following this player */
     s32 state; /* 0x5E0 */
     s32 health; /* 0x5E4 */
-    u8 pad5E8[4];
+    u16 healthFraction; /* +0x5E8 */
+    s16 respawnHealth; /* +0x5EA: sequence-actor state */
     s32 model; /* 0x5EC: Player_UpdateRunEndPlayer passes it to Player_PlacePlayerAtSpawnPoint */
     u8 pad5F0[4];
     s16 ammo[7]; /* 0x5F4 */
-    s8 actions[22][2]; /* 0x602 */
+    union { s8 actions[22][2]; Shared_Slot weaponSlots[22]; }; /* +0x602 */
     s16 selectedAction; /* 0x62E */
     s16 queuedAction; /* 0x630 */
     s16 lastAction; /* 0x632 */
@@ -150,7 +169,9 @@ struct Player {
     s32 weaponLocked; /* 0xCB8 */
     u8 padCBC[4];
     s32 pendingWeapon; /* 0xCC0: weapon to switch to (Player_AddAmmo_PickupApplyspecialpickup, Pickup_HandlePowerWeaponPickup) */
-    u8 padCC4[0x4F0];
+    u8 padCC4[0xD40 - 0xCC4];
+    CItemMenu itemMenu; /* +0xD40 */
+    u8 padMenuEnd[0x11B4 - 0xD40 - sizeof(CItemMenu)];
     s32 locked; /* 0x11B4 */
     s32 lockState; /* 0x11B8 */
     void *firstHandle; /* 0x11BC */
@@ -164,7 +185,7 @@ struct Player {
     u8 pad11F0[4];
     f32 fireSpin; /* 0x11F4 */
     s32 fireFrame; /* 0x11F8 */
-    f32 zoom; /* 0x11FC */
+    union { f32 zoom; s32 idleAnimationState; }; /* +0x11FC */
     CVector3 aimPosition; /* 0x1200 */
     s32 zoomMode; /* 0x120C */
     s32 overlay; /* 0x1210 */
@@ -193,6 +214,8 @@ struct Player {
 };
 
 
+
+extern struct Player *g_playerSequenceActor;
 
 struct ActionTargetPlayerView;
 typedef struct ActionTargetPlayerView ActionTargetPlayerView;

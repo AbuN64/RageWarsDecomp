@@ -31,7 +31,6 @@ extern s32 InstHdr_GetActorMotionState(void *levelActor);
 
 
 
-extern PlayerRespawnHealthView *g_playerSequenceActor;
 
 extern void Player_UpdateRunEndPlayer(void *);
 
@@ -227,28 +226,28 @@ s32 Playerai_TryEnterLandedState(void *player, LevelActor *actor) {
 
 
 
-void Playerai_SelectMovementAnimation(FragTagRespawnActorView *object) {
+void Playerai_SelectMovementAnimation(Player *object) {
     int suppress = 0;
     float value;
 
-    if (object->unk_0x086C == 4420) {
-        suppress = object->unk_0x010E == 0;
+    if (object->animation == 4420) {
+        suppress = object->animationDone == 0;
     }
-    if (object->ownerId == g_fragTagModelId) {
-        object->unk_0x086C = 2210;
+    if (object->objectId == g_fragTagModelId) {
+        object->animation = 2210;
         return;
     }
     if (!suppress) {
-        value = object->unk_0x06C0;
+        value = object->stick;
         if (g_playerMovementForwardAnimationThreshold <= value) {
-            object->unk_0x086C = 2210;
+            object->animation = 2210;
             return;
         }
         if (value <= g_playerMovementReverseAnimationThreshold) {
-            object->unk_0x086C = 2215;
+            object->animation = 2215;
             return;
         }
-        object->unk_0x086C = 20;
+        object->animation = 20;
     }
 }
 
@@ -257,7 +256,7 @@ void Playerai_EmptyMovementAnimationHook(void) {
 }
 
 void Playerai_AdvanceCurrentRunEndState(void) {
-    if (g_playerSequenceActor->health == 1) {
+    if (g_playerSequenceActor->respawnHealth == 1) {
         Player_UpdateRunEndPlayer((s32)g_playerSequenceActor);
     } else {
         Player_SetPlayerState(g_playerSequenceActor, g_playerSequenceActor, 34);
@@ -270,24 +269,24 @@ void Playerai_UpdateStoredRunEndPlayer(void) {
     Player_UpdateRunEndPlayer(g_playerTrackFiftyRequest);
 }
 
-void Playerai_ResetMotionAndSelectIdleAnimation(FragTagRespawnActorView *player)
+void Playerai_ResetMotionAndSelectIdleAnimation(Player *player)
 {
   s32 clearedActorFlags;
-  clearedActorFlags = player->flags & 0xFF7FFFFF;
-  player->flags = clearedActorFlags;
-  player->unk_0x001C = 0;
-  player->unk_0x0020 = 0;
-  player->unk_0x0024 = 0;
-  player->unk_0x11D8 = 0.0f;
-  player->flags = clearedActorFlags | 0x01000000;
-  player->unk_0x11FC = 0;
-  player->flags = clearedActorFlags | 0x01000000;
-  if (player->unk_0x13B4 == (&g_playerSpecialAnimationTable))
+  clearedActorFlags = player->weaponFlags & 0xFF7FFFFF;
+  player->weaponFlags = clearedActorFlags;
+  player->actorMotionWords[0] = 0;
+  player->actorMotionWords[1] = 0;
+  player->actorMotionWords[2] = 0;
+  player->cooldown = 0.0f;
+  player->weaponFlags = clearedActorFlags | 0x01000000;
+  player->idleAnimationState = 0;
+  player->weaponFlags = clearedActorFlags | 0x01000000;
+  if (player->animationTable == (&g_playerSpecialAnimationTable))
   {
-    player->unk_0x086C = 24100;
+    player->animation = 24100;
     return;
   }
-  player->unk_0x086C = 1;
+  player->animation = 1;
 }
 
 void Playerai_ReleasePlayerResource(ResourceLoadState *resourceLoadState) {
@@ -331,7 +330,7 @@ void Playerai_RespawnFragTagPlayer(void *player) {
         break;
     }
     TeamSelect_EmptyWeaponWheelHook((char *)&((SharedPlayer *)player)->views5E8.view938_128.strokes);
-    ((FragTagRespawnActorView *)player)->unk_0x11B4 = 0;
+    ((Player *)player)->locked = 0;
     Actor_RequestActorState(&((Shared_ActorView *)player)->weapon, &((Shared_ActorView *)player)->weapon.behaviorFlags, 1);
     Player_PlacePlayerAtSpawnPoint(player, ((Shared_ActorView *)player)->spawn, 0, 1);
     Playerai_InitializePlayerHealth(player);

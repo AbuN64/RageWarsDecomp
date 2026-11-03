@@ -18,7 +18,7 @@ extern void Cache_UnlockResource(void *, CacheResourceNode *);
 extern void Geometry_UnlockMaterialResources(void **);
 void Simpinst_RegisterModelVariantResources(struct ObjB *object, s32 unused) {
     void *memory = object;
-    ResourceObject23 *obj = memory;
+    ObjB *obj = memory;
     void *header;
     s32 *table;
     void **resource;
@@ -28,27 +28,27 @@ void Simpinst_RegisterModelVariantResources(struct ObjB *object, s32 unused) {
     s32 index;
     index = obj->type;
     if (index != obj->loadedType) {
-        resource = Cache_RequestResource(0, obj->model, obj->model, 24, 0, 0, 0, g_simpObjectIndexText, 1);
+        resource = Cache_RequestResource(0, obj->animationKey, obj->animationKey, 24, 0, 0, 0, g_simpObjectIndexText, 1);
         if (resource != 0) {
-            key = SetN64_GetDirectoryEntry(*resource, obj->model, 1);
+            key = SetN64_GetDirectoryEntry(*resource, obj->animationKey, 1);
             Cache_ReleaseResource(0, resource);
             found = Cache_RequestWordCountedResource(0, &header, key, g_simpModelsIndexText, 1);
             if (found != 0) {
                 table = header;
-                obj->resourceName = SetN64_LocatePackSection(table, key, index % table[0], &obj->resourceSize);
+                obj->resource = SetN64_LocatePackSection(table, key, index % table[0], &obj->resourceSize);
                 obj->loadedType = index;
                 Cache_ReleaseResource(0, found);
             }
         }
     }
-    if (obj->resourceName != 0) {
-        resource = Cache_RequestResource(0, obj->resourceName, obj->resourceName, obj->resourceSize, 0, 0, &g_simpleModelResourceCallbackAddress, g_simpModelText, 0);
+    if (obj->resource != 0) {
+        resource = Cache_RequestResource(0, obj->resource, obj->resource, obj->resourceSize, 0, 0, &g_simpleModelResourceCallbackAddress, g_simpModelText, 0);
     } else {
         resource = 0;
     }
     if (resource != 0) {
         Geometry_UnlockMaterialResources(resource);
-        block = Cache_RequestPairedResource(0, g_litGeometryResourceKeyFlags, (void *)resource, obj->blockNode, 8, obj, &g_Simpinst_BuildLitGeometryResourceAddress, &s_litVerticesText, 0);
+        block = Cache_RequestPairedResource(0, g_litGeometryResourceKeyFlags, (void *)resource, (CachedResource *)obj->block, 8, obj, &g_Simpinst_BuildLitGeometryResourceAddress, &s_litVerticesText, 0);
         if (block != 0) {
             Cache_UnlockResource(0, (void *)block);
         }

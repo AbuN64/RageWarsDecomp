@@ -9,6 +9,7 @@
 #include "COMMON/PACKED.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/LEVEL_INPUT.H"
+#include "COMMON/PARTICLE_LIGHTING.H"
 
 struct Shared_Placed;
 
@@ -198,12 +199,65 @@ struct SceneVisibilityGeometryView;
 typedef struct SceneVisibilityGeometryView SceneVisibilityGeometryView;
 
 struct ObjB;
-struct ObjB {
-    s8 pad0;
+struct ObjA {
+    s8 state;
     s8 type;
-    char pad2[0x60 - 2];
-    void **block;
-    char pad64[0x1C8 - 0x64];
+    char pad2[2];
+    u16 id;
+    char pad6[2];
+    CVector3 position;
+    void *segment;
+    struct StaticModelAnimationDescriptor *descriptor; /* +0x18 */
+    s32 owner;
+    void **block; /* +0x20 */
+    char pad24[4];
+    char transform[0x40];
+    char matrix[0x40]; /* +0x68: placement and attachment transform */
+    s32 renderIndex; /* +0xA8: initialized to -1 */
+    s32 renderState[3]; /* +0xAC: cleared during placement */
+    Box bounds; /* +0xB8 */
+    s32 flagsD0;
+    s32 surfaceType; /* +0xD4: placement surface selection */
+    u16 flagsD8;
+    u8 colorFrame;
+    char padDB;
+    u32 timer;
+    s8 fade; /* signed: distance fade clamps negative values */
+    char padE1[7];
+};
+
+struct ObjB {
+    u8 state;
+    s8 type;
+    char pad2;
+    s8 material;
+    u16 id;
+    char pad6[2];
+    CVector3 position; /* +0x08 */
+    void *room;
+    struct ActorDefinitionHeader *definition; /* +0x18 */
+    CVector3 effectPosition; /* +0x1C: Simpinst_SpawnModelEffect */
+    char pad28[0x28];
+    s32 animationKey; /* +0x50: model directory key */
+    s32 loadedType; /* +0x54: cached model variant */
+    s32 resource;
+    s32 resourceSize;
+    void **block; /* +0x60: cached paired geometry resource */
+    char pad64[4];
+    char matrices[4][0x40];
+    char pad168[0xC];
+    f32 angle;
+    char pad178[4];
+    Box bounds; /* +0x17C */
+    f32 scale;
+    f32 height;
+    u16 flags;
+    u16 placementId;
+    f32 scaleTime;
+    f32 frameDelta;
+    Shared_ParticleLighting lights;
+    s32 scene;
+    Gfx *cached;
 };
 
 struct Shared_World;

@@ -773,8 +773,8 @@ extern s32 SetN64_GetPackSize(s32 *bitSet);
 extern void *Cache_AllocResourceBlock(s32 pool, void *handle, s32 size);
 extern void Cache_ReplaceResourceBlock(s32 pool, void *handle, void *block);
 
-extern void Statinst_InitializePlacedProp(PlacedProp *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing);
-extern void Statinst_InitPlacedProp(PlacedProp *prop, PlacedPropRecord *record, s32 owner, char *segments);
+extern void Statinst_InitializePlacedProp(ObjA *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing);
+extern void Statinst_InitPlacedProp(ObjA *prop, PlacedPropRecord *record, s32 owner, char *segments);
 struct SimpleInstanceOut; struct CROMSimpleInstance; extern void Simple_InitSimpleInstance(struct SimpleInstanceOut *inst, struct CROMSimpleInstance *rec, s32 owner, char *segments);
 extern void Lighting_DecodeBoxTransform(u8 *self, u8 *src);
 
@@ -833,7 +833,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
     s32 i;
     s32 j;
     s32 k;
-    PlacedProp *props;
+    ObjA *props;
     PackedPlacedPropDefinition *efficient;
     CROMSimpleInstance *simpleRecords;
     LightVolumeRecord *volumeRecords;
@@ -846,7 +846,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
         efficientCount = efficientSet->count;
         staticSet = SetN64_GetPackSection(source, 1);
         staticCount = staticSet->count;
-        staticSize = ALIGN8((efficientCount + staticCount) * sizeof(PlacedProp) + sizeof(RecordSet));
+        staticSize = ALIGN8((efficientCount + staticCount) * sizeof(ObjA) + sizeof(RecordSet));
         simpleSet = SetN64_GetPackSection(source, 2);
         simpleCount = simpleSet->count;
         simpleSize = ALIGN8(simpleCount * sizeof(SimpleInstance) + sizeof(RecordSet));
@@ -865,12 +865,12 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
             blocks->offsets[blocks->count] = offset;
             SetN64_TransposeRecords(efficientSet, dst, 1);
             SetN64_TransposeRecords(staticSet, dst, 1);
-            ((RecordSet *)dst)->size = sizeof(PlacedProp);
+            ((RecordSet *)dst)->size = sizeof(ObjA);
             ((RecordSet *)dst)->count = efficientCount + staticCount;
             efficient = (PackedPlacedPropDefinition *)(efficientSet + 1);
             objects = SetN64_GetPackSection(world->modelSections, 2);
             statics = (PlacedPropRecord *)(staticSet + 1);
-            props = (PlacedProp *)(dst + 8);
+            props = (ObjA *)(dst + 8);
             base = (char *)blocks;
             segments = (char *)objects + 8;
             for (i = 0; i < efficientCount; i++) {

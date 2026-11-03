@@ -1,3 +1,5 @@
+#include "COMMON/PROPGEOMETRY.H"
+#include "COMMON/OBJB.H"
 #include "../../../sdk/include/LIBC.H"
 #include "include_asm.h"
 #include "TYPES.H"
@@ -328,7 +330,7 @@ extern void Cache_ReleaseResource(void *cacheContext, void *resource);
 
 /* One sector of the world: its model resource, its x/z extent and its cell in the streaming grid. */
 /* Views of the SN debug records this pass reads, with their original member names: CScene_t (0x1B930 bytes),
- * CActiveGridSection_t (0xC), CBoundsRect_t (0x10), CGameStaticInstance_t (0xE8) and CGameSimpleInstance_t (0x1C8). */
+ * CActiveGridSection_t (0xC), CBoundsRect_t (0x10), ObjA (0xE8) and ObjB (0x1C8). */
 typedef struct CBoundsRect_t {
     f32 m_MinX;
     f32 m_MinZ;
@@ -341,47 +343,23 @@ typedef struct CActiveGridSection_t {
     u16 gridSectionX;
     u16 gridSectionZ;
 } CActiveGridSection_t;
-typedef struct CGameStaticInstance_t {
-    char pad0[0x4];
-    u16 m_nObjType; /* ih.m_nObjType */
-    char pad6[0x18 - 0x6];
-    ActorDefinitionHeader *m_pI; /* ih.m_pI */
-    char pad1C[0x4];
-    struct CacheResourceNode *m_pmeGridSection;
-    char pad24[0xB8 - 0x24];
-    Box m_Bounds;
-    char padD0[0xD8 - 0xD0];
-    u16 m_wFlags; /* 4 drawn late, 8 static event, 0x200 culled */
-    char padDA[0xE8 - 0xDA];
-} CGameStaticInstance_t;
-typedef struct CGameSimpleInstance_t {
-    char pad0[0x18];
-    ActorDefinitionHeader *m_pI; /* ah.ih.m_pI */
-    char pad1C[0x60 - 0x1C];
-    struct CacheResourceNode *m_pmeGridSection;
-    char pad64[0x17C - 0x64];
-    Box m_Bounds;
-    char pad194[0x19C - 0x194];
-    u16 m_wFlags; /* 1 hidden, 2 frustum tested, 0x20 drawn late */
-    char pad19E[0x1C0 - 0x19E];
-    s32 m_VisBits;
-    char pad1C4[0x4];
-} CGameSimpleInstance_t;
+
+
 typedef struct ScenePropSection {
     s32 kind;
     s32 count;
-    CGameStaticInstance_t props[1];
+    ObjA props[1];
 } ScenePropSection;
 typedef struct SceneStaticSection {
     s32 kind;
     s32 count;
-    CGameSimpleInstance_t statics[1];
+    ObjB statics[1];
 } SceneStaticSection;
 typedef struct CScene_t {
     char pad0[0x94];
     SceneModelIdTable *m_pusObjectTypes;
     char pad98[0xB4C - 0x98];
-    CGameStaticInstance_t *m_pStaticEventsInstances[64];
+    ObjA *m_pStaticEventsInstances[64];
     s32 m_nStaticEventsInstances;
     char padC50[0x10BC - 0xC50];
     s32 m_nTransparentInstances;
@@ -402,11 +380,11 @@ extern s32 g_gameLoopFrameCount;
 extern SharedCameraOwnerView *Gsky_FindScreenMessage(GameplayCamera *camera);
 extern s32 Visdata_TestVisibilityGridBit(void *grid, s32 x, s32 z, s32 index);
 extern s32 Visdata_TestBoxAgainstFrustum(void *planes, void *bounds);
-extern void Statinst_RegisterGeometryResources(CGameStaticInstance_t *prop, GameplayCamera *camera);
+extern void Statinst_RegisterGeometryResources(ObjA *prop, GameplayCamera *camera);
 extern s32 Statinst_UpdateDistanceFade(void *prop, s32 cameraAddress);
-extern void Statinst_DrawDistanceFadedModel(CGameStaticInstance_t *prop, GameplayCamera *camera);
-extern void Simpinst_RegisterModelVariantResources(CGameSimpleInstance_t *object, GameplayCamera *camera);
-struct StaticObject; extern void Simple_DrawCachedModel(struct StaticObject *obj);
+extern void Statinst_DrawDistanceFadedModel(ObjA *prop, GameplayCamera *camera);
+extern void Simpinst_RegisterModelVariantResources(ObjB *object, GameplayCamera *camera);
+struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
 
 static __inline__ s32 SceneFindShip(SceneModelIdTable *table) {
     s32 i;
@@ -421,8 +399,8 @@ static __inline__ s32 SceneFindShip(SceneModelIdTable *table) {
 }
 void Scene_DrawVisibleInstances(CScene_t *world, GameplayCamera *camera) {
     CScene_t *scene;
-    CGameStaticInstance_t *props;
-    CGameStaticInstance_t *prop;
+    ObjA *props;
+    ObjA *prop;
     s32 model;
     s32 sectorIndex;
     s32 sectorCount;
@@ -433,7 +411,7 @@ void Scene_DrawVisibleInstances(CScene_t *world, GameplayCamera *camera) {
     SharedCameraOwnerView *player;
     CActiveGridSection_t *sector;
     CActiveGridSection_t *sectors;
-    CGameSimpleInstance_t *statics;
+    ObjB *statics;
     ScenePropSection *propSection;
     SceneStaticSection *staticSection;
     s32 propCount;
@@ -491,16 +469,16 @@ void Scene_DrawVisibleInstances(CScene_t *world, GameplayCamera *camera) {
             prop = props;
             prop += i;
             queued = 0;
-            if (!(prop->m_pI->gate & mask)) {
+            if (!(prop->descriptor->gate & mask)) {
                 continue;
             }
-            prop->m_pmeGridSection = sector->m_pmeGridSection;
+            prop->block = sector->m_pmeGridSection;
             if (g_gameLoopFrameCount == 0) {
                 Statinst_RegisterGeometryResources(prop, camera);
             }
-            if ((prop->m_wFlags & 8) && (prop->m_pI->flags & 4)) {
+            if ((prop->flagsD8 & 8) && (prop->descriptor->flags & 4)) {
                 queued = 1;
-                if (prop->m_nObjType == shipModel) {
+                if (prop->id == shipModel) {
                     if (showShip && scene->m_nStaticEventsInstances != 64) {
                         scene->m_pStaticEventsInstances[scene->m_nStaticEventsInstances++] = prop;
                     }
@@ -512,17 +490,17 @@ void Scene_DrawVisibleInstances(CScene_t *world, GameplayCamera *camera) {
                 Visdata_TestVisibilityGridBit(scene->m_VisData, sector->gridSectionX, sector->gridSectionZ, i) == 0) {
                 continue;
             }
-            if (camera->clipBounds[1].x > prop->m_Bounds.min.x && camera->clipBounds[0].x < prop->m_Bounds.max.x &&
-                camera->clipBounds[1].z > prop->m_Bounds.min.z && camera->clipBounds[0].z < prop->m_Bounds.max.z &&
-                camera->clipBounds[1].y > prop->m_Bounds.min.y && camera->clipBounds[0].y < prop->m_Bounds.max.y &&
-                Visdata_TestBoxAgainstFrustum(camera->clipPlanes, &prop->m_Bounds)) {
-                if ((prop->m_wFlags & 8) && !queued && (prop->m_nObjType != shipModel || showShip)) {
+            if (camera->clipBounds[1].x > prop->bounds.min.x && camera->clipBounds[0].x < prop->bounds.max.x &&
+                camera->clipBounds[1].z > prop->bounds.min.z && camera->clipBounds[0].z < prop->bounds.max.z &&
+                camera->clipBounds[1].y > prop->bounds.min.y && camera->clipBounds[0].y < prop->bounds.max.y &&
+                Visdata_TestBoxAgainstFrustum(camera->clipPlanes, &prop->bounds)) {
+                if ((prop->flagsD8 & 8) && !queued && (prop->id != shipModel || showShip)) {
                     if (scene->m_nStaticEventsInstances != 64) {
                         scene->m_pStaticEventsInstances[scene->m_nStaticEventsInstances++] = prop;
                     }
                 }
                 if (Statinst_UpdateDistanceFade(prop, camera)) {
-                    if (prop->m_wFlags & 4) {
+                    if (prop->flagsD8 & 4) {
                         if (scene->m_nTransparentInstances != 64) {
                             scene->m_pTransparentInstances[scene->m_nTransparentInstances++] = prop;
                         }
@@ -530,25 +508,25 @@ void Scene_DrawVisibleInstances(CScene_t *world, GameplayCamera *camera) {
                         Statinst_DrawDistanceFadedModel(prop, camera);
                     }
                 }
-                prop->m_wFlags &= ~0x200;
+                prop->flagsD8 &= ~0x200;
             } else {
-                prop->m_wFlags |= 0x200;
+                prop->flagsD8 |= 0x200;
             }
         }
         staticSection = SetN64_GetPackSection(model, 1);
         staticCount = staticSection->count;
         statics = staticSection->statics;
         for (i = 0; i < staticCount; i++) {
-            statics[i].m_pmeGridSection = sector->m_pmeGridSection;
+            statics[i].block = sector->m_pmeGridSection;
             if (g_gameLoopFrameCount == 0) {
                 Simpinst_RegisterModelVariantResources(&statics[i], camera);
             }
-            if ((statics[i].m_pI->gate & mask) && !(statics[i].m_wFlags & 1) && (viewMask & statics[i].m_VisBits) &&
-                camera->clipBounds[1].x > statics[i].m_Bounds.min.x && camera->clipBounds[0].x < statics[i].m_Bounds.max.x &&
-                camera->clipBounds[1].z > statics[i].m_Bounds.min.z && camera->clipBounds[0].z < statics[i].m_Bounds.max.z &&
-                camera->clipBounds[1].y > statics[i].m_Bounds.min.y && camera->clipBounds[0].y < statics[i].m_Bounds.max.y &&
-                (statics[i].m_wFlags & 2) && Visdata_TestBoxAgainstFrustum(camera->clipPlanes, &statics[i].m_Bounds)) {
-                if (statics[i].m_wFlags & 0x20) {
+            if ((statics[i].definition->gate & mask) && !(statics[i].flags & 1) && (viewMask & statics[i].scene) &&
+                camera->clipBounds[1].x > statics[i].bounds.min.x && camera->clipBounds[0].x < statics[i].bounds.max.x &&
+                camera->clipBounds[1].z > statics[i].bounds.min.z && camera->clipBounds[0].z < statics[i].bounds.max.z &&
+                camera->clipBounds[1].y > statics[i].bounds.min.y && camera->clipBounds[0].y < statics[i].bounds.max.y &&
+                (statics[i].flags & 2) && Visdata_TestBoxAgainstFrustum(camera->clipPlanes, &statics[i].bounds)) {
+                if (statics[i].flags & 0x20) {
                     if (scene->m_nTransparentInstances != 64) {
                         scene->m_pTransparentInstances[scene->m_nTransparentInstances++] = &statics[i];
                     }

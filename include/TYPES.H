@@ -201,11 +201,11 @@ extern s32 Pickup_ApplyAmmo(void *player, void *pickupEntry);
 
 extern s32 Pickup_ApplyLifePoints(void *player, void *pickup);
 
-struct ActorPickupCanCollect;
+struct Player;
 
 struct MultiChannelItemEffect;
 
-extern s32 Pickup_ApplyAmmoBundle(struct ActorPickupCanCollect *player, struct MultiChannelItemEffect *ammoBundle);
+extern s32 Pickup_ApplyAmmoBundle(struct Player *player, struct MultiChannelItemEffect *ammoBundle);
 
 
 #include "libultra/audio/seqp.h"

@@ -1120,7 +1120,8 @@ struct WeaponInfo {
     s16 capacity;
     char padA[2];
     s16 alternate;
-    char padE[0xA];
+    char padE[6];
+    u32 flags; /* +0x14: weapon pickup availability */
     f32 chargeRate; /* 0x18 */
     char pad1C[4];
     s16 *weaponClass;
@@ -1577,8 +1578,6 @@ typedef struct MatrixF MatrixF;
 struct PlayerEyePositionView;
 typedef struct PlayerEyePositionView PlayerEyePositionView;
 
-struct Access_s32_50;
-typedef struct Access_s32_50 Access_s32_50;
 
 struct MapBlockAllocatorView;
 
@@ -1809,7 +1808,6 @@ struct CachedPlayerModelView {
 struct TrackRequestIds;
 typedef struct TrackRequestIds TrackRequestIds;
 
-struct Access_s32_50;
 
 
 

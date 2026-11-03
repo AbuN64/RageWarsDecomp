@@ -25,7 +25,7 @@
 extern void **Cache_AllocateResource(int, int, int, char *);
 
 void Player_AllocPlayerList(PlayerList *list, int count) {
-    int playerSize = count * sizeof(Players);
+    int playerSize = count * sizeof(SharedPlayer);
     int stateSize = count * sizeof(Brain);
     char *states;
     void **handle;
@@ -39,7 +39,7 @@ void Player_AllocPlayerList(PlayerList *list, int count) {
     XPlus_FillMemory(list->players, 0, playerSize);
     XPlus_FillMemory(states, 0, stateSize);
     for (i = 0; i < count; i++) {
-        list->players[i].state = states + i * sizeof(Brain);
+        list->players[i].views1454.view1454_0.aiController = (struct AiController *)(states + i * sizeof(Brain));
     }
 }
 

@@ -6,15 +6,10 @@
 
 extern float g_playerMovementForwardAnimationThreshold;
 
-struct FragTagRespawnActorView;
-typedef struct FragTagRespawnActorView FragTagRespawnActorView;
-
-struct FragTagRespawnActorView;
 
 
 
-struct PlayerRespawnHealthView;
-typedef struct PlayerRespawnHealthView PlayerRespawnHealthView;
+
 
 
 
@@ -46,7 +41,6 @@ extern float g_playerSurfaceAudioBaseLevel;
 
 
 
-struct PlayerRespawnHealthView;
 
 
 

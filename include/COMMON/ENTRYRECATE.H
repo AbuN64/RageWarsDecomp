@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/VECTOR4F.H"
+#include "COMMON/AIPROFILE.H"
 
 struct PowerupIdEntry;
 typedef struct PowerupIdEntry PowerupIdEntry;
@@ -26,29 +27,9 @@ struct Shared_ActorView;
 
 
 
-struct ActorPickupCanCollect;
-struct ActorPickupCanCollect {
-    u8 type;
-    u8 pad1[7];
-    CVector3 position; /* 0x08: provider SoundElement_PlaySoundAtPosition_PlayerUpdatefragtagselection takes CVector3 */
-    u8 pad14[0xE4 - 0x14];
-    u16 team;
-    char padE6[0x100 - 0xE6];
-    s32 flags;
-    u8 pad104[0x174 - 0x104];
-    s32 active; /* 0x174 */
-    u8 pad178[0x5D8 - 0x178];
-    FragTagProfileFlagView *model;
-    void *owner; /* 0x5DC */
-    u8 pad5E0[4];
-    s32 count;
-    u16 fraction; /* 0x5E8 */
-    s16 lives; /* 0x5EA */
-    u8 pad5EC[8];
-    s16 levels[7];
-    char pad602[0x602 - 0x602];
-    Shared_Slot slots[22];
-};
+
+
+
 
 
 
@@ -85,8 +66,6 @@ struct PowerupIdEntry {
 
 
 
-struct ActorPickupCanCollect;
-typedef struct ActorPickupCanCollect ActorPickupCanCollect;
 
 
 

@@ -3014,8 +3014,6 @@ typedef struct PlayerRankInner PlayerRankInner;
 struct NavigationPlayerStateView;
 typedef struct NavigationPlayerStateView NavigationPlayerStateView;
 
-struct Players;
-typedef struct Players Players;
 
 
 struct SoundPlayerSlotPool;
@@ -4190,17 +4188,11 @@ struct Plan {
     s32 aimRoom;
 };
 struct Player1680;
-struct Players;
-struct Players {
-    char pad0[0x1454];
-    char *state;
-    char pad1458[0x16E8 - 0x1458];
-};
+
 struct PlayerList;
-struct Players;
 struct PlayerList {
     void **handle;
-    struct Players *players;
+    struct SharedPlayer *players;
     int count;
 };
 struct PlayerRankInner;

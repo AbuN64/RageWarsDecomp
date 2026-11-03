@@ -66,7 +66,7 @@ struct LevelActor {
     s32 mask;
     u8 pad180[0x20];
     s32 collisionEnabled; /* 0x1A0 */
-    u8 aiMode;
+    union { u8 aiMode; s8 animationMarker; };
     s8 animationState; /* 0x1A5 */
     u8 pad1A6[0xA];
     f32 motionThreshold; /* 0x1B0 */
@@ -87,9 +87,11 @@ struct LevelActor {
     u8 effectMode; /* 0x270 */
     u8 pad271[0xB];
     void *update; /* 0x27C */
-    u8 pad280[0xC];
+    void *table280;
+    u8 pad284[4];
+    void *table288;
     void (*controllerUpdate)(void *, void *); /* 0x28C */
-    u8 pad290[4];
+    void *table290;
     f32 pitch; /* 0x294 */
     u8 pad298[0xC];
     f32 restPitch; /* 0x2A4 */

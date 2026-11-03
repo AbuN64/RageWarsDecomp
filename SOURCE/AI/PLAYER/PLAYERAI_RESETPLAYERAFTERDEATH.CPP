@@ -1,3 +1,4 @@
+#include "COMMON/AIPROFILE.H"
 #include "COMMON/WORLD.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/ITEMRECAT20V1.H"
@@ -104,7 +105,6 @@ void Playerai_ResetPlayerAfterDeath(SharedPlayer *player, PlayerRespawnBodyView 
 
 extern s32 g_playerSequenceCompletionPending;
 extern s32 g_playerSequenceWindowEnabled;
-extern void *g_playerSequenceActor;
 extern u8 g_playerSequenceSavedViewBytes[];
 
 
@@ -176,7 +176,7 @@ void Playerai_TryStartPlayerSequence(PlayerSequenceActorView *playerActor, void 
             }
         }
         g_playerSequenceWindowEnabled = 0;
-        g_playerSequenceActor = playerActor;
+        g_playerSequenceActor = (Player *)playerActor;
         CCinema_RequestTrackWithCallbacks(sequenceType, 0, (VoidCallback)&g_playerSequenceCallbacks);
     }
 

@@ -186,12 +186,12 @@ s32 Pickup_ApplyAmmo(void *player, void *pickupEntry) {
     resource = ((PowerupIdEntry *)pickupEntry)->resource;
     sound = ((struct PowerupIdEntry *)(pickupEntry))->sound;
     callback = ((struct PowerupIdEntry *)(pickupEntry))->callback;
-    if (((struct ActorPickupCanCollect *)(player))->owner != 0) {
-        Gsky_StartFade(((struct ActorPickupCanCollect *)(player))->owner,
+    if (((struct Player *)(player))->camera != 0) {
+        Gsky_StartFade(((struct Player *)(player))->camera,
                       128, 50, 50, 75, 0, 0, 2);
         if (resource != 0) {
             Camera_PostScreenMessage(&g_frontendScreenStatus,
-                          ((struct ActorPickupCanCollect *)(player))->owner,
+                          ((struct Player *)(player))->camera,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
                           ((void **)resource)[g_languageIndex]);
 #else
@@ -201,7 +201,7 @@ s32 Pickup_ApplyAmmo(void *player, void *pickupEntry) {
     }
     if (sound != 0) {
         SoundElement_PlaySoundAtPosition(sound,
-                      ((ActorPickupCanCollect *)player)->position, 0, -1);
+                      ((Player *)player)->pos, 0, -1);
     }
     if (callback != 0) {
         SoundElement_PlayDialogGroup(callback);
@@ -222,30 +222,30 @@ s32 Pickup_ApplyHealth(void *player, void *pickup) {
     s32 callback;
 
     result = 0;
-    if (((struct ActorPickupCanCollect *)(player))->count > 0) {
+    if (((struct Player *)(player))->health > 0) {
         s32 limit;
 
-        ((struct ActorPickupCanCollect *)(player))->count +=
+        ((struct Player *)(player))->health +=
             ((struct TimedItemEffect *)(pickup))->amount << 8;
         limit = Player_GetMaxHealth(player);
-        if (((struct ActorPickupCanCollect *)(player))->count < limit) {
-            limit = ((struct ActorPickupCanCollect *)(player))->count;
+        if (((struct Player *)(player))->health < limit) {
+            limit = ((struct Player *)(player))->health;
         }
         result = 1;
-        ((struct ActorPickupCanCollect *)(player))->count = limit;
-        ((struct ActorPickupCanCollect *)(player))->active = limit;
+        ((struct Player *)(player))->health = limit;
+        ((struct Player *)(player))->actorParts[0].active = limit;
     }
 
     if (result != 0) {
         resource = ((PowerupIdEntry *)pickup)->resource;
         sound = ((struct TimedItemEffect *)(pickup))->sound;
         callback = ((struct TimedItemEffect *)(pickup))->callback;
-        if (((struct ActorPickupCanCollect *)(player))->owner != 0) {
-            Gsky_StartFade(((struct ActorPickupCanCollect *)(player))->owner,
+        if (((struct Player *)(player))->camera != 0) {
+            Gsky_StartFade(((struct Player *)(player))->camera,
                           128, 50, 50, 75, 0, 0, 2);
             if (resource != 0) {
                 Camera_PostScreenMessage(&g_frontendScreenStatus,
-                              ((struct ActorPickupCanCollect *)(player))->owner,
+                              ((struct Player *)(player))->camera,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
                           ((void **)resource)[g_languageIndex]);
 #else
@@ -255,7 +255,7 @@ s32 Pickup_ApplyHealth(void *player, void *pickup) {
         }
         if (sound != 0) {
             SoundElement_PlaySoundAtPosition(sound,
-                          ((ActorPickupCanCollect *)player)->position, 0, -1);
+                          ((Player *)player)->pos, 0, -1);
         }
         if (callback != 0) {
             SoundElement_PlayDialogGroup(callback);
@@ -277,26 +277,26 @@ s32 Pickup_ApplyLifePoints(void *player, void *pickup) {
     s32 callback;
     s32 amount;
 
-    amount = ((struct ActorPickupCanCollect *)(player))->fraction +
+    amount = ((struct Player *)(player))->healthFraction +
              (u16)((struct PowerupIdEntry *)(pickup))->index;
-    ((struct ActorPickupCanCollect *)(player))->fraction = amount;
+    ((struct Player *)(player))->healthFraction = amount;
     if ((s16)amount >= 100) {
-        ((struct ActorPickupCanCollect *)(player))->fraction = amount - 100;
-        if (((struct ActorPickupCanCollect *)(player))->lives < 9) {
-            ((struct ActorPickupCanCollect *)(player))->lives =
-                (u16)((struct ActorPickupCanCollect *)(player))->lives + 1;
+        ((struct Player *)(player))->healthFraction = amount - 100;
+        if (((struct Player *)(player))->respawnHealth < 9) {
+            ((struct Player *)(player))->respawnHealth =
+                (u16)((struct Player *)(player))->respawnHealth + 1;
         }
     }
 
     resource = ((PowerupIdEntry *)pickup)->resource;
     sound = ((struct PowerupIdEntry *)(pickup))->sound;
     callback = ((struct PowerupIdEntry *)(pickup))->callback;
-    if (((struct ActorPickupCanCollect *)(player))->owner != 0) {
-        Gsky_StartFade(((struct ActorPickupCanCollect *)(player))->owner,
+    if (((struct Player *)(player))->camera != 0) {
+        Gsky_StartFade(((struct Player *)(player))->camera,
                       128, 50, 50, 75, 0, 0, 2);
         if (resource != 0) {
             Camera_PostScreenMessage(&g_frontendScreenStatus,
-                          ((struct ActorPickupCanCollect *)(player))->owner,
+                          ((struct Player *)(player))->camera,
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
                           ((void **)resource)[g_languageIndex]);
 #else
@@ -306,7 +306,7 @@ s32 Pickup_ApplyLifePoints(void *player, void *pickup) {
     }
     if (sound != 0) {
         SoundElement_PlaySoundAtPosition(sound,
-                      ((ActorPickupCanCollect *)player)->position, 0, -1);
+                      ((Player *)player)->pos, 0, -1);
     }
     if (callback != 0) {
         SoundElement_PlayDialogGroup(callback);
@@ -323,37 +323,14 @@ extern void addrLow_Pickup_HandleItemUpdate(void);
 
 typedef struct PickupPowerupDefinitionView PickupPowerupDefinitionView;
 typedef struct PickupPowerupPayloadView PickupPowerupPayloadView;
-typedef struct ActivationSlot ActivationSlot;
-typedef struct ActivationActor ActivationActor;
 struct PickupPowerupDefinitionView {
     char pad0[0x18];
     PickupPowerupPayloadView *payloadRecord;
 };
 typedef struct EffectAmount { char pad[0xC]; f32 amount; } EffectAmount;
 struct PickupPowerupPayloadView { char pad[0x14]; EffectAmount payload; };
-struct ActivationSlot {
-    void **resource;
-    u16 pickupId;
-    s16 soundId;
-    s16 dialogGroupId;
-};
-struct ActivationActor {
-    char pad0[0x8];
-    s32 positionX;
-    s32 positionY;
-    s32 positionZ;
-    char pad10[0x5DC - 0x10 - sizeof(s32)];
-    void* messageCamera;
-    char pad5DC[0x670 - 0x5DC - sizeof(void*)];
-    f32 powerupTimerOne;
-    f32 powerupTimerTwo;
-    f32 powerupAmount;
-    char pad678[0xD40 - 0x678 - sizeof(f32)];
-    char itemMenu;
-};
-
 /** Apply a scripted effect command and its optional sound callbacks. */
-s32 Pickup_ApplyPowerup(ActivationActor *player, ActivationSlot *pickup, PickupPowerupDefinitionView *effectDefinition) {
+s32 Pickup_ApplyPowerup(Player *player, PowerupIdEntry *pickup, PickupPowerupDefinitionView *effectDefinition) {
     void **resource;
     EffectAmount *state_value;
     s32 sound;
@@ -361,17 +338,17 @@ s32 Pickup_ApplyPowerup(ActivationActor *player, ActivationSlot *pickup, PickupP
     s16 command;
 
     state_value = &effectDefinition->payloadRecord->payload;
-    command = pickup->pickupId - 1800;
+    command = (u16)pickup->id - 1800;
     switch (command) {
     case 0:
-        player->powerupTimerOne = 120.0f;
+        player->damageCooldown = 120.0f;
         break;
     case 1:
-        player->powerupTimerTwo = 120.0f;
+        player->europeanEffectTimer = 120.0f;
         break;
     case 2:
     case 3:
-        player->powerupAmount += state_value->amount;
+        player->rangeTimer += state_value->amount;
         break;
     case 7:
         ItemMenu_SetEntry(&player->itemMenu, 1, 0, 2045,
@@ -382,20 +359,20 @@ s32 Pickup_ApplyPowerup(ActivationActor *player, ActivationSlot *pickup, PickupP
     }
 
     resource = pickup->resource;
-    sound = pickup->soundId;
-    callback = pickup->dialogGroupId;
-    if (player->messageCamera != 0) {
-        Gsky_StartFade(player->messageCamera,
+    sound = pickup->sound;
+    callback = pickup->callback;
+    if (player->camera != 0) {
+        Gsky_StartFade(player->camera,
                       128, 50, 50, 75, 0, 0, 2);
         if (resource != 0) {
             Camera_PostScreenMessage(&g_frontendScreenStatus,
-                          player->messageCamera,
+                          player->camera,
                           *resource);
         }
     }
     if (sound != 0) {
         SoundElement_PlaySoundAtPosition(sound,
-                      *(CVector3 *)&player->positionX, 0, -1);
+                      player->pos, 0, -1);
     }
     if (callback != 0) {
         SoundElement_PlayDialogGroup(callback);

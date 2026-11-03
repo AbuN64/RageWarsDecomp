@@ -1,3 +1,5 @@
+#include "COMMON/SHARED_GAMESLOT.H"
+#include "COMMON/OBJB.H"
 #include "COMMON/WORLD.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/ITEMRECAT20V1.H"
@@ -18,7 +20,7 @@ extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /** Clear the word at object offset 0x1C4. */
 void Simpinst_ClearCachedResource(void *staticObject) {
-    ((StaticObject *)(staticObject))->cached = 0;
+    ((ObjB *)(staticObject))->cached = 0;
 }
 
 CQuatern Insthdr_BuildActorGroundRotation(char *obj);
@@ -34,7 +36,7 @@ extern ScalarFloatView g_simpleObjectScaleTransitionTarget;
 extern f32 g_frameElapsedTime;
 
 extern struct MemoryUsageStats g_defaultCameraSurfaceType;
-extern ModelEffectSpawnState g_simpleObjectPauseState;
+
 
 void Simpinst_UpdateModelAndScale(void *staticObject) {
     char *o = (char *) staticObject;
@@ -42,36 +44,36 @@ void Simpinst_UpdateModelAndScale(void *staticObject) {
     f32 threshold;
     f32 final_value;
 
-    ((StaticObject *)(o))->model = Simpinst_SelectModelVariant(staticObject);
-    ((StaticObject *)(o))->material = ((PropGeometry *)(((StaticObject *)(o))->type))->material;
+    ((ObjB *)(o))->type = Simpinst_SelectModelVariant(staticObject);
+    ((ObjB *)(o))->material = ((PropGeometry *)(((ObjB *)(o))->definition))->material;
 
-    if (g_simpleObjectPauseState.paused == 0) {
-        char *state = ((StaticObject *)(o))->type;
+    if (g_gameSettings.simpleObjectsPaused == 0) {
+        char *state = ((ObjB *)(o))->definition;
         if (*(s32 *)state == 12) {
-            ((StaticObject *)(o))->frameDelta = g_frameElapsedTime * ((PropGeometry *)(state))->speed;
-        } else if (((StaticObject *)(o))->flags & 0x10) {
-            elapsedScaleTime = ((StaticObject *)(o))->scaleTime + g_frameElapsedTime * g_simpleObjectScaleTransitionTiming;
+            ((ObjB *)(o))->frameDelta = g_frameElapsedTime * ((PropGeometry *)(state))->speed;
+        } else if (((ObjB *)(o))->flags & 0x10) {
+            elapsedScaleTime = ((ObjB *)(o))->scaleTime + g_frameElapsedTime * g_simpleObjectScaleTransitionTiming;
             threshold = (&g_simpleObjectScaleTransitionTiming)[1];
-            ((StaticObject *)(o))->scaleTime = elapsedScaleTime;
+            ((ObjB *)(o))->scaleTime = elapsedScaleTime;
             if (elapsedScaleTime < threshold) {
-                ((StaticObject *)(o))->scale = elapsedScaleTime * g_simpleObjectScaleTransitionFactor.value;
+                ((ObjB *)(o))->scale = elapsedScaleTime * g_simpleObjectScaleTransitionFactor.value;
             } else {
                 final_value = g_simpleObjectScaleTransitionTarget.value;
-                ((StaticObject *)(o))->flags &= 0xFFEF;
-                ((StaticObject *)(o))->scale = final_value;
+                ((ObjB *)(o))->flags &= 0xFFEF;
+                ((ObjB *)(o))->scale = final_value;
             }
         }
 
-        if (((StaticObject *)(o))->room != 0) {
-            ((StaticObject *)(o))->scene = ((MenuRules *)(((StaticObject *)(o))->room))->locked;
+        if (((ObjB *)(o))->room != 0) {
+            ((ObjB *)(o))->scene = ((MenuRules *)(((ObjB *)(o))->room))->locked;
         } else {
-            ((StaticObject *)(o))->scene = g_defaultCameraSurfaceType.value;
+            ((ObjB *)(o))->scene = g_defaultCameraSurfaceType.value;
         }
     }
 }
 
 
-void Simpinst_UpdateScaleTransition(StaticObject *staticObject) {
+void Simpinst_UpdateScaleTransition(ObjB *staticObject) {
     f32 elapsedScaleTime;
     f32 threshold;
     f32 final_value;
@@ -93,8 +95,8 @@ void Simpinst_UpdateScaleTransition(StaticObject *staticObject) {
 
 /** Stores g_frameElapsedTime times the float at 0x20 of the object at 0x18 in the float at 0x1A4. */
 
-void Simpinst_UpdateAnimationFrameDelta(StaticObject *staticObject) {
-    void *p = staticObject->type;
+void Simpinst_UpdateAnimationFrameDelta(ObjB *staticObject) {
+    void *p = staticObject->definition;
     staticObject->frameDelta = (g_frameElapsedTime) * (((PropGeometry *)(p))->speed);
 }
 
@@ -109,21 +111,21 @@ void Simpinst_BuildObjectTransform(void *staticObject) {
     char *o = (char *) staticObject;
     f32 matrix[16];
 
-    if (*(s32 *)((StaticObject *)o)->type == 8) {
+    if (*(s32 *)((ObjB *)o)->definition == 8) {
         BuildYawMatrix(matrix, g_world.elapsed);
     } else {
-        BuildYawMatrix(matrix, ((StaticObject *)o)->angle);
+        BuildYawMatrix(matrix, ((ObjB *)o)->angle);
     }
 
-    ScaleMatrixLocal(matrix, ((StaticObject *)(o))->scale, ((StaticObject *)(o))->scale, ((StaticObject *)(o))->scale);
+    ScaleMatrixLocal(matrix, ((ObjB *)(o))->scale, ((ObjB *)(o))->scale, ((ObjB *)(o))->scale);
 
-    Graphu64_LimitVectorLength(&((StaticObject *)(o))->position.x, 20000.0f);
+    Graphu64_LimitVectorLength(&((ObjB *)(o))->position.x, 20000.0f);
 
-    TranslateMatrix((char *) matrix, ((StaticObject *)(o))->position.x, ((StaticObject *)(o))->position.y + ((StaticObject *)(o))->height, ((StaticObject *)(o))->position.z);
+    TranslateMatrix((char *) matrix, ((ObjB *)(o))->position.x, ((ObjB *)(o))->position.y + ((ObjB *)(o))->height, ((ObjB *)(o))->position.z);
 
     SwapMatrixUpForward(matrix);
 
-    Graphu64_ConvertMatrixToFixed(matrix, &((StaticObject *)o)->matrices[g_lightingBufferIndex]);
+    Graphu64_ConvertMatrixToFixed(matrix, &((ObjB *)o)->matrices[g_lightingBufferIndex]);
 }
 
 extern void **Cache_RequestWordCountedResource(s32 unusedCache, void **resourceHandle, s32 resourceKey, void *loadTag, s32 direct);
@@ -138,26 +140,26 @@ void **Simpinst_RequestModelVariant(void *staticObject, s32 modelVariant) {
     s32 key;
     s32 found;
 
-    if (modelVariant != ((SliderStepRecord *)(staticObject))->activeState) {
-        resource = Cache_RequestResource(0, ((Access_s32_50 *)(staticObject))->field,
-                                ((Access_s32_50 *)(staticObject))->field, 24,
+    if (modelVariant != ((ObjB *)(staticObject))->loadedType) {
+        resource = Cache_RequestResource(0, ((ObjB *)(staticObject))->animationKey,
+                                ((ObjB *)(staticObject))->animationKey, 24,
                                 0, 0, 0, &g_simpleObjectModelResourceTagData + 4, 1);
         if (resource != 0) {
-            key = SetN64_GetDirectoryEntry(*resource, ((Access_s32_50 *)(staticObject))->field, 1);
+            key = SetN64_GetDirectoryEntry(*resource, ((ObjB *)(staticObject))->animationKey, 1);
             Cache_ReleaseResource(0, resource);
             found = Cache_RequestWordCountedResource(0, &modelIndexResource, key, g_simpModelsIndexText, 1);
             if (found != 0) {
-                ((StaticObject *)(staticObject))->resource = SetN64_LocatePackSection((s32)modelIndexResource, key,
+                ((ObjB *)(staticObject))->resource = SetN64_LocatePackSection((s32)modelIndexResource, key,
                                                     modelVariant % *(s32 *)modelIndexResource,
-                                                    &((Access_s32_5C *)(staticObject))->field);
-                ((SliderStepRecord *)(staticObject))->activeState = modelVariant;
+                                                    &((ObjB *)(staticObject))->resourceSize);
+                ((ObjB *)(staticObject))->loadedType = modelVariant;
                 Cache_ReleaseResource(0, (void *)found);
             }
         }
     }
-    if (((StaticObject *)(staticObject))->resource != 0) {
-        return Cache_RequestResource(0, ((StaticObject *)(staticObject))->resource,
-                             ((StaticObject *)(staticObject))->resource, ((Access_s32_5C *)(staticObject))->field,
+    if (((ObjB *)(staticObject))->resource != 0) {
+        return Cache_RequestResource(0, ((ObjB *)(staticObject))->resource,
+                             ((ObjB *)(staticObject))->resource, ((ObjB *)(staticObject))->resourceSize,
                              0, 0, &g_simpleModelResourceCallbackAddress, g_simpModelText, 0);
     }
     return 0;
@@ -166,12 +168,12 @@ void **Simpinst_RequestModelVariant(void *staticObject, s32 modelVariant) {
 
 extern s32 Scene_GetModelIdAtIndex(void *world, s32 modelIndex);
 
-s32 Simpinst_SelectModelVariant(StaticObject *staticObject) {
+s32 Simpinst_SelectModelVariant(ObjB *staticObject) {
     void *obj;
     s32 value;
     s32 index;
 
-    obj = staticObject->type;
+    obj = staticObject->definition;
     if (*(s32 *)obj == 12) {
         return 0;
     }
@@ -197,7 +199,7 @@ struct ResourceNodePair; struct CacheResourceNode; extern void Cache_ReplaceReso
 void Simpinst_BuildLitGeometryResource(void *wanted, s32 **resourcePair) {
     s32 sourceGeometryResource;
     sourceGeometryResource = **resourcePair;
-    Cache_ReplaceResourcePairFirst(0, resourcePair, Lighting_BuildLitModel(sourceGeometryResource, *((StaticObject *)(wanted))->renderResource, &((StaticObject *)(wanted))->effect[0], (s32)((char *)&((StaticObject *)wanted)->matrices[g_lightingBufferIndex]), 0, wanted));
+    Cache_ReplaceResourcePairFirst(0, resourcePair, Lighting_BuildLitModel(sourceGeometryResource, *((ObjB *)(wanted))->block, &((ObjB *)(wanted))->bounds, (s32)((char *)&((ObjB *)wanted)->matrices[g_lightingBufferIndex]), 0, wanted));
 }
 
 #if !(defined(VERSION_US_REV1))

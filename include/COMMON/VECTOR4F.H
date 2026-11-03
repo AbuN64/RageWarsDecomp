@@ -1456,7 +1456,7 @@ struct SharedPlayer {
     } views1450;
     union {
         struct {
-            s32 aiController;
+            struct AiController *aiController;
         } view1454_0;
         struct {
             s32 f1454;

@@ -1,3 +1,4 @@
+#include "COMMON/AIPROFILE.H"
 extern void Control_SetProfileMode(void *, int);
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "COMMON/GAMEPLAY_CAMERA.H"
@@ -86,68 +87,53 @@ extern void Player_UpdatePlayerCamera(void *, void *);
 #include "ACHIEVE/ACHIEVE.H"
 /* Initialises an actor and its embedded part at 0x2E8: sets the shared table pointers and flag bits (one flag
  * depends on g_frontendScreenStatus.settings.local), runs the part setup calls, then copies the view's position into the actor. */
-typedef struct ActorInitPart {
-    u8 pad0[0x18]; InitView *view;
-    u8 pad1C[0x34]; f32 x, y, z;
-    u8 pad5C[0xA4]; u32 flags;
-    u8 pad104[0xA0]; s8 marker;
-    u8 pad1A5[0x33]; void *owner;
-    u8 pad1DC[0xA0]; void *action;
-    void *table280; u8 pad284[4]; void *table288;
-    void *table28C; void *table290; u8 pad294[0x54];
-} ActorInitPart;
-typedef struct ActorInitRecord {
-    ActorInitPart part[2];
-    u8 pad5D0[0xC]; void *auxiliary;
-    u8 pad5E0[0x4E]; s16 selection;
-} ActorInitRecord;
 void Player_InitActorParts(SharedPlayer *player, LevelPlacedActorRecord *rec, s32 mode, s32 index) {
     char *actor = (char *)player;
-    ActorInitRecord *record = (ActorInitRecord *)player;
+    Player *record = (Player *)player;
     u32 flags;
     u32 t1, t2, t3;
     InitView *view;
-    record->part[0].owner = actor;
+    record->actorParts[0].controller = actor;
     Gobjinst_InitializePlacedActor(actor, rec, (void *)mode, 0);
-    record->part[0].owner = actor;
-    t1 = record->part[0].flags | 0x100000;
+    record->actorParts[0].controller = actor;
+    t1 = record->actorParts[0].flags | 0x100000;
     t2 = t1 | 0x10000;
     t3 = t2 | 0x1000000;
     flags = t3 | 0x2000000;
-    record->part[0].flags = flags;
+    record->actorParts[0].flags = flags;
     if (g_frontendScreenStatus.settings.local == 0) {
-        record->part[0].flags = flags | 0x10000000;
+        record->actorParts[0].flags = flags | 0x10000000;
     }
-    record->part[0].table28C = ACTORPART_T28C;
-    record->part[0].table290 = ACTORPART_T290;
-    record->part[0].table280 = ACTORPART_T280;
-    record->part[0].table288 = ACTORPART_T288;
+    record->actorParts[0].controllerUpdate = ACTORPART_T28C;
+    record->actorParts[0].table290 = ACTORPART_T290;
+    record->actorParts[0].table280 = ACTORPART_T280;
+    record->actorParts[0].table288 = ACTORPART_T288;
     if (g_frontendScreenStatus.settings.local != 0) {
-        record->part[0].action = ACTORPART_ACTION;
+        record->actorParts[0].update = ACTORPART_ACTION;
     }
-    record->part[1].owner = actor;
+    record->actorParts[1].controller = actor;
     Gobjinst_InitializePlacedActor(((char *)&((SharedPlayer *)actor)->views1C.view2E8_27.weapon), rec, (void *)mode, 0);
-    record->part[1].table28C = ACTORPART_PART1_T28C;
-    record->part[1].marker = -1;
-    record->part[1].flags |= 0x200000;
-    record->part[1].x = g_respawnPlayerInitialPartScale;
-    record->part[1].y = g_respawnPlayerInitialPartScale;
-    record->part[1].z = g_respawnPlayerInitialPartScale;
-    record->part[1].owner = actor;
-    record->part[1].table280 = ACTORPART_T280;
-    record->part[1].table288 = ACTORPART_T288;
-    record->selection = -1;
-    record->part[1].flags &= 0xFFFEFFFF;
+    record->actorParts[1].controllerUpdate = ACTORPART_PART1_T28C;
+    record->actorParts[1].animationMarker = -1;
+    record->actorParts[1].flags |= 0x200000;
+    record->actorParts[1].scale.x = g_respawnPlayerInitialPartScale;
+    record->actorParts[1].scale.y = g_respawnPlayerInitialPartScale;
+    record->actorParts[1].scale.z = g_respawnPlayerInitialPartScale;
+    record->actorParts[1].controller = actor;
+    record->actorParts[1].table280 = ACTORPART_T280;
+    record->actorParts[1].table288 = ACTORPART_T288;
+    record->selectedAction = -1;
+    record->actorParts[1].flags &= 0xFFFEFFFF;
     Actor_RequestActorState(((char *)&((SharedPlayer *)actor)->views1C.view2E8_27.weapon), ((char *)&((SharedPlayer *)actor)->views1C.view458_29.ammo), 0);
     Weaponai_ApplyWeaponSwitch(((char *)&((SharedPlayer *)actor)->views1C.view2E8_27.weapon), ((char *)&((SharedPlayer *)actor)->views1C.view458_29.ammo));
     Player_UpdatePlayerCamera(actor, actor);
-    if (record->auxiliary != 0) {
-        Cinema_UpdateSequenceTrack(record->auxiliary);
+    if (record->camera != 0) {
+        Cinema_UpdateSequenceTrack(record->camera);
     }
-    record->part[0].x = (record->part[0].view)->x;
-    record->part[0].y = (record->part[0].view)->y;
-    record->part[0].z = (record->part[0].view)->z;
-    view = record->part[0].view;
+    record->actorParts[0].scale.x = ((InitView *)record->actorParts[0].definition)->x;
+    record->actorParts[0].scale.y = ((InitView *)record->actorParts[0].definition)->y;
+    record->actorParts[0].scale.z = ((InitView *)record->actorParts[0].definition)->z;
+    view = (InitView *)record->actorParts[0].definition;
     view->flags &= ~4;
 }
 #define FIELD(type, base, off) (*(type *)((char *)(base) + (off)))
@@ -166,16 +152,6 @@ extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 
 /* Resets a player/actor record for a new run: marks it active, stores the character, picks up the HUD
  * object, clears the per-slot counters and weapon tables, selects the start mode from the multiplayer setting
  * and zeroes the per-player entries of the two global tables. */
-typedef struct PlayerRoundStats {
-    s16 totals[6];
-    s16 counts[4][8];
-} PlayerRoundStats;
-typedef struct PlayerRoundReset {
-    u8 reserved0[0x5D8];
-    PlayerRoundStats *stats;
-    u8 reserved5DC[0x68];
-    u8 counters[2][6];
-} PlayerRoundReset;
 extern u8 g_gameControllerMode; /* MIXED Player_ResetPlayerForRound */
 void Player_ResetPlayerForRound(void *actor, s32 character) {
     s32 i;
@@ -246,10 +222,10 @@ void Player_ResetPlayerForRound(void *actor, s32 character) {
     FIELD(s32, actor, 2156) = -1;
     FIELD(s32, actor, 2160) = -1;
     for (i = 0; i < 8; i++) {
-        ((PlayerRoundReset *)actor)->stats->counts[2][i] = 0;
-        ((PlayerRoundReset *)actor)->stats->counts[3][i] = 0;
-        ((PlayerRoundReset *)actor)->stats->counts[0][i] = 0;
-        ((PlayerRoundReset *)actor)->stats->counts[1][i] = 0;
+        ((Player *)actor)->profile->roundCounts[2][i] = 0;
+        ((Player *)actor)->profile->roundCounts[3][i] = 0;
+        ((Player *)actor)->profile->roundCounts[0][i] = 0;
+        ((Player *)actor)->profile->roundCounts[1][i] = 0;
     }
     FIELD(s16, FIELD(void *, actor, 1496), 0) = 0;
     FIELD(s16, FIELD(void *, actor, 1496), 2) = 0;
