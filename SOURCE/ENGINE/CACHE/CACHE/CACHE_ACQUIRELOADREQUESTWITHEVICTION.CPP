@@ -42,32 +42,21 @@ static inline AnimationResourceHandleView *take(s32 active) {
 
 void Cache_ClearResourceSlotProtection(s32 unusedCache, s32 resourceSlot)
 {
-  s32 mask;
-  u32 count;
-  int lockUsers;
-  u32 nodeLimit;
-  s32 offset;
-  u32 limit;
-  mask = -0x201;
-  if (resourceSlot != 0)
-  {
-    mask = -0x401;
-  }
- do { count = 0; limit = g_resourceCacheNodeCapacity; } while (0);
-  nodeLimit = limit;
-  if (limit != 0)
-  {
-    offset = count;
-    do
-    {
-      lockUsers = offset + g_resourceCacheManager;
-      count += 1;
-      *((s32 *) (lockUsers + 12)) &= mask;
-      offset += 40;
+    s32 mask;
+    u32 count;
+    u32 nodeLimit;
+    s32 nodeAddress;
+
+    mask = -0x201;
+    if (resourceSlot != 0) {
+        mask = -0x401;
     }
-    while (count < nodeLimit);
-  }
-  g_resourceSlotActivity[resourceSlot] = 0;
+    nodeLimit = g_resourceCacheNodeCapacity;
+    for (count = 0; count < nodeLimit; count++) {
+        nodeAddress = count * sizeof(CacheEvictionNode) + g_resourceCacheManager;
+        *(s32 *)&((CacheEvictionNode *)nodeAddress)->flags &= mask;
+    }
+    g_resourceSlotActivity[resourceSlot] = 0;
 }
 
 void Cache_TouchResource(void *unused0, void *resource) {
@@ -121,10 +110,8 @@ void *Cache_AcquireLoadRequestWithEviction(s32 unused,s32 flags) {
 void Cache_AcknowledgeResourceSlotRelease(s32 unused, s32 request) {
     s32 mask;
     u32 count;
-    s32 lockUsers;
     u32 nodeLimit;
-    s32 offset;
-    u32 limit;
+    s32 nodeAddress;
 
     if (g_resourceSlotOwners[request] != 0) {
         g_resourceSlotOwners[request] = 0;
@@ -134,16 +121,10 @@ void Cache_AcknowledgeResourceSlotRelease(s32 unused, s32 request) {
     if (request != 0) {
         mask = -0x401;
     }
-    do { count = 0; limit = g_resourceCacheNodeCapacity; } while (0);
-    nodeLimit = limit;
-    if (limit != 0) {
-        offset = count;
-        do {
-            lockUsers = offset + g_resourceCacheManager;
-            count += 1;
-            *(s32 *)&((CacheEvictionNode *)lockUsers)->flags &= mask;
-            offset += 40;
-        } while (count < nodeLimit);
+    nodeLimit = g_resourceCacheNodeCapacity;
+    for (count = 0; count < nodeLimit; count++) {
+        nodeAddress = count * sizeof(CacheEvictionNode) + g_resourceCacheManager;
+        *(s32 *)&((CacheEvictionNode *)nodeAddress)->flags &= mask;
     }
     do { g_resourceSlotActivity[request] = 0; } while (0);
 }

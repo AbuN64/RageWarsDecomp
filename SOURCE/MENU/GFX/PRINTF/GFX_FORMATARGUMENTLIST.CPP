@@ -208,6 +208,9 @@ reswitch:
                         ulval = (short)VA(ap, int);
                         break;
                     default:
+                        /* Removing this loop swaps the hoisted va_arg alignment mask (-4)
+                           from s7 to s8 and dprec from s8 to s7: 43 differing bytes
+                           in the otherwise unchanged 3920-byte US object text. */
                         do { ulval = VA(*q, s32); } while (0);
                         break;
                         }
