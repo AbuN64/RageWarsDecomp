@@ -1,4 +1,4 @@
-#include "../../../sdk/include/LIBC.H"
+#include "../../sdk/include/LIBC.H"
 #include "include_asm.h"
 #include "TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
