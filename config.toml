@@ -1503,3 +1503,27 @@ hilo_nops = true
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
+
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONACCEPT.CPP"]
+toolchain = "gcc-2.8.1-sn64"
+cflags = ["-O0"]
+omit = ["-O2", "-mgas"]
+unrelocated = true
+
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_ONCANCEL.CPP"]
+toolchain = "gcc-2.8.1-sn64"
+cflags = ["-O0"]
+omit = ["-O2", "-mgas"]
+unrelocated = true
+
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACEPROC.CPP"]
+toolchain = "gcc-2.8.1-sn64"
+cflags = ["-O0"]
+omit = ["-O2", "-mgas"]
+unrelocated = true
+
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACESCREEN/PAKINTERFACE_SETINITIALSCREENMODE.CPP"]
+toolchain = "gcc-2.8.1-sn64"
+cflags = ["-O0"]
+omit = ["-O2", "-mgas"]
+unrelocated = true

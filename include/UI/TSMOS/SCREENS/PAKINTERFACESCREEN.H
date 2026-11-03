@@ -110,6 +110,14 @@ typedef struct PAKSaveBlock {
     s32 m_Marker;
     s32 m_Checksum;
 } PAKSaveBlock;
+typedef union PAKStepWord {
+    s32 m_Word;
+    struct {
+        u16 m_Unused;
+        u16 m_Half;
+    } m_Parts;
+} PAKStepWord;
+
 typedef struct PAKInterfaceScreen {
     void *m_pDisplayList;
     void *m_pUserList;
@@ -118,9 +126,9 @@ typedef struct PAKInterfaceScreen {
     PAKUserWidget *m_pFlickerWidget;
     s32 m_UserBusy[PAK_USERS];
     PAKUserWidget *m_pBarA;
-    s32 m_BarStepA;
+    PAKStepWord m_BarStepA;
     PAKUserWidget *m_pBarB;
-    s32 m_BarStepB;
+    PAKStepWord m_BarStepB;
     s32 m_ExitPhase;
     s32 m_ExitStep;
     s32 m_Mode;

@@ -55,13 +55,13 @@ s32 PAKInterface_OnCreate(s32 a, s32 b, s32 c, s32 d) {
     g_pakInterfaceScreen->m_ExitStep = 4;
     g_pakInterfaceScreen->m_pBarA = SM_DLFindObjectByID(a, 761);
     g_pakInterfaceScreen->m_pBarA->m_X = g_pakInterfaceScreen->m_pBarA->m_X - g_pakInterfaceScreen->m_pBarA->m_Width;
-    g_pakInterfaceScreen->m_BarStepA = (s16)(g_pakInterfaceScreen->m_pBarA->m_Width / 4);
-    nRem = g_pakInterfaceScreen->m_pBarA->m_Width - g_pakInterfaceScreen->m_BarStepA * 4;
+    g_pakInterfaceScreen->m_BarStepA.m_Word = (s16)(g_pakInterfaceScreen->m_pBarA->m_Width / 4);
+    nRem = g_pakInterfaceScreen->m_pBarA->m_Width - g_pakInterfaceScreen->m_BarStepA.m_Word * 4;
     g_pakInterfaceScreen->m_pBarA->m_X = g_pakInterfaceScreen->m_pBarA->m_X + nRem;
     g_pakInterfaceScreen->m_pBarB = SM_DLFindObjectByID(a, 672);
     g_pakInterfaceScreen->m_pBarB->m_X = g_pakInterfaceScreen->m_pBarB->m_X + g_pakInterfaceScreen->m_pBarB->m_Width;
-    g_pakInterfaceScreen->m_BarStepB = (s16)(g_pakInterfaceScreen->m_pBarB->m_Width / 4);
-    nRem = g_pakInterfaceScreen->m_pBarB->m_Width - g_pakInterfaceScreen->m_BarStepB * 4;
+    g_pakInterfaceScreen->m_BarStepB.m_Word = (s16)(g_pakInterfaceScreen->m_pBarB->m_Width / 4);
+    nRem = g_pakInterfaceScreen->m_pBarB->m_Width - g_pakInterfaceScreen->m_BarStepB.m_Word * 4;
     g_pakInterfaceScreen->m_pBarB->m_X = g_pakInterfaceScreen->m_pBarB->m_X - nRem;
     pObj = SM_DLFindObjectByID(a, 644);
     pObj->m_Alpha = 110;
