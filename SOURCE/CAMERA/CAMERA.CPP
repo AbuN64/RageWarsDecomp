@@ -1811,9 +1811,9 @@ static inline CCameraText *post_lines(struct ScreenMessageOwner *owner, struct S
                     message->alpha = 1.0f;
                     message->m_DisplayTime = size * 15.0f;
                     message->target = target;
-                    message->smallText = 0;
+                    message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->resetModeWord = 0;
+                    message->postResetWordUnread = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;
@@ -1975,7 +1975,7 @@ void Camera_DrawAndAdvanceMessages(Race *race, RacerViewport *racer) {
         prev = message->prev;
         if (message->kind != 0) {
             OnScreen_SetupTextRendering();
-            if (small || message->smallText != 0) {
+            if (small || message->forceScaledText != 0) {
                 scale = g_cameraMessageLargeTextScale;
                 if (g_frontendCurrentVideoModeIndex == 0) {
                     scale = g_cameraMessageSmallTextScale;

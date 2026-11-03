@@ -65,9 +65,9 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
                     message->m_nAlpha = 0;
                     message->alpha = 1.0f;
                     message->target = target;
-                    message->smallText = 0;
+                    message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->resetModeWord = 0;
+                    message->postResetWordUnread = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;
