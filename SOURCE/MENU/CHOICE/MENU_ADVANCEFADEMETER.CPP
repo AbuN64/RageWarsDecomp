@@ -328,11 +328,11 @@ s32 Menu_AdvanceFadeMeter(struct Meter *meter, s32 step) {
     return meter->done;
 }
 
-void Menu_InitializeFadeMeter(struct Meter *record, s32 value) {
-    record->done = 0;
-    record->amount = 0;
-    record->falling = 0;
-    record->bar = (struct ResourceSmpFlickerCreateFlickerWidget *)value;
+void Menu_InitializeFadeMeter(struct FadeMeterRecord *record, s32 value) {
+    record->resetState[1] = 0;
+    record->resetState[0] = 0;
+    record->resetState[2] = 0;
+    record->value = value;
     record->initialized = 1;
     Tsmos_DeactivateControllerState();
 }

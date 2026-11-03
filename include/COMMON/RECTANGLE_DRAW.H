@@ -5,9 +5,9 @@
 
 /* Five cached flag groups written together by Combine_ConfigurePrimitiveRenderFlags. */
 struct PrimitiveRenderSwitches {
-    s32 x; /* texture enabled */
-    s32 y; /* combine enabled */
-    s32 z; /* translucent */
+    s32 texturingEnabled;
+    s32 combineEnabled;
+    s32 translucencyEnabled;
     s32 coverageBlend;
     s32 depthBufferEnabled;
 };

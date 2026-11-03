@@ -26,7 +26,7 @@
 /* Clips a screen rectangle to the viewport N64Eng_GetClipBounds reports, interpolating the four corner
    colours along each clipped edge, then writes the corners into vertices 0-3 with gSPModifyVertex
    (screen position, colour rotated to RGBA, texture coordinates 0) and draws them as an outline of
-   four lines, or as two triangles when g_combineRenderSwitches.y is set. */
+   four lines, or as two triangles when g_combineRenderSwitches.combineEnabled is set. */
 /* Sets vertex index's screen position, colour and texture coordinates. */
 static inline void put_vertex(s32 index, s32 x, s32 y, u32 color) {
     Gfx *g;
@@ -116,7 +116,7 @@ void Combine_DrawClippedGradientQuad(f32 x, f32 y, f32 w, f32 h, u32 col0, u32 c
     put_vertex(1, x, bottom, col2);
     put_vertex(2, right, bottom, col3);
     put_vertex(3, right, y, col1);
-    if (g_combineRenderSwitches.y == 0) {
+    if (g_combineRenderSwitches.combineEnabled == 0) {
         gSPLine3D(g_displayListCursor++, 0, 1, 0);
         gSPLine3D(g_displayListCursor++, 1, 2, 0);
         gSPLine3D(g_displayListCursor++, 2, 3, 0);
@@ -211,7 +211,7 @@ extern s32 g_combineCachedRenderMode;
 void Combine_SetRenderMode(s32 mode) {
     s32 bits;
 
-    if (g_combineRenderSwitches.y == 0) {
+    if (g_combineRenderSwitches.combineEnabled == 0) {
         mode = 11;
     }
     if (mode == g_combineCachedRenderMode) {
@@ -220,13 +220,13 @@ void Combine_SetRenderMode(s32 mode) {
     g_combineCachedRenderMode = mode;
     if (mode == 11) {
         Rect_ResetRenderState();
-        bits = g_combineRenderSwitches.x ? 0x55 : 0x53;
-        bits |= g_combineRenderSwitches.z ? 0x300 : 0x500;
+        bits = g_combineRenderSwitches.texturingEnabled ? 0x55 : 0x53;
+        bits |= g_combineRenderSwitches.translucencyEnabled ? 0x300 : 0x500;
         Combine_ConfigurePrimitiveRenderFlags(bits | (g_primitiveRenderFlagSelect3000 ? 0x3000 : 0x5000) | (g_primitiveRenderFlagSelect30000 ? 0x30000 : 0x50000));
     } else if (mode == 12) {
         Rect_ResetRenderState();
-        bits = g_combineRenderSwitches.x ? 0x35 : 0x33;
-        bits |= g_combineRenderSwitches.z ? 0x300 : 0x500;
+        bits = g_combineRenderSwitches.texturingEnabled ? 0x35 : 0x33;
+        bits |= g_combineRenderSwitches.translucencyEnabled ? 0x300 : 0x500;
         Combine_ConfigurePrimitiveRenderFlags(bits | (g_primitiveRenderFlagSelect3000 ? 0x3000 : 0x5000) | (g_primitiveRenderFlagSelect30000 ? 0x30000 : 0x50000));
     }
 }
@@ -253,15 +253,15 @@ void Combine_ConfigurePrimitiveRenderFlags(s32 flags) {
     u32 cycle1;
     u32 cycle2;
 
-    groups.x = (flags & 0x5) == 0x5;
-    groups.y = (flags & 0x30) == 0x30;
-    groups.z = (flags & 0x300) == 0x300;
+    groups.texturingEnabled = (flags & 0x5) == 0x5;
+    groups.combineEnabled = (flags & 0x30) == 0x30;
+    groups.translucencyEnabled = (flags & 0x300) == 0x300;
     groups.coverageBlend = (flags & 0x3000) == 0x3000;
     groups.depthBufferEnabled = (flags & 0x30000) == 0x30000;
     Rect_ResetRenderState();
     g_combinePipelineSyncPending = 0;
     Combine_PipeSync();
-    plain = groups.y == 0;
+    plain = groups.combineEnabled == 0;
     g_combineCachedRenderMode = plain ? 11 : 12;
     gDPSetCycleType(g_displayListCursor++, G_CYC_1CYCLE);
     gSPGeometryMode(g_displayListCursor++, G_ZBUFFER | G_SHADE | G_CULL_FRONT | G_CULL_BACK | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_SHADING_SMOOTH, 0);
@@ -475,7 +475,7 @@ void Combine_DrawClippedImageRectangle(f32 x, f32 y, f32 unusedDepth, f32 width,
     rectangleX = x;
     bottomV = endV;
     rectangleY = y;
-    if ((g_combineRenderSwitches.z == 0) || (g_combineRenderSwitches.y == 0)) {
+    if ((g_combineRenderSwitches.translucencyEnabled == 0) || (g_combineRenderSwitches.combineEnabled == 0)) {
         g_combineTexturedRectangleState = 0;
         g_combinePipelineSyncPending = 0;
         Combine_SetRenderMode(12);
@@ -492,11 +492,11 @@ void Combine_DrawClippedImageRectangle(f32 x, f32 y, f32 unusedDepth, f32 width,
             rectangleEmit(0xD7000000, 0x80008000);
 
         }
-        if (g_combineRenderSwitches.x == 0) {
+        if (g_combineRenderSwitches.texturingEnabled == 0) {
             Combine_SetPrimitiveVertexMode(9);
             Combine_DrawClippedGradientQuad(rectangleX, rectangleY, rectangleWidth, rectangleHeight, (u32) color, (u32) color, (u32) color, (u32) color);
         }
-    } else if (g_combineRenderSwitches.x == 0) {
+    } else if (g_combineRenderSwitches.texturingEnabled == 0) {
         g_combinePipelineSyncPending = 0;
         Combine_SetRenderMode(12);
         defaultMode = 13;

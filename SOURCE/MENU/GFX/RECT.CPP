@@ -66,7 +66,7 @@ void Rect_DrawGradientRectangle(f32 x, f32 y, s32 unused, f32 z, f32 a4, s32 a5,
         sync();
         emit(0xD7000000, 0x80008000);
     }
-    if (g_combineRenderSwitches.x == 0) {
+    if (g_combineRenderSwitches.texturingEnabled == 0) {
         Combine_SetPrimitiveVertexMode(9);
         Combine_DrawClippedGradientQuad(x, y, z, a4, a5, a6, a7, a8);
     }
@@ -115,7 +115,7 @@ void Rect_SetTexturePerspectiveMode(s32 mode) {
    alpha) commands to the display list g_displayListCursor_SimpleDrawcachedmodel points into. */
 
 void Rect_SetTextureMode(s32 mode) {
-    if (g_combineRenderSwitches.z == 0) {
+    if (g_combineRenderSwitches.translucencyEnabled == 0) {
         mode = 14;
     }
     if (mode != g_combineTextureRenderMode) {

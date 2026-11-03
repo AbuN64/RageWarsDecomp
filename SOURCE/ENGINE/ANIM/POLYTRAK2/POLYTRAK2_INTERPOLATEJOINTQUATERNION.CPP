@@ -23,14 +23,14 @@ void Polytrak2_InterpolateJointTranslation(void *animationLinks, s32 jointIndex,
     BoneRotationTrackView *o = animationLinks;
     BoneRotationIndexPair *indices = (void *)o->boneIndexPairs;
     s16 idx;
-    RecGobjinstSampleBoneTranslation *recs;
+    CROMInitialOrientation_t *recs;
     void *base;
     Triple *out = translationOut;
 
     idx = indices[jointIndex].translation;
     if (idx == -1) {
         recs = (void *)o->initialOrientations;
-        __builtin_memcpy(out, &recs[jointIndex], sizeof(*out));
+        __builtin_memcpy(out, &recs[jointIndex].position, sizeof(*out));
         return;
     }
     base = SetN64_GetPackSection(o->translationFrames, (s32) idx);

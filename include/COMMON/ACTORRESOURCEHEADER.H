@@ -169,7 +169,6 @@ typedef struct AnimInfo AnimInfo;
 
 
 
-struct RecGobjinstSampleBoneTranslation;
 
 
 struct AnimInfo;

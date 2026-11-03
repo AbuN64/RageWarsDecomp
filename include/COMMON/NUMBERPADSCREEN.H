@@ -33,7 +33,6 @@ struct Meter {
     s32 done;
     s32 falling;
     struct ResourceSmpFlickerCreateFlickerWidget *bar;
-    s32 initialized; /* +0x10: set by Menu_InitializeFadeMeter */
 };
 
 struct Meter;
@@ -62,5 +61,4 @@ struct ChoiceMenuCellView;
 
 struct Triple;
 
-struct RecGobjinstSampleBoneTranslation;
 #endif

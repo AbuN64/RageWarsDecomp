@@ -19,7 +19,7 @@
 #include "ENGINE/SCENE_SAMPLEWORLDLIGHTING.H"
 #include "COMMON/GAMEPLAY_REACTIONS.H"
 
-extern void Link_DispatchTriggerExit(RecGobjinstSampleBoneTranslation *trigger);
+extern void Link_DispatchTriggerExit(Record14 *trigger);
 
 
 
@@ -29,17 +29,17 @@ extern void Link_DispatchTriggerExit(RecGobjinstSampleBoneTranslation *trigger);
 
 
 void Scene_DispatchSecondaryTriggersOfKind(void *world, s32 triggerKind) {
-    RecGobjinstSampleBoneTranslation *trigger;
-    RecGobjinstSampleBoneTranslation *edgeTrigger;
+    Record14 *trigger;
+    Record14 *edgeTrigger;
     s32 remainingFaces;
     s32 remainingEdges;
 
-    remainingFaces = ((SceneVisibilityGeometryView *)(world))->nfaces;
-    trigger = ((SceneVisibilityGeometryView *)(world))->faces;
+    remainingFaces = ((Shared_World *)(world))->recordCount;
+    trigger = ((Shared_World *)(world))->recordArray;
     remainingFaces -= 1;
     if (remainingFaces != -1) {
         do {
-            if (((Record14 *)(trigger))->kind == triggerKind) {
+            if (trigger->kind == triggerKind) {
                 Link_DispatchTriggerExit(trigger);
             }
             remainingFaces -= 1;
@@ -47,12 +47,12 @@ void Scene_DispatchSecondaryTriggersOfKind(void *world, s32 triggerKind) {
         } while (remainingFaces != -1);
     }
 
-    remainingEdges = ((SceneVisibilityGeometryView *)(world))->nedges;
-    edgeTrigger = ((SceneVisibilityGeometryView *)(world))->edges;
+    remainingEdges = ((Shared_World *)(world))->alternateRecordCount;
+    edgeTrigger = ((Shared_World *)(world))->alternateRecordArray;
     remainingEdges -= 1;
     if (remainingEdges != -1) {
         do {
-            if (((Record14 *)(edgeTrigger))->kind == triggerKind) {
+            if (edgeTrigger->kind == triggerKind) {
                 Link_DispatchTriggerExit(edgeTrigger);
             }
             remainingEdges -= 1;

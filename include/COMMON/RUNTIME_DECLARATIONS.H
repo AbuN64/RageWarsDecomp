@@ -3510,7 +3510,6 @@ struct ActorDamageHookView {
 };
 typedef void ( *ContextCallback)(void *);
 struct CameraEventsSpawnAttachedEffect;
-struct RecGobjinstSampleBoneTranslation;
 struct GameAudioContext;
 
 struct VoicePitchChannelContext;

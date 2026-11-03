@@ -667,17 +667,7 @@ struct PlayerSettingsOwnerView {
 struct AnimationResourceHandleView;
 typedef struct AnimationResourceHandleView AnimationResourceHandleView;
 
-struct RecGobjinstSampleBoneTranslation;
-typedef struct RecGobjinstSampleBoneTranslation RecGobjinstSampleBoneTranslation;
 
-struct RecGobjinstSampleBoneTranslation;
-struct RecGobjinstSampleBoneTranslation {
-    s32 x;
-    s32 y;
-    s32 z;
-    s32 pad0;
-    s32 pad1;
-};
 
 
 struct StateFrontendUpdateOptionsPageExit;
