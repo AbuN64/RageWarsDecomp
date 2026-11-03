@@ -38,7 +38,7 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     s16 viewportExtent;
     s32 viewportIndex;
     Floats *orientationValues;
-    Floats *transformDefaults;
+    CShake *transformDefaults;
     Floats *firstEffectDefaults;
     Floats *secondEffectDefaults;
     Floats *thirdEffectDefaults;
@@ -79,13 +79,13 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     camera->verticalFieldOfView = (f32) 47.5f;
     camera->reservedFloatC = (f32) 47.5f;
     Gsky_ResetFadeState(camera);
-    transformDefaults = ((void *)&((GameplayCamera *)camera)->shake);
+    transformDefaults = &camera->shake;
     camera->shakeHorizontal = zero;
     camera->shakeVertical = zero;
-    transformDefaults->floatAt8 = zero;
-    transformDefaults->floatAtC = zero;
-    transformDefaults->floatAt10 = zero;
-    transformDefaults->floatAt14 = unitValue;
+    transformDefaults->m_vPos.x = zero;
+    transformDefaults->m_vPos.y = zero;
+    transformDefaults->m_vPos.z = zero;
+    transformDefaults->m_Radius = unitValue;
     firstEffectDefaults = ((void *)&((GameplayCamera *)camera)->shake.x);
     firstEffectDefaults->floatAt4 = zero;
     firstEffectDefaults->floatAt8 = zero;
