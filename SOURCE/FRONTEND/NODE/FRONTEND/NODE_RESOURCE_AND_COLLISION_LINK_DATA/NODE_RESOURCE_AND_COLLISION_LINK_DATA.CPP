@@ -55,7 +55,7 @@ typedef struct NodeResourceLinkTail {
     u32 retainedWords[2];
 } NodeResourceLinkTail;
 typedef char NodeResourceLinkTailSize[(sizeof(NodeResourceLinkTail) == 12) ? 1 : -1];
-NodeResourceLinkTail k_NodeResourceAndCollisionLinkEncodedWords = {
+NodeResourceLinkTail g_nodeResourceLinkTailEuX = {
     D_800DEA60_eu_x + 8, { 128, 1 },
 };
 #endif
