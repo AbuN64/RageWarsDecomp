@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "COMMON/OBJ.H"
 #include "include_asm.h"
@@ -35,7 +36,7 @@ extern s32 g_breakableNotificationText;
 #endif
 extern u8 *Playerai_FindTransientPlayer(u8 *);
 extern void Playerai_UpdateTeamScore(void *, void *, s32);
-extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text);
+extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text);
 /* 182/182 words in us-rev1 and de (local j targets aside); not exact on the ROM path only because the switch jump table (k_actionUpdateBreakableProximityJumpTable) still lives in a separate rodata file; us/eu/eu-x differ in prologue size */
 typedef struct LvDelta {
     f32 x, y, z;

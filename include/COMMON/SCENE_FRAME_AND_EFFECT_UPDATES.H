@@ -38,7 +38,7 @@ extern void Fx_UpdateEffectLists(s32 owner);
 extern void Scene_UpdateActorsAndRoundState(void *);
 extern void Scene_UpdateTriggerTimers(void *);
 extern void Particle_UpdateSystem(struct CParticleSystem_t *world);
-extern void Camera_DrawActiveViews(struct Race *race, s32 world);
+extern void Camera_DrawActiveViews(struct ScreenMessageOwner *race, s32 world);
 extern void Scene_UpdateStaticEventInstances(struct StateSceneUpdateStaticEventInstances *);
 extern void Scene_UnlockActiveSectionResources(struct OwnerSceneUnlockActiveSectionResources *owner);
 extern void Scene_DrawTransitionColorOverlay(Shared_World *);

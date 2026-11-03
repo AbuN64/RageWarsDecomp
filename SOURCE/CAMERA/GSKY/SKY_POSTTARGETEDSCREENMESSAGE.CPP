@@ -34,7 +34,7 @@ static inline CCameraText *recycle(void *owner, void *pool) {
     if (oldest != 0) {
         Gsky_ClearScreenMessage(oldest);
         List_RemoveIntrusive(&((struct ScreenMessageOwner *)owner)->activeMessages, oldest);
-        List_AppendIntrusive(&((struct ScreenMessagePool *)pool)->freeMessages, oldest);
+        List_AppendIntrusive(&((struct GameplayCamera *)pool)->objects, oldest);
     }
     return oldest;
 }
@@ -95,10 +95,10 @@ CCameraText *Gsky_PostTargetedScreenMessage(void *owner, void *pool, u8 *text, s
     if (pool == 0) {
         return 0;
     }
-    for (pending = ((struct ScreenMessagePool *)pool)->freeMessages.head; pending != 0; pending = next) {
+    for (pending = ((struct GameplayCamera *)pool)->objects.head; pending != 0; pending = next) {
         next = pending->next;
         if (pending->target == target) {
-            List_RemoveIntrusive(&((struct ScreenMessagePool *)pool)->freeMessages, pending);
+            List_RemoveIntrusive(&((struct GameplayCamera *)pool)->objects, pending);
             List_PrependIntrusive(&((struct ScreenMessageOwner *)owner)->activeMessages, pending);
         }
     }
@@ -107,21 +107,21 @@ CCameraText *Gsky_PostTargetedScreenMessage(void *owner, void *pool, u8 *text, s
 }
 
 /* Starting at the tail follows prev (+0), preserving order when prepending. */
-void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool) {
+void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct GameplayCamera *pool) {
     CCameraText *message;
     CCameraText *nextMessage;
     void *freeList;
 
     if (pool != 0) {
-        message = pool->freeMessages.tail;
-        freeList = &pool->freeMessages;
+        message = pool->objects.tail;
+        freeList = &pool->objects;
         if (message != 0) {
             do {
                 nextMessage = message->prev;
                 List_RemoveIntrusive(freeList, message);
                 List_PrependIntrusive(&owner->activeMessages, message);
                 message = nextMessage;
-                freeList = &pool->freeMessages;
+                freeList = &pool->objects;
             } while (message != 0);
         }
     }
@@ -137,11 +137,11 @@ void Gsky_ActivateAllMessagePools(s32 messageOwner) {
 
     embeddedPool = (void *)(messageOwner + 64);
     if (embeddedPool != 0) {
-        embeddedMessage = ((struct ScreenMessagePool *)embeddedPool)->freeMessages.tail;
+        embeddedMessage = ((struct GameplayCamera *)embeddedPool)->objects.tail;
         if (embeddedMessage != 0) {
             do {
                 next = embeddedMessage->prev;
-                List_RemoveIntrusive(&((struct ScreenMessagePool *)embeddedPool)->freeMessages, embeddedMessage);
+                List_RemoveIntrusive(&((struct GameplayCamera *)embeddedPool)->objects, embeddedMessage);
                 List_PrependIntrusive(&((struct ScreenMessageOwner *)messageOwner)->activeMessages, embeddedMessage);
                 embeddedMessage = next;
             } while (embeddedMessage != 0);
@@ -151,16 +151,16 @@ void Gsky_ActivateAllMessagePools(s32 messageOwner) {
     poolCursor = g_gameplayCameraList;
     if (poolCursor != 0) {
         do {
-            pooledMessage = ((struct ScreenMessagePool *)poolCursor)->freeMessages.tail;
+            pooledMessage = ((struct GameplayCamera *)poolCursor)->objects.tail;
             if (pooledMessage != 0) {
                 do {
                     nextPooledMessage = pooledMessage->prev;
-                    List_RemoveIntrusive(&((struct ScreenMessagePool *)poolCursor)->freeMessages, pooledMessage);
+                    List_RemoveIntrusive(&((struct GameplayCamera *)poolCursor)->objects, pooledMessage);
                     List_PrependIntrusive(&((struct ScreenMessageOwner *)messageOwner)->activeMessages, pooledMessage);
                     pooledMessage = nextPooledMessage;
                 } while (pooledMessage != 0);
             }
-            poolCursor = ((struct ScreenMessagePool *)poolCursor)->next;
+            poolCursor = ((struct GameplayCamera *)poolCursor)->next;
         } while (poolCursor != 0);
     }
 }
@@ -170,23 +170,23 @@ void Gsky_InitializeMessageEntryPool(int viewAddress) {
     Pool_InitEntryPool((char *)&((GameplayCamera *)viewAddress)->sceneEffects);
 }
 
-void *Gsky_RecycleFirstScreenMessage(void *screenMessageOwner, struct ScreenMessagePool *screenMessagePool) {
+void *Gsky_RecycleFirstScreenMessage(void *screenMessageOwner, struct GameplayCamera *screenMessagePool) {
     struct ScreenMessageOwner *owner = screenMessageOwner;
-    struct ScreenMessagePool *pool = screenMessagePool;
+    struct GameplayCamera *pool = screenMessagePool;
     void *message;
 
     message = owner->activeMessages.head;
     if (message != 0) {
         Gsky_ClearScreenMessage(message);
         List_RemoveIntrusive(&owner->activeMessages, message);
-        List_AppendIntrusive(&pool->freeMessages, message);
+        List_AppendIntrusive(&pool->objects, message);
     }
     return message;
 }
 
 void Gsky_ActivateScreenMessage(s32 destinationOwner, s32 sourcePool, s32 messageNode) {
-    List_RemoveIntrusive(sourcePool + 3648, messageNode);
-    List_PrependIntrusive(destinationOwner + 3876, messageNode);
+    List_RemoveIntrusive(&((GameplayCamera *)sourcePool)->objects, messageNode);
+    List_PrependIntrusive(&((ScreenMessageOwner *)destinationOwner)->activeMessages, messageNode);
 }
 
 void Gsky_ClearScreenMessage(void *screenMessage) {

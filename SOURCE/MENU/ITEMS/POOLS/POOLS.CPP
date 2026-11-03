@@ -59,18 +59,18 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     camera->reservedWord = -1;
     camera->viewLeft = zero;
     camera->viewTop = zero;
-    camera->reservedByteA = 0;
+    camera->clearRed = 0;
     camera->reservedByteE = 0;
-    camera->reservedByteB = 0;
+    camera->clearGreen = 0;
     camera->reservedByteF = 0;
-    camera->reservedByteC = 0;
+    camera->clearBlue = 0;
     camera->reservedByteG = 0;
     camera->reservedByteD = 0;
     camera->reservedByteH = 0;
     camera->reservedFloat = unitValue;
     camera->fogNear = 995;
     camera->reservedWordB = 995;
-    camera->reservedByteI = 0;
+    camera->damageEffectMode = 0;
     camera->dirty = 0;
     camera->pixelXScale = unitValue;
     camera->pixelYScale = unitValue;
@@ -104,14 +104,14 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     Gsky_SetGameplayMode(camera, 0);
     viewportExtent = g_hudReferenceViewportWidth * 2;
     for (viewportIndex = 0; viewportIndex < 2; viewportIndex++) {
-        ((RacerViewport *)camera)->viewports[viewportIndex].vscale[0] = viewportExtent;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vscale[1] = viewportExtent;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vscale[2] = 1023;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vscale[3] = 0;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vtrans[0] = viewportExtent;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vtrans[1] = viewportExtent;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vtrans[2] = 0;
-        ((RacerViewport *)camera)->viewports[viewportIndex].vtrans[3] = 0;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vscale[0] = viewportExtent;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vscale[1] = viewportExtent;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vscale[2] = 1023;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vscale[3] = 0;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vtrans[0] = viewportExtent;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vtrans[1] = viewportExtent;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vtrans[2] = 0;
+        ((GameplayCamera *)camera)->viewports[viewportIndex].vtrans[3] = 0;
     }
     Menu_InitMenuMessageList(((void *)&((GameplayCamera *)camera)->messageList));
     Graphu64_IdentityMatrix(((GameplayCamera *)camera)->faceScreen);
@@ -119,28 +119,13 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
     camera->fadeEnabled = 0;
     camera->monochrome = 0;
     camera->kickStep = 50;
-    camera->reservedHalf = 0;
+    camera->effectArgument = 0;
     g_cameraFramingTransitionTimer = 0;
     List_InitializeIntrusive(&((GameplayCamera *)camera)->objects, 0, 4);
     Gsky_InitializeMessageEntryPool(camera);
 }
 
 #include "TYPES.H"
-typedef struct DraftListA370 { void *head, *tail; s32 count, a, b; } DraftListA370;
-typedef struct DraftEntryA370 { void *next, *prev; s32 a, b, c; f32 value; DraftListA370 lists[3]; } DraftEntryA370;
-typedef struct DraftActorA370 { void *next, *prev; s32 index; u8 rest[3788]; } DraftActorA370;
-typedef struct DraftSmallA370 { u8 data[64]; } DraftSmallA370;
-typedef struct DraftOwnerA370 {
-    DraftActorA370 **handle, *actors; s32 count;
-    DraftListA370 active, free;
-    s32 word34, word38, word3C;
-    u8 parts[8]; s32 word48; u8 rest[0xF18 - 0x4C];
-    DraftSmallA370 **smallHandle, *small; s32 smallCount;
-    DraftListA370 smallList;
-    DraftEntryA370 entries[8];
-    DraftListA370 entryList, spareList;
-    s32 empty;
-} DraftOwnerA370;
 extern f32 k_menuInitialCounterValue;
 extern char g_camerasText[];
 extern char g_screenMessageAllocationLabel[];
@@ -148,71 +133,71 @@ extern void SoundElement_SetListenerCamera(void *);
 extern void Cache_DrainAndCompactResources(s32);
 extern void Cache_ReleaseResource(s32, void *);
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
-static inline void resetDraftList(DraftListA370 *list) {
-    list->tail = 0;
-    list->count = 0;
-    list->a = 0;
-    list->b = 0;
+static inline void resetShakeAxis(CShakeAxis *axis) {
+    axis->value = 0;
+    axis->m_LastShake = 0;
+    axis->m_Amp = 0;
+    axis->m_Angle = 0;
 }
-static inline void resetDraftEntry(DraftEntryA370 *entry, f32 value) {
-    entry->a = 0;
-    entry->b = 0;
-    entry->c = 0;
-    entry->value = value;
-    resetDraftList(&entry->lists[0]);
-    resetDraftList(&entry->lists[1]);
-    resetDraftList(&entry->lists[2]);
+static inline void resetShake(CShake *entry, f32 value) {
+    entry->m_vPos.x = 0;
+    entry->m_vPos.y = 0;
+    entry->m_vPos.z = 0;
+    entry->m_Radius = value;
+    resetShakeAxis(&entry->x);
+    resetShakeAxis(&entry->y);
+    resetShakeAxis(&entry->z);
 }
-void Pools_ResetActorPools(DraftOwnerA370 *owner, s32 actorCount)
+void Pools_ResetActorPools(ScreenMessageOwner *owner, s32 actorCount)
 {
     s32 i;
     f32 initialValue;
     if (actorCount > 4) actorCount = 4;
-    owner->word34 = 0;
-    owner->word38 = 0;
-    owner->word48 = 0;
-    Pools_InitializeGameplayCamera(owner->parts);
-    owner->word38 = 2;
-    List_InitializeIntrusive(&owner->entryList, 0, 4);
-    List_InitializeIntrusive(&owner->spareList, 0, 4);
+    owner->header.lastMode = 0;
+    owner->header.layoutTimer = 0;
+    owner->self.index = 0;
+    Pools_InitializeGameplayCamera(&owner->self);
+    owner->header.layoutTimer = 2;
+    List_InitializeIntrusive(&owner->freeEffects, 0, 4);
+    List_InitializeIntrusive(&owner->activeEffects, 0, 4);
     initialValue = k_menuInitialCounterValue;
     for (i = 0; i < 8; i++) {
-        resetDraftEntry(&owner->entries[i], initialValue);
-        List_AppendIntrusive(&owner->entryList, &owner->entries[i]);
+        resetShake(&owner->effects[i], initialValue);
+        List_AppendIntrusive(&owner->freeEffects, &owner->effects[i]);
     }
-    List_InitializeIntrusive(&owner->active, 0, 4);
-    List_InitializeIntrusive(&owner->free, 0, 4);
-    List_InitializeIntrusive(&owner->smallList, 0, 4);
-    owner->empty = 1;
-    SoundElement_SetListenerCamera(owner->parts);
+    List_InitializeIntrusive(&owner->header.active, 0, 4);
+    List_InitializeIntrusive(&owner->header.views, 0, 4);
+    List_InitializeIntrusive(&owner->activeMessages, 0, 4);
+    owner->state = 1;
+    SoundElement_SetListenerCamera(&owner->self);
     Cache_DrainAndCompactResources(0);
-    if (owner->handle) {
-        Cache_ReleaseResource(0, owner->handle);
-        owner->handle = 0; owner->actors = 0; owner->count = 0;
+    if (owner->header.allocation) {
+        Cache_ReleaseResource(0, owner->header.allocation);
+        owner->header.allocation = 0; owner->header.cameras = 0; owner->header.count = 0;
     }
     Cache_DrainAndCompactResources(0);
-    if (owner->smallHandle) {
-        Cache_ReleaseResource(0, owner->smallHandle);
-        owner->smallHandle = 0; owner->small = 0; owner->smallCount = 0;
+    if (owner->storage.allocation) {
+        Cache_ReleaseResource(0, owner->storage.allocation);
+        owner->storage.allocation = 0; owner->storage.first = 0; owner->storage.count = 0;
     }
     if (actorCount) {
-        owner->count = actorCount;
-        owner->handle = Cache_AllocateResource(0, actorCount * 3800, 35, g_camerasText);
-        owner->actors = *owner->handle;
-        XPlus_FillMemory(owner->actors, 0, actorCount * 3800);
-        for (i = 0; i < owner->count; i++) {
-            owner->actors[i].index = i;
-            List_AppendIntrusive(&owner->active, &owner->actors[i]);
+        owner->header.count = actorCount;
+        owner->header.allocation = Cache_AllocateResource(0, actorCount * 3800, 35, g_camerasText);
+        owner->header.cameras = *(GameplayCamera **)owner->header.allocation;
+        XPlus_FillMemory(owner->header.cameras, 0, actorCount * 3800);
+        for (i = 0; i < owner->header.count; i++) {
+            owner->header.cameras[i].index = i;
+            List_AppendIntrusive(&owner->header.active, &owner->header.cameras[i]);
         }
-        SoundElement_SetListenerCamera(owner->actors);
-        owner->empty = 0;
+        SoundElement_SetListenerCamera(owner->header.cameras);
+        owner->state = 0;
     }
-    owner->smallCount = 16;
-    owner->smallHandle = Cache_AllocateResource(0, 0x400, 35, g_screenMessageAllocationLabel);
-    owner->small = *owner->smallHandle;
-    XPlus_FillMemory(owner->small, 0, 0x400);
-    for (i = 0; i < owner->smallCount; i++) {
-        List_AppendIntrusive(&owner->smallList, &owner->small[i]);
+    owner->storage.count = 16;
+    owner->storage.allocation = Cache_AllocateResource(0, 0x400, 35, g_screenMessageAllocationLabel);
+    owner->storage.first = *owner->storage.allocation;
+    XPlus_FillMemory(owner->storage.first, 0, 0x400);
+    for (i = 0; i < owner->storage.count; i++) {
+        List_AppendIntrusive(&owner->activeMessages, &((CCameraText *)owner->storage.first)[i]);
     }
 }
 
@@ -231,22 +216,22 @@ extern void Camera_UpdateViewProjectionAndEffects(void *);
 
 extern void Pool_InitEntryPool(char *);
 
-void Pools_ResetPlayers(MenuPlayerPoolView *actor) {
+void Pools_ResetPlayers(ScreenMessageOwner *actor) {
     char *parts;
 
     XPlus_FillMemory(actor, 0, 4616);
-    List_InitializeIntrusive(&actor->active, 0, 4);
-    List_InitializeIntrusive(&actor->available, 0, 4);
-    List_InitializeIntrusive(&actor->auxiliaryEntries, 0, 4);
-    parts = &actor->cameraStorage;
-    actor->reservedWord19 = 1;
-    actor->actorHandle = 0;
-    actor->actors = 0;
-    actor->actorCount = 0;
-    actor->reservedWord16 = 0;
-    actor->reservedWord17 = 0;
-    actor->reservedWord18 = 0;
-    actor->reservedWord15 = 2;
+    List_InitializeIntrusive(&actor->header.active, 0, 4);
+    List_InitializeIntrusive(&actor->header.views, 0, 4);
+    List_InitializeIntrusive(&actor->activeMessages, 0, 4);
+    parts = (char *)&actor->self;
+    actor->state = 1;
+    actor->header.allocation = 0;
+    actor->header.cameras = 0;
+    actor->header.count = 0;
+    actor->storage.allocation = 0;
+    actor->storage.first = 0;
+    actor->storage.count = 0;
+    actor->header.layoutTimer = 2;
     Pools_InitializeGameplayCamera(parts);
     Camera_UpdateViewProjectionAndEffects(parts);
 }
@@ -257,7 +242,7 @@ void Pools_InitGroupPools(Triple *group) {
     for (i = 0; i < group->z; i++) {
         Pool_InitEntryPool((char *)(i * 3800 + group->y + 1392));
     }
-    Pool_InitEntryPool((char *)&((GameplayCamera *)&((MenuPlayerPoolView *)group)->cameraStorage)->sceneEffects);
+    Pool_InitEntryPool((char *)&((ScreenMessageOwner *)group)->self.sceneEffects);
 }
 
 /* Detaches the object at offset 0xC of an owner: when there is one, finalises it through

@@ -133,14 +133,14 @@ void Gsky_ReleaseScreenMessageRendering(struct ScreenMessageOwner *owner) {
     s32 allocation;
 
     owner->state = 1;
-    SoundElement_SetListenerCamera((intptr_t)&owner->rendering);
+    SoundElement_SetListenerCamera((intptr_t)&owner->self);
     Cache_DrainAndCompactResources(0);
-    allocation = owner->allocation;
+    allocation = owner->header.allocation;
     if (allocation != 0) {
         Cache_ReleaseResource(0, allocation);
-        owner->allocation = 0;
-        owner->allocationSize = 0;
-        owner->count = 0;
+        owner->header.allocation = 0;
+        owner->header.cameras = 0;
+        owner->header.count = 0;
     }
 }
 
@@ -148,11 +148,11 @@ void Gsky_ReleaseScreenMessageRendering(struct ScreenMessageOwner *owner) {
 void Gsky_ReleaseMessageBuffer(void *bufferOwner) {
     s32 allocationHandle;
     Cache_DrainAndCompactResources(0);
-    allocationHandle = (((struct IntegerStateF24 *) ((s8 *) bufferOwner))->allocationHandle);
+    allocationHandle = (s32)(((struct ScreenMessageOwner *) ((s8 *) bufferOwner))->storage.allocation);
     if (allocationHandle != 0) {
         Cache_ReleaseResource(0, allocationHandle);
-        (((struct IntegerStateF24 *) ((s8 *) bufferOwner))->allocationHandle) = 0;
-        (((struct IntegerStateF24 *) ((s8 *) bufferOwner))->allocationSize) = 0;
-        (((struct IntegerStateF24 *) ((s8 *) bufferOwner))->allocationCount) = 0;
+        (((struct ScreenMessageOwner *) ((s8 *) bufferOwner))->storage.allocation) = 0;
+        (((struct ScreenMessageOwner *) ((s8 *) bufferOwner))->storage.first) = 0;
+        (((struct ScreenMessageOwner *) ((s8 *) bufferOwner))->storage.count) = 0;
     }
 }

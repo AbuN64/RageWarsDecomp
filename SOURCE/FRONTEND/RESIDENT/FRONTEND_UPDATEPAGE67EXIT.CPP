@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "COMMON/RESERVED_SHARED_DECLARATIONS.H"
 #include "TYPES.H"
@@ -25,7 +26,7 @@ s32 Frontend_ClearPage67ModeFlag(void) {
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
 extern void Frontend_DrawMenuImage(struct MenuImage *menu);
-extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);
 extern s32 Cache_GetResourceActivityState(void);

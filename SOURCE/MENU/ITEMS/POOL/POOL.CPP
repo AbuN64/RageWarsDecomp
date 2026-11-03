@@ -10,14 +10,14 @@
 
 
 
-void Pool_InitEntryPool(MenuEntryPoolCountView *pool) {
+void Pool_InitEntryPool(Scene *pool) {
     s32 i;
-    struct MenuEntryPoolEntry *entry;
+    struct SkyLayerRuntimeView *entry;
 
-    List_InitializeIntrusive(&pool->active, 0, 4);
-    List_InitializeIntrusive(&pool->free, 0, 4);
+    List_InitializeIntrusive(&pool->activeObjects, 0, 4);
+    List_InitializeIntrusive(&pool->freeObjects, 0, 4);
     for (i = 0, entry = pool->entries; i < 4; i++, entry++) {
-        List_AppendIntrusive(&pool->free, entry);
+        List_AppendIntrusive(&pool->freeObjects, entry);
     }
-    pool->count = 0;
+    pool->effectMask = 0;
 }

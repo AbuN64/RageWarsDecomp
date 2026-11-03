@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "include_asm.h"
@@ -39,7 +40,7 @@ void TeamSelect_DrawWeaponIcons(CBarrel *menu, Item *items, s32 count, Player *p
     s32 red;
     s16 green;
     s32 blue;
-    RacerViewport *view;
+    GameplayCamera *view;
     f32 *viewport;
     Item *item;
 
@@ -48,9 +49,9 @@ void TeamSelect_DrawWeaponIcons(CBarrel *menu, Item *items, s32 count, Player *p
     item = items;
     while (--count != -1) {
         view = player->camera;
-        scaleX = view->viewportWidth * (1.0f / 320.0f);
-        scaleY = view->viewportHeight * (1.0f / 240.0f);
-        viewport = &view->viewportWidth;
+        scaleX = view->viewWidth * (1.0f / 320.0f);
+        scaleY = view->viewHeight * (1.0f / 240.0f);
+        viewport = &view->viewWidth;
         x = viewport[2] + viewport[0] * 0.5f + item->position.x * 0.5f * viewport[0];
         y = viewport[3] + viewport[1] * 0.5f + item->position.y * 0.5f * viewport[1];
         alpha = item->width;

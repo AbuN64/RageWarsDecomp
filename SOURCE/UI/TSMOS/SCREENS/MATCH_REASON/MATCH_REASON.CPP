@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
 #include "include_asm.h"
@@ -146,7 +147,7 @@ extern void Frontend_DrawMenuImage(struct MenuImage *menu);
 
 
 
-extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 

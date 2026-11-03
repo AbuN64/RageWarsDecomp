@@ -1,6 +1,7 @@
 #ifndef MENU_SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS_H
 #define MENU_SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS_H
 #include "TYPES.H"
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/OBJB.H"
@@ -24,30 +25,6 @@ struct SceneLightLoadView {
     char pad0[0x1B2B0];
     struct CROMLevel_t *light;
     s16 dir[3];
-};
-struct MenuPlayerPoolView {
-    s32 actorHandle;
-    char pad0[0x4 - 0x0 - sizeof(s32)];
-    s32 actors;
-    char pad4[0x8 - 0x4 - sizeof(s32)];
-    s32 actorCount;
-    char pad8[0xC - 0x8 - sizeof(s32)];
-    IntrusiveList active;
-    IntrusiveList available;
-    char pad34[0x38 - 0x34];
-    s32 reservedWord15;
-    char pad38[0x40 - 0x38 - sizeof(s32)];
-    char cameraStorage;
-    char pad40[0xF18 - 0x40 - sizeof(char)];
-    s32 reservedWord16;
-    char padF18[0xF1C - 0xF18 - sizeof(s32)];
-    s32 reservedWord17;
-    char padF1C[0xF20 - 0xF1C - sizeof(s32)];
-    s32 reservedWord18;
-    char padF20[0xF24 - 0xF20 - sizeof(s32)];
-    IntrusiveList auxiliaryEntries;
-    char padF24[0x1200 - 0xF24 - sizeof(IntrusiveList)];
-    s32 reservedWord19;
 };
 struct SceneGridCellLoadView {
     char pad0[0x30];
@@ -100,12 +77,6 @@ struct ItemsSelectionState {
     int active;
     char pad1b418[0x20];
     int selection;
-};
-struct MenuEntryPoolCountView {
-    struct MenuEntryPoolEntry entries[4];
-    IntrusiveList free;
-    IntrusiveList active;
-    s16 count;
 };
 typedef struct CollisionBuildHeader {
     s32 count;

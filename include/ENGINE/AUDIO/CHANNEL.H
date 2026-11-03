@@ -4,6 +4,7 @@ struct Channel;
 #ifndef COMMON_CHANNEL_INNER_H
 #define COMMON_CHANNEL_INNER_H
 #include "TYPES.H"
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/AIPROFILE.H"
@@ -63,8 +64,6 @@ struct CameraShakeRecordView {
 extern void Gsky_InitializeShakeRecord(void *channelRecord);
 
 
-struct IntegerStateF24;
-typedef struct IntegerStateF24 IntegerStateF24;
 
 
 extern float k_screenMessageInitialNearestDistance;
@@ -76,8 +75,8 @@ extern int Gsky_StartFadeModeTwo(void *outputStorage);
 
 
 
-struct ScreenMessagePool;
-extern void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool);
+struct GameplayCamera;
+extern void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct GameplayCamera *pool);
 
 extern void Gsky_ReleaseMessageBuffer(void *bufferOwner);
 
@@ -85,13 +84,7 @@ extern s32 Gsky_UpdateShakeRecord(s32 waveRecord);
 
 
 
-struct IntegerStateF24;
-struct IntegerStateF24 {
-    unsigned char padding_0[3864];
-    s32 allocationHandle;
-    s32 allocationSize;
-    s32 allocationCount;
-};
+
 
 
 
@@ -150,36 +143,8 @@ extern void Gsky_ViewportUpdateNoOp(void);
 
 
 
-/* Allocation buffer used by message storage constructors. */
-typedef struct MessageBuffer {
-    s32 *allocation;
-    s32 first;
-    s32 count;
-} MessageBuffer;
-
-/* On-screen message recycling and distribution share these list owners. */
-struct ScreenMessageOwner {
-    s32 allocation; /* 0x00 */
-    s32 allocationSize; /* 0x04 */
-    s32 count; /* 0x08 */
-    u8 padding00C[0x40 - 0xC];
-    u8 rendering; /* 0x40 */
-    u8 padding041[0xF18 - 0x41];
-    MessageBuffer storage; /* 0xF18 */
-    IntrusiveList activeMessages; /* 0xF24 */
-    u8 paddingF38[0x1200 - 0xF38];
-    s32 state; /* 0x1200 */
-    s32 reservedWord; /* the owner initialized by Pools_ResetPlayers_Channel is0x1208 */
-};
-struct ScreenMessagePool {
-    u8 padding000[4];
-    struct ScreenMessagePool *next; /* 0x04, g_gameplayCameraList_Channel chain */
-    u8 padding008[0xE38];
-    IntrusiveList freeMessages; /* 0xE40 */
-};
-
 struct CCameraText_t;
-extern CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text);
+extern CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text);
 
 #endif
 #endif

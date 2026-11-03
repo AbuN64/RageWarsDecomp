@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "include_asm.h"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/FRONTEND_RESOURCE_LOAD_STATE.H"
@@ -14,7 +15,7 @@
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Player_InitializeProfile(void *profileStorage);
 extern Pulse *g_profileResetScreen;
-extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);
 extern s32 Cache_GetResourceActivityState(void);

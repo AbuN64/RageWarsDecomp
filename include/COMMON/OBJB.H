@@ -35,13 +35,12 @@ struct CROMLevel_t {
 struct CROMLevel_t;
 struct SceneLightLoadView;
 
-struct MenuPlayerPoolView;
+struct ScreenMessageOwner;
 
 struct SceneResourceOwnerView;
 typedef struct SceneResourceOwnerView SceneResourceOwnerView;
 
-struct MenuPlayerPoolView;
-typedef struct MenuPlayerPoolView MenuPlayerPoolView;
+struct ScreenMessageOwner;
 
 
 
@@ -160,10 +159,7 @@ struct ItemsSelectionState;
 
 
 
-struct MenuEntryPoolCountView;
-struct MenuEntryPoolEntry {
-    char pad0[0x228];
-};
+struct Scene;
 
 
 
@@ -171,8 +167,7 @@ struct MenuEntryPoolEntry {
 struct ItemsPendingState;
 typedef struct ItemsPendingState ItemsPendingState;
 
-struct MenuEntryPoolCountView;
-typedef struct MenuEntryPoolCountView MenuEntryPoolCountView;
+struct Scene;
 
 
 struct Floats;

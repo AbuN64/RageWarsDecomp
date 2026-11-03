@@ -210,7 +210,7 @@ static inline SkyLayerRuntimeView *allocateSceneEffect(Scene *scene) {
     SkyLayerRuntimeView *object = (SkyLayerRuntimeView *)scene->freeObjects.head;
     if (object != 0) {
         List_RemoveIntrusive(&scene->freeObjects, object);
-        List_AppendIntrusive(&scene->objects, object);
+        List_AppendIntrusive(&scene->activeObjects, object);
     }
     return object;
 }
@@ -334,7 +334,7 @@ void Sky_UpdateSceneEffects(Scene *scene, GameplayCamera *host) {
     if ((u16)mask == 0) {
         return;
     }
-    object = scene->objects;
+    object = scene->activeObjects.head;
     if (object == 0) {
         return;
     }
@@ -342,7 +342,7 @@ void Sky_UpdateSceneEffects(Scene *scene, GameplayCamera *host) {
         next = object->next;
         if (updateSceneEffect(object, host, mask, below, hostDepth, limit)) {
             scene->effectMask &= ~object->mask;
-            List_RemoveIntrusive(&scene->objects, object);
+            List_RemoveIntrusive(&scene->activeObjects, object);
             List_PrependIntrusive(&scene->freeObjects, object);
         }
         object = next;
@@ -370,7 +370,7 @@ void Sky_DrawDepthSortedSceneEffects(Scene *scene, ClipView *view) {
     s32 farCount;
     s32 i;
 
-    if (scene->count == 0 || view->hidden != 0) {
+    if (scene->activeObjects.count == 0 || view->hidden != 0) {
         return;
     }
     gDPPipeSync(g_displayListCursor++);
@@ -388,7 +388,7 @@ void Sky_DrawDepthSortedSceneEffects(Scene *scene, ClipView *view) {
     gDPSetTextureFilter(g_displayListCursor++, G_TF_BILERP);
     nearCount = 0;
     farCount = 0;
-    for (object = scene->objects; object != 0; object = object->next) {
+    for (object = scene->activeObjects.head; object != 0; object = object->next) {
         if (object->depth > view->depth) {
             near[nearCount++] = object;
         } else {
@@ -474,20 +474,20 @@ s32 Sky_UpdateRotor(Rotor *rotor, s32 mask, f32 fallback, s32 boosting, f32 boos
     return 0;
 }
 
-void *Sky_AllocateEffectNode(struct SkyEffectObjectListsView *sceneOwner) {
+void *Sky_AllocateEffectNode(struct Scene *sceneOwner) {
     void *head;
 
-    head = sceneOwner->sceneEffects.head;
+    head = sceneOwner->freeObjects.head;
     if (head != 0) {
-        List_RemoveIntrusive(&sceneOwner->sceneEffects, head);
-        List_AppendIntrusive(&sceneOwner->inactiveSceneEffects, head);
+        List_RemoveIntrusive(&sceneOwner->freeObjects, head);
+        List_AppendIntrusive(&sceneOwner->activeObjects, head);
     }
     return head;
 }
 
 /* 8023A284_8.CPP */
 void Sky_ReleaseEffectNode(s32 sceneAddress, s32 effectNode) {
-    List_RemoveIntrusive(&((struct Scene *)sceneAddress)->objects, effectNode);
+    List_RemoveIntrusive(&((struct Scene *)sceneAddress)->activeObjects, effectNode);
     List_PrependIntrusive(&((struct Scene *)sceneAddress)->freeObjects, effectNode);
 }
 

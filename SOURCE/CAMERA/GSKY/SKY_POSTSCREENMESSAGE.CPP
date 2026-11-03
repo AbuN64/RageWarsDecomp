@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "include_asm.h"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/AIPROFILE.H"
@@ -52,14 +53,14 @@ extern u8 *g_screenMessageSubstitutionSource;
 
 static inline CCameraText *recycle(void *owner, void *pool) {
     struct ScreenMessageOwner *messageOwner = owner;
-    struct ScreenMessagePool *messagePool = pool;
+    struct GameplayCamera *messagePool = pool;
     CCameraText *oldest;
 
     oldest = messageOwner->activeMessages.head;
     if (oldest != 0) {
         Gsky_ClearScreenMessage(oldest);
         List_RemoveIntrusive(&messageOwner->activeMessages, oldest);
-        List_AppendIntrusive(&messagePool->freeMessages, oldest);
+        List_AppendIntrusive(&messagePool->objects, oldest);
     }
     return oldest;
 }

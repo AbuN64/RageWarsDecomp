@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SCREEN.H"
 #include "COMMON/WORLD.H"
 #include "include_asm.h"
@@ -22,7 +23,7 @@
    Menu_ReturnToPreviousScreen. Returns zero. */
 #include "MENU/PAK_LOAD.H"
 
-extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);
 extern s32 Cache_GetResourceActivityState(void);

@@ -1,9 +1,71 @@
 #ifndef COMMON_GAMEPLAY_CAMERA_H
 #define COMMON_GAMEPLAY_CAMERA_H
 #include "TYPES.H"
-#include "COMMON/VIEWFLAGS.H"
+#include "COMMON/SHAREDPLAYER.H"
+#include "COMMON/CAMERA_SHAKE.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
+#include "COMMON/ITEMRECAT20V1.H"
+struct UnitVp;
+struct UnitVp {
+    s16 vscale[4];
+    s16 vtrans[4];
+};
+
+
+
+struct UnitVp;
+typedef struct UnitVp UnitVp;
+
+
+typedef struct SkyLayerRuntimeView SkyLayerRuntimeView;
+struct SkyLayerRuntimeView;
+struct SkyLayerRuntimeView {
+    char gap0[4];
+    struct SkyLayerRuntimeView *next;
+    char gap8[4];
+    struct CROMSkyLayer *descriptor;
+    u16 mask;
+    char gap12[2];
+    s32 texture[2];
+    f32 offsetS;
+    f32 offsetT;
+    char gap24[4];
+    UnitVtx vertices[2][15];
+    f32 throttle;
+    f32 phase;
+    f32 depth;
+    f32 phaseScale;
+    f32 textureScale;
+    f32 trim;
+    f32 opacity;
+    u8 pad224[4]; /* Pool_InitEntryPool advances 0x228 bytes; scene readers end at opacity +0x220. */
+};
+
+/* Pool_InitEntryPool's four 0x228-byte entries and the scene updater's two
+ * intrusive lists are the same embedded camera effect pool. */
+typedef struct Scene Scene;
+struct Scene {
+    SkyLayerRuntimeView entries[4];
+    IntrusiveList freeObjects; /* +0x8A0 */
+    IntrusiveList activeObjects; /* +0x8B4 */
+    u16 effectMask; /* +0x8C8 */
+    u8 pad8CA[2];
+};
+
+typedef struct GameplayCamera GameplayCamera;
+
+typedef struct RaceHeader {
+    s32 allocation; /* +0x00: camera allocation handle, marked in use while drawing. */
+    GameplayCamera *cameras; /* +0x04: allocation base used by Pools_InitGroupPools. */
+    s32 count; /* +0x08 */
+    IntrusiveList active; /* +0x0C */
+    IntrusiveList views;
+    u32 lastMode;
+    s32 layoutTimer;
+    char pad3C[4];
+} RaceHeader;
+
 /* Complete camera records and callback ABI from origin/legacy Camera_UpdateViewProjectionAndEffects_GameplayCamera.c. */
 typedef struct CameraRuntimeMode CameraRuntimeMode;
 struct CameraRuntimeMode {
@@ -53,7 +115,6 @@ struct SharedCameraOwnerView {
 };
 
 
-typedef struct GameplayCamera GameplayCamera;
 struct GameplayCamera {
     char pad0[4];
     GameplayCamera *next; /* 0x04: camera list link */
@@ -109,7 +170,7 @@ struct GameplayCamera {
     char pad11C[4];
     s32 monochrome; /* 0x120: ribbons draw grey while set */
     u16 kickStep; /* +0x124: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    s16 reservedHalf;
+    u16 effectArgument; /* +0x126: Gsky_DrawViewportEffectNoOp argument. */
     CVector3 position; /* +0x128: camera position */
     f32 cachedPitch; /* 0x134: shaken view Euler angles. */
     f32 cachedYaw;
@@ -125,11 +186,13 @@ struct GameplayCamera {
     f32 viewHeight; /* +0x2A0: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     f32 viewLeft;
     f32 viewTop;
-    char pad2AC[0x44];
+    char pad2AC[4];
+    UnitVp viewports[2]; /* +0x2B0: initialized by Pools_InitializeGameplayCamera. */
+    char pad2D0[0x20];
     CQuatern clipPlanes[6];
     CVector3 clipBounds[2];
     CVector3 volumeBounds[2];
-    char projection[2][64]; /* +0x380: double-buffered projection matrices */
+    u32 projection[2][16]; /* +0x380: double-buffered projection matrices */
     Lights lights[2]; /* +0x400: double-buffered lights */
     u16 hudPerspNorm; /* +0x440: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     char pad442[0x6];
@@ -137,9 +200,9 @@ struct GameplayCamera {
     char pad508[0x10];
     s32 reservedWord;
     f32 reservedFloat;
-    u8 reservedByteA;
-    u8 reservedByteB;
-    u8 reservedByteC;
+    u8 clearRed; /* +0x520: Camera_SetupViewportAndFog clear color. */
+    u8 clearGreen;
+    u8 clearBlue;
     u8 reservedByteD;
     u8 reservedByteE;
     u8 reservedByteF;
@@ -153,21 +216,21 @@ struct GameplayCamera {
     s32 fogNear; /* 0x53C */
     s32 reservedWordB;
     s32 fadeEnabled; /* 0x544 */
-    u8 reservedByteI;
-    u8 pad549;
+    s8 damageEffectMode; /* +0x548: Gsky_SetDamageEffect. */
+    s8 damageEffectDelay; /* +0x549: Gsky_SetDamageEffect. */
     s8 fadeMode; /* 0x54A */
     s8 fadeRed, fadeGreen, fadeBlue;
     s8 fadeStart, fadeEnd, fadeStep, fadeState;
     u8 pad552[2];
     MessageList messageList; /* 0x554 */
     u8 pad56C[4];
-    s8 sceneEffects; /* +0x570: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char pad571[0xE40 - 0x571];
+    Scene sceneEffects; /* +0x570..+0xE3B: Pool_InitEntryPool, Sky_UpdateSceneEffects. */
+    char padE3C[4];
     IntrusiveList objects;
     f32 faceScreen[16]; /* 0xE54: billboard rotation facing the screen (m_mfFaceScreen) */
     f32 faceScreenUpright[16]; /* 0xE94: billboard rotation about Y only, keeping Y up (m_mfFaceScreenYAxisUp) */
     u8 alignED4[4]; /* CCamera_t is 0xED8 bytes: its packed-matrix members align it to 8 */
-};
+} __attribute__((aligned(8)));
 
 
 
@@ -177,8 +240,8 @@ struct SharedCameraRenderView {
     s32 reservedWord; /* +0x4: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     s32 alternateViewEnabled; /* +0x8: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     char padC[4];
-    RacerViewport view; /* +0x10: g_fallbackScreenMessageEmitter, the render view embedded in g_playerWeaponClassMode */
-    char padView[0x122F - 0x10 - sizeof(RacerViewport)];
+    GameplayCamera view; /* +0x10: g_fallbackScreenMessageEmitter, the render view embedded in g_playerWeaponClassMode */
+    char padView[0x122F - 0x10 - sizeof(GameplayCamera)];
     u8 sequenceViewReady; /* +0x122F: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     char pad1230[0x590];
     CameraRuntimeMode state; /* +0x17C0: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
@@ -200,12 +263,24 @@ struct Shared_CameraModeCallback {
 };
 
 
-/* The list header and complete primary camera, followed by the effect pools. */
-typedef struct RaceViewportState {
+/* Message storage begins immediately after the owner's complete primary camera.
+ * Pools_ResetPlayers and Gsky_ReleaseScreenMessageRendering operate on this
+ * same 0x1208-byte object; Camera_DrawActiveViews reads its header and self. */
+typedef struct MessageBuffer {
+    s32 *allocation;
+    s32 first;
+    s32 count;
+} MessageBuffer;
+typedef struct ScreenMessageOwner ScreenMessageOwner;
+struct ScreenMessageOwner {
     RaceHeader header;
-    GameplayCamera self;
-    char padAfterCamera[0x11D8 - sizeof(RaceHeader) - sizeof(GameplayCamera)];
-    IntrusiveList freeEffects;
-    IntrusiveList activeEffects;
-} RaceViewportState;
+    GameplayCamera self; /* +0x40..+0xF17 */
+    MessageBuffer storage; /* +0xF18 */
+    IntrusiveList activeMessages; /* +0xF24: recycled owner entries */
+    CShake effects[8]; /* +0xF38..+0x11D7: Pools_ResetActorPools, consumed by viewport updates. */
+    IntrusiveList freeEffects; /* +0x11D8 */
+    IntrusiveList activeEffects; /* +0x11EC */
+    s32 state; /* +0x1200 */
+    s32 reservedWord; /* +0x1204 */
+};
 #endif

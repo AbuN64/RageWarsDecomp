@@ -1,6 +1,7 @@
 #ifndef COMMON_DESCRIPTORRECAT29_H
 #define COMMON_DESCRIPTORRECAT29_H
 #include "TYPES.H"
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/AIPROFILE.H"
@@ -15,8 +16,7 @@ struct ClipView;
 typedef struct ClipView ClipView;
 
 
-struct SkyEffectObjectListsView;
-typedef struct SkyEffectObjectListsView SkyEffectObjectListsView;
+struct Scene;
 
 struct Host;
 struct Host {
@@ -70,27 +70,7 @@ struct Effect {
 struct Host;
 typedef struct Host Host;
 
-struct SkyLayerRuntimeView;
-struct SkyLayerRuntimeView {
-    char gap0[4];
-    struct SkyLayerRuntimeView *next;
-    char gap8[4];
-    CROMSkyLayer *descriptor;
-    u16 mask;
-    char gap12[2];
-    s32 texture[2];
-    f32 offsetS;
-    f32 offsetT;
-    char gap24[4];
-    UnitVtx vertices[2][15];
-    f32 throttle;
-    f32 phase;
-    f32 depth;
-    f32 phaseScale;
-    f32 textureScale;
-    f32 trim;
-    f32 opacity;
-};
+
 
 
 extern float g_skyRotorSpinScale;
@@ -113,10 +93,8 @@ struct ClipView {
 };
 
 struct SkyLayerRuntimeView;
-typedef struct SkyLayerRuntimeView SkyLayerRuntimeView;
 
 struct Scene;
-typedef struct Scene Scene;
 
 extern float g_skyRotorMaximumThrottle;
 
@@ -136,7 +114,7 @@ struct SkyEffectSortValueView;
 struct SkyLayerRuntimeView;
 struct Scene;
 
-struct SkyEffectObjectListsView;
+struct Scene;
 
 extern void Textload_ReadTextureAnimationInfo(s32 **, void *);
 

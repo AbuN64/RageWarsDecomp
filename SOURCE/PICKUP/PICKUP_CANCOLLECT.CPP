@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "include_asm.h"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
@@ -175,7 +176,7 @@ s32 Pickup_DispatchHandler(Other *actor, s32 target, s32 id) {
 #include "COMMON/MENU_ABBDC_VERSIONS.H"
 extern WeaponInfo *g_weaponInfoByType[];
 #include "COMMON/MENU_MATCH_GLOBALS.H"
-extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text);
+extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text);
 extern s32 Player_AddAmmo(void *, s32, s32), SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 
 s32 Pickup_ApplyWeaponPickup(Player *player, MultiChannelItemEffect *pickup)

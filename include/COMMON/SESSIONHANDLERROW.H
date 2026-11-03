@@ -59,7 +59,7 @@ extern void Items_ResetGameOptions(struct COptions *options);
 typedef Node_Pak_CountLiveNodes TimingQueue;
 typedef struct TimingWorld {
  char pad0[0x255C8];
- RaceViewportState viewport;
+ ScreenMessageOwner viewport;
  char pad267C8[0x5E8]; f32 elapsedTime;
  s32 previousMode; u32 currentMode,pendingMode;
  u8 fadeFast; u8 fadeMode;

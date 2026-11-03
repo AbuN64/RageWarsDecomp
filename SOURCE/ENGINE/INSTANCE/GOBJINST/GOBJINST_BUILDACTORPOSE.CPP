@@ -592,7 +592,7 @@ typedef struct SceneObject SceneObject;
 typedef struct DrawContext {
     s32 visible;
     s32 hasSecond;
-    struct RacerViewport *camera;
+    struct GameplayCamera *camera;
     void *first;
     void *second;
     f32 *offset;
@@ -628,7 +628,7 @@ extern void TextLoad_ResetTextureCache(void);
  * then records the object's draw callback into a display list cached on the object (a branch placeholder is
  * patched at the end) or replays the cached list.
  * Byte-exact for us-rev1. */
-void Gobjinst_DrawVisibleCachedActor(SceneObject *object, struct RacerViewport *camera) {
+void Gobjinst_DrawVisibleCachedActor(SceneObject *object, struct GameplayCamera *camera) {
     void **mem;
     void *model;
     void *first;
@@ -658,7 +658,7 @@ void Gobjinst_DrawVisibleCachedActor(SceneObject *object, struct RacerViewport *
     visible = 1;
     if (!(object->flags & 0x200000)) {
         second_needed = visible = 0;
-        if (object->model == 0 || (camera->visibilityFlags & object->model->viewMask)) {
+        if (object->model == 0 || (camera->floorSurface & object->model->viewMask)) {
             if (camera->clipBounds[1].x > object->bounds.min.x && camera->clipBounds[0].x < object->bounds.max.x &&
                 camera->clipBounds[1].z > object->bounds.min.z && camera->clipBounds[0].z < object->bounds.max.z &&
                 camera->clipBounds[1].y > object->bounds.min.y && camera->clipBounds[0].y < object->bounds.max.y &&

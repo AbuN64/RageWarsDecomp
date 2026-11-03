@@ -1,4 +1,5 @@
 #include "COMMON/NAVIGATION_GRAPH.H"
+#include "COMMON/VIEWFLAGS.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "../../../sdk/include/LIBC.H"
 #include "COMMON/SCENERECAT10C0.H"

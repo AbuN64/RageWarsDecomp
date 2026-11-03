@@ -1049,7 +1049,7 @@ static inline void Camera_UnpackColor(u32 color, u8 *red, u8 *green, u8 *blue) {
 }
 
 /* Set projection, viewport and look-at, then draw the view's clear rectangle and fog. */
-void Camera_SetupViewportAndFog(RacerViewport *view) {
+void Camera_SetupViewportAndFog(GameplayCamera *view) {
     u8 red, green, blue;
     s16 uly, ulx, lrx, lry;
     s32 flag;
@@ -1064,19 +1064,19 @@ void Camera_SetupViewportAndFog(RacerViewport *view) {
     gDPPipeSync((*gfx)++);
     gSPDisplayList((*gfx)++, ((&g_cameraViewDisplayListFirst)));
     gSPDisplayList((*gfx)++, ((&g_cameraViewDisplayListSecond_de)));
-    view->screenScaleX = 1.0f;
-    view->screenScaleY = 1.0f;
-    view->screenScaleX = view->viewportScaleX;
-    view->screenScaleY = view->viewportScaleY;
-    x = view->viewportX;
-    y = view->viewportY;
-    width = view->viewportWidth;
+    view->pixelXScale = 1.0f;
+    view->pixelYScale = 1.0f;
+    view->pixelXScale = view->fadeScalarOne;
+    view->pixelYScale = view->fadeScalarTwo;
+    x = view->viewLeft;
+    y = view->viewTop;
+    width = view->viewWidth;
     maxx = SCREEN_WD - 1;
-    height = view->viewportHeight;
+    height = view->viewHeight;
     ulx = x;
     maxy = SCREEN_HT - 1;
-    vx = (width + width) * view->screenScaleX;
-    vy = (height + height) * view->screenScaleY;
+    vx = (width + width) * view->pixelXScale;
+    vy = (height + height) * view->pixelYScale;
     uly = y;
     lrx = x + width;
     lry = y + height;
@@ -1094,19 +1094,19 @@ void Camera_SetupViewportAndFog(RacerViewport *view) {
     }
     buffer = g_gameSession.ring.current;
     frame = g_lightingBufferIndex;
-    gSPMatrix((*gfx)++, view->projectionMatrices[frame], G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
-    gSPPerspNormalize((*gfx)++, view->perspectiveNorm);
+    gSPMatrix((*gfx)++, view->projection[frame], G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
+    gSPPerspNormalize((*gfx)++, view->perspNorm);
     view->viewports[frame].vscale[0] = vx;
     view->viewports[frame].vscale[1] = vy;
-    view->viewports[frame].vtrans[0] = (vx * 0.25f + view->viewportX) * 4.0f;
-    view->viewports[frame].vtrans[1] = (vy * 0.25f + view->viewportY) * 4.0f;
+    view->viewports[frame].vtrans[0] = (vx * 0.25f + view->viewLeft) * 4.0f;
+    view->viewports[frame].vtrans[1] = (vy * 0.25f + view->viewTop) * 4.0f;
     gSPViewport((*gfx)++, &view->viewports[frame]);
     gDPSetScissor((*gfx)++, G_SC_NON_INTERLACE, ulx, uly, lrx, lry);
-    gSPLookAtX((*gfx)++, &view->lights[frame][0]);
-    gSPLookAtY((*gfx)++, &view->lights[frame][4]);
-    Geometry_SetViewEffect(view->effect);
+    gSPLookAtX((*gfx)++, &view->lights[frame].light0R);
+    gSPLookAtY((*gfx)++, &view->lights[frame].light1R);
+    Geometry_SetViewEffect(view->monochrome);
     if (view != &g_playerWeaponClassMode.view) {
-        Textload_SetTextureEffect(view->effect);
+        Textload_SetTextureEffect(view->monochrome);
     }
     Geometry_SelectEffectModes();
     TextLoad_ResetTextureCache();
@@ -1118,16 +1118,16 @@ void Camera_SetupViewportAndFog(RacerViewport *view) {
     if (view != &g_playerWeaponClassMode.view || g_playerWeaponClassMode.renderMode == 0 || flag != 0) {
         Geometry_SetModePreset(20);
         gDPPipeSync(g_displayListCursor++);
-        SetN64_ClearDepthRect(&g_gameSession, ulx, lrx, uly, lry, view->effect);
+        SetN64_ClearDepthRect(&g_gameSession, ulx, lrx, uly, lry, view->monochrome);
         gDPSetCycleType(g_displayListCursor++, G_CYC_FILL);
         if (g_gameSettings.flags & 0x4000) {
             red = 0;
             green = 0;
             blue = 0;
         } else {
-            red = view->hit & 0xF8;
-            green = view->boost & 0xF8;
-            blue = view->spin & 0xF8;
+            red = view->clearRed & 0xF8;
+            green = view->clearGreen & 0xF8;
+            blue = view->clearBlue & 0xF8;
         }
         if (Cinema_IsSequenceInWindow() != 0) {
             color = Cinema_GetSequenceProperty();
@@ -1136,7 +1136,7 @@ void Camera_SetupViewportAndFog(RacerViewport *view) {
             }
         }
         gSPGeometryMode(g_displayListCursor++, 0, G_FOG);
-        if (view->effect != 0) {
+        if (view->monochrome != 0) {
             gDPSetFogColor(g_displayListCursor++, 0, 0, 0, 255);
             gSPFogPosition(g_displayListCursor++, 995, 1000);
         } else {
@@ -1144,7 +1144,7 @@ void Camera_SetupViewportAndFog(RacerViewport *view) {
             gSPFogPosition(g_displayListCursor++, (u16)view->fogNear, 1000);
         }
         gDPSetColorImage(g_displayListCursor++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WD, buffer->colorImage);
-        if (view->effect != 0) {
+        if (view->monochrome != 0) {
             gDPSetFillColor(g_displayListCursor++, (GPACK_RGBA5551(0, 0, 0, 1) << 16) | GPACK_RGBA5551(0, 0, 0, 1));
         } else {
             gDPSetFillColor(g_displayListCursor++, (GPACK_RGBA5551(red, green, blue, 1) << 16) |
@@ -1305,7 +1305,7 @@ void Camera_EaseViewportRectangle(GameplayCamera *camera, f32 a, f32 b, f32 c, f
 extern u32 Weapon_UpdateShakeAxis(CShakeAxis *);
 extern void Camera_UpdateViewProjectionAndEffects(GameplayCamera *camera);
 /* Update split-screen rectangles, advance transient effects, and merge visible bounds. */
-void Camera_UpdateViewportLayoutAndBounds(RaceViewportState *state) {
+void Camera_UpdateViewportLayoutAndBounds(ScreenMessageOwner *state) {
     f32 halfWidth;
     f32 halfHeight;
     f32 width;
@@ -1619,19 +1619,19 @@ extern f32 g_frameElapsedTime;
 extern char g_cameraViewDisplayListFirst;
 extern char g_cameraViewDisplayListSecond_de;
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
-extern void Gsky_DrawViewportEffectNoOp(RacerViewport *, s32);
+extern void Gsky_DrawViewportEffectNoOp(GameplayCamera *, s32);
 extern void Menu_DispatchMenuListCallback(struct MenuCallbackListOwner *owner);
 extern s32 Cinema_IsSequenceInWindow(void);
-extern void Playerai_DrawViewMatchCountdown(WorldCameraDrawActiveViews *, RacerViewport *);
+extern void Playerai_DrawViewMatchCountdown(WorldCameraDrawActiveViews *, GameplayCamera *);
 /* Per-frame race update: clears three per-frame flags of the race's own racer, passes the race's first word to Cache_MarkResourceInUse, runs the 30-frame flash timer (restarted while g_simpleObjectPauseState is set or in mode 3) and while it runs clears the screen with a full-screen viewport, scissor and fill before Geometry_InvalidateMaterialKeys, then updates every racer in the list until it ends or Cinema_IsSequenceActive or Cinema_IsSequenceInWindow reports, updates the race's own racer, hands the list to Playerai_DrawViewMatchCountdown when the replay flag of g_playerViewRenderContext is set, and passes the own racer's block at 0x554 to Menu_DispatchMenuListCallback. */
-void Camera_DrawActiveViews(Race *race, s32 world)
+void Camera_DrawActiveViews(ScreenMessageOwner *race, s32 world)
 {
-    RacerViewport *racer;
-    race->self.hit = 0;
-    race->self.boost = 0;
-    race->self.spin = 0;
-    if (race->header.music != 0) {
-        Cache_MarkResourceInUse(0, race->header.music);
+    GameplayCamera *racer;
+    race->self.clearRed = 0;
+    race->self.clearGreen = 0;
+    race->self.clearBlue = 0;
+    if (race->header.allocation != 0) {
+        Cache_MarkResourceInUse(0, race->header.allocation);
     }
     if (g_gameSession.clockPaused != 0 || race->header.views.count == 3) {
         g_cameraFramingTransitionTimer = 30.0f;
@@ -1666,12 +1666,12 @@ void Camera_DrawActiveViews(Race *race, s32 world)
     for (racer = race->header.views.head; racer != 0;) {
         Camera_SetupViewportAndFog(racer);
         Camera_DrawWorldViewLayers((char *) racer, (char *) world);
-        if (racer->effect != 0) {
-            Gsky_DrawViewportEffectNoOp(racer, racer->effectArg);
+        if (racer->monochrome != 0) {
+            Gsky_DrawViewportEffectNoOp(racer, racer->effectArgument);
         }
         Camera_DrawViewportOverlays((View *) racer);
         Camera_DrawAndAdvanceMessages(race, racer);
-        Menu_DispatchMenuListCallback(racer->sound);
+        Menu_DispatchMenuListCallback(&racer->messageList);
         Camera_DrawViewportBorder(racer);
         if (Cinema_IsSequenceActive() != 0 || Cinema_IsSequenceInWindow() != 0) {
             racer = 0;
@@ -1690,11 +1690,11 @@ void Camera_DrawActiveViews(Race *race, s32 world)
             Playerai_DrawViewMatchCountdown(&g_playerViewRenderContext, racer);
         }
     }
-    Menu_DispatchMenuListCallback(race->self.sound);
+    Menu_DispatchMenuListCallback(&race->self.messageList);
 }
 
 
-void Camera_DrawViewportBorder(RacerViewport *racer) {
+void Camera_DrawViewportBorder(GameplayCamera *racer) {
     View *entity = (View *)racer;
     f32 x;
     f32 y;
@@ -1757,19 +1757,19 @@ extern ScreenMessageTextView g_screenMessageSubstitutionSource;
 
 
 
-static inline CCameraText *recycle(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool) {
+static inline CCameraText *recycle(struct ScreenMessageOwner *owner, struct GameplayCamera *pool) {
     CCameraText *oldest;
 
     oldest = owner->activeMessages.head;
     if (oldest != 0) {
         Gsky_ClearScreenMessage(oldest);
         List_RemoveIntrusive(&owner->activeMessages, oldest);
-        List_AppendIntrusive(&pool->freeMessages, oldest);
+        List_AppendIntrusive(&pool->objects, oldest);
     }
     return oldest;
 }
 
-static inline CCameraText *post_lines(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text, s32 kind, f32 size, s32 target) {
+static inline CCameraText *post_lines(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text, s32 kind, f32 size, s32 target) {
     CCameraText *message;
     s32 height;
     u8 *line;
@@ -1812,7 +1812,7 @@ static inline CCameraText *post_lines(struct ScreenMessageOwner *owner, struct S
     return message;
 }
 
-CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text) {
+CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text) {
     CCameraText *pending;
     s32 kind;
 
@@ -1821,7 +1821,7 @@ CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct S
         return 0;
     }
     if (Cinema_IsSequenceActive() != 0) {
-        pending = pool->freeMessages.head;
+        pending = pool->objects.head;
         if (pending != 0) {
             kind = 1;
             do {
@@ -1834,7 +1834,7 @@ CCameraText *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct S
 }
 
 extern void Onscrn_DrawText(void *text, s32 x, s32 y, s32 alpha, s32 centred, s32 shadow, f32 scaleX, f32 scaleY);
-void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool) {
+void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct GameplayCamera *pool) {
     f32 spacing;
     f32 fade;
     CCameraText *node;
@@ -1845,7 +1845,7 @@ void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct Screen
     if (pool != 0) {
         OnScreen_SetupTextRendering();
         OnScreen_LoadTextTileModeTwo();
-        node = pool->freeMessages.head;
+        node = pool->objects.head;
         if (node != 0) {
             node->y = (f32)g_hudReferenceViewportHeight * 0.81f;
             for (msg = node->next; msg != 0; msg = msg->next) {
@@ -1853,10 +1853,10 @@ void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct Screen
                 node = msg;
             }
         }
-        for (msg = pool->freeMessages.tail; msg != 0; msg = msg->prev) {
+        for (msg = pool->objects.tail; msg != 0; msg = msg->prev) {
             Onscrn_DrawText(msg->text, (s32)msg->x, (s32)msg->y, msg->m_nAlpha, 1, 1, 1.0f, 1.0f);
         }
-        for (msg = pool->freeMessages.tail; msg != 0; msg = msg->prev) {
+        for (msg = pool->objects.tail; msg != 0; msg = msg->prev) {
             fade = g_frameElapsedTime * 0.06666667f;
             node = msg;
             switch (msg->kind) {
@@ -1878,7 +1878,7 @@ void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct Screen
                 msg->m_nAlpha = (s32)(Math_Cosf(msg->m_ModeTime * 1.5707964f) * 255.0f);
                 msg->m_ModeTime += fade;
                 if (msg->m_ModeTime > 1.0f) {
-                    for (waiting = pool->freeMessages.head; waiting != 0; waiting = waiting->next) {
+                    for (waiting = pool->objects.head; waiting != 0; waiting = waiting->next) {
                         if (waiting->kind == 1) {
                             waiting->kind = 2;
                             waiting->m_ModeTime = 0.0f;
@@ -1894,10 +1894,10 @@ void Camera_UpdateScreenMessages(struct ScreenMessageOwner *owner, struct Screen
                 break;
             }
         }
-        for (msg = pool->freeMessages.tail; msg != 0; msg = node) {
+        for (msg = pool->objects.tail; msg != 0; msg = node) {
             node = msg->prev;
             if (msg->kind == 0) {
-                List_RemoveIntrusive(&pool->freeMessages, msg);
+                List_RemoveIntrusive(&pool->objects, msg);
                 List_PrependIntrusive(&owner->activeMessages, msg);
             }
         }
@@ -1922,7 +1922,7 @@ extern s32 g_frontendCurrentVideoModeIndex;
 extern void Onscrn_DrawText(void *, s32, s32, s32, s32, s32, f32, f32);
 
 /* Draws and advances the screen messages of one view, retiring finished ones. */
-void Camera_DrawAndAdvanceMessages(Race *race, RacerViewport *racer) {
+void Camera_DrawAndAdvanceMessages(ScreenMessageOwner *race, GameplayCamera *racer) {
     f32 scale;
     f32 width, height, x, y;
     f32 scaleY;
@@ -1937,14 +1937,14 @@ void Camera_DrawAndAdvanceMessages(Race *race, RacerViewport *racer) {
     s32 centered;
 
     if (Cinema_IsSequenceInWindow() != 0) {
-        Camera_UpdateScreenMessages((struct ScreenMessageOwner *)race, (struct ScreenMessagePool *)racer);
+        Camera_UpdateScreenMessages((struct ScreenMessageOwner *)race, (struct GameplayCamera *)racer);
         return;
     }
     scale = g_cameraMessageResolutionScale;
-    height = racer->viewportHeight;
-    width = racer->viewportWidth;
-    x = racer->viewportX;
-    y = racer->viewportY;
+    height = racer->viewHeight;
+    width = racer->viewWidth;
+    x = racer->viewLeft;
+    y = racer->viewTop;
     scaleY = height / (f32)g_hudReferenceViewportHeight;
     scaleX = width / (f32)g_hudReferenceViewportWidth;
     small = 1;
@@ -1955,7 +1955,7 @@ void Camera_DrawAndAdvanceMessages(Race *race, RacerViewport *racer) {
     drop = scaleY * g_cameraMessageDropScale;
     left = height * g_cameraMessageVerticalOffsetScale + y;
     offsetY = left - drop;
-    message = racer->activeMessages.tail;
+    message = racer->objects.tail;
     for (; message != 0; message = prev) {
         prev = message->prev;
         if (message->kind != 0) {
@@ -2007,8 +2007,8 @@ void Camera_DrawAndAdvanceMessages(Race *race, RacerViewport *racer) {
             }
         }
         if (message->kind == 0) {
-            List_RemoveIntrusive(&racer->activeMessages, message);
-            List_PrependIntrusive(&race->freeMessages, message);
+            List_RemoveIntrusive(&racer->objects, message);
+            List_PrependIntrusive(&race->activeMessages, message);
         }
         offsetY -= scaleY * g_cameraMessageLineOffsetScale / scale;
     }

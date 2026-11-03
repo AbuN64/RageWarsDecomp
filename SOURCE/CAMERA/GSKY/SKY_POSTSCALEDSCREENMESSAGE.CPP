@@ -59,7 +59,7 @@ static inline CCameraText *recycle(void *owner, void *pool) {
     if (oldest != 0) {
         Gsky_ClearScreenMessage(oldest);
         List_RemoveIntrusive(&((struct ScreenMessageOwner *)owner)->activeMessages, oldest);
-        List_AppendIntrusive(&((struct ScreenMessagePool *)pool)->freeMessages, oldest);
+        List_AppendIntrusive(&((struct GameplayCamera *)pool)->objects, oldest);
     }
     return oldest;
 }
@@ -110,7 +110,7 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
 
 void Gsky_StartEmitter(char *obj, f32 a, f32 b, f32 c, f32 scale, s32 value, CVector3 pos)
 {
-    RaceViewportState *state = (void *)obj;
+    ScreenMessageOwner *state = (void *)obj;
     CShake *node = state->freeEffects.head;
     f32 k;
 
@@ -157,10 +157,10 @@ void *Gsky_FindNearestCamera(MenuMatchGlobals *menuMatchGlobals, CVector3 *zero)
     return bestNode;
 }
 
-f32 Gsky_GetMeanViewDistance(Race *viewOwner, void *targetPosition) {
+f32 Gsky_GetMeanViewDistance(ScreenMessageOwner *viewOwner, void *targetPosition) {
     CVector3 position;
     f32 sum;
-    RacerViewport *node;
+    GameplayCamera *node;
     f64 divisor;
     s32 count;
 
@@ -187,7 +187,7 @@ f32 Gsky_GetMeanViewDistance(Race *viewOwner, void *targetPosition) {
     return sum / (f32)divisor;
 }
 
-void *Gsky_PostFlaggedScreenMessage(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool, u8 *text) {
+void *Gsky_PostFlaggedScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text) {
     struct CCameraText_t *message = Camera_PostScreenMessage(owner, pool, text);
     if (message != 0) {
         message->forceScaledText = 1;

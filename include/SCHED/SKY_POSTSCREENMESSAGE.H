@@ -1,6 +1,7 @@
 #ifndef SCHED_SKY_POSTSCREENMESSAGE_H
 #define SCHED_SKY_POSTSCREENMESSAGE_H
 #include "COMMON/DESCRIPTORRECAT29.H"
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/OWNERRECAT8V2.H"
 #include "COMMON/ITEMRECAT20V1.H"
 struct Rotor {
@@ -21,21 +22,6 @@ struct Rotor {
 struct SkyEffectSortValueView {
     char pad0[0x210];
     float sortValue;
-};
-struct Scene {
-    u8 reserved000[0x8A0];
-    IntrusiveList freeObjects; /* +0x8A0; probe 20261019T012545644265Z */
-    struct SkyLayerRuntimeView *objects; /* active-list head, +0x8B4 */
-    struct SkyLayerRuntimeView *lastObject;
-    s32 objectPrevOffset, objectNextOffset;
-    s32 count;
-    u16 effectMask; /* +0x8C8: Sky_UpdateSceneEffects */
-    u8 reserved8CA[2];
-};
-struct SkyEffectObjectListsView {
-    unsigned char padding_0[2208];
-    IntrusiveList sceneEffects;
-    IntrusiveList inactiveSceneEffects;
 };
 struct Reusable {
     s32 reservedWord;

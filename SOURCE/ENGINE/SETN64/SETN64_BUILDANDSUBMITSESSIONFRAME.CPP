@@ -31,7 +31,7 @@
 #include "SYSTEM/DEFS_TOGGLESAVEDFLAG.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-extern void Camera_UpdateViewportLayoutAndBounds(RaceViewportState *);
+extern void Camera_UpdateViewportLayoutAndBounds(ScreenMessageOwner *);
 extern void SetN64_DrawColorRectangle(void *, u8 *, s32,s32,s32,s32);
 extern void SetN64_ClearDepthRect(void *, s32,s32,s32,s32,s32);
 extern void SetN64_SubmitFrameTasks(TimingWorld *,Frame *);

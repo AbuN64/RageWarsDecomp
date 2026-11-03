@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/LEVEL_TRACK.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/SESSIONHANDLERROW.H"
@@ -11,7 +12,7 @@
 #include "TYPES.H"
 
 
-void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 
 void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 

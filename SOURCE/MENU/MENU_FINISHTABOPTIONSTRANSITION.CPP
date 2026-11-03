@@ -1,3 +1,4 @@
+#include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "RSP/RANDOM_DIRECTION_AND_AFFINE_MATH.H"
 #include "COMMON/MENU_UI_PROVIDERS.H"
@@ -34,7 +35,7 @@ extern s32 Track_RequestTrackByKey(s32);
 extern void MarkMenuEventHandled();
 
 extern void Tsmos_RequestFrontendShutdown(void);
-extern void Pools_ResetActorPools(struct DraftOwnerA370 *owner, s32 actorCount);
+extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);
 extern void Stage_StartConfiguredMatch(void);
