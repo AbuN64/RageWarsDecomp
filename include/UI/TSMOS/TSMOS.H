@@ -13,4 +13,6 @@ extern void Tsmos_RequestFrontendShutdown(void);
 extern void Tsmos_ScaleCurrentScreen(void);
 
 extern void Tsmos_ShutdownFrontend(void);
+extern void InitFrontendMenus(void);
+extern void Tsmos_InitializeEuropeanFrontend(void);
 #endif

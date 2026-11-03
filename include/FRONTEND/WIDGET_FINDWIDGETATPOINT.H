@@ -12,5 +12,4 @@ extern void Widget_FindWidgetAtPoint(WidgetPointHitView **hit, WidgetPointHitVie
 extern void Widget_ResetTextClipBounds(void);
 extern void Widget_SetWidgetFlag40(void *object, int enabled);
 extern s32 Widget_ListHasFlag100(struct WidgetNode *node);
-extern void Widget_SetWidgetFlag100(struct Widget *record, int enable);
 #endif

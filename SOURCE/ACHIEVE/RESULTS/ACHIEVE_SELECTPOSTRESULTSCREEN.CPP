@@ -9,7 +9,7 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/MENUSELECTIONMESSAGE.H"
 #include "ACHIEVE/ACHIEVE_OPENRESULTSFRONTEND.H"
-#include "COMMON/ROUND_STATE_VARIANTS.H"
+#include "UI/TSMOS/TSMOS.H"
 #include "COMMON/SELECTIONSCREENSTATE.H"
 
 /* Calls InitFrontendMenus and Tsmos_DeactivateControllerState, then SmXlate_SwitchScreen with 0x12. */

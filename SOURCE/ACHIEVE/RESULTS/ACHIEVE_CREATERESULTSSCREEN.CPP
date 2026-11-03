@@ -34,6 +34,7 @@ const float g_resultPreviewTransformConstants[6] = {
 #include "COMMON/REQUESTRECAT10.H"
 #include "UI/X_FILES/X_STDIO.H"
 #include "MENU/PLAYER_PREVIEW/ACHIEVE/ACHIEVE.H"
+extern void Widget_SetWidgetFlag100(MenuWidget *, s32);
 extern Active *g_currentStagePreset;
 extern struct ResultsHeadingCharacter g_resultCharacterHeadings[];
 #if !defined(VERSION_EU) && !defined(VERSION_EU_X)
@@ -208,10 +209,10 @@ done:
     SmpButton_WrapButtonWidget(622 + PREVIEW_ID_SHIFT);
     SmpButton_WrapButtonWidget(623 + PREVIEW_ID_SHIFT);
     SmpButton_WrapButtonWidget(627 + PREVIEW_ID_SHIFT);
-    Widget_SetWidgetFlag100((struct Widget *)Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 1);
+    Widget_SetWidgetFlag100(Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 1);
     for (i = 0; i < 4; i++) {
         if (g_localPlayerProfiles[i].player >= 0 && g_localPlayerProfiles[i].fresh == 0) {
-            Widget_SetWidgetFlag100((struct Widget *)Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 0);
+            Widget_SetWidgetFlag100(Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 0);
             break;
         }
     }
