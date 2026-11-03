@@ -6,6 +6,7 @@
 #include "COMMON/OBJB.H"
 #include "COMMON/SCENERECAT10C0.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "ENGINE/MAP.H"
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/COLORENTRY.H"
@@ -58,8 +59,7 @@ struct SceneResourceStateView {
     void ** navVisionResourceHandle; /* +0xFC: src/Scene_LoadLevelResources_SceneResourceState.c */
     s32 visibilityResourceHandle; /* +0x100: src/Scene_LoadLevelResources_SceneResourceState.c */
     char pad104[0x24];
-    u8 matrixPool; /* +0x128: src/Scene_LoadLevelResources_SceneResourceState.c */
-    char pad129[0xF];
+    struct MapBlockAllocatorView matrixPool; /* +0x128, size 0x10 */
     void * levelActors; /* +0x138: src/Scene_LoadLevelResources_SceneResourceState.c */
     s32 levelActorCursor; /* +0x13C: src/Scene_LoadLevelResources_SceneResourceState.c */
     s32 levelActorCount; /* +0x140: src/Scene_LoadLevelResources_SceneResourceState.c */
