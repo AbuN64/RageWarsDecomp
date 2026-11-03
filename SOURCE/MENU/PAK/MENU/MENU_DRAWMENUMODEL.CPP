@@ -244,65 +244,7 @@ void Menu_DrawMenuModel(PakModelEntry *entry, PakMenuCursor *cursor, void *unuse
 extern void *Menu_GetListContext(s8 *member);
 extern void Menu_StopMenuPulse(struct Object1C8 *object);
 extern void Menu_StartMenuPulse(struct Object1C8 *object);
-typedef struct MenuBuildState MenuBuildState;
-typedef struct MenuBuildEntry MenuBuildEntry;
-/* One row of a menu definition's item table (0x24 bytes). */
-typedef struct MenuBuildItem {
-    s16 type;
-    u16 reserved02;
-    u32 flags;
-    s16 x, y;
-    u8 red, green, blue, alpha;
-    s32 resource;
-    u8 reserved14[8];
-    void (*initialize)(MenuBuildEntry *, MenuBuildState *, MessageList *);
-    u8 reserved20[4];
-} MenuBuildItem;
-/* The definition a menu is built from: its item table and count, an optional setup callback and its
-   screen position (unit view of struct Dialog). */
-typedef struct MenuBuildDefinition {
-    MenuBuildItem *items;
-    s16 count;
-    u16 reserved06;
-    void (*initialize)(MenuBuildState *, MessageList *);
-    u8 reserved0C[12];
-    s16 x, y, kind;
-    u16 reserved1E;
-    s32 value;
-} MenuBuildDefinition;
-/* A live menu entry built from one item (0x28 bytes); `extra` points at its private block. */
-struct MenuBuildEntry {
-    s32 index;
-    s16 type;
-    u16 reserved06;
-    u32 flags;
-    s16 x, y;
-    u8 red, green, blue, alpha;
-    s32 resource;
-    MenuBuildItem *definition;
-    s32 selection;
-    u8 *extra;
-    MenuBuildState *menu;
-};
-/* The menu block: this header, then `count` entries, then the private blocks of the entries that
-   need one. */
-struct MenuBuildState {
-    s16 x, y, kind;
-    u16 reserved06;
-    void **allocation;
-    MenuBuildEntry *entries;
-    s32 count;
-    MenuBuildDefinition *definition;
-    s32 value18, value1C;
-    PakMenuInputStateView *input;
-    s32 value24;
-    u16 state, ownerSlot;
-    s32 value2C, value30, value34, value38, value3C;
-    void *context;
-    MessageList *owner;
-    Vtx_t vertices[2][8];
-    u8 reserved148[0x90];
-};
+#include "MENU/BUILT_MENU.H"
 /* Private block size of an item: type 3 items own 0x480 bytes (inline copy of Menu_GetMenuItemExtraSize). */
 static inline s32 menuItemExtraSize(MenuBuildItem *definition) {
     s32 size = 0;
@@ -339,7 +281,7 @@ void Menu_InitializeMenu(MenuBuildState *menu, void **allocation, MenuBuildDefin
     u8 *extra;
     MenuBuildEntry *entry;
     s32 i, bank;
-    menu->x = definition->x;
+    menu->selected = definition->x;
     menu->y = definition->y;
     menu->kind = definition->kind;
     menu->allocation = allocation;
@@ -360,9 +302,9 @@ void Menu_InitializeMenu(MenuBuildState *menu, void **allocation, MenuBuildDefin
     menu->value24 = value24;
     menu->state = 0;
     menu->ownerSlot = owner->rotation;
-    menu->value2C = 0;
-    menu->value30 = 0;
-    menu->value34 = 0;
+    menu->fade = 0;
+    menu->openA = 0;
+    menu->openB = 0;
     menu->value38 = 1;
     menu->value3C = 0;
     menu->context = Menu_GetListContext((s8 *)owner);
@@ -390,7 +332,7 @@ void Menu_InitializeMenu(MenuBuildState *menu, void **allocation, MenuBuildDefin
     entry = menu->entries;
     while (--i != -1) {
         if (entry->definition->flags & 0x4000000) {
-            if (entry->definition->initialize != 0) entry->definition->initialize(entry, menu, owner);
+            if (entry->definition->activate != 0) entry->definition->activate(entry, menu, owner);
         }
         entry++;
     }

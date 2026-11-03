@@ -1,3 +1,4 @@
+#include "COMMON/AIPROFILE.H"
 #include "COMMON/GAMEPLAY_SETTINGS.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "include_asm.h"
@@ -105,32 +106,26 @@ s32 Player_RestoreControlsOrCreateMenu(void *first, void *second, void *third) {
 #define playerStatusText14() g_playerStatusMessage14Translations[g_languageIndex]
 #endif
 /* Formats a player's status line into a menu field's text through Libc_FormatString (sprintf): one message when the player is its own partner, otherwise a message chosen by the player's mode at 0x12F0 (0 to 6), naming the partner's character from 0x84 of its record at 0x5D8 when there is a partner. */
-typedef struct StatusPlayer {
-    char pad0[0x5D8];
-    char *record;
-    char pad5DC[0x12EC - 0x5DC];
-    struct StatusPlayer *partner;
-    unsigned int mode;
-} StatusPlayer;
+
 
 typedef struct {
     char pad0[0x10];
     char **text;
-} Field;
+} PartnerStatusDescriptor;
 
 typedef struct {
     char pad0[0x18];
-    Field *field;
-} Item;
+    PartnerStatusDescriptor *field;
+} PartnerStatusItem;
 
 typedef struct {
     char pad0[0x1C];
-    StatusPlayer *player;
-} Owner;
+    Player *player;
+} PartnerStatusMenuContext;
 
 
-s32 Player_FormatPlayerPartnerStatus(Item *item, Owner *owner) {
-    StatusPlayer *player = owner->player;
+s32 Player_FormatPlayerPartnerStatus(PartnerStatusItem *item, PartnerStatusMenuContext *owner) {
+    Player *player = owner->player;
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     char *text = item->field->text[g_languageIndex];
 #else
@@ -139,17 +134,17 @@ s32 Player_FormatPlayerPartnerStatus(Item *item, Owner *owner) {
     if (player->partner == player) {
         Libc_FormatString(text, playerStatusText0());
     } else if (player->partner != 0) {
-        switch (player->mode) {
-        case 0: Libc_FormatString(text, playerStatusText1(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 1: Libc_FormatString(text, playerStatusText2(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 2: Libc_FormatString(text, playerStatusText3(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 3: Libc_FormatString(text, playerStatusText4(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 4: Libc_FormatString(text, playerStatusText5(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 5: Libc_FormatString(text, playerStatusText6(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
-        case 6: Libc_FormatString(text, playerStatusText7(), &((Shared_PlayerSettingsRecord *)player->partner->record)->name); break;
+        switch (player->partnerStatus) {
+        case 0: Libc_FormatString(text, playerStatusText1(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 1: Libc_FormatString(text, playerStatusText2(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 2: Libc_FormatString(text, playerStatusText3(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 3: Libc_FormatString(text, playerStatusText4(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 4: Libc_FormatString(text, playerStatusText5(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 5: Libc_FormatString(text, playerStatusText6(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
+        case 6: Libc_FormatString(text, playerStatusText7(), &((Shared_PlayerSettingsRecord *)player->partner->profile)->name); break;
         }
     } else {
-        switch (player->mode) {
+        switch (player->partnerStatus) {
         case 0: Libc_FormatString(text, playerStatusText8()); break;
         case 1: Libc_FormatString(text, playerStatusText9()); break;
         case 2: Libc_FormatString(text, playerStatusText10()); break;

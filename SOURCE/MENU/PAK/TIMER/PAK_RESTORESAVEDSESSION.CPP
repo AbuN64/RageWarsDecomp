@@ -1,3 +1,5 @@
+#include "COMMON/AIPROFILE.H"
+#include "MENU/PAK/SAVE_SNAPSHOT.H"
 #include "COMMON/WORLD.H"
 #include "include_asm.h"
 #include "COMMON/SHAREDPLAYER.H"
@@ -28,31 +30,24 @@ void Pak_ApplyStagedPlayerProfile(struct PlayerSavedProfileOwner *owner) {
     }
 }
 
-typedef struct SavedPlayer { s32 data[28]; } SavedPlayer;
-typedef struct SavedSettings { s32 data[353]; } SavedSettings;
-typedef struct SavedState {
-    char pad0[8]; f32 rules[4]; SavedPlayer player; SavedSettings settings;
-    u8 table[1];
-} SavedState;
-typedef struct RestorePlayer { char pad0[0x5E0]; SavedPlayer saved; } RestorePlayer;
-extern SavedState *g_controllerPakSnapshotPayload;
+extern SaveSnapshot *g_controllerPakSnapshotPayload;
 extern s32 g_persistedOptionUnlockFlags[]; /* an array: its store may alias the loads through g_controllerPakSnapshotPayload, so it stays after them */
 extern u8 g_frontendSavedVideoModeIndex;
 extern u8 g_worldSnapshotNoteData[];
-void Pak_RestoreSavedSession(RestorePlayer *player) {
+void Pak_RestoreSavedSession(Player *player) {
     Shared_World *world = &g_world;
     s32 i;
     u8 *from, *to;
     u8 saved = g_frontendSavedVideoModeIndex;
-    player->saved = g_controllerPakSnapshotPayload->player;
-    *(SavedSettings *)&g_gameSettings = g_controllerPakSnapshotPayload->settings;
-    g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->rules[0];
-    g_gameSettings.counters.m_GameTimeSeconds = g_controllerPakSnapshotPayload->rules[1];
-    g_gameSettings.counters.m_GameTimeMinutes = g_controllerPakSnapshotPayload->rules[2];
-    g_gameSettings.counters.m_GameTimeHours = g_controllerPakSnapshotPayload->rules[3];
-    g_persistedOptionUnlockFlags[0] = ((SavedSettings *)&g_gameSettings)->data[1];
+    *(Copy70 *)&player->state = g_controllerPakSnapshotPayload->player;
+    *(Copy584 *)&g_gameSettings = g_controllerPakSnapshotPayload->world;
+    g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->view[0];
+    g_gameSettings.counters.m_GameTimeSeconds = g_controllerPakSnapshotPayload->view[1];
+    g_gameSettings.counters.m_GameTimeMinutes = g_controllerPakSnapshotPayload->view[2];
+    g_gameSettings.counters.m_GameTimeHours = g_controllerPakSnapshotPayload->view[3];
+    g_persistedOptionUnlockFlags[0] = ((Copy584 *)&g_gameSettings)->words[1];
     g_gameSettings.resolution = saved;
-    from = g_controllerPakSnapshotPayload->table;
+    from = g_controllerPakSnapshotPayload->name;
     to = g_worldSnapshotNoteData;
     for (i = 0; i < world->noteCount; i++) *to++ = *from++;
 }

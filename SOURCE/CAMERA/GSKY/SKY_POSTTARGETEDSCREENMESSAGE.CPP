@@ -106,9 +106,10 @@ CCameraText *Gsky_PostTargetedScreenMessage(void *owner, void *pool, u8 *text, s
     return pending;
 }
 
+/* Starting at the tail follows prev (+0), preserving order when prepending. */
 void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct ScreenMessagePool *pool) {
-    NodeGskyActivateMessagePool *message;
-    NodeGskyActivateMessagePool *nextMessage;
+    CCameraText *message;
+    CCameraText *nextMessage;
     void *freeList;
 
     if (pool != 0) {
@@ -116,7 +117,7 @@ void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct ScreenMes
         freeList = &pool->freeMessages;
         if (message != 0) {
             do {
-                nextMessage = message->next;
+                nextMessage = message->prev;
                 List_RemoveIntrusive(freeList, message);
                 List_PrependIntrusive(&owner->activeMessages, message);
                 message = nextMessage;
@@ -127,10 +128,10 @@ void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct ScreenMes
 }
 
 void Gsky_ActivateAllMessagePools(s32 messageOwner) {
-    NodeGskyActivateMessagePool *next;
-    NodeGskyActivateMessagePool *nextPooledMessage;
-    NodeGskyActivateMessagePool *embeddedMessage;
-    NodeGskyActivateMessagePool *pooledMessage;
+    CCameraText *next;
+    CCameraText *nextPooledMessage;
+    CCameraText *embeddedMessage;
+    CCameraText *pooledMessage;
     void *embeddedPool;
     void *poolCursor;
 
@@ -139,7 +140,7 @@ void Gsky_ActivateAllMessagePools(s32 messageOwner) {
         embeddedMessage = ((struct ScreenMessagePool *)embeddedPool)->freeMessages.tail;
         if (embeddedMessage != 0) {
             do {
-                next = embeddedMessage->next;
+                next = embeddedMessage->prev;
                 List_RemoveIntrusive(&((struct ScreenMessagePool *)embeddedPool)->freeMessages, embeddedMessage);
                 List_PrependIntrusive(&((struct ScreenMessageOwner *)messageOwner)->activeMessages, embeddedMessage);
                 embeddedMessage = next;
@@ -153,7 +154,7 @@ void Gsky_ActivateAllMessagePools(s32 messageOwner) {
             pooledMessage = ((struct ScreenMessagePool *)poolCursor)->freeMessages.tail;
             if (pooledMessage != 0) {
                 do {
-                    nextPooledMessage = pooledMessage->next;
+                    nextPooledMessage = pooledMessage->prev;
                     List_RemoveIntrusive(&((struct ScreenMessagePool *)poolCursor)->freeMessages, pooledMessage);
                     List_PrependIntrusive(&((struct ScreenMessageOwner *)messageOwner)->activeMessages, pooledMessage);
                     pooledMessage = nextPooledMessage;

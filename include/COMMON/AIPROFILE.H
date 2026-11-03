@@ -174,7 +174,10 @@ struct Player {
     u8 color[3]; /* 0x123C: Player_DrawPlayerBodyAndWeapon */
     u8 pad123F;
     f32 opacity; /* 0x1240 */
-    u8 pad1244[0xF8];
+    u8 pad1244[0x12EC - 0x1244];
+    struct Player *partner; /* 0x12EC: Player_FormatPlayerPartnerStatus */
+    u32 partnerStatus; /* 0x12F0: localized partner-status selector */
+    u8 pad12F4[0x133C - 0x12F4];
     s32 countdown; /* 0x133C: Player_UpdateRunEndPlayer */
     s32 resetState; /* 0x1340 */
     u8 pad1344[0x70];

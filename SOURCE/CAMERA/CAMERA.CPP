@@ -61,7 +61,7 @@ extern f32 Gu_Sqrtf(f32);
 void Camera_AccumulateDistanceScaledShake(CShake *shake, CVector3 position, CVector3 *out) {
     f32 distance;
     f32 value;
-    AxisWave *wave;
+    CShakeAxis *wave;
 
     Graphu64_SubtractVectors(&position, &position, &shake->m_vPos);
     distance = Gu_Sqrtf((position.x * position.x) +
@@ -451,21 +451,6 @@ extern void Graphu64_MultiplyAffineMatrices(f32*,f32*,f32*);
 /* The camera position is passed as a three-word CVector3 value. */
 
 /* Actor transform and camera-effect subobjects. */
-typedef struct TransformActor {
-    char pad0[0x28];
-    f32 yaw,pitch,extraYaw,roll;
-    TransformVector position;
-    f32 height;
-    Rotation base;
-    char pad58[0x7C-0x58];
-    s32 enabled;
-    char pad80[0xA0-0x80];
-    CShake effect;
-    char padF4[0x134-0xF4];
-    CVector3 cached;
-    Rotation rotation,combined;
-    f32 matrix[16];
-} TransformActor;
 typedef struct TransformWorld {
     s32 identifier;
     char pad4[0x11AC-4];
@@ -473,7 +458,7 @@ typedef struct TransformWorld {
 } TransformWorld;
 
 void Camera_BuildShakenViewTransform(void *cameraTransform) {
-    TransformActor *actor=cameraTransform;
+    GameplayCamera *actor=cameraTransform;
     Rotation q18,q28,q38,q48,q58;
     f32 m68[16],mA8[16],mE8[16],m128[16],m168[16],m1A8[16];
     CVector3 viewMotionOffsets,result,transformed;
@@ -495,9 +480,9 @@ void Camera_BuildShakenViewTransform(void *cameraTransform) {
     f32 adjustedRoll;
     void *combinedQuaternion;
 
-    if (actor->enabled != 0) {
-        adjustedPitch = actor->pitch;
-        adjustedRoll = actor->roll;
+    if (actor->dirty != 0) {
+        adjustedPitch = actor->lensFlareInputTwo;
+        adjustedRoll = actor->lensFlareInputFour;
         if (Cinema_IsSequenceInWindow() == 0) {
             Gsky_GetFloorSurfaceShake(cameraTransform, &viewMotionOffsets);
             adjustedRoll += viewMotionOffsets.z;
@@ -517,35 +502,35 @@ void Camera_BuildShakenViewTransform(void *cameraTransform) {
             q18.word[1] = 0;
             q18.word[2] = 0;
             q18.f[3] = Math_Cosf(pitchHalfAngle);
-            combinedQuaternion = actor->combined.f;
-            yawHalfSine = Gu_Sinf((actor->yaw + actor->extraYaw) * gameplayAngleScale);
+            combinedQuaternion = ((f32 *)&actor->billboardQuaternion);
+            yawHalfSine = Gu_Sinf((actor->lensFlareInputOne + actor->lensFlareInputThree) * gameplayAngleScale);
             q28.word[0] = 0;
             q28.f[1] = yawHalfSine;
             q28.word[2] = 0;
-            cosineInput = ((actor->yaw + actor->extraYaw) * gameplayAngleScale);
+            cosineInput = ((actor->lensFlareInputOne + actor->lensFlareInputThree) * gameplayAngleScale);
             g_turretAimSine = yawHalfSine;
-            baseQuaternion = actor->base.f;
+            baseQuaternion = actor->floorSampleData.f;
             q28.f[3] = Math_Cosf(cosineInput);
             MultiplyQuaternions(q48.f, q18.f, q28.f);
             MultiplyQuaternions(combinedQuaternion, q48.f, baseQuaternion);
-            MultiplyQuaternions(actor->rotation.f, q38.f, combinedQuaternion);
+            MultiplyQuaternions(((f32 *)&actor->orientation), q38.f, combinedQuaternion);
             MultiplyQuaternions(q58.f, q38.f, q48.f);
             MatrixFromQuaternion(q58.f, m68);
             zero=0.0f;
-            Graphu64_BuildTranslationMatrix(mA8, zero, actor->height, zero);
+            Graphu64_BuildTranslationMatrix(mA8, zero, actor->floorHeightOffset, zero);
             MatrixFromQuaternion(baseQuaternion, mE8);
             result.x = zero;
             result.y = zero;
             result.z = zero;
-            Camera_AccumulateDistanceScaledShake(&actor->effect, actor->effect.m_vPos, &result);
-            Weapon_UpdateShakeAxis(&actor->effect.x);
-            Weapon_UpdateShakeAxis(&actor->effect.y);
-            Weapon_UpdateShakeAxis(&actor->effect.z);
+            Camera_AccumulateDistanceScaledShake(&actor->shake, actor->shake.m_vPos, &result);
+            Weapon_UpdateShakeAxis(&actor->shake.x);
+            Weapon_UpdateShakeAxis(&actor->shake.y);
+            Weapon_UpdateShakeAxis(&actor->shake.z);
             if (cameraTransform != &g_fallbackScreenMessageEmitter) {
                 effect = ((TransformWorld*)(void*)&g_fallbackScreenMessageEmitter)->effects;
                 if (effect != 0) {
                     do {
-                        Camera_AccumulateDistanceScaledShake(effect, actor->position.value, &result);
+                        Camera_AccumulateDistanceScaledShake(effect, (*(CVector3 *)&actor->floorSampleX), &result);
                         effect = effect->next;
                     } while (effect != 0);
                 }
@@ -556,45 +541,45 @@ void Camera_BuildShakenViewTransform(void *cameraTransform) {
             matrix = m1A8;
             Graphu64_MultiplyAffineMatrices(matrix, m168, mE8);
             Graphu64_BuildTranslationMatrix(m128,
-                actor->position.value.x + transformed.x,
-                actor->position.value.y + viewMotionOffsets.y + transformed.y,
-                actor->position.value.z + transformed.z);
-            Graphu64_MultiplyAffineMatrices(actor->matrix, matrix, m128);
+                actor->floorSampleX + transformed.x,
+                actor->floorSampleY + viewMotionOffsets.y + transformed.y,
+                actor->floorSampleZ + transformed.z);
+            Graphu64_MultiplyAffineMatrices(actor->viewOrient, matrix, m128);
         } else {
-            cosineInput = actor->roll;
+            cosineInput = actor->lensFlareInputFour;
             sequenceAngleScale = g_cameraSequenceAngleScale;
             sequenceRollHalfSine = Gu_Sinf(cosineInput * sequenceAngleScale);
             q38.word[0] = 0;
             q38.word[1] = 0;
             q38.f[2] = sequenceRollHalfSine;
-            cosineInput = (actor->roll * sequenceAngleScale);
+            cosineInput = (actor->lensFlareInputFour * sequenceAngleScale);
             g_turretAimSine = sequenceRollHalfSine;
             q38.f[3] = Math_Cosf(cosineInput);
-            sequencePitchHalfSine = Gu_Sinf(actor->pitch * sequenceAngleScale);
+            sequencePitchHalfSine = Gu_Sinf(actor->lensFlareInputTwo * sequenceAngleScale);
             q18.f[0] = sequencePitchHalfSine;
             q18.word[1] = 0;
             q18.word[2] = 0;
-            cosineInput = (actor->pitch * sequenceAngleScale);
+            cosineInput = (actor->lensFlareInputTwo * sequenceAngleScale);
             g_turretAimSine = sequencePitchHalfSine;
             q18.f[3] = Math_Cosf(cosineInput);
-            sequenceYawHalfSine = Gu_Sinf((actor->yaw + actor->extraYaw) * sequenceAngleScale);
+            sequenceYawHalfSine = Gu_Sinf((actor->lensFlareInputOne + actor->lensFlareInputThree) * sequenceAngleScale);
             q28.word[0] = 0;
             q28.f[1] = sequenceYawHalfSine;
             q28.word[2] = 0;
-            cosineInput = ((actor->yaw + actor->extraYaw) * sequenceAngleScale);
+            cosineInput = ((actor->lensFlareInputOne + actor->lensFlareInputThree) * sequenceAngleScale);
             g_turretAimSine = sequenceYawHalfSine;
             q28.f[3] = Math_Cosf(cosineInput);
             MultiplyQuaternions(q48.f, q18.f, q28.f);
-            actor->combined=q48;
-            MultiplyQuaternions(actor->rotation.f, q38.f, actor->combined.f);
+            *(Rotation *)&actor->billboardQuaternion=q48;
+            MultiplyQuaternions(((f32 *)&actor->orientation), q38.f, ((f32 *)&actor->billboardQuaternion));
             MatrixFromQuaternion(q48.f, m68);
-            Graphu64_BuildTranslationMatrix(m128,actor->position.value.x,actor->position.value.y,actor->position.value.z);
-            Graphu64_MultiplyAffineMatrices(actor->matrix, m68, m128);
+            Graphu64_BuildTranslationMatrix(m128,actor->floorSampleX,actor->floorSampleY,actor->floorSampleZ);
+            Graphu64_MultiplyAffineMatrices(actor->viewOrient, m68, m128);
         }
 
-        actor->cached.x = adjustedPitch;
-        actor->cached.z = adjustedRoll;
-        actor->cached.y = (f32) actor->yaw;
+        actor->cachedPitch = adjustedPitch;
+        actor->cachedRoll = adjustedRoll;
+        actor->cachedYaw = (f32) actor->lensFlareInputOne;
     }
 }
 
@@ -847,9 +832,9 @@ actor_found:
     initial_zoom = camera->zoomFov;
     Camera_BuildShakenViewTransform(camera);
     if (Cinema_IsSequenceInWindow() == 0) {
-        Weapon_UpdateShakeAxis(camera->shakeAxisX);
-        Weapon_UpdateShakeAxis(camera->shakeAxisY);
-        Weapon_UpdateShakeAxis(camera->shakeAxisZ);
+        Weapon_UpdateShakeAxis(&camera->shake.x);
+        Weapon_UpdateShakeAxis(&camera->shake.y);
+        Weapon_UpdateShakeAxis(&camera->shake.z);
     }
     viewOrientationMatrix = (s8 *)camera->viewOrient;
     Graphu64_GetMatrixTranslation(viewOrientationMatrix, &camera->position.x);
@@ -1005,7 +990,7 @@ actor_found:
     frameLights->light1PadB = 0;
     Camera_UpdateFrustumBounds(camera);
     MatrixFromQuaternion(&camera->billboardQuaternion, camera->faceScreen);
-    BuildYawMatrix(camera->faceScreenUpright, camera->roll);
+    BuildYawMatrix(camera->faceScreenUpright, camera->cachedYaw);
     if (g_playerWeaponClassMode.alternateViewEnabled != 0) {
         guPerspectiveF(right, &camera->hudPerspNorm, 47.5f, (f32) ((s32) g_hudReferenceViewportWidth / g_hudReferenceViewportHeight), 16.0f, 7168.0f, 1.0f);
         Graphu64_IdentityMatrix(worldToViewMatrix);

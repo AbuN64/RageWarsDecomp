@@ -1058,6 +1058,10 @@ struct BufferPool {
     s32 dirty;
 };
 
+
+
+/* Legacy sequence-player voice link; screen messages use CCameraText.
+ * Its SDK callers are outside this card's write scope. */
 struct NodeGskyActivateMessagePool;
 typedef struct NodeGskyActivateMessagePool NodeGskyActivateMessagePool;
 

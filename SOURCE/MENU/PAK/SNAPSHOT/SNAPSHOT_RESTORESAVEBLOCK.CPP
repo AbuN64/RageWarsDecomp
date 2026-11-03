@@ -1,3 +1,5 @@
+#include "COMMON/AIPROFILE.H"
+#include "MENU/PAK/SAVE_SNAPSHOT.H"
 #include "COMMON/WORLD.H"
 #include "include_asm.h"
 #include "COMMON/MENURECAT24.H"
@@ -17,28 +19,7 @@
    Menu_OpenDialog; otherwise it retries Note_DeleteNote on note g_controllerPakOverwriteNoteIndex and shows the
    g_pakNoteDeleteSucceededDialogResource/g_pakNoteDeleteFailedDialogResource result. Pak_ConfirmPendingOperation's state 4 flow with the load path added; returns 1. */
 
-/* The persistent options block: the first 0x584 bytes of Shared_Game (g_gameSettings). */
-typedef struct PakSavedOptions {
-    s32 words[353];
-} PakSavedOptions;
 
-struct PakSaveBlock {
-    char pad0[0x8];
-    f32 ticks; /* the saved game clock, restored into g_gameSettings.counters */
-    f32 seconds;
-    f32 minutes;
-    f32 hours;
-    Block70 block18;
-    PakSavedOptions options;
-    u8 notes[4096];
-};
-
-struct PakSaveOwner {
-    char pad0[0x5E0];
-    Block70 block;
-    char pad650[0x698 - 0x650];
-    void *slot698;
-};
 
 extern s32 g_pakUseScannedChannel;
 extern s32 g_pakAlternateOptionEnabled;
@@ -54,16 +35,16 @@ extern f32 g_controllerPakPreviewSeconds[];
 extern f32 g_controllerPakPreviewMinutes[];
 extern f32 g_controllerPakPreviewHours[];
 extern u8 g_worldSnapshotNoteData[];
-extern struct PakSaveBlock *g_controllerPakSnapshotPayload;
+extern SaveSnapshot *g_controllerPakSnapshotPayload;
 
 extern s32 Snapshot_CheckStatusPrompt(PakPromptContext *menu, s32 ch, s32 quiet);
 extern s32 Note_DeleteNote(s32 ch, s32 index);
-extern struct PakSaveOwner *Playerai_FindPlayerByController(char *profiles, PakMenuSlot *slot);
+extern Player *Playerai_FindPlayerByController(char *profiles, PakMenuSlot *slot);
 extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
 
 extern s32 g_menuOptionAvailabilityFlags; /* MIXED Snapshot_RestoreSaveBlock */
 s32 Snapshot_RestoreSaveBlock(void *unused, PakPromptContext *menu) {
-    struct PakSaveOwner *owner;
+    Player *owner;
     s32 channel;
     Shared_World *world;
     u8 kept;
@@ -84,22 +65,22 @@ s32 Snapshot_RestoreSaveBlock(void *unused, PakPromptContext *menu) {
         owner = Playerai_FindPlayerByController(g_playerViewRenderContext, menu->slot);
         world = &g_world;
         kept = g_frontendSavedVideoModeIndex[0];
-        owner->block = g_controllerPakSnapshotPayload->block18;
-        *(PakSavedOptions *)&g_gameSettings = g_controllerPakSnapshotPayload->options;
-        g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->ticks;
-        g_controllerPakPreviewSeconds[0] = g_controllerPakSnapshotPayload->seconds;
-        g_controllerPakPreviewMinutes[0] = g_controllerPakSnapshotPayload->minutes;
-        g_controllerPakPreviewHours[0] = g_controllerPakSnapshotPayload->hours;
+        *(Copy70 *)&owner->state = g_controllerPakSnapshotPayload->player;
+        *(Copy584 *)&g_gameSettings = g_controllerPakSnapshotPayload->world;
+        g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->view[0];
+        g_controllerPakPreviewSeconds[0] = g_controllerPakSnapshotPayload->view[1];
+        g_controllerPakPreviewMinutes[0] = g_controllerPakSnapshotPayload->view[2];
+        g_controllerPakPreviewHours[0] = g_controllerPakSnapshotPayload->view[3];
         g_persistedOptionUnlockFlags = g_menuOptionAvailabilityFlags;
         g_frontendSavedVideoModeIndex[0] = kept;
-        src = g_controllerPakSnapshotPayload->notes;
+        src = g_controllerPakSnapshotPayload->name;
         dst = g_worldSnapshotNoteData;
         for (i = 0; i < world->noteCount; i++) {
             *dst++ = *src++;
         }
         g_gameStateBlock[0] = 0;
         g_gameStateBlock[1] = 0;
-        Menu_OpenDialog(&g_gameStateBlock[362], g_pakRestoreBlockPromptText, owner, owner->slot698, 0);
+        Menu_OpenDialog(&g_gameStateBlock[362], g_pakRestoreBlockPromptText, owner, owner->weaponAnimation, 0);
     } else if (Note_DeleteNote(channel, g_controllerPakOverwriteNoteIndex) == 0) {
         Menu_OpenDialog(g_matchEndingTeamWheelClose, g_pakNoteDeleteSucceededDialogResource, menu->player, menu->slot, menu->prompt);
     } else {

@@ -18,22 +18,22 @@
 extern s32 g_resourceLoadPriorityBoost;
 
 void __scYield(void *scheduler) {
-    void *currentRspTask;
-    currentRspTask = (((struct SchedulerCurrentRspTaskView *) ((s8 *) scheduler))->currentRspTask);
-    if ((((struct SchedulerTaskFlagsView *) ((s8 *) currentRspTask))->taskType) == 1) {
-        (((struct SchedulerTaskFlagsView *) ((s8 *) currentRspTask))->state) = (s32) ((((struct SchedulerTaskFlagsView *) ((s8 *) currentRspTask))->state) | 0x10);
+    OSScTask *currentRspTask;
+    currentRspTask = ((OSSched *)scheduler)->curRSPTask;
+    if (currentRspTask->list.t.type == 1) {
+        currentRspTask->state = (s32) (currentRspTask->state | 0x10);
         osSpTaskYield();
     }
 }
 
 void Sched_HandleTaskCommands(void *scheduler) {
-    NodeSchedHandleTaskCommands *node = 0;
+    OSScTask *node = 0;
     s32 value1 = 0;
     s32 value2 = 0;
     s32 flags;
 
     while (osRecvMesg(&((OSSched *)scheduler)->cmdQ, &node, 0) != -1) {
-        if (node->type == 1 && (node->flags & 0x20) && g_resourceLoadPriorityBoost == 0) {
+        if (node->list.t.type == 1 && (node->flags & 0x20) && g_resourceLoadPriorityBoost == 0) {
             g_resourceLoadPriorityBoost = 2;
             osSetThreadPri(&g_resourceCacheWorker, g_resourceLoadBusyPriority);
         }

@@ -95,10 +95,7 @@ struct GameplayCamera {
     f32 bobPhaseY; /* +0x94: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     f32 bobRateX; /* +0x98: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     f32 bobRateY; /* +0x9C: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char transformDefaults[0x18];
-    char shakeAxisX[20]; /* +0xB8: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char shakeAxisY[20]; /* +0xCC: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char shakeAxisZ[20]; /* 0xE0: third CShakeAxis */
+    CShake shake; /* 0xA0..0xF3: position, radius and three shake axes. */
     f32 shakeHorizontal; /* 0xF4 */
     f32 shakeVertical; /* 0xF8 */
     s32 fadeParameterMode;
@@ -114,12 +111,11 @@ struct GameplayCamera {
     u16 kickStep; /* +0x124: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
     s16 reservedHalf;
     CVector3 position; /* +0x128: camera position */
-    char pad134[0x4];
-    f32 roll; /* +0x138: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char pad13C[4];
+    f32 cachedPitch; /* 0x134: shaken view Euler angles. */
+    f32 cachedYaw;
+    f32 cachedRoll;
     CQuatern orientation;
-    f32 billboardQuaternion; /* +0x150: src/Camera_UpdateViewProjectionAndEffects_GameplayCamera.c */
-    char pad154[0xC];
+    CQuatern billboardQuaternion; /* 0x150: combined view orientation. */
     f32 viewOrient[16]; /* 0x160: view-to-world rotation (CCamera_t m_mfViewOrient) */
     f32 inverseViewOrient[16]; /* 0x1A0: world-to-view rotation (m_mfInverseViewOrient) */
     f32 viewProjection[16]; /* 0x1E0: float projection the fixed one at 0x380 is packed from (m_mfProjection) */

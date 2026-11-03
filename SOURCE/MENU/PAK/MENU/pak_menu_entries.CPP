@@ -1,3 +1,4 @@
+#include "MENU/BUILT_MENU.H"
 #include "include_asm.h"
 #include "MENU/PAK/pak_menu_entries.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
@@ -60,64 +61,24 @@ void Menu_MoveMenuCursor(struct MenuCursorNavigationView *menu, u8 dir) {
 extern f32 literals_Scene_GetPlatformRoutePoint;
 extern const f32 g_pakMenuAnimationLimits[4];
 extern f32 g_menuPanelOpenRate, g_menuPanelOpenLimit, g_menuPanelCloseRate;
-typedef struct PakMenu PakMenu;
-typedef struct PakEntry PakEntry;
-typedef s32 (*PakEntryCallback)();
-typedef struct PakEntryClass {
-    u8 pad0[0x18];
-    PakEntryCallback update; /* 0x18 */
-    PakEntryCallback confirm; /* 0x1C */
-} PakEntryClass;
-struct PakEntry {
-    u8 pad0[4];
-    s16 type; /* 4 */
-    u8 pad6[2];
-    s32 flags; /* 8 */
-    u8 padC[0xC];
-    PakEntryClass *cls; /* 0x18 */
-    s32 value; /* 0x1C */
-    u8 pad20[8];
-};
-typedef struct PakMenuClass {
-    u8 pad0[0x14];
-    PakEntryCallback hold; /* 0x14 */
-} PakMenuClass;
-typedef struct PakInput {
-    u8 pad0[0xB0];
-    s32 buttons; /* 0xB0 */
-} PakInput;
-struct PakMenu {
-    s16 selected; /* 0 */
-    u8 pad2[10];
-    PakEntry *entries; /* 0xC */
-    s32 count; /* 0x10 */
-    PakMenuClass *cls; /* 0x14 */
-    u8 pad18[8];
-    PakInput *input; /* 0x20 */
-    u8 pad24[4];
-    s16 state; /* 0x28 */
-    u8 pad2A[2];
-    f32 fade; /* 0x2C */
-    f32 openA; /* 0x30 */
-    f32 openB; /* 0x34 */
-};
-s32 Menu_UpdateMenuEntries(PakMenu *menu, void *context) {
+extern void Menu_StepSpriteFrame(MenuBuildState *menu);
+s32 Menu_UpdateMenuEntries(MenuBuildState *menu, void *context) {
     s32 closeRequested = 0;
-    PakEntry *entry;
+    MenuBuildEntry *entry;
     s32 i;
     s32 selectionFlags;
     s32 allowRepeat;
     s32 buttons;
     s32 state;
-    PakEntryCallback callback;
-    callback = menu->cls->hold;
+    s32 (*callback)();
+    callback = menu->definition->hold;
     if (callback != 0) {
         closeRequested = callback(menu, context);
     }
     i = menu->count;
     entry = menu->entries;
     while (--i != -1) {
-        callback = entry->cls->update;
+        callback = entry->definition->update;
         if (callback != 0) {
             callback(entry, menu, context);
         }
@@ -175,15 +136,15 @@ s32 Menu_UpdateMenuEntries(PakMenu *menu, void *context) {
         buttons = menu->input->buttons;
         if (buttons & 0x20202) {
             allowRepeat = 0;
-            entry->value -= 2;
-            if (entry->value < 0) {
-                entry->value = 0;
+            entry->selection -= 2;
+            if (entry->selection < 0) {
+                entry->selection = 0;
             }
         } else if (buttons & 0x40101) {
-            entry->value += 2;
+            entry->selection += 2;
             allowRepeat = 0;
-            if (entry->value >= 256) {
-                entry->value = 0xFF;
+            if (entry->selection >= 256) {
+                entry->selection = 0xFF;
             }
         }
     }
@@ -211,7 +172,7 @@ s32 Menu_UpdateMenuEntries(PakMenu *menu, void *context) {
     if (Control_IsAButtonPressed(menu->input) != 0 ||
         (Control_IsLeftPressed(menu->input) != 0 && selectionFlags != 0) ||
         (Control_IsRightPressed(menu->input) != 0 && selectionFlags != 0)) {
-        callback = entry->cls->confirm;
+        callback = entry->definition->activate;
         if (callback != 0 && callback(entry, menu, context) == 0) {
             return 0;
         }

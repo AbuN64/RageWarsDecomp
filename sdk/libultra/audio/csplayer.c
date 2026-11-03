@@ -180,7 +180,7 @@ ALMicroTime __CSPVoiceHandler(ALSeqPlayer *node)
             vs = (ALVoiceState *)voice->clientPrivate;
             if (vs->flags)
                 __seqpStopOsc(seqp, vs);
-            Seqplayer_ReleaseSequenceVoice((SeqplayerVoicePool *)seqp, voice);
+            Seqplayer_ReleaseSequenceVoice((ALSeqPlayer *)seqp, voice);
             break;
         case 6: /* AL_SEQP_ENV_EVT */
             voice = seqp->nextEvent.msg.vol.voice;
@@ -247,7 +247,7 @@ ALMicroTime __CSPVoiceHandler(ALSeqPlayer *node)
                     alSynFreeVoice(seqp->drvr, &vs->voice);
                     if (vs->flags)
                         __seqpStopOsc(seqp, vs);
-                    Seqplayer_ReleaseSequenceVoice((SeqplayerVoicePool *)seqp, &vs->voice);
+                    Seqplayer_ReleaseSequenceVoice((ALSeqPlayer *)seqp, &vs->voice);
                 }
                 seqp->state = 0;
             }

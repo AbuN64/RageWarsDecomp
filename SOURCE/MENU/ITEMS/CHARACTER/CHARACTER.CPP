@@ -1,12 +1,11 @@
+#include "COMMON/AIPROFILE.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/EFFECTRENDER.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/RG.H"
 #if defined(VERSION_DE)
-typedef struct { char pad0[0x80]; s8 choice; } CharacterPreviewChoiceView;
-typedef struct { char pad0[0x5D8]; CharacterPreviewChoiceView *slot; s32 pad5DC; s32 style; } CharacterPreviewPlayerView;
-typedef struct { char pad0[0x1C]; CharacterPreviewPlayerView *rec; struct ControllerProfile *player; } CharacterPreviewMenuContext;
+typedef struct { char pad0[0x1C]; Player *rec; struct ControllerProfile *player; } CharacterPreviewMenuContext;
 extern s16 g_characterPreviewStyleSounds[][2];
 extern u8 g_characterPreviewLeftChoices[][4];
 extern u8 g_characterPreviewRightChoices[][4];
@@ -18,23 +17,23 @@ extern s32 Menu_StepValue(struct MenuValueStepView *menu, s32 value, s32 step, s
 extern struct PreviewWidget *Menu_SelectPreviewModel(struct MenuPreviewSelectionView *widget,int selection,int kind);
 /* Steps the choice byte at 0x80 of the slot the record at 0x1C of menuContext points to: while the player passes Control_IsAButtonPressed_Character it plays the sound for the record's style and runs the resource g_characterPreviewMenuRomResource; otherwise Menu_StepValue moves the choice and the remapping tables g_characterPreviewLeftChoices (Control_IsLeftPressed) and g_characterPreviewRightChoices (Control_IsRightPressed or Control_IsAButtonPressed_Character) are applied before the display is refreshed; returns 1 or 0. */
 s32 Items_HandleCharacterPreviewSelectionGerman(s32 widget, CharacterPreviewMenuContext *menuContext, s32 owner) {
-    CharacterPreviewPlayerView *rec = menuContext->rec;
-    CharacterPreviewChoiceView *slot = rec->slot;
+    Player *rec = menuContext->rec;
+    AiProfile *slot = rec->profile;
     if (Control_IsAButtonPressed(menuContext->player) != 0) {
-        Player_StartPlayerAnimation(rec, slot->choice);
-        SoundElement_PlayFlatSound(g_characterPreviewStyleSounds[rec->style][0]);
+        Player_StartPlayerAnimation(rec, slot->character);
+        SoundElement_PlayFlatSound(g_characterPreviewStyleSounds[rec->state][0]);
         Menu_AllocateMenu(owner, menuContext, g_characterPreviewMenuRomResource);
         return 1;
     }
-    slot->choice = Menu_StepValue(menuContext, slot->choice, 1, 0, 18, 1);
+    slot->character = Menu_StepValue(menuContext, slot->character, 1, 0, 18, 1);
     if (Control_IsLeftPressed(menuContext->player) != 0) {
-        slot->choice = g_characterPreviewLeftChoices[slot->choice][0];
+        slot->character = g_characterPreviewLeftChoices[slot->character][0];
     }
     if (Control_IsRightPressed(menuContext->player) != 0 || Control_IsAButtonPressed(menuContext->player) != 0) {
-        slot->choice = g_characterPreviewRightChoices[slot->choice][0];
+        slot->character = g_characterPreviewRightChoices[slot->character][0];
     }
-    Player_StartPlayerAnimation(rec, slot->choice);
-    Menu_SelectPreviewModel(widget, 11, slot->choice);
+    Player_StartPlayerAnimation(rec, slot->character);
+    Menu_SelectPreviewModel(widget, 11, slot->character);
     return 0;
 }
 #endif

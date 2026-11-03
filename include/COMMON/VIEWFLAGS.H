@@ -2,6 +2,7 @@
 #define COMMON_VIEWFLAGS_H
 #include "TYPES.H"
 #include "COMMON/STATERECAT10.H"
+#include "COMMON/CAMERA_SHAKE.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/ITEMRECAT20V1.H"
@@ -18,7 +19,7 @@ typedef struct RacerViewport RacerViewport;
 struct Overlay;
 typedef struct Overlay Overlay;
 
-typedef CShakeAxis AxisWave;
+
 
 
 extern float g_cameraShakeDistanceComplement;
@@ -41,19 +42,7 @@ struct Overlay;
 
 struct ShakeEmitterChannelView;
 
-struct CShake_t;
-typedef struct CShake_t CShake;
 
-struct CShake_t;
-struct CShake_t {
-    s32 m_pLast;
-    CShake *next;
-    CVector3 m_vPos;
-    f32 m_Radius;
-    AxisWave x;
-    AxisWave y;
-    AxisWave z;
-};
 
 
 struct ThreeChannels;

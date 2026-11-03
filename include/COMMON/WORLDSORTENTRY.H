@@ -59,11 +59,6 @@ struct Panel {
 extern int g_schedulerRdpBufferSetFlag;
 
 
-struct SchedulerCurrentRspTaskView;
-struct SchedulerCurrentRspTaskView {
-    unsigned char padding_0[756];
-    void *currentRspTask;
-};
 
 struct LevelActor;
 struct LevelActorArrayView;
@@ -91,8 +86,6 @@ struct OSScClientWork {
 
 
 
-struct SchedulerTaskFlagsView;
-typedef struct SchedulerTaskFlagsView SchedulerTaskFlagsView;
 
 
 
@@ -131,8 +124,6 @@ struct OSScClientWork;
 typedef struct OSScClientWork OSScClientWork;
 
 
-struct SchedulerCurrentRspTaskView;
-typedef struct SchedulerCurrentRspTaskView SchedulerCurrentRspTaskView;
 
 
 
@@ -140,8 +131,6 @@ typedef struct SchedulerCurrentRspTaskView SchedulerCurrentRspTaskView;
 struct NearbySpecialActorView;
 typedef struct NearbySpecialActorView NearbySpecialActorView;
 
-struct NodeSchedHandleTaskCommands;
-typedef struct NodeSchedHandleTaskCommands NodeSchedHandleTaskCommands;
 
 struct SchedulerCommandQueueView;
 
@@ -156,25 +145,11 @@ struct SchedulerCommandQueueView;
 struct Panel;
 typedef struct Panel Panel;
 
-struct NodeSchedHandleTaskCommands;
-struct NodeSchedHandleTaskCommands {
-    char pad0[8];
-    u32 flags;
-    char padC[4];
-    s32 type;
-};
 
 
 
 
 
-struct SchedulerTaskFlagsView;
-struct SchedulerTaskFlagsView {
-    unsigned char padding_0[4];
-    s32 state;
-    unsigned char padding_8[8];
-    s32 taskType;
-};
 
 
 

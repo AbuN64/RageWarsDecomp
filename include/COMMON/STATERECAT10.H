@@ -1,8 +1,8 @@
 #ifndef COMMON_STATERECAT10_H
 #define COMMON_STATERECAT10_H
 #include "TYPES.H"
-struct CShakeAxis_t;
-typedef struct CShakeAxis_t CShakeAxis;
+#include "COMMON/CAMERA_SHAKE.H"
+
 
 
 
@@ -20,14 +20,7 @@ extern float g_weaponStateEightDelay;
 struct WeaponSpecialFirePlayerView;
 typedef struct WeaponSpecialFirePlayerView WeaponSpecialFirePlayerView;
 
-struct CShakeAxis_t;
-struct CShakeAxis_t {
-    s32 mode;
-    f32 value;
-    f32 m_LastShake;
-    f32 m_Amp;
-    f32 m_Angle;
-};
+
 
 extern float g_weaponActionFiveClampedFeedback;
 

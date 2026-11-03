@@ -45,20 +45,11 @@ typedef struct SequencePlayerEventView SequencePlayerEventView;
 
 
 
-struct SeqplayerVoicePool;
-typedef struct SeqplayerVoicePool SeqplayerVoicePool;
 
 
 typedef signed int ( *Lane_ALOscUpdate)(void *, float *);
 
 
-struct SeqplayerVoicePool;
-struct SeqplayerVoicePool {
-    char pad[0x64];
-    NodeGskyActivateMessagePool *head;
-    NodeGskyActivateMessagePool *tail;
-    NodeGskyActivateMessagePool *free;
-};
 
 
 

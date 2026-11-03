@@ -40,7 +40,7 @@ extern char addrLow_Link_ClearActorStateBit[];
 void __initChanState(void *playerObject);
 void Seqplayer_AdvanceSequenceEvent(ALSeqPlayer *seqp);
 void Seqplayer_HandleSequenceMidiEvent(ALSeqPlayer *seqp, ALEvent *event);
-void Seqplayer_ReleaseSequenceVoice(SeqplayerVoicePool *voicePool, void *voice);
+void Seqplayer_ReleaseSequenceVoice(ALSeqPlayer *voicePool, void *voice);
 void Seqplayer_SetTempoMicrosecondsPerTick(ALSeqPlayer *player, f32 tempo);
 void __handleMetaMsg(ALSeqPlayer *player, ALEvent *metaEvent);
 void __initFromBank(void *seqPlayer, void *instrumentBank);
@@ -710,24 +710,24 @@ ALVoiceState *__mapVoice(ALSeqPlayer *sequencePlayer, u8 noteKey, u8 noteVelocit
     return node;
 }
 
-void Seqplayer_ReleaseSequenceVoice(SeqplayerVoicePool *voicePool, void *voice) {
-    NodeGskyActivateMessagePool *node;
-    NodeGskyActivateMessagePool *prev;
+void Seqplayer_ReleaseSequenceVoice(ALSeqPlayer *voicePool, void *voice) {
+    ALVoiceState *node;
+    ALVoiceState *prev;
 
     prev = 0;
-    node = voicePool->head;
+    node = voicePool->vAllocHead;
     while (node != 0) {
-        if ((void *)(node + 1) == voice) {
+        if ((void *)&node->voice == voice) {
             if (prev != 0) {
                 prev->next = node->next;
             } else {
-                voicePool->head = node->next;
+                voicePool->vAllocHead = node->next;
             }
-            if (node == voicePool->tail) {
-                voicePool->tail = prev;
+            if (node == voicePool->vAllocTail) {
+                voicePool->vAllocTail = prev;
             }
-            node->next = voicePool->free;
-            voicePool->free = node;
+            node->next = voicePool->vFreeList;
+            voicePool->vFreeList = node;
             return;
         }
         prev = node;
