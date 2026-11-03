@@ -1,3 +1,4 @@
+#include "MENU/BUILT_MENU.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
 #include "MENU/OPTION_AND_TEXT_LAYER_VIEWS.H"
@@ -271,7 +272,7 @@ void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAll
    0xBC of the state it owns at 0x20, unlinks it with List_RemoveIntrusive and releases its handle at 0x8
    through Cache_ReleaseResource. */
 extern MessageList g_matchEndingTeamWheelClose;
-extern s32 Menu_UpdateMenuEntries(struct PakMenu *menu, void *context);
+extern s32 Menu_UpdateMenuEntries(MenuBuildState *menu, void *context);
 
 void Menu_UpdateDialogList(MessageList *list) {
     CMenu *node;

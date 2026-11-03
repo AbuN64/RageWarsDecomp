@@ -3,11 +3,6 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/RG.H"
-#if defined(VERSION_DE)
-typedef struct { char pad0[0x80]; s8 choice; } CharacterPreviewChoiceView;
-typedef struct { char pad0[0x5D8]; CharacterPreviewChoiceView *slot; s32 pad5DC; s32 style; } CharacterPreviewPlayerView;
-typedef struct { char pad0[0x1C]; CharacterPreviewPlayerView *rec; struct ControllerProfile *player; } CharacterPreviewMenuContext;
-#endif
 #if defined(VERSION_DE) || defined(VERSION_US)
 #if defined(VERSION_US)
 s32 Items_SelectToggleRowTextGerman(TextBoundsText *textRow) {
