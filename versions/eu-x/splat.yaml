@@ -5991,7 +5991,7 @@ segments:
       - [0x13F150, c, ovl_frontendMenu]
       - [0x13F1D4, c, ovl_frontendMenu]
       - [0x13F27C, c, ovl_frontendMenu]
-      - [0x13F354, data, ovl_frontendMenu/fill_13F354]
+      - [0x13F354, data, ovl_frontendMenu/g_nodeResourceLinkTailEuX]
       - [0x13F360, c, ovl_frontendMenu]
       - [0x13F460, c, ovl_frontendMenu]
       - [0x13F4CC, c, ovl_frontendMenu]
