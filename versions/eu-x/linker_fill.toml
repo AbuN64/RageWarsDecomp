@@ -2835,12 +2835,3 @@ address = 0x8044F0B8
 size = 8
 bytes = "0001004100000014"
 provenance = "unattributed"
-
-[[fill]]
-object = "398"
-section = ".ovl_frontendMenu"
-rom = 0x13F354
-address = 0x8044F354
-size = 12
-bytes = "800dea680000008000000001"
-provenance = "unattributed"

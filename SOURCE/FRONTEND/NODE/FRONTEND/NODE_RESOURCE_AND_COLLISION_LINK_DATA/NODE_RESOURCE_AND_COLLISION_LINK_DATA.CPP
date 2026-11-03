@@ -45,3 +45,17 @@ CCollisionSetup_t g_collisionSetupTable[36] = {
     { 0 },
 };
 #endif
+
+#if defined(VERSION_EU_X)
+#include "TYPES.H"
+/* ROM 0x13F354: the retained resource link ends at the next function.
+ * The two trailing words have no evidenced consumer semantics. */
+typedef struct NodeResourceLinkTail {
+    const char *resource;
+    u32 retainedWords[2];
+} NodeResourceLinkTail;
+typedef char NodeResourceLinkTailSize[(sizeof(NodeResourceLinkTail) == 12) ? 1 : -1];
+NodeResourceLinkTail k_NodeResourceAndCollisionLinkEncodedWords = {
+    D_800DEA60_eu_x + 8, { 128, 1 },
+};
+#endif
