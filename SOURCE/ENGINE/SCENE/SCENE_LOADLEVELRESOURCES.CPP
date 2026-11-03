@@ -753,16 +753,6 @@ typedef struct RecordSet {
 
 /* A simple instance in the game: the header's position, its flags and id, and the lighting baked from the level's
  * light volumes. */
-typedef struct SimpleInstance {
-    u8 header[8];
-    CVector3 position;
-    u8 pad14[0x19C - 0x14];
-    u16 flags;
-    u16 id;
-    u8 pad1A0[0x1A8 - 0x1A0];
-    Shared_ParticleLighting light;
-    u8 pad1C0[0x1C8 - 0x1C0];
-} SimpleInstance;
 
 /* A light volume as the level resource stores it. */
 typedef struct LightVolumeRecord {
@@ -775,14 +765,14 @@ extern void Cache_ReplaceResourceBlock(s32 pool, void *handle, void *block);
 
 extern void Statinst_InitializePlacedProp(ObjA *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing);
 extern void Statinst_InitPlacedProp(ObjA *prop, PlacedPropRecord *record, s32 owner, char *segments);
-struct SimpleInstanceOut; struct CROMSimpleInstance; extern void Simple_InitSimpleInstance(struct SimpleInstanceOut *inst, struct CROMSimpleInstance *rec, s32 owner, char *segments);
+struct CROMSimpleInstance; extern void Simple_InitSimpleInstance(ObjB *inst, struct CROMSimpleInstance *rec, s32 owner, char *segments);
 extern void Lighting_DecodeBoxTransform(u8 *self, u8 *src);
 
 #define ALIGN8(size) (((size) + 7) & ~7)
 
 /* Whether the instance's bit is set in the current level's instance mask (section 1 of the level's bit sections).
  * The same body as Scene_TestLevelRecordStateBit; the ROM inlines it here. */
-static inline s32 Engine_TestInstanceBit(Shared_World *world, SimpleInstance *instance) {
+static inline s32 Engine_TestInstanceBit(Shared_World *world, ObjB *instance) {
     s32 index;
     void *sections;
     s32 level;
@@ -790,7 +780,7 @@ static inline s32 Engine_TestInstanceBit(Shared_World *world, SimpleInstance *in
     u8 *bits;
     s32 bit;
 
-    index = instance->id;
+    index = instance->placementId;
     sections = world->bitSections;
     level = world->level;
     mask = SetN64_GetPackSection(SetN64_GetPackSection(SetN64_GetPackSection(sections, 0), level), 1);
@@ -820,7 +810,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
     s32 volumeSize;
     s32 bitSize;
     PlacedPropRecord *statics;
-    SimpleInstance *simples;
+    ObjB *simples;
     char *segments;
     void **block;
     Pack *source;
@@ -849,7 +839,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
         staticSize = ALIGN8((efficientCount + staticCount) * sizeof(ObjA) + sizeof(RecordSet));
         simpleSet = SetN64_GetPackSection(source, 2);
         simpleCount = simpleSet->count;
-        simpleSize = ALIGN8(simpleCount * sizeof(SimpleInstance) + sizeof(RecordSet));
+        simpleSize = ALIGN8(simpleCount * sizeof(ObjB) + sizeof(RecordSet));
         volumeSet = SetN64_GetPackSection(source, 3);
         volumeCount = volumeSet->count;
         volumeSize = ALIGN8(volumeCount * sizeof(SceneLightVolume) + sizeof(RecordSet));
@@ -888,10 +878,10 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
             blocks->count = n++;
             blocks->offsets[blocks->count] = offset;
             SetN64_TransposeRecords(simpleSet, base + offset, 1);
-            ((RecordSet *)(base + offset))->size = sizeof(SimpleInstance);
+            ((RecordSet *)(base + offset))->size = sizeof(ObjB);
             ((RecordSet *)(base + offset))->count = simpleCount;
             simpleRecords = (CROMSimpleInstance *)(simpleSet + 1);
-            simples = (SimpleInstance *)(base + offset + 8);
+            simples = (ObjB *)(base + offset + 8);
             for (k = 0; k < simpleCount; k++) {
                 Simple_InitSimpleInstance(&simples[k], &simpleRecords[k],
                                  SetN64_GetDirectoryEntry(world->indexedDirectory, world->indexedBank, simpleRecords[k].type),
@@ -929,7 +919,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
                 position.x = simples[k].position.x;
                 position.y = simples[k].position.y + Gobjinst_GetActorHeight(&simples[k]) * 0.5f;
                 position.z = simples[k].position.z;
-                Scene_SampleVolumeLighting(volumeList, volumeCount, &position, &simples[k].light);
+                Scene_SampleVolumeLighting(volumeList, volumeCount, &position, &simples[k].lights);
             }
         }
         Cache_ReplaceResourceBlock(0, handle, block);
