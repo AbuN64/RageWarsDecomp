@@ -150,7 +150,7 @@ struct Shared_FullPlayerMenuGlobals {
             u8 pad0[0x1818];
             SpecialPickupMatchModeView modes; /* +0x185C: g_matchRoundCounters */
         } view;
-    } game;
+    } game __attribute__((packed, aligned(4))); /* The menu owner starts at +0x44, not an eight-byte relative boundary. */
 };
 void Player_IncrementLevelProgress(void *, int);
 
