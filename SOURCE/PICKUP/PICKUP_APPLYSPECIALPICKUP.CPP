@@ -4,6 +4,7 @@
 #include "COMMON/LONE/G_LANGUAGEINDEX.H"
 #include "COMMON/VIEWFLAGS.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "COMMON/PLAYERPROFILES.H"
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "TYPES.H"
@@ -31,17 +32,6 @@ extern u8 *g_pickupReactionTwoThousandFortyEightText[];
 extern u8 *g_pickupReactionFourThousandNinetySixText[];
 extern u8 *g_pickupReactionDefaultText[];
 extern u8 *g_pickupEffectClearedText[];
-
-typedef struct CPersistentPlayerData_t CPersistentPlayerData;
-struct CPersistentPlayerData_t {
-    u8 pad0[16]; /* +0x0: src/Pickup_ApplySpecialPickup.c */
-    s32 m_PowerOfViper; /* +0x10: src/Pickup_ApplySpecialPickup.c */
-    s8 m_PowerOfBear; /* +0x14: src/Pickup_ApplySpecialPickup.c */
-    s8 m_SpiritOfCoyote; /* +0x15: src/Pickup_ApplySpecialPickup.c */
-    s8 m_SpiritOfCougar; /* +0x16: src/Pickup_ApplySpecialPickup.c */
-    s8 m_FragFestTimeTrialIcons; /* +0x17: src/Pickup_ApplySpecialPickup.c */
-    u8 pad18[376]; /* +0x18: src/Pickup_ApplySpecialPickup.c */
-};
 
 typedef struct Shared_MenuBonusColumn Shared_MenuBonusColumn;
 struct Shared_MenuBonusColumn {
@@ -166,8 +156,6 @@ void Player_IncrementLevelProgress(void *, int);
 
 s32 XPlus_NextRandomInteger(void);
 s32 Track_RequestTrackByKey(s32);
-typedef CPersistentPlayerData PlayerMenuData;
-extern PlayerMenuData g_localPlayerProfiles[];
 typedef Shared_MenuBonusColumn MenuBonusColumn;
 
 extern MenuBonusColumn g_playerFirstBonusProfileCounters[];

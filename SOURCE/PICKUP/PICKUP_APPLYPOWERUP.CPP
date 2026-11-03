@@ -334,25 +334,19 @@ struct PickupPowerupPayloadView { char pad[0x14]; EffectAmount payload; };
 struct ActivationSlot {
     void **resource;
     u16 pickupId;
-    char pad4[0x6 - 0x4 - sizeof(u16)];
     s16 soundId;
-    char pad6[0x8 - 0x6 - sizeof(s16)];
     s16 dialogGroupId;
 };
 struct ActivationActor {
     char pad0[0x8];
     s32 positionX;
-    char pad8[0xC - 0x8 - sizeof(s32)];
     s32 positionY;
-    char padC[0x10 - 0xC - sizeof(s32)];
     s32 positionZ;
     char pad10[0x5DC - 0x10 - sizeof(s32)];
     void* messageCamera;
     char pad5DC[0x670 - 0x5DC - sizeof(void*)];
     f32 powerupTimerOne;
-    char pad670[0x674 - 0x670 - sizeof(f32)];
     f32 powerupTimerTwo;
-    char pad674[0x678 - 0x674 - sizeof(f32)];
     f32 powerupAmount;
     char pad678[0xD40 - 0x678 - sizeof(f32)];
     char itemMenu;

@@ -6,16 +6,13 @@
 
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
-#define g_gameSettingsView (*(Settings *)&g_gameSettings)
-typedef struct AchieveRecord { u8 pad0[0x78]; u8 active; u8 pad79[0x18]; u8 team; u8 pad92[4]; } AchieveRecord;
 extern u8 g_profileAchievementProgressRows[][0x96];
 extern s32 g_profileAchievementCountRows[][100];
 extern u8 g_profileAchievementCounters[];
 extern s8 g_matchAchievementQualificationFlagA;
 extern s8 g_matchAchievementQualificationFlagB;
-extern AchieveRecord g_playerSettings[];
+extern Shared_PlayerSettingsRecord g_playerSettings[];
 extern s32 g_playerCountedShots[];
-typedef struct { s8 pad[0x24]; s8 a; s8 b; } Settings;
 /* Increment the capped player match count and eligible level count. */
 void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
     s32 count;
@@ -23,8 +20,8 @@ void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
     s32 eligible;
     s32 value;
     s32 result;
-    AchieveRecord *rec;
-    Settings *cfg;
+    Shared_PlayerSettingsRecord *rec;
+    Shared_Game *cfg;
     if (g_profileAchievementProgressRows[playerIndex][0] == 1) {
         return;
     }
@@ -41,8 +38,8 @@ void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
         count = 0;
         for (i = 0; i < 8; i++) {
             rec = &g_playerSettings[i];
-            if (rec->active == 1) {
-                if (rec->team != rec->active) {
+            if (rec->enabled == 1) {
+                if (rec->locked != rec->enabled) {
                     if (g_playerCountedShots[i] >= 76) {
                         count++;
                     }
@@ -55,8 +52,8 @@ void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
         result = eligible;
     }
     if (result == 1) {
-        cfg = &g_gameSettingsView;
-        if (cfg->a >= 10 || cfg->b >= 10) {
+        cfg = &g_gameSettings;
+        if (cfg->laps >= 10 || cfg->players >= 10) {
             value = g_profileAchievementCounters[counterIndex + playerIndex * 400] + 1;
             if (value >= 6) {
                 g_profileAchievementCounters[counterIndex + playerIndex * 400] = 5;

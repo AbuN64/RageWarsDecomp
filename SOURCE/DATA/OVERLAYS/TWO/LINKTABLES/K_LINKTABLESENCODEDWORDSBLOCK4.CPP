@@ -8,10 +8,10 @@ extern char g_playerModelLighting[];
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 struct {
-    struct { u8 color[3], pad0, colorCopy[3], pad1; s8 direction[3]; u8 pad2[5]; } light;
+    Light light;
     Gfx commands[6];
 } k_LinktablesEncodedWordsBlock4 = {
-    { { 0xFF, 0xFF, 0xFF }, 0, { 0xFF, 0xFF, 0xFF }, 0, { 0, 0, 127 }, { 0, 0, 0, 0, 0 } },
+    { { { 0xFF, 0xFF, 0xFF }, 0, { 0xFF, 0xFF, 0xFF }, 0, { 0, 0, 127 }, 0 } },
     {
     gsSPGeometryMode(0xFFFFFF, 0x00000000),
     gsSPGeometryMode(0x000000, 0x00000001),

@@ -22,6 +22,7 @@
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "GSKY/SKY.H"
+#include "COMMON/GAMEPLAY_CAMERA.H"
 
 /* SKY.CPP */
 /* 8023A284_4.CPP */
@@ -197,22 +198,10 @@ draw_face:
 /* Updates the scene's effect objects for one host: spawns an object for every enabled effect
  * descriptor bit that has none yet, then fades each active object up or down, advances its phase and
  * texture scroll, sets its depth from the host, and returns objects that have faded out to the free list. */
-typedef struct SkyEffectHostView {
-    char pad00[0x24];
-    s32 stalled;
-    char pad28[0x10];
-    s32 polygonIndex;
-    char pad3C[4];
-    s32 polygonPartIndex;
-    char pad44[0x14];
-    void *resource;
-    char pad5C[0xD0];
-    f32 speed;
-} SkyEffectHostView;
 extern s32 g_skyLayerDescriptorCount;
 extern f32 g_frameElapsedTime;
 extern Shared_ReactionFlags *Scene_GetModelRecordByIndexPointer(void *, void *);
-extern f32 Region_GetPolygonHeight(void *, s32, s32);
+extern f32 Region_GetPolygonHeight(void *, f32, f32);
 extern void Gsky_GetObjectPositionAt260(CVector3 *, void *);
 extern void Textload_LocateTextureResource(s32 *, s32);
 extern void List_RemoveIntrusive(void *, void *);
@@ -226,7 +215,7 @@ static inline SkyLayerRuntimeView *allocateSceneEffect(Scene *scene) {
     return object;
 }
 
-static inline s32 updateSceneEffect(SkyLayerRuntimeView *object, SkyEffectHostView *host, u16 mask, s32 below, f32 hostDepth, f32 limit) {
+static inline s32 updateSceneEffect(SkyLayerRuntimeView *object, GameplayCamera *host, u16 mask, s32 below, f32 hostDepth, f32 limit) {
     CROMSkyLayer *descriptor = object->descriptor;
     f32 value, step, depth, wrapPeriod, fadeStep;
     if (object->mask & mask) {
@@ -260,10 +249,10 @@ static inline s32 updateSceneEffect(SkyLayerRuntimeView *object, SkyEffectHostVi
         object->offsetT = value - wrapPeriod;
     }
     depth = descriptor->baseSpeed + object->trim;
-    if (below && host->stalled == 0) {
+    if (below && host->bobSuppressed == 0) {
         depth += hostDepth;
     } else if (descriptor->flags & 1) {
-        depth += host->speed * descriptor->hostScale;
+        depth += host->position.y * descriptor->hostScale;
     } else if (descriptor->flags & 2) {
         depth += limit;
     }
@@ -271,7 +260,7 @@ static inline s32 updateSceneEffect(SkyLayerRuntimeView *object, SkyEffectHostVi
     return 0;
 }
 
-void Sky_UpdateSceneEffects(Scene *scene, SkyEffectHostView *host) {
+void Sky_UpdateSceneEffects(Scene *scene, GameplayCamera *host) {
     CVector3 anchor;
     CVector3 probe;
     Shared_ReactionFlags *entry;
@@ -288,7 +277,7 @@ void Sky_UpdateSceneEffects(Scene *scene, SkyEffectHostView *host) {
     if (g_world.frozen != 0) {
         return;
     }
-    resource = host->resource;
+    resource = host->floorPoly;
     if (resource == 0) {
         return;
     }
@@ -297,7 +286,7 @@ void Sky_UpdateSceneEffects(Scene *scene, SkyEffectHostView *host) {
         return;
     }
     hostDepth = 0.0f;
-    limit = Region_GetPolygonHeight(resource, host->polygonIndex, host->polygonPartIndex);
+    limit = Region_GetPolygonHeight(resource, host->floorSampleX, host->floorSampleZ);
     below = 0;
     if (entry->flags & 1) {
         Gsky_GetObjectPositionAt260(&anchor, host);
