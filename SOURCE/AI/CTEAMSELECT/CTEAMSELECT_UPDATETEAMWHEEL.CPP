@@ -30,11 +30,14 @@
 #endif
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "ENGINE/AUDIO/CHANNEL.H"
+#include "CTEAMSELECT/CTEAMSELECT_UPDATETEAMCHOICEINPUT.H"
+#include "CTEAMSELECT/CTEAMSELECT_UPDATETEAMWHEEL.H"
+#include "CTEAMSELECT/PLAYER_RESETPLAYERFORROUND_DATA.H"
 extern s32 g_matchEndingTeamWheelClose;
-extern void TeamSelect_CloseTeamWheel(TeamMenu *);
+
 extern void Cteamselect_InitTeamChoices(TeamMenu *, s32, SharedPlayer *);
 extern s32 Cteamselect_GetFourWayStickSlot(SharedPlayer *);
-extern s32 Cteamselect_TryConfirmTeamChoice(TeamMenu *, SharedPlayer *);
+
 
 void Cteamselect_UpdateTeamWheel(TeamMenu *menu, SharedPlayer *player, void *unused) {
     s32 held;

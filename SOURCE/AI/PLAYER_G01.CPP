@@ -16,6 +16,9 @@
 #include "RESMGR/resmgr_string_memory.H"
 #include "AI/PLAYER_DRAWTINTEDPLAYER.H"
 #include "COMMON/PLAYERPROFILES.H"
+#include "AI/PLAYER_G01.H"
+#include "AI/PLAYER_G02.H"
+#include "WEAPON/WEAPON.H"
 
 /* PLAYER_DRAWTINTEDPLAYER.CPP */
 const float k_PlayerDrawtintedplayerEncodedWords[14] = {
@@ -193,8 +196,8 @@ void Player_TransferRandomInventoryItems(Inventory *inventory, Receiver *receive
 
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
 extern u8 *XPlus_AppendString(u8 *destination, u8 *source);
-extern char *Weapon_GetIndexedTableValue(s32);
-extern void Playerai_PostMessageHistoryEntry(SharedPlayer *, char *, f32);
+
+
 
 static inline s32 max_ammo(SharedPlayer *player, s32 type) {
     s32 max;

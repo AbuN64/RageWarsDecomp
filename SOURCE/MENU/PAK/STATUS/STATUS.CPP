@@ -12,6 +12,7 @@
 /* Select the status text and right-align its nonblank characters. */
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
  /* const */
  /* const */
 s32 Status_FormatRightAlignedPreviewName(struct Field *item) {

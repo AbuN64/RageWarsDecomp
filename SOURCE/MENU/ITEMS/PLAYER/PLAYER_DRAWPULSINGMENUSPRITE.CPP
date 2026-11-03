@@ -8,8 +8,11 @@
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "../../../../sdk/include/PFS/PLAYER_DRAWPULSINGMENUSPRITE.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "OVLGAME/MATCH.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
-extern void Player_PlacePlayerForRound(void *player);
+
 /* Forwards menuState's word at 0x1C to Player_PlacePlayerForRound and always reports success. */
 
 
@@ -34,10 +37,10 @@ extern void Player_PlacePlayerForRound(void *player);
 
 #include "COMMON/GAME_SESSION.H"
 
-extern void Match_ResetMatchControllerState(char *);
+
 
 /* Advances the actor inactivity timer and reports pending menu state. */
-s32 Playerai_IsPlayerInactive(void *);
+
 
  /* extern */
 

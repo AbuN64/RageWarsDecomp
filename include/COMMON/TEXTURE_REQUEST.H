@@ -3,10 +3,11 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "TEXTLOAD/S_TEXTURETEXT.H"
 #if defined(VERSION_US_REV1)
 extern s32 g_textureVariationBypassEnabled;
 extern char addrLow_Textload_PrepareTextureVariation_us_rev1;
-extern char s_textureText[];
+
 #else
 extern char addrLow_Textload_PrepareTextureVariation;
 extern char s_textureText_TextureRequest[];

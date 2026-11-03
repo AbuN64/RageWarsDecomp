@@ -15,11 +15,13 @@
 #include "COMMON/TRIPLE.H"
 #include "ENGINE/UNICOL/POLYCOL.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
-extern void Graphu64_MultiplyAffineMatrices(void *, void *, void *);
 
 
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
+
+
 
 extern void CPlane_BuildTriangleNormal(void *query);
 

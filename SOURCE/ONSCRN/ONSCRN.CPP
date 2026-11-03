@@ -12,6 +12,7 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "SCENE/CACHE_ALLOCATERESOURCEAT.H"
 #include "include_asm.h"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 /* 802A6AC0_9.CPP */
 extern void Onscrn_SetupSpriteMode(s32 color);
@@ -25,7 +26,7 @@ extern void Onscrn_SetupSpriteMode(s32 color);
 
 extern s32 SetN64_IsModeThirteen(void);
 
-void OnScreen_UpdateMoverScript(COverlay *m);
+
 extern void OnScreen_FillRectangle(s32 x0, s32 y0, s32 x1, s32 y1, s32 red, s32 green, s32 blue, u8 alpha);
 
 void OnScreen_DrawStatusBar(Hud *hud, s32 which) {
@@ -129,7 +130,7 @@ static inline void rectangle(s32 x0,s32 y0,s32 x1,s32 y1,s32 r,s32 g,s32 b,s32 a
 
 /* Draws a signed integer of up to four digits with the font sprite set from Scene_StartWorldEffect: splits the magnitude into thousands, hundreds, tens and ones, draws a leading minus sign through OnScreen_DrawSpriteResource when negative, then draws at least minDigits digits through Text_DrawTileGrid, advancing 13 units per digit (0.7 of that for a one) scaled by the size, laid out right to left when rightAlign is set, and releases the sprite set. */
 
-extern s32 Scene_StartWorldEffect(void *world, s32 effectId, s32 flags, s32 extra);
+
 
 extern void Text_DrawTileGrid(s32 handle, s32 index, s16 initialX, s16 initialY, f32 scaleX, f32 scaleY, s32 scaled);
 

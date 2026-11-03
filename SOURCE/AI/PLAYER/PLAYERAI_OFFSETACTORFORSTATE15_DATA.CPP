@@ -10,7 +10,10 @@
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/OBJB.H"
 #include "WEAPONS/PLAYER_MOVEMENT_INTERFACES.H"
-extern void Player_ReleaseObjectHandles(ResourceHandleOwner *object);
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "ENGINE/CONTPAD.H"
+
 
 extern s32 g_playerSpecialAnimationTable;
 
@@ -28,7 +31,7 @@ extern void Player_UpdateViewAngles(s32, s32, void *);
 
 
 
-extern void ContPad_ClearControllerInput(void *object);
+
 
 s32 CCinema_RequestTrackWithCallbacks(s32, s32, s32 *);
 

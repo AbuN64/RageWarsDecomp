@@ -9,6 +9,7 @@
 #include "FRONTEND/ARCHIVEDATA.H"
 #include "RESMGR/resmgr_stream_io.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 /* Unloads entry index of the pool at g_frontendResourceFontCount: releases the data of every loaded slot (flag 1) in
    each of the entry's slot ns (the n count comes from the entry's definition) through
@@ -52,7 +53,7 @@ void Node_ReleaseChunkImages(s32 index) {
 
 extern struct Record *Cache_AllocateMemory(s32 size);
 
-extern void Node_RelocateWidgetTree(void *, void *, s32);
+
 extern void XStdio_CloseStream(s32);
 
 /* Loads entry index of the menu archive into memory and counts the use: in cache mode 1 an entry

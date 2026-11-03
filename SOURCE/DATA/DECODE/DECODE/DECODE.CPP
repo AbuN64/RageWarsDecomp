@@ -1,10 +1,11 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
-extern char g_huffmanDeltaFiveZeroRunNodes[];
-extern char g_huffmanDeltaNineZeroRunNodes[];
-extern char g_huffmanDeltaSingleZeroRunNodes[];
+#include "DECODER/GFXDATA.H"
+
+
+
 extern char g_huffmanFiveZeroRuns[];
 extern char g_huffmanNineZeroRuns[];
-extern char g_huffmanSignedSmallNodes[];
+
 extern char g_huffmanSingleZeroRuns[];
 
 #if defined(VERSION_US_REV1)

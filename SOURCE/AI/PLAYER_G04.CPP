@@ -18,15 +18,19 @@
 #include "COMMON/RESOURCELOADSTATE.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/SESSIONHANDLERROW.H"
+#include "AI/PLAYER/PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA.H"
+#include "AI/PLAYER_G04.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
 /* PLAYERAI_OFFSETACTORFORSTATE15.CPP */
 extern void Playerai_UpdateSequenceWait(void *);
 
-extern s32 InstHdr_FindActorModelEntry(void *);
+
 
 extern void TeamSelect_EmptyWeaponWheelHook();
 
-extern void Playerai_UpdateMountedMovement(void *, void *);
+
 
 void Playerai_UpdateSequence50Wait(void *sequencePlayer) { Playerai_UpdateSequenceWait(sequencePlayer); }
 
@@ -197,7 +201,7 @@ void Playerai_OffsetActorForState15(Actor126 *actor, Object126 *positionedObject
    g_playerCrouchDepthAndMinimumFall[1] downward or g_playerCrouchMinimumRiseAndBaseClearance[0] upward are dropped, and bit 0x80 of the flags is set while
    g_playerCrouchMinimumRiseAndBaseClearance[1] less the depth lies within g_playerCrouchClearanceBounds to (&g_playerCrouchClearanceBounds)[1], cleared otherwise. */
 
-extern f32 InstHdr_GetActorReach(void *object);
+
 
 struct CCollisionInfo2_t;
 extern s32 Unicol_SweepActorMotion(void *actor, CVector3 startPosition, CVector3 endPosition, struct CCollisionInfo2_t *collisionInfo,
@@ -216,7 +220,7 @@ extern void Playerai_EmptyWeaponEffectHook(void *, void *);
 /* Returns whether the entry Scene_GetModelRecordByIndexPointer finds in g_world_AchieveUpdateresultsscreen for an object's key at 0x14 exists
    and has bit 6 of its flags at 0x52 set. */
 
-extern struct EntryPlayerHasLinkedWorldFlagSix *Scene_GetModelRecordByIndexPointer(Shared_World *, s32);
+
 
 /* Returns the constant after g_playerForceMarkerBasisScale less the cube of its difference from the argument. */
 

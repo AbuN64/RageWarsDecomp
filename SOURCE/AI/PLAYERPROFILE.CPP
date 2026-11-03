@@ -30,6 +30,10 @@
 #include "DATA/WEAPON_CALLBACKS/ADDRLOW_WEAPON_ADVANCESPINANDTRIGGERMODE.H"
 #include "DATA/WEAPON_CALLBACKS/WEAPONAI_SELECTRELEASEDFIRESTATE_ADDRESS.H"
 #include "DATA/WEAPON_CALLBACKS/WEAPON_FIRE_STATE_TABLE.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* PLAYERPROFILE.CPP */
 void Player_InitializeProfile(void *profileStorage) {
@@ -283,23 +287,23 @@ load:
     return obj->levelProgress[index];
 }
 
-extern void Graphu64_ScaleVector(void *, void *, f32);
+
 
 extern void Graphu64_BuildScaleMatrix(void *, f32, f32, f32);
 
-extern void Graphu64_GetMatrixTranslation(char *, f32 *);
 
-extern void Player_BuildPlayerViewTransform(char *, Matrix *);
 
-extern void Player_BuildPlayerOrientation(char *object, CQuatern *output);
+
+
+
 
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
 
-extern void TranslateMatrix(char *, f32, f32, f32);
+
 
 extern void SwapMatrixUpForward(void *);
 
-extern void Graphu64_MultiplyAffineMatrices(void *, void *, void *);
+
 
 extern s32 Defs_TestBit(void *, s32);
 extern void Defs_SetBitValue(u8 *, s32, s32);

@@ -6,6 +6,7 @@
 #include "RENDER/RESIDENT_TEXTURE_MENU_VIEWS.H"
 #include "COMMON/LONE/CONTROLLER_RUMBLE_POOL.H"
 #include "COMMON/RESIDENTSTATE.H"
+#include "ENGINE/RUMBLE.H"
 
 /* Opens the idle-time prompt when allowed and reports whether the pause input remains active. */
 
@@ -48,7 +49,7 @@ block_7:
 
 struct Context;
 void Playerai_ResetPlayerControllers(struct Context *);
-void Rumble_FreeAllPoolNodes(s32 *);
+
 extern char g_playerViewRenderContext;
 #if defined(VERSION_DE)
 void Simppool_ResetEffectsAndControllers(void) {

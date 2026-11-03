@@ -14,6 +14,10 @@ static inline f32 aimAbs(f32 value) { return value < 0.0f ? -value : value; }
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/OBJ.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 
 
@@ -22,19 +26,19 @@ static inline f32 aimAbs(f32 value) { return value < 0.0f ? -value : value; }
 
 
 extern f32 g_playerAimMarkerDepth;
-extern void Player_GetPlayerViewTranslation(SharedPlayer *, CVector3 *);
+
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
-extern void Graphu64_IdentityMatrix(Matrix *);
-extern void Graphu64_MatrixFromEulerXYZ(Matrix *, f32, f32, f32);
-extern void BuildDirectionMatrix(Matrix *, CVector3 *);
-extern void TranslateMatrix(Matrix *, f32 x, f32 y, f32 z);
-extern void ScaleMatrixLocal(Matrix *, f32, f32, f32);
+
+
+
+
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 extern void Graphu64_ConvertMatrixToFixed(Matrix *, Matrix *);
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
+
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
-extern void PitchMatrixLocal(Matrix *, f32);
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
+
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
 void Player_BuildAimMarkerMatrices(SharedPlayer *player, CVector3 *target, CVector3 *normal) {

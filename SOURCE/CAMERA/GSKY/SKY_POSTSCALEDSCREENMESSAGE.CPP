@@ -11,6 +11,8 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "COMMON/DESCRIPTORRECAT29.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern void Graphu64_SubtractVectors(CVector3 *out, CVector3 *a, CVector3 *b);
 
 /* Spawns an emitter record: takes the head of the free list at 0x11D8 into the active list at 0x11EC (or reuses the record at 0x11F0 when none is free) and fills its position, scale, shared value and three rates converted by k_cameraFadeResetValue. */
@@ -32,7 +34,7 @@ static inline void set_emitter(CShake *node, f32 a, f32 b, f32 c, f32 scale, s32
     node->z.value = c;
 }
 
-extern s32 Graphu64_LimitVectorLength(f32 *vectorComponents, f32 maximumLength);
+
 
 extern f32 Gu_Sqrtf(f32);
 

@@ -7,6 +7,7 @@ struct Box;
 typedef struct Box Box;
 
 #include "COMMON/VECTOR3.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
 
 struct Box;
 struct Box {

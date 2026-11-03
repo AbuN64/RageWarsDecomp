@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 struct Packed;
 struct Packed {
     unsigned short kind;

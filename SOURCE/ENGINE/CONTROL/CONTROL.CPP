@@ -14,13 +14,16 @@
 #include <ultra64.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
+#include "ENGINE/CONTROL.H"
+#include "ENGINE/RUMBLE.H"
+#include "../../../sdk/include/libultra/os/control_updatecontrollerrumble_data.CPP.h"
 
 /* 80263760_6.CPP */
-extern void Rumble_FreeAllPoolNodes(s32 *);
+
 
 #if defined(VERSION_EU)
 #elif defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-extern unsigned int Control_StartMotorEuX(void *motorContext);
+
 #elif defined(VERSION_US)
 #else
 #endif
@@ -113,7 +116,7 @@ extern u8 g_controllerPakFrontendState;
 
 extern char g_controllerSiMessageQueue;
 
-extern void Rumble_InitPoolNodes(void *, void *, s32);
+
 
 
 

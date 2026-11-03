@@ -13,6 +13,8 @@
 #include "FRONTEND/FRONTEND_ACTIVATEMATCHOPTIONACTION.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 extern struct MatchOptionsScreen *g_matchOptionsScreen;
 extern s32 SmpButton_GetListSelection(s32 *record);
 extern s32 N64Eng_GetNumericWidgetValue(void *);
@@ -42,7 +44,7 @@ extern s32 Frontend_GetMenuImageState(s32 *record);
 
 extern void N64Eng_SetNumericWidgetValue(struct RecordN64EngCreateNumericWidget *widget, s32 value);
 
-extern void SmpButton_SelectListEntry(void *menu, s32 index);
+
 
 
 /* Refreshes the entry list of screen g_matchOptionsScreen: reads the selection of its cursor at 0x20 through

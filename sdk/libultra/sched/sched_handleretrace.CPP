@@ -12,15 +12,18 @@
 
 #if defined(VERSION_EU)
 #include "COMMON/OSVISCALE.H"
+#include "sched/sched_handleretrace.H"
+#include "sched/sched_handlerspcompletion.H"
+#include "sched/sched_handletaskcommands.H"
 extern s32 g_schedulerFrameCountdown, g_frontendCurrentVideoModeIndex;
 extern OSViMode g_schedulerAlternateVideoMode, g_videoModeLabels;
-extern void Sched_HandleRetrace(OSSched *);
+
 extern void Frontend_UpdateScreenMode(void);
-extern void Sched_HandleRdpCompletion(OSSched *);
+
 extern void SoundElement_FadeOutMusic(void);
 extern void *SoundVoicePool_GetGlobalState(void);
 extern void SoundVoicePool_StopAll(void *);
-extern void Sched_HandleTaskCommands(OSSched *);
+
 
 void Sched_RunEventLoopEu(OSSched *sc) {
     void *msg;

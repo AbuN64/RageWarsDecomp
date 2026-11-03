@@ -4,6 +4,8 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/LINK.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
 struct CacheResourceNode;
 extern void Cache_MarkResourceInUse(s32 heap, struct CacheResourceNode *resource);
 
@@ -15,7 +17,7 @@ extern char g_actorParticleEffectSystem[];
 
 extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
 struct CachedResource; extern struct CachedResource *Cache_RequestPairedResource(s32 unused, s32 key, struct CachedResource *first, struct CachedResource *second, s32 mode, void *owner, void *tag, void *spare, s32 async);
-extern void Link_AnimateVertexColors(void *object, void *colors);
+
 
 extern void Cache_UnlockResource(s32, s32);
 extern s32 Geometry_GetViewEffect(void);

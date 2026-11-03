@@ -1,15 +1,17 @@
 #include "include_asm.h"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 
 #if defined(VERSION_DE)
 typedef struct { s32 owner; void *list; void *w8[3]; void *w14; s32 sel; s32 joinedSlotCount; } CourseSelectionState;
 extern CourseSelectionState *g_courseOptionsScreen;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern void *SmpOverlay_CreateOverlayNode(s32, s32);
-extern void SmpOverlay_ShowSlotById(s32, s32, s32);
+
+
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern s32 Menu_GetPreviousScreenOwner(s32);
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
-extern void *Join_CountUsedSlots(void);
+
 extern void Tsmos_ActivateControllerState(void);
 extern void Join_UpdateJoinRequestDisplay(s32);
 /* Opens the 0x20-byte screen state g_courseOptionsScreen for owner owner: a four-row list, the widgets 0x385, 0x386, 0x38F, 0x390 and three 0x38C rows (shown one by one through Join_UpdateJoinRequestDisplay); returns zero. */

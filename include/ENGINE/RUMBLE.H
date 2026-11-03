@@ -54,4 +54,7 @@ extern void Rumble_InitEffectNode(RumbleEffectNode *effectNode, Clip *effectClip
 extern s32 Rumble_TestEffectHandleCompletion(RumbleEffectNode *effectNode);
 extern void Rumble_ClearEffectOwnerSlot(char *object);
 extern f32 Rumble_EvaluateSpatialEffectNode(f32 *effectNode, u32 positionXBits, u32 positionYBits, u32 positionZBits);
+void Rumble_FreeAllPoolNodes(void *effectPool);
+void Rumble_InitPoolNodes(void *effectPool, void *nodeStorage, s32 nodeCount);
+void Rumble_SetEffectOwnerSlot(void *effectNode, int ownerSlotAddress);
 #endif

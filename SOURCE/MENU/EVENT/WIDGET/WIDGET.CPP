@@ -4,13 +4,14 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/OWNERRECAT8V1.H"
 #include "UI/QUAG/N64_ENG.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 #if defined(VERSION_US)
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 
 extern void Widget_DrawVisibleSiblings(void *, Args);

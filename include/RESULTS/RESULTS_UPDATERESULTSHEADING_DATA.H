@@ -1,0 +1,4 @@
+#ifndef RESULTS_RESULTS_UPDATERESULTSHEADING_DATA_H
+#define RESULTS_RESULTS_UPDATERESULTSHEADING_DATA_H
+extern const char g_characterAndTimeFormatText[];
+#endif

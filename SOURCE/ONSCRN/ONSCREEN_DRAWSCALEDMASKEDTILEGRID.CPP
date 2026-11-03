@@ -25,11 +25,12 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/ENTRYRECATE.H"
 #include "ONSCRN/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 /* 802A8A94_4.CPP */
-void OnScreen_UpdateMoverScript(void *);
 
-extern void OnScreen_DrawStatusBar(void *hud, int which);
+
+
 
 void OnScreen_InitMover(void *moverStorage, s16 x, s16 y)
 {
@@ -153,7 +154,7 @@ void OnScreen_GetImageEntry(OnScreenImageTableView **handle, s32 index, void **o
 
 extern Gfx *g_displayListCursor;
 
-extern s32 Scene_StartWorldEffect(void *world, s32 id, s32 flags, s32 extra);
+
 extern void Cache_UnlockResource(s32 cacheContext, s32 resource);
 extern s32 Geometry_SetModePreset(s32);
 extern void Geometry_SetCombineMode(u32);
@@ -204,7 +205,7 @@ void OnScreen_FillRectangle(s32 x0,s32 y0,s32 x1,s32 y1,u8 r,u8 g,u8 b,u8 a) {
 #endif
 
 #if defined(VERSION_EU_X)
-extern s32 Scene_StartWorldEffect(void *,s32,s32,s32);
+
 extern void Cache_UnlockResource(s32,s32);
 
 void OnScreen_SetTextColors(int topRed, int topGreen, int topBlue, int alpha, int bottomGreen, int bottomBlue) {

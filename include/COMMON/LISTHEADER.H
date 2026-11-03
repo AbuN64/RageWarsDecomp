@@ -6,6 +6,7 @@ struct Shared_Actor;
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "ACTIONAI/ACTION_UPDATEBREAKABLEPROXIMITY.H"
 struct NavigationPlatform;
 extern struct NavigationPlatform *g_navigationPlatformActors;
 
@@ -171,7 +172,7 @@ struct ParticleAmmoRewardView {
 
 struct ActorMotionState;
 struct Player;
-extern s32 Action_ShowTriggerMessage(struct NavigationPlatform *object, struct ActorMotionState *guard, struct Player *actor);
+
 
 extern void SoundElement_StopAudioBySecondaryValue(s32);
 extern CVector3 g_particleZeroVector;

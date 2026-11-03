@@ -2,7 +2,8 @@
 #define COMMON_GRAPHICS_MATRIX_AND_VECTOR_MATH_H
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
-extern void Graphu64_BuildTranslationMatrix(void *matrix, f32 x, f32 y, f32 z);
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+
 extern void Graphu64_BuildScaleMatrix(void *matrix, f32 x, f32 y, f32 z);
 extern float g_inverseAffineHomogeneousScale;
 
@@ -15,7 +16,7 @@ extern float g_inverseAffineHomogeneousScale;
 
 
 
-extern f32 Graphu64_GetVerticalAngle(f32 *delta);
+
 
 
 

@@ -9,9 +9,10 @@
 #include "ANIM/RAY180.H"
 #include "ANIM/CPLANE_RESETCONTACT.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 8023EEF0_13.CPP */
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 /* Is `point` inside the polygon prism, or within `radius` of its edges?
  * Each edge's outward normal (normal x edge) splits off the outside half-space; a point outside an edge
  * passes only when its distance to that edge is at most `radius`. Types 3 and 4 measure the distance

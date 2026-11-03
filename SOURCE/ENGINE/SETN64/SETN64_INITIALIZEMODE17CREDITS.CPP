@@ -10,6 +10,7 @@
 #include "COMMON/INTEGERSTATEB0.H"
 #include "TYPES.H"
 #include "ENGINE/SETN64.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
 extern s32 g_hudReferenceViewportWidth;
 
 
@@ -19,7 +20,7 @@ extern s32 g_hudReferenceViewportWidth;
 
 
 
-extern int Playerai_GetFirstPlayer(void *world);
+
 
 
 struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameSession *session, s32 cancelTarget, s32 target);

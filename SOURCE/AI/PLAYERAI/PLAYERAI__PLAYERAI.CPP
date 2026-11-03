@@ -41,6 +41,24 @@
 #include "COMMON/LEVEL_TRACK.H"
 #include "COMMON/SHAREDCALLBACK5.H"
 #include "AI/PLAYER_DRAWTINTEDPLAYER.H"
+#include "ACHIEVE/achieve_match_setup.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "AI/PLAYER/PLAYER_RESETPLAYERFORROUND.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "PARTICLE/PARTICLE_UPDATESYSTEM.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
+#include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
+#include "RENDER/SETN64_UPDATEFADETRANSITION.H"
+#include "WEAPONS/PLAYERAI_APPLYSTUN.H"
 
 /* 802192C0.CPP */
 /* Steps an animation cursor one frame: looks up the clip in g_world_AchieveUpdateresultsscreen, keeps the previous frame,
@@ -129,12 +147,12 @@ void Playerai_EmptyWeaponEffectHook(void *effect, void *player) {
 
 extern void SetN64_ClearDepthRect(void *unused, s32 ulx, s32 lrx, s32 uly,
                           s32 lry, s32 interlaced);
-extern void TranslateMatrix(char *object, f32 x, f32 y, f32 z);
+
 extern void SwapMatrixUpForward(void *object);
-extern void CopyMatrix(f32 *destinationMatrix, f32 *sourceMatrix);
+
 extern void Graphu64_ScaleMatrixWorld(void *matrix, s32 sx, f32 scaleY, f32 scaleZ);
 extern void Graphu64_ConvertMatrixToFixed(void *src, void *dst);
-extern void Geometry_QueueDirectModel(s32 model, s32 transform, s32 lighting, s32 flags, s32 materialOverride);
+
 
 void Playerai_DrawAnimatedSprite(char *object, char *camera) {
     f32 first[16];
@@ -202,8 +220,8 @@ static inline char *reactionText(void *text, MenuSettings *settings) { return ((
 extern char *g_tagKillerMessage, *g_tagVictimMessage, *g_captureFlagKillerMessage, *g_captureFlagKillerFollowupMessage;
 static inline char *reactionText(void *text, MenuSettings *settings) { return *(char **)text; }
 #endif
-extern void SetN64_CopyString(char *,const char *);
-extern void Gsky_PostScaledScreenMessage(void *,void *,char *,f32);
+
+
 static inline void nextMessage(s32 *next) {
     (*next)++;
     *next %= 4;
@@ -250,13 +268,13 @@ void Player_PostKillMessages(Shared_ReactionPlayer *a,Shared_ReactionPlayer *b,S
 /* Selects and records a player's reaction to an interaction. */
 
 /* Reaction thresholds are loaded from the cartridge's shared float table. */
-void Playerai_ApplyStun(void *, f32);
+
 void Playerai_CreditDamageSource(void *, void *);
-s32 Player_GetPlayerIndex(void *, unsigned int);
+
 s32 Player_GetMaxHealth(void *);
-int Playerai_IsPlayerInactive(void *);
-void Particle_ReleaseOwnerListOneEffects(void *, s32);
-void * Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
+
+
+
 s32 XPlus_NextRandomInteger(void);
 
 extern char g_actorParticleEffectSystem[];
@@ -653,7 +671,7 @@ reaction_statistics_done:
     }
 }
 
-extern void **Gobjinst_RequestAnimatedModelVariant(LevelActor *, s32);
+
 extern void Cache_UnlockResource(s32, void *);
 void Player_DrawPlayerBodyAndWeapon(LevelActor *actor, s32 animationContext, Draw *context)
 {
@@ -841,9 +859,9 @@ void Playerai_InitializeMovementAndAim(void *playerObject) {
 
 extern s32 g_playerWeaponClassMode;
 CQuatern Gobjinst_BuildActorAimQuaternion(void *actor);
-s16 *Playerai_GetWeaponFireMode(AimPlayer *aimPlayer, s32 weaponId);
-void Player_GetPlayerViewTranslation(void *player, f32 *origin);
-s32 Particle_SpawnEffectGroup(EffectSystem *sys, EffectActor *source, EffectActor *owner, s32 *refCount, s32 followTarget, s32 kind, CVector3 inheritedVelocity, CQuatern rotation, CVector3 pos, CVector3 *aim, s32 requestedMode, s32 spawnFlags);
+
+
+
 
 static __inline__ s32 containsFire(s16 **entries,s32 effect) {
  s32 i=0; s16 **p=entries;
@@ -958,8 +976,8 @@ spawn:
    sets the starting ammo by whether the player has a definition, and chooses the starting weapon (fixed for states 17 and
    18, none for a bonus profile, the low half of the second loadout word of the definition when the player is a computer, else the first
    action marked 1) before loading the weapon's animation table and count. */
-extern void Achieve_ApplyPlayerOptionOverrides(struct Player *);
-extern void Achieve_EnableLevelWeapons(struct Player *);
+
+
 
 void Player_ResetPlayerWeapons(struct Player *player) {
     Shared_Game *game;
@@ -1055,12 +1073,12 @@ void Player_ResetPlayerWeapons(struct Player *player) {
 }
 
 extern s32 g_activeLinkSequenceId;
-extern void Player_ReleaseObjectHandles(void *);
-extern void Scene_SetSelection(void *, s32, s32);
+
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
-extern void Control_SetProfileMode(void *, s32);
-extern void Player_InitActorHudState(void *);
+
+
 /* Places the player at the matching level spawn. In multiplayer, choose the last
  * point tied for the greatest distance to its nearest player. Fall back when no
  * point is available, then update the controller's current cell. The single-player arm opens with a dead

@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "RESULTS/RESULTS_UPDATERESULTSHEADING_DATA.H"
 
 #if !(defined(VERSION_US_REV1))
 const char g_characterAndTimeFormatText[27] =

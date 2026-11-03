@@ -6,11 +6,12 @@
 #include "COMMON/VIEWFLAGS.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
 extern void Camera_DrawAndAdvanceMessages(ScreenMessageOwner*race, GameplayCamera*racer);
 extern void Camera_DrawViewportBorder(GameplayCamera*racer);
 extern void Camera_UpdateScreenMessages(struct ScreenMessageOwner*owner, struct GameplayCamera*pool);
 extern ViewFlags g_cameraRenderFlagState;
-extern void Scene_DrawVisibleInstances(char*, char*);
+
 extern void Camera_AccumulateDistanceScaledShake(CShake *shake, CVector3 position, CVector3 *out);
 extern void Camera_AdvanceOverlayFade(Overlay *overlay);
 extern void Camera_DrawViewportOverlays(View *entity);
@@ -23,4 +24,9 @@ extern void Camera_DrawWorldViewLayers(char *view, char *world);
 extern const unsigned char k_CameraEncodedBytes[13];
 extern void Camera_EaseViewportRectangle(GameplayCamera *camera, f32 a, f32 b, f32 c, f32 d);
 extern void Camera_DrawActiveViews(ScreenMessageOwner *race, s32 world);
+struct GameplayCamera;
+void Camera_UpdateViewProjectionAndEffects(struct GameplayCamera *camera);
+struct ScreenMessageOwner;
+void Camera_UpdateViewportLayoutAndBounds(struct ScreenMessageOwner *state);
+extern const char g_camerasText[];
 #endif

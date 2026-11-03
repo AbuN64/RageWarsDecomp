@@ -1,0 +1,4 @@
+#ifndef GAME_FRONTEND_CLOSEOPTIONSPAGE_H
+#define GAME_FRONTEND_CLOSEOPTIONSPAGE_H
+s32 Frontend_CloseOptionsPage(void);
+#endif

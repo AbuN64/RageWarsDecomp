@@ -4,6 +4,7 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/RG.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 #if defined(VERSION_DE)
 typedef struct { char pad0[0x1C]; Player *rec; struct ControllerProfile *player; } CharacterPreviewMenuContext;
 extern s16 g_characterPreviewStyleSounds[][2];
@@ -12,7 +13,7 @@ extern u8 g_characterPreviewRightChoices[][4];
 extern unsigned int Control_IsAButtonPressed(struct ControllerProfile *profile);
 extern void Player_StartPlayerAnimation(struct Player *animatedPlayer, s32 animationState);
 extern s32 SoundElement_PlayFlatSound(s32 id);
-extern void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, struct Dialog *list);
+
 extern s32 Menu_StepValue(struct MenuValueStepView *menu, s32 value, s32 step, s32 minimum, s32 maximum, s32 wrap);
 extern struct PreviewWidget *Menu_SelectPreviewModel(struct MenuPreviewSelectionView *widget,int selection,int kind);
 /* Steps the choice byte at 0x80 of the slot the record at 0x1C of menuContext points to: while the player passes Control_IsAButtonPressed_Character it plays the sound for the record's style and runs the resource g_characterPreviewMenuRomResource; otherwise Menu_StepValue moves the choice and the remapping tables g_characterPreviewLeftChoices (Control_IsLeftPressed) and g_characterPreviewRightChoices (Control_IsRightPressed or Control_IsAButtonPressed_Character) are applied before the display is refreshed; returns 1 or 0. */

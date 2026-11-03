@@ -4,6 +4,7 @@
 #include "MENU/OPTIONS_TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "RESULTS/RESULTS_UPDATERESULTSHEADING_DATA.H"
 struct PlayerStatisticsCountView;
 typedef struct PlayerStatisticsCountView PlayerStatisticsCountView;
 
@@ -118,7 +119,7 @@ extern void Frontend_DrawResultSelectionPreview(void);
 
 extern void Menu_SetOptionsSceneSelection(s32);
 
-extern char g_characterAndTimeFormatText[];
+
 extern char g_resultsBestTimeFormat[];
 extern char g_resultsBestTimePlaceholder[];
 extern void Random_ReplaceTextOccurrences(char *, char *, char *);

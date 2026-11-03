@@ -4,6 +4,9 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT2.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT3.H"
+#include "VOLUME/PAK_FORMATMUSICPREVIEW_DATA.H"
 
 struct OptionsPakAdjustPackedButtonOption;
 struct OptionsPakAdjustPackedButtonOption {
@@ -63,8 +66,8 @@ extern u8 *g_volumeZeroMaximumLabels[];
 extern u8 *g_volumeZeroNeutralLabels[];
 extern char g_volumePositiveStepFormat[];
 extern char g_volumeNegativeStepFormat[];
-extern char g_pakFormatSpacedInt2[];
-extern char g_pakFormatSpacedInt3[];
+
+
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 extern char *g_volumeOneMinimumLabel[];
@@ -77,7 +80,7 @@ extern char *g_volumeOneNeutralLabel;
 #endif
 
 extern u8 *g_musicPreviewFixedValueText;
-extern char g_musicPreviewValueFormat_de[];
+
 
 
 extern u8 *g_packedButtonOptionZeroText;

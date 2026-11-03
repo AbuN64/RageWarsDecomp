@@ -5,6 +5,7 @@
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "COMMON/TRIPLE.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "AI/PLAYER/PLAYERAI_DRAWAMMOCOUNTERS.H"
 
 void Playerai_DrawAmmoCounters(PowerHudPlayer *player, Shared_HudView *view) {
     f32 sx,sy,numberScale,offset,halfWidth,x,y;

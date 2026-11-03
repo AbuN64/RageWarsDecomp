@@ -2,6 +2,7 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/VECTOR4F.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 extern void Graphu64_EaseValueToward(f32 *value, f32 target, f32 rate);
 extern void Player_UpdateViewAngles(SharedPlayer *,PlayerBodyPositionYawView *,char *);

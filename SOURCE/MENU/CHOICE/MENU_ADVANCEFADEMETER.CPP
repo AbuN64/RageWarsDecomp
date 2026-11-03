@@ -11,6 +11,7 @@
 #include "FRONTEND/PAKINTERFACE_SETSCREENPHASE.H"
 #include "MENU/MENU_ADVANCEFADEMETER.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 /* 80420E90_14.CPP */
 #if defined(VERSION_DE)
@@ -50,7 +51,7 @@
 
 extern void Tsmos_ActivateControllerState(void);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
-extern s32 SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern ChoiceMenuState *g_sixChoiceMenuState;
 

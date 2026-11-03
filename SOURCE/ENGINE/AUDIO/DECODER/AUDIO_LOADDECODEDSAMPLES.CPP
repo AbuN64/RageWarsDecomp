@@ -8,9 +8,10 @@
 #include "COMMON/AUDIO_CALLBACKS.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "AUDIO/audio_nextdecodedsampleblock.H"
 
 /* Streams raw 16-bit samples into DMEM for the requested byte count: clears the output when the wave table is empty, otherwise refills a 0x100-sample block at g_audioTransformInputStream through Audio_NextDecodedSampleBlock and osWritebackDCache whenever the filter has none left (clearing and stopping when none arrives), then loads the available samples at 8-byte alignment and moves them into place. Adapted from alRaw16Pull (alRaw16Pull) with the loop handling replaced by the streamed block, updated through a pointer to g_audioTransformInputStream. */
-extern s32 Audio_NextDecodedSampleBlock();
+
 
 
 

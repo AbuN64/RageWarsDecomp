@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "CREDITS_BLANK_LABEL/DEBUGLINK.H"
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/ragewars_credits_label_blank_us_rev1.c */

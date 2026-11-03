@@ -272,3 +272,4 @@ void Weaponai_UpdateCallbacksAndTimers(void *actorStorage, void *stateController
 extern s32 g_gameLoopFrameCount;
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "ENGINE/AUDIO/CHANNEL.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"

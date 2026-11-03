@@ -5,11 +5,13 @@
 #include "../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../include/PFS/__OSCHECKID.H"
 #include "../../include/PFS/PFS_SELECTACTIVEBANK.H"
+#include "../../include/libultra/io/contramread.h"
+#include "../../include/libultra/io/contramwrite.h"
 
 /* pfs_readwritefile.CPP */
 /* Reads or writes Controller Pak file blocks while validating and following its inode chain, based on the 2.0I public reference. */
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
-extern s32 __osContRamWrite(void *queue, int channel, u16 address, u8 *buffer, int force);
+
+
 static inline s32 __osPfsGetNextPage(OSPfs* pfs, u8* bank, __OSInode* inode, __OSInodeUnit* page) {
     s32 ret;
     if (page->inode_t.bank != *bank) {

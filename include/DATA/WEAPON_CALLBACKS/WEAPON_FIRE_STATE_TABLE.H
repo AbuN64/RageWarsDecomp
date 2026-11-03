@@ -1,6 +1,7 @@
 #ifndef DATA_WEAPON_CALLBACKS_WEAPON_FIRE_STATE_TABLE_H
 #define DATA_WEAPON_CALLBACKS_WEAPON_FIRE_STATE_TABLE_H
 #include "TYPES.H"
+#include "ACTOR/ACTOR_UPDATEACTORSTATEANIMATION.H"
 
 /* One candidate of an animation choice list: Gobjinst_ChooseAvailableAnimationKind walks pairs of
    (animation, weight) until the animation is -1 and picks one by weight. */

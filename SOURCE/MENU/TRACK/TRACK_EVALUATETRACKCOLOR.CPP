@@ -6,13 +6,14 @@
 #include "TYPES.H"
 #include "MENU/TRACK_EVALUATETRACKCOLOR.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Evaluates the position keyframe track 1 of the current record's resource at time t: holds the
    first or last key's position outside the track, is zero when the track is empty, and otherwise
    blends the surrounding keys' positions linearly with the vector scale and add helpers. Vector
    counterpart of Track_EvaluateTrackOpacity. */
 
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
 extern void Graphu64_AddVec3(CVector3 *out, CVector3 *a, CVector3 *b);
 
 CVector3 Track_EvaluateTrackColor(f32 t) {

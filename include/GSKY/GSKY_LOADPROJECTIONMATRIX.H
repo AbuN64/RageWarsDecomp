@@ -1,0 +1,4 @@
+#ifndef GSKY_GSKY_LOADPROJECTIONMATRIX_H
+#define GSKY_GSKY_LOADPROJECTIONMATRIX_H
+void Gsky_LoadProjectionMatrix(u32 cameraAddress);
+#endif

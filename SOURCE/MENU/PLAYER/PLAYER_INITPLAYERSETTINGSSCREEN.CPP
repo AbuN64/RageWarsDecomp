@@ -4,6 +4,8 @@
 #include "COMMON/MENULISTSCREEN.H"
 #include "TYPES.H"
 #include "MENU/PLAYER_INITPLAYERSETTINGSSCREEN.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 #if defined(VERSION_DE)
@@ -20,9 +22,9 @@ extern char *g_playerSettingsSecondaryListLabels[1];
 extern char *g_playerSettingsFirstChoiceText[1];
 extern char *g_playerSettingsSecondChoiceText[1];
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern void *SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpButton_WrapButtonWidget(s32);
-extern void *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
@@ -72,9 +74,9 @@ extern char *g_alternateSettingsHandLabels[];
 extern char *g_alternateSettingsFinalChoiceLabelsEu[];
 extern char *g_alternateSettingsFinalChoiceLabelsEuX[];
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern void *SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpButton_WrapButtonWidget(s32);
-extern void *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
@@ -116,7 +118,7 @@ s32 Player_InitPlayerSettingsScreen(s32 root) {
 
 extern struct StateMenuSelectPlayerSettingsEntry *g_playerSettingsScreen;
 extern s8 g_profileSlotSettingsByte7B[];
-extern void SmpButton_SelectListEntry(void *, s32);
+
 extern void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item);
 
 void Player_SelectPlayerSettingsEntry(s32 entryIndex) {

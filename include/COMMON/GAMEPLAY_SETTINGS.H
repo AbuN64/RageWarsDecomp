@@ -1,6 +1,7 @@
 #ifndef COMMON_GAMEPLAY_SETTINGS_H
 #define COMMON_GAMEPLAY_SETTINGS_H
 #include "TYPES.H"
+#include "MENU_CHOICE/FRONTEND_INITPLAYMODEMENU.H"
 /* Actual 0x96-byte player-settings records based at Game+0xD0.
  * ROM joining-player stores (+0x78/+0x7F) and exact transition caller
  * reads (+0x80/+0x95) corroborate the shared record. */

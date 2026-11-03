@@ -10,6 +10,7 @@
 #include "COMMON/PAKQUEUESTATE.H"
 #include "COMMON/INTEGERSTATEB0.H"
 #include "TYPES.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
 
 
 void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);

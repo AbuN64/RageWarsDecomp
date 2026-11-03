@@ -143,4 +143,6 @@ extern s32 g_cupCategoryZeroArenaControls[];
 extern s32 g_cupCategoryOneArenaControls[];
 extern s32 g_cupCategoryThreeArenaControls[];
 extern s32 g_cupCategoryTwoArenaControls[];
+struct ControllerRumbleView;
+void Control_UpdateControllerRumble(struct ControllerRumbleView *profile);
 #endif

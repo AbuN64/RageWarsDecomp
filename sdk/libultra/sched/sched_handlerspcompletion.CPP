@@ -76,6 +76,7 @@ void Sched_HandleRspCompletion(void *object) {
 #include "COMMON/OBJRECAT20V1.H"
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "COMMON/TRIPLE.H"
+#include "sched/sched_handlerspcompletion.H"
 
 
 extern u32 g_schedulerRetracesSinceSwap;

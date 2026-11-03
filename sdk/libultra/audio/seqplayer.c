@@ -22,6 +22,7 @@
 #include "libgultra/alunlink.h"
 #include "COMMON/ALFXPARAM.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "../../include/libultra/audio/seqplayer.h"
 
 /* seqplayer_2.c */
  /* 2147483648.0f */
@@ -52,7 +53,7 @@ int __vsDelta(void *voiceObject, int currentTime);
 s16 __vsVol(ALVoiceState *vs, ALSeqPlayer *seqp);
 void *__lookupSoundQuick(void *seqPlayer, s32 noteKey, s32 noteVelocity, s32 channelNumber);
 ALVoiceState *__lookupVoice(ALSeqPlayer *seqp, u8 key, u8 channel);
-ALVoiceState *__mapVoice(ALSeqPlayer *sequencePlayer, u8 noteKey, u8 noteVelocity, u8 midiChannel);
+
 void __setInstChanState(void *seqPlayer, void *selectedInstrument, s32 channelNumber);
 s32 __vsPan(void *voiceObject, void *playerObject);
 void __resetPerfChanState(void *playerObject, s32 index);

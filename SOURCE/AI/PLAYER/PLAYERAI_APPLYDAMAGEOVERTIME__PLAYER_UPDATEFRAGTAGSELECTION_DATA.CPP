@@ -22,6 +22,8 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "GFX/TEXT/PLAYERAI_APPLYDAMAGEOVERTIME_DATA.H"
+#include "AI/PLAYER/PLAYERAI_APPLYDAMAGEOVERTIME__PLAYER_UPDATEFRAGTAGSELECTION_DATA.H"
+#include "ENGINE/INSTANCE/GOBJINST.H"
 
 
 extern void *Scene_FindActorDefinition(Shared_World *world, s32 selection, s32 modelKind);
@@ -35,7 +37,7 @@ extern s32 g_playerWeaponClassMode;
 
 
 
-extern void GameObject_DrawBlobShadow(void *actor, CVector3 *offset, s32 raised);
+
 
 
 

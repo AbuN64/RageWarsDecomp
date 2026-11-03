@@ -1,0 +1,5 @@
+#ifndef MATCH_FRONTEND_HANDLEMATCHMENUMESSAGE_H
+#define MATCH_FRONTEND_HANDLEMATCHMENUMESSAGE_H
+s32 Frontend_CloseMatchMenu(void);
+s32 Frontend_HandleMatchMenuMessage(void);
+#endif

@@ -8,13 +8,15 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/BOX_CONTACT.H"
 #include "GAME/ATTACK_SELECTWEIGHTEDATTACKBEHAVIOR.H"
+#include "ATTACK/ATTACK.H"
+#include "RESELECT/RESELECT.H"
 
 extern void ReselectCloseAttack(void *);
 
 
 struct AiController; s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 
-s32 Reselect_ChooseWeightedAttackBehavior(s32);
+
 
 /* The original MIPS preserves a0 for either close-attack update. */
 s32 UpdateCloseAttack(void *brainAddress) {

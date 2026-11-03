@@ -7,6 +7,8 @@
 #include "MULTI/SETUP_SETUPNAMESPINNER.H"
 #include "TYPES.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "SETUP/SETUP_NAME_CURSOR_CONSTANT_WORDS.H"
 
 /* Draws a menu spinner: during the first half of its blink period (the timer of its g_multiplayerNameEntryStates entry up to the float after g_multiplayerNameEntryTimingLimits) it fills a two-pixel white bar under the digit its value selects, placed from the item's x at 0x14 by the character width Menu_GetWidgetStyle_EncodedDrawtextentrycursor reports scaled to the screen, with the style's alpha at 0x30 and 0x34, through OnScreen_SetupFillMode and OnScreen_DrawBevelBox; then draws the item through Menu_DrawLocalizedMenuItemText. */
 
@@ -21,7 +23,7 @@ extern Spinner g_multiplayerNameEntryStates[];
 
 
 
-extern s32 Player_GetPlayerIndex(char *, s32);
+
 extern PaddedFloatView *Menu_GetWidgetStyle(void *, s32);
 
 extern void Menu_DrawLocalizedMenuItemText(struct Field *object, s32 second, s32 third, s32 fourth);
@@ -34,7 +36,7 @@ void Setup_DrawNameCursor(void *menu, MenuLocalizedTextItemView *item, void *thi
     unsigned int bits;
 
     i = Player_GetPlayerIndex(&g_playerViewRenderContext, style->id);
-    if (g_multiplayerNameEntryStates[i].timer <= *(&g_multiplayerNameEntryTimingLimits + 1)) {
+    if (g_multiplayerNameEntryStates[i].timer <= *(&(*(float *)&g_multiplayerNameEntryTimingLimits) + 1)) {
         width = Menu_GetWidgetStyle(menu, 0)->value * (f32)g_hudReferenceViewportWidth * g_multiplayerNameCursorWidthScale;
         x = (f32)item->x + (f32)g_multiplayerNameEntryStates[i].value * width;
         g_multiplayerItemRenderState = -1;

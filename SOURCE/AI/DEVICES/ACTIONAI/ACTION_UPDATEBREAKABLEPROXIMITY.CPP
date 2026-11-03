@@ -21,6 +21,13 @@
 #include "COMMON/GAMEPLAY_SOUND_TABLE.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "COMMON/NAVIGATION_NODE_AND_ROUTE_VIEWS.H"
+#include "ACTIONAI/ACTION_UPDATEBREAKABLEPROXIMITY.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "AI/PLAYER_G04.H"
+#include "GOBJINST/PLAYER_DRAWTINTEDPLAYER_DATA.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 /* 8020402C.CPP */
 #if defined(VERSION_EU_X)
@@ -34,8 +41,8 @@ extern s32 g_breakableNotificationText[];
 #else
 extern s32 g_breakableNotificationText;
 #endif
-extern u8 *Playerai_FindTransientPlayer(u8 *);
-extern void Playerai_UpdateTeamScore(void *, void *, s32);
+
+
 extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text);
 /* 182/182 words in us-rev1 and de (local j targets aside); not exact on the ROM path only because the switch jump table (k_actionUpdateBreakableProximityJumpTable) still lives in a separate rodata file; us/eu/eu-x differ in prologue size */
 typedef struct LvDelta {
@@ -153,7 +160,7 @@ typedef struct SoundActor {
     char pad104[0x1D8 - 0x104]; SoundParent *parent;
 } SoundActor;
 extern struct MenuModelScreen g_fallbackScreenMessageEmitter[];
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, void *, f32);
+
 /* The early returns are gotos to one exit label: with plain early returns EU/EU-X build beqz for the flags
  * test where the ROM has beql (delay slot annulled); this shape gives the ROM word in all five versions. */
 s32 Action_ShowTriggerMessage(struct NavigationPlatform *object, ActorMotionState *guard, struct Player *player) {
@@ -189,12 +196,12 @@ extern s32 Rumble_TestActorStateBit(void *, void *);
 
 extern void Rumble_SetActorStateBit(Shared_World *, void *, s32);
 
-extern void Link_DispatchActorLinks(void *actor, s32 eventMask, void *eventSource);
+
 
 struct ParticleQuadPoolScene;
 extern void Fx_RecycleOwnerParticles(struct ParticleQuadPoolScene *, s32);
 
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 /* Supplies the nonnegative blend remaining after the incoming strength is
  * scaled, then applies the actor animation using the original lookup. */
@@ -203,7 +210,7 @@ struct ActionFadeInput {
     f32 strength;
 };
 
-extern void Gobjinst_DrawActorModelWithViewEffects(FadedActorRenderView *, void *, Lookup *);
+
 
 /** Run the object's optional update hook, then copy one of two byte pairs into the record header. */
 

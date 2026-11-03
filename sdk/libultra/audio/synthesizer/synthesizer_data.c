@@ -1,5 +1,6 @@
 #include "include_asm.h"
 #include "COMMON/ALFXPARAM.H"
+#include "synthesizer/synthesizer_data.h"
 
 const char s_audioSynthesizerText[20] = "audio/synthesizer.c";
 

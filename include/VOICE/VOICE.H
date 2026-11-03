@@ -2,6 +2,7 @@
 #define VOICE_VOICE_H
 #include "COMMON/OBJRECAT4V6.H"
 #include "AUDIO/VOICE_AND_SPATIAL_SOURCE_VIEWS.H"
+#include "AUDIO/VOICE.H"
 extern void Audio_InitializeVoiceRecord(void *, int owner, int);
 extern s32 Audio_GetVoiceSoundState(AudioVoiceSoundSlotView *voicePool, s16 slotIndex);
 extern void Audio_PlayVoiceSound(AudioVoiceSoundSlotView *base, s16 index);
@@ -23,7 +24,7 @@ extern void Audio_DeallocateVoiceSlot(AudioVoiceControlSlotView *voiceRecord);
 extern void SoundVoicePool_ResetNode(void *cLoopingSoundData);
 extern void SoundVoicePool_ResetNodeNoOp(void);
 extern void *SoundVoicePool_PlaySpatialSound(void *voicePool, s32 soundId, CVector3 *soundPosition, void *position, s32 fallback);
-extern void SoundVoicePool_Pause(void *voicePool);
+
 extern void SoundVoicePool_RetireFinishedSounds(void *soundVoicePool);
 extern void SoundVoicePool_StopAll(void *soundVoicePool);
 extern void SoundVoicePool_GetGlobalStateNoOp(void);

@@ -8,6 +8,7 @@
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 #include "MULTI/ITEM.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 
 void Multi_DrawPlayerItemAvailability(struct MultiplayerItemAvailabilityView *item, MenuOptionBox *box, s32 unused, struct HolderMultiIsPlayerItemAvailable *context) {
@@ -96,7 +97,7 @@ s32 Multi_IsPlayerItemAvailable(struct MultiplayerItemAvailabilityView *item, st
 
 /* Calls SoundElement_DisableMusicGainOverride and then returns what Menu_TryCreateMenu gives for the same three arguments. */
 extern void SoundElement_DisableMusicGainOverride(void);
-extern s32 Menu_TryCreateMenu(void *, void *, void *);
+
 
 s32 Multi_CreateMenuWithDefaultMusicGain(void *first, void *second, void *third) {
     SoundElement_DisableMusicGainOverride();

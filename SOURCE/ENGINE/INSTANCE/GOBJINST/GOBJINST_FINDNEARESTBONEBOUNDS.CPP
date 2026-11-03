@@ -12,6 +12,11 @@
 #include "SCENE/CACHE_ALLOCATERESOURCEAT.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "GOBJINST/GOBJINST_FINDNEARESTBONEBOUNDS.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* Finds the hit box of an object nearest a point: with the object's bone matrices (0xB4, else 0xB8) and its
  * hit-box resource from Gobjinst_RequestAnimatedModelVariant, each box whose mask matches the object's mask 0x17C has the average
@@ -26,15 +31,15 @@
 
 
 
-extern s32 *Gobjinst_RequestAnimatedModelVariant(char *, s8);
+
 
 
 
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *, char *);
+
+
 
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
@@ -45,7 +50,7 @@ extern void *g_actorTypeOperations[];
 extern char *g_gamePlayerAndMenuState;
 
 
-extern void *Scene_GetActorDefinition(void *, s32);
+
 
 extern s32 Rumble_TestActorStateBit(void *, void *);
 

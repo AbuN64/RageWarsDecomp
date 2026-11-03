@@ -58,9 +58,10 @@ extern s32 ScenarioSetup_SelectNextCatalogueCategory(void *unused0, void *unused
 extern s32 ScenarioSetup_EndSetupInput(void);
 extern s32 ScenarioSetup_RefreshSetupScreen(void);
 extern s32 ScenarioSetup_DispatchCatalogueEvent(void *, s32, s32, s32, s32);
-extern s32 ScenarioSetup_OpenResultsScreen(void *root);
+
 extern void ScenarioSetup_FillResultRows(void);
 extern void ScenarioSetup_SortResultsPlayers(void);
 extern void ScenarioSetup_HideResultCatalogueWidgets(void);
 extern void ScenarioSetup_InitResultModelPreview(void);
+s32 ScenarioSetup_OpenResultsScreen(void *root);
 #endif

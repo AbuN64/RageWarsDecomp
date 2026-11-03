@@ -4,8 +4,9 @@
 #include "../../include/libultra/audio/synthesizer.h"
 #include "COMMON/ALDELAY28.H"
 #include "TYPES.H"
+#include "../../include/libultra/audio/drvrnew.h"
 
-extern void alFxNew(s32 effect, s32 config, s32 heap);
+
 extern s32 alMainBusParam(void *bus, s32 param, s32 source);
 
 

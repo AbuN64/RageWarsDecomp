@@ -1,0 +1,5 @@
+#ifndef LIBULTRA_OS_CONTROL_UPDATECONTROLLERRUMBLE_DATA_CPP_H
+#define LIBULTRA_OS_CONTROL_UPDATECONTROLLERRUMBLE_DATA_CPP_H
+struct Triple;
+u32 Control_StartMotorEuX(struct Triple *motorContext);
+#endif

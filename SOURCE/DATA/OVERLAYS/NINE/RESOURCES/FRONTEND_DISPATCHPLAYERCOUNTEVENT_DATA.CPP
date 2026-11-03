@@ -2,15 +2,18 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
+#include "PLAYERCOUNT/FRONTEND_CREATECOURSEOPTIONSMENU.H"
+#include "PLAYERCOUNT/FRONTEND_CREATEPLAYERCOUNTSCREENDE.H"
+#include "PLAYERCOUNT/FRONTEND_UPDATEPLAYERCOUNTSCREEN.H"
 
-extern char Frontend_CancelPlayerCount[];
-extern char Frontend_ConfirmPlayerCount[];
-extern char Frontend_CreatePlayerCountScreenDe[];
-extern char Frontend_CreatePlayerCountScreenEux[];
-extern char Frontend_DecreasePlayerCount[];
-extern char Frontend_DestroyPlayerCountScreen[];
-extern char Frontend_IncreasePlayerCount[];
-extern char Frontend_UpdatePlayerCountScreen[];
+
+
+
+
+
+
+
+
 extern char g_Frontend_CancelPlayerCountPackedAddress24[];
 extern char g_Frontend_ConfirmPlayerCountPackedAddress24[];
 extern char g_Frontend_CreatePlayerCountScreenEuPackedAddress24[];

@@ -13,12 +13,15 @@
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
+#include "sched/sched_handleretrace.H"
+#include "sched/sched_handlerspcompletion.H"
+#include "sched/sched_handletaskcommands.H"
 
 #if !(defined(VERSION_EU) || defined(VERSION_US))
-extern void Sched_HandleRetrace(void *scheduler);
 
-extern void Sched_HandleRdpCompletion(void *scheduler);
-extern void Sched_HandleTaskCommands(void *scheduler);
+
+
+
 
 
 extern void *SoundVoicePool_GetGlobalState(void);

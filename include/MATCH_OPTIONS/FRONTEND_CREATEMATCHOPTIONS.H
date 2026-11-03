@@ -1,0 +1,4 @@
+#ifndef MATCH_OPTIONS_FRONTEND_CREATEMATCHOPTIONS_H
+#define MATCH_OPTIONS_FRONTEND_CREATEMATCHOPTIONS_H
+s32 Frontend_CreateMatchOptions(void *root);
+#endif

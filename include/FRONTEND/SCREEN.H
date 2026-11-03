@@ -16,4 +16,5 @@ extern void Frontend_ApplyScreenModeValue(s32 value);
 extern void Frontend_StartScreenModeFade(void);
 extern void Frontend_UpdateScreenMode(void);
 extern void Frontend_RequestScreenMode(s32 value);
+int *Frontend_GetScreenModePalette(void);
 #endif

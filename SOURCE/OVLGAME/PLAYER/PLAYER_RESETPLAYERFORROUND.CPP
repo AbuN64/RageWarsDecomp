@@ -1,5 +1,20 @@
 #include "COMMON/AIPROFILE.H"
-extern void Control_SetProfileMode(void *, int);
+#include "AI/CTEAMSELECT.H"
+#include "AI/PLAYER/PLAYERAI_BUILDFORCEMARKERTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_RESETPLAYERFORROUND.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "CTEAMSELECT/PLAYER_RESETPLAYERFORROUND_DATA.H"
+#include "FRONTEND/PLAYER.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "GOBJINST/GOBJINST_FINDNEARESTBONEBOUNDS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "PLACEPLAYERLIGHT/PLACEPLAYERLIGHT.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
+#include "POOLS/POOLS.H"
+#include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
+
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHAREDPLAYER.H"
@@ -79,10 +94,10 @@ extern u8 g_Player_DrawPlayerBodyAndWeaponAddressEuX[];
 extern u8 g_Player_BuildWeaponHandTransformAddressEuX[];
 #define ACTORPART_PART1_T28C g_Player_BuildWeaponHandTransformAddressEuX
 #endif
-extern void Gobjinst_InitializePlacedActor(void *, void *, void *, s32);
+
 extern void Actor_RequestActorState(void *, void *, s32);
 extern void Weaponai_ApplyWeaponSwitch(void *, void *);
-extern void Player_UpdatePlayerCamera(void *, void *);
+
 #include "MENU/INITVIEW.H"
 #include "ACHIEVE/ACHIEVE.H"
 /* Initialises an actor and its embedded part at 0x2E8: sets the shared table pointers and flag bits (one flag
@@ -142,13 +157,13 @@ extern void *g_currentStagePreset;
 extern char g_roundStartModeSpecificDialogTable[], g_playerMenuDialogTable[], g_roundStartDefaultDialogTable[];
 struct RespawnPlayer;
 extern s32 Control_IsSnapshotActive(void);
-extern void *Pools_RecycleModel(void *);
-extern void TeamSelect_ResetWeaponWheel(void *);
-extern void TeamSelect_ResetTeamWheel(void *);
+
+
+
 extern u32 Player_GetLevelProgress(void *, s32);
-extern void Player_ResetPlayerWeapons(struct RespawnPlayer *);
-extern void Player_ResetRespawnedPlayer(struct RespawnPlayer *);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
+
 /* Resets a player/actor record for a new run: marks it active, stores the character, picks up the HUD
  * object, clears the per-slot counters and weapon tables, selects the start mode from the multiplayer setting
  * and zeroes the per-player entries of the two global tables. */
@@ -268,12 +283,12 @@ void Player_ResetPlayerForRound(void *actor, s32 character) {
 #ifndef FIELD
 #define FIELD(type, base, off) (*(type *)((char *)(base) + (off)))
 #endif
-extern char g_hudStatusWidgetMoverScriptOne[], g_hudStatusWidgetMoverScriptTwo[], g_hudStatusWidgetMoverScriptThree[], g_hudStatusWidgetMoverScriptFour[], g_hudLivesInitialMoverScript[];
-extern char k_PlaceplayerlightEncodedWords[], g_hudScoreInitialMoverScript[], g_hudCountInitialMoverScript[], g_hudSquadInitialMoverScript[];
+
+
 extern u32 g_activeActorKind;
 extern void Playerai_LoadActorModel(void *actor);
 extern void Playerai_UpdateCharacterModel(void *);
-extern void OnScreen_InitMover(void *, s32, s32);
+
 extern void Link_DispatchObjectLinks(void *, s32, void *);
 /* Prepares an actor's per-run HUD state: runs the mode-specific setup when the session byte is set, resets
  * the record at 0x878 to its defaults, lays out the nine on-screen widgets at 0xE2C..0x10C0 (position, then
@@ -425,13 +440,13 @@ static inline int isOnline(void) {
     return g_frontendScreenStatus.settings.local;
 }
 extern unsigned int g_gameLoopFrameCount;
-extern void Playerai_ClearDamageTimers(struct RespawnPlayer *);
-extern void Control_SetProfileMode(void *, int);
+
+
 extern void Playerai_InitializePlayerHealth(struct RespawnPlayer *);
 extern int SetN64_IsModeThirteen(void);
-extern void Player_ResetPlayerWeapons(struct RespawnPlayer *);
-extern void Nav_ResetPlayerState(void *);
-extern void Animpool_ReleaseSceneEffect(LevelActor *);
+
+
+
 static inline void releaseState(LevelActor *carried, s32 *state) {
     if (state != 0) {
         Barrel_StopActorLoopingSound(carried, state);

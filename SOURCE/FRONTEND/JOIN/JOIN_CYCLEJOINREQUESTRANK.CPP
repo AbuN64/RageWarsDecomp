@@ -250,6 +250,7 @@ s32 Join_CycleJoinRequestRank(s32 unused0, s32 unused1, u32 eventData, s32 event
 }
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 extern ResidentEventHandlerEntry g_joinOptionsEventHandlers[];
 s32 Join_DispatchJoinOptionsEvent(MenuWidget *object, s32 event, s32 eventData, s32 eventValue, s32 eventContext) {
     s32 i = 0;

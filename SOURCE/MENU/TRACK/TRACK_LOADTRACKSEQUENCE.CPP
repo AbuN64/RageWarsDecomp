@@ -17,12 +17,14 @@
 #include "MENU/TRACK_LOADTRACKSEQUENCE.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
 
 extern struct CacheResourceBlockView *Cache_AllocResourceBlock(s32,void *,s32);
 
 extern void Track_BuildWeightedSpline(s32,CVector3 *,f32 *,Spline *);
 
-extern void Cache_ReplaceResourceBlock(s32,struct CacheResourceBlockView **,struct CacheResourceBlockView *);
+
 
 /* A nonnull source is copied into the new pack section; null reserves it. */
 static inline char *packAppend(Pack *pack,const void *source,s32 size) { return Polytrak2_AppendOutputPackSection(pack,source,size); }
@@ -31,7 +33,7 @@ static inline s32 splineRecordSize(s32 left,s32 right) { s32 a=left*9,b=right*9;
 
 extern const char g_cinemaDirectoryText[];
 
-extern s32 SetN64_LocatePackSection(void *,s32,s32,s32 *);
+
 
 extern void Cache_UnlockResource(void *,CacheResourceNode *);
 

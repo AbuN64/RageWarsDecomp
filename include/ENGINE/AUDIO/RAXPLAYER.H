@@ -12,4 +12,6 @@ extern s32 Audio_ChooseSequenceVariant(void **sequenceTable, s16 id, s16 avoid);
 extern void Audio_LoadDialogMetadata(void *dialogPlayer, s32 songIndex);
 extern void Audio_StopDialogPlayerUnlocked(void *dialogPlayer);
 extern s32 Audio_StartDialogGroup(DialogGroupPlayer *player, s32 group, f32 scale, int unused3);
+struct DialogPlayerState;
+void Audio_InitializeDialogPlayer(struct DialogPlayerState *record, s32 resource);
 #endif

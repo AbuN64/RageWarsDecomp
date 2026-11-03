@@ -3,6 +3,9 @@
 #include "TYPES.H"
 #include "MENU/MENU_PROCESSTRACKITEMEVENTS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "TRACK/TRACK_DRAWTRACKOVERLAY.H"
 
 /* Releases the current record's track-2 timed items whose time has come (or all live ones once the
    record's end time has passed): special items (kind and subkind 1 and 5, 9 and 4, 10 and 3) go to
@@ -21,9 +24,9 @@
 extern RecordMenuProcessTrackItemEvents *g_cinemaSequenceState;
 
 extern s32 Cinema_IsSequenceActive(void);
-extern void Track_RequestTrackByIds(s32 mode, TriggerStateBitDescriptor *item);
-extern void Link_ActivateTrigger(TriggerStateBitDescriptor *item);
-extern void Scene_SetTriggerStateBit(Shared_World *world, TriggerStateBitDescriptor *item, s32 mode);
+
+
+
 
 void Menu_ProcessTrackItemEvents(void) {
     f32 time;

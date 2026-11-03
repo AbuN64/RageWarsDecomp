@@ -57,6 +57,7 @@
 #include "COMMON/MEASUREDRECAT14V4.H"
 #include "COMMON/MEASUREDRECAT14V2.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "ACTOR/ACTOR.H"
 extern float g_actorDefaultLevelPair;
 
 extern double g_actorKindOneUnsignedHealthBias;

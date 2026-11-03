@@ -10,8 +10,11 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/SCENE_LOADLEVELRESOURCES.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_LOADLEVELRESOURCES.H"
+#include "MENU/ITEMS/SCENE/SCENE_RELOCATEPARTICLEEFFECTDATA.H"
 /* Spawns the pickups of a level: between Cinema_ClearPlaybackFlag and Cinema_SetPlaybackFlag it passes every item of both item tables whose kind is 1, 2, 4 or 10 to Scene_DispatchEnabledEntityTrigger. */
-extern s32 Scene_GetIndexedModelResource(s32, s32);
+
 void Scene_DispatchSelectedEntityKinds(Level *level) {
     s32 i;
     s32 n;

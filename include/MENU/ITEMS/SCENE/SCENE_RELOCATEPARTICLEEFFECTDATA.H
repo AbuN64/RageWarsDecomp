@@ -1,0 +1,5 @@
+#ifndef MENU_ITEMS_SCENE_SCENE_RELOCATEPARTICLEEFFECTDATA_H
+#define MENU_ITEMS_SCENE_SCENE_RELOCATEPARTICLEEFFECTDATA_H
+struct Level;
+void Scene_DispatchSelectedEntityKinds(struct Level *level);
+#endif

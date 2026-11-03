@@ -8,11 +8,19 @@
 #include "COMMON/OBJ.H"
 #include "COMMON/LONE/COLLISION_CURRENT_ACTOR.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "COLLIDE/CCOLLISION_TESTSEGMENTDISK.H"
+#include "ENGINE/UNICOL/PLANE.H"
+#include "ENGINE/UNICOL/PLTFMCOL.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "PLANE/CCOLLISION_INTERSECTFRONTPLANEPOINT.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 extern f32 Gobjinst_GetActorRadius(void *);
 extern f32 Gobjinst_GetActorHeight(void *);
 extern f32 InstHdr_GetActorBaseOffset(void *);
-extern f32 InstHdr_GetActorReach(void *);
+
 extern s32 Unicol_SweepActorMotion(void *, CVector3, CVector3, struct CCollisionInfo2_t *, f32, f32, f32, f32);
 
 /* 80241940.CPP */
@@ -23,12 +31,12 @@ extern s32 Unicol_SweepActorMotion(void *, CVector3, CVector3, struct CCollision
  * and, for shapes flagged 1, its bottom corners are dropped to the ground height of the given floor. */
 
 
-extern void BuildPitchMatrix(f32 *, f32);
-extern void MultiplyQuaternions(CQuatern *, CQuatern *, CQuatern *);
+
+
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
-extern void Graphu64_MultiplyAffineMatrices(f32 *, f32 *, f32 *);
-extern void TranslateMatrix(f32 *, f32, f32, f32);
-extern void Graphu64_TransformPoints(f32 *, CVector3 *, CVector3 *, s32);
+
+
+
 
 void CPlatformCollision_BuildWorldBounds(char *obj, CVector3 *corners, char *floor, s32 attachment) {
     f32 matrix[16];
@@ -133,7 +141,7 @@ void CPlatformCollision_BuildWorldBounds(char *obj, CVector3 *corners, char *flo
 
 
 
-extern f32 CCollision_GetSurfaceHeight(SurfaceHit *, f32, f32);
+
 
 struct CCollisionInfo2_t;
 
@@ -141,13 +149,13 @@ extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
 extern char g_supportingPlatformCollisionQuery;
 
-extern void Plane_BuildBoxFace5(void *, RayCornerBounds *);
-extern void Plane_BuildBoxFace4(void *, RayCornerBounds *);
-extern void Plane_BuildBoxFace3(void *, RayCornerBounds *);
-extern void Plane_BuildBoxFace2(void *, RayCornerBounds *);
-extern void Plane_BuildBoxFace1(void *, RayCornerBounds *);
-extern void Plane_BuildBoxFace0(void *, RayCornerBounds *);
-extern s32 CCollision_TestSegmentDisk(void *, void *, void *, f32, s32);
+
+
+
+
+
+
+
 extern s32 CCollision_TestSegmentPolygon(void *, void *, s32);
 extern s32 CCollision_TestRayCylinder(void *, void *, f32, f32, f32, s32, void *, s32);
 void CPlatformCollision_PushActorFromBox(ActorCPlatformCollisionPushActorFromBox *actor, PlatformCollisionEntryOwner *owner, RayCornerBounds *bounds, SurfaceHit *query, CollisionProbe *input) {

@@ -6,7 +6,8 @@
 #include <ultra64.h>
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+
 
 /* Adjusts the volume in steps of eight and starts a sound preview when no preview is playing. */
 

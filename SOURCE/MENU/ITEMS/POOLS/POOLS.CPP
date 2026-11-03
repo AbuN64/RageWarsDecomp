@@ -11,15 +11,23 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "CAMERA/CAMERA.H"
+#include "ENGINE/AUDIO/T2SOUNDELEMENT/SOUND_CONTEXT_CONTROL.H"
+#include "GSKY/GSKY_SETGAMEPLAYMODE.H"
+#include "GSKY/SKY_DRAWLENSFLARE.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "POOL/POOL.H"
+#include "POOLS/POOLS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* Initializes camera transforms, viewport state, clipping records, and resource lists. */
 
 
-void Sky_InitializeLensFlareState(void *);                               /* extern */
-void Gsky_SetGameplayMode(void *, s32);                         /* extern */
+                               /* extern */
+                         /* extern */
 void Gsky_ResetFadeState(void *);                            /* extern */
-void Gsky_InitializeMessageEntryPool(void *);                            /* extern */
-void Graphu64_IdentityMatrix(void *);                            /* extern */
+                            /* extern */
+                            /* extern */
 void Menu_InitMenuMessageList(void *);                    /* extern */
 
 
@@ -127,9 +135,9 @@ void Pools_InitializeGameplayCamera(GameplayCamera *camera) {
 
 #include "TYPES.H"
 extern f32 k_menuInitialCounterValue;
-extern char g_camerasText[];
+
 extern char g_screenMessageAllocationLabel[];
-extern void SoundElement_SetListenerCamera(void *);
+
 extern void Cache_DrainAndCompactResources(s32);
 extern void Cache_ReleaseResource(s32, void *);
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
@@ -208,13 +216,13 @@ void Pools_ResetActorPools(ScreenMessageOwner *owner, s32 actorCount)
 
 void Pools_InitializeGameplayCamera(GameplayCamera *camera);
 
-extern void Camera_UpdateViewProjectionAndEffects(void *);
+
 
 /* Updates each of the group's items (count at 0x8, 0xED8-byte records from the address at 0x4) through
    the block at 0x570 of each, then the group's own block at 0x5B0, all with Pool_InitEntryPool_SkyPosttargetedscreenmessage. */
 
 
-extern void Pool_InitEntryPool(char *);
+
 
 void Pools_ResetPlayers(ScreenMessageOwner *actor) {
     char *parts;

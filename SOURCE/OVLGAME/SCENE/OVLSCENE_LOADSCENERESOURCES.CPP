@@ -14,13 +14,17 @@
 #include "ENGINE/SCENE.H"
 #include "MENU/ITEMS/SCENE/SELECTION_PREVIEW_OPERATIONS.H"
 #include "MENU/PAK/MENU_ISTRACKREQUESTITEM.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_LOADSCENERESOURCES.H"
+#include "OVLGAME/OVLGAME_INITIALIZEPLAYERPOOL.H"
 
-extern void Player_RefreshActivePlayerSceneState(CPlayerPool *);
+
 extern void Cache_DrainAndCompactResources(s32 unusedHeap);
 extern s32 Cache_RequestWordCountedResourcePinned(s32,void **,s32,void *);
-extern void **Cache_RequestPackSection(s32,s32,s32,s32,s32,s32,void *);
-extern int SetN64_GetDirectoryEntry(int *,int,int);
-extern s32 SetN64_LocatePackSection(s32,s32,s32,s32 *);
+
+
+
 extern s32 g_cResource_UnpackRequestEntry;
 extern char g_sceneCollisionStorage;
 void Scene_LoadSceneResources(SceneLoadResourcesView *sceneToLoad, s32 cartridgeBankKey) {

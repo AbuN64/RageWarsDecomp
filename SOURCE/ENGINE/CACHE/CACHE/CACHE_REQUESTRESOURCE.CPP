@@ -12,6 +12,8 @@
 #include <PR/os_internal_si.h>
 #include "TEXTURE/CACHE_RECYCLELOADREQUEST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/CACHE/DECMPRSR.H"
+#include "ENGINE/CACHE/LOADER.H"
 
 extern Manager g_resourceRequestManager;
 extern s32 g_resourceRecencyList;
@@ -19,15 +21,15 @@ extern u32 g_resourceHashEvenIndexMask;
 extern ResourceHashEntry *g_resourceHashBuckets;
 extern struct CartridgeReadWorker g_cartridgeReadWorker;
 extern s32 g_resourceCacheFrameStamp;
-extern void List_MoveIntrusiveToHead(void *, s32);
+
 extern void *Cache_AcquireLoadRequestWithEviction(s32, s32);
 extern void *Cache_AcquireResourceNodeWithEviction(s32, s32);
 extern void Cache_ReleasePendingResourceEntry(s32 unused0, s32 entryAddress);
 extern void Cache_InsertResourceByAddress(s32 unused, void *object);
-extern s32 Cache_SubmitResourceLoadAndWait(s32 *, ResourceLoadRequest *);
+
 extern ResourceLoadRequest *Cache_FinalizeResourceLoad(s32 unused, ResourceLoadRequest *request, s32 dropReference);
-extern void Cartridge_ReadChunksAndWait(struct CartridgeReadWorker *, u32, s32, void *);
-extern void Cartridge_SubmitReadChunks(struct CartridgeReadWorker *, u32, s32, void *, struct Queue *, s32, s32);
+
+
 
 static inline void acquire(void) {
     u32 token = __osDisableInt();

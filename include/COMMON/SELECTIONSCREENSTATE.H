@@ -4,6 +4,7 @@
 #include "COMMON/OWNERRECAT8V1.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 
 /* Selection items are menu widgets; w is the legacy width spelling. */
 typedef MenuWidget SlotSelectionWidget;
@@ -118,8 +119,8 @@ extern SlotSelectionMenuBlock *g_profileStatisticsScreen;
 extern void Focus_AdvanceActiveSlot(int *cursor);
 extern SlotSelectionPlayerConfig g_playerSettings[];
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern NodeMenuCreateOverlayNode *SmpOverlay_CreateOverlayNode(MenuOverlayOwnerView *, s32);
-extern void SmpOverlay_ShowSlotById(MenuMultiUserOwnerView *, s32, s32);
+
+
 extern void Random_SetSelectedStage(s32, s32);
 extern s32 Key_FindCharacterPreviewRow(s32);
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);

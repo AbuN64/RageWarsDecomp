@@ -2,26 +2,33 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
+#include "FRONTEND/CTRIALCATALOGUE_SHOWTRIALOPTIONCHILDREN.H"
+#include "FRONTEND/FRONTEND.H"
+#include "MATCH/FRONTEND_HANDLEMATCHMENUMESSAGE.H"
+#include "MATCH/MATCH_SPLIT.H"
+#include "RESULTS/RESULTS_ANIMATERESULTSOPTIONSSCREEN.H"
+#include "RESULTS/RESULTS_CREATERESULTSOPTIONSSCREEN.H"
+#include "RESULTS/RESULTS_RENDERRESULTSOPTIONSPREVIEW.H"
 
-extern char CTrialCatalogue_CloseTrialOptionsScreen[];
+
 extern char CTrialCatalogue_CloseTrialOptionsScreen_Address[];
-extern char CTrialCatalogue_ConfirmTrialStage[];
-extern char CTrialCatalogue_ExitTrialCatalogue[];
-extern char CTrialCatalogue_HandleTrialOptionRelease[];
-extern char CTrialCatalogue_SelectNeighborOne[];
-extern char CTrialCatalogue_SelectNeighborThree[];
-extern char CTrialCatalogue_SelectNeighborTwo[];
-extern char CTrialCatalogue_SelectNeighborZero[];
-extern char Frontend_ClearEuxLoadingHints[];
-extern char Frontend_ClearLoadingHints[];
-extern char Frontend_CloseMatchMenu[];
-extern char Frontend_HandleMatchMenuMessage[];
-extern char Match_ClearGermanLoadingHints[];
-extern char Match_HandleMatchMessage[];
-extern char Results_AnimateResultsOptionsScreen[];
-extern char Results_CreateResultsOptionsScreen[];
-extern char Results_RenderResultsOptionsPreview[];
-extern char Results_ShowResultsPlayerModels[];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern char g_CTrialCatalogue_CloseTrialOptionsScreenPackedAddress24[];
 extern char g_CTrialCatalogue_ConfirmTrialStagePackedAddress24[];
 extern char g_CTrialCatalogue_ExitTrialCataloguePackedAddress24[];

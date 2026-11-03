@@ -1,7 +1,9 @@
+#include "CONSTANTS/CREDITS_LINES_DATA.H"
+#include "CREDITS_BLANK_LABEL/DEBUGLINK.H"
 
 #if defined(VERSION_US_REV1)
 extern char s_rageWarsTeamText[];
-extern char g_debuglinkTextBytes[];
+
 extern char g_projectLeadQaCreditsTextPool[];
 extern char s_testersText[];
 extern char g_residentStrings2_us_rev1[];

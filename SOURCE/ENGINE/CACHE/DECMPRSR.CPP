@@ -12,6 +12,7 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "UI/X_FILES/X_PLUS.H"
+#include "ENGINE/CACHE/DECMPRSR.H"
 
 /* DECMPRSR.CPP */
 void Cache_StartResourceLoadWorker(ResourceLoadWorker *worker, s32 id) {

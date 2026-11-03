@@ -2,6 +2,7 @@
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "TYPES.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 typedef struct { u8 pad0[0x14]; char **text; } PakRangeTextEu;
 extern u16 g_pakProfileRankScore;
 extern char *g_pakSizeUnder50Text[];
@@ -16,7 +17,7 @@ extern char *g_pakSizeUnder4500Text[];
 extern char *g_pakSizeUnder6500Text[];
 extern char *g_pakSizeUnder9999Text[];
 extern char *g_pakSizeAtLeast9999Text[];
-extern s32 Menu_CountLineChars();
+
 /* Pak size line: picks the 11-character text for the value range g_pakProfileRankScore falls in (the bands end at 0x32, 0x96, 0x12C, 0x1F4,
    0x320, 0x514, 0x7D0, 0xBB8, 0x1194, 0x1964, 0x270F) in the current language and copies it onto the entry's line. */
 s32 Menu_FormatLocalizedPakSizeRange(PakRangeTextEu *entry) {

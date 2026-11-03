@@ -6,6 +6,7 @@
 #include "COMMON/SELECTIONSCREENSTATE.H"
 #include "UI/TSMOS/SCREENS/PAKINTERFACESCREEN.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
 #define g_gameSettingsView ((u8 *)&g_gameSettings)
 
 extern char *g_pakDefaultNoteNameFixed;
@@ -18,7 +19,7 @@ extern char s_pakNoteExtendedLabelFormatEuropean[], s_pakNoteLabelFormatEuropean
 extern const unsigned char g_noteInfoIntFormat[];
 
 #endif
-extern s32 Note_ReadNoteInfo(s32, s32, s32 *, char *, u8 *, s32 *, char *, char *);
+
 extern s32 Note_ContainsInvalidNameByte(u8 *text, s32 count);
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
 extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);

@@ -12,6 +12,7 @@
 #include "TYPES.H"
 #include "ENGINE/UNICOL/COLLIDE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 8023A284_26.CPP */
 extern void Graphu64_InterpolateVector(CVector3 *,f32,void *,void *);

@@ -10,11 +10,14 @@
 #include "COMMON/ANIMATIONTRIGGERDEFINITION.H"
 #include "TYPES.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
 
 extern char g_actorParticleEffectSystem[];
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 extern void InstHdr_CopyActorPositionAndModel(void *, Triple, Triple *, s32 *, s32, s32);
-extern CQuatern Graphu64_BuildDirectionQuaternion(Triple *);
+
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, Triple, AttachmentEffectArgs);
 

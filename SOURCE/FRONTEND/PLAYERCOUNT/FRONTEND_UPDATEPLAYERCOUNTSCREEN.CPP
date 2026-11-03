@@ -10,6 +10,7 @@
 #include "FRONTEND/FRONTEND_DISPATCHPLAYERCOUNTEVENT.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "PLAYERCOUNT/FRONTEND_UPDATEPLAYERCOUNTSCREEN.H"
 extern SettingsScreenState *g_playerCountScreen;
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);
 

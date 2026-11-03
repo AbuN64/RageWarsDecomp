@@ -18,17 +18,22 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include <ultra64.h>
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SETN64.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* 80275E44_12.CPP */
 #define SK_FIELD(base, type, offset) (*(type *)((u8 *)(base) + (offset)))
 
-extern void Graphu64_IdentityMatrix(void *);
-extern void RollMatrix(void *, f32);
-extern void Graphu64_ProjectPoint(void *, void *, void *);
+
+
+
 extern void Graphu64_ScaleMatrixWorld(void *, f32, f32, f32);
-extern void TranslateMatrix(void *, f32, f32, f32);
-extern void Graphu64_InvertAffineMatrix(void *, void *);
-extern void Region_ComputePointBounds(void *, s32, void *);
+
+
+
 void Lighting_DecodeBoxTransform(u8 *self, u8 *src) {
     CVector3 translation;
     CVector3 rotation;
@@ -220,7 +225,7 @@ const float g_lightVolumeEvaluationConstantsUsRev1[6] = {
 };
 
 /* 80277444_2.CPP */
-extern void Graphu64_TransformDirection(void *matrix, void *inputDirection, void *transformedDirection);
+
 
 s32 Lighting_EvaluateLightVolume(SceneLightVolume *lightVolume, CVector3 worldPoint, CVector3 surfaceNormal, f32 *lightTransform,
                   CVector3 *lightContribution, f32 *contributionWeight) {
@@ -274,7 +279,7 @@ s32 Lighting_EvaluateLightVolume(SceneLightVolume *lightVolume, CVector3 worldPo
     return 1;
 }
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *, PackedMatrixWords *);
+
 void Lighting_AccumulateVertexLighting(SceneLightVolume **lights, s32 lightCount, Vertices38 *mesh,
                      PackedMatrixWords *matrices, CVector3 *output, s32 multiple)
 {
@@ -693,7 +698,7 @@ void Lighting_ApplyVertexColors(ColorMesh *mesh, VertexColor *colors) {
 extern char s_litVerticesAllocationTag[13]; /* "Lit Vertices": allocation tag */
 extern CVector3 g_vertexLightAccumulation[];
 extern s32 g_vertexLightingMode;
-extern s32 SetN64_GetSizedPackSection(s32 pack, s32 index, s32 *size);
+
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
 
 /* A lit model vertex: the Vtx_t layout, colour bytes at 0xC. */

@@ -18,10 +18,13 @@
 #include <ultra64.h>
 #include "ENGINE/INSTANCE/GOBJINST.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "ENGINE/SETN64.H"
+#include "GOBJINST/GAMEOBJECT_LOADMODEL.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
 
 /* GOBJINST_2.CPP */
-extern s32 SetN64_GetDirectoryEntry(s32 *directory, s32 bankOffset, s32 level);
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 extern void Gastate_ResetAnimationReference(void *);
 extern s32 Gobjinst_ChooseAnimationVariant(void *, s32, s32);
 
@@ -113,7 +116,7 @@ extern s32 Unicol_MoveActorWithCollision(void *actor, CVector3 pos, CollisionInf
 
 extern void Link_DispatchObjectLinks(s32 objectId, s32 triggerFlags, void *actor);
 
-extern void Link_DispatchActorLinks(void *actor, s32 triggerFlags, void *eventContext);
+
 
 void Gobjinst_UpdateActorRootDisplacement(Actor36 *actor) {
     CVector3 before, after;

@@ -49,6 +49,8 @@ s32 Frontend_DispatchOptionsPageEvent(void *menuActor, s32 eventKind, s32 eventD
 #include "FRONTEND/OPTIONS_LIST_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "GAME/FRONTEND_CREATEGAMEOPTIONSSCREEN.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 
 /* Builds screen state g_gameOptionsScreenState: allocates its 0x10 bytes, registers resources (0x1BD - OPTIONS_RESOURCE_SHIFT) and (0x1C2 - OPTIONS_RESOURCE_SHIFT),
    creates list 0x1BB/0x1BC at 0x4 with the three texts gameOptionsLabel(0), gameOptionsLabel(1) and gameOptionsLabel(2) and

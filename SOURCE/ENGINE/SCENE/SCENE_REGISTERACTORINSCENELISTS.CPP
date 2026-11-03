@@ -18,6 +18,11 @@
 #include "COMMON/WORLD.H"
 #include "ENGINE/SCENE_SAMPLEWORLDLIGHTING.H"
 #include "COMMON/GAMEPLAY_REACTIONS.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
 
 extern void Link_DispatchTriggerExit(Record14 *trigger);
 
@@ -195,7 +200,7 @@ SceneDefinitionActorView *Scene_FindTypeFourteenActorByDefinitionId(SceneTypeFou
 
 
 
-extern Player *Playerai_GetFirstPlayer(void *list);
+
 #ifdef VERSION_EU
 #endif
 
@@ -236,7 +241,7 @@ Player *Scene_FindNearestObjectToFirstPlayer(ScenePlayerObjectListView *world) {
 
 
 extern void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
-extern s32 InstHdr_CanActorReceiveInteraction(ObjectSceneRegisterActorInSceneLists *object);
+
 extern s32 InstHdr_HasEnabledMotionHooks(void *actor);
 
 void Scene_RegisterActorInSceneLists(SceneActorCategoryListsView *world, ObjectSceneRegisterActorInSceneLists *object) {
@@ -436,7 +441,7 @@ void Scene_ClearActorLinksById(void *scene, s32 linkId) {
 }
 
 extern void Barrel_FillDamagePacket(CDamageInfo *event, void *target, s32 damage, f32 radius, s32 flags, Shield *shield);
-extern void Barrel_RunDamageHook(LevelActor *actor, s32 *behavior, CDamageInfo *event);
+
 void Scene_ApplyDamageToTypeOneActors(Shared_World *world, s32 damage, s32 flags) {
     CDamageInfo event;
     LevelActor **actors;

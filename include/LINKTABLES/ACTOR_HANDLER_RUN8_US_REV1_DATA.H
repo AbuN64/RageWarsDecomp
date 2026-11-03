@@ -1,0 +1,4 @@
+#ifndef LINKTABLES_ACTOR_HANDLER_RUN8_US_REV1_DATA_H
+#define LINKTABLES_ACTOR_HANDLER_RUN8_US_REV1_DATA_H
+extern unsigned int g_actorHandlerRun8_us_rev1[];
+#endif

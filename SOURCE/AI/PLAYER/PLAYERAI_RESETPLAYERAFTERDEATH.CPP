@@ -4,6 +4,10 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "TYPES.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Handles a player's death: stops the body's motion at 0x1C to 0x24 and runs Player_ReleaseObjectHandles_PlayeraiResetplayerafterdeath; in a
    single player game (g_motionVisibilitySettings) a player with limited lives at 0x1450 gets the death menu for its
@@ -29,10 +33,10 @@ extern char g_playerDeathDialogSlotThird;
 extern char g_playerDeathDialogSlotFourth;
 extern char g_playerViewRenderContext;
 
-extern void Player_ReleaseObjectHandles(void *);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
 extern SharedPlayer *Playerai_GetPlayerByIndex(char *, s32);
-extern void Player_PlacePlayerForRound(SharedPlayer *);
+
 
 void Playerai_ResetPlayerAfterDeath(SharedPlayer *player, PlayerRespawnBodyView *body) {
     SharedPlayer *other;
@@ -110,7 +114,7 @@ extern u8 g_playerSequenceSavedViewBytes[];
 
 extern char g_playerSequenceCallbacks;
 
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
+
 extern s32 CCinema_RequestTrackWithCallbacks(s32 requestId, void *requestContextCallback, VoidCallback completionCallback);
 extern void *Scene_FindActorDefinition(Shared_World *world, s32 selection, s32 modelKind);
 

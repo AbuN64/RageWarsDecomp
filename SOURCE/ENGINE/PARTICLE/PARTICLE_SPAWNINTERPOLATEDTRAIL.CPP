@@ -17,9 +17,15 @@
 #include "COMMON/SHARED_PARTICLEINSTANCE.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "particle/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
+#include "AUDIO/VOICE.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "GSKY/GSKY_FINDSCREENMESSAGE.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
 
 /* Particle_UpdateMatrix_ParticleSpawninterpolatedtrail.CPP */
-extern s32 SoundVoicePool_StopNode(void *work, void *wantedNode);
+
 
 extern s32 g_playerWeaponClassMode[];
 extern s32 g_lightingBufferIndex;
@@ -153,7 +159,7 @@ PoolNode84478 *Particle_AllocPoolNode(PoolOwner84478 *owner, s32 index) {
 
 /* 8028308C_3.CPP */
 extern void Particle_FinishActorEffects(void *actor);
-extern void Fx_DetachParticleSwooshes(void *effectWorld, void *detachedEntity);
+
 
 void Particle_Release(EffectSystem *owner, ParticleEffect *releasedEffect) {
     s32 *releaseReferenceCount;
@@ -232,7 +238,7 @@ void *Particle_FindOwnerEntry(EffectSystem *effectSystem, s32 ownerId, EffectEnt
     return 0;
 }
 
-extern void List_InsertBeforeIntrusive(void *, s32, s32);
+
 
 void Particle_InsertEntryGroup(EffectSystem *effectSystem, ParticleEffect *particleEffect)
 {
@@ -484,7 +490,7 @@ void Particle_CheckNearbyPlayerContacts(Shared_Particle *particle) {
 typedef struct CollisionInfo CollisionInfo;
 
 extern CollisionInfo g_defaultProbeMotionSettings;
-extern ActorInstanceHeader *Gsky_FindScreenMessage(ParticleTrailEmitterView *messageId);
+
 extern s32 Unicol_MoveActorWithCollision(ActorInstanceHeader *, CVector3, CollisionInfo *);
 
 s32 Particle_HasClearMotionPath(ActorInstanceHeader *particle, ParticleTrailEmitterView *messageId) {

@@ -1,0 +1,6 @@
+#ifndef MENU_ITEMS_SCENE_SCENE_LOADLEVELRESOURCES_H
+#define MENU_ITEMS_SCENE_SCENE_LOADLEVELRESOURCES_H
+struct WorldSceneDispatchEnabledEntityTrigger;
+struct Entity;
+void Scene_DispatchEnabledEntityTrigger(struct WorldSceneDispatchEnabledEntityTrigger *world, struct Entity *entity);
+#endif

@@ -6,11 +6,14 @@
 #include "COMMON/AIPROFILE.H"
 #include "RENDER/RANGENODE.H"
 #include "TYPES.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
 /* Calls Barrel_SetLoopingSound_EventsIncrementnearbyplayercounter on an object, its block at offset 0x170 and a stack argument when the pause word is clear, the object exists and its first byte is one. Adapted from Events_StopActorLoopingSound with the pause-word test, the callee and the extra stack argument changed, and the call wrapped in do-while(0) so the stack argument loads at entry. */
 
 
-extern void Barrel_SetLoopingSound(u8 *, u8 *, s32);
+
 
 void Events_SetActorLoopingSound(void *unused, u8 *object, s32 third, struct IntPair pair, s32 fifth, s32 sixth) {
     if (g_gameSession.clockPaused == 0 && object != 0 && object[0] == 1) {
@@ -25,7 +28,7 @@ void Events_SetActorLoopingSound(void *unused, u8 *object, s32 third, struct Int
    its home slot. */
 
 
-extern void Barrel_StopActorLoopingSound(u8 *, u8 *);
+
 
 void Events_StopActorLoopingSound(void *unused, u8 *object, s32 third, struct IntPair pair) {
     if (object != 0 && object[0] == 1) {
@@ -49,7 +52,7 @@ void Events_StopActorLoopingSound(void *unused, u8 *object, s32 third, struct In
 
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
-extern void Playerai_AddCappedEventCounter(EventCounterPlayerView *, s32);
+
 
 void Events_IncrementNearbyPlayerCounter(EventCounterActorView *sourceActor, Player *player, s32 unusedKind, Blast blast) {
     CVector3 delta;
@@ -79,7 +82,7 @@ void Events_SetActorEffectMode(LevelActor *actor, int unusedTarget, int unusedKi
 /* Calls Barrel_StopActorLoopingSound on an object and its block at 0x170, sets bit 0x20 in that block's first word, clears flags 0x10000, 0x2000 and 0x100 at offset 0x100, and calls Animpool_ReleaseSceneEffect when flag 0x80000 remains set. Adapted from Link_DeactivateActorState with the block taken at offset 0x170 of the object, a by-value record added as the fourth argument, and each flag update written as a compound assignment to memory. */
 
 
-extern void Animpool_ReleaseSceneEffect(void *node);
+
 
 
 

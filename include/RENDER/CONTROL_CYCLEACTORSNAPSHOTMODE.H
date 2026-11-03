@@ -5,4 +5,6 @@
 extern f32 Control_SampleEffectCurve(SampledEffectCurveState *p);
 extern s32 Control_GetSnapshotActorId(void);
 extern void Control_InitializeCurvePlayer(unsigned int *record, unsigned int value);
+struct ControllerProfile;
+void Control_SetProfileMode(struct ControllerProfile *slot, s32 profileMode);
 #endif

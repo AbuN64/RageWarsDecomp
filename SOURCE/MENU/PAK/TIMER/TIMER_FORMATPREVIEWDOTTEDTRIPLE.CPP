@@ -9,6 +9,9 @@ extern PakPreview *g_controllerPakSnapshotPayload;
 #include "MENU/PAK/PROFILE_PREVIEW_AND_LINE_TEXT.H"
 #include "ENGINE/DEFS.H"
 #include "MENU/PAK/TIMER.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "SNAPSHOT/G_PAKFORMATDOTTEDTRIPLE.H"
 
 /* Calls Menu_ClassifyResourceRange on the word at offset 0x24 of the structure g_controllerPakSnapshotPayload points to and
    returns zero. */
@@ -28,7 +31,7 @@ extern s32 Pickup_ClassifyMenuCode(s32);
 #endif
 
 
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 
 /* Points a field's text at g_pakAlternateActionLabel when the option g_pakAlternateOptionEnabled is set and at g_pakActionLabel otherwise, and returns
@@ -41,7 +44,7 @@ extern s32 Menu_CountLineChars(struct Field *);
 extern char g_matchEndingTeamWheelClose[];
 
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 
 /* Stores 1 in g_pakProfileLoaded and 0 in g_pakUseDefaultPreviewLabels. */
 

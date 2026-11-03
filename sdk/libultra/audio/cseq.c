@@ -7,9 +7,11 @@
 #include "../../include/libgultra_inferred/cseq.H"
 #include "include_asm.h"
 #include <ultra64.h>
+#include "../../include/libultra/alcseqnewmarker_data.CPP.h"
+#include "../../include/libultra/audio/cseq.h"
 
-s32 __readVarLen(ALCSeq *seq, s32 track);
-extern u32 __alCSeqGetTrackEvent(ALCSeq *, u32, ALEvent *);
+
+
 
 /* alCSeqNewMarker, drafted from ultralib src/audio/cseq.c: fill a compressed-sequence marker
    with the track state of the first event at or after the given tick count, stepping a scratch
@@ -330,7 +332,7 @@ s32 __alCSeqNextDelta(ALCSeq *seq, s32 *result) {
     return 1;
 }
 
-u8 __getTrackByte(ALCSeq *seq, u32 track);
+
 
 s32 __readVarLen(ALCSeq *seq, s32 track) {
     s32 nextByte;

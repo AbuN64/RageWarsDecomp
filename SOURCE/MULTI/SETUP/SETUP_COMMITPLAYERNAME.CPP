@@ -10,6 +10,9 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
 #include "MULTI/SETUP_HASACTIVEGAMECOUNTERS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GAME/GAME.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Deletes the final character of the selected player's text entry: resets its cursor and, when the entry holds characters, decrements the count and length and clears the character at the new end. */
 
@@ -27,12 +30,12 @@ extern PlayerNameTextEntry g_multiplayerNameEntryStates[];
 
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-extern void Menu_TryCreateMenu(s32,NameEditMenuContext *,s32), Items_CopyDefaultLocalizedPlayerName(void *);
+
 #else
-extern void Menu_TryCreateMenu(s32,NameEditMenuContext *,s32), Items_SetDefaultPlayerName(void *);
+
 #endif
 
-extern s32 Player_GetPlayerIndex(void *table, void *player);
+
 extern u8 g_playerViewRenderContext[];
 /* Returns 1 when any of the words at 0x28, 0x1C or 0x20 of g_matchRoundCounters is nonzero, else 0. */
 

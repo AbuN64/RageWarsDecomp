@@ -16,13 +16,17 @@
 #include "TYPES.H"
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "GOBJINST/PLAYER_DRAWTINTEDPLAYER_DATA.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 extern void Geometry_QueueModelInstance(void **, void *, s32, void *, void *, s32);
 
 
 
 
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 void Device_RespondToActivation(Obj54E0 *actor, void *responseContext) {
     Rec54E0 *rec;

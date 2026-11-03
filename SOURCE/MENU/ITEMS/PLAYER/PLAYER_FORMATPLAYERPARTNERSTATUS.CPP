@@ -9,6 +9,7 @@
 #include "COMMON/ACTORRECAT5E0.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include "../../../../sdk/include/AUDIO/sprintf.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Returns zero. Nothing in the cartridge image calls it or stores its address as a word, so it is
    either reached through a pointer built at run time or never used. */
@@ -57,7 +58,7 @@ s32 Player_PartnerStatusZeroHookSeven(void) {
 extern s32 SoundVoicePool_GetGlobalState();
 struct SoundVoicePool;
 extern void SoundVoicePool_Resume(struct SoundVoicePool *);
-extern void Menu_TryCreateMenu(void *, void *, void *);
+
 
 s32 Player_RestoreControlsOrCreateMenu(void *first, void *second, void *third) {
     SoundElement_DisableMusicGainOverride();

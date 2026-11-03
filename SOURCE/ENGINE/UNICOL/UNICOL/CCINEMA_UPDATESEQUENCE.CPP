@@ -11,6 +11,9 @@
 #include "CAMERA/CCINEMA_UPDATESEQUENCE.H"
 #include "MENU/TRACK_LOADTRACKSEQUENCE.H"
 #include "MENU/MENU_PROCESSTRACKITEMEVENTS.H"
+#include "ENGINE/RUMBLE.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_FINDPLACEDOBJECTSBYKEY.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Starts the round once: unless already started, optionally resets the lead player (Playerai_ResetControllerMotion and its
@@ -46,11 +49,11 @@ extern struct MemoryUsageStats g_activeActorKind;
 
 extern void Playerai_ResetControllerMotion(void *);
 
-extern void Gsky_ActivateAllMessagePools(void *);
 
-extern void Rumble_FreeAllPoolNodes(void *);
 
-extern s32 Scene_FindNearestPlacedObject(void *, Vec3Words *, s32, void *);
+
+
+
 
 extern void Scene_LoadLevelResources(void *, s32, s32);
 

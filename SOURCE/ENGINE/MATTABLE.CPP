@@ -3,9 +3,10 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "include_asm.h"
 #include "RENDER/RUMBLE_EXPANDMESHMATERIAL.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
 
 /* MATTABLE.CPP */
-extern void Textload_LocateTextureResource(s32 *resourceId, s32 sectionIndex);
+
 
 void Rumble_ExpandMeshMaterial(MeshMaterial *dstData, CROMSection *section) {
     s16 value;

@@ -38,4 +38,5 @@ extern ButtonRemap g_controllerButtonRemap[];
 extern void ContPad_BuildControllerState(ControllerInput *input, Player *player);
 extern void ContPad_InitControllerInput(void *input, s32 attributes);
 extern s32 ContPad_SwapButtonPairs(s32);
+void ContPad_ClearControllerInput(void *object);
 #endif

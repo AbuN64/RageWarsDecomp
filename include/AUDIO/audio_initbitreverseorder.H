@@ -8,4 +8,5 @@ extern void Audio_ReorderTransformSamples(float *output, float *input);
 extern s16 Audio_QuantizeSampleS16(f32 sample);
 extern void Audio_TransformFft(f32 *data, FftTables *tables, s32 sign);
 extern void Audio_InitBitReverseOrder(s32 *permutation, s32 elementCount);
+u32 Audio_InitDecodeStream(s32 *source, u32 divisor, s32 *first);
 #endif

@@ -4,6 +4,8 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
+#include "SNAPSHOT/G_PAKFORMATDOTTEDTRIPLE.H"
+#include "SNAPSHOT/G_PAKFORMATINT04.H"
 
 
 
@@ -55,7 +57,7 @@ s32 Note_GetStatus(s32);
 
 extern char g_pakFormatInt2_TimerFormatpreviewvalue[];
 
-extern char g_pakFormatDottedTriple[];
 
-extern char g_pakFormatInt04[];
+
+
 #endif

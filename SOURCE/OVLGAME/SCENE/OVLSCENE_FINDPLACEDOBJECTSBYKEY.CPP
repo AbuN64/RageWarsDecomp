@@ -12,12 +12,15 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "MENU/ITEMS/ITEMS.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_FINDPLACEDOBJECTSBYKEY.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
 /* Loads the preview resource into the sound buffer when idle, while the adjacent helper resets a changed selection. */
 extern char g_cResource_UnpackRequestEntry[];
-extern char g_gamePersistentData[];
+
 extern char g_sceneCollisionStorage[];
 extern int Control_IsSnapshotActive(void);
-extern void Scene_SetSelection(ItemsPreviewStateB *,int,int);
+
 void Scene_LoadPreviewBufferB(ItemsPreviewStateB *state) {
  int *resource;
  int id;
@@ -28,7 +31,7 @@ void Scene_LoadPreviewBufferB(ItemsPreviewStateB *state) {
  }
 }
 /* Loads the preview resource into the sound buffer when idle, while the adjacent helper resets a changed selection. */
-extern void Scene_SetSelection(ItemsPreviewStateB *,int,int);
+
 void Scene_ChangePreviewSelection(ItemsPreviewStateB *state,int selection) {
  if(selection!=state->selection) {
   state->changed=0;
@@ -48,7 +51,7 @@ void Scene_ResetSelectionState(char *state) {
     ((Shared_World *)state)->selectionValues[3] = 0;
 }
 /* Copies up to max of a track's placed objects whose key matches into out: finds the key's index range in the track's sorted key table through Defs_FindSortedGroupRange, queues each object in that range of the given kind (any kind for -1) on a local list through List_InitializeIntrusive and List_PrependIntrusive, then takes them back off through List_CountIntrusiveNodes and List_RemoveIntrusive, copying each 20-byte object, and returns how many were copied. */
-extern Node_Items_FindPlacedObjectsByKey *List_CountIntrusiveNodes(ListRec *);
+
 s32 Scene_FindPlacedObjectsByKey(void *world, s32 kind, s32 key, Shared_Placed *out, s32 max) {
     Shared_World *track = world;
     ListRec list;

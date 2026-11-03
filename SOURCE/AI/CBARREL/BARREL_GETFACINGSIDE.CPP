@@ -10,6 +10,8 @@
 #include "COMMON/PROBE.H"
 #include "COMMON/MATH_HELPERS.H"
 #include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "CBARREL/CBARREL_SELECTCOMBATTARGET.H"
+#include "ENGINE/INSTANCE/GOBJINST.H"
 
 /* 800C6E84_25.CPP */
 /* ROM-grounded data: src/k_BarrelGetfacingsideOneWords_BarrelGetfacingside.c */
@@ -27,7 +29,7 @@ const float k_BarrelGetfacingsideEncodedWordsBlock1[1] = {
 
 /* 80213ED4_4.CPP */
 /* Picks an actor's target (the tracked enemy when the aim point is chosen, else the nearest permitted target from Cbarrel_SelectCombatTarget), classifies it into one of eight kinds, and fills the target record with the kind, target, height difference, position, direction and distance, both in full and flattened to the horizontal plane. */
-extern void *Cbarrel_SelectCombatTarget(void *,void *,s32,s32), *Playerai_GetRouteCursorPoint(void *);
+extern void *Playerai_GetRouteCursorPoint(void *);
 extern f32 Barrel_GetSignedAngleToPoint(void *,f32,f32,f32),Gu_Sqrtf(f32);
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 static inline s32 Barrel_ClassifyAnchorTarget(BarrelAnchorActorView *self, Tracker *ctx, BarrelAnchorActorView *target) {
@@ -118,7 +120,7 @@ void Barrel_FillAnchorTargetInfo(BarrelAnchorActorView *actor, Tracker *tracker,
 }
 
 extern s32 g_currentActorInstance;
-extern s32 Gobjinst_ProbeActorMovement(Actor_u1 *, CVector3, char **);
+
 
 /* Aim toward a point; when obstructed, try progressively wider left/right
  * directions and choose the first clear probe. */

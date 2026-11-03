@@ -8,6 +8,9 @@ struct GameplayCamera;
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "COMMON/OBJRECAT18V6.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "ENGINE/GDYNLIGHT.H"
 struct Player;
 struct RangeNode;
 typedef struct AiProfile {

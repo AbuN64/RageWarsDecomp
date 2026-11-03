@@ -9,6 +9,9 @@
 #include "TYPES.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "CONSTANTS/SETUP_UPDATENAMECURSOR_DATA.H"
+#include "DATA/INITIALIZED_RUNTIME_BUFFERS.H"
+#include "ENGINE/GDYNLIGHT.H"
 
 /* 80265370.CPP */
 extern u32 osMemSize;
@@ -26,7 +29,9 @@ extern void *g_cinemaSequenceState;
 extern char g_cinemaStateRegionByteCount;
 
 /* Returns whether an address lies in either of two resident memory ranges. */
-extern char g_graphicsTaskYieldBuffer, g_runtimeHeapStart, g_menuResidentRegionStart, g_menuResidentRegionEnd;
+extern char g_runtimeHeapStart;
+extern char g_menuResidentRegionStart;
+extern char g_menuResidentRegionEnd;
 
 /* Tests whether an address lies in either recognized resident range. */
 extern char addrLow_Libsn_DisableInterrupts;
@@ -52,9 +57,9 @@ extern UnitLight g_pointLightBuffer[];
 
 extern char g_dynamicLightPool;
 
-extern LightNode *Gdynlight_GetFirstLight(void *);
 
-extern LightNode *Gdynlight_GetNextLight(void *, LightNode *);
+
+
 
 u32 Defs_GetMemorySize(void) {
     if (osMemSize > 8388607U) {
@@ -328,7 +333,7 @@ int Defs_IsAddressInStaticRanges(u32 callback) {
 }
 
 int Defs_IsAddressInBufferRanges(u32 address) {
-    if (address >= (uintptr_t)&g_graphicsTaskYieldBuffer && address < (uintptr_t)&g_runtimeHeapStart) return 1;
+    if (address >= (uintptr_t)&(*(char *)&g_graphicsTaskYieldBuffer) && address < (uintptr_t)&g_runtimeHeapStart) return 1;
     if (address >= (uintptr_t)&g_menuResidentRegionStart && address < (uintptr_t)&g_menuResidentRegionEnd) return 1;
     return 0;
 }

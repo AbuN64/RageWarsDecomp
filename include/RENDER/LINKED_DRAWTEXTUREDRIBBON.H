@@ -49,4 +49,14 @@ struct TexturedRibbonResourceView {
     unsigned char padding_C[16];
     u8 kind;
 };
+void *Linked_AppendRibbonSegment(void *effectSystem, void *ribbon, void *local);
+struct VertexArena;
+struct RibbonActor;
+struct GameplayCamera;
+void Linked_DrawTexturedRibbon(struct VertexArena *pool, struct RibbonActor *actor, struct GameplayCamera *camera);
+struct LinkOwner802A;
+void Linked_UpdateLinkedNodeTransforms(struct LinkOwner802A *owner);
+struct StateSmpUpdateRibbonLifetime;
+s32 Linked_UpdateRibbonLifetime(s32 owner, struct StateSmpUpdateRibbonLifetime *state);
+void Linked_UpdateRibbonMatrices(void *ribbon, void *camera);
 #endif

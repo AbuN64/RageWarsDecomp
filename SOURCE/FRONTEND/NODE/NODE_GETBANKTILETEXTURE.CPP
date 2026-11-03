@@ -5,6 +5,8 @@
 #include "COMMON/SLOTRECATCV1.H"
 #include "TYPES.H"
 #include "RESMGR/resmgr_stream_io.H"
+#include "FRONTEND/FRONTEND_CONFIGUREIMAGECONVERSION.H"
+#include "NODE/NODE_GETBANKTILETEXTURE.H"
 
 /* Advances the deferred-release timers: for each of the g_frontendResourceTextureCount slots (all reset first when mode
    is 1) whose owner is not -1, counts the delay down, and once it has run out releases the slot's
@@ -98,8 +100,8 @@ extern File g_frontendResourceState;
 extern char s_frontendResourceOpenMode;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void XStdio_CloseStream(s32 handle);
-extern void Frontend_ClearOwnedImage(Texture *texture);
-extern void Frontend_ReleaseOwnedImageBuffers(Texture *texture);
+
+
 extern void Frontend_ConfigureOwnedImage(Texture *texture, s32 kind, s8 fmt, s8 siz, s32 wid, s32 siz2, s32 zero,
                           s32 bytes, void *offset, s32 zero2, s32 pitch, s32 *list, s32 depth);
 extern void Image_SwizzleImage(struct SwizzledImageView *image);

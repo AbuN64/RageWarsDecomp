@@ -1,6 +1,7 @@
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/VIEWFLAGS.H"
 #include "TYPES.H"
+#include "GSKY/GSKY_SETGAMEPLAYMODE.H"
 
 typedef void (*FuncPtr)(void);
 

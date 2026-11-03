@@ -35,7 +35,7 @@ s32 Timer_MatchesGameIdentity(char *code, char *name) {
 
 extern char *g_pakLegacySnapshotGameNameFixed;
 
-extern s32 XPlus_StringLength(u8 *);
+
 
 s32 Timer_MatchesGameIdentity(char *code, char *name) {
     if (XPlus_StringLength((u8 *)name) == 4 && XPlus_StringLength((u8 *)code) == 2 &&

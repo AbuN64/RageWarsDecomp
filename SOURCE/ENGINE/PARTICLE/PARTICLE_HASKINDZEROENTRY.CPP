@@ -8,6 +8,9 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "TYPES.H"
 #include "UI/X_FILES/X_PLUS.H"
+#include "AI/PLAYER/PLAYERAI_BUILDFORCEMARKERTRANSFORM.H"
+#include "PARTICLE/PARTICLE_HASKINDZEROENTRY.H"
+#include "PARTICLE/PARTICLE_SPAWNCHILDEFFECT.H"
 
 /* Returns whether any of the 22 records in g_weaponInfoByType holds, in either of its two three-entry lists, an entry of kind 1 whose id matches the given object's id. */
 
@@ -104,11 +107,11 @@ extern char g_actorParticleEffectSystem[];
 
 
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
-extern void Playerai_StartDamageTimer(void *, f32, f32, void *, s32);
+
 extern void CScene_StartEventClips(void *, void *, s32, Triple, f32, f32);
 
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, CVector3, struct IntPair);
-extern void Particle_SpawnChildEffect(void *, s32, s8, s32);
+
 struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 
 

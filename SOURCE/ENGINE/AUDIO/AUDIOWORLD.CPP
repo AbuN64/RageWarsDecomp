@@ -8,6 +8,9 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "ENGINE/AUDIO/AUDIOWORLD.H"
 #include "VOICE/VOICE.H"
+#include "AUDIO/VOICE.H"
+#include "COMMON/SOUNDINFO.H"
+#include "SOUND/SOUND.H"
 
 
 /* Starts a sound instance from a description: when the scene's free node list is not empty it takes the
@@ -26,13 +29,13 @@
 
 
 
-extern void Audio_InitializeVoiceParameters(void *, void *, s32);
+
 
 
 extern s8 SoundInfo_GetPriority(void *);
 
 
-extern u8 SoundInfo_GetPan(void *);
+
 
 extern s16 SoundInfo_GetFlags(void *);
 
@@ -60,7 +63,7 @@ extern s16 SoundInfo_GetFlags(void *);
 
 
 
-extern void Sound_UpdateSoundSlot(SoundContext *, s32, s32, char *);
+
 
 static inline void append(ListHead *head, EntryAudioWorldDispatchPendingSounds *entry) {
     entry->prev = head->prev;

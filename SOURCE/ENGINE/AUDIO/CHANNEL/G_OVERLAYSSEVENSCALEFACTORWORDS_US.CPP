@@ -3,6 +3,7 @@
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
 #include "include_asm.h"
+#include "CHANNEL/LOOKUPPANVALUE.H"
 #if defined(VERSION_US)
 #if defined(VERSION_US)
 

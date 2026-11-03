@@ -10,6 +10,7 @@
 #include "TYPES.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/CACHE/HEAP.H"
 
 
 extern void Cache_DetachResourceRequest(void *unused0, void *resourceCacheEntry);
@@ -22,11 +23,11 @@ extern void Cache_ReleasePendingResourceEntry(s32 unusedCache, s32 entryAddress)
 extern s32 g_resourceRecencyList;
 
 
-extern void *Heap_AllocateFromBack(void *heap, s32 request);
 
-extern void *Heap_AllocateFromFront(void *, s32);
 
-extern void List_InsertBeforeIntrusive(void *, s32, s32);
+
+
+
 
 void Cache_ReleaseResourceCompletely(void *unused, struct IntrusiveList *resource) {
     s32 remainingReferences;

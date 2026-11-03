@@ -9,6 +9,10 @@
 #include "TYPES.H"
 #include "CAMERA/COLLISION_SWEEP_VIEWS.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "ENGINE/GREGION.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 /* 80243A80.CPP */
 struct Input; void CCollision_StoreContactResult(struct Input *contactInput);
@@ -27,13 +31,13 @@ void CCollision_UpdateModelSurfaceFlags(void *, u16 *);
 
 f32 CCollision_GetContactYaw(f32 *);
 
-f32 InstHdr_GetActorReach(void *);
+
 
 extern void Graphu64_EaseValueToward(f32 *value, f32 target, f32 rate);
 
-f32 Graphu64_GetTrianglePlaneHeight(void *, f32, f32);
 
-f32 Region_GetPolygonHeight(void *, f32, f32);
+
+
 
 void * Scene_ResolveFloorPolygon(void *, CVector3 *);
 
@@ -44,7 +48,7 @@ struct ActorMotion; void CCollision_IntegrateGravityAndDrag(struct ActorMotion *
                          /* extern */
 extern UnicolCurrentActor *g_collisionCurrentActor;
 
-extern s32 g_particleCollisionProbeResult;
+
 
 extern s32 g_collisionNoDetachSettingsSecond;
 

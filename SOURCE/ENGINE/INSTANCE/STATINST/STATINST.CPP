@@ -14,6 +14,9 @@
 #include "SCENE/CACHE_ALLOCATERESOURCEAT.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "include_asm.h"
+#include "ENGINE/LINK.H"
+#include "ENGINE/SETN64.H"
+#include "STATINST/STATINST_ACQUIREGEOMETRY.H"
 
 /* STATINST.CPP */
 extern s32 g_gameFrameCounter;
@@ -23,9 +26,9 @@ extern f32 g_staticObjectFadeThresholdAndAlpha[];
 
 /* Draws an owner model with timed descriptor selection and fade setup/reset; a named descriptor-slot reference preserves reload scheduling. */
 
-extern void *Statinst_AcquireGeometry(ResourceOwner *owner,s32 index);
 
-extern void Link_AnimateVertexColors(void *object, void *colors);
+
+
 
 extern void Geometry_QueueModelInstance(void **, void *, s32, void *, void *, s32);
 
@@ -57,7 +60,7 @@ extern char s_staticGeometryResourceTag[];
 extern char s_staticPropResourceTag[];
 #endif
 
-extern s32 SetN64_LocatePackSection(s32 *, s32, s32, s32 *);
+
 
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, Triple, ResourceManagerState);
 

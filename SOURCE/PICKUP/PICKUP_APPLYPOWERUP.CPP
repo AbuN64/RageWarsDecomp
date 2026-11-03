@@ -9,6 +9,12 @@
 #include "PICKUP.H"
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "ENGINE/SETN64.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "ITEMMENU.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "PICKUP/PICKUP_CANCOLLECT.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 void *Pickup_FindPowerupEntry(s32 itemId) {
     char *v1;
@@ -132,10 +138,10 @@ void *Pickup_FindSpecialEntry(s32 pickupId) {
     return 0;
 }
 
-extern int InstHdr_GetActorType(void *prop);
-extern s32 Pickup_DispatchHandler(void *actor, void *target, s32 pickupId);
-extern void SetN64_RecycleGlobalEffectNode(void *node);
-extern void Scene_SetLevelRecordStateBit(void *world, void *levelBitRecord, s32 recordIndex);
+
+
+
+
 extern void Link_DispatchObjectLinks(s32 triggerKey, s32 triggerFlags, void *actor);
 
 
@@ -169,7 +175,7 @@ block_4:
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #endif
-extern void Player_AddAmmo(void *, s16, s16);
+
 extern s32 SoundElement_PlaySoundAtPosition(s16 track, CVector3 soundPosition, s32 position, s32 ownerId);
 
 

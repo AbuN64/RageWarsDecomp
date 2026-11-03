@@ -8,6 +8,7 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
 #include "WEAPONS/PLAYERRECAT1450V1.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
 
 /* 800C3144.CPP */
 #if defined(VERSION_EU)
@@ -18,7 +19,7 @@ const unsigned int k_WeaponUpdateidleweaponselectionEncodedWordsBlock1[1] = { 0x
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 extern char g_weaponActionRecords;
 
-extern s16 Weaponai_FindNextUsableWeapon(void *player);
+
 extern s32 SoundElement_PlaySoundAtPosition(s16 track, CVector3 position, s32 emitterKey, s32 ownerId);
 
 void Weapon_UpdateIdleWeaponSelection(LevelActor *levelActor, void *weaponFireState) {

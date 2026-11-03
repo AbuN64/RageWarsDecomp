@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "COMMON/MENUSELECTIONMESSAGE.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 /* 804366D0_11.CPP */
 extern struct MenuMenuCreateTitleButtonScreen *g_titleButtonScreen;
@@ -14,7 +15,7 @@ extern struct MenuMenuCreateTitleButtonScreen *g_titleButtonScreen;
 
 extern struct Record *Cache_AllocateMemory(s32 size);
 
-extern void *SmpFade_CreateFadeWidget(s32, s32);
+
 
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 

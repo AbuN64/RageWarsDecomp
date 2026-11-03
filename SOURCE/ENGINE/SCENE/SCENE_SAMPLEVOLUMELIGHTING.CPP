@@ -60,8 +60,13 @@ void Scene_FindLightVolumes(Shared_World *world, CVector3 *point, SceneLightVolu
 #include "COMMON/LIGHT_VOLUME_AND_TRIGGER_VIEWS.H"
 #include "COMMON/PARTICLE_LIGHTING.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "ACTIONAI/ACTION_UPDATEBREAKABLEPROXIMITY.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
 extern s32 Lighting_EvaluateLocalVolume(SceneLightVolume *, f32, f32, f32, CVector3 *, f32 *);
-extern void Graphu64_ProjectPoint(void *, CVector3 *, CVector3 *);
+
 extern f32 Link_GetLightAnimationOffset(void *);
 static inline f32 sampleDot(CVector3 *a, f32 *b, s32 index) { f32 *d=b+index+128; return a->x*d[0] + a->y*d[1] + a->z*d[2]; }
 void Scene_SampleVolumeLighting(SceneLightVolume **volumes, s32 count, CVector3 *position, Shared_ParticleLighting *lighting) {
@@ -272,7 +277,7 @@ void Scene_SampleVolumeLighting(SceneLightVolume **volumes, s32 count, CVector3 
 #include "COMMON/OBJECT_INSTANCE_TRANSFORM_AND_RENDER_VIEWS.H"
 #include "COMMON/WORLD.H"
 #include "COMMON/LEVEL_ACTOR.H"
-s32 Action_ShowTriggerMessage(void *, void *, void *);
+
 typedef struct SceneTriggerDefinition {
     ActorDefinitionHeader header;
     char pad18[8];
@@ -455,7 +460,7 @@ extern u8 *g_optionFlagsChangedMessageText;
 extern void Track_RequestCameraRefresh(void), Track_RequestTrackByKey(s32);
 extern s32 SetN64_IsModeThirteen(void);
 extern void Scene_LoadLevelResources(void *, s32, s32);
-extern struct CCameraText_t *Gsky_PostScaledScreenMessage(void *, void *, u8 *, f32);
+
 static inline s32 transitionId(Shared_World *scene) {
     if (scene->selectionFlags != 0) return scene->selectionSpawn.kind;
     return scene->selectionValues[1];
@@ -556,15 +561,15 @@ extern char *g_resultsGoalLabelFormat;
 extern char *g_resultsGoalValueFormat;
 extern char *g_slotSelectionTextReferenceShared4;
 extern void Cinema_AddMessage(int goal);
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
+
 extern void *Cache_RequestWordCountedResourcePinned(s32, void **, s32, void *);
-extern ResultsText *Cache_RequestPackSection(s32, void *, s32, s32, void *, s32, void *);
+
 
 extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 extern u8 Player_GetLevelProgress(Profile *, s32);
 extern void Scene_ReleaseCachedLevelData(Shared_World *);
 extern void *Cache_RequestResource(s32, u32, u32, u32, u32, s32, void *, const char *, u32);
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
 extern s32 Key_FindKeyIndex(s32);
 static inline void copyLevelName(Shared_World *world, s32 level, char *out, s32 limit) {
     void *handle;

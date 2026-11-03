@@ -12,10 +12,15 @@
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "FRONTEND/PLAYER.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
-extern void Player_GetPlayerViewTranslation(void *, f32 *);
 
-extern void Nav_ResetPlayerState(s32 *state);
+
+
 
 f32 Graphu64_GetPointDistance(f32 *, f32 *);
 
@@ -41,7 +46,7 @@ extern s32 CCollision_SweepPoint(void *actorStorage, CVector3 startPosition, CVe
 
 
 
-extern void Player_PlacePlayerForRound(SharedPlayer *);
+
 
 void Scaled_UpdateTargetPitch(Brain *object) {
     void *memory = object;

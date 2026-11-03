@@ -4,6 +4,7 @@
 #include "../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../include/PFS/__OSCHECKID.H"
 #include "../../include/PFS/PFS_SELECTACTIVEBANK.H"
+#include "../../include/libultra/io/contramread.h"
 
 /* osPfsFileState, drafted from ultralib src/io/pfsfilestate.c (2.0I branch): read a controller pak
    file's directory entry, count the pages of its chain across banks, and report its size, codes and
@@ -18,7 +19,7 @@
 
 
 
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
+
 
 s32 osPfsFileState(OSPfs *pfs, s32 file_no, OSPfsState *state)
 {

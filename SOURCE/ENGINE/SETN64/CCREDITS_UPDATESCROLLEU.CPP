@@ -9,9 +9,10 @@
 #include "COMMON/EFFECTRENDER.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/SESSIONHANDLERROW.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-extern s32 Playerai_GetFirstPlayer(void *);
+
 
 void CCredits_UpdateScroll(void *object) {
     f32 time;

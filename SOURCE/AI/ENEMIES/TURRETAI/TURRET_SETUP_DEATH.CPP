@@ -6,17 +6,21 @@
 #include "COMMON/REC.H"
 #include "TYPES.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "TURRETAI/TURRET_TRACKTARGET.H"
 
-extern s32 Turret_TrackTarget(void *actor, void *riderState);
 
 
-extern void Barrel_SpawnFlaggedEffects(void *actor, void *emittedFlags, s32 emissionFlag, s32 primaryEffectMask, s32 secondaryEffectMask);
+
+
 
 extern void Rumble_SetActorStateBit(Shared_World *, void *, s32);
 
-extern void Link_DispatchActorLinks(void *actor, s32 eventMask, void *eventSource);
 
-s32 Animpool_ReleaseSceneEffect(void *);
+
+
 
 extern s32 Rumble_TestActorStateBit(void *, void *);
 

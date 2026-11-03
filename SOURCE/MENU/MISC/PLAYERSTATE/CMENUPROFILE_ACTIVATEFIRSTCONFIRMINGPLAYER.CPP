@@ -11,6 +11,8 @@
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "MENU/MISC/CMENUPROFILE_ACTIVATEFIRSTCONFIRMINGPLAYER.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
 
 /* Clears eight player active flags, then marks the first settings slot whose controller profile is active. */
 extern struct ConfirmingControllerStatusView g_gameSettingsRecordActiveFlagBase[];
@@ -60,7 +62,7 @@ void Playerai_EndRound(void *roundContext);
 extern void Control_DisableControllerPak(int controllerPort);
 
 
-extern void Control_SetProfileMode(PakMenuSlot *, s32);
+
 
 /** Report whether the tutorial-progress flags (at 0x1c, 0x20, 0x28) hold any nonzero bit. */
 
@@ -69,7 +71,7 @@ extern void Control_SetProfileMode(PakMenuSlot *, s32);
 
 /** Runs Menu_AdjustValue on a byte in menuContext->owner->controls[0x83] and writes the result back into that byte. */
 
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 void CMenuProfile_ActivateFirstConfirmingPlayer(void) {
     StatusStep *status;

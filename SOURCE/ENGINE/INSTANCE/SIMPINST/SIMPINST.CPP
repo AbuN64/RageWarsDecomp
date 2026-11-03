@@ -9,13 +9,17 @@
 #include "WORLD/STATIC_MODEL_INSTANCE_VIEWS.H"
 #include "COMMON/OBJB.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "ENGINE/INSTANCE/SIMPINST.H"
+#include "ENGINE/SETN64.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "SIMPINST/G_SIMPOBJECTINDEXTEXT.H"
 
 struct ObjB;
 extern CachedResource *Cache_RequestPairedResource(s32, s32, CachedResource *, CachedResource *, s32, void *, void *, void *, s32);
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
-extern s32 SetN64_LocatePackSection(void *, s32, s32, s32 *);
+
+
 extern void Cache_UnlockResource(void *, CacheResourceNode *);
-extern void Geometry_UnlockMaterialResources(void **);
+
 void Simpinst_RegisterModelVariantResources(struct ObjB *object, s32 unused) {
     void *memory = object;
     ObjB *obj = memory;

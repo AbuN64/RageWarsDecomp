@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 struct WorldSectionResourceView;
 typedef struct WorldSectionResourceView WorldSectionResourceView;

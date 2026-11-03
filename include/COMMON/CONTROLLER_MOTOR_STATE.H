@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/LONE/CONTROLLER_MOTOR_START_DATA.H"
 #include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
+#include "../../sdk/include/libultra/io/crc.h"
 
 
 
@@ -17,6 +18,6 @@ extern s32 g_controllerMotorInitialized[];
 extern u8 g_controllerMotorStartCommands[];
 
 extern void __osSiGetAccess(void);
-extern u32 __osContDataCrc(void *data);
+
 extern void __osSiRelAccess(void);
 #endif

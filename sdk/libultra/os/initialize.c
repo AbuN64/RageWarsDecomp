@@ -62,6 +62,7 @@
 #include "ENGINE/VIRTUAL/VIRTUAL_REGION_AND_PAGER_OPERATIONS.H"
 #include "UI/X_FILES/X_PLUS.H"
 #include "../../include/libultra/debug/assert.h"
+#include "SIRAWREAD/SIRAWREAD.H"
 
 /* Drafted from ultralib src/os/initialize.c (before 2.0J, _FINALROM): the clock
    rate comes from the ROM header through osPiRawReadIo. */

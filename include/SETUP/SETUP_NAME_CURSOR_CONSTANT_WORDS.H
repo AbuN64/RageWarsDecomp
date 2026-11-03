@@ -1,0 +1,4 @@
+#ifndef SETUP_SETUP_NAME_CURSOR_CONSTANT_WORDS_H
+#define SETUP_SETUP_NAME_CURSOR_CONSTANT_WORDS_H
+extern const float g_multiplayerNameEntryTimingLimits;
+#endif

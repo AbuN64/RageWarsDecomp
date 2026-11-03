@@ -14,6 +14,7 @@
 #include "../../include/SCHED/osscremoveclient.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
+#include "sched/sched_handletaskcommands.H"
 
 extern s32 g_resourceLoadPriorityBoost;
 

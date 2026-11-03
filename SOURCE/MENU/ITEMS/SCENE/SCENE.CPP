@@ -3,11 +3,14 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/OBJB.H"
 #include "COMMON/CACHE_RELEASERESOURCE.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "ENGINE/SETN64.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
 
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
-extern s32 Scene_GetIndexedModelResource(void *, s32);
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
-extern s32 SetN64_LocatePackSection(void *, s32, s32, s32 *);
+
+
+
+
 typedef struct { u32 w[7]; } Blk28;
 void Scene_CopySimpleModelHeader(void *level, void *buffer, s32 name) {
     void *table;

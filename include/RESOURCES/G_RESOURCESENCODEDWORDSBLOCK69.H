@@ -1,0 +1,4 @@
+#ifndef RESOURCES_G_RESOURCESENCODEDWORDSBLOCK69_H
+#define RESOURCES_G_RESOURCESENCODEDWORDSBLOCK69_H
+extern void * g_ResourcesEncodedWordsBlock69[];
+#endif

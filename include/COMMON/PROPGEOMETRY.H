@@ -7,6 +7,7 @@
 #include "COMMON/MANAGER.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/PROBE.H"
+#include "SIMPINST/G_SIMPOBJECTINDEXTEXT.H"
 
 
 
@@ -140,7 +141,7 @@ extern float g_simpleObjectAlternateScaleTransitionTiming;
 
 
 extern char g_Simpinst_BuildLitGeometryResourceAddress;
-extern char g_simpObjectIndexText[];
+
 extern const char s_litVerticesText[];
 
 typedef struct ResourceOwner { u8 pad0[0x1c]; s32 key; u8 pad20[0x88]; s32 index; s32 selected; s32 size; void *resource; } ResourceOwner;

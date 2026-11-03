@@ -10,6 +10,10 @@
 #include "TYPES.H"
 #include "MENU/PAK/PROMPT_OPERATIONS.H"
 #include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
+#include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 /* Confirms the selected pak menu entry: marks the menu busy and returns when Snapshot_CheckStatusPrompt takes
    over the selected channel; with a profile loaded (g_pakProfileLoaded) it creates the player through
@@ -50,11 +54,11 @@ extern char g_characterPreviewMenuRomResource[];
 
 extern char g_matchEndingTeamWheelClose[];
 
-extern SharedPlayer *Playerai_FindPlayerByController(char *pool, PakMenuSlot *slot);
+
 
 extern void Player_StartPlayerAnimation(struct Player *animatedPlayer, s32 animationState);
 
-extern void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, struct Dialog *list);
+
 
 extern s32 Note_DeleteNote(s32 ch, s32 index);
 
@@ -91,11 +95,11 @@ extern char g_pakAlternateReadyDialogResource[];
 extern char g_controllerPakNotReadyDialogResource[];
 
 
-extern void Control_SetProfileMode(PakMenuSlot *slot, s32 mode);
+
 
 extern void Control_DisableControllerPak(s32 ch);
 
-extern void Scene_SetSelection(char *, s32, s32);
+
 
 struct GameSession;
 extern void Match_ResetGameClockAndSelectSpawn(struct GameSession *);

@@ -4,11 +4,12 @@
 #include "TYPES.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "MULTI/SETUP_SETUPNAMESPINNER.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
 
 #if defined(VERSION_DE)
 extern char g_playerViewRenderContext[];
 extern Spinner g_multiplayerNameEntryStates[];
-extern s32 Player_GetPlayerIndex(char *, s32);
+
 extern u8 *g_defaultPlayerNameOne;
 /* Highlights the name slot Player_GetPlayerIndexDe finds for the menu (display flags 0x1800000 on its model part,
    cleared on the other three), resets that spinner's timer and copies the slot's name (trailing blanks

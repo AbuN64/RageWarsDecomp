@@ -13,6 +13,12 @@
 #include "COMMON/REC.H"
 #include "AI/NAV/NAV_UPDATECOMPUTERPLAYERSTATUS.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "BEHAVIOUR/BEHAVIOUR.H"
+#include "ENGINE/CONTPAD.H"
+#include "FRONTEND/PLAYER.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
 /* 80208000.CPP */
 /* Resets a player controller: marks the active, requested and committed selections empty, sets the
@@ -23,9 +29,9 @@
 
 extern void Scaled_SetBehaviorTable(void *, char *, s32);
 struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
-extern void Nav_ResetWheelProbeState(void *);
 
-extern void Scaled_ClearAuxiliaryBehaviorState(void *);
+
+
 
 void Nav_ResetPlayerState(s32 *state) {
     s32 i;
@@ -92,8 +98,8 @@ extern char g_tutorialStatusBars[];
 
 extern void Scaled_UpdateTargetPitch(Brain *);
 extern s32 Player_GetMaxHealth(SharedPlayer *);
-extern void OnScreen_SetSecondBarTarget(char *, s32);
-extern void ContPad_ClearControllerInput(char *);
+
+
 extern void Scaled_HandlePlayerTimeout(Brain *, SharedPlayer *);
 
 void Nav_UpdateComputerPlayerStatus(Brain *brain) {
@@ -186,7 +192,7 @@ NavigationSearchNode *Portal_FindSearchNode(CNavData *,s32);
 struct Graph; int Portal_FindLinkIndex(struct Graph *graph, int from, int to);
 s32 Scaled_AdvanceNodeQueue(AiController *);
 typedef struct GroundObject { char pad[0x18]; ActorMotionResource *resource; } GroundObject;
-GroundObject *InstHdr_GetEnabledItemValue(Player *);
+
 extern f32 g_jumpLinkStartDistance;
 extern f32 g_jumpLinkNegativeAimTolerance;
 extern f32 g_jumpLinkPositiveAimTolerance;

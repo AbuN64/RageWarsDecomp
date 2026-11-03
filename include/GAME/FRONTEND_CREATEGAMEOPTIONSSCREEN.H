@@ -1,0 +1,4 @@
+#ifndef GAME_FRONTEND_CREATEGAMEOPTIONSSCREEN_H
+#define GAME_FRONTEND_CREATEGAMEOPTIONSSCREEN_H
+s32 Frontend_CreateGameOptionsScreen(void);
+#endif

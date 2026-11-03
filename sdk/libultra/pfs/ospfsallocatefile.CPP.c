@@ -7,13 +7,15 @@
 #include "../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../include/PFS/__OSCHECKID.H"
 #include "../../include/PFS/PFS_SELECTACTIVEBANK.H"
+#include "../../include/libultra/io/contramread.h"
+#include "../../include/libultra/io/contramwrite.h"
 
 /* ospfsallocatefile.CPP */
 /* osPfsAllocateFile, drafted from ultralib src/io/pfsallocatefile.c (2.0I branch): create a
    controller pak file by finding a free directory entry, chaining enough free pages across the
    banks' inode tables and writing the new directory entry. */
 
-extern s32 __osContRamWrite(void *queue, int channel, u16 address, u8 *buffer, int force);
+
 
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name,
                   int file_size_in_bytes, s32 *file_no)
@@ -225,7 +227,7 @@ s32 __osClearPage(OSPfs *pfs, int page_no, u8 *data, u8 bank)
 /* osPfsDeleteFile, drafted from ultralib src/io/pfsdeletefile.c (2.0I branch): find a controller pak
    file, free every page of its chain bank by bank, and write an empty directory entry in its place. */
 
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
+
 
 s32 osPfsDeleteFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name)
 {

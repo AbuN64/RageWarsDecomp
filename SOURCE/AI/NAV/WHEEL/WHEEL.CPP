@@ -6,14 +6,17 @@
 #include "COMMON/SHAREDCALLBACK5.H"
 #include "TYPES.H"
 #include "AI/NAV/WHEEL.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 /* Probes one of a vehicle's eight wheel rays: casts from the vehicle position to its scaled wheel offset
  * through Unicol_SweepActorMotion and stores the wheel's reach as the XZ distance to whatever was hit (diagonals
  * scaled by 1/sqrt 2, components tested against the zeroed y), or the full ray length on a miss. */
 extern CVector3 g_actorRadialDirections[8];
 extern SweepHit *g_collisionCurrentActor;
-extern CCollisionInfo2_t g_particleCollisionProbeResult;
-extern f32 InstHdr_GetActorReach(Player *);
+
+
 extern f32 Gobjinst_GetActorRadius(Player *);
 extern f32 Gobjinst_GetActorHeight(Player *);
 extern f32 InstHdr_GetActorBaseOffset(void *);
@@ -121,7 +124,7 @@ void Wheel_MeasureWheelClearance(Player *player, s32 wheel) {
     }
 }
 
-extern CVector3 *Scaled_GetControllerPosition(AiController *controller);
+
 /* Builds the eight radial probe segments around the player at two heights (reach at 180, clearance at
  * 140) from its position through Scaled_GetControllerPosition, after turning its heading into a sector in [0, 8].
  * The segments stay on the stack: the debug draw that used them (and the sector) is compiled out. */

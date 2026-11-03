@@ -29,7 +29,7 @@ extern u32 g_resourceHashEvenIndexMask;
 
 
 extern void Heap_FreeAllocation(void *, void *);
-extern void HashTable_SetResourceByKey(s32, ResourceLoadRequest *);
+
 
 static inline void find(s32 key, ResourceLoadRequest **out) {
     CacheHashEntry *node = g_resourceHashBuckets + (((key << 5) ^ ((u32)key >> 1) ^ ((u32)key >> 9) ^ ((u32)key >> 17)) & g_resourceHashEvenIndexMask);

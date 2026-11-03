@@ -22,6 +22,8 @@
 #include "ACHIEVE/ACHIEVE.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "FRONTEND/MENUIMAGE.H"
+#include "FRONTEND/MENU_IMAGE.H"
+#include "MATCH_REASON/MATCH_REASON.H"
 
 extern MatchScoreScreen *g_matchResultBadgeScreen;
 extern Shared_Rec3 g_playerSettings[8];
@@ -142,7 +144,7 @@ enum { ITEM0 = 621, ITEM1 = 620, ITEM2 = 619, ITEM3 = 618 };
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
 
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 
 
 

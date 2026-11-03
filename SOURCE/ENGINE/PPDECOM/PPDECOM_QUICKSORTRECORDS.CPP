@@ -2,6 +2,7 @@
 #include "TYPES.H"
 #include "ENGINE/PPDECOM.H"
 #include <ultra64.h>
+#include "PPDECOM/PPDECOM_QUICKSORTRECORDS.H"
 
 /* Sorts num elements of the given width with a comparator and a swap routine using an iterative quicksort: partitions around the middle element, pushes the larger side onto a 30-entry stack and continues with the smaller, and hands ranges of eight or fewer elements to PpDecom_SelectionSortRange. Written from the classic iterative quicksort structure. */
 

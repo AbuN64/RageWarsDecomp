@@ -10,10 +10,15 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/SCENERECAT10C0.H"
 #include "COMMON/ACTOR_DEFINITION.H"
-extern void *SetN64_GetDirectoryEntry(void *, void *, s32);
-extern void *SetN64_LocatePackSection(void *, void *, s32, s32 *);
-extern void *Scene_GetActorDefinition(void *, u16);
-extern void Gobjinst_LoadModel(void *, void *, void *, s32);
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "ENGINE/SETN64.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GOBJINST/GAMEOBJECT_LOADMODEL.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
+
+
+
+
 typedef struct FrontendModelHeader {
     u8 prefix[28];
     u16 definitionIndex;
@@ -73,9 +78,9 @@ void Preview_SelectMatchingPreviewModel(ModelPreview *preview, s32 id, s32 extra
 #include <PR/gbi.h>
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
-void Gobjinst_DrawVisibleCachedActor(void *, void *);
+
 void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
-void PitchMatrixLocal(void *, f32);
+
 extern MenuModelScreen g_fallbackScreenMessageEmitter[];
 void Preview_DrawModelPreview(ModelPreview *self) {
     CVector3 local10;

@@ -11,6 +11,9 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "CAMERA/GSKY_RESETHEADBOB.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 extern const f32 g_playerImpactMinimumVerticalSpeed;
 
@@ -26,7 +29,7 @@ extern s32 SoundElement_PlaySoundAtPosition(s16 track, CVector3 soundPosition, s
 
 extern void Player_UpdateViewAngles(void *, void *, void *);
 
-extern void Player_UpdateFlyingThrustAndBoost(void *, void *, void *);
+
 
 
 
@@ -36,11 +39,11 @@ extern f32 g_playerRoundEndWaitConstants;
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
 
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Player_ReleaseObjectHandles(s32 object);
+
 
 void Player_AbsorbImpact(void *player, LevelActor *actor) {
     f32 value;

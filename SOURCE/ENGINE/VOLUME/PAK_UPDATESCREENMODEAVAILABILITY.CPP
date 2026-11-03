@@ -7,6 +7,7 @@
 #include "FRONTEND/SCREEN_VIDEO_MODE.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/TEXTURE_REQUEST.H"
+#include "FRONTEND/SCREEN.H"
 
 /* 804453C4_7.CPP */
 /* Sets bit 23 of the flag word at offset 8 of a record unless Defs_GetMemorySize reports 0x400000 for
@@ -14,7 +15,7 @@
    Returns zero. */
 
 extern s32 Defs_GetMemorySize(struct MenuTextResultView *);
-extern s32 Frontend_GetScreenModePalette();
+
 
 s32 Pak_UpdateScreenModeAvailability(struct MenuTextResultView *record) {
     if (Defs_GetMemorySize(record) != 0x400000) {

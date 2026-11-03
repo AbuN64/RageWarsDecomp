@@ -25,4 +25,8 @@ struct MenuPlayerPoolRecord {
     s32 m_TeamTriangleTimer;
     s32 m_TriangleSpin;
 };
+struct CPlayerPool_t;
+void Player_RefreshActivePlayerSceneState(struct CPlayerPool_t *pool);
+struct MenuPlayerPoolRecord;
+void Player_ResetMenuPool(struct MenuPlayerPoolRecord *record);
 #endif

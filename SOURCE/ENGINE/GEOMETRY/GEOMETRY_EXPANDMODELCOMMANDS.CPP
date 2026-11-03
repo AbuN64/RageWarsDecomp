@@ -17,6 +17,10 @@
 #include "SYSTEM/TEXTLOAD_RESETTEXTURECACHE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
 
 extern Gfx *g_displayListCursor;
 
@@ -26,11 +30,11 @@ extern u32 g_geometryEffectGeometryMode;
 
 extern s32 Geometry_SetModePreset(s32);
 
-s32 SetN64_GetSizedPackSection(s32 packAddress, s32 sectionIndex, s32 *sectionSizeOut);
+
 
 extern struct CacheResourceBlockView *Cache_AllocResourceBlock(s32, void *, s32);
 
-void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView **handle, struct CacheResourceBlockView *replacement);
+
 
 
 
@@ -42,9 +46,9 @@ extern char g_playerViewRenderContext;
 
 struct PackedMatrixWords; extern void Graphu64_UnpackFixedMatrix(f32 *dst, struct PackedMatrixWords *src);
 
-extern void Graphu64_GetMatrixTranslation(f32 *matrix, CVector3 *position);
 
-extern char *Playerai_GetFirstPlayer(void *players);
+
+
 
 extern void Graphu64_SubtractVectors(struct CVector3_t *difference, struct CVector3_t *leftVector, struct CVector3_t *rightVector);
 

@@ -236,4 +236,13 @@ extern void *SetN64_AllocateActorFromPool(ActorPoolFreeListView *);
 extern void SetN64_BeginFrameDisplayList(void *world);
 struct GameSession;
 extern void SetN64_RunGameLoop(struct GameSession *session);
+int SetN64_GetDirectoryEntry(int *directory, int bankOffset, int level);
+s32 SetN64_GetPackSectionSize(s32 *table, s32 index);
+s32 SetN64_GetSizedPackSection(s32 packAddress, s32 sectionIndex, s32 *sectionSizeOut);
+s32 SetN64_LocatePackSection(void *directory, s32 bankOffset, s32 sectionIndex, s32 *sectionSizeOut);
+struct EffectPoolNode;
+void SetN64_RecycleGlobalEffectNode(struct EffectPoolNode *node);
+struct Display;
+struct Frame;
+void SetN64_SubmitFrameTasks(struct Display *display, struct Frame *frame);
 #endif

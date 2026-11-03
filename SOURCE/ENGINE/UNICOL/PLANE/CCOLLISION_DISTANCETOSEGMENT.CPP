@@ -7,6 +7,7 @@
 #include "COMMON/OUTPUT.H"
 #include "ANIM/RAY180.H"
 #include <ultra64.h>
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 extern f32 Gu_Sqrtf(f32);
 
@@ -17,7 +18,7 @@ extern f32 Gu_Sqrtf(f32);
 
 
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 
 f32 CCollision_DistanceToSegment(CVector3 *a, CVector3 *b, CVector3 *p) {
     extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);

@@ -14,12 +14,13 @@
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "include_asm.h"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 extern void Widget_DrawVisibleSiblings(void *, Args);
 

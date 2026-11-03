@@ -100,6 +100,7 @@ void Menu_DrawLayeredMenuText(LayeredText *source, MenuOptionBox *position, Menu
 #include "COMMON/OBJECTRECAT28.H"
 #include <PR/gbi.h>
 #include "COMMON/MATH_HELPERS.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
 typedef struct PakModelDefinition {
     s32 kind, model, variant;
     CVector3 offset, scale;
@@ -135,7 +136,7 @@ extern void Cache_SetResourceActivityState(unsigned int);
 extern void Scene_ChangeInstanceModel(struct SceneModelBankView *modelBank,struct ObjectSceneChangeInstanceModel *draw,s32 modelId,s32 extra);
 extern void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
-extern void Gobjinst_DrawVisibleCachedActor(void *object, void *camera);
+
 static inline PreviewWidget *pakLoadModel(PakModelEntry *entry, s32 id, s32 variant) {
     MenuCharacterPreviewState *owner = entry->state;
     PreviewWidget *source = (PreviewWidget *)Scene_FindActorDefinition(&g_world, id, variant);

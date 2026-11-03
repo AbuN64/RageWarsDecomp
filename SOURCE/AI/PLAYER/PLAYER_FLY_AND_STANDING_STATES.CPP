@@ -7,13 +7,15 @@
 #include "COMMON/WORLD.H"
 #include "TYPES.H"
 #include "ENGINE/AUDIO/CHANNEL.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 extern f32 g_frameElapsedTime;
 
 
 extern void Graphu64_EaseValueToward(f32 *value, f32 target, f32 rate);
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
@@ -39,7 +41,7 @@ extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
 extern char g_playerSpecialAnimationTable;
 
-extern void Player_UpdateWeaponSwayAndBob(SharedPlayer *, BodyPlayerUpdateStandingState *);
+
 
 extern void Player_UpdateViewAngles(SharedPlayer *, BodyPlayerUpdateStandingState *, char *);
 

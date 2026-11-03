@@ -14,6 +14,7 @@
 #include "FRONTEND/EQUIP_ACTIVATEEQUIPMENTPANEL.H"
 #include "FRONTEND/PLAYER.H"
 #include <PR/gbi.h>
+#include "FRONTEND/SMP_OVERLAY.H"
 
 /* 800E1FC0.CPP */
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
@@ -38,8 +39,8 @@ extern struct PlayerSettingsOptionRow g_characterPortraitRecords[];
 extern struct StateFlags g_equipmentPanelWidgetIds[][19];
 extern f32 g_fourPlayerBadgeScale;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern void *SmpOverlay_CreateOverlayNode(void *, s32);
-extern void SmpOverlay_ShowSlotById(void *, s32, s32);
+
+
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Key_FindKeyIndex(s32);

@@ -7,6 +7,10 @@
 #include "TYPES.H"
 #include <ultra64.h>
 #include <PR/gbi.h>
+#include "TEXTLOAD/TEXTLOAD_READTEXTUREANIMATIONINFO.H"
+#include "TEXTLOAD/TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAME.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAMETILES.H"
 
 /* Selects a cached RDP color-combiner mode and emits the corresponding display-list command. */
 extern Gfx *g_displayListCursor;
@@ -304,12 +308,12 @@ struct Shared_GfxMaterial {
 
 extern u32 g_gameLoopFrameCount;
 
-void *Textload_RequestTextureVariation(s32 *, s32);
-void Textload_ReadTextureAnimationInfo(void *, struct Shared_AnimInfo *);
+
+
 #if defined(VERSION_US_REV1)
-void Textload_LoadTextureFrameTiles(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #else
-void Textload_LoadTextureFrame(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #endif
 void Geometry_SetCombineMode(u32);
 s32 Geometry_SetModePreset(s32);

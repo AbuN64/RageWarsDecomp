@@ -2,28 +2,40 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
+#include "FRONTEND/FRONTEND_HANDLETABOPTIONSSHORTCUT.H"
+#include "GAME/FRONTEND_CLOSEOPTIONSPAGE.H"
+#include "GAME/FRONTEND_CLOSESETTINGSPAGE.H"
+#include "GAME/FRONTEND_CREATEGAMEOPTIONSSCREEN.H"
+#include "GAME/FRONTEND_HANDLEOPTIONSPAGESHORTCUT.H"
+#include "GAME/GAME.H"
+#include "GAME/MENU_CREATELOCALIZEDSETTINGSPAGE.H"
+#include "MENU/MENU_ANIMATETABOPTIONSMENU.H"
+#include "MENU/MENU_CREATESETTINGSPAGE.H"
+#include "MENU/MENU_FINISHTABOPTIONSTRANSITION.H"
+#include "MENU/MENU_OPENLOCALIZEDGAMEOPTIONS.H"
+#include "OPTIONS.H"
 
-extern char Frontend_ActivateCompactOptionsPage[];
-extern char Frontend_CloseCompactOptionsPage[];
-extern char Frontend_CloseOptionsPage[];
-extern char Frontend_CloseSettingsPage[];
-extern char Frontend_ConsumeTabOptionsEvent[];
-extern char Frontend_CreateGameOptionsScreen[];
-extern char Frontend_DestroyCompactOptionsPage[];
-extern char Frontend_DestroyTabOptionsPage[];
-extern char Frontend_HandleCompactOptionsShortcut[];
-extern char Frontend_HandleOptionsPageShortcut[];
-extern char Frontend_HandleTabOptionsShortcut[];
-extern char Frontend_SelectNextLanguage[];
-extern char Frontend_SelectPreviousLanguage[];
-extern char Frontend_UpdateOptionsPageExit[];
-extern char Menu_AnimateTabOptionsMenu[];
-extern char Menu_CreateLocalizedSettingsPage[];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern char Menu_CreateSessionSettingsControls[];
-extern char Menu_CreateSettingsPage[];
-extern char Menu_FinishTabOptionsTransition[];
-extern char Menu_OpenGameOptionsScreen[];
-extern char Menu_OpenLocalizedGameOptions[];
+
+
+
+
 extern char g_Frontend_ActivateCompactOptionsPagePackedAddress24[];
 extern char g_Frontend_CloseCompactOptionsPagePackedAddress24[];
 extern char g_Frontend_CloseOptionsPagePackedAddress24[];

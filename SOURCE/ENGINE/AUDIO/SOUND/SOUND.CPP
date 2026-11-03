@@ -25,6 +25,14 @@
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "COMMON/SELF.H"
+#include "AUDIO/AUDIO_UPDATEMUSICFADE.H"
+#include "AUDIO/VOICE.H"
+#include "CHANNEL/CHANNEL_STARTNOTEVOICE.H"
+#include "ENGINE/AUDIO/RAXPLAYER.H"
+#include "ENGINE/CACHE/LOADER.H"
+#include "ENGINE/CACHE/MUTEX.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
+#include "SOUND/SOUND.H"
 
 /* 80256220_14.CPP */
 /* Returns the physical address of a cached copy of a data block: finds the cache entry keyed by the
@@ -45,7 +53,7 @@ extern void osWritebackDCache(void *, s32);
 
 extern char g_cartridgeReadWorker;
 
-extern void Cartridge_SubmitReadChunks(void *, u32, s32, s32, void *, s32, s32);
+
 
 void Sound_RetireCompletedSampleWindows(void) {
     u32 i;
@@ -176,13 +184,13 @@ typedef struct AudioBankHeader {
     s32 reserved8;
     ALBankFile *bankFile;
 } AudioBankHeader;
-extern void Mutex_InitializeQueueLock(MenuRules *lock);
+
 extern void Audiomgr_InitializeAudioWorker(ALSynConfig *, s32, AudioInitializeTiming *);
 
-extern void Audio_InitializeMusicPlayer(void *, void *);
-extern void AudioWorld_InitializePendingSoundPool(void *, void *);
-extern void Audio_InitializeVoicePool(void *, void *);
-extern void Audio_InitializeDialogPlayer(void *, void *);
+
+
+
+
 extern s32 g_audioWorkerThreadPriority;
 extern s32 g_audioFxConfigParams;
 void *Vhandler_AllocateVirtualRegion(s32 byteCount, s32 arg1_unused, s32 allocationMode);
@@ -408,7 +416,7 @@ s32 Sound_UpdateSoundSlot(GameAudioContext *context, s32 id, s32 unused, CVector
  * adapted from Audio_StopAudioBySecondaryValue; the voice records are addressed by offset from the manager.
  */
 
-extern void Audio_StopVoiceSlot(void *, s16);
+
 
 s32 Sound_StopSoundsByIdentifier(void *context, s32 id) {
     void *contextLock;
@@ -471,16 +479,16 @@ s32 Sound_StopSoundsByIdentifier(void *context, s32 id) {
     return found;
 }
 
-extern void *Gsky_FindNearestCamera(MenuMatchGlobals *, CVector3 *);
-extern s32 Audio_HasVoiceWithKey(void *, s32);
-extern f32 Audio_ComputeDistanceAttenuation(CVector3 *, void *);
-extern s32 Audio_FindVoiceByKeyPair(void *, s32, s32);
-extern s32 AudioWorld_QueuePrioritizedSound(void *, Item57BD4 *, CVector3 *, s32, s32);
 
-extern void *Channel_StartNoteVoice(void *, Item57BD4 *, s32, s32);
-extern void Audio_SetVoicePositionTracking(void *, CVector3 *, s32);
 
-extern void Audio_InitializeVoiceParameters(void *, Item57BD4 *, s32);
+
+
+
+
+
+
+
+
 
 s32 Sound_StartSoundRecord(void *context, Item57BD4 *soundRecord, CVector3 *position, s32 playbackValue,
                   s32 voiceUserData, s32 extra, s32 trackedPosition) {

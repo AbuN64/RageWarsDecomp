@@ -8,6 +8,7 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "COMMON/RESIDENTSTATE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAMETILES.H"
 
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
 extern Gfx g_textureFrameDefaultDisplayList[], g_textureFrameWrappedDisplayList[], g_textureFrameAlternateDisplayList[], g_textureFramePaletteDisplayList[], g_enemyConstantWordsBlock5[];

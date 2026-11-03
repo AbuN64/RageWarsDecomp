@@ -16,10 +16,16 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PPDECOM/PPDECOM_QUICKSORTRECORDS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* 8023EEF0_3.CPP */
 s32 CCollision_TestSegmentPolygon(CapsuleSweep *ray, PolygonCCollisionTestSegmentPolygon *poly, s32 keep);
-void Player_ReleaseObjectHandles(struct ItemsHandleOwner *);
+
 void Graphu64_InterpolateVector(CVector3 *, f32, void *, void *);
 void Events_DeliverContactEffect(void *, void *, s32, s32, CVector3, ContactEffectStyle);
 s32 Particle_GetEffectResource(void *);
@@ -122,13 +128,13 @@ s32 CInstanceCollision_TestBoxFaces(BoxContactRay *ray, void *unused, BoxContact
 
 s32 CCollision_IntersectSegmentBox(Ray *ray, Box *box, f32 *out);
 
-void **Gobjinst_RequestAnimatedModelVariant(MenuPanelRoot *actor, s32 variantIndex);
 
-void Graphu64_ConvertMatrixToFloat(f32 *dst, PackedMatrixWords *src);
 
-void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
 
-void Graphu64_TransformPoints(f32 *m, f32 *in, f32 *out, u32 count);
+
+
+
+
 
 void Cache_UnlockResource(void *cache, CacheResourceNode *resource);
 
@@ -303,7 +309,7 @@ typedef struct HitSelf {
 } HitSelf;
 extern LevelActor **g_collisionCurrentActor;
 extern char CInstanceCollision_SwapSortedContacts[], CInstanceCollision_CompareSortedContacts[];
-extern void PpDecom_QuickSortRecords();
+
 struct ActorMotion; extern void CInstanceCollision_BuildSweepQuery(struct ActorMotion *motion, f32 *queryStorage);
 void InstCol_ProcessEntityContacts(HitSelf *self) {
     HitState *state = self->state;

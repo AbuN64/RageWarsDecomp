@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "WEAPON_STATE_TABLES/WEAPON_STATE_TABLES.H"
 
-extern char g_Ovltab6EncodedWordsBlock7[];
+
 
 #include "DATA/OVL1_G/WEAPON_ACTION_FIVE_SPIN_ADDRESS.H"
 

@@ -4,6 +4,8 @@
 #include "TYPES.H"
 #include "MENU/MENU_REFRESHEXTRAOPTIONLOCKS.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 #define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Opens the options screen: allocates its 0x3C-byte state into g_extraOptionsScreen for window window, builds
@@ -29,10 +31,10 @@ extern char *g_alternateSettingsControlLabels[];
 #endif
 
 /* The hub spells the allocator, the window item lookup and the list builder; these helpers stay. */
-extern void *SmpFade_CreateFadeWidget(s32, s32);
-extern void *SmpButton_CreateListWidget(s32, s32);
+
+
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
-extern void SmpButton_SelectListEntry(void *, s32);
+
 
 #if defined(VERSION_DE)
 #define ID(n) ((n) - 6)

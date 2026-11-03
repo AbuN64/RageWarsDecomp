@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SIRAWREAD/SIRAWREAD.H"
 
 #if !(defined(VERSION_US_REV1))
 const char g_sirawreadText[15] =

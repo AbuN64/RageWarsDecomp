@@ -136,4 +136,6 @@ extern float Particle_CameraScale(struct Shared_Particle *particle, float depth,
 extern void Particle_DrawModel(struct Shared_Particle *particle, GameplayCamera *view);
 extern void Particle_DrawGroundShadow(struct Shared_Particle *actor, GameplayCamera *view);
 extern u8 g_particleAttachmentModeFlags;
+struct Shared_Particle;
+void Particle_Update(struct Shared_Particle *particle);
 #endif

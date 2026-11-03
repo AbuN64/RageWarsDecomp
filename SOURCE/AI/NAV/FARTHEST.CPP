@@ -19,6 +19,7 @@
 #include "COMMON/FORMAT.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
+#include "FRONTEND/PLAYER.H"
 
 /* FARTHEST.CPP */
 /* 802106E0_17.CPP */
@@ -74,7 +75,7 @@ void Nav_SelectFarthestReachableNeighbor(AiController *object)
 
 /* 802106E0_20.CPP */
 struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
-extern void Nav_UpdateTargetSteering(void *);
+
 
 extern void Nav_RunBehaviorHandler(void *);
 

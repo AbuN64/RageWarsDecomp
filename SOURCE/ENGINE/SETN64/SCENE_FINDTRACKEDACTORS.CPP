@@ -21,20 +21,22 @@
 #include "COMMON/CACHE_RELEASERESOURCE.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/WORLDSORTENTRY.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
 
 /* SCENE_14.CPP */
 
-extern s32 SetN64_GetDirectoryEntry(s32 *directory, s32 bankOffset, s32 level);
+
 
 extern s32 Cache_RequestWordCountedResourcePinned(s32 cacheAddress, s32 *handle, s32 resourceKey, void *loadTag);
 
-extern void **Cache_RequestPackSection(s32 cacheAddress, s32 handle, s32 sectionSelector, s32 resourceKey, s32 world, s32 resourceTag, void *loadTag);
+
 
 
 
 extern void Scene_ReleaseCachedLevelData(Shared_World *world);
 
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
 
 extern s32 g_cResource_UnpackRequestEntry;
 
@@ -55,7 +57,7 @@ float k_SceneFindtrackedactorsEncodedWords[3] = {
 #endif
 
 /* 8028B64C_9.CPP */
-extern void SetN64_GetPackSectionSize(s32 table, s32 index);
+
 
 extern LevelActor *g_sceneTrackedActors[4];
 extern LevelActor *g_fragTagObjectiveActor;

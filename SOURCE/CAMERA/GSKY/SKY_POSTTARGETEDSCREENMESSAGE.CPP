@@ -10,6 +10,9 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "COMMON/DESCRIPTORRECAT29.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "POOL/POOL.H"
+#include "WEAPONSHAKE/WEAPONSHAKE.H"
 
 /* Posts a text as on-screen messages for a target: the target's messages still in the pool's list at 0xE40
  * are unlinked and returned to the owner's list at 0xF24, then the text (or g_screenMessageSubstitutionReplacement when given g_screenMessageSubstitutionSource)
@@ -84,9 +87,9 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
 
 extern void *g_gameplayCameraList;
 
-extern void Pool_InitEntryPool(int a);
 
-extern u32 Weapon_UpdateShakeAxis(s32);
+
+
 
 CCameraText *Gsky_PostTargetedScreenMessage(void *owner, void *pool, u8 *text, s32 target, f32 size) {
     CCameraText *pending;

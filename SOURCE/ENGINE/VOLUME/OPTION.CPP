@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "../../../sdk/include/AUDIO/sprintf.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 #if defined(VERSION_US_REV1)
 s32 Pak_ToggleTextChoice(void) {
     g_modelEditorApplyToAllRecords ^= 1;
@@ -24,7 +25,7 @@ s32 Pak_UpdateChoiceText(struct PakActionLabelView *field) {
 extern u8 g_playerModelLighting[];
 extern u8 g_savedPlayerModelLighting[];
 extern char s_menuByteOptionValueFormat[];
-extern s32 Menu_CountLineChars(struct Field *);
+
 s32 Pak_SyncPrimaryByteOption(struct Field *field, s32 index) {
     char *text = *field->text;
 

@@ -7,6 +7,7 @@
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/VOLUME_MENU_RESOURCES.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* 80444EC0_6.CPP */
 /* Passes what SoundVoicePool_GetGlobalState returns to SoundVoicePool_Resume, then calls SoundElement_DisableMusicGainOverride and SoundElement_EnablePeriodicSound,

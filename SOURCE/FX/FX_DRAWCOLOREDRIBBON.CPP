@@ -14,9 +14,17 @@
 #include "COMMON/TRIPLE.H"
 #include "FX.H"
 #include "ENGINE/LISTS.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/PARTICLE_HASKINDZEROENTRY.H"
+#include "RENDER/LINKED_DRAWTEXTUREDRIBBON.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* Detaches an entity from linked effects while preserving their transforms and lifetimes; the unsigned offset-to-pointer cast preserves matrix-address scheduling and addition operand order. */
-extern void Graphu64_ConvertMatrixToFixed(void *,void *),Graphu64_ConvertMatrixToFloat(void *,void *),Graphu64_ClampMatrixToFixedRange(void *),Graphu64_GetMatrixTranslation(void *,void *),Graphu64_GetMatrixScale(void *,void *),ScaleMatrixLocal(void *,f32,f32,f32),Linked_AppendRibbonSegment(void *,Node44 *,void *);
+extern void Graphu64_ConvertMatrixToFixed(void *,void *);
 
 void Fx_DrawColoredRibbon(VertexArena *pool, RibbonActor *actor, GameplayCamera *camera) {
     Morph storage;
@@ -238,11 +246,11 @@ typedef struct EffectNode {
 typedef struct EffectPool { EffectList free, used; } EffectPool;
 typedef struct EffectWorld { char pad00[0x751C]; EffectPool pool; } EffectWorld;
 typedef struct EffectInstance { char pad00[0xB0]; FxActor *actor; } EffectInstance;
-extern EffectResource *Scene_GetLinkedResourceSection(void *, s32);
+
 extern void Lists_ClearHeader(void *);
-extern void Textload_LocateTextureResource(void *, s32);
-extern void Particle_EncodeRenderLayer(void *, void *);
-extern void Graphu64_IdentityMatrix(void *);
+
+
+
 
 static inline EffectNode *FX_FIND_NODE(EffectWorld *world, FxActor *actor) {
     EffectNode *it;
@@ -308,9 +316,9 @@ void Fx_AttachActorRibbon(EffectWorld *world, FxActor *actor, s32 resourceId) {
 }
 
 extern void TextLoad_ResetTextureCache(void);
-extern void Linked_UpdateLinkedNodeTransforms(RibbonActor *ribbon);
-extern void Linked_UpdateRibbonMatrices(RibbonActor *ribbon, GameplayCamera *camera);
-extern void Linked_DrawTexturedRibbon(VertexArena *pool, RibbonActor *ribbon, GameplayCamera *camera);
+
+
+
 /* The ribbon arena keeps its built display list at 0 and its ribbon list at 0x7528 (SwooshAttachmentOwnerView/Root752C
  * view the same list). */
 struct VertexArena {

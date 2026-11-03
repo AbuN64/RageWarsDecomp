@@ -16,15 +16,17 @@
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
 
 
 
 
 extern f32 Gobjinst_GetActorHeight(void *actor);
 
-extern void Scene_SampleWorldLighting(void *world, void *position, void *lighting);
 
-extern void Gobjinst_DrawVisibleCachedActor(void *actor, void *view);
+
+
 
 extern void Player_DrawRedMarkerPrism(void *player, void *unusedView);
 

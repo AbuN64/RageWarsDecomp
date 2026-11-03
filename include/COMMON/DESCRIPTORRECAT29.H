@@ -6,6 +6,8 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
+#include "TEXTLOAD/TEXTLOAD_READTEXTUREANIMATIONINFO.H"
 
 struct CROMSkyLayer;
 typedef struct CROMSkyLayer CROMSkyLayer;
@@ -116,7 +118,7 @@ struct Scene;
 
 struct Scene;
 
-extern void Textload_ReadTextureAnimationInfo(s32 **, void *);
+
 
 
 extern void Sky_SwapEntryCallback();

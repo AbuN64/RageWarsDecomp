@@ -20,4 +20,15 @@ extern s32 InstHdr_CanActorCastShadow(void *);
 extern s32 InstHdr_IsActorControllerActive(char *actor);
 extern int InstHdr_IsDefinitionKindOne(LevelActor *actor);
 extern int InstHdr_UsesDefaultDefinitionHandling(LevelActor *source);
+int InstHdr_FindActorModelEntry(void *actorStorage);
+struct MeasureObject;
+f32 InstHdr_GetActorReach(struct MeasureObject *object);
+void InstHdr_GetActorTargetOffset(u8 *player, void *vector);
+int InstHdr_GetActorType(void *prop);
+struct InstanceItemValueView;
+void *InstHdr_GetEnabledItemValue(struct InstanceItemValueView *item);
+struct ActorSurfaceKeyView;
+f32 InstHdr_GetModelRecordValue20(struct ActorSurfaceKeyView *object);
+struct Shared_CollisionActor;
+float InstHdr_GetShadowGroundHeight(struct Shared_CollisionActor *object, s32 mode);
 #endif

@@ -6,6 +6,7 @@
 #include "COMMON/ACTORRECAT5E0.H"
 #include "MENU/PAK/pak_menu_entries.H"
 #include "ENGINE/VOLUME.H"
+#include "AUDIO/VOICE.H"
 
 /* Sets a player state to 2, then in multiplayer (g_motionVisibilitySettings) clears and otherwise sets bit 0x800000 in both of its actor's visibility masks at 0x80 and 0xA8, and refreshes the audio state through SoundVoicePool_GetGlobalState and SoundVoicePool_Pause with that mask. */
 
@@ -14,7 +15,7 @@
 
 
 extern s32 SoundVoicePool_GetGlobalState(s32 mask);
-extern void SoundVoicePool_Pause(s32 value);
+
 
 void Pak_EnterPlayerOptions(PlayerOptionsEntry *player) {
     s32 mask;

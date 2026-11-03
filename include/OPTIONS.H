@@ -1,6 +1,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 #include "TYPES.H"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
 
 
 
@@ -22,5 +23,6 @@ struct MatchOptionsScreen {
 };
 
 extern u8*g_optionsPrimaryLocalizedLabels[1];
-extern u8*g_optionsSecondaryLocalizedLabels;
+
+s32 Menu_OpenGameOptionsScreen(void *node);
 #endif

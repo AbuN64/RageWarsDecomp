@@ -21,6 +21,9 @@
 #include "COMMON/PLAYER_GETPLAYERINDEX.H"
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
 #include "COMMON/VECTOR4F.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 
 
@@ -28,8 +31,8 @@
 
 
 
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
 
 
 
@@ -68,7 +71,7 @@ extern s16 g_weaponActionRecords[];
 
 
 extern s16 g_weaponActionRecords[];
-extern s16 Weaponai_FindNextUsableWeapon(void *player);
+
 extern s32 SoundElement_PlaySoundAtPosition(s16 track, CVector3 position, s32 emitterKey, s32 ownerId);
 
 

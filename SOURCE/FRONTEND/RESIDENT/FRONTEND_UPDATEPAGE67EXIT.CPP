@@ -7,6 +7,7 @@
 #include "COMMON/LONE/RESIDENT_CHOICE_SCREEN.H"
 #include "COMMON/WORLD.H"
 #include "FRONTEND/MENUIMAGE.H"
+#include "FRONTEND/MENU_IMAGE.H"
 
 /* 8042E080_89.CPP */
 /* Calls Tsmos_SetModeOneFlag with 2 and returns zero. */
@@ -25,7 +26,7 @@ s32 Frontend_ClearPage67ModeFlag(void) {
    SoundElement_DisableMusicGainOverride and Stage_StartConfiguredMatch. Returns zero. */
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);

@@ -21,6 +21,9 @@
 #include "RENDER/MOVINGAI.H"
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 #include "include_asm.h"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
 
 /* 80204E78_7.CPP */
 /* 80204E78_7.CPP */
@@ -114,7 +117,7 @@ void MovingAI_SetActorStateActive(void *actor) {
 }
 
 /* 80206258.CPP */
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 /* Spawns effect kind at an actor's position through SetN64_SpawnModelEffect in g_modelEffectPool's list: kind 0xBD7
    is skipped while both of g_matchRoundCounters's flags at 0x78 and 0x80 are set, and kind 0x1388 is offset by
@@ -133,7 +136,7 @@ extern char g_actorParticleEffectSystem[];
 extern char g_playerViewRenderContext;
 
 struct Context;
-extern void *Playerai_CountLocalActivePlayers(struct Context *context);
+
 
 extern s32 Gobjinst_RequestAnimationKind(void *a, s32 c, s32 flag);
 

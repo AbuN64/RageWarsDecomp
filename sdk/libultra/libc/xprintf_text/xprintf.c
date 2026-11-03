@@ -11,6 +11,7 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include <ultra64.h>
 #include "stdarg.h"
+#include "libc/libc_formatinteger_data.H"
 
 /* 800C7C68.CPP */
 
@@ -231,7 +232,7 @@ case_default:
 
 /* EU enters __umoddi3 one word before its symbol (__umoddi3_Xprintf), so EU keeps the ROM body. */
 
-extern u8 g_lowercaseHexDigitsText[];
+
 extern u8 g_printfDigitCharacters[];
 
 static inline void lldivInline(LldivResult *result, s64 numerator, s64 denominator) {

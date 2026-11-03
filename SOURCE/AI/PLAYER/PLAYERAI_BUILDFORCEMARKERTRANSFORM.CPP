@@ -7,26 +7,32 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/OBJRECV5.H"
 #include "TYPES.H"
+#include "AI/PLAYER/PLAYERAI_BUILDFORCEMARKERTRANSFORM.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void BuildDirectionMatrix(Matrix *, CVector3 *);
 
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
+
 
 extern void Graphu64_AddVec3(CVector3 *result, CVector3 *left, CVector3 *right);
 
-extern void TranslateMatrix(Matrix *object, f32 x, f32 y, f32 z);
+
 
 extern void SwapMatrixUpForward(Matrix *object);
 
 extern void Graphu64_ConvertMatrixToFixed(Matrix *src, void *dst);
 
-extern s32 Scene_FindModelIdIndex(struct Shared_World *world, s32 modelId);
 
-extern s32 Scene_GetIndexedModelResource(void *world, s32 type);
 
-extern void Geometry_QueueDirectModel(s32 model, s32 transform, s32 lighting, s32 flags, s32 materialOverride);
+
+
+
 
 void *Playerai_FindNearestForceMarker(ForcePlayerList *forcePlayerList, void *position) {
     CVector3 markerDelta;

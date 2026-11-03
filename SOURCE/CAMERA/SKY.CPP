@@ -23,11 +23,19 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "GSKY/SKY.H"
 #include "COMMON/GAMEPLAY_CAMERA.H"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GSKY/GSKY_GETOBJECTPOSITIONAT260.H"
+#include "PPDECOM/PPDECOM_QUICKSORTRECORDS.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
+#include "TEXTLOAD/TEXTLOAD_READTEXTUREANIMATIONINFO.H"
+#include "TEXTLOAD/TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC.H"
 
 /* SKY.CPP */
 /* 8023A284_4.CPP */
 extern void Cache_UnlockResource(void *, CacheResourceNode *);
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 
 /* Clip and draw a textured translucent fan at the object's depth. */
 void Sky_DrawClippedEffectFan(SkyLayerRuntimeView *object, ClipView *view) {
@@ -200,10 +208,10 @@ draw_face:
  * texture scroll, sets its depth from the host, and returns objects that have faded out to the free list. */
 extern s32 g_skyLayerDescriptorCount;
 extern f32 g_frameElapsedTime;
-extern Shared_ReactionFlags *Scene_GetModelRecordByIndexPointer(void *, void *);
-extern f32 Region_GetPolygonHeight(void *, f32, f32);
-extern void Gsky_GetObjectPositionAt260(CVector3 *, void *);
-extern void Textload_LocateTextureResource(s32 *, s32);
+
+
+
+
 extern void List_RemoveIntrusive(void *, void *);
 extern void List_PrependIntrusive(void *, void *);
 static inline SkyLayerRuntimeView *allocateSceneEffect(Scene *scene) {
@@ -352,9 +360,9 @@ void Sky_UpdateSceneEffects(Scene *scene, GameplayCamera *host) {
 /* 8023A284_7.CPP */
 /* Sorts and draws scene translucent objects in two groups around the view depth. */
 
-extern void PpDecom_QuickSortRecords(char *, u32, u32, void *, void *);
 
-extern void Textload_LocateTextureResource(s32 *textureResource, s32 sectionIndex);
+
+
 
 /* Updates a rotor: while the control mask bit is held its throttle at 0x208 rises by the descriptor rate up
  * to g_skyRotorMaximumThrottle, otherwise it falls to zero (returning 1 once idle); the value phase advances, the two wrap

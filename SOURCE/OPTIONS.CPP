@@ -15,6 +15,9 @@
 #include "TYPES.H"
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 /* Builds the options-commit state: allocates its 0x28 bytes through Cache_AllocateMemory and keeps the
    record at g_optionsPage, creates the fade widget 0x4D/0x4E and the title object 0x4F/0x6E, then builds
    the three option lists 0x59/0x5A, 0x55/0x56 and 0x51/0x52, appends their localized labels, and
@@ -32,11 +35,11 @@ extern u8 *g_optionsResolutionFirstChoiceLabels[1];
 extern u8 *g_optionsResolutionSecondChoiceLabels;
 extern u8 *g_optionsResolutionThirdChoiceLabels;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern struct MenuFadeWidget *SmpFade_CreateFadeWidget(s32, s32);
+
 extern s32 Defs_GetMemorySize(void);
-extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
-extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
+
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);
 s32 Options_CreateOptionsPage(void) {

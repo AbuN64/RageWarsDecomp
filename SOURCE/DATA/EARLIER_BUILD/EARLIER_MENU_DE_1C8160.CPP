@@ -1,5 +1,6 @@
 #if defined(VERSION_DE)
 #include "MENU/BUILD/DEFINITION_DATA.H"
+#include "EARLIER_BUILD/EARLIER_MENU_DE_1C88E0.H"
 
 extern char g_earlierMenuPaged302[];
 extern char g_earlierMenuPaged306[];
@@ -15,7 +16,7 @@ extern char g_earlierMenuResource117[];
 extern char g_earlierMenuResource118[];
 extern char g_earlierMenuResource119[];
 extern char g_earlierMenuResource120[];
-extern char g_earlierMenuDef110[];
+
 extern struct MenuBuildItemData g_earlierMenuItems26[49];
 
 struct MenuBuildItemData g_earlierMenuItems26[49] = {
@@ -70,6 +71,6 @@ struct MenuBuildItemData g_earlierMenuItems26[49] = {
     { 0x0000, 0x0000, 0x00010081, 0x0000, 0x001E, 0x00, 0x00, 0x00, 0x00, (int)g_earlierMenuResource38, (unsigned int)g_earlierMenuPaged350, 0x00000000, (unsigned int)g_earlierMenuPaged309, 0x00000000 },
 };
 
-struct MenuBuildDefinitionData g_earlierMenuDef84 = { (unsigned int)g_earlierMenuItems26, 0x0031, 0x0000, (unsigned int)g_earlierMenuPaged306, 0x00000000, (unsigned int)g_earlierMenuPaged348, 0x00000000, 0x0030, 0x0000, 0x0000, 0x0000, (int)g_earlierMenuDef110 };
+struct MenuBuildDefinitionData g_earlierMenuDef84 = { (unsigned int)g_earlierMenuItems26, 0x0031, 0x0000, (unsigned int)g_earlierMenuPaged306, 0x00000000, (unsigned int)g_earlierMenuPaged348, 0x00000000, 0x0030, 0x0000, 0x0000, 0x0000, (int)((char *)&g_earlierMenuDef110) };
 
 #endif

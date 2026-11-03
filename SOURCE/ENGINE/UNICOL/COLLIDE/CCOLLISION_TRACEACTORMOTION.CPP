@@ -9,6 +9,7 @@
 #include "COMMON/DESCRIPTORRECAT29.H"
 #include "ANIM/CPLANE_RESETCONTACT.H"
 #include "ENGINE/UNICOL/COLLIDE.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 8023A284_21.CPP */
 void CCollision_IntegrateGravityAndDrag(ActorMotion *motion) {

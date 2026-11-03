@@ -58,14 +58,16 @@ void PAKInterface_ScrollNoteList(s32 player, s32 direction) {
 #include "COMMON/NAME.H"
 #include "COMMON/PAK_SAVE_TEXT.H"
 #include "MENU/PAK/pak_note_search.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
 extern s32 Note_DeleteNote(s32, s32);
 extern s32 Note_GetFreePages(s32, s32 *);
 extern s32 Note_CountFreeNotes(s32, s32 *);
 extern u32 Note_BytesToPakPages(u32);
-extern s32 Note_FindFreeNoteExtension(s32, char *);
+
 extern u32 Note_Crc32(u8 *data, u32 byteCount, u32 initialCrc);
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
-extern s32 Note_SaveNote(s32, s32, void *, char *, char *, char *);
+
 extern void PAKInterface_RefreshPlayerPanel(s32);
 /* The save view of the menu block: the four player records staged at 0x2E28, then the profile and
  * checksum stored behind them, written to the pak as one 0x648-byte note. */

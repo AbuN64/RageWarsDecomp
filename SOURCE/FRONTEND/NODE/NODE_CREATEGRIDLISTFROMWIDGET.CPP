@@ -8,6 +8,7 @@
 #include "RESMGR/resmgr_string_memory.H"
 #include "FRONTEND/WIDGET_DRAWTEXTWIDGET.H"
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
+#include "NODE/NODE_CONFIGURESCROLLEDTABLECELL.H"
 
 /* Visits every cell of a list's column-by-row grid, computing each cell's rectangle through Node_ConfigureScrolledTableCell and drawing it through Widget_DrawTextWidget_NodeCreategridlistfromwidget with the given style. */
 
@@ -17,7 +18,7 @@
 
 
 
-extern void Node_ConfigureScrolledTableCell(GridList *list, UnitMtx *cell, u32 column, u32 row);
+
 
 
 /* Allocates and zeroes a 0x60-byte record, copies the header of the record Node_FindWidgetByResourceId finds for the low half of the first argument, tags it 0xB, stores four byte arguments and three alternating pairs of the last two, allocates and zeroes a width-by-height table of eight-byte cells at 0x44, and registers the record through Node_ReplaceWidgetLinks.
@@ -46,7 +47,7 @@ extern void Node_ReplaceWidgetLinks(s32 node, s32 parent, MenuWidget *oldWidget,
 
 /* When the fourth argument is set, lowers the byte at offset 0x4C of an entry by one while it is
    above the minimum at 0x50; then calls Node_ClampListCursorAndScroll and MarkMenuEventHandled. Returns zero. */
-extern void Node_ClampListCursorAndScroll(void *);
+
 
 extern void MarkMenuEventHandled();
 

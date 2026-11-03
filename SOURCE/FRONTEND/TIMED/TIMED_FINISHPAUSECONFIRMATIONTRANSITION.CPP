@@ -8,6 +8,7 @@
 #include "TYPES.H"
 #include "FRONTEND/MENUIMAGE.H"
 #include "FRONTEND/SCREEN.H"
+#include "FRONTEND/MENU_IMAGE.H"
 
 /* Event callback for screen g_pauseTimedMenu: on event 1 while Frontend_GetMenuImageState reports the screen in state 1 it advances the screen through Frontend_DrawMenuImage and Frontend_AdvanceMenuImageTransition, and when that leaves it in state 2 it calls Frontend_RequestScreenMode_AchieveUpdateresultsscreen(0) and MarkMenuEventHandled, clears the pause word g_simpleObjectPauseState (0x180C past the match objects at g_frontendScreenStatus), stops those objects and the ones 0x48 bytes before them, releases resource 0x24 of g_world_AchieveUpdateresultsscreen, restarts Cache_SetResourceActivityState when Cache_GetResourceActivityState reports it idle, stores 8 at 0x17F0 past the match objects, passes the screen's word at 0x1C to SmXlate_SwitchScreen and calls SoundElement_DisableMusicGainOverride, returning zero. Adapted from Frontend_UpdatePage67Exit with the screen g_residentChoiceScreen changed to g_pauseTimedMenu, a Frontend_RequestScreenMode_AchieveUpdateresultsscreen(0) call added, and the trailing Stage_StartConfiguredMatch call replaced by the store of 8 and the SmXlate_SwitchScreen call before SoundElement_DisableMusicGainOverride. */
 
@@ -15,7 +16,7 @@ extern MenuRules *g_pauseTimedMenu;
 
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern void Scene_LoadLevelResources(void *, s32, s32);

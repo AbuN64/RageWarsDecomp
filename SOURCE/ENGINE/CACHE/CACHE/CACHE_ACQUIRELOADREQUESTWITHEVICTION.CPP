@@ -17,7 +17,7 @@ extern s32 g_resourceCacheManager;
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 
-extern void List_MoveIntrusiveToHead(void *list, s32 nodeToMove);
+
 extern s32 g_resourceCacheFrameStamp[];
 
 

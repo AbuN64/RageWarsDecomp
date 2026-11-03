@@ -8,6 +8,7 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
+#include "../../include/libultra/io/crc.h"
 
 #if defined(VERSION_DE)
 

@@ -50,6 +50,20 @@
 #include "ENGINE/CINEMA/CINEMA.H"
 #include "ENGINE/SETN64.H"
 #include "ONSCRN.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "ENGINE/DEFS.H"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "ENGINE/VISDATA2.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "GSKY/SKY.H"
+#include "GSKY/SKY_DRAWLENSFLARE.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
+#include "MENU/ITEMS/SCENE/SCENE_DRAWTRANSPARENTOBJECTS.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
+#include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
+#include "WEAPONSHAKE/WEAPONSHAKE.H"
 
 /* 80233920.CPP */
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
@@ -164,11 +178,11 @@ void Camera_AdvanceOverlayFade(Overlay *overlay) {
 
 
 extern u8 g_playerSequenceSavedViewBytes[4];
-extern void SetN64_DrawColorRectangle(void *, u8 *, s32, s32, s32, s32);
+
 extern s32 Cinema_IsSequenceInWindow(void);
 extern s32 SetN64_IsModeThirteen(void);
-extern void Playerai_UpdateViewPlayerProjection(void *, View *);
-extern void Cinema_DrawSequenceOverlay(View *);
+
+
 
 static inline SharedPlayer *find_owner(View *entity) {
     SharedPlayer *player;
@@ -300,7 +314,7 @@ void Camera_AnimateViewColorsAndLight(View *actor) {
 }
 
 /* 80233920_3.CPP */
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
+
 
 void Camera_BlendEnvironmentColors(View *self) {
     u8 target[4];
@@ -445,9 +459,9 @@ found:
 
 /* 80233920_4.CPP */
 extern struct MenuModelScreen g_fallbackScreenMessageEmitter[];
-extern void MultiplyQuaternions(void*,void*,void*);
-extern u32 Weapon_UpdateShakeAxis(CShakeAxis*);
-extern void Graphu64_MultiplyAffineMatrices(f32*,f32*,f32*);
+
+
+
 /* The camera position is passed as a three-word CVector3 value. */
 
 /* Actor transform and camera-effect subobjects. */
@@ -610,9 +624,9 @@ const float k_CameraEncodedWordsBlock7[2] = {
 
 
 extern f32 Gu_Sqrtf(f32);
-extern void Graphu64_TransformPoints(void *, CVector3 *, CVector3 *, s32);
-extern void Visdata_BuildFrustumPlanes(void *, CVector3 *, CVector3 *, CVector3 *, CVector3 *, CVector3 *);
-extern void Region_ComputePointBounds(void *, s32, CVector3 *);
+
+
+
 
 
 
@@ -694,26 +708,26 @@ const float k_CameraEncodedWordsBlock8[3] = {
 
 /* 80233920_6.CPP */
 struct CShakeAxis_t;
-extern u32 Weapon_UpdateShakeAxis(struct CShakeAxis_t *state);
+
 
 int Cinema_IsSequenceInWindow(void);
 f32 Cinema_GetSequenceResponse();
-void Graphu64_InvertAffineMatrix(f32 *, f32 *);
-void Graphu64_MultiplyAffineMatrices(f32 *, f32 *, f32 *);
+
+
 void Graphu64_MultiplyMatrices(f32 *, f32 *, f32 *);
-void GraphU64_PackFixedMatrix(f32 *, void *);
-void Graphu64_IdentityMatrix(void *);
-void Graphu64_ClampMatrixToFixedRange(f32 *);
+
+
+
 void Graphu64_BuildScaleMatrix(void *, f32, f32, f32);
-void CopyMatrix(float *, float *);
-void Graphu64_GetMatrixTranslation(char *, float *);
+
+
 void BuildYawMatrix(void *, f32);
 void PitchMatrix(void *, f32);
 void YawMatrix(void *, f32);
 void MatrixFromQuaternion(f32 *, f32 *);
 
 extern void Graphu64_EaseValueToward(f32 *value, f32 target, f32 rate);
-f32 Region_GetPolygonHeight(void *, f32, f32);
+
 int Tsmos_IsFrontendActive(void);
 int Tsmos_GetModeOneFlag(void);
 
@@ -1040,7 +1054,7 @@ extern void SetN64_ClearDepthRect(void *, s32, s32, s32, s32, s32);
 extern s32 Cinema_IsSequenceInWindow(void);
 extern u32 Cinema_GetSequenceProperty(void);
 extern void Geometry_SetColorDither(s32);
-extern void Defs_SetupPointLights(void *);
+
 /* Splits a 0x00BBGGRR fade color into its three fog/fill channels. */
 static inline void Camera_UnpackColor(u32 color, u8 *red, u8 *green, u8 *blue) {
     *blue = color >> 16;
@@ -1175,18 +1189,18 @@ void Camera_SetupViewportAndFog(GameplayCamera *view) {
 extern Gfx *g_displayListCursor;
 
 extern s32 Cinema_IsSequenceInWindow(void);
-extern void Playerai_UpdateViewModelBounds(void *, char *);
+
 extern s32 SetN64_IsModeThirteen(void);
-extern void Playerai_DrawPlayersForView(void *, char *);
-extern void Scene_DrawOpaqueActors(char *, char *);
+
+
 extern void Fx_DrawBoundedParticleQuads(void *, char *);
-extern void Scene_DrawTransparentObjects(char *, char *);
-extern void Playerai_DrawPlayerModelsForView(GamePlayerListView *, char *);
-extern void Sky_DrawDepthSortedSceneEffects(char *, char *);
-extern void Scene_DrawWorldParticles(char *, char *);
-extern void Fx_DrawLinkedGeometry(void *, char *);
-extern void Gsky_DrawObjectFlares(char *);
-extern void Playerai_DrawViewPlayer(void *, char *);
+
+
+
+
+
+
+
 
 
 
@@ -1302,8 +1316,8 @@ void Camera_EaseViewportRectangle(GameplayCamera *camera, f32 a, f32 b, f32 c, f
 }
 
 /* 80233920_8.CPP */
-extern u32 Weapon_UpdateShakeAxis(CShakeAxis *);
-extern void Camera_UpdateViewProjectionAndEffects(GameplayCamera *camera);
+
+
 /* Update split-screen rectangles, advance transient effects, and merge visible bounds. */
 void Camera_UpdateViewportLayoutAndBounds(ScreenMessageOwner *state) {
     f32 halfWidth;
@@ -1622,7 +1636,7 @@ extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
 extern void Gsky_DrawViewportEffectNoOp(GameplayCamera *, s32);
 extern void Menu_DispatchMenuListCallback(struct MenuCallbackListOwner *owner);
 extern s32 Cinema_IsSequenceInWindow(void);
-extern void Playerai_DrawViewMatchCountdown(WorldCameraDrawActiveViews *, GameplayCamera *);
+
 /* Per-frame race update: clears three per-frame flags of the race's own racer, passes the race's first word to Cache_MarkResourceInUse, runs the 30-frame flash timer (restarted while g_simpleObjectPauseState is set or in mode 3) and while it runs clears the screen with a full-screen viewport, scissor and fill before Geometry_InvalidateMaterialKeys, then updates every racer in the list until it ends or Cinema_IsSequenceActive or Cinema_IsSequenceInWindow reports, updates the race's own racer, hands the list to Playerai_DrawViewMatchCountdown when the replay flag of g_playerViewRenderContext is set, and passes the own racer's block at 0x554 to Menu_DispatchMenuListCallback. */
 void Camera_DrawActiveViews(ScreenMessageOwner *race, s32 world)
 {

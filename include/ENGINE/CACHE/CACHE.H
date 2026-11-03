@@ -61,4 +61,7 @@ extern void *Cache_RetainResourceByKey(s32 cache, s32 resourceKey);
 extern void Cache_CompactResourceHeap(s32, s32);
 
 extern void Cache_RunResourceCompletionWorker(void *arg);
+struct CacheResourceBlockView;
+void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView **handle, struct CacheResourceBlockView *replacement);
+void **Cache_RequestPackSection(s32 unusedCache, void *handle, s32 sectionSelector, s32 resourceKey, void *world, void *resourceTag, void *loadTag);
 #endif

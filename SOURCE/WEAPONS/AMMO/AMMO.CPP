@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "AMMO/AMMO.H"
 
 /* 800CFB80.CPP */
 #if defined(VERSION_US_REV1)

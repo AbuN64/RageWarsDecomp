@@ -1,0 +1,5 @@
+#ifndef CONSTANTS_SETUP_UPDATENAMECURSOR_DATA_H
+#define CONSTANTS_SETUP_UPDATENAMECURSOR_DATA_H
+extern u64 g_gameThreadStack[];
+extern union GraphicsTaskYieldBufferImage g_graphicsTaskYieldBuffer;
+#endif

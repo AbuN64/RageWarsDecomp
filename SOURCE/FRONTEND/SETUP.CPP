@@ -5,6 +5,7 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "UI/TSMOS/SCREENS/SCENARIOSETUPSCREEN.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 
 /* SETUP.CPP */
 /* Opens the screen g_setupScreen: allocates its 0x470-byte state for the window, sets up the list,

@@ -18,6 +18,7 @@
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "RESMGR/resmgr_string_memory.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 
 /* SMP_BUTTON.CPP */
 /* Allocates and zeroes a 0x118-byte record, copies the header and five-word block of the record Node_FindWidgetByResourceId finds for the low half of the first argument, links the record Node_FindWidgetByResourceId finds for the second into it, clears the words at 0x110 and 0x114, and registers it through Node_WrapNodeInParent_SmpButton and Node_ReplaceNodeRefs_SmpButton. Adapted from SmpSlider_CreateSliderWidget with the record size 0x118, the tag 0xB64 and the tail fields changed. */
@@ -36,9 +37,9 @@ extern u8 *XPlus_CopyString(u8 *, u8 *);
 
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 extern void Widget_DrawVisibleSiblings(void *, Args);
 

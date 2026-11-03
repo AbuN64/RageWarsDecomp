@@ -13,6 +13,8 @@
 #include "FRONTEND/NODE_GETIMAGETEXTURE.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "RESMGR/resmgr_string_memory.H"
+#include "NODE/NODE_CONFIGURESCROLLEDTABLECELL.H"
+#include "NODE/NODE_GETBANKTILETEXTURE.H"
 
 extern BufferPool g_frontendResourceScreenCount;
 extern ManagerFrontendReleaseAllChunkImages g_frontendResourceFontCount;
@@ -122,7 +124,7 @@ extern s32 g_frontendWidgetStateChanged;
 
 extern void Node_AcquireArchiveEntry(s32 index);
 
-extern void Node_GetBankTileTexture(s32 which, s32 index, s32 pass);
+
 
 /* A stride of 1180 bytes. The debugger showed the global holding 0x80696F50 and the two observed
    indices, 0 and 1, returning 0x80696F50 and 0x806973EC, which differ by exactly 1180. */

@@ -1,5 +1,6 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
 #include "include_asm.h"
+#include "VOLUME/PAK_FORMATMUSICPREVIEW_DATA.H"
 
 #if defined(VERSION_US)
 const char g_musicPreviewValueFormat_de[4] = "%2d";

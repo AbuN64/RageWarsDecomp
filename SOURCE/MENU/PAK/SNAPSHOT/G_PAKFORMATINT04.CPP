@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SNAPSHOT/G_PAKFORMATINT04.H"
 
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 /* ROM-grounded data: src/g_pakFormatInt04_GPakformatint04.c */

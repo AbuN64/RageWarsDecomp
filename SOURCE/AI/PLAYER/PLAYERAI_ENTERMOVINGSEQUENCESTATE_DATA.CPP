@@ -16,6 +16,9 @@ extern void Graphu64_TransformPoint(void *matrix, void *inputPoint, void *transf
 #include "TYPES.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "AI/PLAYER/PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 typedef struct { f32 x, y, z; } Position;
 typedef struct { u8 pad0[0x34]; Position pos; f32 height; u8 pad44[0x1A]; u8 duration; } TravelTarget;

@@ -9,6 +9,10 @@
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "GAME/CCOLLISION_COPYPOSITIONANDGETMODELFLAGS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "CBARREL/CBARREL_SELECTCOMBATTARGET.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
 /* Tests target visibility against range and horizontal and vertical angles; volatile zero accesses and identical normalization branches preserve scheduling and register allocation. */
 
@@ -194,11 +198,11 @@ extern ActorInstanceHeader *g_currentActorInstance;
 extern char g_playerViewRenderContext[];
 extern s32 Cinema_IsSequenceInWindow(void);
 extern s32 Cinema_GetSequenceRequest(void);
-extern BarrelAnchorActorView *Playerai_FindNearestLivePlayer(void *players, CVector3 point, void *exclude);
-extern BarrelAnchorActorView *Playerai_FindNearestPlayer(void *players, CVector3 point);
-extern s32 InstHdr_FindActorModelEntry(void *actor);
+
+
+
 extern f32 Barrel_GetEyeDistanceSquared(void *candidate, CVector3 point);
-extern f32 Barrel_GetFlatDistanceSquared(void *candidate, CVector3 point);
+
 extern s32 Insthdr_HasActorTerritory(void *actor);
 extern f32 InstHdr_GetActorTerritoryRadius(void *actor);
 extern s32 CCollision_SweepPoint(void *actor, CVector3 from, CVector3 to, CollisionInfo *info);

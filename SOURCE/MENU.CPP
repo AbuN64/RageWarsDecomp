@@ -6,6 +6,7 @@
 #include "MENU/STATE.H"
 #include "TYPES.H"
 #include "UI/QUAG/N64_ENG.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 /* MENU_DRAWCLIPPEDWIDGETSIBLINGS.CPP */
 #if defined(VERSION_EU)
@@ -22,8 +23,8 @@ int Menu_ReturnZeroGerman(void) {
 #if defined(VERSION_DE) || defined(VERSION_EU)
 /* Processes a widget with clipping and drawing operations. */
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
-extern void N64Eng_GetClipBounds(s32 *, s32 *, s32 *, s32 *);
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 extern void Widget_DrawVisibleSiblings(void *, Args);
 void Menu_DrawClippedWidgetSiblings(void *widget, Args args) {
     NumericWidgetChildView *record = widget;

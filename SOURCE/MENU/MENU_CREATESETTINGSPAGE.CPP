@@ -10,13 +10,16 @@
 #include "COMMON/OWNERRECAT8V1.H"
 #include "COMMON/MENU_OPTIONS_AND_RESULTS.H"
 #include "TYPES.H"
+#include "MENU/MENU_CREATESETTINGSPAGE.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 struct MenuFadeWidget;
 struct MenuResourceWidget;
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 extern OptionsCommitContext *g_optionsPage;
 /* Localized label pointers for the two option lists (rev1 g_optionsSecondListPrimaryLabelsUsRev1..B0, g_optionsResolutionFirstChoiceLabels..213C). */
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern struct MenuFadeWidget *SmpFade_CreateFadeWidget(s32, s32);
+
 extern s32 Defs_GetMemorySize(void);
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);

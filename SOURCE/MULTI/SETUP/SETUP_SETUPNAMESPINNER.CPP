@@ -4,10 +4,12 @@
 #include "TYPES.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "MULTI/SETUP_SETUPNAMESPINNER.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "SETUP/SETUP_NAME_CURSOR_CONSTANT_WORDS.H"
 #if defined(VERSION_US) || defined(VERSION_US_REV1) || defined(VERSION_EU) || defined(VERSION_EU_X)
 extern char g_playerViewRenderContext[];
 extern Spinner g_multiplayerNameEntryStates[];
-extern s32 Player_GetPlayerIndex(char *, s32);
+
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 extern u8 *g_defaultPlayerNameOne;
 #endif
@@ -100,7 +102,7 @@ void Setup_SetupNameSpinner(NameSpinnerMenu *menu) {
 /* Steps a menu spinner for the entry Player_GetPlayerIndexDe finds in g_playerViewRenderContext: advances its repeat timer by g_frameElapsedTime, wrapping at g_multiplayerNameEntryTimingLimits, and while the menu is active (state 1) decrements its value above zero when Control_IsLeftPressed reports the decrease input, or else increments it below its maximum when Control_IsRightPressed reports the increase input, restarting the timer on a change. Returns zero. */
 extern char g_playerViewRenderContext[];
 extern Spinner g_multiplayerNameEntryStates[];
-extern s32 Player_GetPlayerIndex(char *, s32);
+
 s32 Setup_UpdateNameCursor(void *unused, NameSpinnerMenu *menu) {
     s32 i;
     f32 t;
@@ -133,8 +135,8 @@ s32 Setup_UpdateNameCursor(void *unused, NameSpinnerMenu *menu) {
     i = Player_GetPlayerIndex(g_playerViewRenderContext, menu->id);
     t = g_multiplayerNameEntryStates[i].timer + g_frameElapsedTime;
     g_multiplayerNameEntryStates[i].timer = t;
-    if (t >= g_multiplayerNameEntryTimingLimits) {
-        g_multiplayerNameEntryStates[i].timer = t - g_multiplayerNameEntryTimingLimits;
+    if (t >= (*(float *)&g_multiplayerNameEntryTimingLimits)) {
+        g_multiplayerNameEntryStates[i].timer = t - (*(float *)&g_multiplayerNameEntryTimingLimits);
     }
     if (menu->state == 1) {
         if (((s32 (*)(s32))Control_IsLeftPressed)(menu->input) != 0 && g_multiplayerNameEntryStates[i].value > 0) {

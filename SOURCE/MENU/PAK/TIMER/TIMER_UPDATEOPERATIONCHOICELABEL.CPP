@@ -8,6 +8,7 @@ extern PakPreview *g_controllerPakSnapshotPayload;
 #include "COMMON/MENURECAT24.H"
 #include "MENU/PAK/TIMER_UPDATEOPERATIONCHOICELABEL.H"
 #include "ENGINE/DEFS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 
 extern s32 g_pakUseScannedChannel;
 
@@ -50,7 +51,7 @@ extern char *g_unlockedLevelResultLabel[];
 
 
 
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 
 /* Selects a menu field's label table from the connection mode and the option index. */

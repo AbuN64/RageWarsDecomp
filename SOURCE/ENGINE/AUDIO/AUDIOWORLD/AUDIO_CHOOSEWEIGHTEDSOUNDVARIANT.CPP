@@ -24,6 +24,8 @@
 #include "ENGINE/DEFS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
+#include "SEQUENCER/AUDIO_LOADMUSICSEQUENCE.H"
 
 /* ROM-grounded data: src/k_AudioChooseweightedsoundvariantEncodedWordsUsRev1.c */
 const double k_AudioChooseweightedsoundvariantEncodedWords[1] = {
@@ -35,25 +37,25 @@ const float k_AudioChooseweightedsoundvariantEncodedWordsBlock1[2] = {
     1.0f, 4.0e+01f,
 };
 
-extern void Audio_StopVoicesByKey(void *record, s32 value);
 
-extern void Audio_StopVoicesBySecondaryValue(void *, s32);
 
-extern void Audio_StopVoicesByFlags(void *record, s32 value);
 
-extern void AudioWorld_RecyclePendingSoundsByFlags(void *lists, s32 matchingFlags);
+
+
+
+
 
 extern f32 g_audioContextGainScaleConstants[];
 
 extern s32 SetN64_IsModeThirteen(void);
 
-extern void *Gsky_FindNearestCamera(MenuMatchGlobals *menuMatchGlobals, CVector3 *zero);
 
-extern void Audio_StopVoicesExceptKey(void *record, s32 value);
 
-extern void AudioWorld_RecyclePendingSoundsExceptKey(void *channelOwner, s32 retainedKey);
 
-extern void Audio_FadeOutMusic(int a);
+
+
+
+
 
 extern void Audio_EnableMusicGainOverride(Track *a);
 

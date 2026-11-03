@@ -15,6 +15,9 @@
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include <ultra64.h>
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
 
 /* 8043962C_13.CPP */
 /* Draws a menu model with screen-scaled translation, animated and fixed rotations, restoring the render-state flag afterward; the unsigned offset-to-pointer cast preserves matrix-address scheduling. */
@@ -36,11 +39,11 @@ extern float g_menuModelPreviewRollAndRotationScales;
 extern float g_menuModelPreviewPitchSpeedScale;
 extern float g_menuModelPreviewRollAndRotationScales;
 #endif
-extern void PitchMatrixLocal(Matrix *,f32); extern void YawMatrixLocal(Matrix *,f32); extern void RollMatrixLocal(Matrix *,f32);
-extern void ScaleMatrixLocal(Matrix *,f32,f32,f32); extern void SwapMatrixUpForward(Matrix *);
+ extern void YawMatrixLocal(Matrix *,f32); extern void RollMatrixLocal(Matrix *,f32);
+ extern void SwapMatrixUpForward(Matrix *);
 extern s32 N64Eng_GetFrameCounter(void); extern void Graphu64_ConvertMatrixToFixed(Matrix *,void *);
-extern s32 Scene_GetIndexedModelResource(void *,s32);
-extern void Geometry_QueueDirectModel(s32,void *,void *,s32,s32);
+
+
 #if !(defined(VERSION_US_REV1))
 const float g_menuModelPreviewAngleScale[1] = {
     0.017453294f,

@@ -6,6 +6,7 @@
 #include "../../../include/PFS/__OSCHECKID.H"
 #include "../../../include/PFS/PFS_SELECTACTIVEBANK.H"
 #include "../../../include/libultra/pfs/PFS.H"
+#include "../../../include/libultra/io/contramread.h"
 
 /* ospfsrepairid.CPP */
 /* 80447BB0_15.CPP */
@@ -14,7 +15,7 @@
    label from it. The id checksums are read through the block itself and the repaired device id
    through the new id rather than through the id pointer. */
 
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
+
 
 s32 osPfsRepairId(OSPfs *pfs)
 {

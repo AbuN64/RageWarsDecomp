@@ -8,6 +8,7 @@
 #include "COMMON/AUDIO_CONTEXT.H"
 #include "include_asm.h"
 #include "SYSTEM/SOUND_CONTEXT_LOCK_AND_ACTIVITY.H"
+#include "ENGINE/AUDIO/T2SOUNDELEMENT/SOUND_CONTEXT_CONTROL.H"
 
 /* 8025E280.CPP */
 extern void Audio_SetVoiceMixValue(GameAudioContext *context, int mixValue);

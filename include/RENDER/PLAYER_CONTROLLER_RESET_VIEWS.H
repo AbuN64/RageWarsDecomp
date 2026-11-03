@@ -203,6 +203,7 @@ typedef struct Cursor Cursor;
 
 struct RouteCursorState;
 #include "COMMON/ROUTE_CURSOR.H"
+#include "PARTICLE/PARTICLE_UPDATESYSTEM.H"
 
 struct PlayerMarkerPrismView;
 typedef struct PlayerMarkerPrismView PlayerMarkerPrismView;
@@ -233,7 +234,7 @@ typedef struct AnimationSprite {
     s32 active;
 } AnimationSprite;
 
-void Particle_RetireOwnedActors(void *, s32);
+
 void Player_ApplyPlayerDamage();
 extern s32 g_teamScores[];
 

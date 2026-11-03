@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "MENU/ITEMS/ITEMS.H"
 
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)

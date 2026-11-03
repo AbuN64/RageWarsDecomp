@@ -10,6 +10,14 @@
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "ENGINE/PARTICLE.H"
 #include "SYSTEM/CONTACT_EFFECT.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "FX/FX_SPAWNIMPACTMARK.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "PARTICLE/PARTICLE_SPAWNCHILDEFFECT.H"
+#include "RENDER/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
 
 /* Updates a particle for one frame: halves the frame step for particles owned by a slowed object, measures its bounding
  * box, kills it or bounces it off its target when its type's rule says so (the German cartridge has a gentler rule
@@ -80,14 +88,14 @@ extern CVector3 g_particleZeroVector;
 extern s32 Region_GetModelBlendByte59(s32);
 
 extern void Events_DeliverContactEffect(void *, void *, u16, s32, CVector3, struct IntPair);
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
+
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
 #include "ENGINE/PARTICLE.H"
 
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 /* Picks an animation slot from a global mode, then plays the slot's effect, spawns its object at the owner or a fixed position, plays its sound, and flags the owner. Adapted from Particle_HandleMaterialContact, with the slot chosen by a switch on g_particleContactMode (the extra case below 7 that shares the default body is needed for the decision tree; its value is not recoverable), the constant triple, one argument, the dropped Graphu64_ScaleVector call, and the final test changed. */
 
@@ -642,18 +650,18 @@ typedef struct ImpactContext { CVector3 position; char padC[0xE8 - 0xC]; CVector
 extern ImpactContext g_particleContactState;
 extern char g_actorParticleScene, g_dynamicLightPool;
 extern s32 Barrel_GetImpactSlot(void *);
-extern void Particle_UpdateMatrix(void *);
-extern void Fx_DetachParticleSwooshes(void *, void *);
-extern void Particle_SpawnChildEffect(void *, s32, s32, s32);
+
+
+
 extern LiveParticle *g_particleLinkedAttachmentEffect;
 
 int InstHdr_UsesDefaultDefinitionHandling(struct LevelActor *source);
-void Graphu64_ConvertMatrixToFloat(f32 *, void *);
+
 struct CVector3_t; void Gobjinst_ApplyImpactBoneTwist(char *actor, char *twistState, char *boneMatrix, struct CVector3_t impactPosition, struct CVector3_t impactDirection, s32 hitBoneIndex);
-void Graphu64_InvertAffineMatrix(f32 *, f32 *);
-void Graphu64_TransformDirection(f32 *, CVector3 *, CVector3 *);
+
+
 s32 InstHdr_ReturnUnusedActorStatus(void *);
-void PitchMatrixLocal(f32 *, f32);
+
 static __inline__ void attachParticle(Shared_Particle *particle, f32 *transform, s32 action) {
     f32 localTransform[16];
     f32 inverse[16];
@@ -819,7 +827,7 @@ void Particle_HitTarget(void *particle) {
 }
 
 extern u32 g_particleOwnerEffectFlags;
-extern void Fx_SpawnImpactMark(void *, CVector3, CVector3, s32, s32);
+
 extern void Player_SetPlayerResetPosition(void *, CVector3 *);
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 

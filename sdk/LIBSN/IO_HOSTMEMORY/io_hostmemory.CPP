@@ -14,6 +14,7 @@
 #include "IO/DEBUG_MEMORY.H"
 #include "IO/CONTROLLER_REQUEST.H"
 #include "COMMON/OSTHREAD_S.H"
+#include "../../include/libultra/io/io.H"
 /* 80200B14_2.CPP */
 void Libsn_WriteTransferPortByte(s32 address, unsigned char byteValue)
 {

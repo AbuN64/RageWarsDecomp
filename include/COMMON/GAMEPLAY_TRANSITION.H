@@ -232,6 +232,9 @@ struct Shared_PlayerSettingsView {
 };
 
 #include "COMMON/GAMEPLAY_SETTINGS.H"
+#include "AI/PLAYER/PLAYER_RESETPLAYERFORROUND.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "OVLGAME/OVLGAME_INITIALIZEPLAYERPOOL.H"
 
 typedef struct Shared_ModelView Shared_ModelView;
 struct Shared_ModelView {

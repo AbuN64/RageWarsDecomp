@@ -14,14 +14,18 @@
 #include "COMMON/SELF.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "AI/NAV/PICKUPTARGET.H"
+#include "AI/NAV/TEAMMARKER.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
 
 /* PLAYERSTATE.CPP */
 struct AiController; s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
-s32 Scaled_MatchesBehaviorStateFilter(void *);
-s32 Scaled_IsBehaviorStateEight(void *);
-f32 Scaled_GetScaledAggression(void *);
-s32 Nav_ShouldSeekUnclaimedTeamMarker(void *);
-s32 Nav_GetWeaponPickupGoalClass(void *);
+
+
+
+
+
 s32 Playerai_GetWeaponClassId(void *, s16);
 s32 Playerai_GetWeaponAmmo(void *, s16);
 s32 Player_GetMaxHealth(void *);
@@ -147,7 +151,7 @@ extern char g_actorParticleEffectSystem[];
 
 extern s32 Playerai_PlayerHasAmmoForWeapon(SharedPlayer *, s32);
 
-extern s32 Particle_CountOwnerListOneEffects(char *, SharedPlayer *);
+
 
 void Nav_SelectAvailableWeapon(WeaponSelectBrain *brain, s32 *ammo) {
     s32 choices[8];

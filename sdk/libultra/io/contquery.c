@@ -8,8 +8,9 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
+#include "../../include/libultra/os/oscontreset_data.CPP.h"
 
-extern void __osPackRequestData(s32 cmd);
+
 
 
 s32 osContStartQuery(OSMesgQueue *completionQueue) {
@@ -29,7 +30,7 @@ s32 osContStartQuery(OSMesgQueue *completionQueue) {
     return result;
 }
 
-s32 __osContGetInitData(s32 *, s32);
+
 void osContGetQuery(OSContStatus *controllerStatus) {
     s32 validControllerMask;
     __osContGetInitData(&validControllerMask, controllerStatus);

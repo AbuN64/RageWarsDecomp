@@ -5,6 +5,8 @@
 #include "COMMON/LEVEL_TRACK.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/RESULTS.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 struct Shared_Pickup;
 struct Record14;
 struct LevelActor;

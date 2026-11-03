@@ -14,6 +14,7 @@
 #include "COMMON/NUMBERPADSCREEN.H"
 #include "MENU/OPTIONTRANSITION.H"
 #include "DATA/OVLTBL/MENU_DRAWOPTIONSIMAGETRANSITION_DATA.H"
+#include "FRONTEND/MENU_IMAGE.H"
 
 /* OPTIONTRANSITION.CPP */
 extern s32 Frontend_GetMenuImageState(s32 *record);
@@ -36,7 +37,7 @@ s32 Menu_CreateOptionsImageTransition(void) {
    state 2 it tears the match display down through Menu_ReleaseOptionsScene and Stage_StartConfiguredMatch and calls
    Control_SetControllerMode_Optiontransition(1). Returns zero. */
 
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
 #else

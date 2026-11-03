@@ -17,6 +17,9 @@
 #include "COMMON/PROPGEOMETRY.H"
 #include "COMMON/REC.H"
 #include "COMMON/OBJ.H"
+#include "CBARREL/BARREL_SPAWNACTOREFFECT.H"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* 8024E130_2.CPP */
 /** Return the vertical offset selected by the actor's current state. */
@@ -157,9 +160,9 @@ top:
 /* 8024E130_3.CPP */
 void InstHdr_CopyActorPositionAndModel(void *actor, Triple t, void *positionOut, s32 *modelOut, s32 unusedPositionMode, s32 unusedModelMode);
 
-extern f32 Region_GetPolygonHeight(struct Node75 *node, f32 x, f32 z);
 
-extern void Barrel_ComputeTargetOffset(void *player, void *motionState, void *result);
+
+
 
 /** Return a nested float field when the nested record type is one, else zero. */
 float InstHdr_GetTypeOneResourceValue50(void *object) {
@@ -275,7 +278,7 @@ int InstHdr_GetActorMotionFlags(void *levelActor) {
 }
 
 /* 8024E130_4.CPP */
-extern struct PlayerMovementScalarView *Scene_GetModelRecordByIndexPointer(Shared_World *, void *);
+
 
 /* Returns the float at offset 0x20 of the entry Scene_GetModelRecordByIndexPointer finds in g_world_AchieveUpdateresultsscreen for an object's
    key at 0x14, when the key's flag halfword at 2 has bit 0 set; zero otherwise. */

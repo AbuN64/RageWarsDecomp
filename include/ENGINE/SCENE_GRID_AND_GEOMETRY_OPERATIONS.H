@@ -6,7 +6,8 @@
 #include "COMMON/OBJB.H"
 #include "MENU/SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS.H"
 #include "COMMON/WORLD.H"
-extern void Scene_RequestVisibleGridSections(DraftStreamWorld *);
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
+
 extern void Scene_BuildCachedGeometry(DraftStreamWorld*world);
 extern const char s_gridSectionText[];
 extern void Scene_DrawCachedOpaqueGeometry(SceneSceneDrawCachedOpaqueGeometry *scene, void *camera);

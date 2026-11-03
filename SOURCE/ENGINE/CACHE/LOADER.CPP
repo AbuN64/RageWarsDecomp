@@ -119,6 +119,7 @@ void Cartridge_SubmitReadChunks(struct CartridgeReadWorker *worker, u32 source, 
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 #include "COMMON/CARTRIDGEREADWORKER.H"
+#include "ENGINE/CACHE/LOADER.H"
 /* Cartridge read thread loop: waits on the manager's request queue; a 0xBEEFDEAD message arms a
  * periodic timer that posts 0xDEADBEEF, a 0xDEADBEEF tick runs Libultra_RunDebugLinkCommands when TextLoad_IsArtsendTexturePreviewEnabled
  * reports work, and any other message is a read request whose buffer is invalidated, read from the

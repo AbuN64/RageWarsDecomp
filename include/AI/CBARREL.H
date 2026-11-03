@@ -3,6 +3,7 @@
 #include "MENU/TEAMMENU.H"
 #include "COMMON/FIELD_VEC_B0.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "CBARREL/CBARREL_RESOLVETRACKGOAL_DATA.H"
 
 extern void Barrel_ClearTargetInfo(struct Shared_ActorView *actorView, void *unused1, BarrelTargetInfo *targetInfo);
 
@@ -16,8 +17,8 @@ extern s32 Cbarrel_ClassifyTrackTarget(struct LevelActor *actor, struct RouteCha
 
 extern void Cbarrel_LockTrackerTarget(void *unused0, void *trackerState, struct BarrelAnchorActorView *target, float lockDuration);
 
-extern float g_trackGoalTargetHeightFactor;
-extern float k_barrelKindTwoApproachPadding;
-extern float k_barrelClearAimSearchRange;
+
+
+
 extern const float g_goalBesideActorClearance;
 #endif

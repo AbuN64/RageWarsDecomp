@@ -18,18 +18,22 @@
  * look-at matrix from the state's field at 0x26DB0 scaled by g_backdropYawRate, links it to the active view and
  * draws the backdrop through SetN64_DrawTextLines with half the video height. */
 #include "ENGINE/SETN64.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern s32 g_lightingBufferIndex;
 extern f32 g_backdropModelFillValue, g_backdropYawRate, g_backdropTextScalePair;
 extern struct MenuModelScreen g_fallbackScreenMessageEmitter[];
 extern s32 *g_backdropTextLinesByLanguage[];
-extern s32 Scene_FindModelIdIndex(void *, s32);
-extern s32 Scene_GetIndexedModelResource(void *, s32);
+
+
 extern void Camera_SetupViewportAndFog(void *);
-extern void Graphu64_BuildTranslationMatrix(void *, f32, f32, f32);
+
 extern void YawMatrixLocal(void *, f32);
 extern void SwapMatrixUpForward(void *);
 extern void Graphu64_ConvertMatrixToFixed(void *, void *);
-extern void Geometry_QueueDirectModel(s32, void *, void *, s32, s32);
+
 void SetN64_SetupLoadingBackdropEuX(TimedSessionTransitionView *state) {
     s32 handle, h2;
     u8 matrix[64];

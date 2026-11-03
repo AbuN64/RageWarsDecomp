@@ -1,0 +1,4 @@
+#ifndef TEXTLOAD_TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC_H
+#define TEXTLOAD_TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC_H
+s32 **Textload_RequestTextureVariation(s32 *resource, s32 variation);
+#endif

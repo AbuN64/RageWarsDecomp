@@ -3,6 +3,7 @@
 #include "OVLGAME/OVLGAME_INITIALIZEDYNAMICLIGHTPOOL.H"
 #include "COMMON/S1.H"
 #include "TYPES.H"
+#include "ENGINE/CACHE/LIST.H"
 /* Initializes a list and its eight records with default state. */
 void Ovlgame_InitializeDynamicLightPool(struct CGameDynamicLight_t *lightPool) {
     f32 initialFade;

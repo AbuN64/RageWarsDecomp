@@ -14,10 +14,11 @@
 #include "ENGINE/AUDIO/CHANNEL.H"
 #include "include_asm.h"
 #include "COMMON/RESPONSE.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 /* 802ABDBC_16.CPP */
 
-extern void Player_AddAmmo(void *, s16, s16);
+
 
 /** Apply a three-channel effect descriptor and its optional payloads. */
 s32 Pickup_ApplyAmmoBundle(Player *player, MultiChannelItemEffect *ammoBundle) {

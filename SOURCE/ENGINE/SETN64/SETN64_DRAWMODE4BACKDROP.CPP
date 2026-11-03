@@ -23,6 +23,7 @@
 extern Gfx *g_displayListCursor;
 
 #include "COMMON/DISPLAY.H"
+#include "SETN64/SETN64_DRAWMODE4BACKDROP.H"
 
 extern s32 g_hudReferenceViewportWidth;
 

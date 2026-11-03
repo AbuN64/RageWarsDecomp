@@ -1,0 +1,4 @@
+#ifndef MENU_ITEMS_SCENE_GRID_INDEX_AND_VISIBILITY_TEXT_H
+#define MENU_ITEMS_SCENE_GRID_INDEX_AND_VISIBILITY_TEXT_H
+extern const char g_gridBoundsAndSectionsIndexText[];
+#endif

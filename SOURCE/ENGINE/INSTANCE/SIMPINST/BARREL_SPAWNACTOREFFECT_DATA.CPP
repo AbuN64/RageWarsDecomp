@@ -14,6 +14,8 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "include_asm.h"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "ENGINE/SETN64.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 extern void Cache_ReleaseResource(void *cache, void *resource);
@@ -100,9 +102,9 @@ void Simpinst_UpdateAnimationFrameDelta(ObjB *staticObject) {
     staticObject->frameDelta = (g_frameElapsedTime) * (((PropGeometry *)(p))->speed);
 }
 
-extern void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
-extern s32 Graphu64_LimitVectorLength(f32 *vectorComponents, f32 maximumLength);
-extern void TranslateMatrix(char *object, float x, float y, float z);
+
+
+
 extern void SwapMatrixUpForward(void *object);
 extern void Graphu64_ConvertMatrixToFixed(void *src, void *dst);
 
@@ -129,8 +131,8 @@ void Simpinst_BuildObjectTransform(void *staticObject) {
 }
 
 extern void **Cache_RequestWordCountedResource(s32 unusedCache, void **resourceHandle, s32 resourceKey, void *loadTag, s32 direct);
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 
 extern char g_simpleModelResourceCallbackAddress;
 

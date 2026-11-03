@@ -1,5 +1,6 @@
 #include "COMMON/OBJRECAT5F14.H"
 #include "TYPES.H"
+#include "ANIMPOOL/ANIMPOOL_READSIGNEDBITS.H"
 
 /* Two-word value setter; live Barrel_FillWordPair uses the same word-array representation. */
 void AnimPool_InitializeBitReader(s32 *value, s32 word) {

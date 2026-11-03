@@ -5,10 +5,11 @@
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 typedef struct CollisionInfo CollisionInfo;
 
-extern CollisionInfo g_particleCollisionProbeResult;
+
 extern f32 Gobjinst_GetActorHeight(ActorInstanceHeader *);
 extern s32 CCollision_SweepPoint(ActorInstanceHeader *actorStorage, CVector3 current, CVector3 desired, CollisionInfo *motionSettings);
 

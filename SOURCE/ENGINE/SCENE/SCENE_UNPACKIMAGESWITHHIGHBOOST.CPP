@@ -15,6 +15,8 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/SCENE.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "COMMON/PPDECOM_UNPACKRESOURCE.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 
 /* Collects platform actors, records the special actor and selects one of three random states. */
 
@@ -39,7 +41,7 @@ void Scene_CollectSecondarySpecialActors(LevelActorArrayView *scene) {
 /* Remaps every 4-bit pixel of every image in each of the 256 entries of a table through the given
    nibble table. */
 
-extern void OnScreen_GetImageEntry(void *table, s32 index, void **out, u8 *tag);
+
 
 void Scene_RemapFourBitImagePixels(void *unused0, void *table, u8 *remap) {
     s32 i;
@@ -99,7 +101,7 @@ void Scene_RemapFourBitImagePixels(void *unused0, void *table, u8 *remap) {
 
 /* Remaps every 4-bit pixel of every image in each of the 256 entries of a resource through the nibble table g_imageLowBoostNibbleRemap, once the resource has been loaded by Ppdecom_UnpackResource_SceneUnpackimageswithhighboost. */
 
-extern s32 Ppdecom_UnpackResource(void *resource, s32 flags);
+
 
 void Scene_UnpackImagesWithLowBoost(void *unused0, void **resource) {
     s32 i;

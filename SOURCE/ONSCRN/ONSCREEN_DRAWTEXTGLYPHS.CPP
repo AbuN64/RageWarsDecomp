@@ -10,9 +10,10 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 /* 802A8A94_2.CPP */
-extern CacheResourceNode *Scene_StartWorldEffect(Shared_World *, s32, s32, s32);
+
 extern void Text_DrawTileGrid(CacheResourceNode *, s32, s16, s16, f32, f32, s32);
 extern void Cache_UnlockResource(void *, CacheResourceNode *);
 

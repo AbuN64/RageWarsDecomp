@@ -7,6 +7,8 @@ struct SharedPlayer;
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "COMMON/LIBSN_AND_RESIDENT_CALLBACKS.H"
+#include "AI/PLAYER/PLAYER_DEATH__PLAYERAI.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
 struct PlayerSequenceRunEndStateView;
 typedef struct PlayerSequenceRunEndStateView PlayerSequenceRunEndStateView;
 
@@ -154,11 +156,11 @@ extern void Playerai_NoopRoundEndWaitFirst_de(void);
 extern void Graphu64_EaseValueToward(f32 *value, f32 target, f32 rate);
 extern void Player_UpdateLeapMotion(s32 player, s32 body);
 
-extern void Player_UpdateRunEndPlayer(void *);
+
 struct PlayerSequenceActorView;
 extern void Playerai_TryStartPlayerSequence(struct PlayerSequenceActorView *a, void *b, int c);
 
-void Playerai_ApplyProjectileStatus(s32, void *, s32, s32);
+
 
 
 #endif

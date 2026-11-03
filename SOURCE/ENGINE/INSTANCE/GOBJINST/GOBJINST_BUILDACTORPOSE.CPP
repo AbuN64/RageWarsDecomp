@@ -16,6 +16,17 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "ENGINE/GHOT.H"
+#include "ENGINE/VISDATA2.H"
+#include "FX/FX_DRAWBOUNDEDPARTICLEQUADS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Complete nonpadded pose records recovered from the pinned shared pose header. */
@@ -86,19 +97,19 @@ struct Anim; extern void Gastate_SwitchRequestedAnimation(struct Anim *anim, s32
 extern void Gastate_PrepareAnimationFrames();
 extern void Gastate_ReleaseAnimationResource(void *animationState);
 extern s32 Gastate_IsAnimationResourceRetained(void *animationState);
-extern void Ghot_DispatchAttachmentEffects(u8 *, s32, PoseMatrix *, Shared_PoseActor *, void *);
-extern void Graphu64_MultiplyAffineMatrices(PoseMatrix, PoseMatrix, PoseMatrix);
-extern void Graphu64_ConvertMatrixToFloat(PoseMatrix, u8 *);
+
+
+
 extern void Graphu64_InterpolateQuaternionArc(CQuatern *, f32, CQuatern *, CQuatern *);
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
-extern void Graphu64_BuildAxisAngleMatrix(PoseMatrix, f32, f32, f32, f32);
-extern void CopyMatrix(PoseMatrix, PoseMatrix);
-extern void TranslateMatrix(PoseMatrix, f32, f32, f32);
-extern void ScaleMatrixLocal(PoseMatrix, f32, f32, f32);
-extern f32 Graphu64_GetTrianglePlaneHeight(StateFlags *, f32, f32);
+
+
+
+
+
+
 extern s32 Map_ReserveEntries(void *, s32);
-extern void Scene_SampleWorldLighting(void *, CVector3 *, u8 *);
-extern void Fx_AddActorRibbonSamples(RibbonWorld *, Shared_PoseActor *, PoseMatrix *);
+
+
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
 
 static inline CVector3 randVec(void) {
@@ -621,8 +632,8 @@ struct SceneObject {
     u8 pad280[0xC];
     void (*update)(SceneObject *, void *); /* 0x28C */
 };
-extern void *Gobjinst_RequestAnimatedModelVariant(SceneObject *, s32);
-extern s32 Visdata_TestBoxAgainstFrustum(void *, void *);
+
+
 extern void TextLoad_ResetTextureCache(void);
 /* Draws one scene object: loads its model, culls its bounding box against the camera's clip box and plane test,
  * then records the object's draw callback into a display list cached on the object (a branch placeholder is

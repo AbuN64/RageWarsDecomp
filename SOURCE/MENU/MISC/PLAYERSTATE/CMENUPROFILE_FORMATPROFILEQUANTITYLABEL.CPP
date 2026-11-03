@@ -12,6 +12,7 @@
 
 #include "COMMON/ITEMRECAT20V1.H"
 #include "MENU/PLAYERSETTINGS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 
 struct Field;
 
@@ -32,7 +33,7 @@ extern char g_profileAlternateQuantityFormat[];
 #else
 extern char g_profileQuantityFormat[];
 #endif
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 s32 CMenuProfile_FormatProfileQuantityLabel(struct Field *field, Shared_MenuHandle *holder) {
     s32 value = holder->owner->views5D8.view5D8_9.profile->quantity;

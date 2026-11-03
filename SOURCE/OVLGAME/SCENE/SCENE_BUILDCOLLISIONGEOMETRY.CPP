@@ -13,9 +13,10 @@
 #include "COMMON/OBJB.H"
 #include "MENU/SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
 struct CacheResourceBlockView;
 extern struct CacheResourceBlockView *Cache_AllocResourceBlock(s32 cache, void *handle, s32 total);
-extern void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView **handle, struct CacheResourceBlockView *replacement);
 
 
 
@@ -29,8 +30,9 @@ extern void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView
 
 
 
-extern s32 SetN64_GetSizedPackSection(s32 node, s32 index, s32 *size);
-extern s32 SetN64_GetPackSectionSize(s32 *node, s32 index);
+
+
+
 
 static inline s32 testBit(s32 n, u8 *bits) {
     s32 mask = 1 << (n & 7);

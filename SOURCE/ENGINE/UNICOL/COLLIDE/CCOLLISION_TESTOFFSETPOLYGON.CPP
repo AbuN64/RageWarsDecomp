@@ -2,6 +2,7 @@
 #include "COMMON/OUTPUT.H"
 #include "TYPES.H"
 #include "ENGINE/UNICOL/PLANE.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Tests a swept sphere against a polygon: shifts the ray from 0x44 to 0x50 back along the polygon normal by
  * the radius (plus an optional offset), intersects the shifted ray with the polygon's plane through
@@ -20,7 +21,7 @@ extern f32 g_collisionSlackThresholdFactors_de[];
 
 extern s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void *segmentEnd, f32 *outputFraction);
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
 static inline s32 accepts(CapsuleSweep *ray, Polygon *poly) {

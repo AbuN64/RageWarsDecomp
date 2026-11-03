@@ -2,6 +2,7 @@
 #define ENGINE_AUDIO_T2SOUNDELEMENT_H
 #include "COMMON/STATERECAT34.H"
 #include "TYPES.H"
+#include "SOUND/SOUND.H"
 
 extern void SoundElement_InitializeContext(void);
 
@@ -29,7 +30,7 @@ extern void SoundElement_StopAudioExceptKey(s32 retainedKey);
 
 extern void SoundElement_UpdateContext(void);
 
-extern int Sound_PlayInstrumentAtPosition(void *self, int index, CVector3 position, int voiceParameter);
+
 
 extern s32 Sound_StopSoundsByIdentifier(void *context, s32 id);
 

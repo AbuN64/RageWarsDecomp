@@ -6,6 +6,7 @@
 #include <ultra64.h>
 #include "TYPES.H"
 #include "MULTI/SETUP_COMPAREBYTESEQUENCE.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
 
 /* Append one selected character to an eight-character entry buffer. */
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
@@ -16,7 +17,7 @@ extern struct LocalizedInputState g_playerViewRenderContext;
 
 extern NameSpinnerEntry g_multiplayerNameEntryStates[];
 
-extern s32 Player_GetPlayerIndex(void *,s32);
+
 
 s32 Setup_AppendNameCharacter(TextEntryBufferView *textEntry, MenuRules *menuRules) {
  s32 value; s32 count; s32 index=Player_GetPlayerIndex(&g_playerViewRenderContext,menuRules->locked);

@@ -11,9 +11,10 @@
 #include "COMMON/PAK_MENU.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "ENGINE/DEFS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 extern s32 g_pakUseScannedChannel;
 extern char *g_unlockedLevelResultLabel[];
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 s32 Timer_UpdateOwnerChannelLabel(struct Field *field, Shared_PakMenu *pThis) {
     char *text;
@@ -38,7 +39,7 @@ s32 Timer_UpdateOwnerChannelLabel(struct Field *field, Shared_PakMenu *pThis) {
  * one byte before the length returned by the item text helper. */
 extern s32 g_pakUseScannedChannel;
 extern char *g_unlockedLevelResultLabel[];
-extern s32 Menu_CountLineChars(LayeredText *);
+
 
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 s32 Timer_UpdateOwnerChannelLabel(LayeredText *field, struct Shared_PakMenu *holder) {

@@ -20,6 +20,9 @@
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 #include "COMMON/ACTORRECAT5E0.H"
 #include "include_asm.h"
+#include "CONSTANTS/SETUP_UPDATENAMECURSOR_DATA.H"
+#include "DATA/INITIALIZED_RUNTIME_BUFFERS.H"
+#include "RENDER/SETN64_UPDATEFADETRANSITION.H"
 
 /* ITEMMENU.CPP */
 /* 802A6AC0_4.CPP */
@@ -110,11 +113,11 @@ static inline void clear_entry(CItem *e) {
 
 extern char g_sceneCollisionStorage;
 
-extern s32 g_graphicsTaskYieldBuffer;
+
 
 extern s32 g_runtimeHeapStart;
 
-extern void SetN64_CopyString(char *marker, char *name);
+
 
 static inline s32 is_restorable(u32 address) {
     if (address >= (uintptr_t)&g_systemBootMarker && address < (uintptr_t)&g_systemBootMarker + 16) {
@@ -417,7 +420,7 @@ s32 ItemMenu_RestoreBootMemory(void) {
             src++;
         } while (count-- != 0);
     }
-    for (dst = (u32 *)&g_graphicsTaskYieldBuffer; (u32)dst < (uintptr_t)&g_runtimeHeapStart; dst++) {
+    for (dst = (u32 *)&(*(int *)&g_graphicsTaskYieldBuffer); (u32)dst < (uintptr_t)&g_runtimeHeapStart; dst++) {
         if (is_restorable((u32)dst | 0x80000000)) {
             *dst = 0;
         }

@@ -1,3 +1,4 @@
+#include "CONSTANTS/PAK_OK_LABEL_DATA.H"
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/ragewars_pak_ok_label_us_rev1.c */

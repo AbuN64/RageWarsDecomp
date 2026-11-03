@@ -17,12 +17,22 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "COMMON/RESIDENTSTATE.H"
 #include "RENDER/RIBBON_DRAW.H"
+#include "FX/FX_DRAWBOUNDEDPARTICLEQUADS.H"
+#include "FX/FX_SPAWNIMPACTMARK.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "TEXTLOAD/TEXTLOAD_READTEXTUREANIMATIONINFO.H"
+#include "TEXTLOAD/TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAME.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAMETILES.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
-extern void *Fx_AllocateRibbonSegment(void *effectSystem, s32 ribbonAddress);
 
-extern void Graphu64_GetMatrixTranslation(char *object, f32 *output);
 
-extern void Graphu64_GetMatrixScale(void *matrix, f32 *scaleOut);
+
+
+
 
 extern void Graphu64_SubtractVectors(CVector3 *difference, CVector3 *leftVector, CVector3 *rightVector);
 
@@ -80,23 +90,23 @@ extern f32 Gu_Sqrtf(f32);
 
 
 
-extern void Fx_FreeRibbonSegment(s32, StateSmpUpdateRibbonLifetime *, Nodes *);
 
-extern void Fx_DetachEffectObject(StateSmpUpdateRibbonLifetime *);
+
+
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
 
-extern void Graphu64_TransformDirection(void *, void *, void *);
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Graphu64_IdentityMatrix(void *);
+
+
+
 
 extern void Graphu64_BuildScaleMatrix(void *, f32, f32, f32);
 
 extern void Linked_BuildRibbonSegmentMatrix(Node438C *, Node438C *, struct GameplayCamera *, void *);
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 extern void Graphu64_ConvertMatrixToFixed(void *, f32 *);
 
 void *Linked_AppendRibbonSegment(void *effectSystem, void *ribbon, void *local) {
@@ -454,9 +464,9 @@ apply:
 }
 
 extern f32 g_ribbonPositiveLayerScale, g_ribbonNegativeLayerScale;
-extern void Graphu64_ConvertMatrixToFloat(void *, void *);
-extern void ScaleMatrixLocal(void *, f32, f32, f32);
-extern void Graphu64_ClampMatrixToFixedRange(void *);
+
+
+
 typedef struct LinkNode802A {
     struct LinkNode802A *parent; /* 0x00 */
     struct LinkNode802A *next;   /* 0x04 */
@@ -534,12 +544,12 @@ void Linked_UpdateLinkedNodeTransforms(LinkOwner802A *owner) {
 
 extern float g_texturedRibbonTextureCoordinateScale, g_ribbonTextureCoordinateOffset, g_ribbonInterpolationUnit, g_ribbonTexturePeriod;
 
-void *Textload_RequestTextureVariation(s32 *, s32);
-void Textload_ReadTextureAnimationInfo(void *, struct Shared_AnimInfo *);
+
+
 #if defined(VERSION_US_REV1)
-void Textload_LoadTextureFrameTiles(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #else
-void Textload_LoadTextureFrame(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #endif
 void Cache_UnlockResource(s32, void *);
 s32 Fx_SelectAnimationFrame(AnimationFrameState *state, AnimationFrameDefinition *definition, s32 *frame_count);

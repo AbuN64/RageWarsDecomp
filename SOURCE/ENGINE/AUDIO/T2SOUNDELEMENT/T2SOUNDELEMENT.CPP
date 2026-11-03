@@ -10,6 +10,7 @@
 #include "include_asm.h"
 #include "ENGINE/AUDIO/T2SOUNDELEMENT.H"
 #include "TEXTURE/SOUND_UPDATEAUDIOCONTEXT.H"
+#include "SOUND/SOUND.H"
 
 /* 8025DE50_5.CPP */
 /** Calls Sound_InitializeContext with &g_soundElementContext as its argument. */

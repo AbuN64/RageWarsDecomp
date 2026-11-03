@@ -1,0 +1,5 @@
+#ifndef ANIMPOOL_ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT_H
+#define ANIMPOOL_ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT_H
+struct SceneEffect;
+s32 Animpool_ReleaseSceneEffect(struct SceneEffect *node);
+#endif

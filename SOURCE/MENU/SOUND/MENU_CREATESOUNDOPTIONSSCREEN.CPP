@@ -2,9 +2,10 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/MENULISTSCREEN.H"
 #include "MENU/MENU_CREATESOUNDOPTIONSSCREEN.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
-extern s32 SmpFade_CreateFadeWidget(s32, s32);
+
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
@@ -63,7 +64,7 @@ s32 Menu_CreateSoundOptionsScreen(void) {
 
 
 
-extern s32 SmpFade_CreateFadeWidget(s32 frameId, s32 itemId);
+
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);

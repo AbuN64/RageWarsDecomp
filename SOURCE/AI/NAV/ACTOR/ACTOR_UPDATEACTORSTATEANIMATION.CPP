@@ -5,9 +5,12 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
+#include "ACTOR/ACTOR_UPDATEACTORSTATEANIMATION.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "ENGINE/DEFS.H"
 
 
-extern s32 Defs_IsAddressInCodeRanges(StateCallback);
+
 extern s32 Defs_IsAddressInStaticRanges(u32);
 extern void *Gobjinst_ChooseAvailableAnimationKind(void *, void *, s32);
 extern s32 Gobjinst_ChooseAnimationVariant(void *, s32, s32);
@@ -91,7 +94,7 @@ void Actor_UpdateActorStateAnimation(Source110 *src, Dest *dst) {
 
 #include "COMMON/WORLD.H"
 #include "COMMON/WORLD.H"
-extern void Barrel_StopActorLoopingSound(void *, void *);
+
 
 s32 Actor_RequestActorState(void *actor, void *stateController, s32 action) {
     struct ActorStateTable *node;

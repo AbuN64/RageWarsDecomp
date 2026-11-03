@@ -13,6 +13,11 @@
 #include "include_asm.h"
 #include "COMMON/OSPIHANDLE_S.H"
 #include "../../include/libultra/debug/assert.h"
+#include "reverb/reverb.c.h"
+#include "synthesizer/synthesizer_data.h"
+#include "../../include/libultra/audio/auxbus.h"
+#include "../../include/libultra/audio/drvrnew.h"
+#include "../../include/libultra/audio/save.h"
 
 
        /* alHeapDBAlloc */
@@ -39,21 +44,21 @@ extern void alLoadNew(ALLoadFilter *, ALDMANew, ALHeap *);
    /* alLoadNew */
 
                    /* alLoadParam */
-extern void alResampleNew(ALResampler *, ALHeap *);
+
 
               /* alResampleNew */
-extern s32 alResampleParam(void *, s32, void *);
+
 
                    /* alResampleParam */
-extern void alEnvmixerNew(ALEnvMixer4C *, ALHeap *);
+
 
                /* alEnvmixerNew */
 
                    /* alEnvmixerParam */
-extern s32 alAuxBusParam(void *, s32, void *);
+
 
                    /* alAuxBusParam */
-extern s32 alSaveParam(void *, s32, ALFilter_s14 *);
+
 
  /* alGlobals */
 
@@ -239,7 +244,7 @@ s32 _timeToSamples(SynthOutputRateView *synth, s32 microseconds) {
 
 extern char g_synthesizerNoClientAssertText;
 
-extern char s_audioSynthesizerText;
+
 
 
 s32 __nextSampleTime(ALSynth4C *drvr, ALPlayer_s14 **client) {

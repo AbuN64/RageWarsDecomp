@@ -131,6 +131,8 @@
 #include "TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "FRONTEND/MENU_IMAGE.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 
 /* Creates the match setup block g_pakProfileScreenState for screen screen: allocates and clears it, loads its sprites and centres the two banner rows, links every player slot, shows the header for the game mode, resets each player's menu state, records and name entries, then starts each player in the state the mode needs (team handoff for mode 5, memory-card check for mode 6, the host for mode 7) and starts the menu music. Returns zero. */
 
@@ -143,8 +145,8 @@ extern s32 g_pakProfileOperationPhase;
 
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
-extern void *SmpOverlay_CreateOverlayNode(void *, s32);
-extern void SmpOverlay_ShowSlotById(void *, s32, s32);
+
+
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 extern void PAKInterface_RelabelSlotRows(s32);
@@ -369,7 +371,7 @@ extern void Tsmos_ActivateControllerState(void);
 extern void Note_ProbeStatus(s32);
 extern void PAKInterface_ResolvePlayerPakState(s32);
 extern s32 Frontend_GetMenuImageState(s32 *record);
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 extern void MarkMenuEventHandled();
 extern void Frontend_ContinueCupOrOpenResults(void);
 extern void Frontend_OpenControllerModeResults(void);

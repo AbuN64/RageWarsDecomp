@@ -79,7 +79,7 @@ extern void Node_ReleaseUnprotectedBuffers(s32), Node_UpdateImageReleaseTimers(s
 
 
 
-extern void Frontend_ClearOwnedImage(s32 id);
+
 
 extern s32 Smp_CopyAndSwizzleImage(struct GameImage *dst, struct GameImage *src);
 

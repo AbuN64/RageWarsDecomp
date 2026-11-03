@@ -3,6 +3,7 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "TYPES.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 /* Runs a player's floating movement state for its body: sets the movement mode at 0x650 to 11 when
    still and 12 when moving (speed at 0x6C8), turns the view through Player_UpdateViewAngles with tuning
@@ -23,7 +24,7 @@
 
 extern void Player_UpdateViewAngles(SharedPlayer *, BodyPlayerUpdateFloatingState *, char *);
 
-extern void Player_UpdateFlyingThrustAndBoost(SharedPlayer *, BodyPlayerUpdateFloatingState *, Tuning *);
+
 extern void TeamSelect_EmptyWeaponWheelHook(char *);
 extern s32 SoundElement_PlaySoundAtPosition(s16, s32, s32, s32, s32, s32);
 

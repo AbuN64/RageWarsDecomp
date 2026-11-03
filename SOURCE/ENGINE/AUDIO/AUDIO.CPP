@@ -11,6 +11,8 @@
 #include "TEXTURE/SOUND_UPDATEAUDIOCONTEXT.H"
 #include "AUDIO/AUDIO_CHOOSEWEIGHTEDSOUNDVARIANT.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "../../../sdk/include/AUDIO/AUDIO.H"
+#include "AUDIO/audio_initbitreverseorder.H"
 
 /* Runs a music player's state machine on its channel: a start request loads the song's header and sequence from the song bank, records its tempo scale and volume, sets the sequence, clears the player queue, starts the sequence through Audio_InitDecodeStream, then sets the channel's sample rate from the sequence rate over 22050, its tempo, priority, channel volume, master volume and plays it; a playing song that has ended is stopped and returns to idle or to the start state when it loops, and a stop request stops the sequencer. The state is unsigned with an empty case 0, and the rate and tempo factors are literals so the resident rodata keeps its order. */
 
@@ -25,9 +27,9 @@
 
 
 
-extern void Audio_GetDecodeFramesRemaining(void);
 
-extern s32 Audio_InitDecodeStream(void *, s32, s32 *);
+
+
 
 
 

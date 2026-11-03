@@ -12,9 +12,12 @@
 #include "include_asm.h"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "ENGINE/DEFS.H"
+#include "ENGINE/SETN64.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 /* SCENE_7.CPP */
-extern void SetN64_GetPackSectionSize(s32 table, s32 index);
+
 
 void Scene_SetLevelActorStateBit(void *world, s32 index, s32 actorIndex, s32 enabled) {
     void *entry;
@@ -263,9 +266,9 @@ void Scene_DecrementTriggerCounter(void *world, s32 triggerIndex) {
 }
 
 /* SCENE_9.CPP */
-extern s32 Defs_FindSortedValue(void *entries, s32 entryCount, s32 wantedValue);
 
-extern s32 SetN64_LocatePackSection(void *directory, s32 bankOffset, s32 sectionIndex, s32 *sectionSizeOut);
+
+
 
 extern s32 g_cResource_UnpackRequestEntry;
 

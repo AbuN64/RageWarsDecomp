@@ -24,4 +24,5 @@ extern void Cinema_InitializeSequenceOnce(s32 unused);
 extern void Cinema_CloseSequenceOnce(void);
 extern void Cinema_AdvanceSequenceTime(void);
 extern int Cinema_GetSequenceActiveState(void);
+void Cinema_DrawSequenceOverlay(void *view);
 #endif

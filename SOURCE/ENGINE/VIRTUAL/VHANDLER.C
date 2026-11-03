@@ -19,6 +19,7 @@
 #include "ENGINE/VIRTUAL/VIRTUAL_REGION_AND_PAGER_OPERATIONS.H"
 #include "IO/DEBUG_MEMORY.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "ENGINE/CACHE/LOADER.H"
 
 /* VHANDLER.C */
 /* VHANDLER.CPP */
@@ -29,7 +30,7 @@
 
 extern char g_cartridgeReadWorker[];
 
-extern void Cartridge_ReadChunksAndWait(void *dst, void *rom, void *size, u32 extra);
+
 extern u32 Defs_GetMemorySize(void);
 
 static inline void fill(void *dst, u8 value, s32 n) {

@@ -9,9 +9,12 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
+#include "../../include/libultra/io/contramread.h"
+#include "../../include/libultra/io/crc.h"
+#include "../../include/libultra/pfs/pfs_decodechannelstatus.CPP.h"
 
 /* 802B83EC.CPP */
-extern u32 __osPfsGetStatus(s32 queue, s32 channel);
+
 
 u32 __osContRamRead(s32 completionQueue, s32 channel, u16 blockAddress, u8 *outputData) {
     Block40 saved;

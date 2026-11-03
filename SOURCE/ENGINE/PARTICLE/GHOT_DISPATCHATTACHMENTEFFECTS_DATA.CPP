@@ -14,6 +14,15 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "SYSTEM/CONTACT_EFFECT.H"
 #include "ENGINE/PARTICLE.H"
+#include "ENGINE/GDYNLIGHT.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GOBJINST/GAMEOBJECT_MOVETOXZKEEPHEIGHT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "RENDER/WEAPON_INITIALIZECHARGEANDSTARTUPCUES_DATA.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
 
 /* Spawns the effects that template block 2 of the system lists for a kind: for each template in the kind's range it filters by player mask, existing owner effects, anchor distance, mode, team flags and a percent chance, builds a spawn matrix (source matrix, mirror, translation or rotation), then for a random count allocates effects, fills their timing, spread, colour, render and direction fields from the template's packed floats, links them into their group, aims shots at the held target for kinds 0x2D and 0x4F, and plays their sound. Returns the number spawned. */
 
@@ -29,17 +38,17 @@ extern s32 g_playerWeaponClassMode;
 
 extern f32 g_particleInitialVelocityScale;
 
-extern void Graphu64_TransformDirection(MatrixF *, CVector3 *, CVector3 *);
-extern void Graphu64_IdentityMatrix(MatrixF *);
+
+
 struct CVector3_t; extern struct CQuatern_t Gobjinst_BuildTargetAimOrientation(char *actor, struct CVector3_t point);
-extern void BuildDirectionMatrix(MatrixF *, CVector3 *);
-extern void Graphu64_ConvertMatrixToFloat(MatrixF *, PackedMatrixWords *);
-extern void ScaleMatrixLocal(MatrixF *, f32, f32, f32);
-extern void TranslateMatrix(MatrixF *, f32, f32, f32);
+
+
+
+
 extern void Particle_Release(EffectSystem *, ParticleEffect *);
-extern void List_InsertBeforeIntrusive(IntrusiveList *, ParticleEffect *, ParticleEffect *);
-extern void Textload_LocateTextureResource(u32 *, s32);
-extern void GameObject_ResetActorMotion(ParticleEffect *);
+
+
+
 extern f32 Rumble_SamplePackedFloatRange(CharacterScreenCell);
 
 #if defined(VERSION_EU)
@@ -47,9 +56,9 @@ extern f32 Rumble_SamplePackedFloatRange(CharacterScreenCell);
 #else
 #endif
 
-extern void Playerai_StartTransitionState(s32, ParticleEffect *);
-extern void Fx_AttachActorRibbon(void *, ParticleEffect *, s32);
-extern s32 Gdynlight_AllocateWorldLight(void *, s32);
+
+
+
 extern void Particle_PlayAttachedSound(void *soundParticle, s32 soundId);
 extern void SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 extern void Gregion_ShiftColorHue(s8, u8, u8, u8, u8 *, u8 *, u8 *);

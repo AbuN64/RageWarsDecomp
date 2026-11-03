@@ -3,6 +3,8 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/SHARED_MENUREPLY.H"
+#include "MENU_CHOICE/MENU_CHOICE.H"
+#include "PLAYERCOUNT/FRONTEND_UPDATEPLAYERCOUNTSCREEN.H"
 
 /* Runs the screen g_playModeMenuState each frame: past stage 1 of g_selectionMessageStage it only calls Tsmos_DeactivateControllerState;
    otherwise it calls Tsmos_ActivateControllerState and, while the opening delay at 0xC runs, counts it down and

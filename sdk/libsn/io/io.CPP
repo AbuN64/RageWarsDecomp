@@ -5,6 +5,7 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "IO/EXTERNS.H"
 #include "IO/libsn_disableinterrupts.H"
+#include "../../include/libultra/io/io.H"
 
 /* 80200B14.CPP */
 void Libsn_CopyPortToWordMemory(s32 source, s32 destination, u32 count) {

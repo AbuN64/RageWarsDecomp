@@ -1,6 +1,7 @@
 #ifndef MENU_PAK_SAVE_SNAPSHOT_H
 #define MENU_PAK_SAVE_SNAPSHOT_H
 #include "TYPES.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 /* The Controller Pak game snapshot Snapshot_CreateSaveSnapshot fills: a header, the 0x70-byte player block,
  * the 0x584-byte world copy and a 4-byte name. g_worldSnapshotNoteBytes bytes of note data follow it, so a saved
  * snapshot note is g_worldSnapshotNoteBytes + sizeof(SaveSnapshot) bytes (Snapshot_SaveSnapshotAndClose, Snapshot_CheckControllerPak). */

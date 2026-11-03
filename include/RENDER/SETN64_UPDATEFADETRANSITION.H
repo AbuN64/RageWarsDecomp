@@ -4,4 +4,5 @@
 extern int SetN64_IsModeThirteen(void);
 extern void SetN64_RunGameThread(void);
 extern void SetN64_BeginSessionFadeIn(void *);
+u8 *SetN64_CopyString(u8 *destination, u8 *source);
 #endif

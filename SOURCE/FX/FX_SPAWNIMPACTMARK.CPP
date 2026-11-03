@@ -16,6 +16,15 @@
 #include "COMMON/SHARED_PARTICLEINSTANCE.H"
 #include "FX.H"
 #include "include_asm.h"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "FX/FX_SPAWNIMPACTMARK.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/PARTICLE_HASKINDZEROENTRY.H"
+#include "RENDER/LINKED_DRAWTEXTUREDRIBBON.H"
+#include "TEXTLOAD/TEXTLOAD_LOCATETEXTURERESOURCE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* 802A6AC0.CPP */
 void Fx_AccumulateEffectComponents(EffectColorContribution *contribution) {
@@ -58,9 +67,9 @@ void Fx_AddTimedCallback(s32 ownerAddress, s32 callbackContextAddress, s32 callb
     }
 }
 
-void PitchMatrixLocal(void *, f32);
-void TranslateMatrix(char *, f32, f32, f32);
-void ScaleMatrixLocal(void *, f32, f32, f32);
+
+
+
 void Graphu64_ConvertMatrixToFixed(f32 *, PackedMatrixWords *);
 
 Particle *Fx_SpawnImpactMark(ParticleQuadPoolScene *scene, CVector3 position, CVector3 normal, s32 surface, s32 owner) {
@@ -98,36 +107,36 @@ done:
 }
 
 /* 802A6AC0_2.CPP */
-extern s32 Linked_UpdateRibbonLifetime(s32 owner, ItemMenuRenderNode *state);
+
 
 extern f32 g_frameElapsedTime;
 
-extern void Textload_LocateTextureResource(s32 *resourceOutput, s32 sectionIndex);
 
-extern void Particle_EncodeRenderLayer(void *actor, s32 *resource);
+
+
 
 
 extern s32 g_lightingBufferIndex;
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *, s32);
-
-extern void Graphu64_ClampMatrixToFixedRange(f32 *matrixComponents);
-
-extern void Graphu64_GetMatrixTranslation(char *object, float *output);
-
-extern void Graphu64_GetMatrixScale(void *matrix, f32 *scaleOutput);
 
 
 
-extern void Linked_UpdateLinkedNodeTransforms(void *owner);
 
-extern void Linked_UpdateRibbonMatrices(void *, void *);
 
-extern void Linked_DrawTexturedRibbon(s32, void *, s32);
 
-extern void Fx_DrawColoredRibbon(s32, void *, s32);
 
-extern void Linked_AppendRibbonSegment(void *ribbonOwner, void *attachmentState, f32 *local);
+
+
+
+
+
+
+
+
+
+
+
+
 
 void Fx_RecycleOwnerParticles(ParticleQuadPoolScene *particlePool, s32 ownerId) {
     s32 count;

@@ -9,9 +9,10 @@
 #include "TYPES.H"
 
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern CVector3 Track_EvaluateCameraSpline(SplineNode *nodes, s32 count, f32 w);
 extern void Graphu64_SubtractVectors(CVector3 *out, CVector3 *a, CVector3 *b);
-extern f32 Graphu64_GetVerticalAngle(CVector3 *direction);
+
 extern f32 Graphu64_GetHorizontalAngle(CVector3 *direction);
 
 /* First point of the current track's camera path (pack section 0 of section 0 of the resource), or the origin with no track. */

@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "RESOURCES/G_RESOURCESENCODEDWORDSBLOCK45.H"
 
-extern char k_ResourcesEncodedWordsBlock3[];
+
 
 #include "DATA/WEAPON_SPIN_CALLBACKS/WEAPON_SPIN_AND_SIDE_YAW_CALLBACK_ADDRESSES.H"
 

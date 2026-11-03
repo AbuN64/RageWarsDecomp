@@ -1,5 +1,8 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
-extern char g_PakOkLabelStorage[];
+#include "CONSTANTS/CREDITS_LINES_DATA.H"
+#include "CONSTANTS/PAK_OK_LABEL_DATA.H"
+#include "MENU_LABEL_SLOTS/MENU_LABEL_SLOTS.H"
+
 extern char g_hitLocationMessageText[];
 #if defined(VERSION_US_REV1)
 extern RestkeyboardKeyLabelWordsLayout601 g_keyboardKeyLabelWords;
@@ -254,7 +257,7 @@ void *g_pakNoteLabelSlots[22] = {
 /* 800D7824.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/ragewars_pak_ok_label_slot_us_rev1.c */
-extern char g_PakOkLabelStorage[];
+
 void *g_Ovltab8EncodedWordsBlock1[1] = {
     g_PakOkLabelStorage,
 };
@@ -387,7 +390,7 @@ void *k_Ovltab8EncodedWordsBlock5[10] = {
 /* 800D7E40.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/ragewars_credits_language_table_us_rev1.c */
-extern char ragewars_credits_lines_us_rev1_StorageWords[];
+
 void *g_Ovltab8EncodedWords[1] = {
     ragewars_credits_lines_us_rev1_StorageWords,
 };

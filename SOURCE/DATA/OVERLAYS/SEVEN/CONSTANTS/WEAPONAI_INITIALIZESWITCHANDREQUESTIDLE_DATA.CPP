@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "MENU_LABEL_SLOTS/MENU_LABEL_SLOTS.H"
 
-extern char g_itemLabelSlots[];
+
 extern char g_weaponFireStateCallbackTable[];
 
 #include "DATA/WEAPON_EVENT_TRANSLATION/WEAPONAI_INITIALIZESWITCHANDREQUESTIDLE_DATA.H"

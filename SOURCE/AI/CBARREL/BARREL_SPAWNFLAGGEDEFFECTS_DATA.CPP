@@ -1,4 +1,5 @@
 #include "TYPES.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
 
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 /* (flag mask, sound id) pairs walked by Barrel_SpawnFlaggedEffects for the primary effect mask: bits 0-5 play sounds 1701-1706, every other bit sound 2200;

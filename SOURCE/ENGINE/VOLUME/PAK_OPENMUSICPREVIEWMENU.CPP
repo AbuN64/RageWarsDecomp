@@ -10,13 +10,16 @@
 #include "COMMON/VOLUME_MENU_RESOURCES.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "VOLUME/PAK_FORMATMUSICPREVIEW_DATA.H"
 
 /* 80444EC0_15.CPP */
 /* Shows the fixed sound value text when g_menuMusicPreviewSelection is zero. Otherwise
  * formats its current value into the alternate text (the current menu
  * language's line in the EU builds), two bytes before the line length
  * reported by the text item helper. */
-extern s32 Menu_CountLineChars(LayeredText *);
+
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 /* The menu language byte; read as an array element, which keeps the read after the text store. */
@@ -118,7 +121,7 @@ s32 Pak_UpdateOwnerModeText(struct PakActionLabelView *field, struct Holder *hol
 
 /* Replaces g_playerViewRenderingEnabled with what Menu_AdjustValue returns for the second argument, g_playerViewRenderingEnabled, 1, 0, 1 and 1,
    and returns zero. */
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 s32 Pak_AdjustOwnerNotificationOption(void *first, void *second) {
     g_playerViewRenderingEnabled = Menu_AdjustValue(second, g_playerViewRenderingEnabled, 1, 0, 1, 1);

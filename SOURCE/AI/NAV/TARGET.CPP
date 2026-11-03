@@ -4,10 +4,11 @@
 #include "FX/TARGET.H"
 #include "TYPES.H"
 #include <ultra64.h>
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
 
 /* TARGET.CPP */
-extern CVector3 *Scaled_GetControllerPosition(AiController *controller);
-extern s32 Scaled_MatchesBehaviorStateFilter(AiController *controller);
+
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 
 static inline AiTarget *setSelectedTarget(AiController *controller, AiTarget *target) {

@@ -8,6 +8,8 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
+#include "../../include/libultra/io/crc.h"
+#include "../../include/libultra/os/control_updatecontrollerrumble_data.CPP.h"
 
 /* control_updatecontrollerrumble_data.CPP */
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)

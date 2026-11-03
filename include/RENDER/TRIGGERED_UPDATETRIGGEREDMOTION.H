@@ -8,4 +8,7 @@ extern void Triggered_EnableTriggeredActorState(struct Trigger *trigger);
 
 extern void Triggered_InitializeMotionState(void *object, void *state);
 s32 Triggered_SelectMotionSound(void *context, struct TriggeredMotionSoundOption *option);
+struct MovingPlatformActorView;
+struct MovingPlatformMotionStateView;
+void Triggered_UpdateTriggeredMotion(struct MovingPlatformActorView *actor, struct MovingPlatformMotionStateView *motion);
 #endif

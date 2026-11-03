@@ -7,4 +7,7 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/VECTOR4F.H"
 extern void Audio_UpdateMusicFade(void *queue);
+struct AudioStateD844;
+struct AudioRootD844;
+void Audio_InitializeMusicPlayer(struct AudioStateD844 *state, struct AudioRootD844 *root);
 #endif

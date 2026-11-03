@@ -6,4 +6,6 @@
 extern f32 InstHdr_GetActorShadowRadius(Actor_u1 *);
 
 extern void Simpinst_RefreshModelResourceUsage(struct ObjB *staticObject);
+struct ObjB;
+void Simpinst_RegisterModelVariantResources(struct ObjB *object, s32 unused);
 #endif

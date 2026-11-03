@@ -15,4 +15,12 @@ extern void Fx_DrawEffectGeometry(s32 pool, void *, s32 camera);
 extern void Fx_AppendAttachedTransform(void *, void *, void *, s32);
 extern void *Fx_FindAttachedEffect(RibbonWorld *, s32, s32);
 extern void Fx_DrawEffectPasses(void *pool, void *camera);
+struct AttachedEffectDetachState;
+void Fx_DetachEffectObject(struct AttachedEffectDetachState *state);
+struct ParticleQuadPoolScene;
+struct CVector3_t;
+struct Particle *Fx_SpawnImpactMark(struct ParticleQuadPoolScene *scene, struct CVector3_t position, struct CVector3_t normal, s32 surface, s32 owner);
+struct RibbonWorld;
+void Fx_UpdateAttachedEffects(struct RibbonWorld *owner);
+void Fx_UpdateTimedCallbacks(void *owner);
 #endif

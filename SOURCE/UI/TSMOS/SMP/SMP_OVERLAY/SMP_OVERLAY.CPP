@@ -28,6 +28,7 @@
 #include "FRONTEND/PAKINTERFACE_SETSCREENPHASE.H"
 #include "COMMON/GAME_SESSION.H"
 #include "FRONTEND/SCREEN.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 /* SMP_OVERLAY.CPP */
 /* SMP_OVERLAY.CPP */
@@ -46,9 +47,9 @@ extern void Node_InsertWidgetBefore(struct Tree *node, struct Tree *added);
 
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 extern void Widget_DrawVisibleSiblings(void *, Args);
 

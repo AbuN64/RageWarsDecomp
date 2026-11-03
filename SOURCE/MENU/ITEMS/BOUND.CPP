@@ -12,6 +12,9 @@
 #include "MENU/PAK/MENU_INITIALIZEMENU.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "MENU/ITEMS/ITEMS_CREATEMENU.H"
+#include "GOBJINST/GOBJINST_BUILDACTORTRANSFORM.H"
+#include "GOBJINST/PLAYER_DRAWTINTEDPLAYER_DATA.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* BOUND.CPP */
 #if defined(VERSION_DE) || defined(VERSION_US)
@@ -49,13 +52,13 @@ void Bound_WriteBoundValue(MenuBindingItemView *item,float value) {
 }
 #endif
 /* Calls Gobjinst_DrawMaskedModelWithLighting with its three arguments and the table g_defaultParticleLighting as the fourth. */
-extern void Gobjinst_DrawMaskedModelWithLighting(void *, void *, void *, void *);
+
 #if defined(VERSION_DE) || defined(VERSION_US)
 void Bound_DrawActorWithMenuLighting(void *first, void *second, void *third) {
     Gobjinst_DrawMaskedModelWithLighting(first, second, third, &g_defaultParticleLighting);
 }
 #endif
-extern void Gobjinst_DrawActorModelWithViewEffects(ObjectItemsDrawActorWithRedMenuEffect *, void *, void *);
+
 #if defined(VERSION_DE) || defined(VERSION_US)
 void Bound_DrawActorWithRedMenuEffect(ObjectItemsDrawActorWithRedMenuEffect *object, void *context, void *lookup) {
  g_menuModelFillEnabled=3;

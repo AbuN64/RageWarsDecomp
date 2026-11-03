@@ -5,6 +5,7 @@
 #if defined(VERSION_EU_X)
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "GAME/GAME.H"
 extern char *g_optionsLocalizedShortcutText[];
 extern void MarkMenuEventHandled();
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);

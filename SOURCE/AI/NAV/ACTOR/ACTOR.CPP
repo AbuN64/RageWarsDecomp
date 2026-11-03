@@ -6,6 +6,8 @@
 #include "TYPES.H"
 #include <ultra64.h>
 #include "UI/X_FILES/X_PLUS.H"
+#include "ACTOR/ACTOR.H"
+#include "ENGINE/GREGION.H"
 
 /* 80212C90_18.CPP */
 /* Seeds an actor record from its definition: clears the sound handle, pending flag and channel, copies the
@@ -96,7 +98,7 @@ typedef struct ActorSpawnCallbacks {
 } ActorSpawnCallbacks;
 extern char ACTOR_TABLE_A;
 extern char ACTOR_TABLE_B;
-extern f32 Region_GetPolygonHeight(void *, f32, f32);
+
 void Actor_InitSpawnedActor(Source *source, Dest *actor, ActorSpawnCallbacks *callbacks) {
     void *saved;
     void *surface;

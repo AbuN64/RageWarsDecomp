@@ -6,9 +6,12 @@
 #include "COMMON/ENTRYRECATE.H"
 #include "TYPES.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "PICKUP/PICKUP_CANCOLLECT.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 /* Returns whether a player actor can use the item picked up through InstHdr_GetActorType: never for non-players or disabled actors, always during a team round when the model says so, and otherwise by the item's table: a g_pickupPowerupDefinitions power-up when the actor's team matches a g_playerSpecialModelIds entry or its slot is free while not both states 3 and 7 are in use, a g_pickupWeaponDefinitions weapon when on those teams or below the level from Player_GetAmmoCapacity_PickupCancollect, a g_pickupHealthDefinitions item when Player_GetMaxHealth_Player exceeds the actor's count at 0x5E4, any g_pickupAmmoDefinitions item, and a g_pickupSpecialDefinitions item unless it is item 0xBD6. */
-extern s32 InstHdr_GetActorType(s32 prop);
+
 extern s32 Player_GetAmmoCapacity(Player *actor, s16 index, s32 capacityMode);
 extern s32 Player_GetMaxHealth(Player *actor, s32 id);
 static inline PowerupIdEntry *find_entry(char *table, s32 count, s32 size, s32 id) {
@@ -177,7 +180,7 @@ s32 Pickup_DispatchHandler(Other *actor, s32 target, s32 id) {
 extern WeaponInfo *g_weaponInfoByType[];
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 extern struct CCameraText_t *Camera_PostScreenMessage(struct ScreenMessageOwner *owner, struct GameplayCamera *pool, u8 *text);
-extern s32 Player_AddAmmo(void *, s32, s32), SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
+extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 
 s32 Pickup_ApplyWeaponPickup(Player *player, MultiChannelItemEffect *pickup)
 {

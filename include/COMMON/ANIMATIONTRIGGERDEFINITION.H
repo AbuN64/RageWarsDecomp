@@ -10,6 +10,8 @@ struct SharedPlayer;
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/AUDIO_CALLBACKS.H"
 #include "COMMON/VECTOR4F.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
 /* Animation-trigger definitions have delay bounds and signed animation IDs;
  * movement definitions instead carry event masks at these offsets. */
 typedef struct AnimationTriggerDefinition {
@@ -266,11 +268,11 @@ typedef struct {
 } Obj5324;
 struct Shared_World;
 extern void Rumble_SetActorStateBit(struct Shared_World *, void *, s32);
-extern void Link_DispatchActorLinks(struct Shared_Actor *actor, s32 eventFlags, void *eventActor);
+
 extern void Barrel_SpawnActorEffect(void *, s32, Triple, s32);
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 struct Player;
-extern void Barrel_SpawnFlaggedEffects(struct Player *, s32 *, s32, s32, s32);
+
 struct ParticleQuadPoolScene;
 extern void Fx_RecycleOwnerParticles(struct ParticleQuadPoolScene *, s32);
 

@@ -6,6 +6,7 @@
 #include "TYPES.H"
 
 #include "COMMON/MATH_HELPERS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 extern f32 Gu_Sqrtf(f32);
 /** Heading of a direction in the XZ plane: acos of the dominant axis, clamped to [-1, 1]. */
 f32 Graphu64_GetHorizontalAngle(CVector3 *direction) {

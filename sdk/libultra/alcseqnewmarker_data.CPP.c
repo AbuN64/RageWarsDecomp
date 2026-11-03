@@ -1,10 +1,12 @@
 #include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
 #include "TYPES.H"
 #include "../include/MEASUREDRECAT18.H"
+#include "../include/libultra/alcseqnewmarker_data.CPP.h"
+#include "../include/libultra/audio/cseq.h"
 
 /* alcseqnewmarker_data.CPP */
-extern s32 __getTrackByte(s32, s32);
-extern u32 __readVarLen(ALCSeq *, u32);
+
+
 
 s32 __alCSeqGetTrackEvent(ALCSeq *state, u32 index, DecodeResult *result) {
     u8 first;

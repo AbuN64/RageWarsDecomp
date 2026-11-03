@@ -9,6 +9,7 @@
 #include "FRONTEND/RESULTS_UPDATERESULTSHEADING.H"
 #include "ACHIEVE/ACHIEVE.H"
 #include "FRONTEND/RESULTS.H"
+#include "RESULTS/RESULTS_UPDATERESULTSHEADING_DATA.H"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 extern struct ResultsHeadingCharacter g_resultCharacterHeadingTranslations[];

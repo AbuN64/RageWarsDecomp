@@ -9,6 +9,8 @@
 #include "MENU/PAK_PROFILE_PROMPT_VIEWS.H"
 #include "TYPES.H"
 #include "MENU/PAK/SNAPSHOT_CLOSENOTEBROWSER.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Releases temporary profile buffers and opens the controller-pak prompt for the selected player and channel, labelling the port prompt by channel. */
@@ -32,9 +34,9 @@ extern s32 g_pakUseScannedChannel;
 
 extern s32 g_controllerPakSnapshotPayload;
 
-extern SharedPlayer *Playerai_FindPlayerByController(void *profiles, PakMenuSlot *slot);
+
 extern void Cache_DrainAndCompactResources(s32 heap);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 
 static inline void get_channel(PakNoteBrowserContext *menu, s32 *channel) {
     if (g_pakUseScannedChannel != 0) {

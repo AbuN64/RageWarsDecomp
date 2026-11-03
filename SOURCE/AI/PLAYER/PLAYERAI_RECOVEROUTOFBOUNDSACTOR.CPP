@@ -5,8 +5,9 @@
 #include "COMMON/PLAYER_ACTION_AND_POSE_VIEWS.H"
 #include "TYPES.H"
 #include "RENDER/PLAYER_SPAWN_PLACEMENT.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
-extern s32 InstHdr_FindActorModelEntry(void *);
+
 extern s32 InstHdr_GetActorMotionState(void *levelActor);
 extern f32 g_playerOutOfBoundsAndMarkerHeightConstants;
 

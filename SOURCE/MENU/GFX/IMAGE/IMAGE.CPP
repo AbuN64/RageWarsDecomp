@@ -3,6 +3,7 @@
 #include "MENU/IMAGE_AND_DISPLAY_COMMAND_VIEWS.H"
 #include "TYPES.H"
 #include "MENU/GFX/IMAGE.H"
+#include "FRONTEND/FRONTEND_CONFIGUREIMAGECONVERSION.H"
 
 extern s32 ESmem_AllocateFrameHeapHigh(s32 byteCount);
 
@@ -74,9 +75,9 @@ void Image_SwizzleImage(SwizzledImageView *image) {
     }
 }
 
-extern void Frontend_ClearOwnedImage(int image);
+
 struct OwnedImage;
-extern void Frontend_ReleaseOwnedImageBuffers(struct OwnedImage *image);
+
 
 /* The archive loader passes the image address through these forwarding calls. */
 void Image_ResetImage(void *image) {

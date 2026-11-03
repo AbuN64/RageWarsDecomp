@@ -17,14 +17,18 @@
 #include "WORLD/PLAYERAI_RESPAWNFRAGTAGPLAYER.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/PLAYER_SPAWN_PLACEMENT.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "ENGINE/GREGION.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
 
-extern f32 Graphu64_GetTrianglePlaneHeight(void *node, f32 x, f32 z);
 
-extern f32 Region_GetPolygonHeight(s32, f32, f32);
+
+
 
 extern char g_actorParticleEffectSystem[];
 
-extern s32 Particle_CountOwnerListOneEffects(void *, s32);
+
 
 extern s32 InstHdr_GetActorMotionState(void *levelActor);
 
@@ -32,7 +36,7 @@ extern s32 InstHdr_GetActorMotionState(void *levelActor);
 
 
 
-extern void Player_UpdateRunEndPlayer(void *);
+
 
 
 extern s32 g_playerSpecialAnimationTable;

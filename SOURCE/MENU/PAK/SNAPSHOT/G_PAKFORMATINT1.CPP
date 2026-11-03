@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SNAPSHOT/G_PAKFORMATINT1.H"
 
 /* 800E0DA8.CPP */
 #if !(defined(VERSION_US_REV1))

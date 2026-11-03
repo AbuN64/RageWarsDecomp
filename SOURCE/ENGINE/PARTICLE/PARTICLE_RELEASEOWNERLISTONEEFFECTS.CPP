@@ -18,11 +18,19 @@
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/MATH_HELPERS.H"
-extern void Particle_UpdateMatrix(void *);
+#include "ENGINE/GDYNLIGHT.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "PARTICLE/PARTICLE_SPAWNCHILDEFFECT.H"
+#include "RENDER/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
+
 
 extern void Particle_FinishActorEffects(void *actor);
 
-extern void Fx_DetachParticleSwooshes(void *effectWorld, void *detachedEntity);
+
 
 
 
@@ -43,35 +51,35 @@ extern Params g_particlePrimaryContactPosition;
 
 
  /* extern */
-s32 Gdynlight_AllocateWorldLight(void *, s8);
+
 
  /* extern */
 void Particle_PlayAttachedSound(void *, s32);
 
  /* extern */
-void Fx_AttachActorRibbon(void *, void *, s8);
+
 
 /* Adds acceleration along a direction and clamps the resulting speed to its configured limit. */
 
 f32 Gu_Sqrtf(f32);
 
-void Graphu64_ScaleVector(CVector3 *,CVector3 *,f32);
+
 
  void Graphu64_AddVec3(CVector3 *,CVector3 *,CVector3 *);
 
 /* Transform the measured attachment position and direction into the target frame. */
 extern ParticleAttachmentState g_currentActorInstance;
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *out, void *in);
 
 
 
 
-extern void Graphu64_TransformDirection(void *matrix, void *input, void *output);
+
+
 
 extern void Events_DeliverContactEffect(void *, void *, s32, s32, CVector3, struct IntPair);
 
-extern void Particle_SpawnChildEffect(void *, s32, s8, s32);
+
 
 /** Return the word at offset 0xFC68. */
 int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem) {
@@ -223,7 +231,7 @@ void Particle_ReleaseObjectAndSound(void *object) {
 }
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
+
 extern Triple g_particleSecondaryContactPosition;
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 void Particle_SpawnAtSharedContactPoint(ObjParticleInitializeAttachmentsAndSound *source, s32 kind) {

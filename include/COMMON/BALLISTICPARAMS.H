@@ -6,6 +6,7 @@
 #include "COMMON.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "COMMON/APPROACHLOCATION.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* Complete records from origin/legacy shared headers and source; historical gaps retained. */
 typedef struct ParticleAttractionActorView ParticleAttractionActorView;
@@ -64,7 +65,7 @@ void MatrixFromQuaternion(f32 *, f32 *);
 
 void Particle_UpdateSineMotion(void *, f32);
 f32 Gu_Sqrtf(f32);
-CQuatern Graphu64_BuildDirectionQuaternion(f32 *);            /* extern */
+            /* extern */
 extern Shared_MenuData g_playerViewRenderContext;
 extern Shared_GlobalRuntimeState g_transientPlayerList;
 #endif

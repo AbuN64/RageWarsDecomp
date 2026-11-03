@@ -11,6 +11,11 @@
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 extern char *g_pakDefaultNoteNamesLocalized[];
 extern char *g_pakEmptyNoteNamesLocalized_eu[];
 extern u8 *g_pakSpaceLabelScannedLocalized_eu[];
@@ -28,8 +33,7 @@ extern char *g_pakDefaultNoteNameFixed;
 
 extern char *g_pakEmptyNoteNameFixed;
 
-extern s32 Note_ReadNoteInfo(s32 ch, s32 index, s32 *exists, u8 *name, u8 *ext, s32 *size,
-                         char *companyCode, char *gameCode);
+
 
 extern s32 Note_ContainsInvalidNameByte(u8 *name, s32 size);
 
@@ -69,18 +73,18 @@ extern char g_matchEndingTeamWheelClose[];
 
 extern char g_pakOverwriteNoteDialogResource[];
 
-extern s32 Snapshot_CheckStatusPrompt(Shared_PakMenu *menu, s32 ch, s32 mode);
+
 
 extern s32 Snapshot_SaveControllerRecord(s32 unused, Shared_PakMenu *menu, s32 unusedEvent);
 
 extern void Snapshot_SaveSnapshotAndClose(s32 unusedEventSource, Shared_PakMenu *menu, s32 unusedEventPayload);
 
-extern void Note_GetNoteGameName(s32 ch, s32 note, s32 *state);
-
-extern void Note_DecodeNoteText(s32 state, char *name, s32 size);
 
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
+
+
 
 extern void Note_ProbeStatus(s32 ch);
 

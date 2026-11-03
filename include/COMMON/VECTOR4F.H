@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/MTX.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 #define RW_LOCALIZED_TEXT(fixed, eu_table, eu_x_table, language) ((eu_x_table)[language])

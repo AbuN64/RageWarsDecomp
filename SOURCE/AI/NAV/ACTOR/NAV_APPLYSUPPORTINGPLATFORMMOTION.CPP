@@ -3,16 +3,19 @@
 #include "AI/SOURCE.H"
 #include "TYPES.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "ACTOR/NAV_APPLYSUPPORTINGPLATFORMMOTION.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 typedef struct CollisionInfo CollisionInfo;
 
 extern CollisionInfo g_supportingPlatformCollisionQuery;
 
-extern u8 *InstHdr_GetEnabledItemValue(Source *item);
-extern void InstHdr_GetActorTargetOffset(u8 *player, CVector3 *vector);
+
+
 extern void Graphu64_AddVec3(CVector3 *result, CVector3 *left, CVector3 *right);
 extern void Graphu64_SubtractVectors(CVector3 *result, CVector3 *left, CVector3 *right);
-extern void Graphu64_TransformPoints(MatrixF *matrix, CVector3 *points, CVector3 *out, s32 count);
+
 extern void Unicol_MoveActorWithCollision(Source *actor, CVector3 pos, CollisionInfo *motionSettings);
 extern void Triggered_PathMotionNoOp(u8 *platform, Source *player);
 

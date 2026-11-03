@@ -1,0 +1,5 @@
+#ifndef GOBJINST_GAMEOBJECT_GETACTORHEIGHT_H
+#define GOBJINST_GAMEOBJECT_GETACTORHEIGHT_H
+struct InteractionActor;
+s32 InstHdr_CanActorReceiveInteraction(struct InteractionActor *actor);
+#endif

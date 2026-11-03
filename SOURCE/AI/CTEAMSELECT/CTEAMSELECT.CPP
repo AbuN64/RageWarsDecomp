@@ -23,6 +23,9 @@
 #include "AI/CTEAMSELECT.H"
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "COMMON/TRIPLE.H"
+#include "ENGINE/RUMBLE.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
 
 extern s32 Playerai_PlayerHasAmmoForWeapon(void *, s32);
 
@@ -84,9 +87,9 @@ void TeamSelect_DrawWeaponIcons(CBarrel *menu, Item *items, s32 count, Player *p
 
 extern f32 Graphu64_ApproachValue(f32, f32, f32);
 
-extern void Graphu64_IdentityMatrix(Matrix *);
 
-extern void RollMatrix(Matrix *, f32);
+
+
 
 void TeamSelect_DrawWeaponWheel(CBarrel *menu, s32 unusedView, s32 viewPlayer) {
     Matrix matrix;
@@ -281,8 +284,8 @@ typedef struct WeaponWheelDraftState {
     u8 pad18[0x380 - 0x18]; s32 mode; u8 pad384[4]; s32 selection;
 } WeaponWheelDraftState;
 
-s16 Weaponai_NextAvailableWeapon(void *);
-void Rumble_SetEffectOwnerSlot(s32, s32);
+
+
 void TeamSelect_UpdateDraftPanel(WeaponWheelDraftState *state, DraftPlayer17F4C *player, s32 unused2)
 {
     if ((u32)(player->type - 17) < 2) return;

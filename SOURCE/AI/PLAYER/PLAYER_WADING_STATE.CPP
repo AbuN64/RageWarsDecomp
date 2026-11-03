@@ -3,6 +3,7 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "TYPES.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 /* Runs a player's wading state for its body: sets the movement mode at 0x650 to 9 when still and 10
    when moving, settles the roll kick at 0x72C, turns the view and moves the body through Player_UpdateViewAngles

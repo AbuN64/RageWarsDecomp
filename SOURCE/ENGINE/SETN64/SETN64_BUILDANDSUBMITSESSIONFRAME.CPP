@@ -31,10 +31,12 @@
 #include "SYSTEM/DEFS_TOGGLESAVEDFLAG.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-extern void Camera_UpdateViewportLayoutAndBounds(ScreenMessageOwner *);
-extern void SetN64_DrawColorRectangle(void *, u8 *, s32,s32,s32,s32);
+#include "CAMERA/CAMERA.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
+
+
 extern void SetN64_ClearDepthRect(void *, s32,s32,s32,s32,s32);
-extern void SetN64_SubmitFrameTasks(TimingWorld *,Frame *);
+
 static __inline__ s32 hasFadeMode(u8 *mode) { return *mode != 0; }
 void SetN64_BuildAndSubmitSessionFrame(TimingWorld *world) {
     u8 color[4];

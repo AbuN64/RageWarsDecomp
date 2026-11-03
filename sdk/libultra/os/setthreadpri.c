@@ -5,6 +5,7 @@
 #include <ultra64.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
+#include "../../include/libultra/os/thread.h"
 
 /* osSetThreadPri, drafted from ultralib src/os/setthreadpri.c (2.0I-L, non-debug). */
 
@@ -12,7 +13,7 @@
 
 extern OSThread *__osRunQueue;
 extern OSThread *__osRunningThread;
-extern void __osDequeueThread(OSThread **queue, OSThread *t);
+
 extern void __osEnqueueAndYield(OSThread **queue);
 
 void osSetThreadPri(OSThread *t, s32 pri)

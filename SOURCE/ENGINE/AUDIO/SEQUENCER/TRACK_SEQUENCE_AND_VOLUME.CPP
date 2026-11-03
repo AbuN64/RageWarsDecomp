@@ -13,6 +13,7 @@
 #include "../../../../sdk/include/libgultra_inferred/cseq.H"
 #include <ultra64.h>
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/DEFS.H"
 
 /* ROM-grounded data: src/g_trackCommandFallbackDuration_TrackSequenceAndVolume.c */
 const float g_trackCommandFallbackDuration[1] = {
@@ -30,7 +31,7 @@ const float g_trackContextVolumePercentScales[2] = {
 };
 
 extern f32 g_sequencerContextVolumeScale;
-extern s32 Defs_FindSortedValue(s32, s32, s32);
+
 #include "COMMON.H"
 extern f32 g_sequencerFallbackDuration;
 

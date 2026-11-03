@@ -129,6 +129,9 @@ void Playerai_DrawAimHud(SharedPlayer *player, void *view) {
 
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/OBJB.H"
+#include "AI/PLAYER/PLAYER_UPDATEPLAYEREFFECTLIGHTS.H"
+#include "ENGINE/GDYNLIGHT.H"
+#include "PLACEPLAYERLIGHT/PLACEPLAYERLIGHT.H"
 /* Gdynlight allocates the same 0x18-byte CDLight records initialized by Ovlgame. */
 #if defined(VERSION_US)
 #define PLAYER_SECOND_LIGHT_RADIUS g_playerSecondLightRadiusUs
@@ -152,8 +155,9 @@ extern f32 PLAYER_SECOND_LIGHT_RADIUS;
 #define PLAYER_EFFECT_LIGHT_PATTERN g_playerEffectLightPatternUsRev1
 #define PLAYER_MODE_LIGHT_PATTERN g_playerModeLightPatternUsRev1
 #endif
-extern char PLAYER_EFFECT_LIGHT_PATTERN[], g_playerSecondaryLightPattern[], PLAYER_MODE_LIGHT_PATTERN[], g_playerAlternateModeLightPattern[];
-extern void *Gdynlight_AllocateLightNode(void *, void *);
+extern char PLAYER_EFFECT_LIGHT_PATTERN[];
+extern char PLAYER_MODE_LIGHT_PATTERN[];
+
 #include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
 /* Position one effect light, reading its scale and radius at their use sites. */
 static inline void placePlayerLight(struct Player *player, CDLight *light,
@@ -192,7 +196,7 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
         }
         light = (CDLight *)player->rangeNodes[1];
         if (light == 0) {
-            light = Gdynlight_AllocateLightNode(&g_dynamicLightPool, g_playerSecondaryLightPattern);
+            light = Gdynlight_AllocateLightNode(&g_dynamicLightPool, ((char *)&g_playerSecondaryLightPattern));
         }
         if (light != 0) {
             player->rangeNodes[1] = (struct RangeNode *)light;
@@ -236,7 +240,7 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
         if ((player->actionFlags & 0x20) && player->rangeNodes[2] != 0) {
             CDLight *entry = (CDLight *)player->rangeNodes[2];
             if (entry->m_pROMLight == PLAYER_MODE_LIGHT_PATTERN) {
-                entry->m_pROMLight = g_playerAlternateModeLightPattern;
+                entry->m_pROMLight = ((char *)&g_playerAlternateModeLightPattern);
             } else {
                 entry->m_pROMLight = PLAYER_MODE_LIGHT_PATTERN;
             }

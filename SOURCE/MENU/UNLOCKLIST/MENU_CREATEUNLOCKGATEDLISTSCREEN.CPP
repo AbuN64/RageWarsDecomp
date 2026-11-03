@@ -2,6 +2,7 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/SELECTIONSCREENSTATE.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 
 #if defined(VERSION_US) || defined(VERSION_US_REV1) || defined(VERSION_EU_X) || defined(VERSION_EU) || defined(VERSION_DE)
@@ -9,7 +10,7 @@ typedef struct Shared_MenuWidgetState { s32 list; s32 resourceWidget; void *item
 extern Shared_MenuWidgetState *g_unlockGatedListScreen;
 extern char g_profileModeOnePlayedLevels[];
 
-extern s32 SmpFade_CreateFadeWidget(s32, s32);
+
 extern s32 Defs_TestBit(void *bitArray, s32 index);
 extern void Widget_SetWidgetFlag100(MenuWidget *record, int enable);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);

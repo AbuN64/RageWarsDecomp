@@ -13,11 +13,16 @@
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/AIPROFILE.H"
 #include "ENGINE/GREGION.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
 
-extern void BuildDirectionMatrix(void *matrix, CVector3 *direction);
-extern f32 Region_GetPolygonHeight(Node75 *node, f32 x, f32 z);
+
+
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
-extern void Graphu64_MultiplyAffineMatrices(f32 *out, f32 *left, f32 *right);
+
 
 
 
@@ -85,9 +90,9 @@ f32 *Particle_ParentTransform(Shared_Particle *particle, GameplayCamera *camera)
  * matrices) and clears its region; a particle carried by its owner (flag 0x400000) places its local position through
  * the owner's orientation, or for a player owner (flags 0x300000) through its camera's view orientation, or the
  * player view transform when the player has no camera. */
-extern void Graphu64_ConvertMatrixToFloat(f32 *dst, PackedMatrixWords *src);
-extern void Graphu64_TransformDirection(void *matrix, CVector3 *in, CVector3 *out);
-extern void Player_BuildPlayerViewTransform(Player *player, f32 out[4][4]);
+
+
+
 void Particle_Attach(Shared_Particle *particle, CVector3 *outPosition, CVector3 *outDirection) {
     f32 matrix[16];
     CVector3 position;
@@ -161,20 +166,20 @@ void Particle_Attach(Shared_Particle *particle, CVector3 *outPosition, CVector3 
 #include "COMMON/MATH_HELPERS.H"
 #include "ENGINE/SCENE_SAMPLEWORLDLIGHTING.H"
 
-void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
-void Graphu64_MatrixFromEulerXYZ(f32 *m, f32 x, f32 y, f32 z);
-void Graphu64_IdentityMatrix(void *matrix);
+
+
+
 void BuildRollMatrix(void *matrix, f32 angle);
-void TranslateMatrix(void *matrix, f32 x, f32 y, f32 z);
-f32 Graphu64_GetTrianglePlaneHeight(void *node, f32 x, f32 z);
-s32 Graphu64_LimitVectorLength(f32 *vector, f32 limit);
-void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
+
+
+
+
 void SwapMatrixUpForward(void *matrix);
-void CopyMatrix(f32 *dst, f32 *src);
-void Graphu64_BuildTranslationMatrix(void *matrix, f32 x, f32 y, f32 z);
+
+
 void YawMatrix(void *matrix, f32 angle);
 void PitchMatrix(void *matrix, f32 angle);
-void Graphu64_ClampMatrixToFixedRange(f32 *matrix);
+
 void Graphu64_ConvertMatrixToFixed(f32 *src, PackedMatrixWords *dst);
 
 

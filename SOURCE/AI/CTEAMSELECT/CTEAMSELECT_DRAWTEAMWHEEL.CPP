@@ -2,6 +2,9 @@
 #include "MENU/TEAMMENU.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "CTEAMSELECT/CTEAMSELECT_DRAWTEAMICONS.H"
+#include "CTEAMSELECT/CTEAMSELECT_DRAWTEAMWHEEL.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
 
 /* Lays out the four team choices around the open menu and draws their icons. */
 
@@ -10,9 +13,9 @@
 
 
 extern f32 Graphu64_ApproachValue(f32, f32, f32);
-extern void Graphu64_IdentityMatrix(Matrix *);
-extern void RollMatrix(Matrix *, f32);
-extern void Cteamselect_DrawTeamIcons(MenuCteamselectDrawTeamWheel *, TeamMenuIconView *, s32, void *);
+
+
+
 
 void Cteamselect_DrawTeamWheel(MenuCteamselectDrawTeamWheel *menu, s32 unused1, void *player) {
     Matrix matrix;

@@ -23,6 +23,7 @@ typedef struct Racer {
 } Racer;
 
 #include "GAME/PLAYER_RULES.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
 
 typedef struct MatchWorld {
     char pad0[0x1860];
@@ -76,7 +77,7 @@ s32 Nav_CollectEnemyTargets(Chaser *self) {
 
 extern CNavData g_navigationGraph;
 extern f32 Scaled_GetScaledAttackRange(AiController *controller);
-extern f32 Scaled_GetScaledAggression(AiController *controller);
+
 extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
 extern s32 Route_GetRouteRelation(void *table, s32 from, s32 to);
 

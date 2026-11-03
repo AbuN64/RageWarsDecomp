@@ -11,8 +11,10 @@
 #include "COMMON/PROBE.H"
 #include "COMMON/TRIPLE.H"
 #include "TYPES.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 extern s32 Player_SetPlayerState(void *, void *, s32);
-extern void Player_UpdateGroundThrustAndBoost(void *, void *, void *);
+
 extern void Player_UpdateViewAngles(void *, void *, void *);
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
@@ -33,9 +35,9 @@ extern s32 g_playerSpecialAnimationTable;
 extern s32 g_activeActorKind;
 
 
-extern u8 *InstHdr_GetEnabledItemValue(void *item);
 
-extern void InstHdr_GetActorTargetOffset(u8 *player, CVector3 *vector);
+
+
 
 /* Phase1 source candidate; contract holds and immutable inputs in per-function JSON. */
 
@@ -43,7 +45,7 @@ extern void InstHdr_GetActorTargetOffset(u8 *player, CVector3 *vector);
 
 extern s32 InstHdr_GetActorMotionState(void *levelActor);
 
-extern f32 InstHdr_GetShadowGroundHeight(void *object, s32 mode);
+
 
 
 

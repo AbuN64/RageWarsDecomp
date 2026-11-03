@@ -66,6 +66,11 @@ void Particle_MarkCrowdedActor(s32 unused, ActorParticleMarkCrowdedActor *actor,
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "ENGINE/VISDATA2.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "PARTICLE/PARTICLE_SPAWNCHILDEFFECT.H"
+#include "PARTICLE/PARTICLE_UPDATESYSTEM.H"
+#include "RENDER/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
 /* Views of the SN debug records this pass reads, with their original member names: CParticle_t (0x1F8 bytes),
  * CParticleSystem_t (0xFC70), CROMParticleEffect_t (0x3C), CROMParticleImpact_t (0xC4) and CDLight_t (0x18). */
 typedef struct CDLight_t CDLight_t;
@@ -120,9 +125,9 @@ typedef struct CParticleSystem_t {
     CParticle_t *m_pLastCreatedParticle;
 } CParticleSystem_t;
 extern const f32 g_particleLightColorFadeScale,g_particleLightMovementDistanceSquared;
-extern void Particle_Update(void *),Particle_FinishActorEffects(void *),Particle_UpdateMatrix(void *);
-extern void Fx_DetachParticleSwooshes(void *,void *);
-extern void Particle_SpawnChildEffect(void *,s32,s32,s32);
+extern void Particle_FinishActorEffects(void *);
+
+
 extern void SoundElement_PlaySoundAtPosition(s16,CVector3,s32,s32);
 extern void Graphu64_SubtractVectors(CVector3 *,CVector3 *,CVector3 *);
 /* Frees a particle: runs its end hook (and its swoosh teardown when it has swooshes), hands its dynamic light back to
@@ -300,7 +305,7 @@ extern GlobalsMenuSetOptionsSceneSelection g_gameplayCameraList;
 extern s32 g_playerWeaponClassMode, g_lightingBufferIndex;
 extern float g_particleRibbonHeightScale;
 extern void Geometry_SetColorDither(s32 ditherMode);
-extern s32 Visdata_TestBoxAgainstFrustum(CQuatern *planes, Box *box);
+
 extern void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view);
 extern void Fx_AddParticleRibbonSamples(ParticleRibbonStorageView *effectWorld, Shared_Particle *particle, PackedMatrixWords *matrix);
 void Particle_DrawRenderList(ParticleDrawWorld *world, GameplayCamera *view) {
@@ -413,8 +418,8 @@ typedef struct DraftActor827C8 {
     u8 pad1DA[0xA]; void *list; u8 pad1E8[4]; struct DraftActor827C8 *next;
 } DraftActor827C8;
 typedef struct DraftWorld827C8 { u8 pad[0xFC00]; u8 freeList[20], activeList[20], padFC28[0x14]; DraftActor827C8 *actors; } DraftWorld827C8;
-extern void Particle_SpawnChildEffect(void *, s32, s32, s32), Particle_FinishActorEffects(void *), Particle_UpdateMatrix(void *);
-extern void Fx_DetachParticleSwooshes(void *, void *);
+extern void Particle_FinishActorEffects(void *);
+
 void Particle_ReleaseOwnerEmitters(DraftWorld827C8 *world, s32 owner)
 {
   DraftActor827C8 *actor;
@@ -520,9 +525,9 @@ typedef struct ActorWorld {
     char pad00[0xFC00]; IntrusiveList active, secondary;
     char padFC28[0x14]; Actor *head;
 } ActorWorld;
-extern void Particle_SpawnChildEffect(void *, s32, s32, s32);
+
 extern void Particle_FinishActorEffects(void *);
-extern void Particle_UpdateMatrix(void *);
+
 
 void Particle_RetireOwnedActors(ActorWorld *world, void *owner) {
     Actor *actor, *next;

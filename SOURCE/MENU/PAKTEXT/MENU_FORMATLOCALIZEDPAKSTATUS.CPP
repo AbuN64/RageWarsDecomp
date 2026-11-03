@@ -7,6 +7,7 @@
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "TYPES.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 /* g_pakPreviewNoteType is read through a struct view so the compiler keeps the load behind the preceding store. */
 typedef struct { s8 value; } PakModeByte;
 extern s8 g_pakPreviewNoteType;

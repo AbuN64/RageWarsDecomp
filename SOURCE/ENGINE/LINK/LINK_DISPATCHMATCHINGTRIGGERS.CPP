@@ -29,9 +29,18 @@ extern NavCallbackPair *g_actorTriggerDispatchTables[];
 extern void *g_gameLoopFrameCount;
 
 #include "COMMON/MENU_MATCH_GLOBALS.H"
+#include "ACTIONAI/ACTION_UPDATEBREAKABLEPROXIMITY.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "TRACK/TRACK_DRAWTRACKOVERLAY.H"
 extern s32 g_activeLinkSequenceId;
 
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, void *, f32);
+
 extern s32 Track_RequestTrackByKey(s32);
 void Link_DispatchTrigger(Trigger *trigger) {
     NavCallbackPair *table;
@@ -77,17 +86,17 @@ void Link_DispatchTrigger(Trigger *trigger) {
 }
 
 
-extern void Scene_FindActorTriggerRange(s8 *world, void *levelActor, s32 *firstIndex, s32 *lastIndex);
 
-extern s32 Scene_FindAlternateTriggerRange(s8 *world, s32 triggerIds, s32 *firstIndex, s32 *lastIndex);
+
+
 
 extern void Scene_ResetTransitionViewport(void);
 
-extern void Track_RequestTrackByIds(s32, s32);
 
-extern void Barrel_StopActorLoopingSound(void *actor, void *soundState);
 
-extern void Animpool_ReleaseSceneEffect(struct Shared_Actor *node);
+
+
+
 
 void Link_DispatchActorLinks(struct Shared_Actor *actor, s32 event, void *context) {
     s32 triggers;
@@ -210,17 +219,17 @@ void Link_PlayTriggerSound(void *trigger) {
 /* 80279208.CPP */
 /* Updates a table of triggers against masks: for each trigger the world accepts (always in world mode 4, otherwise when Scene_TestTriggerStateBit refuses it), a trigger not yet entered whose mask meets the enter mask is marked entered and runs its enter action (the id's action through Scene_TestTriggerKindFlags and Scene_DispatchSecondaryTriggersOfKind, or Link_DispatchTriggerExit without an id); it then counts as active when its mask meets the require mask, meets the enter mask, passes the paired exclude masks, is not flagged 0x1000 without 0x100 and passes Link_CheckTriggerMessage, and an active trigger runs its fire action once (through Scene_SetTriggerStateBit, Scene_DecrementTriggerCounter, Scene_TestTriggerCounterZero and Scene_ActivateTriggersOfKind for an id, or Link_ActivateTrigger without one). */
 
-extern s32 Scene_TestTriggerStateBit(Shared_World *world, Trigger *trigger);
 
-extern s32 Scene_TestTriggerKindFlags(Shared_World *world, s32 id);
 
-extern void Scene_DispatchSecondaryTriggersOfKind(Shared_World *world, s32 id);
 
-extern void Scene_SetTriggerStateBit(Shared_World *world, Trigger *trigger, s32 arg);
 
-extern void Scene_DecrementTriggerCounter(Shared_World *world, s32 id);
 
-extern s32 Scene_TestTriggerCounterZero(Shared_World *world, s32 id);
+
+
+
+
+
+
 
 extern void Scene_ActivateTriggersOfKind(Shared_World *world, s32 id);
 

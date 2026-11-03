@@ -1,6 +1,8 @@
 #include "include_asm.h"
 #include "TYPES.H"
 #include "COMMON/BRAIN.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "ATTACK/ATTACK.H"
 
 /* CLOSEATTACK__CLOSEATTACK.CPP */
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
@@ -15,8 +17,8 @@
 extern char g_navigationGraph[];
 
 struct Player; extern s32 Scaled_HasLineOfSight(struct Player **fromRef, struct Player *target);
-extern void UpdateCloseAttack(Brain *brainAddress);
-extern void *Scaled_GetControllerPosition(Brain *controller);
+
+
 extern void *Portal_GetGraphPoint(char *, s32);
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 

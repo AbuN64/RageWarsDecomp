@@ -9,6 +9,7 @@
 /* menu_setup_versions.h declares this scalar only cart-guarded; the slot-error scalar is real in every cart */
 extern s32 g_pakProfileOperationPhase;
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 typedef struct SetupTextNode SetupTextNode;
 typedef struct SetupRosterChoice SetupRosterChoice;
 typedef struct SetupRosterSlot SetupRosterSlot;

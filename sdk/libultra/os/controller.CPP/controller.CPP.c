@@ -12,6 +12,7 @@
 #include "../../../include/os_pif.h"
 #include "../../../include/OS/__OSPACKRESETDATA.H"
 #include "../../../include/OS/siaccess.H"
+#include "../../../include/libultra/os/oscontreset_data.CPP.h"
 
 /* controller.CPP */
 s32 osContStartReadData(OSMesgQueue *completionQueue) {
@@ -31,9 +32,9 @@ s32 osContStartReadData(OSMesgQueue *completionQueue) {
     return result;
 }
 
-extern void __osPackRequestData(s32 cmd);
 
-extern void __osContGetInitData(s32 *valid, s32 data);
+
+
 
 void osContGetReadData(OSContPad *data) {
     u8 *ptr = (u8 *)&g_controllerQueryPifBuffer;

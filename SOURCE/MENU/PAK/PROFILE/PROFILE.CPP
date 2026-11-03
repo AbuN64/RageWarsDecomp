@@ -15,6 +15,11 @@
 #include "include_asm.h"
 #include "COMMON/TRIPLE.H"
 #include "COMMON/EFFECTRENDER.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "SNAPSHOT/G_DIGITDOTFORMAT.H"
+#include "SNAPSHOT/G_PAKFORMATINT04.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 extern s32 g_controllerPakPromptKind;
 
@@ -26,7 +31,7 @@ extern char g_pakFourDigitValueFormat[];
 #else
 #endif
 
-extern s32 Menu_CountLineChars(LayeredText *);
+
 
 
 /* Draws an item's label at its position into the text layer g_matchEndingTeamWheelClose through Menu_OpenDialog, using
@@ -36,7 +41,7 @@ extern s32 Menu_CountLineChars(LayeredText *);
 extern char g_matchEndingTeamWheelClose[];
 
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 
 /* Clears the word held in g_controllerPakPromptKind. */
 
@@ -159,7 +164,7 @@ extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 
 
 extern s32 g_pakUseScannedChannel;
 
-extern s32 Snapshot_CheckStatusPrompt(struct Shared_PakMenu *, s32, s32);
+
 
 static inline s32 Pak_GetMenuChannel(struct Shared_PakMenu *record) {
     if (g_pakUseScannedChannel != 0) {
@@ -819,7 +824,7 @@ s32 Pak_FormatOperationChannelLabel(struct Field *field, Shared_PakMenu *pThis) 
 
 extern u8 *g_pakAlternateChannelLabelTexts[];
 
-extern char g_digitDotFormat[];
+
 
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 s32 Pak_FormatOperationChannelLabel(LayeredText *field, struct Shared_PakMenu *holder) {

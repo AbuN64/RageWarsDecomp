@@ -41,6 +41,30 @@
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "COMMON/OBJRECAT5F14.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "AUDIO/VOICE.H"
+#include "BATCH/BATCH.H"
+#include "CAMERA/CAMERA.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "ENGINE/SETN64.H"
+#include "ENGINE/VISDATA2.H"
+#include "FRONTEND/PLAYER.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "MENU/ITEMS/SCENE/GRID_INDEX_AND_VISIBILITY_TEXT.H"
+#include "MENU/ITEMS/SCENE/SCENE_LOADLEVELRESOURCES.H"
+#include "MENU/ITEMS/SCENE/SCENE_RELOCATEPARTICLEEFFECTDATA.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
+#include "MENU/ITEMS/SCENE/S_SKYLAYERSTEXT.H"
+#include "MENU/ITEMS/SCENE/S_VISIBILITYTEXT.H"
+#include "OVLGAME/EFFECT.H"
+#include "OVLGAME/HUD.H"
+#include "OVLGAME/OVLGAME_INITIALIZEPLAYERPOOL.H"
+#include "POOLS/POOLS.H"
+#include "SCENE/SCENE_UNPACKVISIBILITYGEOMETRY.H"
+#include "SOURCE/OVLGAME.H"
 
 /* 80286050_2.CPP */
 /* Collects up to sixteen switch objects (descriptor type 0xD) of a world into its switch list, first syncing each one's flag 4 with the switch table g_currentStagePreset when its kind is 0xD34 to 0xD37: model 0xD2B follows table byte 1, models 0xD2C to 0xD2E follow their own table byte, and any other model clears the flag; the flag is set when the byte is zero. */
@@ -94,20 +118,20 @@ void Scene_CollectLevelSwitches(SceneLevelSwitchCollectionView *world) {
 /* SCENE.CPP */
 /* Unknown data types are explicit unresolved contracts, never guessed s32. */
 
-extern void Nav_ResetPlayerState();
+
 struct CNavData_t; extern void Portal_AssignPlatformEndpoints(struct CNavData_t *graph);
 struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern void * Playerai_GetPlayerByIndex();
-extern void Camera_UpdateViewportLayoutAndBounds();
+
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
 extern void Gobjinst_DispatchActorTypeUpdate(char *actor);
-extern void Gobjinst_UpdateActorController(void *);
+
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
 extern void Cache_DrainAndCompactResources(s32);
 extern s32 Cache_RequestWordCountedResourcePinned(s32, void *, s32, void *);
-extern void **Cache_RequestPackSection(s32 cacheAddress, void *handle, s32 sectionSelector, s32 resourceKey, void *world, void *resourceTag, void *loadTag);
+
 extern s32 Cache_WaitForResourceLoads(struct ResourceLoadWorker *resourceLoadWorker);
-extern void SoundVoicePool_Initialize(void *, void *, s32);
+
 extern void Scene_ShowResultsGoal(void);
 extern int Scene_GetModelIdAtIndex(void *world, int modelIndex);
 extern void Scene_CopyLevelName(struct Shared_World *world, s32 type, void *levelName, s32 maximumBytes);
@@ -115,23 +139,23 @@ extern void Scene_ClearSceneObjectCounts(void *object);
 extern void Scene_UnlockActiveSectionResources(struct OwnerSceneUnlockActiveSectionResources *owner);
 extern void Scene_ResetTransitionViewport(void);
 struct Shared_World; extern void Scene_ReleaseCachedLevelData(struct Shared_World *world);
-extern int SetN64_GetDirectoryEntry();
+
 extern s32 XPlus_NextRandomInteger();
 extern void OnScreen_StartFirstStatusBar();
-extern void OnScreen_StartSecondStatusBar();
+
 extern void Menu_TriggerTrackEvent(int event);
-extern void Player_RefreshActivePlayerSceneState();
-extern void Pools_InitGroupPools();
-extern void Ovlgame_InitializeSceneEffectPool();
-extern void Batch_InitEntryBatch();
-extern void Batch_InitSlotPool();
-extern void Scene_LoadSceneLight();
-extern void Scene_FreeSceneResources();
-extern void Scene_UpdatePendingObjects();
-extern void Scene_DispatchSelectedEntityKinds();
-extern void Effect_InitEffectPool();
-extern void Hud_InitializeWorldActorPools();
-extern void Hud_StartPanelMovers(void *panel);
+
+
+
+
+
+
+
+
+
+
+
+
 
 extern unsigned char g_cResource_UnpackRequestEntry[];
 extern unsigned char g_sceneLinksLoaderEntry[];
@@ -148,9 +172,9 @@ extern const unsigned char s_matricesText[];                          /* unable 
 
                           /* unable to generate initializer: unknown type; const */
 extern const char s_collisionText[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char g_gridBoundsAndSectionsIndexText[];                          /* unable to generate initializer: unknown type; const */
+                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_sceneIndexResourceTag[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_visibilityText[];                          /* unable to generate initializer: unknown type; const */
+                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_visibilityHeaderResourceTag[];                          /* unable to generate initializer: unknown type; const */
 extern const char s_linksText[];                          /* unable to generate initializer: unknown type; const */
 extern const char s_levelPathsText[];                          /* unable to generate initializer: unknown type; const */
@@ -158,7 +182,7 @@ extern const unsigned char s_levelInfoText[];                          /* unable
 extern const char g_levelNavigationResourceNames[];                          /* unable to generate initializer: unknown type; const */
 extern unsigned char g_navigationLinksResourceName[];                          /* unable to generate initializer: unknown type; const */
 extern const unsigned char s_levelNavVisionText[];                          /* unable to generate initializer: unknown type; const */
-extern unsigned char s_skyLayersText[];                          /* unable to generate initializer: unknown type; const */
+                          /* unable to generate initializer: unknown type; const */
 extern unsigned char s_animatedInstancesText[];                          /* unable to generate initializer: unknown type; const */
 extern s32 g_gameLoopFrameCount;                          /* const */
 
@@ -711,7 +735,7 @@ block_122:
 /* SCENE_2.CPP */
 /* Spawns an entity through Link_DispatchTrigger when its bit is set in the current level's placement mask and it either names no flag or its flag in the global flag table g_levelFlagTable is clear. */
 
-extern s32 SetN64_GetPackSectionSize(void *table, s32 index);
+
 
 void Scene_DispatchEnabledEntityTrigger(WorldSceneDispatchEnabledEntityTrigger *world, Entity *entity) {
     s32 index;
@@ -762,7 +786,7 @@ typedef struct LightVolumeRecord {
 
 extern s32 SetN64_GetPackSize(s32 *bitSet);
 extern void *Cache_AllocResourceBlock(s32 pool, void *handle, s32 size);
-extern void Cache_ReplaceResourceBlock(s32 pool, void *handle, void *block);
+
 
 extern void Statinst_InitializePlacedProp(ObjA *prop, PackedPlacedPropDefinition *record, s32 owner, char *segments, f32 spacing);
 extern void Statinst_InitPlacedProp(ObjA *prop, PlacedPropRecord *record, s32 owner, char *segments);
@@ -927,12 +951,12 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
     }
 }
 
-extern void Playerai_UpdatePlayerRenderResources(void *pool, void *world);
-extern s32 InstHdr_CanActorReceiveInteraction(void *actor);
+
+
 extern s32 InstHdr_HasEnabledMotionHooks(void *actor);
 extern void Gobjinst_RotatePoseMatrixBuffers(void *actor);
 extern f32 Gsky_GetDistanceTo(void *camera, CVector3 *position);
-extern s32 Visdata_TestBoxAgainstFrustum(void *planes, void *bounds);
+
 struct CAnimPool; extern void Animpool_UpdateSceneEffects(struct CAnimPool *scene, s32 world);
 
 typedef struct SceneVisibilitySettings {

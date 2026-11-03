@@ -32,6 +32,7 @@ extern void Frontend_StartMenuImageTransition(s32 *record);
 #include "MENU/SCROLL.H"
 #include "TYPES.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
 extern Shared_OptionsScreen *g_optionsShortcutScreen;
 extern Shared_MenuReply g_selectionMessageReply;

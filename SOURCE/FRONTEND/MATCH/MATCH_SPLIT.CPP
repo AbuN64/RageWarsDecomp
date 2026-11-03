@@ -64,6 +64,7 @@ s32 Match_ClearGermanLoadingHints(void) {
 #include "COMMON/GAME_SESSION.H"
 #include "COMMON/MENULISTSCREEN.H"
 #include "COMMON/REQUESTRECAT10.H"
+#include "MATCH/MATCH_SPLIT.H"
 
 /* Handles the menu message Menu_GetFocusedElementId reports after MarkMenuEventHandled. 0x1D5: when
    Menu_GetPreviousScreenOwner(0) reports 0x16 it stops the menu object and the menu data g_playerViewRenderContext, releases

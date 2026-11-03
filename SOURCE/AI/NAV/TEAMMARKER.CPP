@@ -12,9 +12,11 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "AI/NAV/NAV_EVALUATECAPTUREFLAGMARKERSEARCH.H"
 #include "include_asm.h"
+#include "AI/NAV/TEAMMARKER.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
 
 /* TEAMMARKER__TEAMMARKER.CPP */
-extern f32 Scaled_GetScaledAggression(void *controller);
+
 
 extern s32 g_matchRoundCounters;
 

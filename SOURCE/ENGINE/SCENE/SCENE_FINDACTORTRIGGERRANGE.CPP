@@ -9,18 +9,23 @@
 #include "TYPES.H"
 #include "ENGINE/DEFS.H"
 #include "COMMON/APPROACHLOCATION.H"
-extern s32 SetN64_LocatePackSection(void *directory, s32 bankOffset, s32 sectionIndex, s32 *sectionSizeOut);
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SETN64.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+
 
 extern void SetN64_SpawnModelEffect(s32, s32, s32, Triple, Triple, s32, f32);
 
 
-extern f32 Region_GetPolygonHeight(void *, f32, f32);
 
-extern f32 Graphu64_GetTrianglePlaneHeight(void *node, f32 x, f32 z);
 
-extern s32 SetN64_GetDirectoryEntry(s32 *directory, s32 bankOffset, s32 level);
 
-extern void Link_ActivateTrigger(void *trigger);
+
+
+
+
 
 void Scene_SpawnUnrotatedEffect(s32 worldAddress, s32 ownerId, Triple position, s32 modelId, f32 lifetime) {
     Triple zero;

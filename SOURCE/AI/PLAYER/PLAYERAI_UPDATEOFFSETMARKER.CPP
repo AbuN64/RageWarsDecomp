@@ -5,6 +5,7 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/PLAYER_ACTION_AND_POSE_VIEWS.H"
 #include "TYPES.H"
+#include "ENGINE/GDYNLIGHT.H"
 
 
 /* Places a marker in front of an actor: takes the node in *slot or allocates one from pool
@@ -19,7 +20,7 @@
 
 extern f32 g_playerOutOfBoundsAndMarkerHeightConstants[];
 
-extern Marker *Gdynlight_AllocateLightNode(char *, s32);
+
 
 #include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
 

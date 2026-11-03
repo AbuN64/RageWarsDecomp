@@ -6,6 +6,8 @@
 #include "COMMON/MANAGER.H"
 #include "TYPES.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 extern s32 g_gameFrameCounter;
 
 /* Initialises a placed prop from its compact record: resets its state and owner, loads its model and
@@ -34,15 +36,15 @@ extern s32 g_defaultCameraSurfaceType[];
 
 
 extern void Insthdr_ResetInstanceRenderIndices(ObjA *, PackedPlacedPropDefinition *, s32, char *);
-extern PropGeometry *Scene_GetActorDefinition(void *, s32);
-extern void ScaleMatrixLocal(char *, f32, f32, f32);
-extern void TranslateMatrix(char *, f32, f32, f32);
+
+
+
 extern void SwapMatrixUpForward(char *);
-extern void CopyMatrix(char *, char *);
+
 extern void Graphu64_ConvertMatrixToFixed(char *, char *);
 
 #if defined(VERSION_DE)
-extern s32 InstHdr_GetActorType(void *);
+
 #endif
 static inline s32 advancePropKey(void) {
     s32 next;

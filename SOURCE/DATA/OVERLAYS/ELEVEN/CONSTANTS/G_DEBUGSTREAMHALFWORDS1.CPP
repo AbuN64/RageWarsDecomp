@@ -1,4 +1,5 @@
 #include "DATA_OVERLAY_SN_RECORDS.H"
+#include "TURRETAI/TURRET_TRACKTARGET.H"
 
 
 #if defined(VERSION_US_REV1)

@@ -5,6 +5,8 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "TYPES.H"
 #include "../include/libgultra.h"
+#include "../include/libultra/libultra_receivedebuglinkimage.H"
+#include "../include/libultra/libultra_writedebuglinkblock.H"
 
 #if defined(VERSION_US_REV1)
 
@@ -14,11 +16,11 @@ extern s32 Libultra_ReadDebugLinkByte(u8 *);
 
 extern u8 g_debugLinkImageFormatText;
 
-extern void Libultra_WriteDebugLinkBlock(s32, s32);
 
 
 
-extern void Libultra_ReadDebugLinkBlock(s32, s32, void *);
+
+
 
 s32 Libultra_DispatchDebugLinkCallback(void) {
     ReadWord first;

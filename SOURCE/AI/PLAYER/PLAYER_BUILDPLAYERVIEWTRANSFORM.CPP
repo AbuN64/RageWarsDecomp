@@ -17,6 +17,14 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/S2.H"
 #include "COMMON/PLAYER_ACTION_AND_POSE_VIEWS.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_UPDATEFRAGTAGSELECTION_DATA__PLAYER_UPDATEFRAGTAGSELECTION_DATA.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PLAYERAI/G_PLAYERSTEXT.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
+#include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* 800C7C6C.CPP */
 
@@ -56,9 +64,9 @@ void Player_AllocPlayerList(PlayerList *list, int count) {
 extern f32 g_frameElapsedTime;
 extern MenuWeaponsUpdateWorldPlayers g_matchEndingTeamWheelClose;
 extern Game g_gameplayRoundState;
-extern void Playerai_BuildEyeMarkerTransform(SharedPlayer *);
+
 extern void Player_UpdateBodyMovementAndActions(SharedPlayer *);
-extern void Player_UpdatePlayerCamera(SharedPlayer *, SharedPlayer *);
+
 
 extern s32 Control_IsStartPressed(Shared_Effect *);
 
@@ -66,9 +74,9 @@ extern s32 Tsmos_IsFrontendActive(void);
 extern int Menu_CountLiveNodes(struct CMenu_t **head);
 extern void TeamSelect_EmptyWeaponWheelHook(char *);
 
-extern void Playerai_UpdateRoundLimits(WorldWeaponsUpdateWorldPlayers *);
-extern void Player_UpdateFragTagSelection(WorldWeaponsUpdateWorldPlayers *);
-extern void Player_ReleaseWaitingPlayer(WorldWeaponsUpdateWorldPlayers *);
+
+
+
 
 void Player_UpdateWorldPlayers(WorldWeaponsUpdateWorldPlayers *world) {
     f32 frameTime;
@@ -119,7 +127,7 @@ void Player_UpdateWorldPlayers(WorldWeaponsUpdateWorldPlayers *world) {
     }
 }
 
-extern void MultiplyQuaternions(CQuatern *out, CQuatern *a, CQuatern *b);
+
 
 void Player_BuildPlayerOrientation(Player *player, CQuatern *output)
 {
@@ -161,8 +169,8 @@ void Player_BuildPlayerOrientation(Player *player, CQuatern *output)
 }
 
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
-extern void Graphu64_BuildTranslationMatrix(f32 matrix[4][4], f32 x, f32 y, f32 z);
-extern void Graphu64_MultiplyAffineMatrices(f32 out[4][4], f32 a[4][4], f32 b[4][4]);
+
+
 /* Builds a player view matrix: the eye height (base height plus camera offset less the crouch depth,
    at least 40.96) and the view pitch, yaw and roll (each with its kick and sway, the pitch less the
    head bob) become one half-angle quaternion per axis, combined roll * (pitch * yaw), then the

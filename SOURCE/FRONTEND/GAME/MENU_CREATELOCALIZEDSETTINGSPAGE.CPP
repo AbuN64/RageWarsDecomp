@@ -9,6 +9,9 @@
 #include "COMMON/OWNERRECAT8V1.H"
 #include "COMMON/MENU_OPTIONS_AND_RESULTS.H"
 #include "TYPES.H"
+#include "GAME/MENU_CREATELOCALIZEDSETTINGSPAGE.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 extern OptionsCommitContext *g_optionsPage;
 /* Per-language label pointer tables, indexed by the settings language byte (0x581). */
 extern u8 *g_optionsFirstChoiceLabels[];
@@ -18,11 +21,11 @@ extern u8 *g_optionsResolutionThirdChoiceLabels[];
 extern u8 *g_optionsLocalizedShortcutText[];
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern s32 Defs_GetMemorySize(void);
-extern struct MenuFadeWidget *SmpFade_CreateFadeWidget(s32, s32);
+
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(s32, s32);
-extern MenuListWidget *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *, u8 *);
-extern void SmpButton_SelectListEntry(struct MenuListWidget *, s32);
+
 extern MenuSliderWidget *SmpSlider_CreateSliderWidget(s32, s32, s32);
 extern void SmpSlider_SetSliderItem(Scroll *, s32);
 extern MenuWidget *Node_FindWidgetByResourceId(void *, s32);

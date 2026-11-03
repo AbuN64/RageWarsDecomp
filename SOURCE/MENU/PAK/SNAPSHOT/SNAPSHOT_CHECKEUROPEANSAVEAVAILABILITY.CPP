@@ -10,6 +10,10 @@
 #include "COMMON/MENURECAT24.H"
 #include "TYPES.H"
 #include <ultra64.h>
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 #if defined(VERSION_EU)
 #define Snapshot_CheckControllerPak Snapshot_CheckEuropeanSaveAvailability
@@ -24,12 +28,12 @@ void Note_ProbeStatus(s32);
 s32 Note_GetStatus(s32);
 s32 Note_CountFreeNotes(s32, s32 *);
 int Note_GetFreePages(int, int *);
-s32 Note_GetNoteGameName(s32, s32, char **);
+
 s32 Note_NeedsIdRepair(s32);
-void Note_DecodeNoteText(u8 *, u8 *, s32);
+
 u32 Note_BytesToPakPages(u32);
 s32 Snapshot_EvaluateSaveChannel(void *, s32, s32 *, s32 *);
-void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 extern s32 g_pakDialogPromptScannedChannel;
 extern s32 g_pakDialogIdRepair_SnapshotCheckeuropeansaveavailability;
 /* Per-version dialog scripts opened by Snapshot_CheckControllerPak. */
@@ -253,9 +257,9 @@ extern void Note_ProbeStatus(s32 ch);
 extern s32 Note_GetStatus(s32 ch);
 extern s32 Note_IsChannelReady(s32 ch);
 extern s32 Note_NeedsIdRepair(s32 ch);
-extern void Snapshot_CreateSaveSnapshot(ActorOwnerView *);
+
 extern u32 Note_Crc32(u8 *data, u32 byteCount, u32 initialCrc);
-void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 /* The channel the pak menu works on: the scanned channel g_introSelectedItem while g_pakUseScannedChannel is set, else the slot's. */
 static __inline__ void pakGetChannel(Shared_PakMenu *menu, s32 *channel) {
     if (g_pakUseScannedChannel != 0) {

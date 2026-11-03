@@ -5,6 +5,9 @@
 #include "COMMON/RECORDRECAT1C.H"
 #include "COMMON/MENURECAT24.H"
 #include "TYPES.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
 
 /* Enters pak menu mode 2: sets the mode flags, shows the g_controllerPakNotReadyDialogResource prompt when a message is pending (g_pakPlayerMessagePending), and otherwise clears the owner's 0x01000000 flag, probes the Controller Pak on the selected channel, falls back to Snapshot_MarkSaveNotes when Note_GetStatus reports none, and shows the g_pakChannelReadyMessage_SnapshotCheckstatusprompt, g_pakDialogIdRepair_SnapshotCheckeuropeansaveavailability or g_pakChannelNotReadyDialog_SnapshotCheckstatusprompt prompt according to Note_IsChannelReady_SnapshotEvaluatesavechannel and Note_NeedsIdRepair. */
 
@@ -29,7 +32,7 @@ extern void Note_ProbeStatus(s32 ch);
 extern s32 Note_GetStatus(s32 ch);
 extern s32 Note_IsChannelReady(s32 ch);
 extern s32 Note_NeedsIdRepair(s32 ch);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 void Snapshot_BeginBlockLoad(Shared_PakMenu *menu)
 {
   Shared_PakMenu *activeMenu;
@@ -95,8 +98,8 @@ extern char g_pakPortThreePrompt_de[];
 extern u32 Note_BytesToPakPages(u32);
 extern s32 Note_GetFreePages(s32, s32 *);
 extern s32 Note_CountFreeNotes(s32, s32 *);
-extern s32 Note_FindFreeNoteExtension(s32, char *);
-extern s32 Note_SaveNote(s32, s32, void *, char *, char *, char *);
+
+
 extern void Cache_DrainAndCompactResources(s32);
 /* Save the small controller-pak record when capacity allows, release the
  * pending resources, and show the channel-specific success/error dialog. */

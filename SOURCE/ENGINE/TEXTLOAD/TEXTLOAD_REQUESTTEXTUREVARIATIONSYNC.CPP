@@ -2,6 +2,7 @@
 #include "TYPES.H"
 #include "COMMON/TEXTURE_REQUEST.H"
 #include "COMMON/WORLD.H"
+#include "TEXTLOAD/TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC.H"
 
 /* Request a texture resource with synchronous loading. */
 void **Textload_RequestTextureVariationSync(s32 *resource, s32 variation)

@@ -23,6 +23,7 @@ struct PlayerRankInner;
 
 
 #include "COMMON/BALLISTICPARAMS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
 
 
 
@@ -32,5 +33,5 @@ extern const char g_playerMenuValueFormat[];
 #else
 extern char g_fmtDec4Pad[];
 #endif
-extern s32 Player_GetPlayerIndex(void *, void *);
+
 #endif

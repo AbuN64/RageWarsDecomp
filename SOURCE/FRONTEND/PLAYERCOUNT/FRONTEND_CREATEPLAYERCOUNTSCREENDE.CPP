@@ -1,13 +1,15 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "include_asm.h"
+#include "PLAYERCOUNT/FRONTEND_CREATEPLAYERCOUNTSCREENDE.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 #if defined(VERSION_DE)
 extern struct PlayerCountScreenState *g_playerCountScreen;
 extern char s_playerCountFormat[];
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Tsmos_ActivateControllerState(void);
-extern void *SmpFade_CreateFadeWidget(s32 a, s32 b);
+
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern void SmpButton_WrapButtonWidget(s32 a);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);

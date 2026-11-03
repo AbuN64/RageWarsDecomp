@@ -10,6 +10,7 @@
 #include "ENGINE/DEFS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "MATH/DOUBLEBITS.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 f32 Rumble_SamplePackedFloatRange(s32 packedRange);
 

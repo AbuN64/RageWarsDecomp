@@ -10,6 +10,8 @@
 #include "TYPES.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include <ultra64.h>
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 extern u32 g_secondaryRandomSeed;
 extern f32 g_boundedIntegrationAndEaseConstants[2];
 
@@ -33,7 +35,7 @@ extern f32 g_boundedIntegrationAndEaseConstants[2];
 
 
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 
 
 static inline CVector3 *cross_edges(CVector3 *out, Node75 *node) {

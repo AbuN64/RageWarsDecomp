@@ -10,6 +10,8 @@
 #include "RENDER/PLAYER_SPAWN_PLACEMENT.H"
 #include "WEAPONS/PLAYER_MOVEMENT_INTERFACES.H"
 #include "MENU/PAK_LOAD.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "AI/PLAYER/PLAYER_RESETPLAYERFORROUND.H"
 
 /* Starts a player's run: in a multiplayer session (g_motionVisibilitySettings) picks the lap count from the chosen track through Player_GetLevelProgress_MatchGetresulttext in mode 1 or from the loaded course in mode 4 for a human player, sets the run type at 0x5EA (1, or 3 in single player), clears 0x13C8 and 0x85C around Player_ResetRespawnedPlayer, then starts its vehicle through Player_PlacePlayerAtSpawnPoint with model 0xC1D for a computer player in state 12 during stage 9 and its own model otherwise, doubled when g_playerCount is two or more. */
 
@@ -23,7 +25,7 @@ extern Course *g_currentStagePreset;
 extern s32 g_activeLinkSequenceId;
 
 extern s32 Player_GetLevelProgress(char *, s32);
-extern void Player_ResetRespawnedPlayer(SharedPlayer *);
+
 extern void Playerai_EndRound(void *);
 
 extern u8 g_gameControllerMode; /* MIXED Player_PlacePlayerForRound */

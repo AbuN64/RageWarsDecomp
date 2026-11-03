@@ -12,9 +12,12 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "RENDER/SETN64_UPDATEFADETRANSITION.H"
 #include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "ENGINE/RUMBLE.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* 80263760_8.CPP */
-extern void Rumble_FreeAllPoolNodes(s32 *);
+
 
 /* Advances the replay mode: when replays are possible (SetN64_IsModeThirteen, g_sessionOptionResetMode and the handle table) it
  * cycles the mode 0 -> 1 -> 2 -> 0, snapshots the actors and records the camera target, promoting mode 1
@@ -23,7 +26,7 @@ extern void Rumble_FreeAllPoolNodes(s32 *);
 
 extern s32 g_activeActorKind;
 
-extern void *Playerai_GetFirstPlayer(void *);
+
 
 /** Return the global word at g_controllerActorSnapshotSavedActorId. */
 
@@ -34,7 +37,7 @@ extern void *Playerai_GetFirstPlayer(void *);
  * saved handle through Scene_GetModelSectionTwoRecord. Adapted from the snapshot writer Control_SaveActorSnapshot, reading both tables
  * through local pointers and re-taking the actor list address in the loop increment. */
 
-extern s32 Scene_GetModelSectionTwoIndex(Shared_World *table, s32 id);
+
 
 const float k_ControlCycleactorsnapshotmodeEncodedWords[3] = {
     1.0f, 1.0f, 0.003921569f,

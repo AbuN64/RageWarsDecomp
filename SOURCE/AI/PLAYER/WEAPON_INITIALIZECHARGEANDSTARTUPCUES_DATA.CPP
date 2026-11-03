@@ -8,10 +8,11 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "TYPES.H"
+#include "AUDIO/VOICE.H"
 
 
 extern s32 *SoundVoicePool_GetGlobalState(void);
-extern s32 SoundVoicePool_StopNode(void *, void *);
+
 
 void Playerai_StartPrimaryAttachedSound(Shared_ActorView *actor, s32 soundId) {
     s32 viewAddress;

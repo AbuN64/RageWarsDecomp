@@ -88,6 +88,7 @@ void Weaponai_InitializeSwitchForSingleRound(void *actor, WeaponFireState *fireS
 
 #include "TYPES.H"
 #include "WEAPONS/PLAYER_INVENTORY.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
 
 typedef struct WeaponOwner { u8 pad0[0x1D8]; WeaponPlayer *player; } WeaponOwner;
 typedef struct WeaponSlot {
@@ -99,7 +100,7 @@ typedef struct WeaponSlot {
     s32 flag144;
     f32 timer148;
 } WeaponSlot;
-s32 Particle_CountOwnerListOneEffects(s32 *, void *);
+
 extern char g_actorParticleEffectSystem[];
 s32 Weaponai_CanStartFiring(void *owner, void *slot) {
     WeaponOwner *weaponOwner = (WeaponOwner *)owner;

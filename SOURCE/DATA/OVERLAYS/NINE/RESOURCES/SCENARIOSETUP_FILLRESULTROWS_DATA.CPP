@@ -1,14 +1,17 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "TYPES.H"
+#include "MATCH_REASON/MATCH_REASON.H"
+#include "RESULTS/FRONTEND_ACTIVATERESULTSACTION.H"
+#include "UI/TSMOS/SCREENS/SCENARIOSETUPSCREEN.H"
 
 extern char Frontend_ActivateResultsAction[];
-extern char Frontend_ConsumeResultsEvent[];
-extern char Frontend_DestroyMatchResults[];
-extern char Frontend_HandleResultsConfirmation[];
-extern char Frontend_ScrollResultsBackward[];
-extern char Frontend_ScrollResultsForward[];
-extern char Frontend_UpdateMatchResultsTransition[];
-extern char ScenarioSetup_OpenResultsScreen[];
+
+
+
+
+
+
+
 extern char g_Frontend_ActivateResultsActionPackedAddress24[];
 extern char g_Frontend_ConsumeResultsEventPackedAddress24[];
 extern char g_Frontend_DestroyMatchResultsPackedAddress24[];

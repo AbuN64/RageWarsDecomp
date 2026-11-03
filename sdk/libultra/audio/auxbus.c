@@ -4,6 +4,7 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "include_asm.h"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "../../include/libultra/audio/auxbus.h"
 
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 /* alAuxBusPull: clears the aux left and right output buffers, then pulls every source filter of the bus into the command list. */

@@ -6,7 +6,8 @@
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/SHARED_GAMESLOT.H"
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+
 
 s32 Items_AdjustLanguage(void *first, void *second) {
     Shared_Game *game = &g_gameSettings;

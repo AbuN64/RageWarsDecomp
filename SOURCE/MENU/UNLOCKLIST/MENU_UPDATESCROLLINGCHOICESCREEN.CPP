@@ -5,6 +5,7 @@
 #include "COMMON/OWNERRECAT8V1.H"
 #include "TYPES.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "PLAYERCOUNT/FRONTEND_UPDATEPLAYERCOUNTSCREEN.H"
 extern struct StateMenuUpdateScrollingChoiceScreen *g_unlockGatedListScreen;
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);
 extern s32 Defs_TestBit(void *, s32);

@@ -4,6 +4,7 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/TRIPLE.H"
 #include "MENU/TEAMMENU.H"
+#include "CTEAMSELECT/PLAYER_RESETPLAYERFORROUND_DATA.H"
 
 struct WeaponMenuPlayer {
     char pad[0x5DC];
@@ -41,11 +42,17 @@ struct Shared_MenuItemList {
 };
 extern f32 g_teamWheelInitialSlotScale;
 
-extern void TeamSelect_ResetTeamWheel(TeamMenu *menu);
+
 
 struct CBarrel_t;
 extern void TeamSelect_DrawWeaponWheel(struct CBarrel_t *menu, s32 unusedArgument, s32 viewPlayer);
 
-extern void TeamSelect_ResetWeaponWheel(CBarrel *menu);
+
 extern f32 CTeamSelect_ComputeDirectedAngleStep(f32 currentAngle, f32 targetAngle, s32 turnDirection, f32 approachRate);
+void TeamSelect_DrawWeaponWheelSprites(s32 menu, s32 unusedView, s32 player);
+struct CBarrel_t;
+void TeamSelect_ResetWeaponWheel(struct CBarrel_t *menu);
+struct WeaponWheelDraftState;
+struct DraftPlayer17F4C;
+void TeamSelect_UpdateDraftPanel(struct WeaponWheelDraftState *state, struct DraftPlayer17F4C *player, s32 unused2);
 #endif

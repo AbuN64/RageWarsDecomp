@@ -12,13 +12,17 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
-extern s32 SetN64_GetDirectoryEntry(s32, s32, s32);
-extern s32 SetN64_LocatePackSection(void *, s32, s32, s32 *);
-extern s32 Scene_GetActorDefinition(void *, s32);
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "ENGINE/SETN64.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+
+
+
 #include "COMMON.H"
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 struct Shared_World;
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
+
 extern s32 Scene_GetModelIdAtIndex(void *, s32);
 extern void Gobjinst_InitializeActor(SceneEffect *, s32, s32, s32, s32, s32, s32, f32, CVector3, s32, CVector3, CVector3, s32);
 extern void Gobjinst_DispatchActorTypeUpdate(char *actor);

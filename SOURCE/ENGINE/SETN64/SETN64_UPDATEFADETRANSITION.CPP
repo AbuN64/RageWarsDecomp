@@ -9,9 +9,9 @@
 #include "ENGINE/SETN64.H"
 #include "RENDER/SETN64_UPDATEFADETRANSITION.H"
 #include "../../../sdk/include/AUDIO/sprintf.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
 
-extern void SetN64_DrawColorRectangle(void *unused, s8 *color, s32 left, s32 top,
-                          s32 right, s32 bottom);
+
 
 
 void SetN64_StartGameThreadAndIdle(s32 *gameSession, s32 threadArgument);

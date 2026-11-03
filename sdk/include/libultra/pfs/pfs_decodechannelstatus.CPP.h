@@ -1,0 +1,4 @@
+#ifndef LIBULTRA_PFS_PFS_DECODECHANNELSTATUS_CPP_H
+#define LIBULTRA_PFS_PFS_DECODECHANNELSTATUS_CPP_H
+s32 __osPfsGetStatus(void *queue, int channel);
+#endif

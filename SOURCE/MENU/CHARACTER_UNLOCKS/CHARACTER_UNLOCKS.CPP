@@ -13,6 +13,7 @@
 #include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
 #include "FRONTEND/FRONTEND_DRAWMODELPREVIEW.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 #define g_gameSettingsView ((HudStatusShared_Settings *)&g_gameSettings)
 
 

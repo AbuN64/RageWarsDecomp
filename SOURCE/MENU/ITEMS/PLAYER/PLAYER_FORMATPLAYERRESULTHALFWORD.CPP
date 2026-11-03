@@ -7,6 +7,8 @@
 #include "COMMON/MENURECAT20V1.H"
 #include "COMMON/ACTORRECAT260.H"
 #include "ENGINE/DEFS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 
@@ -23,8 +25,8 @@ extern char g_playerViewRenderContext[];
 #endif
 
 extern char g_fmtDec4Pad[];
-extern s32 Player_GetPlayerIndex(void *, unsigned int);
-extern s32 Menu_CountLineChars(LayeredText *);
+
+
 
 s32 Player_FormatPlayerResultHalfword(LayeredText *field, struct MenuRules *holder) {
 

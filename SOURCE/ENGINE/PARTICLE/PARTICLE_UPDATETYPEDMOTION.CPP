@@ -12,10 +12,15 @@
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "COMMON/APPROACHLOCATION.H"
+#include "AUDIO/VOICE.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
 /* 8027A0F4.CPP */
 extern s32 *SoundVoicePool_GetGlobalState(void);
-extern s32 SoundVoicePool_StopNode(void *,void *);
+
 static inline void makeImpulse(CVector3 *input,f32 scale,CVector3 *out){Graphu64_ScaleVector(out,input,scale);}
 static inline void addImpulse(CVector3 *v,CVector3 *impulse){Graphu64_AddVec3(v,v,impulse);}
 void Particle_SteerSoundTrackingParticle(void *particle) {
@@ -143,7 +148,7 @@ block_21:
 #define FIELD(type, base, off) (*(type *)((char *)(base) + (off)))
 #endif
 extern char g_actorParticleEffectSystem[];
-extern void Player_TransformPointByViewOrOwnerMatrix(void *, CVector3 *);
+
 extern void Particle_DispatchActorContactEvents(void *);
 struct EffectSystem; struct ParticleEffect; extern void Particle_Release(struct EffectSystem *owner, struct ParticleEffect *releasedEffect);
 /* Steers a homing particle (sound 0x8AC) at its target, or straight ahead when it has none: keeps its loop
@@ -333,7 +338,7 @@ void Particle_SteerToward(AccelSteeringObj *particle, AccelSteeringVec *goal) {
 
 extern ActorEmitterSource *g_currentActorInstance;
 
-extern void Link_DispatchActorLinks(ActorEmitterSource *state, s32 bits, ActorParticleDispatchOwnerContactLinks *actor);
+
 
 static inline s32 is_group_a(ActorParticleDispatchOwnerContactLinks *actor) {
     switch (actor->type) {

@@ -6,6 +6,8 @@
 #include "include_asm.h"
 #include "RENDER/MATERIAL_COLOR_AND_FOG_VIEWS.H"
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
+#include "GOBJINST/GOBJINST_BUILDACTORTRANSFORM.H"
+#include "GOBJINST/PLAYER_DRAWTINTEDPLAYER_DATA.H"
 #if defined(VERSION_US_REV1)
 f32 Bound_ReadBoundValue(MenuBindingItemView *item) {
  Binding *v = item->binding;
@@ -41,13 +43,13 @@ void Bound_WriteBoundValue(MenuBindingItemView *item,float value) {
 }
 #endif
 /* Calls Gobjinst_DrawMaskedModelWithLighting with its three arguments and the table g_defaultParticleLighting as the fourth. */
-extern void Gobjinst_DrawMaskedModelWithLighting(void *, void *, void *, void *);
+
 #if defined(VERSION_US_REV1)
 void Bound_DrawActorWithMenuLighting(void *first, void *second, void *third) {
     Gobjinst_DrawMaskedModelWithLighting(first, second, third, &g_defaultParticleLighting);
 }
 #endif
-extern void Gobjinst_DrawActorModelWithViewEffects(ObjectItemsDrawActorWithRedMenuEffect *, void *, void *);
+
 #if defined(VERSION_US_REV1)
 void Bound_DrawActorWithRedMenuEffect(ObjectItemsDrawActorWithRedMenuEffect *object, void *context, void *lookup) {
  g_menuModelFillEnabled=3;

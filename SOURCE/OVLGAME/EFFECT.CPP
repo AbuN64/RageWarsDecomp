@@ -4,10 +4,12 @@
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "RENDER/EFFECT_POOL_OPERATIONS.H"
 #include "COMMON/TRIPLE.H"
+#include "OVLGAME/EFFECT.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
 
 /* EFFECT.CPP */
 /* EFFECT.CPP */
-extern void Playerai_InitializeCompactAnimationState(void *definition);
+
 /* Initialises the pool of 32 effect slots in a world record: threads them into a free list (slot 0 has no
  * predecessor, slot 31 no successor), empties the live list, sets up the two shared effect definitions
  * and points every slot at the default definition through SetN64_InitializeEffectSlot. */

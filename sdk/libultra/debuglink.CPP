@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "TYPES.H"
 #include <ultra64.h>
+#include "../include/libultra/debuglink.H"
 
 #if defined(VERSION_US_REV1)
 extern s8 g_debugLinkDataByte;

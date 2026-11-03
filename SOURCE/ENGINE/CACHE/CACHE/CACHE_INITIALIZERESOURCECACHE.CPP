@@ -32,10 +32,13 @@ extern CMemEntry *g_resourceAllocationCandidate;
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
 
 #include "COMMON/ENTRYRECAT18V3.H"
+#include "ENGINE/CACHE/HEAP.H"
+#include "ENGINE/CACHE/MUTEX.H"
+#include "ENGINE/DEFS.H"
 /* The resource manager record at g_resourceCacheManager: node array, free-slot stack, link records, lists and its lock queue.
  * count (0xBDC) and stamp (0xC20) are the Pool fields used by Cache_AcquirePendingResourceEntry. */
-extern s32 Heap_AllocateFromFront(void *, s32);
-extern void Mutex_InitializeQueueLock(OSMesgQueue *);
+
+
 extern u32 Defs_GetMemorySize(void);
 
 extern void HashTable_InitializeResourceTable(s32);
@@ -181,9 +184,9 @@ static inline void *pool_alloc(s32 byteCount) {
 }
 
 
-extern void Defs_MoveMemory(u32, u32, s32);
 
-extern void List_InsertBeforeIntrusive(void *, s32, s32);
+
+
 
 /* Looks up a key in the hash table under the queue lock and, if found, bumps the object's reference count, flags it, stamps it and passes it to List_MoveIntrusiveToHead, returning the object. Adapted from Cache_TouchResourceByKey, with the count/flag updates added and the object returned. */
 
@@ -196,7 +199,7 @@ extern void List_InsertBeforeIntrusive(void *, s32, s32);
 extern struct MemoryUsageStats g_resourceHashEvenIndexMask;
 
 
-extern void List_MoveIntrusiveToHead(void *, s32);
+
 
 void Cache_WaitForResourceSlotRelease(void) {
     s32 lockReleaseCount;

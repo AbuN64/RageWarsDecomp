@@ -7,9 +7,10 @@
 #include "COMMON/WORLDSORTENTRY.H"
 #include "TYPES.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SETN64.H"
 
 
-extern void SetN64_GetPackSectionSize(s32 table, s32 index);
+
 
 void Rumble_SetActorStateBit(Shared_World *world, void *actor, s32 enabled) {
     LevelActor *entry;

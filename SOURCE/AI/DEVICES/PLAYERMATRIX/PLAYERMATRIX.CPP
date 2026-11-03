@@ -15,24 +15,29 @@
 #include "COMMON/LEVEL_ACTOR.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/PLAYER_CONTROLLER_RESET_VIEWS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "RENDER/TRIGGERED_UPDATETRIGGEREDMOTION.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 extern void BuildRollMatrix(void *matrix, f32 rollAngle);
 
 
 
-extern void CopyMatrix(float *destinationMatrix, float *sourceMatrix);
 
-extern void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
 
-extern s32 Graphu64_LimitVectorLength(f32 *vectorComponents, f32 maximumLength);
 
-extern void TranslateMatrix(f32 *, f32, f32, f32);
+
+
+
+
 
 extern void SwapMatrixUpForward(void *);
 
 s32 Rumble_TestActorStateBit(void *, void *);
 
-void Triggered_UpdateTriggeredMotion(Player *mover, ActorMotionState *rider);
+
 
 void Triggered_PositionPlatformRider(MovingPlatformActorView *, MovingPlatformMotionStateView *);
 
@@ -79,12 +84,12 @@ void PlayerMatrix_ClearUnsupportedOpenFlag(void *actor, s32 *stateFlags) {
     }
 }
 
-extern void Link_DispatchActorLinks(void *actor, s32 eventMask, void *eventSource);
+
 
 
 extern void Rumble_SetActorStateBit(Shared_World *, void *, s32);
 
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 void PlayerMatrix_UpdateOpeningDelay(void *object, void *state) {
     Player *player = object;

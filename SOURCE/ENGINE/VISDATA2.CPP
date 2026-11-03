@@ -13,11 +13,14 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/OBJRECAT3CV2.H"
 #include "SYSTEM/ENGINE_DATA_SOURCE.H"
+#include "ANIMPOOL/ANIMPOOL_READSIGNEDBITS.H"
+#include "ENGINE/VISDATA2.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* VISDATA.CPP */
 s32 CBitReader_ReadBits(BitReader *, s32);
 
-extern void AnimPool_InitializeBitReader(BitReader *, void *);
+
 /* Decode a 17-by-17 region grid, then replace variable cells with stream offsets. */
 void Visdata_DecodeRegionGrid(ResourceBitGrid *grid, s32 originX, s32 originZ,
                    DraftStreamData *source, CVector3 *position) {
@@ -79,7 +82,7 @@ static inline int offset(int v){return v+9;}
 
 /* Builds six clipping planes from an eye point and four corner points: each of the first five planes takes as its normal the normalised cross product of two edges between the points and as its distance the normal's projection of a point on it (the third plane through the corners, the others through the eye), and the sixth plane is the third plane with its normal reversed, its distance projected through the eye. */
 
-extern void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
+
 extern void Graphu64_SubtractVectors(CVector3 *out, CVector3 *a, CVector3 *b);
 static inline void make_plane(PlaneEquation *plane, CVector3 *from, CVector3 *through, CVector3 *to, CVector3 *point) {
     CVector3 a;

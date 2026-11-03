@@ -11,6 +11,8 @@
 #include "COMMON/TRIPLE.H"
 #include "TYPES.H"
 #include "ENGINE/UNICOL/COLLIDE.H"
+#include "COLLIDE/CCOLLISION_TESTSEGMENTDISK.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* Tests a ray against a polygon with a radius: intersects the ray from 0x44 to 0x50 with the polygon's plane
  * through CCollision_IntersectFrontPlaneFraction and accepts a parameter nearer than the ray's nearest hit, also allowing a slightly
@@ -53,7 +55,7 @@ static inline s32 accepts(CapsuleSweep *ray, PolygonCCollisionTestSegmentPolygon
 
 extern World *g_collisionCurrentActor;
 
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
+
 
 s32 CCollision_TestSegmentDisk(CapsuleSweep *ray, PolygonCCollisionTestSegmentPolygon *poly, CVector3 *point, f32 radius, s32 keep) {
     if (CCollision_IntersectFrontPlaneFraction(poly, &ray->start, &ray->end, &poly->t) == 0) {

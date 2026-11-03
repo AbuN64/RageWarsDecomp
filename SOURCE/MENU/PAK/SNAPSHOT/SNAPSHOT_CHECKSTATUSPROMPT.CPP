@@ -16,6 +16,10 @@ extern s32 g_worldSnapshotNoteBytes;
 extern void *g_pakSnapshotResourceHandle;
 extern const char g_pakSingleSaveBlockName[];
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
+#include "UI/X_FILES/X_PLUS.H"
 extern f32 g_matchRoundCounters[];
 extern u8 g_worldSnapshotNoteData[];
 extern void Cache_DrainAndCompactResources(s32);
@@ -74,9 +78,8 @@ extern s32 g_pakUseScannedChannel;
 
 extern char *g_pakLegacySnapshotGameNameFixed;
 
-extern s32 Note_ReadNoteInfo(s32 ch, s32 index, s32 *exists, char *name, char *ext, s32 *size,
-                         char *company, char *code);
-extern s32 XPlus_StringLength(char *);
+
+
 
 /* Inlined into each title lookup: the loop pass merges the two address loads into one hoisted register,
  * which then outranks the loop-hoisted length constants 4 and 2 (a local pointer loses that race). */
@@ -165,7 +168,7 @@ extern char g_matchEndingTeamWheelClose[], g_controllerPakNotReadyDialogResource
 extern char g_pakChangeBusyDialog[], g_pakChannelNotReadyDialog_SnapshotCheckstatusprompt[], g_pakChannelReadyMessage_SnapshotCheckstatusprompt[], g_pakDialogDamagedPak[], g_pakScannedChannelReadyMessage[];
 extern void Note_ProbeStatus(s32);
 extern s32 Note_GetStatus(s32), Note_IsChannelReady(s32), Note_NeedsIdRepair(s32), Control_TakePakChange(s32);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 s32 Snapshot_CheckStatusPrompt(MenuPakBeginProfileLoad *menu, s32 channel, s32 quiet)
 {
     s32 result, busy, slot;

@@ -11,12 +11,14 @@
 #include <ultra64.h>
 #include "TYPES.H"
 #include "MENU/PAK/TIMER_CANCELPENDINGOPERATION.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 extern s32 g_pakUseScannedChannel;
 
-extern s32 Snapshot_CheckStatusPrompt(MenuPakBeginProfileLoad *, s32, s32);
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
 
 static __inline__ void pakShow(MenuPakBeginProfileLoad *menu) {
     s32 channel;

@@ -5,6 +5,7 @@
 #include "TYPES.H"
 #include "TYPES.H"
 #include <ultra64.h>
+#include "../include/libultra/libultra_writedebuglinkblock.H"
 
 #if defined(VERSION_US_REV1)
 /* Reads count bytes from the cartridge-domain port DEBUG_LINK_BLOCK_STATUS_BYTE into a buffer, waiting for bit 0x40 of DEBUG_LINK_TRANSMIT_STATUS_BYTE before each byte with g_debugLinkRetryLimit retries, accumulating a rotate-and-add checksum stored through the third argument and returning 1 on success. Adapted from Libultra_ReadDebugLinkByte with the single-byte read changed to a counted loop with a checksum and the strobe registers DEBUG_LINK_HANDSHAKE_REGISTER and DEBUG_LINK_TRANSFER_REGISTER raised and lowered around it. */

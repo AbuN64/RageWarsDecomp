@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/AIPROFILE.H"
+#include "OVLGAME/EFFECT.H"
 struct NodeSetN64CollectVisibleEffectNodes;
 struct NodeSetN64CollectVisibleEffectNodes {
     char pad0[0x17C];

@@ -11,14 +11,18 @@
 #include "COMMON/SOUNDINFO.H"
 #include "MENU/PAK/MODEL.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "OVLGAME/MATCH.H"
 
 #if defined(VERSION_US_REV1)
 /* Edits a byte, integer, or float option and propagates it to the active resource records. */
  /* extern */
-s32 Scene_GetModelRecordByIndexPointer(Shared_World *, s32); /* extern */
-s32 Menu_CountLineChars(void *); /* extern */
-s32 Menu_TryCreateMenu(void *, void *, s32); /* extern */
-s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap); /* extern */
+ /* extern */
+ /* extern */
+ /* extern */
+ /* extern */
 
 s32 Pak_AdjustModelField(OptionEditState *label, OptionEditState *menu, s32 third, s32 wrap, s32 fieldOffset, s32 step, s32 maximum, f32 displayDivisor) {
     s32 modelIndex;
@@ -94,7 +98,7 @@ s32 Pak_AdjustModelField(OptionEditState *label, OptionEditState *menu, s32 thir
    returns one. */
 #include "COMMON/GAME_SESSION.H"
 
-extern void Match_ResetMatchControllerState(void *);
+
 
 s32 Pak_StopMusicAndResetMatch(void) {
     SoundElement_SetMusicPlaybackEnabled(-1);

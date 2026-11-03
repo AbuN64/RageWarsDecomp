@@ -57,4 +57,6 @@ struct WorldSectionResourceView {
     unsigned char padding_0[5384];
     s32 *resource;
 };
+struct VertexColorMeshView;
+void Link_AnimateVertexColors(struct VertexColorMeshView *object, u8 *colors);
 #endif

@@ -8,6 +8,8 @@
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include "FRONTEND/MENUIMAGE.H"
 #include "FRONTEND/SCREEN.H"
+#include "FRONTEND/MENU_IMAGE.H"
+#include "MENU/MENU_FINISHTABOPTIONSTRANSITION.H"
 
 /* Event callback for the match setup screen g_optionsShortcutScreen: on event 1 with the screen in state 1 it
    advances it, and once it reaches state 2 either goes back (choice 0: resets the mode, shows the
@@ -29,7 +31,7 @@ extern struct Shared_OptionsScreen *g_optionsShortcutScreen;
 
 
 extern s32 Frontend_GetMenuImageState(s32 *record);
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Track_RequestTrackByKey(s32);
 extern void MarkMenuEventHandled();

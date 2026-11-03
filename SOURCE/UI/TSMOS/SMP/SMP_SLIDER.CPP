@@ -18,6 +18,8 @@
 #include "RESMGR/resmgr_string_memory.H"
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "MENU_CHOICE/FRONTEND_INITPLAYMODEMENU.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 /* SMP_SLIDER.CPP */
 /* Stores a mode at offset 0x58 of an object and plays sound 0xE77 for mode 1 or 0xE76 for mode 2
@@ -40,9 +42,9 @@ extern void Node_ReplaceNodeRefs(struct WidgetReferenceNodeView *node, void *fro
 
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 extern void Widget_DrawVisibleSiblings(void *, Args);
 

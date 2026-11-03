@@ -11,11 +11,12 @@
 #include "COMMON/ALAUXBUS_S.H"
 #include "../../include/libultra/audio/synthesizer.h"
 #include "../../include/libultra/audio/env.h"
+#include "DATA/OVL1_C/ENV.H"
 
 /* libultra audio/env.c, built with -fforce-addr (config.toml): the eqpower base stays in a register. */
 extern s16 g_audioEqualPowerPanTable[128]; /* eqpower */
 extern char g_audioEnvelopeSourceAssertText[]; /* Resident "EX" assertion expression. */
-extern char s_audioEnvText[]; /* "audio/env.c" */
+ /* "audio/env.c" */
 #define eqpower g_audioEqualPowerPanTable
 #define EQPOWER_LENGTH 128
 #define AL_RESAMPLER_OUT 0

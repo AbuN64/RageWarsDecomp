@@ -1,0 +1,5 @@
+#ifndef AI_PLAYER_PLAYER_STARTPLAYERANIMATION_H
+#define AI_PLAYER_PLAYER_STARTPLAYERANIMATION_H
+struct ItemsHandleOwner;
+void Player_ReleaseObjectHandles(struct ItemsHandleOwner *object);
+#endif

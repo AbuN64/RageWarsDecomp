@@ -6,6 +6,13 @@
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 #include "WEAPONS/AIM_TYPES.H"
+#include "AI/PLAYER/PLAYERAI_COMPUTEAIMROTATION.H"
+#include "AI/PLAYER/PLAYERAI_UPDATEAIMANDLOCKMARKER.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 
 
@@ -24,16 +31,16 @@ extern f32 g_frameElapsedTime;
 extern AimHit *g_collisionCurrentActor;
 extern char g_playerCollisionProbe;
 extern void *g_weaponInfoByType[];
-void CopyMatrix(f32 *, f32 *);
-void Player_BuildPlayerViewTransform(void *, f32 *);
-void Player_GetPlayerViewTranslation(void *, f32 *);
+
+
+
 s32 CCollision_SweepPoint(char *, CVector3, CVector3, s32);
 void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
-void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 f32 Gu_Sqrtf(f32);
 void Player_BuildAimMarkerMatrices(struct SharedPlayer *, CVector3 *, CVector3 *);
-CQuatern Playerai_ComputeAimRotation(void *, AimActor **, void *);
+
 CQuatern Gobjinst_BuildActorAimQuaternion(char *);
 typedef struct TargetLockAttackerView TargetLockAttackerView;
 typedef struct TargetLockTargetView TargetLockTargetView;

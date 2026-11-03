@@ -9,6 +9,9 @@
 #include "COMMON/MENURECAT24.H"
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
 
 /* Enters pak menu mode 1: sets the mode flags, clears the owner's 0x01000000 flag and, when a
    message is pending (g_pakPlayerMessagePending), shows the player's message at 0x554 through Menu_OpenDialog;
@@ -38,7 +41,7 @@ extern void Note_ProbeStatus(s32 ch);
 extern s32 Note_GetStatus(s32 ch);
 extern s32 Note_IsChannelReady(s32 ch);
 extern s32 Note_NeedsIdRepair(s32 ch);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 
 void Snapshot_BeginProfileLoad(Shared_PakMenu *menu) {
     s32 ch;
@@ -95,8 +98,8 @@ extern char *g_pakSnapshotGameNames[];
 
 extern s32 g_worldSnapshotNoteBytes;
 
-extern s32 Note_GetNoteGameName(s32 ch, s32 index, u8 **state);
-extern void Note_DecodeNoteText(u8 *state, u8 *name, s32 size);
+
+
 extern s32 Note_GetFreePages(s32 ch, s32 *freeSpace);
 extern s32 Note_CountFreeNotes(s32 ch, s32 *noteCount);
 extern u32 Note_BytesToPakPages(u32 size);

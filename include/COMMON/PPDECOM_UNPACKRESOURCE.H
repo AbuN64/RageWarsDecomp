@@ -2,5 +2,6 @@
 #define COMMON_PPDECOM_UNPACKRESOURCE_H
 #include "TYPES.H"
 
-extern s32 Ppdecom_UnpackResource(void ***, s32);
+
+s32 Ppdecom_UnpackResource(void **handle, s32 retainUncompressed);
 #endif

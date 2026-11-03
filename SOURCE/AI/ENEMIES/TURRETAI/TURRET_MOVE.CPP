@@ -5,6 +5,7 @@
 #include "COMMON/OBJ.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 typedef struct Owner Owner;
 
@@ -38,7 +39,7 @@ extern SharedPlayer *g_transientPlayerList;
 
 extern SharedPlayer **g_collisionCurrentActor;
 
-extern char g_particleCollisionProbeResult[];
+
 
 extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 

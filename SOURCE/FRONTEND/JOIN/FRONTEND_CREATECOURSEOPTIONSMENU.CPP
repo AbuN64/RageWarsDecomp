@@ -52,6 +52,8 @@ s32 Frontend_CreateCourseOptionsMenu(void *root) {
 #endif
 #if defined(VERSION_EU_X)
 #include "TYPES.H"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 /* 80406A88_14.CPP */
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Tsmos_ActivateControllerState(void);

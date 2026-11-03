@@ -16,7 +16,9 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include <ultra64.h>
 #include "RENDER/SETN64_GETPACKSECTION.H"
-extern s32 Defs_FindSortedValue(s32, s32, s32);
+#include "ENGINE/DEFS.H"
+#include "SEQUENCER/AUDIO_LOADMUSICSEQUENCE.H"
+
 #include "COMMON.H"
 extern f32 g_musicSequenceFallbackDuration;
 

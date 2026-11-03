@@ -10,6 +10,7 @@
 #include "COMMON/OSPIHANDLE_S.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "include_asm.h"
+#include "../../include/libultra/audio/drvrnew.h"
 
 /* alFxNew, drafted from ultralib src/audio/drvrnew.c: initialise the effect filter, pick the
    parameter table for the configured effect type, allocate the delay line and its sections, and

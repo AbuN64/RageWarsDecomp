@@ -1,5 +1,6 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
 #include "include_asm.h"
+#include "DECODER/GFXDATA.H"
 typedef struct HuffmanNode {
     unsigned short left;
     short right;

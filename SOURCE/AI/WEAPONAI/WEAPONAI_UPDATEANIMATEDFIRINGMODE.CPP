@@ -18,6 +18,10 @@
 #include "RENDER/WEAPON_INITIALIZECHARGEANDSTARTUPCUES_DATA.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 /* Advances a player's charging action: when the trigger is released (controller latch for a controlled
  * player, otherwise flag 0x2000 with no hold and a disallowed action) or the cooldown is past g_weaponChargeCooldownLimit, it
@@ -162,9 +166,9 @@ void Weaponai_SettleSpinToThirdTurn(Shared_Actor *actor, WeaponFireState *fireSt
 extern WeaponActionRecord g_weaponActionRecords[];
 extern char g_localPlayerProfiles[];
 
-extern s16 Weaponai_FindNextUsableWeapon(void *);
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
+
 extern s32 Weaponai_TryRequestFiringState(void *, void *);
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 #elif defined(VERSION_EU)

@@ -13,15 +13,17 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "SYSTEM/POLYTRAK2_INTERPOLATEJOINTQUATERNION.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/ANIM/BITARRAY.H"
+#include "ENGINE/SETN64.H"
 
 /* Switches an animation track to its pending clip when asked and the clip differs: keeps a copy of the track, loads the pending clip's resource and, when it is ready, reads its frame count and length, hands the old state to the previous track slot, restarts the track on the new clip and reports the switch; otherwise, or when not switching, it reloads the current clip and reports no switch. */
 
 
 
 
-extern char g_animationText;
 
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 
 
 extern s32 Gastate_IsAnimationResourceRetained(void *animationState);

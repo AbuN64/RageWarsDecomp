@@ -9,9 +9,11 @@
 #include "COMMON/OBJB.H"
 #include "OVLGAME/OVLGAME_INITIALIZEDYNAMICLIGHTPOOL.H"
 #include "COMMON/S1.H"
+#include "ENGINE/GDYNLIGHT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* GDYNLIGHT.CPP */
-extern void Graphu64_ScaleVector(void *, void *, f32);
+
 
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 

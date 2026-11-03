@@ -7,8 +7,10 @@
 #include <ultra64.h>
 #include "../../../sdk/include/libgultra_inferred/RNC_UNPACKMETHOD2.H"
 #include "../../../sdk/include/libgultra/RNC_UNPACKMETHOD1.H"
+#include "COMMON/PPDECOM_UNPACKRESOURCE.H"
+#include "ENGINE/CACHE/CACHE.H"
 
-void Cache_ReplaceResourceBlock(s32, void **, void *);
+
 void * Cache_AllocResourceBlock(s32, void *, s32);
 void * Cache_AllocatePinnedResourceBlock(s32, s32, s32);
 

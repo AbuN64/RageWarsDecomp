@@ -1,5 +1,6 @@
 #include "SYSTEM/ENGINE_DATA_SOURCE.H"
 #include "include_asm.h"
+#include "SETN64/SETN64_DRAWMODE4BACKDROP.H"
 #ifdef VERSION_DE
 #if defined(VERSION_US)
 

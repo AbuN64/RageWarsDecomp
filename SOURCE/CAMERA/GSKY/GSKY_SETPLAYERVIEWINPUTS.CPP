@@ -5,6 +5,8 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/VIEWFLAGS.H"
 #include "TYPES.H"
+#include "ENGINE/GREGION.H"
+#include "GSKY/GSKY_SETPLAYERVIEWINPUTS.H"
 
 /* Stores its parameters into the object at camera offsets 0x24 through 0x60, then refreshes the object's ground reference and picks its surface value at 0x64 from the ground under it. Adapted from Gsky_UpdateFloorSurface with the parameter block stores added and the k_cameraInputSurfaceDistanceScale thresholds changed. */
 
@@ -12,7 +14,7 @@
 
 extern s32 Cinema_IsSequenceInWindow(void);
 
-extern f32 Region_GetPolygonHeight(s32 node, f32 positionX, f32 positionZ);
+
 
 
 

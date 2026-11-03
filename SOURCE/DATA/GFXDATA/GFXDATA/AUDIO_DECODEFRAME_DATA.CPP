@@ -1,6 +1,7 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
 #ifdef VERSION_DE
 #include "COMMON/AUDIO_LOADDECODEDSAMPLES.H"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
 #endif
 extern unsigned short g_audioDecodedBlockCounter;
 extern char g_tlbMissExceptionVector[];

@@ -10,6 +10,12 @@
 #include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "AI/PLAYER_G03.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 /* Runs a player's aiming action: refreshes the idle state when the action is not allowed; while the aim
  * flag 0x4000 is held and the weapon may fire (as in Weaponai_TryEnterAlternateStateEight) the attack enters aiming and, for scoped
@@ -30,14 +36,14 @@ extern MatchRewardsRecord g_localPlayerProfiles[];
 extern u8 *g_weaponLockedNoticeText[];
 
 
-extern s32 Weaponai_FindNextUsableWeapon(void *);
-extern s32 Player_GetProfileAchievementFlag(void *, s32);
-extern s32 Player_GetPlayerIndex(void *, void *);
-extern CCameraText *Gsky_PostTargetedScreenMessage(void *, void *, u8 *, s32, f32);
+
+
+
+
 extern s32 Weaponai_TryRequestFiringState(void *, void *);
 
 #if defined(VERSION_EU_X)
-extern void Playerai_ToggleForceMarkerEuropean(void *, s32);
+
 
 #else
 #endif

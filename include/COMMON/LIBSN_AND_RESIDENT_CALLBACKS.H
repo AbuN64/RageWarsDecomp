@@ -1,8 +1,9 @@
 #ifndef COMMON_LIBSN_AND_RESIDENT_CALLBACKS_H
 #define COMMON_LIBSN_AND_RESIDENT_CALLBACKS_H
 #include "TYPES.H"
+#include "../../sdk/include/libultra/io/io.H"
 
-extern void Libsn_WritePortByte(s32 address, s32 value);
+
 
 extern void Turret_AdvanceRomEntry();
 extern void Turret_DecreaseHealthRomEntry();

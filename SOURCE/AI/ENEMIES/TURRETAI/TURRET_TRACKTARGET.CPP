@@ -17,16 +17,19 @@
 #include "TYPES.H"
 #include "AI/ENEMIES/TURRETAI.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "TURRETAI/TURRET_TRACKTARGET.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 void AI_DynTurretGetTargetInfo(SharedPlayer *player, TurretRiderTargetView *rider, Result *result);
 
-void Graphu64_TransformDirectionTranspose(void *matrix, void *inputVector, void *outputVector);
+
 
 void Turret_Move(struct Owner *owner, Rider *rider, s32 mode, SharedPlayer *target);
 
-void Barrel_SetLoopingSound(void *actor, void *stateController, s32 sixth);
 
-void Barrel_StopActorLoopingSound(void *actor, void *soundState);
+
+
 
 f32 Graphu64_ApproachValue(f32 current, f32 target, f32 rate);
 

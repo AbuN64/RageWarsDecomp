@@ -3,6 +3,7 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/CONTREADFORMAT.H"
 #include "TYPES.H"
+#include "../../include/libultra/io/crc.h"
 
 /** CRC-5-style bit-shuffle: 16 rounds folding bit 10 of blockAddress with a rotating tap. */
 int __osContAddressCrc(unsigned int blockAddress) {

@@ -9,6 +9,7 @@
 #include "FRONTEND/WIDGET_DRAWTEXTWIDGET.H"
 #include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
 #include "UI/QUAG/N64_ENG.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 
 /* Draws a visible widget (flag 8): when Widget_ComputeWidgetBounds places it, and its draw flags ask for
    clipping (0x200), it narrows the current scissor from N64Eng_GetClipBounds to the widget's box through
@@ -23,9 +24,9 @@
 
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
 
-extern void N64Eng_GetClipBounds(s32 *left, s32 *right, s32 *top, s32 *bottom);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 
 /* Resets the state and copies the two configured values after initialization. */

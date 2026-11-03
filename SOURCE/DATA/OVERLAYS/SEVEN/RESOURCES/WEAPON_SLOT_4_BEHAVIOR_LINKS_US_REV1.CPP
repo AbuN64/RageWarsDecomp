@@ -1,9 +1,11 @@
 #include "TYPES.H"
+#include "AMMO/AMMO.H"
+#include "WEAPON_STATE_TABLES/WEAPON_STATE_TABLES.H"
 
-extern char g_weaponAmmoSlotCapacity33[];
-extern char g_weaponAmmoSlotCapacity34[];
-extern char g_weaponAmmoSlotCapacity4[];
-extern char g_weaponAmmoSlotCapacity5[];
+
+
+
+
 
 
 #if defined(VERSION_US_REV1)

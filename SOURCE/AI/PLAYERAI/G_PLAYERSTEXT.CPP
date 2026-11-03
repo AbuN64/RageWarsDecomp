@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "PLAYERAI/G_PLAYERSTEXT.H"
 
 /* 800C7C3C.CPP */
 const float g_playerTargetFacingConstantWordsUsRev1[7] = {

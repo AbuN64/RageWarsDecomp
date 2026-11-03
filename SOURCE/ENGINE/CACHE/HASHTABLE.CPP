@@ -4,12 +4,13 @@
 #include "COMMON/ENTRYRECAT18V3.H"
 #include "TYPES.H"
 #include "AUDIO/HASHTABLE.H"
+#include "ENGINE/CACHE/HEAP.H"
 
 /* HASHTABLE.CPP */
 /* Creates the address hash table: rounds the requested capacity up to a power of two, allocates twice that many 16-byte slots from pool g_runtimeHeap (keeping the half size, slot count and both index masks in globals), and clears every slot, numbering each with its index. */
 
 extern s32 g_resourceHashEvenIndexMask;
-extern CacheHashEntry *Heap_AllocateFromFront(void *, s32);
+
 
 void HashTable_InitializeResourceTable(s32 capacity)
 {

@@ -11,6 +11,9 @@
 #include "COMMON/OBJRECAT30.H"
 #include "AI/ENEMIES/TURRETAI.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 extern s32 Rumble_TestActorStateBit(void *worldState, void *actorPointer);
 
@@ -20,7 +23,7 @@ extern void MatrixFromQuaternion(f32 *, f32 *);
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Graphu64_TransformDirectionTranspose(f32 *, CVector3 *, CVector3 *);
+
 
 extern void Graphu64_AddVec3(CVector3 *, CVector3 *, CVector3 *);
 
@@ -35,7 +38,7 @@ static inline void build_rotation(struct RotationObject *object, f32 *matrix) {
     MatrixFromQuaternion(&rotation.x, matrix);
 }
 
-extern void RollMatrix(void *matrixStorage, f32 rollAngle);
+
 
 /* Returns whether a player may act on a target: never on its own linked object or an inactive
    target, always when the team rule g_teamScoringEnabled is off, otherwise only across different teams. */
@@ -56,7 +59,7 @@ extern void RollMatrix(void *matrixStorage, f32 rollAngle);
 
 extern Player **g_collisionCurrentActor;
 
-extern char g_particleCollisionProbeResult[];
+
 
 extern f32 Gobjinst_GetActorHeight(Player *);
 

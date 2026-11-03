@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "ENGINE/ANIM/BITARRAY.H"
 /* 802609CC_4.CPP */
 /* 802609CC_4.CPP */
 /* 802609CC_7.CPP */

@@ -14,12 +14,13 @@
 #include <ultra64.h>
 #include "ACHIEVE/ACHIEVE.H"
 #include "COMMON/PLAYERPROFILES.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 extern s32 Defs_TestBit(void *, s32);
 extern void Defs_SetBitValue(u8 *, s32, s32);
 extern s32 Player_HasProfileUnlockFlag(u8 *, s32);
 extern s32 Player_TestAchievementFlag7(Profile *, s32);
-extern void Player_SetAchievementFlag7(Profile *, s32);
+
 
 /* Upgrades the thirteen weapon levels of player record g_localPlayerProfiles[index] from the number of its 50
    achievement flags Defs_TestBit reports set: every two achievements from 2 raise one more weapon

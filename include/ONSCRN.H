@@ -62,4 +62,8 @@ typedef struct TextureTileGrid {
     u32 reserved;
     u8 blocks[1];
 } TextureTileGrid;
+struct Hud;
+void OnScreen_DrawStatusBar(struct Hud *hud, s32 which);
+struct COverlay;
+void OnScreen_UpdateMoverScript(struct COverlay *m);
 #endif

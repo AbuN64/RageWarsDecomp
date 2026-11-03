@@ -8,10 +8,11 @@
 #include <ultra64.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
+#include "../../include/libultra/os/thread.h"
 
 extern OsThreadQueueNode *__osActiveQueue;
 extern void *__osRunningThread;
-extern void __osDequeueThread(void *listHead, OsThreadQueueNode *node);
+
 
 void osDestroyThread(OSThread *thread) {
     OsThreadQueueNode *node;

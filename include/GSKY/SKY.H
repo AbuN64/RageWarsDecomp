@@ -10,4 +10,7 @@ extern void Sky_ReleaseEffectNode(s32 sceneAddress, s32 effectNode);
 extern void Sky_SwapEntries(int *leftEntry, int *rightEntry);
 extern s32 Sky_CompareRotorSpeedsDescending(void * *, void * *);
 extern int Sky_CompareRotorSpeeds(void *first, void *second);
+struct Scene;
+struct ClipView;
+void Sky_DrawDepthSortedSceneEffects(struct Scene *scene, struct ClipView *view);
 #endif

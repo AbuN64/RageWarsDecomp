@@ -13,12 +13,18 @@ extern char g_actorParticleEffectSystem[];
 extern f32 Gobjinst_GetActorHeight(FadedActorRenderView *actor);
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
+#include "ENGINE/GHOT.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
 
 extern f32 Gobjinst_GetActorRadius(FadedActorRenderView *actor);
 
-extern void Ghot_DispatchAttachmentEffects(void *effectAttachments, s32 attachmentsRemaining, s32 attachmentMatrices, void *actor, void *attachmentNodes);
+
 
 
 extern void *g_actorTypeOperations[];
@@ -37,15 +43,15 @@ extern void *g_actorTypeOperations[];
 
 
 
-extern void CopyMatrix(f32 *, BodyGobjinstApplyBoneTwistImpulse *);
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
 
-extern void TranslateMatrix(void *, f32, f32, f32);
 
-extern void Graphu64_BuildAxisAngleMatrix(f32 *, f32, f32, f32, f32);
 
-extern void Graphu64_MultiplyAffineMatrices(BodyGobjinstApplyBoneTwistImpulse *, f32 *, f32 *);
+
+
+
+
+
 
 extern void Graphu64_InterpolateQuaternionArc(void *out, s32 amount, void *firstQuaternion, void *secondQuaternion);
 

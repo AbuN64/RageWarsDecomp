@@ -20,6 +20,10 @@
 #include "SCENE/CACHE_ALLOCATERESOURCEAT.H"
 #include "AI/ENEMIES/TURRETAI.H"
 #include "include_asm.h"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* GOBJINST_4.CPP */
 struct Anim; extern void Gastate_SwitchRequestedAnimation(struct Anim *anim, s32 table, s32 key, s32 blend, s32 *switched, struct Anim *previous);
@@ -45,9 +49,9 @@ extern char g_actorRotationBlendAndResourceTuning;
 
 extern s32 Gastate_GetAnimationEventEntries(void *animationState);
 
-extern s32 *Gobjinst_RequestAnimatedModelVariant(char *, s8);
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *, char *);
+
+
 
 extern void Events_DeliverContactEffect(char *, char *, u16, s32, CVector3, struct IntPair);
 
@@ -57,9 +61,9 @@ extern void Events_DeliverContactEffect(char *, char *, u16, s32, CVector3, stru
  * orientation from Turret_BuildPlaneRot; any other actor turns its orientation at 0x5C by its heading. Quaternions
  * are composed through MultiplyQuaternions, keeping the latest sine in g_turretAimSine. */
 
-extern void MultiplyQuaternions(CQuatern *, CQuatern *, CQuatern *);
 
-extern void Player_BuildPlayerOrientation(void *, CQuatern *);
+
+
 
 /* Returns an actor's aim with auto-aim applied: with no assist cone the actor's aiming orientation from
  * Gobjinst_BuildActorAimQuaternion is returned unchanged; otherwise, of the live entities other than the actor (not flagged 1,
@@ -74,9 +78,9 @@ extern f32 Gobjinst_GetActorHeight(char *);
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
+
 
 /* Sways a model part: from the frame count g_gameFrameCounter, a per-part phase ((flags & 0x38) * 50, plus 40
  * unless flag 4 is set) and the part's time divided by 113, it reads a 120-step sine table at g_actorMatrixWobbleSamples to
@@ -86,13 +90,13 @@ extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
 
 extern s32 g_gameFrameCounter;
 
-extern void CopyMatrix(f32 *, f32 *);
 
-extern void TranslateMatrix(f32 *, f32, f32, f32);
 
-extern void Graphu64_BuildAxisAngleMatrix(f32 *, f32, f32, f32, f32);
 
-extern void Graphu64_MultiplyAffineMatrices(f32 *, f32 *, f32 *);
+
+
+
+
 
 const float g_actorRootMotionCubicCoefficients[2] = {
     -2.0f, 3.0f,

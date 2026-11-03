@@ -532,6 +532,9 @@ extern u8 g_debugLinkAuxiliaryControl;
 extern char g_menuOptionBit9EnabledText[];
 
 #include "COMMON/AUDIO_QUEUES.H"
+#include "ACTOR/ACTOR.H"
+#include "AI/NAV/PORTAL_DISPATCHACTORBEHAVIOR_DATA.H"
+#include "CONSTANTS/SETUP_UPDATENAMECURSOR_DATA.H"
 
 extern char g_playerMenuDialogRomResource[];
 
@@ -733,7 +736,7 @@ extern char g_profileSecondConfirmationLabel[];
 
 extern const f64 g_audioFrexpRestoreSignThreshold;
 
-extern s32 g_actorBehaviorDispatchModes;
+
 
 
 extern char g_SelectPromptTextGroupFourCase12Text[];
@@ -1973,7 +1976,7 @@ extern char s_actorAnimationResourceTag;
 
 extern const f64 k_xmathFloorIntegralBias;
 
-extern char g_gameThreadStack[];
+
 
 extern const f64 g_audioFrexpHalvingScale;
 

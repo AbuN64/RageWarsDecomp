@@ -10,6 +10,9 @@
 #include "SCENE/RESOURCE_BINDING_AND_FADE_VIEWS.H"
 #include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/SETN64.H"
 
 /* 802508E0_10.CPP */
 extern struct Manager g_resourceRequestManager;
@@ -33,7 +36,7 @@ extern s32 g_resourceHashEvenIndexMask;
 
 extern s32 g_resourceHashBuckets;
 
-extern void List_MoveIntrusiveToHead(void *, s32);
+
 
 struct IntrusiveList; extern void Cache_ReleaseResourceCompletely(void *unused, struct IntrusiveList *resource);
 
@@ -41,7 +44,7 @@ extern const char s_headerText[];
 
 /* Allocates a four-byte probe from Cache_RequestResource to read a count, frees it under the g_resourceHeapLockUsers lock, then allocates count*4+15 rounded to eight bytes and stores its first word through handle, returning the allocation. Adapted from Cache_RequestWordCountedResource with the null checks removed, tag 0x1B and flag 1 passed as the fifth and ninth arguments, and the constant 1 held in a local changed. */
 
-extern s32 SetN64_LocatePackSection(void *directory, s32 bankOffset, s32 sectionIndex, s32 *sectionSizeOut);
+
 
 void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView **handle, struct CacheResourceBlockView *replacement) {
     extern OSMesgQueue g_resourceHeapLockQueue;

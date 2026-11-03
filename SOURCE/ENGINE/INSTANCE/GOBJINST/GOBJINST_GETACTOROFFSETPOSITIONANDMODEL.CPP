@@ -14,6 +14,9 @@
 #include "COMMON/LEGACY_COLLISION_ACTOR.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "CBARREL/BARREL_SPAWNACTOREFFECT.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 
 /* GOBJINST_12.CPP */
 /* Draws an actor's attached model: when the actor has one, allocates a matrix from the pool g_actorMatrixPool,
@@ -23,9 +26,9 @@
 
 extern s32 Map_ReserveEntries(void *, s32);
 
-extern void Graphu64_ClampMatrixToFixedRange(f32 *);
 
-extern void GraphU64_PackFixedMatrix(f32 *, s32);
+
+
 
 /* Moves an actor toward a point given relative to it: the offset is turned by the actor's facing and added to its position (or, for a mirrored actor with a parent, negated in x and z and transformed by the parent's matrix at 0x160), then passed to InstHdr_CopyActorPositionAndModel with both final flags set. */
 
@@ -88,9 +91,9 @@ extern CQuatern Gobjinst_BuildActorAimQuaternion(void *actor);
 
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
 
-extern void Barrel_UpdateActorController(void *a, void *b);
 
-extern void **Gobjinst_RequestAnimatedModelVariant(void *actor, s32 variantIndex);
+
+
 
 extern void Cache_UnlockResource(void *cache, void *resource);
 

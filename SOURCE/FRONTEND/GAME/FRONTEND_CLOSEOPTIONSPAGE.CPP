@@ -1,6 +1,7 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/MENU_OPTIONS_AND_RESULTS.H"
 #include "TYPES.H"
+#include "GAME/FRONTEND_CLOSEOPTIONSPAGE.H"
 
 /* 80423280_28.CPP */
 /* Calls MarkMenuEventHandled, sets the word at offset 0x20 of the object g_optionsPage points to to -1,

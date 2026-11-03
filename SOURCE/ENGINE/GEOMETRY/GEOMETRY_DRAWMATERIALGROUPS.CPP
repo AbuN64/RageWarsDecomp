@@ -9,6 +9,7 @@
 #include "ENGINE/GEOMETRY.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SETN64.H"
 
 extern struct NodeGeometryGroupModelInstances *g_opaqueMaterialGroupList;
 extern struct NodeGeometryGroupModelInstances *g_translucentMaterialGroupList;
@@ -28,9 +29,9 @@ void **Cache_RequestWordCountedResource(s32, void **, s32, void *, s32);
 void Geometry_GroupModelInstances(void);
 
 
-int SetN64_GetDirectoryEntry(int *, int, int);
 
-s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 
 
  /* extern */

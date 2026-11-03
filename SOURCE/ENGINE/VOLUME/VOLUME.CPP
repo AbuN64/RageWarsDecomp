@@ -3,6 +3,7 @@
 #include "MENU/OPTIONEDITSTATE.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/PLAYERRECAT64E.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 s32 Volume_AllocateMenuOne_eu(void *first, void *second, void *third) {

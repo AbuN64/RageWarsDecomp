@@ -12,6 +12,7 @@
 #include "COMMON/ALSEQUENCEPLAYER.H"
 #include <ultra64.h>
 #include "../../../include/libultra/debug/assert.h"
+#include "reverb/reverb.c.h"
 
 /* reverb_Reverb.CPP */
 

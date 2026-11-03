@@ -29,6 +29,7 @@ u8 *XStdio_FormatScratchBuffer(u8 *fmt0, ...) {
 /* 802A0888_7.CPP */
 #if defined(VERSION_DE) || defined(VERSION_EU)
 #include "stdarg.h"
+#include "ENGINE/CACHE/LOADER.H"
 
 int *XStdio_FormatGermanScratchBuffer(int format, ...) {
     va_list args;
@@ -69,7 +70,7 @@ s32 XStdio_PrintTextWithArguments(s32 stream, s32 writeContext, s32 fmt0, ...) {
 extern struct CartridgeReadWorker g_cartridgeReadWorker;
 
 
-extern void Cartridge_ReadChunksAndWait(struct CartridgeReadWorker *worker, u32 source, s32 bytes, void *destination);
+
 
 /* Callable open entry in the low-address resource callback table. */
 

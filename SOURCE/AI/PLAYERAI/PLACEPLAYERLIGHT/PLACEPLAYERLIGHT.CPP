@@ -6,6 +6,9 @@
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
 
 #include "AI/PLAYER_LIGHT_PATTERN_NAMES.H"
+#include "ENGINE/GDYNLIGHT.H"
+#include "ONSCRN.H"
+#include "PLACEPLAYERLIGHT/PLACEPLAYERLIGHT.H"
 
 /* Dynamic light descriptor: Gdynlight_AccumulateLightDirections reads the u16 radius; the rest is the light colour. */
 typedef struct DynLightPattern {

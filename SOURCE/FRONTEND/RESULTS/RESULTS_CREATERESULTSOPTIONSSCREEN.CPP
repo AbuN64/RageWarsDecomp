@@ -35,6 +35,8 @@ static inline s32 resultsRes(s32 id) {
 #include "COMMON/RESULTSOPTIONSSCREEN.H"
 #include "TYPES.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "RESULTS/RESULTS_CREATERESULTSOPTIONSSCREEN.H"
 extern struct ResultsOptionEntry g_trialCatalogueStages[];
 void Defs_SetBitValue(u8 *bits, s32 bitIndex, s32 found);
 void Results_SelectSuggestedTrial(void);

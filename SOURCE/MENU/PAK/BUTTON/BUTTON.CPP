@@ -6,12 +6,14 @@
 #include "COMMON/LONE/G_LANGUAGEINDEX.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Replaces the word at offset 0x10 of the option block g_gameSettings with what Menu_AdjustValue returns
    for the second argument, that word, 0x10, 0, 0x80 and 0, and returns zero. */
 
 
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 s32 Pak_AdjustPackedButtonOption(void *first, void *second) {
     struct OptionsPakAdjustPackedButtonOption *options = &g_gameSettings;
@@ -53,7 +55,7 @@ extern u8 *g_packedButtonOptionStepText;
 #endif
 extern s32 Cache_GetResourceActivityState(void);
 extern void Cache_SetResourceActivityState(u32);
-extern s32 Menu_CountLineChars(LayeredText *);
+
 
 s32 Pak_FormatPackedButtonOption(LayeredText *item) {
     u32 code;

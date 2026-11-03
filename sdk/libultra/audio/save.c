@@ -24,6 +24,7 @@
 #include "libultra/audio/save.H"
 #include "TYPES.H"
 #include "libultra/debug/assert.h"
+#include "../../include/libultra/audio/save.h"
 Acmd *alSavePull(ALSave_u1 *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
 {
     Acmd *ptr = p;

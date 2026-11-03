@@ -3,6 +3,7 @@
 #include "ENGINE/AUDIO/CHANNEL.H"
 #include <PR/gbi.h>
 #include "TYPES.H"
+#include "GSKY/GSKY_LOADPROJECTIONMATRIX.H"
 
 extern Gfx *g_displayListCursor;
 

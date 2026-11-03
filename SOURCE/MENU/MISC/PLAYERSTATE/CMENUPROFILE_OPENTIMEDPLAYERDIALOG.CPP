@@ -6,10 +6,11 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
 #include "MENU/MISC/CMENUPROFILE_OPENTIMEDPLAYERDIALOG.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
 
-extern void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, struct Dialog *list);
+
+
 
 /* Points modeLabel's label field at g_profileModeZeroLabel or g_profileModeOneLabel when the mode byte at 0x7B of the owner's record is 0 or 1, and returns 0. */
 
@@ -46,7 +47,7 @@ extern char g_pakProfileActionDialogResource[];
 
 void Timer_ClearTimerFlag(void);
 
-void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 
 /** Runs a target's animation/state transition through Menu_AdjustValue and stores the new state. */
 s32 CMenuProfile_ToggleProfileMode(void *menuItem, ProfileModeMenuContext *menuContext) {

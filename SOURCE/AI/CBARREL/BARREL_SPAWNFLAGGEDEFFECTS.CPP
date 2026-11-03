@@ -18,6 +18,9 @@
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "MENU/TEAMMENU.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "AUDIO/VOICE.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 80213ED4_19.CPP */
 void Barrel_AddActorYaw(ActorYawView *actor, f32 yawDelta) {
@@ -117,7 +120,7 @@ void Barrel_IgnoreEffectCallback(void *unused0, void *unused1, BarrelWordPair un
 }
 
 extern void *SoundVoicePool_GetGlobalState(void);
-extern s32 SoundVoicePool_StopNode(void *, void *);
+
 
 void Barrel_SetLoopingSound(void *actor, void *stateController, s32 sixth) {
     CLoopingSoundData *node;
@@ -174,7 +177,7 @@ void Barrel_StopActorLoopingSound(void *actor, void *soundState) {
 }
 
 extern f32 Gobjinst_GetActorRadius(void *actor);
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 extern void Graphu64_AddVec3(CVector3 *result, CVector3 *left, CVector3 *right);
 extern void InstHdr_CopyActorPositionAndModel(void *levelActor, CVector3 value, void *positionOut, s32 *modelFlagsOut,
                           s32 unused6, s32 unused7);

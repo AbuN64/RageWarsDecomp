@@ -19,6 +19,9 @@
 #include "UI/QUAG/N64_ENG.H"
 #include "MATH/SMOS_INVOKEWIDGETCALLBACK.H"
 #include "FRONTEND/NODE_GETIMAGETEXTURE.H"
+#include "MENU/GFX/GFX_DRAWCLIPPEDGRADIENTQUAD.H"
+#include "NODE/NODE_GETBANKTILETEXTURE.H"
+#include "UI/X_FILES/X_PLUS.H"
 
 extern BatchRec g_textBatches[];
 extern struct CacheResourceBlockView g_frontendClipBounds;
@@ -43,15 +46,15 @@ extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *, struct Ca
 
 
 
-extern s32 Node_GetBankTileTexture(s32 page, s32 a, s32 b);
 
-extern void Combine_BindImageTexture(s32 texture);
+
+
 
 static inline void Widget_RestoreClipBounds(struct CacheResourceBlockView *clip) {
     N64Eng_SetClipBounds(clip->first, clip->third, clip->second, clip->fourth);
 }
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
 
 
 static inline s32 Widget_OverlapsTextBatchForClear(struct CacheResourceBlockView *area) {
@@ -86,11 +89,11 @@ static inline s32 Widget_OverlapsTextBatchForDraw(struct CacheResourceBlockView 
     return 0;
 }
 
-s32 XPlus_StringLength(u8 *);
+
 
 GlyphBuffer *Node_GetGlyphBuffer(s32);
 
-void XPlus_SortArray(char *, s32, s32, s32 (*)(char *, char *));
+
 
 static inline void textBegin(u8 font, u8 style) {
     N64Eng_GetClipBounds(&g_frontendClipBounds.first, &g_frontendClipBounds.third,

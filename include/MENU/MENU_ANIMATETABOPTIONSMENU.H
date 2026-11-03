@@ -1,0 +1,4 @@
+#ifndef MENU_MENU_ANIMATETABOPTIONSMENU_H
+#define MENU_MENU_ANIMATETABOPTIONSMENU_H
+s32 Menu_AnimateTabOptionsMenu(void);
+#endif

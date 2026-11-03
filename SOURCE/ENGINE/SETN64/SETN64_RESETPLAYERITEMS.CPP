@@ -3,13 +3,16 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "ENGINE/SETN64.H"
 #include "TYPES.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_FINDPLACEDOBJECTSBYKEY.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDPLACEDACTORS.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
 
 extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);
 extern s32 Track_RequestTrackByKey(s32);
-extern void Scene_SetSelection(void *state, s32 selection, s32 mode);
-extern void Scene_LoadPreviewBufferA(void *previewToLoad);
-extern void Scene_LoadPreviewBufferB(void *state);
+
+
+
 
 
 

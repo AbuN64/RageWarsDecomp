@@ -16,4 +16,5 @@ extern void SoundElement_ClearVoiceFlags(void);
 extern void SoundElement_AcquireContextLock(void);
 extern void SoundElement_ReleaseContextLock(void);
 extern s32 SoundElement_HasActiveOrPendingSound(s32 wantedKey);
+void SoundElement_SetListenerCamera(s32 listenerCameraAddress);
 #endif

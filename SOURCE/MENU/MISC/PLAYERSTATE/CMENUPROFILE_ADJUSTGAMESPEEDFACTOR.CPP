@@ -8,6 +8,8 @@
 #include "COMMON/RENDERCOUNTERS.H"
 #include "MENU/MISC/CMENUPROFILE_ADJUSTGAMESPEEDFACTOR.H"
 #include "ENGINE/DEFS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /** Always returns 0. */
 s32 CMenuProfile_GameSpeedReturnZero(void) {
@@ -32,7 +34,7 @@ s32 CMenuProfile_HasDialogRoundProgress(void) {
 
 /* Clears menuContext->selectionPlayer's alternateDialogFlag flag and its characterKindView's characterKind, then forwards to Menu_OpenDialog. */
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 extern char g_playerMenuDialogTable[];
 
 
@@ -81,7 +83,7 @@ s32 CMenuProfile_OpenAlternatePlayerDialog(void *unused0, PlayerDialogMenuContex
 
 
 
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 extern unsigned int Control_IsAButtonPressed(struct ControllerProfile *profile);
 
@@ -114,7 +116,7 @@ s32 CMenuProfile_AdjustGameSpeedFactor(void *menuItem, struct GameSpeedMenuValue
 extern f32 g_profileGameSpeedDefault;
 extern char *g_profileGameSpeedScaledLabel[], *g_profileGameSpeedDefaultLabel[];
 extern char g_profileGameSpeedFormat[];
-extern s32 Menu_CountLineChars(void *);
+
 
 s32 CMenuProfile_UpdateGameSpeedLabel(Shared_DebugWidget *widget) {
     char *text;

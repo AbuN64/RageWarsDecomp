@@ -6,12 +6,17 @@
 #include "TYPES.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "ENGINE/PARTICLE.H"
+#include "AI/PLAYER_G01.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "PARTICLE/PARTICLE_SPAWNCHILDEFFECT.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
 typedef struct Owner Owner;
 
 extern int Particle_GetEffectResource(void *particle);
-extern s32 Playerai_IsPlayerInactive(void *player);
-extern void Player_GiveAmmoWithMessage(void *player, s32 type, s32 amount);
+
+
 
 
 
@@ -79,7 +84,7 @@ reset_state:
 
 extern char g_actorParticleEffectSystem[];
 extern char g_currentActorInstance;
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
+
 extern void BuildRollMatrix(f32 *matrix, s32 angle);
 extern void Graphu64_AddVec3(CVector3 *out, CVector3 *a, CVector3 *b);
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"

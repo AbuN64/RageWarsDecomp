@@ -1,4 +1,5 @@
 #include "TYPES.H"
+#include "AI/NAV/PORTAL_DISPATCHACTORBEHAVIOR_DATA.H"
 
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 /* behavior kind (0-8) per actor type, two weapon gears each: indexed [selectedAction * 2 + gear - 1] and switched on by Portal_DispatchActorBehavior */

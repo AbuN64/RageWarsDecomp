@@ -7,6 +7,9 @@
 #include "COMMON/SHARED_PARTICLEINSTANCE.H"
 #include "COMMON/AIPROFILE.H"
 #include "TYPES.H"
+#include "ENGINE/GREGION.H"
+#include "GOBJINST/GAMEOBJECT_MOVETOXZKEEPHEIGHT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 800C891C.CPP */
 
@@ -20,7 +23,7 @@ extern int InstHdr_GetActorMotionState(void *levelActor);
 
 extern f32 Graphu64_GetHorizontalAngle(CVector3 *);
 
-extern void Graphu64_ScaleVector(CVector3 *, CVector3 *, f32);
+
 
  extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
@@ -165,7 +168,7 @@ void GameObject_ResetActorMotion(void *levelActor) {
 }
 
 extern CollisionQuery g_portalAlternateCollisionQuery;
-extern f32 Region_GetPolygonHeight(s32, f32, f32);
+
 extern s32 Unicol_MoveActorWithCollision(Shared_ParticleInstance *, CVector3, s32 *);
 
 void GameObject_MoveToXZKeepHeight(Shared_ParticleInstance *actor, f32 x, f32 z) {

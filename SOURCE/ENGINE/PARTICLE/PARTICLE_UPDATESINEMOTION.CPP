@@ -1,6 +1,7 @@
 #include "COMMON/TRIPLE.H"
 #include "COMMON/SHARED_PARTICLEINSTANCE.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Advance the two measured oscillator phases and apply their velocity deltas. */
 
@@ -9,7 +10,7 @@
 
 
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 
 
 void Particle_UpdateSineMotion(void *particle, f32 amplitudeScale) {

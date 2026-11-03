@@ -23,4 +23,8 @@ extern int SoundInfo_GetPitchPresetId_de(char *object);
 
 
 
+struct SoundDescriptor;
+int SoundInfo_GetMode(struct SoundDescriptor *note);
+unsigned int SoundInfo_GetPan(void *soundDescriptor);
+short SoundInfo_GetX(struct SoundDescriptor *controller);
 #endif

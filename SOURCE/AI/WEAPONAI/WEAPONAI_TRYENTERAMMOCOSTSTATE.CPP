@@ -24,12 +24,16 @@ extern char g_localPlayerProfiles[];
 
 extern char g_playerViewRenderContext[];
 #include "COMMON/MENU_MATCH_GLOBALS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
-extern s16 Weaponai_FindNextUsableWeapon(void *);
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
+
+
 extern s32 SoundElement_PlaySoundAtPosition(s32, s32, s32, s32, void *, s32);
-extern s32 Player_GetPlayerIndex(void *, void *);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
 extern s32 Weaponai_TryRequestFiringState(void *, void *);
 
 static inline s32 can_fire(char *player) {

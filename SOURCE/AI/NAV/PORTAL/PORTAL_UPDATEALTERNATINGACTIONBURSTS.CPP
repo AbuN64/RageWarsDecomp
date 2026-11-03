@@ -8,6 +8,10 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "AI/NAV/PORTAL_LOADCOLLISIONTABLE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "AI/NAV/PORTAL_DISPATCHACTORBEHAVIOR_DATA.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "PORTAL/PORTAL__PLAYER.H"
+#include "RENDER/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
 
 extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
 
@@ -27,17 +31,17 @@ extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
 
 extern char g_actorParticleEffectSystem[];
 
-extern s32 Particle_CountOwnerListOneEffects(char *, void *);
+
 
 struct EffectSystem;
-extern void Particle_AverageOwnerEffectPositions(struct EffectSystem *, void *, CVector3 *);
+
 
 extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
 struct LevelActor;
 extern void Particle_FindNearestForeignEffectDistance(struct EffectSystem *effectSystem, struct LevelActor *actor, f32 *distanceOut);
 
-extern f32 Portal_GetEngagementDistance(void *controller);
+
 
 
 extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
@@ -63,7 +67,7 @@ void Portal_DispatchActorBehavior(void *controller)
     type = actor->selectedAction;
     mode -= 1;
     {
-        u32 dispatch = *(&g_actorBehaviorDispatchModes + mode + type * 2);
+        u32 dispatch = *(&g_actorBehaviorDispatchModes[0] + mode + type * 2);
         if (dispatch >= 9) {
             return;
         }

@@ -1,9 +1,10 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
 extern char g_artsendNextTextureHoldCount[];
 extern char g_artsendToggleButtonHeld[];
 extern char g_backdropTextLines[];
 extern char **g_creditsLocalizedLines[];
-extern char g_optionsSecondaryLocalizedLabels[];
+
 extern char g_pakNoteTypeFourteenLabel[];
 extern char g_pickupAmmoDefinitions[];
 extern char g_screenMessageSubstitutionReplacement[];

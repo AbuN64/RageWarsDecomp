@@ -5,6 +5,7 @@
 #include "TYPES.H"
 #include "ENGINE/INSTANCE/GOBJINST.H"
 #include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
 
 /* 8024D018.CPP */
 /* Builds a 4x4 transform from a rotation quaternion (x, y, z, w) and a translation, with a zero fourth column and the corner set to the constant at g_actorAffineMatrixHomogeneousUnit. */

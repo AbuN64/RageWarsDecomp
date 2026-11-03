@@ -21,6 +21,15 @@
 #include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "VOICE/VOICE.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GSKY/GSKY_GETOBJECTPOSITIONAT260.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
+#include "MENU/ITEMS/SCENE/SCENE_DRAWTRANSPARENTOBJECTS.H"
+#include "PPDECOM/PPDECOM_QUICKSORTRECORDS.H"
 
 void Scene_UpdateAndDrawWorld(void *world) {
     Shared_World *state;
@@ -84,11 +93,11 @@ void Scene_UpdateAndDrawWorld(void *world) {
 
 
 
-extern void Gobjinst_UpdateActorController(void *base);
+
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
 extern s32 SetN64_IsModeThirteen(void);
 extern void Player_UpdateWorldPlayers(void *world);
-extern s32 Playerai_BeginRoundEnd(void *forcePlayerList);
+
 
 
 
@@ -200,11 +209,11 @@ first_pass_done:
 extern Gfx *g_displayListCursor;
 extern char g_scene_SwapDistanceSortEntriesEntry[], g_scene_CompareDistanceDescendingEntry[];
 typedef struct SortEntry { void *object; f32 distance; } SortEntry;
-extern void Gsky_GetObjectPositionAt260(void *, void *);
-extern void PpDecom_QuickSortRecords(void *, s32, s32, void *, void *);
+
+
 extern void Statinst_DrawForGameMode(void *, void *);
 struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
-extern void Gobjinst_DrawVisibleCachedActor(void *, void *);
+
 /* Draws a world's scene objects back to front: emits the world's static display list if there is one, then
  * measures each object's squared distance to the camera (offset by a jittered vector from Gsky_GetObjectPositionAt260De),
  * sorts the list with PpDecom_QuickSortRecords and draws each object by its kind (0 actor, 1 prop, 3 effect). */
@@ -282,8 +291,8 @@ void Scene_DrawTransparentObjects(Shared_World *world, void *camera) {
 #include "COMMON/APPROACHLOCATION.H"
 #include "COMMON/WORLD.H"
 #include <ultra64.h>
-f32 Region_GetPolygonHeight(Node75 *node, f32 x, f32 z);
-f32 Graphu64_GetTrianglePlaneHeight(Node75 *node, f32 x, f32 z);
+
+
 
 /* The floor polygon under pos: a volume polygon (flag 0x40) that holds pos, else the one nearest in height. */
 /* Finds the containing solid volume, or the nearest floor polygon, as a legacy 32-bit handle. */

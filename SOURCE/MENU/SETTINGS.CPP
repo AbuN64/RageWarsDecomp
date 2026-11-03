@@ -41,11 +41,13 @@ s32 Menu_SelectPakOperationActionLabel(PakOperationLabelItem *labelItem) {
 #endif
 #if defined(VERSION_EU)
 #include "COMMON/REQUESTRECAT10.H"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 /* 80408CB0_24.CPP */
 extern struct CourseOptionsScreen *g_courseOptionsScreen;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern s32 SmpOverlay_CreateOverlayNode(void *, s32);
-extern void SmpOverlay_ShowSlotById(void *, s32, s32);
+
+
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void Tsmos_ActivateControllerState(void);
 s32 Menu_CreateEuJoinOptions(void *handle) {

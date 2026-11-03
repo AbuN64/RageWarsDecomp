@@ -31,4 +31,9 @@ extern float Particle_GetConditionalFirstValue(struct ParticleEffect *effect);
 extern s32 Particle_RandomInclusiveCount(s32 maximumCount);
 extern f32 Particle_GetConditionalSecondValue(struct ParticleEffect *effect);
 extern void Particle_AdvanceRandomWhenNonzero(f32 value);
+struct EffectSystem;
+struct CVector3_t;
+void Particle_AverageOwnerEffectPositions(struct EffectSystem *effectSystem, s32 ownerId, struct CVector3_t *averagePositionOut);
+struct Shared_Particle;
+void Particle_UpdateMatrix(struct Shared_Particle *particle);
 #endif

@@ -14,4 +14,12 @@ struct Measured { unsigned char padding[76]; f32 value; };
 extern s32 Plane_TestPointNearPolygon(Polygon*polygon, CVector3*point, f32 radius);
 extern void CPlane_ResetContact(void *contactStorage);
 extern s32 CPlane_IsPointBehind(void *plane, CVector3 *testPoint);
+struct Quad;
+struct CVector3_t;
+void Plane_BuildBoxFace0(struct Quad *quad, struct CVector3_t *points);
+void Plane_BuildBoxFace1(struct Quad *quad, struct CVector3_t *points);
+void Plane_BuildBoxFace2(struct Quad *quad, struct CVector3_t *points);
+void Plane_BuildBoxFace3(struct Quad *quad, struct CVector3_t *points);
+void Plane_BuildBoxFace4(struct Quad *quad, struct CVector3_t *points);
+void Plane_BuildBoxFace5(struct Quad *quad, struct CVector3_t *points);
 #endif

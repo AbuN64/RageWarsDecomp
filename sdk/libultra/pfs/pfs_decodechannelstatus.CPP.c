@@ -8,6 +8,8 @@
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
+#include "../../include/libultra/os/oscontreset_data.CPP.h"
+#include "../../include/libultra/pfs/pfs_decodechannelstatus.CPP.h"
 
 /* pfs_decodechannelstatus.CPP */
 /* __osPfsGetStatus, drafted from ultralib src/io/pfsgetstatus.c (2.0I branch): send a status request

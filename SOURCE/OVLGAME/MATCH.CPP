@@ -11,6 +11,8 @@
 #include "COMMON/SESSIONHANDLERROW.H"
 #include "COMMON/WORLD.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "ENGINE/RUMBLE.H"
+#include "OVLGAME/MATCH.H"
 
 /* MATCH.CPP */
 s32 Match_InitParticleQuad(void) {
@@ -54,7 +56,7 @@ s32 Match_InitParticleQuad(void) {
 extern char g_controllerRumblePool[];
 extern char g_playerViewRenderContext[];
 
-extern void Rumble_FreeAllPoolNodes(void *);
+
 struct Context;
 extern void Playerai_ResetPlayerControllers(struct Context *);
 

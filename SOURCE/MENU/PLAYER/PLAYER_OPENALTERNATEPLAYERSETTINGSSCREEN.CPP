@@ -1,6 +1,7 @@
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 #if defined(VERSION_EU_X)
 #define ID(id) ((id) + 4)
 #else
@@ -18,7 +19,7 @@ extern char *g_alternateSettingsFinalChoiceLabelsEuX[];
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void SmpButton_WrapButtonWidget(s32);
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
-extern void *SmpButton_CreateListWidget(s32, s32);
+
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Player_SelectAlternatePlayerSettingsEntry(s32);

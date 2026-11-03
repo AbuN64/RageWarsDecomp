@@ -6,6 +6,7 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/MENU_INITIALIZEOPTIONSSCENE.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
 
 /* 804221A0_8.CPP */
 
@@ -15,7 +16,7 @@
    0x27D into g_world_AchieveUpdateresultsscreen through Scene_SetSelection_MenuInitializeoptionsscene, and calls Cache_SetResourceActivityState with one when Cache_GetResourceActivityState
    reports nothing. */
 
-extern void Scene_SetSelection(void *, s32, s32);
+
 
 void Menu_ConfigureOptionsCamera(void);
 

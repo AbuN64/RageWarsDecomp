@@ -8,21 +8,25 @@
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "AI/ENEMIES/TURRETAI.H"
 #include "include_asm.h"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* TURRETAI.CPP */
 /* SN debug stream left in us-rev1 (src/ragewars_debug_stream_us_rev1.c, ROM 0xE7092..0xF6880): function records at the retail vram */
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
 
-void MultiplyQuaternions(void *, void *, void *);
 
-void ScaleMatrixLocal(void *, f32, f32, f32);
 
-s32 Graphu64_LimitVectorLength(f32 *, f32);
 
-void TranslateMatrix(char *, f32, f32, f32);
 
-void Graphu64_MultiplyAffineMatrices(f32 *, f32 *, f32 *);
+
+
+
+
+
+
 
 void SwapMatrixUpForward(struct CMatrix4 *);
 

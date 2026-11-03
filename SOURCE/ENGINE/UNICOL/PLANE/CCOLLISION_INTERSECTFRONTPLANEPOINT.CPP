@@ -7,6 +7,8 @@
 #include "ANIM/RAY180.H"
 #include <ultra64.h>
 #include "COMMON/BALLISTICPARAMS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PLANE/CCOLLISION_INTERSECTFRONTPLANEPOINT.H"
 
 /* 80241170_2.CPP */
 void Graphu64_InterpolateVector(CVector3 *, u32, void *, void *);
@@ -14,7 +16,7 @@ void Graphu64_InterpolateVector(CVector3 *, u32, void *, void *);
 /* Tests a point against every edge plane of a polygon. */
 
  /* extern */
-void Graphu64_CrossVectors(f32 *, void *, f32 *);
+
 
 s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void *segmentEnd, f32 *outputFraction) {
     f32 segmentDirection[3];

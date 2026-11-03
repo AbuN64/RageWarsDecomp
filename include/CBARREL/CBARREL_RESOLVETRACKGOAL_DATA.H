@@ -1,0 +1,6 @@
+#ifndef CBARREL_CBARREL_RESOLVETRACKGOAL_DATA_H
+#define CBARREL_CBARREL_RESOLVETRACKGOAL_DATA_H
+extern const float g_trackGoalTargetHeightFactor;
+extern const float k_barrelClearAimSearchRange;
+extern const float k_barrelKindTwoApproachPadding;
+#endif

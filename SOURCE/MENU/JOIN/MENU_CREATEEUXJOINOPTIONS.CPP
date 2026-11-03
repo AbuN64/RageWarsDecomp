@@ -2,16 +2,18 @@
 
 #if defined(VERSION_EU_X)
 #include "TYPES.H"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 typedef struct EuxDrawScreen { void *window; s32 overlayNodeId; void *roots[3]; s32 selection; s32 reservedWord; s32 count; } EuxDrawScreen;
 typedef struct { u8 pad0[0x10]; u8 alpha; } EuxDrawItem;
 extern EuxDrawScreen *g_courseOptionsScreen;
 extern struct Record *Cache_AllocateMemory(s32 size);
-extern s32 SmpOverlay_CreateOverlayNode(void *, s32);
-extern void SmpOverlay_ShowSlotById(void *, s32, s32);
+
+
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern s32 Menu_GetPreviousScreenOwner(s32);
-extern s32 Join_CountUsedSlots(void);
+
 extern void Join_UpdateJoinRequestDisplay(s32);
 extern void Tsmos_ActivateControllerState(void);
 /* Builds the pak-draw selection screen: allocates its 0x20-byte state, creates the four rows, hides the pointer item

@@ -6,10 +6,12 @@
 #include "COMMON/PROPGEOMETRY.H"
 #include "COMMON/OBJB.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "ENGINE/SETN64.H"
+#include "STATINST/STATINST_ACQUIREGEOMETRY.H"
 
 extern char g_statObjectIndexText[];
-extern s32 SetN64_GetDirectoryEntry(s32 *,s32,s32);
-extern s32 SetN64_LocatePackSection(void *,s32,s32,s32 *);
+
+
 extern void Cache_LockResource(void *,CacheResourceNode *);
 void *Statinst_AcquireGeometry(ResourceOwner *owner,s32 index) {
     void **block;

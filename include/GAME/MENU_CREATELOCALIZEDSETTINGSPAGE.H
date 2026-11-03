@@ -1,0 +1,4 @@
+#ifndef GAME_MENU_CREATELOCALIZEDSETTINGSPAGE_H
+#define GAME_MENU_CREATELOCALIZEDSETTINGSPAGE_H
+s32 Menu_CreateLocalizedSettingsPage(void *node);
+#endif

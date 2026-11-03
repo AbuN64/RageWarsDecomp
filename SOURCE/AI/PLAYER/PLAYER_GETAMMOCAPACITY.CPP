@@ -20,6 +20,9 @@
 #include "COMMON/RESOURCELOADSTATE.H"
 #include "COMMON/RESULTSOPTIONSSCREEN.H"
 #include "COMMON/PLAYERPROFILES.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "ENGINE/RUMBLE.H"
 
 extern f32 g_playerDamageAndDistanceConstants[2];
 
@@ -30,10 +33,10 @@ extern int Cinema_IsSequenceInWindow(void);
 extern struct MemoryUsageStats g_playerRoundEndSignal;
 
 
-extern void Rumble_FreeAllPoolNodes(s32 *);
 
 
-extern void Gobjinst_UpdateActorController(void *base);
+
+
 
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
 

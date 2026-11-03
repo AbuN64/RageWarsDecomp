@@ -1,4 +1,6 @@
 #include "DATA/INITIALIZED_RUNTIME_BUFFERS.H"
+#include "CONSTANTS/SETUP_UPDATENAMECURSOR_DATA.H"
+#include "ENGINE/SETN64.H"
 
 #if defined(VERSION_EU)
 extern char g_Node_SelectPreviousGridRowPackedAddress24[];

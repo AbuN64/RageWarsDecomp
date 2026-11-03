@@ -9,6 +9,14 @@
 #include "COMMON/REC.H"
 #include "COMMON/AIPROFILE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "ACTOR/ACTOR_UPDATEACTORSTATEANIMATION.H"
+#include "ACTOR/NAV_APPLYSUPPORTINGPLATFORMMOTION.H"
+#include "CBARREL/BARREL_SPAWNACTOREFFECT.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "ENGINE/GHOT.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "WORLD/BARREL_SPAWNACTOREFFECT_DATA.H"
 
 /* 80213ED4_6.CPP */
 /* The call sites in Events_SpawnFilteredActorEffect, Ghot_DispatchAttachmentEffects and Events_SpawnActorEffect
@@ -20,8 +28,8 @@ extern char g_actorParticleEffectSystem[];
 extern void InstHdr_CopyActorPositionAndModel(void *actor, Triple input, Triple *output,
                           s32 *actorField, s32 unused0, s32 unused1);
 extern CQuatern Gobjinst_BuildActorAimQuaternion(CActor_t *actor);
-extern s32 Gobjinst_GetModelRenderMode(CActor_t *actor);
-extern CQuatern Simpinst_BuildGroundRotation(CActor_t *actor);
+
+
 
 void Barrel_SpawnActorEffect(void *actor, s32 kind, Triple input, s32 unused0) {
     Triple copiedInput;
@@ -84,9 +92,9 @@ void Barrel_FillDamagePacket(void *packet, s32 damageSource, s32 damage, s32 rad
 }
 
 /* 80213ED4_8.CPP */
-extern void Barrel_StopActorLoopingSound(void *actor, void *soundState);
-extern void Actor_ApplySupportingPlatformMotion(SourceBarrelUpdateActorController *, DestBarrelUpdateActorController *);
-extern void Actor_UpdateActorStateAnimation(SourceBarrelUpdateActorController *, DestBarrelUpdateActorController *);
+
+
+
 
 void Barrel_UpdateActorController(SourceBarrelUpdateActorController *src, DestBarrelUpdateActorController *dst) {
     if ((dst->aux != 0) && (dst->aux->flagWord == -1)) {

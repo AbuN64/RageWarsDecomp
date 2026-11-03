@@ -15,6 +15,7 @@
 #include "TYPES.H"
 #include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
 #include "../../include/os_pif.h"
+#include "../../include/libultra/os/oscontreset_data.CPP.h"
 void __osPfsRequestData(u8 cmd);
 
 s32 osContInit_pfs(OSMesgQueue *queue, u8 *pattern) {

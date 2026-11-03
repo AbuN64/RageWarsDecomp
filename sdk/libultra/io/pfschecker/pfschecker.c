@@ -11,6 +11,9 @@
 #include "../../../include/libultra/pfs/PFS_COUNTPAGEREFERENCES.H"
 #include "../../../include/libultra/pfs/PFS.H"
 #include "../../../include/libultra/pfs/ospfschecker.h"
+#include "../../../include/libultra/io/contramread.h"
+#include "../../../include/libultra/io/contramwrite.h"
+#include "../../../include/libultra/pfs/pfs_decodechannelstatus.CPP.h"
 
 /* ospfschecker.CPP */
 /* osPfsInitPak, drafted from ultralib src/io/pfsinitpak.c (2.0I branch): confirm a controller pak is
@@ -18,8 +21,8 @@
    label and run the checker. The id checksums are read through the block itself and the repaired
    device id through the new id rather than through the id pointer. */
 
-extern s32 __osPfsGetStatus(void *queue, int channel);
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
+
+
 
 s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, int channel)
 {
@@ -106,7 +109,7 @@ s32 osPfsInitPak(OSMesgQueue *queue, OSPfs *pfs, int channel)
    page chains are broken or shared, rebuild every bank's inode table from the surviving chains, and
    flag the pak corrupted when anything was fixed. */
 
-extern s32 __osContRamWrite(void *queue, int channel, u16 address, u8 *buffer, int force);
+
 
 s32 osPfsChecker(OSPfs *pfs)
 {

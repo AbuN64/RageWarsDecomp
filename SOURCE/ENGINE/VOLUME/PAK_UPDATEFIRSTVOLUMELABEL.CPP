@@ -13,6 +13,9 @@
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1) || defined(VERSION_EU) || defined(VERSION_EU_X)
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT2.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT3.H"
 #define VOLUME_BYTE g_gameSettings.volume[0]
 #else
 #define VOLUME_BYTE g_gameSettings.volume[0]
@@ -24,7 +27,7 @@
 
 
 
-extern s32 Menu_CountLineChars(LayeredText *);
+
 
 s32 Pak_UpdateFirstVolumeLabel(LayeredText *field) {
     s32 step = (VOLUME_BYTE - 128) / 8;

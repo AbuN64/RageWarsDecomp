@@ -9,6 +9,10 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 /* Reloads a saved controller-pak block when Snapshot_CheckStatusPrompt reports no problem for the selected
    channel: with g_pakAlternateOptionEnabled set it loads the block g_controllerPakSnapshotPayload points to onto the player found at
@@ -37,10 +41,10 @@ extern f32 g_controllerPakPreviewHours[];
 extern u8 g_worldSnapshotNoteData[];
 extern SaveSnapshot *g_controllerPakSnapshotPayload;
 
-extern s32 Snapshot_CheckStatusPrompt(PakPromptContext *menu, s32 ch, s32 quiet);
+
 extern s32 Note_DeleteNote(s32 ch, s32 index);
-extern Player *Playerai_FindPlayerByController(char *profiles, PakMenuSlot *slot);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
 
 extern s32 g_menuOptionAvailabilityFlags; /* MIXED Snapshot_RestoreSaveBlock */
 s32 Snapshot_RestoreSaveBlock(void *unused, PakPromptContext *menu) {
@@ -124,7 +128,7 @@ extern u16 g_pakProfileRankScore;
 
 
 
-extern s32 Menu_CountLineChars(void *item);
+
 
 s32 Snapshot_UpdateScoreTitle(PakNoteTextEntry *item) {
     char *title;

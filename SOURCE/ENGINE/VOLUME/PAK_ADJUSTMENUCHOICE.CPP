@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/VOLUME_MENU_RESOURCES.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 #if defined(VERSION_US_REV1)
 /* Points a field's text at g_ownerNotificationEnabledLabels when the option g_playerViewRenderingEnabled is set and at g_ownerNotificationDisabledLabels otherwise, and returns
@@ -21,7 +22,7 @@ s32 Pak_UpdateOwnerNotificationOptionText(struct PakActionLabelView *field) {
 
 /* Replaces g_menuBinaryChoice with what Menu_AdjustValue returns for the second argument, g_menuBinaryChoice, 1, 0, 1 and 1,
    and returns zero. */
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 s32 Pak_AdjustMenuChoice(void *first, void *second) {
     g_menuBinaryChoice = Menu_AdjustValue(second, g_menuBinaryChoice, 1, 0, 1, 1);

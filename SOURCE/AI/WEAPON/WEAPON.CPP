@@ -37,8 +37,16 @@
 #include "COMMON/SHARED_PARTICLEINSTANCE.H"
 #include "GAME/BUILDDIRECTIONMATRIX.H"
 #include "WEAPONS/PITCH_TRANSLATION_AND_SPIN_ACTIONS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "AI/PLAYER_G03.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "WEAPON/WEAPON.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
-extern void Player_ReleaseObjectHandles(void *);
+
 extern struct WeaponGlobalRuntimeView g_playerWeaponClassMode;
 
 /* 80231F5C_5.CPP */
@@ -110,9 +118,9 @@ s32 Weapon_IsSpecialSwitchGroup(s32 weaponType) {
 #include "COMMON/SHARED_WORLDFUNC.H"
 extern u8 *g_weaponLockedNoticeTextEu[];
 extern u8 *g_weaponLockedNoticeTextEuX[];
-extern s32 Player_GetProfileAchievementFlag(Profile *, s32);
-extern s32 Player_GetPlayerIndex(Shared_MenuData *, WeaponPlayerPermissionView *);
-extern void Gsky_PostTargetedScreenMessage(Shared_MenuObject *, void *, char *, s32, f32);
+
+
+
 
 s32 Weapon_CheckProfileFirePermission(WeaponPlayerPermissionView *pThis) {
     s32 result;
@@ -159,9 +167,9 @@ void Weapon_ApplySwitchAndRequestIdle(void *actor, void *fireState) {
 /** Check whether a human player in mode 1 may select a weapon; when refused play the refusal sound and post a notice. */
 
 extern int g_weaponLockedNoticeText;
-extern int Player_GetProfileAchievementFlag(char *, int);
-extern int Player_GetPlayerIndex(void *, WeaponPlayerPermissionView *);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, int, int, float);
+
+
+
 
 int Weapon_CheckSinglePlayerFirePermission(WeaponPlayerPermissionView *player) {
     SettingsE *rules;
@@ -400,7 +408,7 @@ void Weapon_UpdateTriggerReleaseState(void *actor, void *attack) {
    object through YawMatrixLocal when the event side at 0x4 matches the mode: side 2 in mode 1, side 0
    otherwise. */
 
-extern s16 Weaponai_FindNextUsableWeapon(void *player);
+
 
 extern WeaponActionRecord g_weaponActionRecords[];
 
@@ -534,11 +542,11 @@ void Weapon_ApplySideDependentYaw(void *object, Event *event) {
 
 /* 80231F5C_12.CPP */
 
-extern s32 Playerai_IsAlternateFireHeld(void *object);
 
-extern void Playerai_BeginHeldAlternateFire(void *actor);
 
-extern s32 Particle_CountOwnerListOneEffects(void *, s32);
+
+
+
 
 extern char g_actorParticleEffectSystem[];
 

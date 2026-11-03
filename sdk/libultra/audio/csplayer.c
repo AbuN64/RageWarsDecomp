@@ -17,6 +17,7 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "../../include/libgultra/alunlink.h"
 #include "include_asm.h"
+#include "../../include/libultra/audio/seqplayer.h"
 
 extern s16 __vsVol(ALVoiceState *, ALSeqPlayer *);
 
@@ -28,7 +29,7 @@ extern void __initFromBank(void *, void *);
 
 extern void *__lookupSoundQuick(void *, s32, s32, s32);
 
-extern void *__mapVoice(void *, u8, u8, u8);
+
 
 extern ALVoiceState *__lookupVoice(ALSeqPlayer *, u8, u8);
 

@@ -4,6 +4,7 @@
 #include "MENU/TEAMMENU.H"
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "CTEAMSELECT/CTEAMSELECT_UPDATETEAMCHOICEINPUT.H"
 
 s32 Cteamselect_TryConfirmTeamChoice(void *menu, void *player) {
     if (((((struct ControllerButtonFlagsView *) ((s8 *) ((struct TeamMenuPlayerLinksView *) ((s8 *) player))->controller))->buttons) & 0x8000) && ((((struct Record *) ((s8 *) ((struct TeamMenuPlayerLinksView *) ((s8 *) player))->options))->team) != 0xFF)) {

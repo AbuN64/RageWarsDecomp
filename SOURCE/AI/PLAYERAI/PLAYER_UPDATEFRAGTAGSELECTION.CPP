@@ -31,6 +31,18 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/TRIPLE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "AUDIO/VOICE.H"
+#include "ENGINE/INSTANCE/GOBJINST.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GSKY/GSKY_FINDSCREENMESSAGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+#include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
 
 extern void Playerai_EndRound(void *);
 s32 Player_CheckTotalScoreWin(Root *);
@@ -668,7 +680,7 @@ s32 Player_CheckScoreLimit(Round *round) {
 /* 80225D10_5.CPP */
 /* Checks accumulated opponent scores and updates the completion flag. */
 
-extern int Player_GetPlayerIndex(Root *,FragTagPlayerListNode *);
+
 
 /* Reports whether a team's points reached the point target (none when it is 0); in a trial it records
    in humanWon whether that team is the human side's and, when it is not, keeps looking. */
@@ -712,13 +724,13 @@ extern s32 g_gameplayRoundState;
 
 extern void *SoundVoicePool_GetGlobalState(void);
 
-extern s32 SoundVoicePool_StopNode(void *, void *);
 
-extern void Gobjinst_UpdateActorController(void *base);
+
+
 
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
 
-extern void GameObject_DrawBlobShadow(void *actor, CVector3 *offset, s32 raised);
+
 
 extern void Cache_UnlockResource(s32 cache, s32 resource);
 
@@ -728,15 +740,15 @@ extern void Cache_UnlockResource(s32 cache, s32 resource);
    belongs to this view and is enabled at 0x1210, and in team games (0x24 or 0x78 of g_matchRoundCounters) a
    teammate marker through Playerai_DrawAimMarker for every other player on the viewing player's team. */
 
-extern void *Gsky_FindScreenMessage(s32);
 
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
 
-extern void *Scene_GetIndexedModelResource(char *, s32);
 
-extern void Geometry_QueueDirectModel(void *, void *, char *, s32, s32);
 
-extern void Playerai_DrawAimMarker(void *);
+
+
+
+
+
 
 extern s32 g_gameLoopFrameCount;
 
@@ -1100,8 +1112,8 @@ void Player_DrawMatchCountdown(void *unusedPlayer, ViewState *viewState) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/GAMEPLAY_TRANSITION.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
-extern void BuildDirectionMatrix(Matrix *, CVector3 *);
-extern void TranslateMatrix(Matrix *, f32 x, f32 y, f32 z);
+
+
 extern void SwapMatrixUpForward(Matrix *);
 extern void Graphu64_ConvertMatrixToFixed(Matrix *src, void *dst);
 static inline void buildForceMarkerTransform(Shared_ActorView *player, s32 attract, CVector3 *normal) {

@@ -6,6 +6,7 @@
 #include <ultra64.h>
 #include "TYPES.H"
 #include "MENU/PAK/NOTE_GETNOTEPAGECOUNT.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Loads a page-aligned resource into the selected device slot and reports the result. */

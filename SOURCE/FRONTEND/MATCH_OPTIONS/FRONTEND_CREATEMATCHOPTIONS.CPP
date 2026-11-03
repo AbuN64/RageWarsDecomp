@@ -4,6 +4,8 @@
 #include "OPTIONS.H"
 #include "FRONTEND/FRONTEND_ACTIVATEMATCHOPTIONACTION.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "MATCH_OPTIONS/FRONTEND_CREATEMATCHOPTIONS.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 extern char *g_matchOptionsSelectLabelFirstByLanguage[];
@@ -36,7 +38,7 @@ extern s32 Join_CountOpenPlayerSlots(void);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 extern void Widget_SetWidgetFlag100(void *record, s32 enable);
 extern struct RecordN64EngCreateNumericWidget *N64Eng_CreateNumericWidget(s32 sourceResourceId, s32 childResourceId, s32 minimumValue, s32 maximumValue, s32 wrapEnabled);
-extern void *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern void SmpButton_WrapButtonWidget(s32);
 

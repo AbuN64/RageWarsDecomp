@@ -3,6 +3,8 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/OBJRECAT5F14.H"
 #include "COMMON/S1.H"
+#include "ENGINE/CACHE/LIST.H"
+#include "SOURCE/OVLGAME.H"
 
 /* OVLGAME.CPP */
 void Ovlgame_InitializeSceneEffectPool(struct CAnimPool *animationPool) {

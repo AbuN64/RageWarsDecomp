@@ -2,6 +2,7 @@
 
 #include "DATA/OVL1_C/NAVIGATION_CALLBACK_ADDRESS.H"
 #include "DATA/ACTOR_STATE_CALLBACKS/ACTOR_STATE_CALLBACK_LABELS.H"
+#include "RESOURCES/G_RESOURCESENCODEDWORDSBLOCK6.H"
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/ragewars_actor_handler_run_CEAC0_us_rev1.c */

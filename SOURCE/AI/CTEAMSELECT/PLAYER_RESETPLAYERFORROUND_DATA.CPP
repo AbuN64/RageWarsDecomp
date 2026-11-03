@@ -7,6 +7,8 @@
 #include <ultra64.h>
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/SESSIONHANDLERROW.H"
+#include "CTEAMSELECT/CTEAMSELECT_DRAWTEAMWHEEL.H"
+#include "CTEAMSELECT/PLAYER_RESETPLAYERFORROUND_DATA.H"
 
 /* 80217388_10.CPP */
 /** Reset the team menu: closed, no cursor or hover, and its four team slots fanned 30 degrees apart. */
@@ -29,7 +31,7 @@ void TeamSelect_ResetTeamWheel(TeamMenu *menu) {
 }
 
 /* 80217388_11.CPP */
-extern void Cteamselect_DrawTeamWheel(s32 menu, s32 unused1, s32 player);
+
 
 void TeamSelect_DrawTeamWheelSprites(s32 menu, s32 unused1, s32 player) {
     Gfx *cmd;

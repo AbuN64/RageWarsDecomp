@@ -26,10 +26,13 @@ extern char g_localPlayerProfiles[];
 extern s32 g_weaponLockedNoticeText;
 extern char g_playerViewRenderContext[];
 #include "COMMON/MENU_MATCH_GLOBALS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WORLD/PLAYERPROFILE.H"
 
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
-extern s32 Player_GetPlayerIndex(void *, void *);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
+
 
 static inline s32 can_fire(char *player) {
     s32 ammo;

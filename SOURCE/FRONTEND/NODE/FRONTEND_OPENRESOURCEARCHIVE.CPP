@@ -17,6 +17,7 @@
 #include "SCENE/CACHE_FREEMEMORY.H"
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *, struct CacheResourceBlockView *, WidgetLayout *, sm_dldc *);
 #include "RESMGR/resmgr_string_memory.H"
+#include "AUDIO/VOICE.H"
 
 /* Puts a new node in a tree node's place, taking over its parent and next links and becoming the parent's first child or the successor of the predecessor Node_FindWidgetPredecessor's search finds, then makes the old node the new node's only child with its next link and the halfwords at 0x14 and 0x16 cleared.
    Adapted from Node_InsertWidgetBefore with the new node taking the old node's next link and child position and the old node's links reset afterwards changed. */
@@ -80,9 +81,9 @@ extern void Widget_DrawWidget(struct Pair14 *image, Triple at, Style style);
 
 
 
-extern void N64Eng_GetClipBounds(u32 *, u32 *, u32 *, u32 *);
 
-extern s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+
+
 
 
 extern void Widget_DrawVisibleSiblings(void *, Args);

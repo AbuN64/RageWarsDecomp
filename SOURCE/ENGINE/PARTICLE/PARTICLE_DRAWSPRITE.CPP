@@ -22,6 +22,11 @@ struct Shared_AnimInfo;
 extern Gfx *g_displayListCursor;
 #include "COMMON/DISPLAY.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "GSKY/GSKY_FINDSCREENMESSAGE.H"
+#include "TEXTLOAD/TEXTLOAD_READTEXTUREANIMATIONINFO.H"
+#include "TEXTLOAD/TEXTLOAD_REQUESTTEXTUREVARIATIONSYNC.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAME.H"
+#include "TEXTURE/TEXTLOAD_LOADTEXTUREFRAMETILES.H"
 #define g_gameSettingsView (*(s32 *)&g_gameSettings)
 extern f32 g_frameElapsedTime;
 extern s32 g_lightingBufferIndex;
@@ -32,14 +37,14 @@ extern GlobalsMenuSetOptionsSceneSelection g_gameplayCameraList;
 
 extern char g_particleSpriteVertices;
 
-void *Textload_RequestTextureVariation(s32 *, s32);
-void Textload_ReadTextureAnimationInfo(void *, struct Shared_AnimInfo *);
+
+
 #if defined(VERSION_US_REV1)
-void Textload_LoadTextureFrameTiles(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #else
-void Textload_LoadTextureFrame(s32 *, void *, s32, s32, s32, s32, s32, s32, s32);
+
 #endif
-Shared_ParticleInstance *Gsky_FindScreenMessage(GameplayCamera *);
+
 s32 Unicol_MoveActorWithCollision(Shared_ParticleInstance *, CVector3, void *);
 void *Map_ReserveEntries(void *, s32);
 void Geometry_SetCombineMode(u32);

@@ -1,0 +1,4 @@
+#ifndef CTEAMSELECT_CTEAMSELECT_UPDATETEAMCHOICEINPUT_H
+#define CTEAMSELECT_CTEAMSELECT_UPDATETEAMCHOICEINPUT_H
+s32 Cteamselect_TryConfirmTeamChoice(void *menu, void *player);
+#endif

@@ -1,0 +1,4 @@
+#ifndef TEXTLOAD_TEXTLOAD_LOCATETEXTURERESOURCE_H
+#define TEXTLOAD_TEXTLOAD_LOCATETEXTURERESOURCE_H
+void Textload_LocateTextureResource(s32 *resourcePair, s32 sectionIndex);
+#endif

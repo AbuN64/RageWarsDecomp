@@ -32,6 +32,8 @@
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/INTEGERSTATE244.H"
 #include "DATA/WEAPON_CALLBACKS/PLAYERAI_INITIALIZEPLAYERHEALTH.H"
+#include "AI/PLAYER/PLAYERAI_COMPUTEAIMROTATION.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
 
 extern void Gsky_StartEmitter(char *, f32, f32, f32, f32, s32, Triple);
 extern void Barrel_FillDamagePacket(Slot *, Held *, s32, f32, s32, s32);
@@ -79,7 +81,7 @@ extern void **g_collisionCurrentActor;
 
 
 extern void Player_UpdateViewAngles(void *, void *, void *);
-extern CQuatern Playerai_ComputeAimRotation(void *, void **, CVector3 *);
+
 extern f32 Graphu64_GetPointDistance(f32 *, f32 *);
 extern s32 CCollision_SweepPoint(void *, CVector3, CVector3, void *);
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);

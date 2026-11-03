@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SETUP/SETUP_NAME_CURSOR_CONSTANT_WORDS.H"
 
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 const float g_multiplayerNameEntryTimingLimits = 15.0f;

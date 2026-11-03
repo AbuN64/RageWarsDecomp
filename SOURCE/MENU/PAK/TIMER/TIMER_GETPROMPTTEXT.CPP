@@ -14,6 +14,11 @@
 #include "COMMON/MENURECAT24.H"
 #include "MENU/PAK/TIMER_GETPROMPTTEXT.H"
 #include "ENGINE/DEFS.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 /* Latches g_pakMenuPromptAccepted to one when the record's team value is not -1 and both Control_PeekPakChange_Pak and Snapshot_CheckStatusPrompt accept it, then returns g_pakMenuPromptAccepted. Adapted from Timer_CheckMenuPakChange with nothing changed (identical code). */
 
@@ -32,7 +37,7 @@ static inline s32 Pak_GetMenuChannel(struct Shared_PakMenu *record) {
     }
     return record->owner->controllerPort;
 }
-extern s32 Snapshot_CheckStatusPrompt(void *menu, s32 channel, s32 quiet);
+
 
 /* Latches g_pakRequestLatched and g_pakStartButtonLatched to one the first time bit 12 of the word at offset 0xB0 of the
    object at 0x20 of a record is seen set, and returns g_pakRequestLatched. */
@@ -57,7 +62,7 @@ extern void Control_DisableControllerPak(int controllerPort);
 
 
 /* Searches the sixteen controller-pak notes for the requested name and returns the matching index when requested. */
-extern void Note_GetNoteGameName(s32,s32,s32 *),Note_DecodeNoteText(s32,void *,s32);
+
 
 
 /* Returns the data table for a kind: kinds 1, 2 and 3 have their own, kind 0 and anything else use the
@@ -269,7 +274,7 @@ s32 Timer_FindNextAvailableChannel(s32 currentChannel) {
    Adapted from Items_FormatPackedGameOption with the three flag tests, the texts, the format, the offset and the incremented value changed. */
 
 
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 s32 Timer_UpdateManagerChannelLabel(struct Field *field) {
     char *text;
@@ -295,7 +300,7 @@ s32 Timer_UpdateManagerChannelLabel(struct Field *field) {
 
 
 
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 s32 Timer_UpdateManagerChannelLabel(struct Field *field) {
     char **table;

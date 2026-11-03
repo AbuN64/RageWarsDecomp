@@ -2,6 +2,9 @@
 #include "include_asm.h"
 #include "TYPES.H"
 #include "ONSCRN/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "ENGINE/CACHE/LIST.H"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "OVLGAME/HUD.H"
 
 /* HUD.CPP */
 extern void Lists_InitFromPool(void *lists, void *pool, s32 stride, s32 count);
@@ -10,13 +13,13 @@ extern void Lists_ClearHeader(void *list);
 
 extern s32 Lists_Append(void *list, void *node);
 
-extern void List_InitializeIntrusive(void *list, s32 nextOffset, s32 prevOffset);
 
-extern void List_AppendIntrusive(void *list, void *node);
+
+
 
 extern void Fx_UpdateEffectLists(s32 owner);
 
-extern void OnScreen_InitMover(void *mover, s16 x, s16 y);
+
 
 extern unsigned char g_hudPrimaryByteLookupSource[];
 

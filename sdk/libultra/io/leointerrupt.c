@@ -1,4 +1,5 @@
 #include "../../include/libultra/io/leo.h"
+#include "../../include/libultra/io/epirawdma.h"
 
 #define IO_READ(a) (*(volatile u32 *)(0xA0000000 | (a)))
 #define IO_WRITE(a, v) (*(volatile u32 *)(0xA0000000 | (a)) = (v))

@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "DATA/OVL1_F/OVL1_F.H"
 
-extern char g_overlayOneFLinkRecordAddressWordsBlock1[];
+
 
 #include "DATA/WEAPON_SPIN_CALLBACKS/WEAPON_NO_OPERATION_CALLBACK_ADDRESS_US_REV1.H"
 

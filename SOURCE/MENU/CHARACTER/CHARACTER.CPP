@@ -422,6 +422,7 @@ extern float g_characterPreviewInitialScale;
 #include "COMMON/SELECTIONSCREENSTATE.H"
 #include "FRONTEND/FRONTEND_DRAWMODELPREVIEW.H"
 #include "COMMON/ANIMATION.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 
 s32 Character_CreateSelectionMenuGerman(void *screen)
 {

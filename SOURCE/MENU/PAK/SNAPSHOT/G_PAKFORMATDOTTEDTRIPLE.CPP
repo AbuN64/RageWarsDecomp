@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SNAPSHOT/G_PAKFORMATDOTTEDTRIPLE.H"
 
 #if defined(VERSION_DE) || defined(VERSION_US)
 const char s_snapshotThreePartNumberFormatVariant[14] =

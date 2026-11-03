@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "MENU/PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 /* Builds screen state g_alternatePlayerSettingsScreen under a parent window: allocates its 0x50 bytes, opens lists 0x1C9, 0x1D1 and 0x1CB filled with the entries in D_800D74xx at 0x0C, 0x08 and 0x10, opens panels 0x1CF and 0x1CD at 0x0 and 0x4, opens window 0x1C7 at 0x18, clears the word at 0x14, resets through Player_SelectAlternatePlayerSettingsEntry(0) and returns zero.
@@ -11,7 +12,7 @@
 extern MenuListScreen *g_alternatePlayerSettingsScreen;
 extern struct Record *Cache_AllocateMemory(s32 size);
 
-extern void *SmpButton_CreateListWidget(s32, s32);
+
 extern void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text);
 extern struct MenuSliderWidget *SmpSlider_CreateSliderWidget(s32 sliderWidgetId, s32 childWidgetId, s32 initialTransition);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);

@@ -1,6 +1,8 @@
 #include "include_asm.h"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "TYPES.H"
+#include "../../../include/libultra/io/contramread.h"
+#include "../../../include/libultra/io/contramwrite.h"
 
 /* osMotorInit, drafted from ultralib src/io/motor.c (the branch before 2.0J) with its static
    _MakeMotorData, which this library inlines: _MotorStartData, _motorstartbuf, _MotorStopData and _motorstopbuf are
@@ -10,8 +12,8 @@ extern u8 g_controllerMotorStartData[32];
 extern OSPifRam g_controllerMotorStopCommands[4];
 extern u8 g_controllerMotorStopData[32];
 extern s32 g_controllerMotorInitialized[4];
-extern s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
-extern s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
+
+
 extern u8 __osContAddressCrc(u16 address);
 static inline void _MakeMotorData(int channel, u16 address, u8 *buffer, OSPifRam *mdata)
 {

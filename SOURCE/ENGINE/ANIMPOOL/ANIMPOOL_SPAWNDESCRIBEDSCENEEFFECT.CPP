@@ -8,6 +8,8 @@
 #include "TYPES.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* Spawns the effect a description asks for: the spawn of Animpool_SpawnSceneEffect (id resolution, free node, init
  * through Gobjinst_InitializeActor and start) inlined with the id, variant, count, owner, position, scale, direction
@@ -23,7 +25,7 @@
 
 
 
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
+
 
 extern s32 Scene_GetModelIdAtIndex(void *, s32);
 

@@ -5,6 +5,8 @@
 #include "COMMON/MENURECAT24.H"
 #include "MENU/ITEMS/PLAYER_OPENPLAYERDIALOG.H"
 #include "MENU/PAK/TIMER_CANCELPENDINGOPERATION.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Loads the owner at offset 0x1C of the second argument into g_playerViewRenderContext through Player_GetPlayerIndexDe,
    calls Timer_ClearTimerFlag, and hands the owner, its word at 0x698 and a zero with the resource
@@ -14,8 +16,8 @@
 
 
 extern char g_playerViewRenderContext[];
-extern void Player_GetPlayerIndex(void *, struct MenuItemControllerView *);
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
+
 
 s32 Player_OpenPlayerDialog(void *unused, struct MenuItemOwnerLinkView *holder) {
     struct MenuItemControllerView *owner = holder->owner;

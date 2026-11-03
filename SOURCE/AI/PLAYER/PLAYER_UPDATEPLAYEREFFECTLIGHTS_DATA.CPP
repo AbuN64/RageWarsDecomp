@@ -4,6 +4,7 @@
 #include "COMMON/MULTIPLAYEROPTIONS.H"
 #include "TYPES.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
+#include "GSKY/GSKY_PROJECTTOSCREEN.H"
 
 /* Draws an icon sprite for a view: icons 0x2DA, 0x2E4, 0x2BC and 0x2EF to 0x2F2 sit at the centre of
    the view's viewport, any other icon is placed at a world point projected through Gsky_ProjectToScreen_PlayerUpdateplayereffectlightsData when
@@ -14,7 +15,7 @@
 
 
 
-extern void Gsky_ProjectToScreen(View *, CVector3 *, f32 *, f32 *);
+
 
 void Playerai_DrawProjectedAimIcon(View *view, CVector3 *point, s32 icon, f32 frame, f32 scale, f32 size) {
     f32 x;

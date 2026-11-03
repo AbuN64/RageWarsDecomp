@@ -19,6 +19,20 @@
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "RENDER/PLAYER_SPAWN_PLACEMENT.H"
+#include "AI/PLAYER/PLAYERAI_BUILDFORCEMARKERTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_DEATH__PLAYERAI.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "ENGINE/SETN64.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "RENDER/CONTROL_CYCLEACTORSNAPSHOTMODE.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 /* Apply player transitions, regional control gates, and localized linked-actor notifications. */
 
 
@@ -41,24 +55,24 @@ extern s32 g_playerDeathEffectModelIds[2];
 void *Portal_GetGraphPoint(void *, s32);
 struct NavigationSearchGraphView; s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 s32 Player_SetPlayerState(void *, void *, s32);
-void *Gsky_PostScaledScreenMessage(void *, void *, void *, f32); CQuatern Gobjinst_BuildActorAimQuaternion(char *);
-s32 Gobjinst_GetModelRenderMode(void *);
+ CQuatern Gobjinst_BuildActorAimQuaternion(char *);
+
 void InstHdr_CopyActorPositionAndModel(void *, Triple, void *, s32 *, s32, s32); /* extern */
 s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32); /* extern */
-void Control_SetProfileMode(void *, s32);
-void Link_DispatchActorLinks(void *, s32, void *);
+
+
 void Link_DispatchObjectLinks(s32, s32, void *);
-s32 Particle_SpawnEffectGroup(void *, void *, void *, s32 *, s32, s32, CVector3, CQuatern, CVector3, CVector3 *, s32, s32); /* extern */
-void Particle_ReleaseOwnerListTwoEffects(void *, s32);
-s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
-void Scene_SetLevelRecordStateBit(void *, void *, s32);
+ /* extern */
+
+
+
 void *SetN64_SpawnModelEffect(void *, s32 *, s32, CVector3, CVector3, s32, f32); /* extern */
 struct EffectPoolNode;
-void SetN64_RecycleGlobalEffectNode(struct EffectPoolNode *);
+
 s32 XPlus_NextRandomInteger(void);
 void Player_ResetPlayerForRound(void *, s8, s32);         /* extern */
-void Player_PlacePlayerForRound(void *);
-void Player_ReleaseObjectHandles(void *);
+
+
 
 
 extern char g_actorParticleEffectSystem[];
@@ -508,7 +522,7 @@ extern s32 Playerai_IsRoundEndState(void *);
 extern s32 Player_GetMaxHealth(void *);
 extern void CScene_StartEventClips(void *, void *, s32, CVector3, f32, f32);
 extern void Gsky_SetDamageEffect(void *, s32, s32);
-extern void Playerai_AddCappedEventCounter(void *, u16);
+
 /* Applies damage to a player: ignored while the game is paused, the player is protected or the damage
  * source is not allowed; scales the amount by one fifth with armour (0x80C); when the health stays above
  * zero and drops through half of the maximum it respawns the weapon (Player_PlacePlayerAtSpawnPoint); lowers the health
@@ -663,8 +677,7 @@ void Player_ApplyPlayerDamage(void *player, void *attacker, s32 amount, s32 dama
 
 extern s32 Playerai_IsRoundEndState(void *actorObject);
 extern void Player_DrainReserveAndDamage(void *actor, f32 amount, void *damageSource);
-extern void Playerai_StartDamageTimer(void *obj, f32 target, f32 rate, void *kind,
-                          s32 tag);
+
 extern void Playerai_AddReactionReserve(void *actor, f32 amount, void *source);
 extern void Player_StartSourceEffect(void *actor, void *effectSource);
 

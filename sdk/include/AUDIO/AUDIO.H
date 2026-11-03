@@ -1,0 +1,5 @@
+#ifndef SOURCE_AI_PLAYER_SDK_INCLUDE_AUDIO_AUDIO_H
+#define SOURCE_AI_PLAYER_SDK_INCLUDE_AUDIO_AUDIO_H
+struct DialogPlaybackPlayer;
+void Audio_UpdateDialogPlayer(struct DialogPlaybackPlayer *player);
+#endif

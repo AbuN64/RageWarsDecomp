@@ -12,13 +12,16 @@
 #include "ACTORS/LIGHTING_BUILDLITMODEL.H"
 #include "SCENE/RESOURCE_BINDING_AND_FADE_VIEWS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/LINK.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "STATINST/STATINST_ACQUIREGEOMETRY.H"
 extern s32 g_gameFrameCounter;
 
 /* Returns the matching resource entry index, or minus one when absent. */
 
-extern void *Statinst_AcquireGeometry(ResourceOwner *owner,s32 index);
 
-extern void Geometry_UnlockMaterialResources(void **modelResource);
+
+
 
 extern void Cache_UnlockResource(s32 cache, s32 resource);
 
@@ -40,7 +43,7 @@ extern s32 *Geometry_CollectMaterialResources(void **modelResource, s32 variatio
 
 extern void Cache_MarkResourceInUse(s32, struct CacheResourceNode *);
 
-extern void Link_AnimateVertexColors(void *object, void *colors);
+
 
 extern void Geometry_QueueModelInstance(void **, void *, s32, void *, void *, s32);
 

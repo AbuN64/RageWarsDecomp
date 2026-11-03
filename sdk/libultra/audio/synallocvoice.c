@@ -3,6 +3,7 @@
 #include "COMMON/SHAREDRECV4.H"
 #include "TYPES.H"
 #include "../../include/libgultra/alunlink.h"
+#include "../../include/libultra/audio/synallocvoice.h"
 
 
 

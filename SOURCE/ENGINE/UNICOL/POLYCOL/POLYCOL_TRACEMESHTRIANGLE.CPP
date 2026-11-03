@@ -17,6 +17,7 @@
 #include "COMMON/TRIPLE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 802412C0_6.CPP */
 /* Walks one mesh display list of the element being traced: VTX commands transform their model vertices
@@ -88,7 +89,7 @@ void PolyCol_TraceMeshDisplayList(ContextB0 *context, void *resource) {
 }
 
 /* 80241940_5.CPP */
-extern void Graphu64_CrossVectors(CVector3*,CVector3*,CVector3*);
+
 
 void PolyCol_TraceMeshTriangle(ContextB0 *mesh,CollisionVertex **points) {
     extern s32 CCollision_TestSegmentPolygon(CapsuleSweep*,PolygonCCollisionTestSegmentPolygon*,s32);

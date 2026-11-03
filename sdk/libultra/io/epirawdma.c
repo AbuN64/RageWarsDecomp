@@ -2,6 +2,7 @@
 #include "COMMON/OSPIHANDLE_S.H"
 #include "TYPES.H"
 #include <ultra64.h>
+#include "../../include/libultra/io/epirawdma.h"
 
 /* 802BE040_7.CPP */
 

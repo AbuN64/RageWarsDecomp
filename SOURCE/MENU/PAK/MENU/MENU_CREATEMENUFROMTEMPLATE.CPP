@@ -10,6 +10,7 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "MENU/PAK/MENU_INITIALIZEMENU.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Returns the address sizeof(Profile) bytes into the block at offset 0x20 of an object, or null when the
@@ -84,7 +85,7 @@ f32 Menu_MeasureLine(u8 *p, f32 sx, f32 sy) {
 }
 
 /* Returns whether Menu_CreateMenuFromParameters gives a non-zero answer for the third argument. */
-extern s32 Menu_CreateMenuFromParameters(void *owner, void *params);
+
 
 s32 Menu_TryCreateMenu(void *first, void *second, void *third) {
     return Menu_CreateMenuFromParameters(third, second) != 0;

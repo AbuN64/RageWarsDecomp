@@ -10,6 +10,7 @@
 #include "SYSTEM/POLYTRAK2_INTERPOLATEJOINTQUATERNION.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/ANIM/BITARRAY.H"
+#include "POLYTRAK2/POLYTRAK2_EVALUATEANIMATIONCURVE.H"
 
 /* BITARRAY.CPP */
 /* ROM-grounded data: src/g_motionTranslationQuantizationScale_StorageWords.c */
@@ -19,7 +20,7 @@ const float g_motionTranslationQuantizationScale_StorageWords[1] = {
 
 /* Reads a sampled track from a stream: parses its header through Polytrak2_InitializePackedCurve, evaluates the track at each whole frame into the first float of consecutive 16-byte output records, and advances the stream cursor past the track's key data. */
 
-extern void Polytrak2_InitializePackedCurve(TrackBitarrayExpandCurveSamples *track, char **cursor);
+
 
 extern f32 Polytrak2_SampleAnimationCurve(TrackBitarrayExpandCurveSamples *track, f32 time, s32 unusedFirst, s32 unusedSecond);
 

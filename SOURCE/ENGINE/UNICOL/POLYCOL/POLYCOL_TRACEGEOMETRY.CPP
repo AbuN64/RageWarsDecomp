@@ -8,27 +8,30 @@
 #include "ANIM/RAY180.H"
 #include "ENGINE/UNICOL/POLYCOL.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "COLLIDE/CCOLLISION_TESTSEGMENTDISK.H"
+#include "ENGINE/UNICOL/PLANE.H"
+#include "PPDECOM/PPDECOM_QUICKSORTRECORDS.H"
 
 /* 800C886C.CPP */
 
 /* 80241940_4.CPP */
 extern s32 CCollision_TestSegmentPolygon(void *, s32 *, s32);
 
-extern void Plane_BuildBoxFace0(s32 *, void *);
 
-extern void Plane_BuildBoxFace1(s32 *, void *);
 
-extern void Plane_BuildBoxFace2(s32 *, void *);
 
-extern void Plane_BuildBoxFace3(s32 *, void *);
 
-extern void Plane_BuildBoxFace4(s32 *, void *);
 
-extern void Plane_BuildBoxFace5(s32 *, void *);
+
+
+
+
+
+
 
 s32 CCollision_TestRayCylinder(void *, void *, f32, s32, f32, s32, s32 *, s32);
 
-s32 CCollision_TestSegmentDisk(void *, s32 *, void *, f32, s32);
+
 
 /* Gathers the pieces a ray sweeps through: for each entry of the counted table in g_worldCollisionElementTable whose
  * rectangle, grown by the ray's radius, overlaps the ray's rectangle and is hit by it, each visible element
@@ -47,7 +50,7 @@ struct Ray; struct CQuatern_t; extern s32 CCollision_IntersectSegmentRectangle(s
 
 extern void CPolyCollision_TraceElementMesh(void *contextAddress);
 
-extern void PpDecom_QuickSortRecords(char *, u32, u32, void *, void *);
+
 
 s32 CPolyCollision_TraceBoxFaces(void *ray, void *unusedPlatform, void *corners, s32 *quad) {
     s32 result;

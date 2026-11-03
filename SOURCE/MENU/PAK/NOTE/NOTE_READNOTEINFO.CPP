@@ -10,6 +10,10 @@
 #include "TYPES.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "ENGINE/DEFS.H"
+#include "NOTE/NOTE_READNOTEDATA.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
 
 /* Writes a note to the Controller Pak on channel ch: refuses with -2 unless the pak is ready,
    takes the controller lock and, when the pak has no pending error, converts the extension and
@@ -90,7 +94,7 @@ extern int Cache_GetResourceActivityState(void);
 
 extern void Cache_SetResourceActivityState(unsigned int);
 
-extern s32 Defs_CompareMemory(void *a, void *b, s32 size);
+
 
 extern s32 Note_CreateAndWriteNote(s32 ch, s32 size, void *data, u8 *game_name, s32 *file_no, u8 *ext_name,
                          u8 *company, u8 *code);

@@ -16,8 +16,11 @@
 #include "COMMON/AIPROFILE.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SETN64.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
+#include "TRACK/TRACK_DRAWTRACKOVERLAY.H"
 
-extern void SetN64_DrawColorRectangle(void *,u8 *,s32,s32,s32,s32);
+
 static inline u32 toUnsigned(f32 v,f32 limit) { u32 result; if(!(limit<=v)) result=(u32)(s32)v; else { v-=limit; result=(u32)(s32)v; result|=0x80000000; } return result; }
 static inline f32 unsignedWidth(u32 v) { f64 d=(s32)v; if((s32)v<0)d+=g_trackOverlayWidthUnsignedBias; return (f32)d; }
 static inline f32 unsignedHeight(u32 v) { f64 d=(s32)v; if((s32)v<0)d+=g_trackOverlayHeightUnsignedBias; return (f32)d; }
@@ -88,7 +91,7 @@ void Track_DrawTrackOverlay(ScreenRectangle *rectangle) {
 
 extern const char g_cinemaDirectoryText[];
 
-extern s32 SetN64_LocatePackSection(s32 *, s32, s32, s32 *);
+
 
 
 

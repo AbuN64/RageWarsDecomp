@@ -2,6 +2,7 @@
 #include "TYPES.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "include_asm.h"
+#include "WEAPONSHAKE/WEAPONSHAKE.H"
 /* 80231F5C_15.CPP */
 u32 Weapon_UpdateShakeAxis(CShakeAxis *state) {
     f32 scale;

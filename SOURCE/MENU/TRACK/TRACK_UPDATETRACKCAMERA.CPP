@@ -42,17 +42,20 @@ f32 Track_EvaluateTrackScalar(f32 t) {
 }
 
 #include "COMMON/WORLD.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern f32 g_trackCameraScaleAndYawOffset[];
 extern u8 g_defaultProbeMotionSettings[];
 extern void CCinema_DrawMessages(void);
 extern CVector3 Track_GetTrackEyePosition(f32);
 extern CVector3 Track_GetTrackTargetPosition(f32);
-extern void Graphu64_IdentityMatrix(void *);
-extern void Graphu64_MatrixFromEulerXYZ(void *, f32, f32, f32);
+
+
 extern void Graphu64_TransformPoint(void *matrix, void *inputPoint, void *transformedPoint);
-extern void Scene_RequestVisibleGridSections(void *);
+
 extern s32 Unicol_MoveActorWithCollision(SharedTrackObject *, f32, f32, f32, void *);
-extern f32 Graphu64_GetVerticalAngle(CVector3 *);
+
 /* Follow the keyframe camera and keep the collision result across world cleanup. */
 void Track_UpdateTrackCamera(SharedTrackCamera *camera) {
     CVector3 eye;

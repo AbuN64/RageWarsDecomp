@@ -1,0 +1,5 @@
+#ifndef GAME_FRONTEND_HANDLEOPTIONSPAGESHORTCUT_H
+#define GAME_FRONTEND_HANDLEOPTIONSPAGESHORTCUT_H
+s32 Frontend_HandleOptionsPageShortcut(void);
+s32 Frontend_UpdateOptionsPageExit(void);
+#endif

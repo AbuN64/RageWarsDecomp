@@ -9,6 +9,7 @@
 #include "MENU/PAK/MENU_ISTRACKREQUESTITEM.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SETN64.H"
 
 /* Returns one less than the word g_trackResourceDirectory points to. */
 
@@ -19,7 +20,7 @@
 
 extern const char g_cinemaDirectoryText[];
 
-extern void *SetN64_LocatePackSection(int, int, int, int *);
+
 
 
 /* Blends two values with cubic weights: with u the pooled constant k_MenuBlendUnitConstants[0] less t, from is

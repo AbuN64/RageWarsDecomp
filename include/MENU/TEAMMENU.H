@@ -4,6 +4,7 @@
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "CTEAMSELECT/S_SELECTTEAMTEXT.H"
 struct TeamMenu;
 typedef struct TeamMenu TeamMenu;
 
@@ -237,7 +238,7 @@ struct MenuCteamselectDrawTeamWheel {
 typedef struct StickInput { char pad00[0xC6]; s8 x, y; } StickInput;
 typedef struct StickPlayer { char pad00[0x698]; StickInput *input; } StickPlayer;
 
-extern char s_selectTeamText[];
+
 
 struct TeamWeaponPlayer;
 typedef struct TeamWeaponPlayer TeamWeaponPlayer;

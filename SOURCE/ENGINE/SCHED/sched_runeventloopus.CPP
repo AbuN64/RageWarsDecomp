@@ -13,14 +13,17 @@
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #if defined(VERSION_US)
 #include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
+#include "sched/sched_handleretrace.H"
+#include "sched/sched_handlerspcompletion.H"
+#include "sched/sched_handletaskcommands.H"
 extern s32 g_schedulerFrameCountdown;
-extern void Sched_HandleRetrace(OSSched *);
+
 extern void Frontend_UpdateScreenMode(void);
-extern void Sched_HandleRdpCompletion(OSSched *);
+
 extern void SoundElement_FadeOutMusic(void);
 extern void *SoundVoicePool_GetGlobalState(void);
 extern void SoundVoicePool_StopAll(void *);
-extern void Sched_HandleTaskCommands(OSSched *);
+
 
 void Sched_RunEventLoopUs(OSSched *sc) {
     void *msg;

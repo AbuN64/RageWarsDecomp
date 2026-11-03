@@ -55,4 +55,9 @@ struct AttachmentEffectActorView {
     char pad268[0x74];
     s32 attachmentEffectMask;
 };
+struct ModelAttachmentEffect;
+struct MatrixF;
+struct AttachmentEffectActorView;
+struct AttachmentTable;
+void Ghot_DispatchAttachmentEffects(struct ModelAttachmentEffect *effectAttachments, s32 attachmentsRemaining, struct MatrixF *attachmentMatrices, struct AttachmentEffectActorView *actor, struct AttachmentTable *attachmentNodes);
 #endif

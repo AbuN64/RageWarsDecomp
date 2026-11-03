@@ -1,0 +1,5 @@
+#ifndef MENU_ITEMS_SCENE_OVLSCENE_LOADSCENERESOURCES_H
+#define MENU_ITEMS_SCENE_OVLSCENE_LOADSCENERESOURCES_H
+struct SceneLoadResourcesView;
+void Scene_LoadSceneResources(struct SceneLoadResourcesView *sceneToLoad, s32 cartridgeBankKey);
+#endif

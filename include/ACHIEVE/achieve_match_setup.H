@@ -27,4 +27,8 @@ struct PlayerLoadoutSelectionView {
 };
 #include "WEAPONS/PLAYER_INVENTORY.H"
 extern s32 Achieve_MatchQualifies(void);
+struct PlayerLoadoutSelectionView;
+void Achieve_ApplyPlayerOptionOverrides(struct PlayerLoadoutSelectionView *p);
+struct WeaponPlayer;
+void Achieve_EnableLevelWeapons(struct WeaponPlayer *player);
 #endif

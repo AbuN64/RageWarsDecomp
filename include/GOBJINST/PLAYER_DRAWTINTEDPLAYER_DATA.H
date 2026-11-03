@@ -6,4 +6,7 @@
 #include "COMMON/OBJRECV5.H"
 extern void Gobjinst_DrawActorPartsWithViewEffects(LevelActor *actor, PlayerControllerView *player, s32 animationContext, Draw *params);
 extern void Gobjinst_DrawBlendPartsWithViewEffects(TintedPlayerRenderActor *actor, s32 drawView, s32 animationContext, Lookup *params);
+struct FadedActorRenderView;
+struct Lookup;
+void Gobjinst_DrawActorModelWithViewEffects(struct FadedActorRenderView *actor, void *context, struct Lookup *lookup);
 #endif

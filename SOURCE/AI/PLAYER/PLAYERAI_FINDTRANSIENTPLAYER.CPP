@@ -14,6 +14,11 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "AI/PLAYER/PLAYER_MODEL_AND_HELD_WEAPON_RENDERING.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "GSKY/GSKY_LOADPROJECTIONMATRIX.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
+#include "WEAPONS/PLAYER_UPDATEFRAGTAGSELECTION.H"
 
 /* Draws the marker over a player that is alive at 0x5E4: loads the player's matrix from its table at
    0x1640 (the first entry while Tsmos_IsFrontendActive reports a shared view, otherwise the entry for the current
@@ -45,7 +50,7 @@ extern void Gobjinst_RotatePoseMatrixBuffers(void *actorRenderState);
 
 
 
-extern s32 InstHdr_CanActorReceiveInteraction(void *actor);
+
 
 
 
@@ -53,12 +58,12 @@ extern s32 InstHdr_CanActorReceiveInteraction(void *actor);
 #if defined(VERSION_US_REV1)
 #endif
 
-extern void Gsky_LoadProjectionMatrix(void *cameraAddress);
-
-extern void Player_DrawHeadsUpDisplay(void *player, void *view);
 
 
-extern void Player_DrawMatchCountdown(void *, void *);
+
+
+
+
 
 /* Returns the leading team: for each player in the list from 0x20 it adds the player's kills of the
    seven other players (the shorts at 0x3C of its stats at 0x5D8) to the total of its team byte at

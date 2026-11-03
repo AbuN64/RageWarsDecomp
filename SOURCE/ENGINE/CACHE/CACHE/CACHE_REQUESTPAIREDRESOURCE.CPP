@@ -13,6 +13,7 @@
 #include "TEXTURE/CACHE_RECYCLELOADREQUEST.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/CACHE/DECMPRSR.H"
 
 /* Looks a key up in the request hash table under the manager lock: an existing request bumps its
    node's reference count and flags, stamps it and hands the node to List_MoveIntrusiveToHead; otherwise, unless
@@ -50,9 +51,9 @@ extern s32 g_resourceHashBuckets;
 
 extern void *Cache_AcquireLoadRequestWithEviction(s32 unused,s32 flags);
 
-extern void Cache_SubmitResourceLoadAndWait(s32 *, ResourceLoadRequest *);
 
-extern void List_MoveIntrusiveToHead(void *, CachedResource *);
+
+
 
 extern ResourceLoadRequest *Cache_FinalizeResourceLoad(s32 unused, ResourceLoadRequest *request, s32 dropReference);
 
@@ -112,7 +113,7 @@ static inline void release(void) {
 
 
 extern void Cache_AcknowledgeResourceSlotRelease(s32 unused, s32 request);
-extern s32 Cache_TrySubmitResourceLoad(void *, void *, Manager *);
+
 
 extern void Cache_DetachResourceRequest(void *unused0, void *resourceCacheEntry);
 

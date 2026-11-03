@@ -3,8 +3,9 @@
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/RENDERCOUNTERS.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
-extern s32 InstHdr_GetActorType(void *prop);
+
 
 
 

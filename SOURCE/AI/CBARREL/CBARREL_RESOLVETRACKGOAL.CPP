@@ -6,22 +6,26 @@
 #include "COMMON/MATH_HELPERS.H"
 #include "AI/CBARREL.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "CBARREL/CBARREL_RESOLVETRACKGOAL_DATA.H"
+#include "CBARREL/CBARREL_SELECTCOMBATTARGET.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
 
-extern s32 Cbarrel_UpdateTrackerAim(BarrelAnchorActorView *actor, Tracker *tracker, BarrelAnchorActorView *target);
-extern BarrelAnchorActorView *Cbarrel_SelectCombatTarget(BarrelAnchorActorView *actor, Tracker *tracker, s32 lineOfSight, s32 combat);
+
+
 extern f32 Barrel_FindClearAimAngle(BarrelAnchorActorView *actor, CVector3 pos, BarrelAnchorActorView *target, f32 distance);
 extern f32 Barrel_GetSignedAngleToPoint(void *actor, struct CVector3_t point);
 struct Cursor;
 extern Location *Playerai_GetRouteCursorPoint(struct Cursor *slot);
 extern f32 Gobjinst_GetActorHeight(BarrelAnchorActorView *actor);
 extern f32 Gobjinst_GetActorRadius(BarrelAnchorActorView *actor);
-extern f32 InstHdr_GetActorReach(BarrelAnchorActorView *object);
+
 extern void InstHdr_CopyActorPositionAndModel(BarrelAnchorActorView *levelActor, CVector3 pos, CVector3 *outPos, s32 *outRoom, s32 unused6, s32 unused7);
-extern f32 InstHdr_GetModelRecordValue20(BarrelAnchorActorView *object);
+
 extern f32 Graphu64_GetHorizontalAngle(CVector3 *direction);
 extern void Graphu64_AddVec3(CVector3 *result, CVector3 *left, CVector3 *right);
 extern void Graphu64_SubtractVectors(CVector3 *result, CVector3 *left, CVector3 *right);
-extern void Graphu64_ScaleVector(CVector3 *result, CVector3 *vec, f32 scale);
+
 
 
 /* Places the goal beside kind-7 targets: pushed away from the anchor by both extents. */
@@ -102,13 +106,13 @@ void Cbarrel_ResolveTrackGoal(BarrelAnchorActorView *actor, Tracker *tracker, s3
             pos = target->pos;
             room = target->room;
             if (mode == 1) {
-                pos.y += target->height + Gobjinst_GetActorHeight(target) * g_trackGoalTargetHeightFactor;
+                pos.y += target->height + Gobjinst_GetActorHeight(target) * (*(float *)&g_trackGoalTargetHeightFactor);
             }
         }
         gap = Gobjinst_GetActorRadius(target) + Gobjinst_GetActorRadius(actor);
         switch (kind) {
             case 2:
-                gap += k_barrelKindTwoApproachPadding;
+                gap += (*(float *)&k_barrelKindTwoApproachPadding);
             default:
                 boost = 1;
                 break;
@@ -159,7 +163,7 @@ void Cbarrel_ResolveTrackGoal(BarrelAnchorActorView *actor, Tracker *tracker, s3
         probe.x = actor->pos.x + reach * Gu_Sinf(tracker->angle);
         probe.y = tracker->height;
         probe.z = actor->pos.z + reach * Math_Cosf(tracker->angle);
-        range = Barrel_FindClearAimAngle(actor, probe, target, k_barrelClearAimSearchRange);
+        range = Barrel_FindClearAimAngle(actor, probe, target, (*(float *)&k_barrelClearAimSearchRange));
         pos.y = tracker->height;
     } else {
         range = Barrel_GetSignedAngleToPoint(actor, pos);

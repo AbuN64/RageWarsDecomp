@@ -1,11 +1,15 @@
 #include "include_asm.h"
 #include "TYPES.H"
 #include "COMMON/LONE/PARTICLE_PITCH_MATRIX_SCRATCH.H"
+#include "BATCH/BATCH.H"
+#include "ENGINE/CACHE/LIST.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
 
-extern void List_InitializeIntrusive(void *list, s32 nextOffset, s32 prevOffset);
-extern void List_AppendIntrusive(void *list, void *node);
-extern void Playerai_InitializeCompactAnimationState(void *definition);
-extern void BuildPitchMatrix(void *matrix, f32 angle);
+
+
+
+
 extern s32 g_particleActorDefinition;
 
 typedef struct EntryBlock {

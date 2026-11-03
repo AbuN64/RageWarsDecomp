@@ -3,10 +3,11 @@
 #include "MENU/OPTIONEDITSTATE.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "TYPES.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Replaces the option byte g_soundEffectsVolumeOption with what Menu_AdjustValue returns for the second argument, that byte, 8, 0, 0xFF and 0, turning 0xF7 into 0xF8, and returns zero. Adapted from Pak_AdjustVolumeSlotTwo with the option byte g_soundEffectsVolumeOption changed. */
 
-extern s32 Menu_AdjustValue(struct MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap);
+
 
 s32 Pak_AdjustVolumeSlotOne(void *first, void *second) {
     u8 *option = &g_gameSettings.volume[1];

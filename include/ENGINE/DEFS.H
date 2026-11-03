@@ -22,4 +22,9 @@ extern void Defs_FormatSingleInteger(char *buffer, const char *format, s32 value
 extern void Defs_FormatThreeIntegers(char *buffer, const char *format, s32 a, s32 b, s32 c);
 extern void Defs_FormatFourIntegers(char *buffer, const char *format, s32 a, s32 b, s32 c, s32 d);
 extern s32 Defs_ReadResourceWord(s32);
+s32 Defs_CompareMemory(u8 *leftBytes, u8 *rightBytes, s32 byteCount);
+s32 Defs_FindSortedValue(void *entries, s32 entryCount, s32 value);
+int Defs_IsAddressInCodeRanges(u32 callback);
+void Defs_MoveMemory(u8 *split, u8 *source, s32 byteCount);
+void Defs_SetupPointLights(char *view);
 #endif

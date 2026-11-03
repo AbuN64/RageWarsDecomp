@@ -4,11 +4,12 @@
 
 #if defined(VERSION_EU)
 #include "TYPES.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 extern struct PlayerCountScreenState *g_playerCountScreen;
 extern char s_playerCountFormat[];
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Tsmos_ActivateControllerState(void);
-extern void *SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern void SmpButton_WrapButtonWidget(s32);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);

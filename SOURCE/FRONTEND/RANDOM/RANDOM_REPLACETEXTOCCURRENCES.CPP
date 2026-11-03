@@ -3,6 +3,7 @@
 #include "COMMON/ACTIVE.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "TYPES.H"
+#include "UI/X_FILES/X_PLUS.H"
 
 /* Marks the pair ending at g_selectionMessageReply.ready as set by storing one there, and stores its argument in the
    word before it; Random_SetSelectedStage fills the pair ending at g_selectedLevelId. */
@@ -30,7 +31,7 @@ void Random_SetSelectedStage(s32 first, s32 second) {
    rest of the text, copies the buffer back and searches again. */
 
 extern u8 *XPlus_FindPatternEnd(u8 *s, u8 *pattern);
-extern s32 XPlus_StringLength(char *);
+
 extern u8 *XPlus_AppendString(u8 *destination, u8 *source);
 
 void Random_ReplaceTextOccurrences(char *text, char *find, char *replacement) {

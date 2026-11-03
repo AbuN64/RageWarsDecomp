@@ -1,4 +1,5 @@
 #include "../include/libgultra.h"
+#include "../include/libultra/ACTOR_STATE_TABLE_END_DATA.H"
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: src/rw_actor_state_end_CE080_us_rev1.c */

@@ -1,0 +1,4 @@
+#ifndef AI_NAV_PORTAL_DISPATCHACTORBEHAVIOR_DATA_H
+#define AI_NAV_PORTAL_DISPATCHACTORBEHAVIOR_DATA_H
+extern s32 g_actorBehaviorDispatchModes[];
+#endif

@@ -10,29 +10,33 @@
 #include "../include/libgultra.h"
 #include "TYPES.H"
 #include "../include/libgultra_inferred/libultra_exchangedebuglinkwords.H"
+#include "../include/libultra/debuglink.H"
+#include "../include/libultra/libultra_exchangedebuglinkwords.H"
+#include "../include/libultra/libultra_receivedebuglinkimage.H"
+#include "../include/libultra/libultra_writedebuglinkblock.H"
 
 #if defined(VERSION_US_REV1)
 
 
 
-extern void Libultra_InitDebugLink(void);
+
 
 extern s32 Libultra_ReadDebugLinkByte(u8 *);
 
 
-extern void Libultra_ReadDebugLinkHalfword(void);
-
-extern void Libultra_ReadDebugLinkWord(void);
 
 
 
-extern void Libultra_WriteDebugLinkHalfword(void);
 
-extern void Libultra_WriteDebugLinkWord(void);
 
-extern void Libultra_ReceiveDebugLinkImage(void);
 
-extern void Libultra_DispatchDebugLinkCallback(void);
+
+
+
+
+
+
+
 
 /* Sends a 0x80 command followed by two NUL-terminated strings over the handshake port and reads back a big-endian 32-bit word, returning it (zero on failure). Adapted from Libultra_ExchangeDebugLinkWord with the command 0x85 changed to 0x80, the 32-bit argument replaced by the two strings and the read retry loop removed. */
 
@@ -40,9 +44,9 @@ extern void Libultra_DispatchDebugLinkCallback(void);
 
 
 
-extern void Libultra_ReadDebugLinkBlock(s32, s32, void *);
 
-extern void Libultra_WriteDebugLinkBlock(void *, s32);
+
+
 
 extern s32 g_debugLinkCallbackAddress;
 

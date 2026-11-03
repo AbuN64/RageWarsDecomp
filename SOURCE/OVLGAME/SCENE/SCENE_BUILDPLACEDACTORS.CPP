@@ -19,26 +19,36 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/SCENE_GRID_AND_GEOMETRY_OPERATIONS.H"
-extern void Cache_ReplaceResourceBlock(s32 unused, struct CacheResourceBlockView **handle, struct CacheResourceBlockView *block);
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/INSTANCE/SIMPINST.H"
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "ENGINE/SETN64.H"
+#include "GEOMETRY/GEOMETRY_DRAWBLENDPARTS.H"
+#include "GOBJINST/GOBJINST_FINDNEARESTBONEBOUNDS.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_FINDPLACEDOBJECTSBYKEY.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDPLACEDACTORS.H"
+#include "OVLSCENE/OVLSCENE.H"
+#include "STATINST/STATINST_ACQUIREGEOMETRY.H"
+
 extern struct CacheResourceBlockView *Cache_AllocResourceBlock(s32 cache, void *handle, s32 size);
-extern void *Scene_GetActorDefinition(void *world, s32 id);
-extern s32 Scene_FindNearestPlacedObject(World *world, void *data, s32 group, void *buf);
+
+
 /* Loads every still-empty cell of the level's tile grid: for each row and column whose cell
    record has no resource, fetches the cell's block through SetN64_LocatePackSection and Cache_RequestResource,
    binds and spawns each object of its two object lists (0xE8- and 0x1C8-byte records) and
    releases the spawned handles and the block. */
-extern void Simpinst_RegisterModelVariantResources(ObjB *obj, s32 unused);
+
 extern void *Simpinst_RequestModelVariant(ObjB *obj, s32 type);
 extern void Statinst_RegisterGeometryResources(ObjA *obj, s32 unusedGeometryArgument);
-extern void *Statinst_AcquireGeometry(ResourceOwner *owner,s32 index);
+
 extern void Cache_UnlockResource(s32, void *);
-extern void Geometry_UnlockMaterialResources(void *handle);
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 /* Runs Scene_LoadPreviewBufferA_SceneBuildplacedactors and Scene_LoadPreviewBufferB_SceneBuildplacedactors on a large state block, then clears its word at offset
    0x1B444, sets the word at 0x1B448 to 0x15 and copies g_menuOptionAvailabilityFlags into the word at 0x1B44C. */
 extern struct MemoryUsageStats g_menuOptionAvailabilityFlags;
-extern void Scene_LoadPreviewBufferA(ItemsPreviewStateA *);
-extern void Scene_LoadPreviewBufferB(char *);
+
+
 void Scene_BuildPlacedActors(World *world, struct CacheResourceBlockView **handle) {
     Shared_Placed spawns[8];
     Shared_Placed extra;
@@ -282,7 +292,7 @@ struct ItemsPreviewStateA;
 /* extern */
 extern s32 Control_IsSnapshotActive(void); /* extern */
 extern char g_cResource_UnpackRequestEntry;
-extern char g_loadSavePersistentData;
+
 void Scene_LoadPreviewBufferA(ItemsPreviewStateA *previewToLoad) {
     s32 *persistentDataResource;
     s32 bufferSize;

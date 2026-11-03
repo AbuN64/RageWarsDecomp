@@ -59,4 +59,5 @@ struct PlayerForceMarkerStateView {
     s32 remainingTime;
 };
 extern void Playerai_StopPrimaryAttachedSound(void *);
+void Playerai_StartTransitionState(void *player, s32 transitionParameter);
 #endif

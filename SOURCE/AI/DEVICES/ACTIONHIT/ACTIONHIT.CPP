@@ -13,6 +13,8 @@
 #include "LEVEL/ACTIONHIT.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "COMMON/ANIMATIONTRIGGERDEFINITION.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
 
 extern void Events_DispatchCallback(void *, void *, s32, CVector3, ResourceManagerState);
 typedef struct BreakableContactRule {
@@ -100,7 +102,7 @@ extern s32 Rumble_TestActorStateBit(void *, void *);
 extern void Events_DispatchCallback(void *sourceActor, void *targetActor, s32 eventKind,
                           CVector3 eventPosition, ResourceManagerState eventParams);
 
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 void Action_ResolveBreakableHit(void *breakableHitContext, BreakableHitStateView *hitState) {
     ResourceManagerState local;

@@ -35,4 +35,5 @@ extern double Gfx_GetConvertedCounterRatio(void);
 
 extern s32 N64Eng_DispatchNumericWidgetEvent(struct Tree *widget, s32 event, s32 eventData, s32 eventValue, s32 eventContext);
 extern void N64Eng_DecrementNumericWidget(void *widget);
+void N64Eng_GetClipBounds(s32 *leftOut, s32 *topOut, s32 *rightOut, s32 *bottomOut);
 #endif

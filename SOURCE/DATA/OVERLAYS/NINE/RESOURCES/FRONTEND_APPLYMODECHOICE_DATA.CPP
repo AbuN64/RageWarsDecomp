@@ -2,13 +2,16 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
+#include "FRONTEND/FRONTEND_DISPATCHPLAYMODEEVENT.H"
+#include "MENU_CHOICE/FRONTEND_INITPLAYMODEMENU.H"
+#include "MENU_CHOICE/MENU_CHOICE.H"
 
-extern char Frontend_ApplyModeChoice[];
-extern char Frontend_ConsumePlayModeEvent[];
-extern char Frontend_DestroyPlayModeMenu[];
-extern char Frontend_HandlePlayModeShortcut[];
-extern char Frontend_InitPlayModeMenu[];
-extern char Frontend_UpdatePlayModeMenu[];
+
+
+
+
+
+
 
 #include "include_asm.h"
 #include "DATA/SCENARIO_SETUP/FRONTEND_APPLYMODECHOICE_DATA.H"

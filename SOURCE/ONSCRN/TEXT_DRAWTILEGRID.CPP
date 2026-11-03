@@ -5,11 +5,12 @@
 #include <PR/gbi.h>
 #include "ONSCRN.H"
 #include "include_asm.h"
+#include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 
 /* Text_DrawTileGrid.CPP */
 extern Gfx *g_displayListCursor;
 
-void OnScreen_GetImageEntry(OnScreenImageTableView **handle, s32 index, void **out, u8 *tag);
+
 void OnScreen_DrawScaledIntensityTexture(void *pTexture, f32 XPos, f32 YPos, int TextureWidth, int TextureHeight, f32 ScaleX, f32 ScaleY);
 void OnScreen_DrawIntensityTexture(void *pTexture, int XPos, int YPos, int TextureWidth, int TextureHeight);
 void OnScreen_DrawScaledMaskedImage(void *pTexture, void *pOpacity, float XPos, float YPos, int TextureWidth, int TextureHeight, float ScaleX, float ScaleY);

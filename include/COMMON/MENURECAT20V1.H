@@ -3,7 +3,8 @@
 #include "TYPES.H"
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/ITEMRECAT20V1.H"
-extern float g_multiplayerNameEntryTimingLimits;
+#include "SETUP/SETUP_NAME_CURSOR_CONSTANT_WORDS.H"
+
 
 struct NameSpinnerMenu;
 

@@ -18,6 +18,8 @@
 #include "ACHIEVE/CPLAYERPREVIEW_RESETSELECTIONMESSAGESTATE.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "FRONTEND/MENUIMAGE.H"
+#include "FRONTEND/MENU_IMAGE.H"
+#include "MATCH_REASON/MATCH_REASON.H"
 
 /* Resets three words of the object g_resultsModelPreviewScreen points to: the words at 0x9C and 0xB0 to -1 and
    the word at 0x188 to zero. */
@@ -50,7 +52,7 @@
 
 extern struct SelectionMessageScreen *g_resultsModelPreviewScreen;
 
-extern void Frontend_DrawMenuImage(struct MenuImage *menu);
+
 
 
 

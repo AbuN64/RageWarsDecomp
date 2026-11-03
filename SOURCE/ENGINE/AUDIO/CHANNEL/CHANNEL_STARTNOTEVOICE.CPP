@@ -22,9 +22,12 @@
 ALSndPlayer;
 #include "TEXTURE/SOUND_UPDATEAUDIOCONTEXT.H"
 #include "COMMON/LISTNODE.H"
+#include "CHANNEL/CHANNEL_STARTNOTEVOICE.H"
+#include "COMMON/SOUNDINFO.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
 
 
-extern s32 Gsky_FindNearestCamera(MenuMatchGlobals *, Triple *);
+
 
 
 struct AudioVolumeVoice; extern void Channel_UpdateVoiceVolume(struct AudioVolumeVoice *voice);
@@ -212,8 +215,8 @@ typedef struct SoundPlayer {
 extern s32 g_noteVoicePrimaryKeyTable[];
 extern s32 g_noteVoiceSecondaryKeyTable[];
 extern s32 SoundInfo_GetPriority(void *);
-extern s32 SoundInfo_GetMode(void *);
-extern s32 SoundInfo_GetPan(void *);
+
+
 extern s32 SoundInfo_GetFlags(void *);
 
 /* Starts a note on a free voice: picks the voice with Channel_SelectVoiceSlot, asks the sound set for its sample, and

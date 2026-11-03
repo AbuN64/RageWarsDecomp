@@ -58,4 +58,9 @@ extern void Gobjinst_SampleBoneTranslation(void *poseTrack, s32 boneIndex, void 
 extern void Gobjinst_SampleBoneRotation(void *poseTrack, s32 boneIndex, CQuatern *outRotation);
 
 extern void Gobjinst_InterpolatePoseRotation(void *cQuatern, f32 t, void *a, void *b);
+struct LevelActor;
+struct CVector3_t;
+void GameObject_DrawBlobShadow(struct LevelActor *actor, struct CVector3_t *offset, s32 raised);
+struct ActorInstanceHeader;
+s32 Gobjinst_ProbeActorMovement(struct ActorInstanceHeader *actorState, struct CVector3_t position, char **out);
 #endif

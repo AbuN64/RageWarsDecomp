@@ -4,8 +4,10 @@
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/VIEWFLAGS.H"
 #include "TYPES.H"
+#include "GSKY/GSKY_PROJECTTOSCREEN.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
-extern void Graphu64_ProjectPoint(void *, void *, CVector3 *);
+
 
 
 

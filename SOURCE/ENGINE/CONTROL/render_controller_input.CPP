@@ -12,6 +12,7 @@
 #include <PR/os_internal_si.h>
 
 #include "OS/controller.H"
+#include "ENGINE/RUMBLE.H"
 /* Reads the four controllers once per frame and folds them into the combined input record g_combinedControllerProfile.
  * State 0 starts a read through the message queue, converts the pads to the four per-player input
  * records (Control_UpdateControllerInput), ORs their button words into the combined record, adds the stick
@@ -101,7 +102,7 @@ extern u8 g_controllerInputReady;
 extern char g_controllerRumblePool;
 
 
-extern void Control_UpdateControllerRumble(void *);
+
 
 
 
@@ -170,7 +171,7 @@ void Control_TrackControllerPakChanges(void)
     }
 }
 
-extern void Rumble_InitPoolNodes(void *effectPool, void *nodeStorage, s32 nodeCount);
+
 
 
 

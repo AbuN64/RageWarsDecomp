@@ -12,9 +12,10 @@
 
 #include "TYPES.H"
 #include "FRONTEND/FRONTEND_DISPATCHPLAYERCOUNTEVENT.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 #define PLAYERCOUNT_VIEW_US ((struct PlayerCountScreenState *)g_playerCountScreen)
 
-extern s32 SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpSlider_EnableTransition(struct Access_s32_5C *object);
 extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 

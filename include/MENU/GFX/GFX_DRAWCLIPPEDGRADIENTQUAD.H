@@ -4,4 +4,6 @@
 void Combine_SetRenderMode(s32 mode);
 void Combine_SetCombineMode(s32 mode);
 void Combine_SetPrimitiveVertexMode(s32 mode);
+struct Texture;
+void Combine_BindImageTexture(struct Texture *image);
 #endif

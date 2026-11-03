@@ -4,9 +4,10 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/WIDGETRECAT1A.H"
 #include "UI/QUAG/N64_ENG.H"
+#include "FRONTEND/FRONTEND_OPENRESOURCEARCHIVE.H"
 extern s32 Widget_ComputeWidgetBounds(struct CacheResourceBlockView *draw, struct CacheResourceBlockView *hit, struct WidgetLayout *widget, struct t_dldc *ctx);
-extern void N64Eng_GetClipBounds(s32 *, s32 *, s32 *, s32 *);
-extern s32 Node_ClampRectToClip(Shared_Quad *, Shared_Quad *);
+
+
 extern void Widget_DrawVisibleSiblings(MenuWidget *, sm_dldc);
 
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)

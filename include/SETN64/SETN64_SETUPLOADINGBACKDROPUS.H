@@ -1,0 +1,5 @@
+#ifndef SETN64_SETN64_SETUPLOADINGBACKDROPUS_H
+#define SETN64_SETN64_SETUPLOADINGBACKDROPUS_H
+struct TimedSessionTransitionView;
+void SetN64_SetupLoadingBackdropUs(struct TimedSessionTransitionView *state);
+#endif

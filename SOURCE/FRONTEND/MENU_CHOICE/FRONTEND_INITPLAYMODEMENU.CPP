@@ -12,6 +12,9 @@
 #include "COMMON/GAMEPLAY_SETTINGS.H"
 #include "COMMON/ALAUXBUS_S.H"
 #include "FRONTEND/SCREEN.H"
+#include "MENU_CHOICE/FRONTEND_INITPLAYMODEMENU.H"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 extern s32 g_currentStagePreset;
 
@@ -26,7 +29,7 @@ extern void Player_InitializeProfile(void *profileStorage);
 
 extern void PAKInterface_SetScreenPhase(s32);
 
-extern void Player_SetAchievementFlag7(char *, s32);
+
 
 extern void SmpSlider_SetTransitionMode(struct SliderTransitionView *object, s32 mode);
 
@@ -58,7 +61,7 @@ extern void Widget_SetWidgetFlag08(void *object, int enabled);
 extern void SmpButton_WrapButtonWidget(s32);
 extern void Focus_AdvanceActiveSlot(int *);
 extern s32 Control_IsControllerConnected(s32);
-extern void *SmpFade_CreateFadeWidget(s32, s32);
+
 extern void SmpSlider_DisableTransition(struct Access_s32_5C *object);
 extern struct MenuResourceWidget *SmpFlicker_CreateFlickerWidget(int widgetResourceId, int ownerValue);
 extern u32 Menu_GetBlockedScreenOwner(void);

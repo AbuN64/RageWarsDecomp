@@ -9,6 +9,10 @@
 #include "COMMON/PLAYER_GETPLAYERINDEX.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 /* Starts a player's action: when the current action is not allowed the idle state is refreshed; a player
  * flagged 0x4000 with no cooldown, no lock and the ammo option enabled checks its weapon's ammo, playing sound
@@ -26,9 +30,9 @@ extern MatchRewardsRecord g_localPlayerProfiles[];
 extern s32 g_weaponLockedNoticeText;
 
 
-extern s16 Weaponai_FindNextUsableWeapon(void *);
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
+
 extern s32 Weaponai_TryRequestFiringState(void *, void *);
 
 static inline s32 can_fire(char *player) {

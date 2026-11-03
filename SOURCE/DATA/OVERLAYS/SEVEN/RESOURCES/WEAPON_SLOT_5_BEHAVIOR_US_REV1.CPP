@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "DATA/OVL1_F/OVL1_F.H"
 
-extern char g_overlayOneFLinkRecordAddressWordsBlock3[];
+
 
 
 #if defined(VERSION_US_REV1)

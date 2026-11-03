@@ -15,4 +15,5 @@ extern void Audio_StopAudioByKey(struct GameAudioContext *context, s32 matchValu
 extern void Audio_StopAudioBySecondaryValue(struct GameAudioContext *context, s32 matchValue);
 extern void Audio_StopAudioByMask(struct GameAudioContext *context, s32 matchMask);
 extern void Audio_StopAudioExceptKey(void *context, s32 matchValue);
+int Audio_GetSpatialPanMode(void *object);
 #endif

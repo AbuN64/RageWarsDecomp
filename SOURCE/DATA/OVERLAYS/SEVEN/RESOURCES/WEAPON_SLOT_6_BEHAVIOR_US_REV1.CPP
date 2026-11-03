@@ -1,6 +1,7 @@
 #include "TYPES.H"
+#include "WEAPON_STATE_TABLES/WEAPON_STATE_TABLES.H"
 
-extern char g_Ovltab6EncodedWordsBlock6[];
+
 
 
 #if defined(VERSION_US_REV1)

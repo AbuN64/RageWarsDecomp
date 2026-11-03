@@ -8,6 +8,13 @@
 #include "TYPES.H"
 #include "COMMON/MATH_HELPERS.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "ENGINE/GDYNLIGHT.H"
+#include "ENGINE/INSTANCE/GOBJINST.H"
+#include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* Draws an object's cast shadow: objects without shadow flag 0x10000000 get the blob shadow of
  * GameObject_DrawBlobShadow; otherwise, once per frame the shadow model from Map_ReserveEntries is built for an object above
@@ -21,13 +28,13 @@ extern s32 InstHdr_CanActorCastShadow(void *);
 extern f32 InstHdr_GetActorGroundHeight(char *, s32);
 extern void *Map_ReserveEntries(void *, s32);
 extern f32 Gu_Sqrtf(f32);
-extern void Gdynlight_AccumulateLightDirections(void *, CVector3, CVector3 *, f32 *);
-extern void Graphu64_BuildPlaneProjectionMatrix(f32 *, CVector3 *, f32);
-extern void TranslateMatrix(void *, f32, f32, f32);
+
+
+
 extern void Graphu64_ScaleMatrixWorld(f32 *, f32, f32, f32);
-extern void Graphu64_MultiplyAffineMatrices(void *, f32 *, f32 *);
-extern void Gobjinst_DrawModelWithProjection(char *, char *, void *, u8);
-extern void GameObject_DrawBlobShadow(struct LevelActor *, CVector3 *, s32);
+
+
+
 void GameObject_DrawActorShadow(char *obj, s32 unused, char *info) {
     CVector3 dir;
     f32 projection[16];
@@ -104,10 +111,10 @@ void GameObject_DrawActorShadow(char *obj, s32 unused, char *info) {
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/TRIPLE.H"
 #include "TYPES.H"
-float InstHdr_GetShadowGroundHeight(void *object, s32 mode);
+
 f32 InstHdr_GetActorShadowRadius(Actor_u1 *actor);
-s32 Graphu64_LimitVectorLength(f32 *vectorComponents, f32 maximumLength);
-void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
+
+
 
 void Graphu64_ConvertMatrixToFixed(f32 *src, PackedMatrixWords *dst);
 void Geometry_DrawIntensityMask(void *matrix, s32 pass, u32 alpha);

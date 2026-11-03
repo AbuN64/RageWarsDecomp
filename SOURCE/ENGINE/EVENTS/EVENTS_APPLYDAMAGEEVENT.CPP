@@ -23,9 +23,16 @@ typedef struct DamageActor {
 
 #include "TYPES.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "CBARREL/BARREL_SPAWNFLAGGEDEFFECTS.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
 
-extern s32 InstHdr_CanActorReceiveInteraction(void *);
+
 
 /* Whether source may hurt target: never itself, nor when source is a player whose hit InstHdr_CanActorReceiveInteraction refuses;
  * a stand-in (category 2) is safe when its owner is a player canDamage protects, when source owns it and it has
@@ -97,7 +104,7 @@ extern float k_damageEffectHeightOffset;
 extern float k_damageEffectFirstScale;
 extern float k_damageTurnScale;
 
-void Player_TransformPointByViewOrOwnerMatrix(s32, f32 *);
+
 void CScene_StartEventClips(Shared_World *, s32, s32, CVector3, f32, f32);
 extern char g_actorParticleEffectSystem[];
 extern float k_damageEffectSecondScale;
@@ -227,7 +234,7 @@ extern f32 Events_GetActorSizeScale(u8 *);
 extern void Barrel_FillDamagePacket(CDamageInfo *, void *, s32, f32, s32, Shield *);
 extern s32 Player_GetMaxHealth(void *);
 struct ActorDamageHookView;
-extern void Barrel_RunDamageHook(void *, struct ActorDamageHookView *, CDamageInfo *);
+
 struct ParticleKindListView; extern s32 Particle_HasKindOneEntry(struct ParticleKindListView *obj);
 struct ParticleKindListView; extern s32 Particle_HasKindZeroEntry(struct ParticleKindListView *obj);
 struct ParticleKindListView; extern s32 Particle_HasKindTwoEntry(struct ParticleKindListView *obj);

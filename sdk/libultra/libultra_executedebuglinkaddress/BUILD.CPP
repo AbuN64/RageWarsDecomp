@@ -2,6 +2,7 @@
 #if !(defined(VERSION_DE) || defined(VERSION_US))
 #ifdef VERSION_US_REV1
 #include "COMMON/GAMEPLAY_SOUND_TABLE.H"
+#include "ACTIONAI/ACTION_UPDATEBREAKABLEPROXIMITY.H"
 extern void *g_screenMessageTextSlot;
 /* event message table read by Events_PostGameplayMessage / Link_DispatchMatchingTriggers / Action_ShowTriggerMessage:
    entry 0 points at the slot holding the screen message text pointer, entry 1 is unused */

@@ -16,6 +16,7 @@
 #include <PR/os_internal_si.h>
 #include "COMMON/PAKQUEUESTATE.H"
 #include "libultra/os/getthreadid.h"
+#include "ENGINE/RUMBLE.H"
 
 /* CONTROLLER.CPP */
 /* Resets the controller and profile state for a new session: reinitialises the input buffers and stream through Rumble_InitPoolNodes_Controller, osCreateMesgQueue, osSetEventMesg_Controller, osContInit, osGetThreadId and osSendMesg_Mutex, then for slots 3 down to 0 clears the slot's three state words, refreshes its pad through Control_DisableControllerPakDe and counts the profiles Ovlgame_ResetControllerProfile accepts in g_connectedControllerProfileCount, remembering the lowest accepted slot in g_firstConnectedControllerPort; finally checks the profile just below slot 0 with mode 4, marks the session reset and returns the remembered slot. */
@@ -26,7 +27,7 @@ extern char g_controllerSiMessageQueue[];
 
 extern signed char g_controllerInputReady;
 
-extern void Rumble_InitPoolNodes(char *, char *, s32);
+
 
 extern void Control_DisableControllerPak(s32);
 

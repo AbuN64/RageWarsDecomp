@@ -11,6 +11,7 @@ extern struct MenuStepState *g_playerSettingsScreen;
 #include "MENU/PLAYER_INITPLAYERSETTINGSSCREEN.H"
 #include "MENU/PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "UI/TSMOS/SMP/SMP_BUTTON.H"
 
 /* Stores entryIndex into its own g_playerSettingsSlotByteBase entry and pushes the five settings of slot entryIndex of the g_profileSlotSettingsByte7B table into the objects g_alternatePlayerSettingsScreen holds through SmpButton_SelectListEntry_PlayerInitplayersettingsscreen and SmpSlider_SetSliderItem. Adapted from Player_SelectPlayerSettingsEntry_PlayerStorealternateplayersettingsentry with g_playerSettingsScreen changed to g_alternatePlayerSettingsScreen and the object fields moved down by eight bytes. */
 
@@ -23,7 +24,7 @@ extern struct StateMenuSelectAlternatePlayerSettingsEntry *g_alternatePlayerSett
 
 
 
-extern void SmpButton_SelectListEntry(void *, s32);
+
 
 extern void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item);
 

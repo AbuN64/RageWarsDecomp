@@ -20,6 +20,7 @@
 #include "COMMON/LABEL.H"
 #include "COMMON/ANIMATION.H"
 #include "TYPES.H"
+#include "FRONTEND/SMP_OVERLAY.H"
 
 /* g_profileStatisticsScreen and its 528-byte block layout are spelled once in the closed hub as
  * SlotSelectionMenuBlock, shared with the neighbouring menu units that keep their own views over

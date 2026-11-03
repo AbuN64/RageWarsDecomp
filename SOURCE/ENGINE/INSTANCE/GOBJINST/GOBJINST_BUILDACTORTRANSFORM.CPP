@@ -11,16 +11,20 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/LISTS.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GOBJINST/GOBJINST_BUILDACTORTRANSFORM.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 extern s32 Cinema_IsSequenceInWindow(void);
 struct ActorDirectionTiltInput; extern struct CQuatern_t Gobjinst_BuildActorDirectionTilt(struct ActorDirectionTiltInput *input);
 
 
-extern void MultiplyQuaternions(CQuatern *productQuaternion, CQuatern *leftQuaternion, CQuatern *rightQuaternion);
+
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
-extern void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
-extern s32 Graphu64_LimitVectorLength(f32 *vectorComponents, f32 maximumLength);
-extern void TranslateMatrix(char *, f32, f32, f32);
+
+
+
 extern void SwapMatrixUpForward(void *);
 
 
@@ -128,7 +132,7 @@ s16 Gobjinst_ChooseAvailableAnimationKind(void *actor, s16 *callback, s32 exclud
     return Lists_ChooseWeightedTableEntry(&eligibleKinds);
 }
 
-extern s32 *Gobjinst_RequestAnimatedModelVariant(void *actor, s8 variantIndex);
+
 struct Shared_PoseActor; extern s32 Gobjinst_BuildActorPose(struct Shared_PoseActor *actor, void *modelPack, s32 model);
 extern void Cache_UnlockResource(s32 cache, s32 resource);
 

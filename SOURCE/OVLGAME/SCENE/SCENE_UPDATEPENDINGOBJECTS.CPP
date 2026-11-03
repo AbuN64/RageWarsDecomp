@@ -3,11 +3,14 @@
 #include "MENU/SCENE_RESOURCE_PREVIEW_AND_COLLISION_VIEWS.H"
 #include "TYPES.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "MENU/ITEMS/SCENE/SCENE_LOADLEVELRESOURCES.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
+#include "SCENE/SCENE_UNPACKVISIBILITYGEOMETRY.H"
 
 /* Sets the resource transition state and sound, while its adjacent helper refreshes the controller-option bit. */
 
 
-extern void Scene_LoadSceneLight(void *scene);
+
 void Scene_SetSelection(ItemsSelectionState *state,int selection,int mode) {
  state->active=1;
  state->mode=mode;
@@ -23,7 +26,7 @@ void Scene_LoadSelectionLighting(ItemsSelectionState *state) {
 
 void Cinema_SetPlaybackFlag(void);                                  /* extern */
 void Cinema_ClearPlaybackFlag(void);                                  /* extern */
-void Scene_DispatchEnabledEntityTrigger(void *, s32);                       /* extern */
+                       /* extern */
 
 void Scene_UpdatePendingObjects(ItemsPendingState *pendingWorld) {
  s32 i,n;

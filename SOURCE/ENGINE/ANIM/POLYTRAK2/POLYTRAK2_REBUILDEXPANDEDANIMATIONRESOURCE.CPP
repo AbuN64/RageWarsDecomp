@@ -5,6 +5,9 @@
 #include "TYPES.H"
 #include "SYSTEM/POLYTRAK2_INTERPOLATEJOINTQUATERNION.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "COMMON/PPDECOM_UNPACKRESOURCE.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/SETN64.H"
 
 /* Resource blocks store a count and relative offsets; unused entries carry
  * the resource builder's DEADBEEF sentinel. */
@@ -23,9 +26,9 @@ typedef struct CAnimCompInfo {
     f32 frameStep;
 } CAnimCompInfo;
 
-extern s32 Ppdecom_UnpackResource(void **, s32);
 
-extern s32 SetN64_GetSizedPackSection(s32, s32, s32 *);
+
+
 
 
 extern void *Cache_AllocResourceBlock(s32, void *, s32);
@@ -33,7 +36,7 @@ extern void *Cache_AllocResourceBlock(s32, void *, s32);
 
 
 
-extern void Cache_ReplaceResourceBlock(s32, void **, void *);
+
 
 extern s32 Polytrak2_ExpandAnimationTracks(void *, void *, s32, s32, s32, s32);
 

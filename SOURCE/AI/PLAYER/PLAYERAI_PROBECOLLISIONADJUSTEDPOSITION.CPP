@@ -10,6 +10,7 @@
 #include "COMMON/RESOURCELOADSTATE.H"
 #include "TYPES.H"
 #include "FX/CONTPAD_INITCONTROLLERINPUT.H"
+#include "AI/PLAYER/PLAYER_DEATH__PLAYERAI.H"
 extern f32 g_playerMotionResetAndProbeScales;
 
 extern char g_controllerProfiles[];

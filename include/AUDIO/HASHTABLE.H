@@ -11,4 +11,6 @@ extern void HashTable_InitializeResourceTable(s32 capacity);
 
 extern void HashTable_RemoveResourceByKey(s32 resourceKey);
 extern s32 HashTable_RoundCapacityToPowerOfTwo(s32 mask);
+struct ResourceLoadRequest;
+void HashTable_SetResourceByKey(u32 key, struct ResourceLoadRequest *value);
 #endif

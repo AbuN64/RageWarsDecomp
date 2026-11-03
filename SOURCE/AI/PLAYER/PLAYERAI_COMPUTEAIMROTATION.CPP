@@ -81,12 +81,15 @@ s32 Playerai_CanLockTarget(TargetLockAttackerView *attacker, TargetLockTargetVie
 
 /* These contiguous globals place the actor-list pointer 0x1285 bytes before the enable flag. */
 #include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
+#include "AI/PLAYER/PLAYERAI_COMPUTEAIMROTATION.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 struct TargetLockAttackerView;
 struct TargetLockTargetView;
 extern s32 Playerai_CanLockTarget(TargetLockAttackerView *, TargetLockTargetView *);
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 extern CQuatern Gobjinst_BuildActorAimQuaternion(char *);
-extern void MultiplyQuaternions(void *, void *, void *);
+
 
 CQuatern Playerai_ComputeAimRotation(DraftAimPlayer *player, DraftAimPlayer **target,
                             CVector3 *targetPosition)

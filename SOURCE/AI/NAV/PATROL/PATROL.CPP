@@ -5,6 +5,7 @@
 #include "TYPES.H"
 #include "COMMON/SELF.H"
 #include "include_asm.h"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
 
 /* Runs a computer player's patrol step: starts its route at 0x224 on the first route of g_world_AchieveUpdateresultsscreen,
    or random roaming (-2) when there are none; once within g_patrolGoalArrivalDistance of its goal node it advances the
@@ -32,7 +33,7 @@ extern char *Scene_GetPlatformRoute(void *world, s32 index);
 extern void *Scene_GetPlatformRoutePoint(void *a, s32 b, s32 c);
 struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct NavigationSearchGraphView *pointSet, void *point);
 extern void *Portal_GetGraphPoint(RoutePatrolNodes *list, s32 index);
-extern void *Scaled_GetControllerPosition(PatrolBot *bot);
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
 extern void Nav_RunBehaviorHandler(void *aiController);

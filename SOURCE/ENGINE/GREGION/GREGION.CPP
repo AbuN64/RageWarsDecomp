@@ -11,6 +11,10 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/OBJB.H"
 #include "include_asm.h"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* 8027451C_2.CPP */
 /* Returns the rotation quaternion that tilts the up axis onto a polygon's unit normal (recomputed from its edges into g_regionCachedEdgeCross and normalised into g_regionCachedUnitNormal whenever the polygon differs from the last one, straight up for no polygon), recording the half-angle sine in g_turretAimSine and giving the identity when the normal is vertical. Adapted from Region_GetCachedUpQuatDe with the cached polygon normal of Region_TestPolygonSlopeFlag replacing Graphu64_GetCachedSurfaceNormal and the default normals written through their separate cells. */
@@ -21,9 +25,9 @@ extern Triangle *g_regionCachedNormalPolygon;
 
 extern void Graphu64_SubtractVectors(CVector3 *out, CVector3 *a, CVector3 *b);
 
-extern void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
 
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
+
 
 extern f32 Gu_Sqrtf(f32);
 
@@ -36,7 +40,7 @@ static inline void normalize_copy(CVector3 *out, CVector3 *in) {
     Graphu64_NormalizeVec3(out);
 }
 
-extern void Graphu64_GetCachedSurfaceNormal(CVector3 *out, void *node);
+
 
 CQuatern *Region_GetPolygonUpQuat(CQuatern *out, Triangle *polygon) {
     CVector3 normal;
@@ -374,7 +378,7 @@ static inline void cross_node_edges(Node75 *node) {
     Graphu64_CrossVectors(&g_regionCachedEdgeCross, &a, &b);
 }
 
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *world, s32 modelId);
+
 
 struct CVector3_t; extern void Gregion_ExpandHorizontalBounds(f32 *bounds, s32 pointCount, struct CVector3_t *points);
 

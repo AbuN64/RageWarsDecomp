@@ -5,4 +5,5 @@
 #include "COMMON/WORLD.H"
 extern void *Scene_GetEffectCurveRecord(Shared_World *world, s32 index);
 extern s32 Scene_CollectMatchingLevelActors(Container *container, s32 key0, s32 key1, s32 key2, SceneActorMatchRecord **out, s32 max);
+void *Scene_GetActorDefinition(void *world, s32 index);
 #endif

@@ -1,6 +1,7 @@
 #ifndef DATA_UI_RIBBON_BLEND_RESOURCE_DATA_H
 #define DATA_UI_RIBBON_BLEND_RESOURCE_DATA_H
 #include "TYPES.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Morph indexes Key with stride 20. Graphu64_ScaleVector reads XYZ;
  * the two remaining words are retained by the resource, not pointers. */

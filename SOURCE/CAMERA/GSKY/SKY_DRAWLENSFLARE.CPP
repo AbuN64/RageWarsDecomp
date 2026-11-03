@@ -9,6 +9,9 @@
 #include "COMMON/DESCRIPTORRECAT29.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 #include "COMMON/LENS_FLARE.H"
+#include "GSKY/GSKY_PROJECTTOSCREEN.H"
+#include "GSKY/SKY_DRAWLENSFLARE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* 80233920_10.CPP */
 /* Clears effect state and initializes its scalar, vector and resource defaults. */
@@ -132,7 +135,7 @@ typedef struct FlareSourceList { FlareSource *first; } FlareSourceList;
 extern FlareSourceList g_lensFlareSources;
 extern void Onscrn_SetupSpriteMode(s32);
 extern s32 Geometry_SetModePreset(s32);
-extern void Graphu64_ProjectPoint(void *, void *, CVector3 *);
+
 
 /* Same body as Gsky_ProjectToScreen: project a world point through the view matrix to screen pixels. */
 static inline void ProjectToScreen(FlareActor *view, CVector3 *point, f32 *screenX, f32 *screenY) {

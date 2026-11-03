@@ -18,6 +18,8 @@ extern float g_playerTargetFacingBodyYawPeriod;
 
 struct Rules;
 #include "GAME/PLAYER_RULES.H"
+#include "AI/PLAYER/PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA.H"
+#include "PLAYERAI/G_PLAYERSTEXT.H"
 
 struct Scores;
 struct Scores {
@@ -213,7 +215,7 @@ struct PlayerWorldActorTables {
 struct IntegerStateB4C;
 typedef struct IntegerStateB4C IntegerStateB4C;
 
-extern void Playerai_UpdateMountedMovement();
+
 
 struct ViewState;
 struct ViewState {
@@ -602,7 +604,7 @@ extern char g_playerRideViewAngleParameters;
 extern SharedMovement g_playerRideMovementParameters[2];
 extern CVector3 g_playerRideOffset;
 
-extern char s_playersText[];
+
 
 void Playerai_ClearPlayerResetFlags(char *);
 void Playerai_ResetAllPlayerHealth(void *);

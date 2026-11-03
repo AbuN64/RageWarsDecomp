@@ -84,6 +84,15 @@ void SetN64_InitFrameRing(RenderState *state) {
 extern void System_CreateVideoManagerEu(s32 pri);
 #endif
 #include "COMMON/RECORDRECAT1C.H"
+#include "CONSTANTS/SETUP_UPDATENAMECURSOR_DATA.H"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
+#include "DATA/INITIALIZED_RUNTIME_BUFFERS.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_LOADSCENERESOURCES.H"
+#include "OVLGAME/HUD.H"
+#include "OVLGAME/OVLGAME_INITIALIZEPLAYERPOOL.H"
+#include "POOLS/POOLS.H"
+#include "SETN64/SETN64_UPDATEFRAMETIMING.H"
+#include "../../sdk/include/libultra/libultra_exchangedebuglinkwords.H"
 extern struct RenderBufferResources g_renderResourceRecord; /* the render buffer record */
 extern s16 *g_gameSchedulerMessage;
 extern s32 g_schedulerRetracesSinceSwap;
@@ -95,18 +104,18 @@ extern s32 g_schedulerPendingFramebuffer;
 #if defined(VERSION_US_REV1)
 extern char addrLow_Tengine_QueryArtsendOverride[];
 extern char g_debugLinkNotificationQueue[];
-extern void Libultra_SetDebugLinkCallback(void *segment);
+
 #endif
-extern void Pools_ResetPlayers(void *players);
-extern void Player_ResetMenuPool(void *menu);
+
+
 extern void CCollision_Initialize(void);
 extern s32 Defs_ReadResourceWord(s32 size);
-extern void Scene_LoadSceneResources(Shared_World *world, s32 resource);
+
 extern s16 Ovlgame_InitializeControllerSession(void);
-extern void Hud_ResetHudCharTables(void *hud);
+
 extern void SetN64_BeginModeTransition(GameSession *session, s32 targetMode);
 extern void SetN64_UpdateGameMode(void *session);
-extern void SetN64_UpdateFrameTiming(void *session);
+
 /* The game settings record and its round counters. */
 static inline Shared_Game *currentGame(void) {
     return &g_gameSettings;
@@ -260,7 +269,7 @@ void SetN64_BeginFrameDisplayList(void *world) {
 }
 
 /* rspboot text is 0xD0 bytes: it ends where the first graphics microcode text (g_graphicsMicrocodeText) starts. */
-extern u64 g_graphicsMicrocodeText[], g_graphicsMicrocodeData[], g_alternateGraphicsMicrocodeText[], g_alternateGraphicsMicrocodeData[], g_graphicsTaskYieldBuffer[];
+
 extern u32 g_gameFrameCounter, g_gameLoopFrameCount;
 extern void Sched_SendSchedulerTask(void *, OSScTask *);
 /* Fills the frame's graphics task (and the second one when the frame is dual), hands them to the scheduler,
@@ -281,7 +290,7 @@ void SetN64_SubmitFrameTasks(Display *display, Frame *frame)
         task->list.t.ucode_boot_size = (u8 *)rspbootTextEnd - (u8 *)rspbootTextStart;
         task->list.t.ucode_size = 0x1000;
         task->list.t.ucode_data_size = 0x800;
-        task->list.t.yield_data_ptr = g_graphicsTaskYieldBuffer;
+        task->list.t.yield_data_ptr = ((unsigned long long *)&g_graphicsTaskYieldBuffer);
         task->list.t.yield_data_size = 3072;
         task->list.t.ucode = g_graphicsMicrocodeText;
         task->list.t.ucode_data = g_graphicsMicrocodeData;
@@ -310,7 +319,7 @@ void SetN64_SubmitFrameTasks(Display *display, Frame *frame)
         task->list.t.ucode_boot_size = (u8 *)rspbootTextEnd - (u8 *)rspbootTextStart;
         task->list.t.ucode_size = 0x1000;
         task->list.t.ucode_data_size = 0x800;
-        task->list.t.yield_data_ptr = g_graphicsTaskYieldBuffer;
+        task->list.t.yield_data_ptr = ((unsigned long long *)&g_graphicsTaskYieldBuffer);
         task->list.t.yield_data_size = 3072;
         task->list.t.ucode = g_alternateGraphicsMicrocodeText;
         task->list.t.ucode_data = g_alternateGraphicsMicrocodeData;

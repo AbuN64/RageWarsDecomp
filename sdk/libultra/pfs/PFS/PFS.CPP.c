@@ -9,6 +9,8 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "../../../include/PFS/__OSCHECKID.H"
 #include "../../../include/libultra/pfs/PFS.H"
+#include "../../../include/libultra/io/contramread.h"
+#include "../../../include/libultra/io/contramwrite.h"
 
 /* PFS.CPP */
 /* 80447BB0_17.CPP */
@@ -16,8 +18,8 @@
    controller pak really has, build a fresh id from the damaged one, write it to all four id areas and
    verify the first, with __osIdCheckSum as an inline helper the cartridge inlines. */
 
-extern s32 __osContRamRead(void *queue, int channel, u16 address, u8 *buffer);
-extern u32 __osContRamWrite(s32 completionQueue, s32 channel, u16 blockAddress, u8 *inputData, s32 forceWrite);
+
+
 
 static inline s32 __osIdCheckSum(u16 *ptr, u16 *csum, u16 *icsum)
 {

@@ -23,6 +23,10 @@ extern char g_actorParticleEffectSystem[];
 extern f32 Gobjinst_GetActorHeight(ObjB *actor);
 
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
+#include "ENGINE/SETN64.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 struct EffectSystem; extern int Particle_GetLastSpawnedEffect(struct EffectSystem *effectSystem);
@@ -38,13 +42,13 @@ extern f32 Gobjinst_GetActorRadius(ObjB *actor);
 
 extern CQuatern Insthdr_BuildActorGroundRotation(char *obj);
 
-extern void Graphu64_LimitVectorLength(CVector3 *, f32);
+
 
 extern void MatrixFromQuaternion(f32 *, f32 *);
 
-extern void ScaleMatrixLocal(f32 *, f32, f32, f32);
 
-extern void TranslateMatrix(f32 *, f32, f32, f32);
+
+
 
 extern void Graphu64_ConvertMatrixToFixed(f32 *, void *);
 
@@ -54,9 +58,9 @@ extern void Geometry_DrawIntensityMask(void *, s32, s32);
 
 extern void **Cache_RequestWordCountedResource(s32,void **,s32,void *,s32);
 
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
 
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
+
 
 extern void Cache_UnlockResource(s32, void *);
 

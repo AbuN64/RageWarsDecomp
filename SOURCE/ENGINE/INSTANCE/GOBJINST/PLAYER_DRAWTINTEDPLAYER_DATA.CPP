@@ -11,6 +11,8 @@
 #include "TYPES.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "particle/PARTICLE_SPAWNEFFECTGROUP.H"
+#include "GOBJINST/PLAYER_DRAWTINTEDPLAYER_DATA.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
 
 /* GOBJINST_6.CPP */
 /* Refreshes the actor's animation from the lookup through GameObject_DrawActorShadow and Geometry_DrawModelResource and, when the lookup's third node carries flag 0x8000, spawns a 0x94 effect at the actor scaled by its size, then clears g_menuModelFillEnabled. Adapted from Gobjinst_SpawnAnimatedModelViewEffect with its body moved into a static inline helper, the Gobjinst_DrawMaskedModel update calls added before it, the g_actorModelViewEffectConstants scale constants and the trailing g_menuModelFillEnabled clear changed. */

@@ -4,6 +4,7 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "OVLGAME/MENU_CONTROLLER_SELECTION_VIEW.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
 
 struct Holder;
 
@@ -29,5 +30,5 @@ struct ConfirmingControllerSettingsView {
     s8 controllerIndex;
 };
 
-extern void Player_PlacePlayerForRound(s32 player);
+
 #endif

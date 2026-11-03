@@ -6,8 +6,9 @@
 #include "COMMON/GFX_INITIALIZEFRONTENDSERVICES.H"
 #include "MENU/GFX/GFX_FORMATFLOATINGPOINT.H"
 #include "RESMGR/resmgr_string_memory.H"
+#include "UI/X_FILES/X_PLUS.H"
 
-extern s32 XPlus_StringLength(u8 *string);
+
 
 static inline void put(u8 **pp, const u8 *p, s32 len) {
     s32 i;

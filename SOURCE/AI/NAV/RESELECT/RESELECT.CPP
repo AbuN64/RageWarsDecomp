@@ -5,8 +5,9 @@
 #include "TYPES.H"
 #include "include_asm.h"
 #include "GAME/ATTACK_SELECTWEIGHTEDATTACKBEHAVIOR.H"
+#include "RESELECT/RESELECT.H"
 
-s32 Reselect_ChooseWeightedAttackBehavior(WeightSource *weights);
+
 struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *controller, s32 behaviourId);
 
 /* Reconsider an existing attack on one of four signed random remainders. */

@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "OVLSCENE/OVLSCENE.H"
 
 #if !(defined(VERSION_US_REV1))
 const char k_ovlsceneTextBytes[26] =

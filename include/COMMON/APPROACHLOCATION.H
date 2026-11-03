@@ -6,6 +6,7 @@
 #include "COMMON/RENDERSORTRECORD.H"
 #include "COMMON/PROBE.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 typedef struct { CVector3 pos; s32 room; } ApproachLocation;
 extern f32 k_barrelTargetAimOffsets[],g_actorApproachRadiusMargin;
@@ -20,7 +21,7 @@ extern s32 Region_IsPointInTriangleXZ(struct Node75 *,f32,f32);
 extern void InstHdr_CopyActorPositionAndModel(TrackerAimActorView *,CVector3,CVector3 *,s32 *,s32,s32);
 extern void Graphu64_AddVec3(CVector3 *,CVector3 *,CVector3 *);
 extern void Graphu64_SubtractVectors(CVector3 *,CVector3 *,CVector3 *);
-extern void Graphu64_ScaleVector(CVector3 *,CVector3 *,f32);
+
 static inline void approach(TrackerAimActorView *actor,TrackerAimActorView *target,TrackerAimActorView *referenceActor,CVector3 *posp,s32 *roomp) {
  CVector3 delta,offset; f32 targetRadius;
         if (referenceActor != 0) {

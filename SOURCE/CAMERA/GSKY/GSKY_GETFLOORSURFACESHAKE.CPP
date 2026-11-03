@@ -12,6 +12,9 @@
 #include "TYPES.H"
 #include "CAMERA/GSKY_GETFLOORSURFACESHAKE.H"
 #include "UI/X_FILES/X_PLUS.H"
+#include "ENGINE/AUDIO/T2SOUNDELEMENT/SOUND_CONTEXT_CONTROL.H"
+#include "ENGINE/GREGION.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* 80233920_31.CPP */
 /* Produces a random shake offset for an object: looks up the object's model entry in g_world_AchieveUpdateresultsscreen and
@@ -19,13 +22,13 @@
  * at 0xF4 and 0xF8 toward the pair k_floorShakeTargetHorizontal when the entry is flagged 0x10000 (toward zero when not)
  * and draws each offset component at random within the scaled amplitudes. */
 
-extern void *Scene_GetModelRecordByIndexPointer(Shared_World *, u16 *);
 
-extern f32 Region_GetPolygonHeight(s32 node, f32 positionX, f32 positionZ);
+
+
 
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
 
-extern void SoundElement_SetListenerCamera(s32 listenerCamera);
+
 
 extern void Cache_DrainAndCompactResources(s32 a);
 

@@ -3,6 +3,8 @@
 #include "TYPES.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "TENGINE/S_ARTSENDACTIVATEDTEXT.H"
+#include "TENGINE/S_ARTSENDDEACTIVATEDTEXT.H"
 struct ResidentState;
 struct ResidentState {
     s32 count;
@@ -64,8 +66,8 @@ extern s32 g_artsendPreviousPageHoldCount;
 extern s32 g_artsendNextPageHoldCount;
 
 extern void Tengine_LoadSelectedTexture(void);
-extern u8 s_artsendActivatedText[20];
-extern u8 s_artsendDeactivatedText[20];
+
+
 extern f32 g_artsendTextureTitleScale;
 extern s32 g_artsendToggleButtonHeld;
 

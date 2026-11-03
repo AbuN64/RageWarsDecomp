@@ -10,14 +10,19 @@
 #include "TYPES.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PARTICLE/PARTICLE_UPDATESYSTEM.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 
 
 
-extern void Graphu64_GetMatrixTranslation(char *, f32 *);
+
 
 extern char g_actorParticleEffectSystem[];
 
-extern void Particle_ReleaseOwnerEmitters(void *world, s32 owner);
+
 
 void Player_SetPlayerResetPosition(void *actorObject, CVector3 *newResetPosition)
 {
@@ -28,7 +33,7 @@ void Player_SetPlayerResetPosition(void *actorObject, CVector3 *newResetPosition
   Player_SetPlayerState(positionRecord, positionRecord, 17);
 }
 
-extern void Player_BuildPlayerViewTransform(void *, MatrixF *);
+
 void Player_TransformPointByViewOrOwnerMatrix(void *player, CVector3 *point) {
     CVector3 input;
     MatrixF matrix;
@@ -88,10 +93,10 @@ void Player_ReleasePlayerParticleEmitters(s32 actor) {
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "ENGINE/AUDIO/CHANNEL.H"
 extern u8 *g_forceMarkerRemovedText, *g_forceMarkerAttractText, *g_forceMarkerRepulseText;
-extern void BuildDirectionMatrix(Matrix *, CVector3 *);
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
+
 extern void Graphu64_AddVec3(CVector3 *result, CVector3 *left, CVector3 *right);
-extern void TranslateMatrix(Matrix *, f32 x, f32 y, f32 z);
+
 extern void SwapMatrixUpForward(Matrix *);
 extern void Graphu64_ConvertMatrixToFixed(Matrix *src, void *dst);
 /* Copy of Playerai_BuildForceMarkerTransform: orients the marker matrix along the aim normal, moves it to the marker origin

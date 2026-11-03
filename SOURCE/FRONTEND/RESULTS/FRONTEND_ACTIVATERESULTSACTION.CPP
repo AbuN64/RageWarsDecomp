@@ -14,6 +14,7 @@
 #include "FRONTEND/FRONTEND_DISPATCHRESULTSEVENT.H"
 #include "FRONTEND/PAKINTERFACE_SETSCREENPHASE.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
+#include "RESULTS/FRONTEND_ACTIVATERESULTSACTION.H"
 extern MatchScoreScreen *g_matchResultBadgeScreen;
 
 /* Handles the answer on the screen g_matchResultBadgeScreen. */

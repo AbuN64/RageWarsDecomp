@@ -6,11 +6,13 @@
 #include "ENGINE/PARTICLE.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "FX/FX_DRAWCOLOREDRIBBON.H"
+#include "RENDER/PARTICLE_SPAWNINTERPOLATEDTRAIL.H"
 
 
 extern void Particle_FinishActorEffects(void *actor);
-extern void Particle_UpdateMatrix(void *);
-extern void Fx_DetachParticleSwooshes(void *effectWorld, void *detachedEntity);
+
+
 
 
 

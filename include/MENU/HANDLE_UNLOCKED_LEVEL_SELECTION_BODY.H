@@ -3,6 +3,7 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/GAME_SESSION.H"
 #include "OVLGAME/SHAREDRECAT224.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
 
 extern unsigned int Control_IsAButtonPressed(struct ControllerProfile *profile);
 
@@ -10,7 +11,7 @@ struct GameSession;
 extern void SetN64_SelectSpawnAndStartSession(struct GameSession *menu, s32 target);
 extern s32 SetN64_IsModeThirteen(void);
 
-extern void Scene_SetSelection(void *menu, s32 target, s32 mode);
+
 
 static inline s32 findUnlocked(s32 level, s32 step) {
     s32 i;

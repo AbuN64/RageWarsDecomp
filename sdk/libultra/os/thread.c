@@ -1,4 +1,5 @@
 #include "COMMON/NODERECAT1C.H"
+#include "../../include/libultra/os/thread.h"
 
 void __osDequeueThread(void **listHead, void *node) {
     void **link;

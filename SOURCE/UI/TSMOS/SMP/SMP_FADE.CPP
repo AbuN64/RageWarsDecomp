@@ -7,6 +7,7 @@
 #include "RESMGR/resmgr_string_memory.H"
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
 #include "include_asm.h"
+#include "UI/TSMOS/SMP/SMP_FADE.H"
 
 /* 804196C0_20.CPP */
 /* Creates a 0x7C-byte fading widget: finds the frame the low half of the first argument names and

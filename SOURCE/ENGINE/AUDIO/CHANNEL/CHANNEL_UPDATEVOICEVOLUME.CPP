@@ -21,6 +21,8 @@ f32 Graphu64_ApproachValue(f32 current, f32 target, f32 rate);
 
 /* Spatial mix and runtime envelope controls embedded in a sound voice. */
 #include "ENGINE/AUDIO/CHANNEL.H"
+#include "AUDIO/AUDIO_CHOOSEWEIGHTEDSOUNDVARIANT.H"
+#include "AUDIO/CHANNEL_INITIALIZEVOICEMIX.H"
 
 typedef struct AudioVolumeControl {
     u16 levels[3];
@@ -186,8 +188,8 @@ void Channel_UpdateVoiceVolume(AudioVolumeVoice *voice) {
 
 /* Updates a voice pan from its sweep, position or centered fallback and applies it to the owner sound. */
 
-extern s32 Audio_GetSpatialPanMode(AudioOwnerView *);
-extern s16 Channel_ComputeListenerRelativePan(void *, GameplayCamera *);
+
+
 
 
 

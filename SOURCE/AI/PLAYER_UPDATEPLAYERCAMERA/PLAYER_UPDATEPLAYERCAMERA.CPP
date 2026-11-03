@@ -39,6 +39,30 @@ extern f32 g_playerGroundMovementSpeedLimits[];
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 #include "AI/PLAYER_DRAWTINTEDPLAYER.H"
 #include "ENGINE/AUDIO/T2SOUNDELEMENT/SOUND_CONTEXT_CONTROL.H"
+#include "ACTOR/NAV_APPLYSUPPORTINGPLATFORMMOTION.H"
+#include "AI/CTEAMSELECT.H"
+#include "AI/PLAYER/PLAYERAI_APPLYDAMAGEOVERTIME__PLAYER_UPDATEFRAGTAGSELECTION_DATA.H"
+#include "AI/PLAYER/PLAYERAI_DRAWAMMOCOUNTERS.H"
+#include "AI/PLAYER/PLAYERAI_UPDATEAIMANDLOCKMARKER.H"
+#include "AI/PLAYER/PLAYER_UPDATEFRAGTAGSELECTION_DATA__PLAYER_UPDATEFRAGTAGSELECTION_DATA.H"
+#include "AI/PLAYER/PLAYER_UPDATEPLAYEREFFECTLIGHTS.H"
+#include "CAMERA/CAMERA.H"
+#include "CTEAMSELECT/CTEAMSELECT_UPDATETEAMWHEEL.H"
+#include "CTEAMSELECT/PLAYER_RESETPLAYERFORROUND_DATA.H"
+#include "ENGINE/GREGION.H"
+#include "GOBJINST/GAMEOBJECT_LOADMODEL.H"
+#include "GOBJINST/GAMEOBJECT_MOVETOXZKEEPHEIGHT.H"
+#include "GRAPHU64/GRAPHU64_BUILDLOOKATMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GSKY/GSKY_SETPLAYERVIEWINPUTS.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "ITEMMENU.H"
+#include "LINK/LINK_DISPATCHMATCHINGTRIGGERS.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "ONSCRN.H"
+#include "PARTICLE/PARTICLE_RELEASEOWNERLISTONEEFFECTS.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 
 extern s32 Player_TryEnterHitReactionState(void *, void *);
 extern s32 Player_TryThrowSelectedActor(void *, void *, s32 *);
@@ -56,17 +80,17 @@ extern Gfx *g_displayListCursor;
 
 extern char g_actorParticleEffectSystem[];
 extern s32 g_playerWeaponClassMode;
-void TeamSelect_DrawWeaponWheelSprites(void *, Shared_HudView *, Shared_HudPlayer *);
-void TeamSelect_DrawTeamWheelSprites(void *, Shared_HudView *, Shared_HudPlayer *);
-void Playerai_DrawAnimatedSprite(void *, Shared_HudView *);
-void Playerai_DrawAimHud(Shared_HudPlayer *, Shared_HudView *);
-void Playerai_DrawAmmoCounters(Shared_HudPlayer *, Shared_HudView *);
-void Playerai_DrawHudSprite1FC(Shared_HudPlayer *, Shared_HudView *);
-void Playerai_DrawHudSprite201(Shared_HudPlayer *, Shared_HudView *);
-s32 Particle_CountOwnerListOneEffects(void *, Shared_HudPlayer *);
-s16 **Scene_StartWorldEffect(void *, s32, s32, s32);
-void ItemMenu_DrawEntries(void *, Shared_HudPlayer *);
-void OnScreen_UpdateMoverScript(void *);
+
+
+
+
+
+
+
+
+
+
+
 
 f32 Menu_MeasureLine(u8 *p, f32 sx, f32 sy);
 static inline CGameStatus *hudRules(void) {
@@ -585,9 +609,9 @@ void Player_DrawHeadsUpDisplay(Shared_HudPlayer *player, Shared_HudView *view) {
    g_playerDebugThrowHeadingOffset and distance g_playerDebugThrowDistance, which input bits 0x200 and 0x100 turn and 0x800 and 0x400 pull
    in and push out; the camera is set through Gsky_SetPlayerViewInputs and the view refreshed through
    Camera_UpdateViewProjectionAndEffects before the player is updated through Playerai_UpdateAimAndLockMarker. */
-extern void Gsky_SetPlayerViewInputs(void *, s32, f32, f32, f32, f32, f32, f32, f32, f32, Shared_Quad, s32, f32, f32);
-extern void Camera_UpdateViewProjectionAndEffects(void *);
-extern void Playerai_UpdateAimAndLockMarker(PlayerWeaponsUpdatePlayerCamera *);
+
+
+
 
 void Player_UpdatePlayerCamera(PlayerWeaponsUpdatePlayerCamera *player, BodyWeaponsUpdatePlayerCamera *body) {
     void *view;
@@ -660,41 +684,41 @@ extern struct Shared_Floor *g_collisionCurrentActor;
 extern struct Shared_StateInfo g_playerSpecialAnimationTable[];
 extern struct Shared_StateInfo g_playerActionStateHandlers[];
 struct CNavData_t; struct Player; extern void Portal_UpdateActorCurrentNode(struct CNavData_t *graph, struct Player *actor);
-extern void Actor_ApplySupportingPlatformMotion(void *, void *);
+
 extern void Barrel_FillDamagePacket(void *, s32, s32, s32, s32, s32);
-extern void TeamSelect_UpdateDraftPanel(void *, void *, void *);
-extern void Cteamselect_UpdateTeamWheel(void *, void *, void *);
+
+
 extern void Playerai_EmptyWeaponEffectHook(void *, void *);
 extern void Playerai_ApplyDamagePacket(void *, void *, void *);
 extern void Player_UpdatePlayerEffectLights(void *, void *);
 extern s32 Player_GetAmmoCapacity(void *, s32, s32);
 extern void Playerai_UpdateReactionReserve(void *);
 extern void Playerai_UpdateDelayedDamage(void *);
-extern void Playerai_SetInheritedMotionFlags(void *, void *, void *);
+
 extern void Playerai_UpdateModelBlend(void *, void *);
 extern s32 Playerai_TryEnterMotionFlagState(void *, void *);
 extern s32 Playerai_TryEnterBodyFlagState(void *, void *);
 extern s32 Unicol_MoveActorWithCollision(void *, CVector3, s32 *);
 struct CCollisionInfo2_t;
 extern s32 Unicol_SweepActorMotion(void *, CVector3, CVector3, struct CCollisionInfo2_t *, f32, f32, f32, f32);
-extern void GameObject_ApplyMaterialCurrents(void *, void *, void *, s32);
+
 extern void Gobjinst_ReadActorMotionIndex(void *);
 extern s32 Gobjinst_ChooseAnimationVariant(void *, s32, s32);
 extern void Gobjinst_UpdateActorRootDisplacement(struct Actor36 *actor);
-extern void Gobjinst_UpdateActorGroundRotation(void *);
+
 extern s32 Gobjinst_RequestAnimationKind(void *, s32, s32);
 
-extern f32 InstHdr_GetActorReach(void *);
+
 extern s32 InstHdr_GetActorMotionState(void *);
-extern struct Shared_Surface *InstHdr_FindActorModelEntry(void *);
+
 extern s32 SoundElement_PlaySoundAtPosition(s16, CVector3, s32, s32);
 
-extern f32 Graphu64_GetTrianglePlaneHeight(struct Shared_Model *, f32, f32);
-extern f32 Region_GetPolygonHeight(struct Shared_Model *, f32, f32);
-extern void Link_DispatchActorLinks(void *, s32, void *);
+
+
+
 extern void Link_DispatchObjectLinks(struct Shared_Model *, s32, void *);
 
-extern void ItemMenu_UpdateToggleMenu(void *, void *);
+
 extern void Pickup_TryCollectActor(void *, void *);
 #if !(defined(VERSION_US_REV1))
 const float g_playerHealthRegenerationConstants[4] = {
@@ -1975,7 +1999,7 @@ void Player_UpdateViewAngles(Player *player, Player *body, ViewTuning *tuning) {
 /* Updates player forward, strafe and impulse velocities, accumulates movement and plays the impulse sound. */
 
 
-extern void Graphu64_AddVec3(CVector3 *,CVector3 *,CVector3 *),Graphu64_ScaleVector(CVector3 *,CVector3 *,f32);
+extern void Graphu64_AddVec3(CVector3 *,CVector3 *,CVector3 *);
 
 void Player_UpdateGroundThrustAndBoost(SharedPlayer *player, PlayerBodyPositionYawView *body, SharedMovement *movementProfile) {
     CVector3 motion;

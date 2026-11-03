@@ -13,11 +13,15 @@
 #include "GAME/BUILDDIRECTIONMATRIX.H"
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_UPDATEFRAGTAGSELECTION_DATA__PLAYER_UPDATEFRAGTAGSELECTION_DATA.H"
+#include "INSTHDR/INSTHDR_GETACTORSHADOWRADIUS.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 extern FragTagMatchRulesView g_gameSettingsView __asm__("g_gameSettings");
 
 extern void Playerai_ApplyPeriodicDamage(s32 player, s32 unused, s32 period, s32 kind);
 
-extern s32 InstHdr_FindActorModelEntry(void *);
+
 
 extern f32 g_frameElapsedTime;
 
@@ -48,13 +52,13 @@ extern const struct ScalarPair g_playerEyeMarkerYawAndHeight;
 
 
 
-extern void Player_BuildPlayerViewTransform(Player1680 *, Matrix *);
 
-extern void Graphu64_GetMatrixTranslation(Matrix *, CVector3 *);
 
-extern void Graphu64_IdentityMatrix(Matrix *);
 
-extern void TranslateMatrix(Matrix *, float, float, float);
+
+
+
+
 
 extern void Graphu64_ConvertMatrixToFixed(Matrix *, void *);
 

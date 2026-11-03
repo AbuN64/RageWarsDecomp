@@ -8,11 +8,12 @@
 #include "MULTI/INITIAL.H"
 #include "COMMON/AIPROFILE.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 struct MenuCreationOwnerView;
 struct ParamsPakAllocateMenu;
 struct Dialog;
-extern void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, struct Dialog *list);
+
 
 
 /* Reads an object's sub-record kind byte and forwards it to two per-kind setup routines. */
@@ -113,7 +114,7 @@ void Initial_EnableMenuControllerPak(void *menu) {
 
 struct List;
 
-extern void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
+
 extern char g_matchEndingTeamWheelClose[];
 
 /** Marks dialog's inner record's byte tag via Control_EnableControllerPak_CmenuprofileOpentimedplayerdialog, then hands the record and dialog's fields to Menu_OpenDialog; ignores unused0. */

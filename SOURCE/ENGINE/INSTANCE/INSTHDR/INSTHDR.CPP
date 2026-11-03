@@ -12,6 +12,7 @@
 #include "TYPES.H"
 #include "ENGINE/INSTANCE/INSTHDR.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Returns a player's body lean on the ground: a controlled player on an accepted floor (Region_TestPolygonSlopeFlag) that
  * is not held (flag 1) nor in states 1 or 2 computes a tilt toward the floor normal from Region_GetNodeNormal_Insthdr by
@@ -25,7 +26,7 @@ struct Triangle; extern s32 Region_TestPolygonSlopeFlag(struct Triangle *polygon
 
 struct CVector3_t; struct Node75; extern struct CVector3_t *Region_GetNodeNormal(struct CVector3_t *out, struct Node75 *node);
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
+
 
 
 struct ActorDirectionTiltInput; extern struct CQuatern_t Gobjinst_BuildActorDirectionTilt(struct ActorDirectionTiltInput *input);
@@ -57,7 +58,7 @@ struct NavigationSearchGraphView; extern s32 Portal_FindNearestPointIndex(struct
 
 extern CVector3 *Portal_GetGraphPoint(void *, s32);
 
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 
 extern s32 SetN64_SpawnModelEffect(s32, s32, s32, CVector3, CVector3, s32, f32);
 

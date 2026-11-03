@@ -1,5 +1,6 @@
 #include "SYSTEM/ENGINE_DATA_SOURCE.H"
 #include "include_asm.h"
+#include "SETN64/SETN64_DRAWMODE4BACKDROP.H"
 #ifdef VERSION_DE
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 
@@ -79,7 +80,7 @@ extern void SetN64_HandleMode16CreditsInput(s32 session);
 extern void SetN64_HandleMode17CreditsInput(s32 session);
 extern void SetN64_HandleMode5Input(s32 session);
 extern void SetN64_HandleMode7Transition(struct GameSession *session);
-extern void SetN64_HandleMode9Input();
+
 extern void SetN64_InitializeFrontendScreenState(struct GameSession *gameSession);
 extern void SetN64_InitializeMode15();
 extern void SetN64_InitializeMode16Credits(s32 sessionAddress);
@@ -88,7 +89,7 @@ extern void SetN64_InitializeMode18();
 extern void SetN64_InitializeMode19();
 extern void SetN64_InitializeMode2();
 extern void SetN64_InitializeMode6();
-extern void SetN64_InitializeMode8Scene();
+
 extern void SetN64_InitializeTransitionMode();
 extern void SetN64_ResetMode10Items(s32 sessionAddress);
 extern void SetN64_ResetMode11Items(s32 sessionAddress);
@@ -148,7 +149,7 @@ extern void SetN64_HandleMode16CreditsInput(s32 session);
 extern void SetN64_HandleMode17CreditsInput(s32 session);
 extern void SetN64_HandleMode5Input(s32 session);
 extern void SetN64_HandleMode7Transition(struct GameSession *session);
-extern void SetN64_HandleMode9Input();
+
 extern void SetN64_InitializeFrontendScreenState(struct GameSession *gameSession);
 extern void SetN64_InitializeMode15();
 extern void SetN64_InitializeMode16Credits(s32 sessionAddress);
@@ -157,7 +158,7 @@ extern void SetN64_InitializeMode18();
 extern void SetN64_InitializeMode19();
 extern void SetN64_InitializeMode2();
 extern void SetN64_InitializeMode6();
-extern void SetN64_InitializeMode8Scene();
+
 extern void SetN64_InitializeTransitionMode();
 extern void SetN64_ResetMode10Items(s32 sessionAddress);
 extern void SetN64_ResetMode11Items(s32 sessionAddress);
@@ -217,7 +218,7 @@ extern void SetN64_HandleMode16CreditsInput(s32 session);
 extern void SetN64_HandleMode17CreditsInput(s32 session);
 extern void SetN64_HandleMode5Input(s32 session);
 extern void SetN64_HandleMode7Transition(struct GameSession *session);
-extern void SetN64_HandleMode9Input();
+
 extern void SetN64_InitializeFrontendScreenState(struct GameSession *gameSession);
 extern void SetN64_InitializeMode15();
 extern void SetN64_InitializeMode16Credits(s32 sessionAddress);
@@ -226,7 +227,7 @@ extern void SetN64_InitializeMode18();
 extern void SetN64_InitializeMode19();
 extern void SetN64_InitializeMode2();
 extern void SetN64_InitializeMode6();
-extern void SetN64_InitializeMode8Scene();
+
 extern void SetN64_InitializeTransitionMode();
 extern void SetN64_ResetMode10Items(s32 sessionAddress);
 extern void SetN64_ResetMode11Items(s32 sessionAddress);

@@ -7,11 +7,12 @@
 #include "MULTI/MULTI_COMPLETEGAMEOVERDELAY.H"
 #include "COMMON/GAME_SESSION.H"
 #include "include_asm.h"
+#include "OVLGAME/MATCH.H"
 
 /* 8043E9A8_6.CPP */
 /* When the timer m_GameOverTimer has run out, calls Match_ResetMatchControllerState on g_gameSession and returns one;
    otherwise returns zero. */
-extern void Match_ResetMatchControllerState(void *);
+
 
 s32 Multi_CompleteGameOverDelay(void) {
     if (g_gameSettings.counters.m_GameOverTimer <= 0.0f) {

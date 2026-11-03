@@ -7,13 +7,16 @@
 #include "TYPES.H"
 #include "COMMON/GEOMETRY_BLEND_AND_INSTANCE_VIEWS.H"
 #include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "AUDIO/VOICE.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
 
 /* Releases the two handles at offsets 0x11BC and 0x11C0 of an object: each goes to SoundVoicePool_StopNode
    with what SoundVoicePool_GetGlobalState returns, and each is then cleared. */
 
 
 extern void *SoundVoicePool_GetGlobalState();
-extern void SoundVoicePool_StopNode(void *, s32);
+
 
 void Player_ReleaseObjectHandles(struct ItemsHandleOwner *object) {
     SoundVoicePool_StopNode(SoundVoicePool_GetGlobalState(), object->first);
@@ -27,7 +30,7 @@ void Player_ReleaseObjectHandles(struct ItemsHandleOwner *object) {
 
 
 extern void Playerai_InitializePlayerHealth(void *);
-extern void Player_ResetPlayerWeapons(void *);
+
 
 
 

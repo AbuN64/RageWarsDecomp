@@ -6,6 +6,8 @@
 #include "TYPES.H"
 #include "RENDER/S1.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
+#include "AI/PLAYER_G02.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
 
 /* PLAYER_ADDIMPULSE.CPP */
 /* Decreases a float field at offset 0x12C0 by the given amount, clamps it from below at a floor, and when it reaches the floor builds and dispatches an event. Adapted from Playerai_AddReactionReserve, with the add, the clamp direction, the constant, the third argument (a field plus 0x1900), and a duplicated clamp assignment (which keeps the constant reloaded rather than held in a register) changed. */
@@ -44,7 +46,7 @@ void Player_AddImpulse(void *actorView, f32 amount) {
 
 /* PLAYER_GIVEAMMOWITHMESSAGE_DATA.CPP */
 extern u8 *XPlus_CopyString(u8 *, u8 *);
-extern void Gsky_PostScaledScreenMessage(void *, s32, void *, f32);
+
 
 void Playerai_PostMessageHistoryEntry(void *player, u8 *message, f32 size) {
     s32 count;

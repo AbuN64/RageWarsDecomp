@@ -26,7 +26,9 @@ s32 Menu_ForwardRulesLock(void *unused, MenuRules *rules) {
    0x5D0 of the owner at offset 0x1C of the second argument. Returns one. */
 
 #include "COMMON/GAME_SESSION.H"
-extern void Match_ResetMatchControllerState(void *);
+#include "AI/PLAYER/PLAYER_PLACEPLAYERFORROUND.H"
+#include "OVLGAME/MATCH.H"
+
 
 s32 Menu_HandleSessionOptionPage(void *unused, struct Holder *holder) {
     if (g_sessionOptionResetMode == 1) {

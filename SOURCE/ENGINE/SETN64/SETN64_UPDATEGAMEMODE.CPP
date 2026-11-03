@@ -8,6 +8,7 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/TRIPLE.H"
+#include "SETN64/SETN64_UPDATEFRAMETIMING.H"
 extern f32 g_snapshotModeTransitionTimer;
 
 void SetN64_BeginModeTransition(GameSession *session, s32 targetMode) {
@@ -33,7 +34,7 @@ void SetN64_SetTransitionTarget(GameSession *object, int value) {
 typedef void (*SessionUpdateHandler)(void *);
 
 
-extern void SetN64_UpdateFrameTiming(void *world);
+
 
 
 

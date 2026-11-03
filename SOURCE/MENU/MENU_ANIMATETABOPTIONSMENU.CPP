@@ -5,6 +5,7 @@
 #include "COMMON/SELECTIONSCREENSTATE.H"
 #include "COMMON/SHARED_MENUREPLY.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "MENU/MENU_ANIMATETABOPTIONSMENU.H"
 
 /* Resource ids of this screen are numbered per version: de -10, eu-x 4 relative to us. */
 static inline s32 tabRes(s32 id) {

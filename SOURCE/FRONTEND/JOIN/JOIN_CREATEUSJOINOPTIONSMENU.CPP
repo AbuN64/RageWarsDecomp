@@ -57,6 +57,8 @@ s32 Join_CreateUsJoinOptionsMenu(void *root) {
 
 #if defined(VERSION_US)
 #include "COMMON/ITEMRECAT20V1.H"
+#include "FRONTEND/SMP_OVERLAY.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 extern struct TextEntry g_rewardItemTiers[][17];
 extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
 

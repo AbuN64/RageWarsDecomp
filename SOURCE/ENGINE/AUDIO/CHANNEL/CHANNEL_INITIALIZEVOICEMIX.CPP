@@ -14,13 +14,17 @@
 #include "COMMON/AUDIO_CONTEXT.H"
 #include "COMMON/CARTRIDGEREADWORKER.H"
 #include "AUDIO/CHANNEL_INITIALIZEVOICEMIX.H"
+#include "CHANNEL/LOOKUPPANVALUE.H"
+#include "COMMON/SOUNDINFO.H"
+#include "SYSTEM/ENGINE_DATA_SOURCE.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* Returns the stereo pan of a sound at a position for a listener: centre (0x40) without a listener, when
  * the sound is horizontally within a small radius or straight ahead; otherwise the horizontal direction
  * in listener space is compared with the forward axis through Graphu64_ArcCos and Gu_Sinf_SkyPosttargetedscreenmessage, given the
  * side's sign, and scaled around the centre by g_listenerPanCenterAndRange. */
 
-extern void Graphu64_TransformDirectionTranspose(void *, CVector3 *, CVector3 *);
+
 
 
 
@@ -60,7 +64,7 @@ s16 Channel_ComputeListenerRelativePan(CVector3 *position, GameplayCamera *liste
 extern struct Bytes12 *Audio_GetMetadataSectionFourEntry(GameAudioContext *, s32);
 extern unsigned short Menu_GetFloatHighWord(f32);
 
-extern s32 SoundInfo_GetX(SoundDescriptor *);
+
 extern s32 SoundInfo_GetY(SoundDescriptor *);
 
 
@@ -141,7 +145,7 @@ typedef struct SoundEnvelopeControl {
 #include "ENGINE/AUDIO/CHANNEL.H"
 
 typedef struct VoiceScaleEntry { f32 soundId, scale; } VoiceScaleEntry;
-extern VoiceScaleEntry g_soundVolumeScales[];
+
 extern float g_voiceDefaultGain;
 extern char *Audio_GetMetadataSectionThreeEntry(char *object, int index);
 static inline s32 lookupPanValue(s32 panAngle) {

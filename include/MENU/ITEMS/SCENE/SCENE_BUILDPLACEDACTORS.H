@@ -1,0 +1,5 @@
+#ifndef MENU_ITEMS_SCENE_SCENE_BUILDPLACEDACTORS_H
+#define MENU_ITEMS_SCENE_SCENE_BUILDPLACEDACTORS_H
+struct ItemsPreviewStateA;
+void Scene_LoadPreviewBufferA(struct ItemsPreviewStateA *previewToLoad);
+#endif

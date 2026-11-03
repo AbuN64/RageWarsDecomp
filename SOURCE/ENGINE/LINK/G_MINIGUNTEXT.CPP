@@ -1,6 +1,7 @@
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "../../../sdk/include/libultra/ACTOR_STATE_TABLE_END_DATA.H"
 extern char g_actorStateEnd_us_rev1[];
-extern char g_actorStateTableEndWords[];
+
 #if defined(VERSION_US_REV1)
 extern RestminigunTextLayout331 g_minigunText;
 #endif

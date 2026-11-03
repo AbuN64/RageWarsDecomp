@@ -18,6 +18,10 @@
 #include "COMMON/NODERECAT2A8.H"
 #include "FRONTEND/SCREEN_VIDEO_MODE.H"
 #include "DATA/REST_SOURCE_RECORDS.H"
+#include "FRONTEND/SCREEN.H"
+#include "GAME/GAME.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
 
 /* Clears the word held in g_controllerPakProbeState. */
 extern f32 g_controllerPakProbeState;
@@ -61,7 +65,7 @@ extern f32 g_frameElapsedTime;
 
 extern s32 Defs_GetMemorySize(void);
 
-extern s32 Frontend_GetScreenModePalette();
+
 
 #if defined(VERSION_EU)
 /* Picks the label for each of the eight option rows (ids 2..9): the first text when the row's flag is set, else the second. */

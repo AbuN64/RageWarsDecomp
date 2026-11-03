@@ -7,6 +7,9 @@
 #include "TYPES.H"
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Returns the rotation that turns an actor's aim toward a target point: a player's forward axis is its
  * aiming orientation from Gobjinst_BuildActorAimQuaternion applied to +z, anyone else looks along +z; the target is the
@@ -27,18 +30,18 @@ extern CQuatern Gobjinst_BuildActorAimQuaternion(char *);
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
 
 
-extern char *Playerai_FindNearestPlayer(void *, CVector3);
+
 
 extern f32 Gobjinst_GetActorHeight(char *);
 
 extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
 
 
-extern void Graphu64_CrossVectors(CVector3 *, CVector3 *, CVector3 *);
 
-extern void MultiplyQuaternions(CQuatern *, CQuatern *, CQuatern *);
 
-extern void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
+
+
+
 
 
 CQuatern Gobjinst_BuildTargetAimOrientation(char *actor, CVector3 point) {

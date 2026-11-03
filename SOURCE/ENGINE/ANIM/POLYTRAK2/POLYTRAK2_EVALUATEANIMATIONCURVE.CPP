@@ -105,6 +105,7 @@ float Polytrak2_EvaluateAnimationCurve(Stream *stream, float time) {
 
 #include "ENGINE/ANIM/POLYTRAK2.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "POLYTRAK2/POLYTRAK2_EVALUATEANIMATIONCURVE.H"
 inline static void write_bits(u32 value, u32 bitAddress, u32 width)
 {
   u32 address;

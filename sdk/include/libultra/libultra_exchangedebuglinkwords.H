@@ -1,0 +1,4 @@
+#ifndef LIBULTRA_LIBULTRA_EXCHANGEDEBUGLINKWORDS_H
+#define LIBULTRA_LIBULTRA_EXCHANGEDEBUGLINKWORDS_H
+void Libultra_SetDebugLinkCallback(int callbackAddress);
+#endif

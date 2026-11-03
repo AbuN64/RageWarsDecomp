@@ -3,6 +3,7 @@
 #include "COMMON/SELF.H"
 #include "TYPES.H"
 #include "include_asm.h"
+#include "BEHAVIOUR/BEHAVIOUR.H"
 
 typedef s32 (*Handler)(void *aiController);
 

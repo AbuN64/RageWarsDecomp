@@ -5,9 +5,10 @@
 #include "TYPES.H"
 #include "COMMON/RECORDRECATCV1.H"
 #include "../../../../sdk/include/PFS/PLAYER_CONFIGUREANDPROBECONTROLLERPAK.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
 
 /* Updates display flags and activates the selected resource. */
-s32 Player_GetPlayerIndex(s32 *, s32);
+
 
  /* extern */
 
@@ -22,7 +23,7 @@ extern s32 g_pakUseScannedChannel[];
 /* Updates object display flags and selects the requested resource. */
 
 
-s32 Player_GetPlayerIndex(int *, s32);
+
 
                                /* extern */
 

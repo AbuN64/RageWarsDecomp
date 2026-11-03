@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "MENU/ITEMS/SCENE/GRID_INDEX_AND_VISIBILITY_TEXT.H"
 
 const char g_gridBoundsAndSectionsIndexText[32] = "grid bounds\000grid sections index";
 

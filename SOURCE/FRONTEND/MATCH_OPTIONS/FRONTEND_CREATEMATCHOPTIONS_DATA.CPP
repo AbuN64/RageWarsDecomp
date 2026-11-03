@@ -2,14 +2,16 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include "DATA_OVERLAY_LAYOUTS.H"
 #include "TYPES.H"
-extern char Frontend_ActivateMatchOptionAction[];
-extern char Frontend_CreateMatchOptions[];
-extern char Frontend_DestroyMatchOptions[];
-extern char Frontend_ExitMatchOptions[];
-extern char Frontend_RefreshMatchSlotsOnZeroEvent[];
-extern char Frontend_RefreshMatchSlotsOnZeroEventAlt[];
-extern char Frontend_ResetMatchOptionOnEvent[];
-extern char Frontend_ReturnMatchOptionsEventZero[];
+#include "FRONTEND/FRONTEND_ACTIVATEMATCHOPTIONACTION.H"
+#include "MATCH_OPTIONS/FRONTEND_CREATEMATCHOPTIONS.H"
+
+
+
+
+
+
+
+
 extern char g_Frontend_ActivateMatchOptionActionPackedAddress24[];
 extern char g_Frontend_CreateMatchOptionsPackedAddress24[];
 extern char g_Frontend_ExitMatchOptionsPackedAddress24[];

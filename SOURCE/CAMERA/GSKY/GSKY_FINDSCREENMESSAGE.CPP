@@ -1,5 +1,6 @@
 #include "COMMON/VIEWFLAGS.H"
 #include "COMMON/GAMEPLAY_TRANSITION.H"
+#include "GSKY/GSKY_FINDSCREENMESSAGE.H"
 
 extern void *g_transientPlayerList;
 

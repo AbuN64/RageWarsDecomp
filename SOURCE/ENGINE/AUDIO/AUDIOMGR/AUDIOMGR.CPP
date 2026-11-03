@@ -10,6 +10,10 @@
 #include <PR/os_internal_si.h>
 #include "UI/X_FILES/X_PLUS.H"
 #include "../../../../sdk/include/libgultra/alunlink.h"
+#include "DATA/GFXDATA/AUDIO_DECODEFRAME_DATA.H"
+#include "ENGINE/CACHE/DECMPRSR.H"
+#include "ENGINE/CACHE/HEAP.H"
+#include "ENGINE/CACHE/LOADER.H"
 
 /* Clears and sizes the 0x8016E000 heap region against the detected RAM size, then initialises the
    five dependent subsystems over it. */
@@ -20,9 +24,9 @@ extern u8 g_resourceCacheWorker[];
 extern u8 g_cartridgeReadWorker[];
 
 extern s32 Defs_GetMemorySize(void);
-extern void Heap_InitializeArena(void *, void *, s32);
-extern void Cache_StartResourceLoadWorker(void *, s32);
-extern void Cartridge_StartReadWorker(void *, s32);
+
+
+
 #if defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
 extern void Vhandler_InitializePagerEuroExtended(s32, s32);
 #elif defined(VERSION_EU_X)
@@ -72,7 +76,7 @@ extern s16 *g_audioCommandBuffers[2];
 extern u32 g_audioTaskCompletionMessages[10], g_audioWorkerEventMessages[10], g_audioDmaCompletionMessages[60];
 extern u8 g_audioWorkerThread[], g_audioWorkerStack[10240];
 extern u8 g_audioMicrocodeText[4096], g_audioMicrocodeData[2048];
-extern u8 g_graphicsMicrocodeText[];
+
 extern char g_audioDmaInitializerEntry, g_audioWorkerEntry;
 
 

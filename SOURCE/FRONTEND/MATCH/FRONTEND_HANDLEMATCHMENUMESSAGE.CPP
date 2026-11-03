@@ -22,6 +22,7 @@
    it sends 3. 0x1DA sends 11 when Menu_GetPreviousScreenOwner(0) reports 11 and -1 otherwise. Either then calls
    Menu_ReturnToPreviousScreen. Returns zero. */
 #include "MENU/PAK_LOAD.H"
+#include "MATCH/FRONTEND_HANDLEMATCHMENUMESSAGE.H"
 
 extern void Pools_ResetActorPools(struct ScreenMessageOwner *owner, s32 actorCount);
 extern void Player_InitializePlayerPool(struct CPlayerPool_t *pool, s32 count, s32 force_active);

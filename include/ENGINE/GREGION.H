@@ -17,4 +17,9 @@ extern void Region_UnmarkMatchingNodes(struct ModelTreeNode *modelTreeNode, u16)
 extern f32 Region_SetMatchingVertexHeights(u16 *, f32, u16);
 extern void Region_ExpandPointBounds(f32 *, s32, CVector3 *);
 extern void Region_ComputeHorizontalBounds(void *, s32, void *);
+struct CVector3_t;
+void Region_ComputePointBounds(f32 *pointBounds, s32 pointCount, struct CVector3_t *pointCursor);
+struct Node75;
+f32 Region_GetPolygonHeight(struct Node75 *node, f32 x, f32 z);
+f32 Region_SetNodeGroupHeight(u16 *modelTreeNode, f32 height);
 #endif

@@ -12,6 +12,9 @@
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+#include "ENGINE/SETN64.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Draws an actor's ground shadow: probes the ground under the actor through Collision_ProbeGround_de into g_currentActorInstance, and when ground is found tilts the shadow model from g_actorMatrixPool to the ground normal, scales it by the actor's size shrinking with height above the ground, fades it with height (and with lost health for actors flagged 1), places it on the ground and draws it through Geometry_DrawIntensityMask between render-mode commands. */
@@ -26,17 +29,17 @@ extern Gfx *g_displayListCursor;
 
 extern s32 Unicol_MoveActorWithCollision(Shared_ParticleInstance *, CVector3, void *);
 
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
 
-extern void MultiplyQuaternions(CQuatern *out, CQuatern *a, CQuatern *b);
 
-extern s32 Graphu64_LimitVectorLength(CVector3 *, f32);
+
+
+
 
 extern void MatrixFromQuaternion(f32 *q, f32 *m);
 
-extern void ScaleMatrixLocal(f32 *, f32, f32, f32);
 
-extern void TranslateMatrix(f32 *, f32, f32, f32);
+
+
 
 extern void Graphu64_ConvertMatrixToFixed(f32 *, void *);
 
@@ -56,12 +59,12 @@ extern char g_simpleModelResourceCallbackAddress;
 
 
 
-extern s32 SetN64_GetDirectoryEntry(s32 *, s32, s32);
+
 
 
 extern void **Cache_RequestWordCountedResource(s32,void **,s32,void *,s32);
 
-extern s32 SetN64_LocatePackSection(s32, s32, s32, s32 *);
+
 
 extern void Geometry_QueueModelInstance(void **, void *, s32, void *, void *, s32);
 

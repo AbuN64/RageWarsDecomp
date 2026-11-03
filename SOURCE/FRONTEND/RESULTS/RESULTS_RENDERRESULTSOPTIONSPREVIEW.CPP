@@ -15,6 +15,7 @@
 #include "FRONTEND/RESULTS_REFRESHTRIALCATALOGUEWIDGETS.H"
 #include "FRONTEND/RESULTS_LOADTRIALCOMPLETIONFLAGS.H"
 #include "FRONTEND/RESULTS.H"
+#include "RESULTS/RESULTS_RENDERRESULTSOPTIONSPREVIEW.H"
 extern ResultsOptionsScreen *g_trialCatalogueScreen;
 
 /* Draw callback of the results screen g_trialCatalogueScreen: on draw event 1 in states 3, 8 or 9 it resets

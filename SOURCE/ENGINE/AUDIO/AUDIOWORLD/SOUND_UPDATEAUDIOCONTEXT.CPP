@@ -23,13 +23,17 @@ extern f32 g_audioContextGainScaleConstants;
 #include "AUDIO/AUDIO_UPDATEMUSICFADE.H"
 
 #include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
+#include "../../../../sdk/include/AUDIO/AUDIO.H"
+#include "ENGINE/AUDIO/AUDIOWORLD.H"
+#include "FADE/FADE.H"
+#include "GSKY/SKY_POSTSCALEDSCREENMESSAGE.H"
 
-extern void AudioWorld_DispatchPendingSounds(void *cache);
-extern void Audio_UpdateDialogPlayer(void *player);
 
-extern void Audio_UpdateMusicPlayback(void *queue);
+
+
+
 extern s32 SetN64_IsModeThirteen(void);
-extern void *Gsky_FindNearestCamera(MenuMatchGlobals *menuMatchGlobals, CVector3 *zero);
+
 
 
 
@@ -103,7 +107,7 @@ s32 Sound_UpdateAudioContext(void *context) {
     return ++((struct GameAudioContext *)(object))->frame;
 }
 
-extern s32 Audio_HasVoiceOrReservedSlotWithKey(void *record, s32 value);
+
 extern s32 AudioWorld_HasPendingSoundWithKey(void *channelOwner, s32 wantedKey);
 
 

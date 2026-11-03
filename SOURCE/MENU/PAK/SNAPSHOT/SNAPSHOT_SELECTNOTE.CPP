@@ -11,18 +11,21 @@
 #include "COMMON/RESOURCELOCKSTATE.H"
 #include "COMMON/MENURECAT24.H"
 #include "UI/X_FILES/X_PLUS.H"
+#include "MENU/PAK/MENU_CREATEMENUFROMTEMPLATE.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "SNAPSHOT/SNAPSHOT_CHECKSTATUSPROMPT.H"
 
 extern u8 *g_controllerPakSnapshotPayload;
 extern s32 g_worldSnapshotNoteBytes;
 extern s32 g_pakUseScannedChannel;
-s32 Note_ReadNoteInfo(s32, s32, s32 *, u8 *, u8 *, s32 *, u8 *, u8 *);
-s32 XPlus_StringLength(u8 *);
+
+
 s32 Note_ReadNoteData(s32, s32, s32, s32);
 u32 Note_Crc32(u8 *, u32, u32);
 s32 Note_ContainsInvalidNameByte(u8 *, s32);
 u8 *XPlus_CopyString(u8 *, u8 *);
-void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d);
-s32 Snapshot_CheckStatusPrompt(void *, s32, s32);
+
+
 static __inline__ s32 pak_note_has_game_id(u8 *company, u8 *code) { if ((XPlus_StringLength(code) == 4) && (XPlus_StringLength(company) == 2) && (XPlus_CompareStrings(code, rw_pak_game_code(&g_playerViewRenderContext.game)) == 0) && (XPlus_CompareStrings(company, rw_pak_company(&g_playerViewRenderContext.game)) == 0)) return 1; return 0; }
 static __inline__ s32 pak_block_has_size(u8 *data,s32 expected) { return *(s32 *)data==expected; }
 /* Load a Controller Pak note, validate its profile or save-block

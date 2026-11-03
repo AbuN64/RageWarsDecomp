@@ -17,14 +17,14 @@
 #include "ENGINE/DEFS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "COMMON/GAME_SESSION.H"
+#include "SETN64/SETN64_DRAWCOLORRECTANGLE.H"
 
 /* SCENE_12.CPP */
 /* Draws each selected entry in the object range with shared position and scale. */
 
 extern void Rumble_AllocatePoolNode(s32,void *,Triple,f32,f32,s32);
 
-extern void SetN64_DrawColorRectangle(void *unused, s8 *color, s32 left, s32 top,
-                          s32 right, s32 bottom);
+
 
 void Scene_SetTypeThreeActorStateBits(void *world) {
     Shared_World *object;

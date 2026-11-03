@@ -11,6 +11,9 @@
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "ENGINE/DEFS.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT2.H"
+#include "VOLUME/G_PAKFORMATSPACEDINT3.H"
 
 s32 Pak_FormatVolumeSlotOne(struct Field *field) {
     s32 step = (g_gameSettings.volume[1] - 128) / 8;
@@ -38,7 +41,7 @@ s32 Pak_FormatVolumeSlotOne(struct Field *field) {
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 /* Points a field's text at one of g_volumeOneNeutralLabel, g_volumeOneMaximumLabel or g_volumeOneMinimumLabel when the option byte g_soundEffectsVolumeOption measured from 0x80 in steps of eight is zero, fifteen or minus sixteen, and otherwise at g_volumeOneValueLabel with the step formatted into it, returning zero. Adapted from Pak_UpdateThirdVolumeLabel with g_soundEffectsVolumeOption_PakFormatvolumeslotone changed to g_soundEffectsVolumeOption and the text slots g_volumeTwoMinimumLabel..g_volumeTwoValueLabel changed to g_volumeOneMinimumLabel..g_volumeOneValueLabel. */
 
-extern s32 Menu_CountLineChars(struct Field *);
+
 
 s32 Pak_FormatVolumeSlotOne(struct Field *field) {
     s32 step = (g_gameSettings.volume[1] - 128) / 8;

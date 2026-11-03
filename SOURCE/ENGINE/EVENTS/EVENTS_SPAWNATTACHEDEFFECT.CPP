@@ -9,6 +9,7 @@
 #include "COMMON/OBJRECAT5F14.H"
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "ENGINE/AUDIO/T2SOUNDELEMENT.H"
+#include "ANIMPOOL/ANIMPOOL_SPAWNDESCRIBEDSCENEEFFECT.H"
 
 /* Spawns an effect of the given kind for an object through Animpool_SpawnAnimationObject at the object's position with its velocity (none when the object is inactive) and a uniform scale; kind 0x40C instead starts at the camera with no velocity and, once spawned, follows the camera's target through Particle_GetEffectResource, and kinds 0x474 to 0x477 attach to the host's partner effect for active flagged hosts, otherwise the effect is started through Animpool_ReleaseSceneEffect. */
 
@@ -16,7 +17,7 @@ extern CameraEventsSpawnAttachedEffect *g_collisionCurrentActor;
 
 extern s32 Particle_GetEffectResource(void *host);
 
-extern s32 Animpool_ReleaseSceneEffect(void *effect);
+
 
 /* Forwards a position read from an object to SetN64_SpawnModelEffect on the global g_modelEffectPool with a zero offset and a zero trailing weight, returning its result. Adapted from Scene_SpawnUnrotatedEffect with the base argument, the source vector, the trailing arguments passed as a by-value struct and the return value changed. */
 

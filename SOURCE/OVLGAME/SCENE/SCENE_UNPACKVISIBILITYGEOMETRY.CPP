@@ -12,6 +12,12 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
+#include "AI/PLAYER/PLAYER_STARTPLAYERANIMATION.H"
+#include "COMMON/PPDECOM_UNPACKRESOURCE.H"
+#include "ENGINE/SETN64.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "SCENE/SCENE_UNPACKVISIBILITYGEOMETRY.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 /* Loads a scene's light into the global light g_playerModelLighting: copies the ambient and directional colours from the scene's light settings (bytes 0xD and 0xA) into both colour copies and the direction bytes from 0x11, then scales the direction to g_lightDirectionLength_SceneUnpackvisibilitygeometry in length through Gu_Sqrtf_TurretMove and Graphu64_ScaleVector and stores it as shorts at 0x1B2B4 of the scene. */
@@ -20,7 +26,7 @@ extern u8 g_savedPlayerModelLighting[];
 extern u8 g_savedSecondaryMenuByteOptions[];
 extern u8 g_sceneLightDirection[];
 extern f32 Gu_Sqrtf(f32);
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 void Scene_LoadSceneLight(SceneLightLoadView *scene) {
     s32 i;
     u8 c;
@@ -48,11 +54,11 @@ void Scene_LoadSceneLight(SceneLightLoadView *scene) {
         scene->dir[2] = v[2];
     }
 }
-int Playerai_GetFirstPlayer(void *);
+
 void SoundVoicePool_StopAll(void *);
 s32 * SoundVoicePool_GetGlobalState(void);
 void Scene_ReleaseCachedGeometry(void *);
-void Player_ReleaseObjectHandles(void *);
+
 /* Shut down the subsystem, free its owned resources, and unlink its list. */
 void Scene_FreeSceneResources(SceneResourceOwnerView *sceneToFree) {
     s32 firstPlayer;
@@ -108,8 +114,8 @@ void Scene_FreeSceneResources(SceneResourceOwnerView *sceneToFree) {
    node's four chunks with their counts, resets the two bucket lists and files the 48 buckets into
    the second, then for every face of both lists clears the solid bit when it is hidden and marks it
    0xF0 when its group bit is set in the current group's bitmap. */
-extern s32 Ppdecom_UnpackResource(void ***handle, s32 retainUncompressed);
-extern void SetN64_GetPackSectionSize(void *node, s32 index);
+
+
 static inline s32 groupHas(SceneVisibilityGeometryView *world, s32 n) {
     s32 index;
     void *g;

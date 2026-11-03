@@ -5,6 +5,7 @@
 #include "COMMON/SHAREDRECV4.H"
 #include "TYPES.H"
 #include "../../include/libultra/audio/synthesizer.h"
+#include "../../include/libultra/audio/synallocvoice.h"
 
 
 /* alSynAllocVoice, drafted from ultralib src/audio/synallocvoice.c: initialises a virtual voice from
@@ -25,7 +26,7 @@
 
 
 
-extern s32 _allocatePVoice(AudioSynthVoiceAllocatorView *, AudioAllocatedPhysicalVoiceView **, s16);
+
 
  /* _allocatePVoice */
 

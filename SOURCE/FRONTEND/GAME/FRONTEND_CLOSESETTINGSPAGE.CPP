@@ -3,6 +3,7 @@
 #include "COMMON/MENU_OPTIONS_AND_RESULTS.H"
 #include "TYPES.H"
 #include "SCENE/CACHE_FREEMEMORY.H"
+#include "GAME/FRONTEND_CLOSESETTINGSPAGE.H"
 /* German Menu_DestroyOptionsPage: releases the object g_optionsPage holds through Cache_FreeMemory, clears
    g_optionsPage, reloads the default language strings and returns zero. */
 extern struct OptionsCommitContext *g_optionsPage;

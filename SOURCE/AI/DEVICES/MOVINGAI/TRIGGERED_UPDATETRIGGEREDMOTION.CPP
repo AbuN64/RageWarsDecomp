@@ -18,19 +18,25 @@
 #include "FX/GRAPHU64_NORMALIZEVEC3.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "GOBJINST/GASTATE_ADVANCEROOTMOTION_DATA.H"
+#include "ACTOR/ACTOR_UPDATEACTORSTATEANIMATION.H"
+#include "ENGINE/GREGION.H"
+#include "GOBJINST/GOBJINST_REQUESTANIMATEDMODELVARIANT.H"
+#include "MENU/ITEMS/SCENE/SCENE_SETLEVELACTORSTATEBIT.H"
+#include "PLAYERAI/PLAYERAI__PLAYERAI.H"
+#include "TRACK/TRACK_DRAWTRACKOVERLAY.H"
 
-extern void Scene_SetLevelActorStateBit(void *a, unsigned short b, unsigned short c, int d);
+
 
 extern int Cinema_IsSequenceInWindow(void);
 
 /** For each of the object's child slots, attach the child to the record and spawn its effect. */
 extern int g_lightingBufferIndex;
 
-extern void *Gobjinst_RequestAnimatedModelVariant(void *, int);
+
 
 extern void GameObject_DrawActorShadow(char *obj, s32 unused, char *info);
 
-extern void Track_RequestTrackByIds(s32, void *);
+
 
 void Triggered_StartTriggerAnimation(void *actor, void *motionState, Trigger *trigger) {
     extern void Rumble_SetActorStateBit(Shared_World *a, void *b, int c);
@@ -219,9 +225,9 @@ void Triggered_UpdateTriggeredMotion(MovingPlatformActorView *actor, MovingPlatf
 
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 
-extern f32 Region_GetPolygonHeight(s32, f32, f32);
 
-extern f32 Region_SetNodeGroupHeight(s32, f32);
+
+
 
 /* Steers an actor along path nodes, blending direction, speed and orientation as it advances waypoints. */
 /* The values Triggered_AdvancePathMotion loads by address:
@@ -253,7 +259,7 @@ extern f32 Region_SetNodeGroupHeight(s32, f32);
  */
 void Barrel_ApplyClampedTurn(void *, s32, f32, f32);
 
-void Playerai_AdvanceRouteCursor(void *);
+
 
 void * Playerai_GetRouteCursorPoint(struct Cursor *);
 

@@ -12,6 +12,8 @@
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
 #include "ENGINE/DEFS.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "MENU/MENU_CREATEMENUFROMPARAMETERS.H"
 extern Shared_MenuData g_playerViewRenderContext;
 extern s16 g_playerResultScoreFields[];
 
@@ -41,8 +43,8 @@ extern char g_playerViewRenderContext[];
 #endif
 
 extern char g_fmtDec4Pad[];
-extern s32 Player_GetPlayerIndex(void *, unsigned int);
-extern s32 Menu_CountLineChars(LayeredText *);
+
+
 
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 s32 Player_FormatPlayerResultScore(LayeredText *field, struct MenuRules *holder) {

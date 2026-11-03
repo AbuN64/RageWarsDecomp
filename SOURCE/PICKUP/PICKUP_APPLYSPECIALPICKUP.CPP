@@ -14,6 +14,10 @@
 #include "COMMON/ENTRYRECATE.H"
 #include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
 #include "ENGINE/AUDIO/CHANNEL.H"
+#include "ITEMMENU.H"
+#include "PICKUP/PICKUP_CANCOLLECT.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 /* 802ABDBC_9.CPP */
 extern u8 *g_pickupFlagCarriedText[];
@@ -152,7 +156,7 @@ struct Shared_FullPlayerMenuGlobals {
         } view;
     } game __attribute__((packed, aligned(4))); /* The menu owner starts at +0x44, not an eight-byte relative boundary. */
 };
-void Player_IncrementLevelProgress(void *, int);
+
 
 s32 XPlus_NextRandomInteger(void);
 s32 Track_RequestTrackByKey(s32);
@@ -620,7 +624,7 @@ typedef struct PowerupEntry {
 } PowerupEntry;
 /* Team ids that may always pick up items (Pickup_CanCollect reads the same pair). */
 extern s32 g_playerSpecialModelIds[2];
-extern void Player_AddAmmo(void *, s16, s16);
+
 /* Pickup feedback: flash the player's view, post the entry's message in the current language,
    play its sound at the player and raise its event. */
 static inline void announcePowerup(struct Player *player, PowerupEntry *entry)
@@ -673,7 +677,7 @@ s32 Pickup_HandlePowerWeaponPickup(struct Player *player, PowerupEntry *entry)
    raises its event. Returns one. */
 extern f32 g_specialPickupShieldDurationEu, k_pickupEuropeanSecondEffectValue;
 extern char g_pickupEuropeanEffectUpdateRomEntry[], g_pickupEuropeanEffectDrawRomEntry[];
-extern void ItemMenu_SetEntry();
+
 s32 Pickup_ApplyEuropeanExtendedPowerup(struct Player *player, PowerupEntry *pickup, LevelActor *obj) {
     u8 **text;
     s32 sound;
@@ -710,7 +714,7 @@ s32 Pickup_ApplyEuropeanExtendedPowerup(struct Player *player, PowerupEntry *pic
    raises its event. Returns one. */
 extern f32 g_specialPickupShieldDurationEu, k_pickupEuropeanSecondEffectValue;
 extern char g_pickupEuropeanEffectUpdateRomEntry[], g_pickupEuropeanEffectDrawRomEntry[];
-extern void ItemMenu_SetEntry();
+
 s32 Pickup_ApplyEuropeanPowerup(struct Player *player, PowerupEntry *pickup, LevelActor *obj) {
     u8 **text;
     s32 sound;

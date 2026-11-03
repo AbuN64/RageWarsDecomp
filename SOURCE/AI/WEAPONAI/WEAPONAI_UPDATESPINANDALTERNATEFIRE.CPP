@@ -17,6 +17,10 @@
 #include "RENDER/WEAPON_INITIALIZECHARGEANDSTARTUPCUES_DATA.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "RENDER/SOUNDELEMENT_PLAYFLATSOUND.H"
+#include "AI/PLAYER/PLAYER_GETAMMOCAPACITY.H"
+#include "GSKY/SKY_POSTTARGETEDSCREENMESSAGE.H"
+#include "WEAPONAI/WEAPONAI_DRAWREDMARKERQUAD__WEAPONAI.H"
+#include "WORLD/PLAYERPROFILE.H"
 
 /* Runs a charge weapon's fire for its holder at 0x1D8: picks the holder's next weapon at 0x770 through
    Weaponai_FindNextUsableWeapon when the current one cannot be used; while the fire input 0x4000 is held on a weapon
@@ -35,14 +39,14 @@ extern char g_localPlayerProfiles[];
 
 extern char g_playerViewRenderContext[];
 
-extern s16 Weaponai_FindNextUsableWeapon(void *);
-
-extern s32 Player_GetProfileAchievementFlag(void *, s16);
 
 
-extern s32 Player_GetPlayerIndex(void *, void *);
 
-extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
+
+
+
+
+
 
 extern s32 Weaponai_TryRequestFiringState(void *, void *);
 

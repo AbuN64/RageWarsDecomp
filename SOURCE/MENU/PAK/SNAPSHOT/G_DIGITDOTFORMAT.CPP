@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "SNAPSHOT/G_DIGITDOTFORMAT.H"
 
 /* 800E0DCC.CPP */
 #if defined(VERSION_DE) || defined(VERSION_US)

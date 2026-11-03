@@ -9,6 +9,7 @@
 #include "COMMON/POOLED_FLOATS.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/BALLISTICPARAMS.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
 
 /* Builds an orientation matrix whose third row is the given direction: the first row is the cross product of the up vector g_directionMatrixUnitConstants_us_rev1 with it, or the X axis when the direction is within the vertical thresholds, the second row is the cross product of the first row with it, all three rows are normalised and the rest is identity. */
 
@@ -19,7 +20,7 @@
 extern CVector3 g_directionMatrixUnitConstants_de[2];
 
 
-extern void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
+
 
 
 

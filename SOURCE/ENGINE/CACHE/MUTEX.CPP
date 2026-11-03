@@ -5,6 +5,7 @@
 #include <PR/os_internal_si.h>
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/CARTRIDGEREADWORKER.H"
+#include "ENGINE/CACHE/MUTEX.H"
 
 /* MUTEX.CPP */
 /* Steps an object's nesting count at 0x1C up and back down while it is nonzero, each step bracketed by __osDisableInt_Mutex and __osRestoreInt: going up past one calls osRecvMesg_Mutex, and coming down to anything but zero calls osSendMesg_Mutex. */

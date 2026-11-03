@@ -12,6 +12,8 @@
 #include "GAME/SOUNDINFO.H"
 #include "COMMON/RESULTS.H"
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
+#include "ENGINE/ANIM/BITARRAY.H"
+#include "ENGINE/SETN64.H"
 
 /* GASTATE_3.CPP */
 /** Initialize the compact record fields written by the VRAM 0x802624A0 leaf. */
@@ -60,9 +62,9 @@ s32 Gastate_GetAnimationEventCount(void *animationState) {
 }
 
 /* GASTATE_5.CPP */
-extern s32 SetN64_LocatePackSection(s32 directory, s32 bankOffset, s32 sectionIndex, s32 *sectionSizeOut);
 
-extern ResourceEntry g_animationText[];
+
+
 
 void Gastate_InterpolateFrameAngles(AnimRef *animationState, f32 framePosition) {
     s16 *base;

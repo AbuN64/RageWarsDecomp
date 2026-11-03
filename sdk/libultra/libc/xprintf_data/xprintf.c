@@ -11,6 +11,7 @@
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
 #include <ultra64.h>
 #include "stdarg.h"
+#include "libc/libc_formatinteger_data.H"
 
 /* 800C7C68.CPP */
 #if defined(VERSION_DE)
@@ -52,5 +53,5 @@ extern unsigned int g_printfFlagBits[];
 
 /* EU enters __umoddi3 one word before its symbol (__umoddi3_Xprintf), so EU keeps the ROM body. */
 
-extern u8 g_lowercaseHexDigitsText[];
+
 extern u8 g_printfDigitCharacters[];

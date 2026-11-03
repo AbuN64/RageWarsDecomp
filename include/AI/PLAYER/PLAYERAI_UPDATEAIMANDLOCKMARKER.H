@@ -1,0 +1,5 @@
+#ifndef AI_PLAYER_PLAYERAI_UPDATEAIMANDLOCKMARKER_H
+#define AI_PLAYER_PLAYERAI_UPDATEAIMANDLOCKMARKER_H
+struct AimPlayer;
+void Playerai_UpdateAimAndLockMarker(struct AimPlayer *player);
+#endif

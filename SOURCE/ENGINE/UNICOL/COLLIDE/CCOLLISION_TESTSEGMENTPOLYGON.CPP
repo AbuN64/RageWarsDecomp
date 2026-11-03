@@ -5,12 +5,14 @@
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "ENGINE/UNICOL/COLLIDE.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "PLANE/CCOLLISION_INTERSECTFRONTPLANEPOINT.H"
 
-extern f32 CCollision_GetSurfaceHeight(struct Query *, f32, f32);
+
 
 extern f32 Gu_Sqrtf(f32);
 
-extern void Graphu64_ScaleVector(struct CVector3_t *,struct CVector3_t *,f32);
+
 
 
 /* Tests a ray against a polygon: intersects the ray from 0x44 to 0x50 with the polygon's plane through

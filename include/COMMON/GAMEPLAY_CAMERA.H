@@ -6,6 +6,8 @@
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/TEXTLAYERMETRICS.H"
 #include "COMMON/ITEMRECAT20V1.H"
+#include "POOL/POOL.H"
+#include "POOLS/POOLS.H"
 struct UnitVp;
 struct UnitVp {
     s16 vscale[4];

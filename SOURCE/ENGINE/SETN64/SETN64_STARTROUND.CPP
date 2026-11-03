@@ -13,6 +13,7 @@
 #include "COMMON/ROUND_STATE_VARIANTS.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/GAME_SESSION.H"
+#include "MENU/ITEMS/SCENE/SCENE_UPDATEPENDINGOBJECTS.H"
 
 struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameSession *session, s32 cancelTarget, s32 target);
 
@@ -25,7 +26,7 @@ extern void SetN64_CommitSessionInputs(void *unused);
 extern void CCollision_Initialize(void);
 
 
-extern void Scene_SetSelection(void *state, s32 selection, s32 mode);
+
 
 
 extern s32 g_gameLoopFrameCount;

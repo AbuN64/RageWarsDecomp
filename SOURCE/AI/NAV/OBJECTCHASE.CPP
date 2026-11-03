@@ -80,6 +80,8 @@ const float g_Nav_ResetPatrolRouteSelectionConstantWords[2] = {
    arrival at 0x238 and plans a new route through Portal_CollectDirectedNeighbors to pick the next goal node. */
 #include "TYPES.H"
 #include "COMMON/SHAREDPLAYER.H"
+#include "AI/PLAYER/SCALED_UPDATETARGETPITCH.H"
+#include "FRONTEND/PLAYER.H"
 
 extern RouteChaseGraph g_navigationGraph;
 extern const f32 g_Nav_ResetPatrolRouteSelectionConstantWords[2];
@@ -88,10 +90,10 @@ struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *co
 extern void Nav_RunBehaviorHandler(void *aiController);
 extern f32 Scaled_DistanceToNode(RouteChaseBot *bot, s32 node);
 struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
-extern void Nav_UpdateTargetSteering(RouteChaseBot *bot);
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 struct CNavData_t; extern s32 Portal_CollectDirectedNeighbors(struct CNavData_t *graph, s32 nodeKey, s32 preferredNodeKey, s32 *neighborsOut, s32 reverseDirection);
-extern void Scaled_ClearNodeQueue(RouteChaseBot *bot);
+
 
 void Nav_UpdateObjectArrivalChase(RouteChaseActor *actor)
 {
@@ -161,10 +163,10 @@ struct AiController; extern s32 Scaled_SetBehaviourState(struct AiController *co
 extern void Nav_RunBehaviorHandler(void *aiController);
 extern f32 Scaled_DistanceToNode(RouteChaseBot *bot, s32 node);
 struct AiController; extern void Nav_SteerAlongRoute(struct AiController *controller);
-extern void Nav_UpdateTargetSteering(RouteChaseBot *bot);
+
 extern f32 Graphu64_GetPointDistance(f32 *a, f32 *b);
 struct CNavData_t; extern s32 Portal_CollectDirectedNeighbors(struct CNavData_t *graph, s32 nodeKey, s32 preferredNodeKey, s32 *neighborsOut, s32 reverseDirection);
-extern void Scaled_ClearNodeQueue(RouteChaseBot *bot);
+
 
 void Nav_UpdateObjectArrivalChase(RouteChaseActor *actor)
 {

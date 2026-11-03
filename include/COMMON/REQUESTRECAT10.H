@@ -3,6 +3,7 @@
 #include "TYPES.H"
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "JOIN/JOIN_CYCLEJOINREQUESTRANK.H"
 extern s32 Join_CountOpenPlayerSlots(void);
 
 struct PlayerFrontendCountOpenPlayerSlots;
@@ -29,7 +30,7 @@ extern struct PlayerJoinRequestEntry g_joinRequestEntries[3];
 
 
 
-extern s32 Join_CountUsedSlots();
+
 
 typedef struct RequestDrawScreen {
     char pad0[8];

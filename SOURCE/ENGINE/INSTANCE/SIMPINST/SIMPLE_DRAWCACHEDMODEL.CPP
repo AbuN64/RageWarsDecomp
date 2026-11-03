@@ -24,7 +24,9 @@
 #include "COMMON/WORLD.H"
 #include "COMMON/TRIPLE.H"
 #include "TYPES.H"
-void *Scene_GetActorDefinition(void *world, s32 index);
+#include "ENGINE/SCENE_DRAWTRANSITIONCOLOROVERLAY.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
+
 void Simple_InitSimpleInstance(ObjB *inst, CROMSimpleInstance *rec, s32 owner, char *segments) {
     CVector3 v;
     inst->state = 3;
@@ -80,9 +82,9 @@ void Simple_InitSimpleInstance(ObjB *inst, CROMSimpleInstance *rec, s32 owner, c
 
 
 extern void **Simpinst_RequestModelVariant(ObjB *, s32);
-extern void ScaleMatrixLocal(MatrixF *, f32, f32, f32);
-extern s32 Graphu64_LimitVectorLength(CVector3 *, f32);
-extern void TranslateMatrix(MatrixF *, f32, f32, f32);
+
+
+
 extern void SwapMatrixUpForward(MatrixF *);
 extern void Graphu64_ConvertMatrixToFixed(MatrixF *, char *);
 

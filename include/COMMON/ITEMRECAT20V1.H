@@ -7,6 +7,7 @@
 #include "COMMON/PAK_MENU.H"
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/VECTOR4F.H"
+#include "MENU/ITEMS/SCENE/OVLSCENE_FINDPLACEDOBJECTSBYKEY.H"
 struct MenuLocalizedTextItemView;
 struct MenuLocalizedTextItemView {
     char pad0[0x14];

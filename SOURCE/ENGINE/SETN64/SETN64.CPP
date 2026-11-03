@@ -21,6 +21,12 @@
 #include "COMMON/PROPGEOMETRY.H"
 #include "COMMON/GEOMETRY_BLEND_AND_INSTANCE_VIEWS.H"
 #include "WORLD/BARREL_SPAWNACTOREFFECT_DATA.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "ENGINE/VISDATA2.H"
+#include "GOBJINST/GAMEOBJECT_GETACTORHEIGHT.H"
+#include "GOBJINST/GAMEOBJECT_MOVETOXZKEEPHEIGHT.H"
+#include "MENU/ITEMS/SCENE/SCENE_FINDACTORTRIGGERRANGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_REGISTERACTORINSCENELISTS.H"
 
 /* 8028FD2C_4.CPP */
 s32 SetN64_GetPackSize(s32 *bitSet) {
@@ -152,10 +158,10 @@ void SetN64_TransposeRecords(void *sourceBlock, void *destinationBlock, s32 copy
 
 /* Spawns a pooled object and registers its bounds and height. */
 
-void GameObject_ResetActorMotion(void *);
-s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
-s32 Scene_GetIndexedModelResource(void *, s32);
-void Scene_SampleWorldLighting(void *, CVector3 *, void *);
+
+
+
+
 struct EffectPoolNode; void SetN64_RecycleEffectNode(void *container, struct EffectPoolNode *node);
 
 extern s32 g_screenImageResourcesEnabled[];
@@ -354,13 +360,13 @@ void SetN64_UpdateEffectMotionAndBounds(SceneEffect *effect)
 }
 
 /* 8028FD2C_12.CPP */
-extern s32 Visdata_TestBoxAgainstFrustum(void *frustum, void *box);
+
 
 struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
 
 extern f32 g_cameraVolumeBoundsMinZ[];
 
-extern s32 InstHdr_CanActorReceiveInteraction(void *actor);
+
 
 /** Unlink an active node and return it to the global free list. */
 void SetN64_RecycleGlobalEffectNode(EffectPoolNode *node) {

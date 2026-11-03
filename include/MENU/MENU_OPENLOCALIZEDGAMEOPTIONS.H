@@ -1,0 +1,4 @@
+#ifndef MENU_MENU_OPENLOCALIZEDGAMEOPTIONS_H
+#define MENU_MENU_OPENLOCALIZEDGAMEOPTIONS_H
+s32 Menu_OpenLocalizedGameOptions(void *node);
+#endif

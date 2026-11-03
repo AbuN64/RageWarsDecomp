@@ -13,4 +13,8 @@ extern void Node_SetDisplayClipBounds(s32 width, s32 height);
 extern void Node_SetRecordValueQuad(struct WidgetRecordValueQuadView *record, s32 first, s32 second, s32 third, s32 fourth);
 struct Tree;
 extern void Node_WrapNodeInParent(struct Tree *node, struct Tree *added);
+struct CacheResourceBlockView;
+s32 Node_ClampRectToClip(struct CacheResourceBlockView *rect, struct CacheResourceBlockView *clip);
+struct UiWidget;
+void Node_RelocateWidgetTree(struct UiWidget *widget, s32 base, s32 old);
 #endif

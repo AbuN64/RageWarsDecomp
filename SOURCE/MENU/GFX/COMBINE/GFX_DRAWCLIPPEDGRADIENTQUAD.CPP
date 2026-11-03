@@ -21,6 +21,7 @@
 #include "include_asm.h"
 #include "DATA/REST_SOURCE_RECORDS.H"
 #include "MENU/BUILD/DEFINITION_DATA.H"
+#include "UI/QUAG/N64_ENG.H"
 
 /* GFX_DRAWCLIPPEDGRADIENTQUAD.CPP */
 /* Clips a screen rectangle to the viewport N64Eng_GetClipBounds reports, interpolating the four corner

@@ -16,6 +16,14 @@
 #include "SCENE/CACHE_REQUESTRESOURCE.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
 #include "ENGINE/LISTS.H"
+#include "ACTOR/ACTOR.H"
+#include "ENGINE/DEFS.H"
+#include "ENGINE/INSTANCE/GOBJINST.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "GOBJINST/GAMEOBJECT_LOADMODEL.H"
+#include "GOBJINST/GAMEOBJECT_MOVETOXZKEEPHEIGHT.H"
+#include "libsn/nav_isballisticarcobstructed_data.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 /* Returns the collisions an object would meet moving to a position, without committing the move: picks the collision set for the object
  * (g_portalAlternateCollisionQuery for flagged players; otherwise by Insthdr_IsInactiveOrCollisionOption4 and then Insthdr_GetModelCollisionFlag8 or Insthdr_GetModelCollisionFlag1 among
@@ -68,9 +76,9 @@ extern char g_actorDefinitionTable[];
 extern void g_Gobjinst_DrawTeamMaskedModelAddress();
 
 struct Shared_World;
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
 
-extern void GameObject_ResetActorMotion(char *);
+
+
 
 extern CQuatern Insthdr_BuildActorGroundRotation(char *);
 
@@ -78,13 +86,13 @@ extern void Gastate_ResetAnimationReference(void *record);
 
 extern void Gobjinst_QueueAnimation(void *actorStorage, unsigned int animationIndex);
 
-extern void Graphu64_IdentityMatrix(char *);
 
-extern void Actor_InitSpawnedActor(char *, char *, void *);
+
+
 
 extern void Playerai_InitializeRouteCursor(char *, s32, char *);
 
-extern void Gobjinst_LoadModel(char *, s32, s32, s32);
+
 
 
 static inline void *body_setup(char *obj) {
@@ -114,7 +122,7 @@ extern const char g_lookupAIAnimTypeAnimObjectInfoText[];
 
 
 
-extern s32 Defs_FindSortedValue(void *, s32, s32);
+
 
 extern void Lists_ClearWeightedTable(WeightedTable *);
 

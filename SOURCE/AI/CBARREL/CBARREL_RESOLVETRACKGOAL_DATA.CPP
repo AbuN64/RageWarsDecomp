@@ -1,3 +1,4 @@
+#include "CBARREL/CBARREL_RESOLVETRACKGOAL_DATA.H"
 
 const float g_goalBesideActorClearance = 51.19999695f;
 const float g_trackGoalTargetHeightFactor = 0.8999999762f;

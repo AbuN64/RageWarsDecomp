@@ -20,6 +20,9 @@
 #include "ENGINE/CACHE/LIST.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 #include "ENGINE/CINEMA/CINEMA.H"
+#include "AI/PLAYER/PLAYER_BUILDPLAYERVIEWTRANSFORM.H"
+#include "AI/PLAYER/PLAYER_RESETPLAYERFORROUND.H"
+#include "PLAYER_UPDATEPLAYERCAMERA/PLAYER_UPDATEPLAYERCAMERA.H"
 extern void Cache_ReleaseResource(void *cache, void *resource);
 
 extern char g_controllerProfiles[];
@@ -31,7 +34,7 @@ extern char g_matchRoundCounters[];
 extern void Cache_DrainAndCompactResources(s32);
 
 
-extern void Player_AllocPlayerList(CPlayerPool *, s32);
+
 extern s32 g_playerActionStateHandlers[];
 extern void Player_ResetPlayerForRound(void *actor, s32 character, s32 active);
 
@@ -45,7 +48,7 @@ extern void Player_ResetPlayerForRound(void *actor, s32 character, s32 active);
 
 
 
-void Player_UpdatePlayerCamera(Shared_ActorView *, Shared_ActorView *);
+
 
                  /* extern */
 
@@ -58,7 +61,7 @@ void Player_UpdatePlayerCamera(Shared_ActorView *, Shared_ActorView *);
 s32 SetN64_IsModeThirteen(void);
 
                             /* extern */
-void Player_InitActorHudState(Shared_ActorView *);
+
 
 /* Sets the byte at offset 0x78 of the object at 0x5D8 of an actor, calls Player_ResetPlayerForRound with the
    actor, its second argument and one, then Actor_RequestActorState_Damageai on offsets 0x2E8 and 0x458 with two and

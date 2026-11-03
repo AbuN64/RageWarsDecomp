@@ -3,6 +3,7 @@
 #include "TYPES.H"
 
 #include "COMMON/OSTHREAD_S.H"
+#include "SIRAWREAD/SIRAWREAD.H"
 
 #if defined(VERSION_US_REV1)
 extern const unsigned char g_audioResamplerSourceText[];
@@ -12,7 +13,7 @@ extern const char g_audioResamplerSourceText[];
 
 extern int alFxParam(int *filter, int paramId, int param);
 
-extern s32 s_sirawreadText;
+
 extern s32 g_audioAssertionConditionText;
 extern s32 g_audioAssertionSourceText;
 

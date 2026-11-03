@@ -15,7 +15,10 @@
 #include "../../../sdk/include/AUDIO/sprintf.H"
 #include "TYPES.H"
 #include <ultra64.h>
-u32 SetN64_LocatePackSection(s32, s32, s32, u32 *);
+#include "ENGINE/SETN64.H"
+#include "TENGINE/S_ARTSENDACTIVATEDTEXT.H"
+#include "TENGINE/S_ARTSENDDEACTIVATEDTEXT.H"
+
 
 /* Separate-object views of the menu state words (each access has its own lui; DATA-FRAME-O1 F2b). */
 extern struct CacheResourceNode *g_artsendSelectedTextureResource;

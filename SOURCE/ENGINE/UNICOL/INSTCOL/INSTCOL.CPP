@@ -6,13 +6,15 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/RENDERSORTRECORD.H"
 #include "TYPES.H"
+#include "ENGINE/UNICOL/PLTFMCOL.H"
+#include "PICKUP/PICKUP_CANCOLLECT.H"
 
 extern f32 Gobjinst_GetActorRadius(void *);
 extern f32 InstHdr_GetActorBaseOffset(void *);
 extern f32 Gobjinst_GetActorHeight(void *);
-extern void CPlatformCollision_ProcessRiderMotion(void *, void *);
-extern void CPlatformCollision_TraceShape(void *, void *);
-extern s32 Pickup_CanCollect(void *, void *);
+
+
+
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 extern s32 CCollision_TestSegmentPolygon(void *, void *, s32);
 extern s32 CCollision_TestRayCylinder(void *, CVector3 *, f32, f32, f32, s32, void *, s32);

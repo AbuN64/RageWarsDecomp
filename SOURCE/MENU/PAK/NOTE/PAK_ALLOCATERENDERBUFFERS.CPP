@@ -6,6 +6,9 @@
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "OVLGAME/NOTE_ENCODENOTETEXT.H"
 #include "UI/X_FILES/X_PLUS.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
+#include "NOTE/NOTE_READNOTEINFO.H"
+#include "NOTE/PAK_ALLOCATERENDERBUFFERS.H"
 
 /* Chooses a free extension letter for a new note on the Controller Pak on channel ch: refuses with
    -2 unless the pak is ready, queries each of the 16 notes through Note_ReadNoteInfo (failing with -1
@@ -14,8 +17,7 @@
 
 
 
-extern s32 Note_ReadNoteInfo(s32 ch, s32 index, s32 *exists, char *gameName, u8 *ext, s32 *size,
-                         char *companyCode, char *gameCode);
+
 
 s32 Note_FindFreeNoteExtension(s32 ch, u8 *ext) {
     char companyCode[8];

@@ -18,12 +18,19 @@
 #include "SYSTEM/TEXTLOAD_RESETTEXTURECACHE.H"
 #include "ENGINE/LISTS.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "FX/FX_DRAWBOUNDEDPARTICLEQUADS.H"
+#include "FX/FX_SPAWNIMPACTMARK.H"
+#include "GAME/BUILDDIRECTIONMATRIX.H"
+#include "GRAPHU64/GRAPHU64_GETANGLEDISTANCE.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "RENDER/LINKED_DRAWTEXTUREDRIBBON.H"
+#include "particle/GRAPHU64_MATRIXFROMEULERXYZ.H"
 
 
-extern void Graphu64_CrossVectors(CVector3 *out, CVector3 *a, CVector3 *b);
 
 
-extern void Graphu64_ScaleVector(CVector3 *out, CVector3 *in, f32 scale);
+
+
 
 /* Draws the scene's ten particle lists unless the free list holds exactly 100 particles: sets the render state and the shared particle texture g_materialIntensityMaskTexture (a 16x16 texture drawn in grey at alpha 200 through g_particleQuadRenderSetup), then for every particle inside the view box ending at g_cameraVolumeBoundsMinZ + 4 loads its matrix and draws the shared quad g_particleQuadVertices, while particles outside it are unlinked (List_RemoveIntrusive) and returned to the free list (List_AppendIntrusive); finally restores the render state through Geometry_InvalidateMaterialKeys and TextLoad_ResetTextureCache. */
 
@@ -48,24 +55,24 @@ extern char g_particleQuadRenderSetup;
 
 extern char g_particleQuadRenderRestoreList;
 
-void Fx_UpdateAttachedEffects(void *);
 
-void Fx_UpdateTimedCallbacks(s32);
+
+
 
 extern s32 g_particleQuadDisplayListState;
 
 
 extern s32 g_lightingBufferIndex;
 
-extern void CopyMatrix(f32 *destinationMatrix, f32 *sourceMatrix);
 
-extern void ScaleMatrixLocal(void *matrix, f32 sx, f32 sy, f32 sz);
 
-extern void Graphu64_ClampMatrixToFixedRange(f32 *matrixComponents);
 
-extern void Linked_AppendRibbonSegment(void *effectSystem, void *ribbon, f32 *local);
 
-extern void Graphu64_ConvertMatrixToFloat(f32 *, PackedMatrixWords *);
+
+
+
+
+
 
 extern f32 g_effectContributionInitialScale;
 

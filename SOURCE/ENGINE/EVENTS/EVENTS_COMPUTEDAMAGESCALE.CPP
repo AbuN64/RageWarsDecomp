@@ -10,6 +10,10 @@
 #include "COMMON/VIEWFLAGS.H"
 #include "TYPES.H"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "GSKY/GSKY_CONTAINSVISIBLEPOINT.H"
+#include "PARTICLE/GHOT_DISPATCHATTACHMENTEFFECTS_DATA.H"
+#include "RENDER/PLAYERAI_TOGGLEFORCEMARKER.H"
 extern void Events_ApplyDamageEvent(void *, s32, s32, Triple, struct IntPair, s32, s32, s32);
 
 /* Returns how strongly a blast at a position with a radius affects an actor: finds the shield covering the position (the held carrier shield g_currentActorInstance of the actor for an object target other than the two 0x402/0x404 types, otherwise Gobjinst_FindNearestBoneBounds's shield in g_damageBoneBoundsShield), reports it, scales by the shield factor unless friendly fire is off for team damage, and when falloff is asked returns zero for an invulnerable player's untouched full hit, zero beyond the radius plus the actor's width, or the scale times one minus the distance to the actor's body over that reach. */
@@ -59,9 +63,9 @@ extern f32 k_playerEventClipScale[];
 
 extern char g_actorParticleEffectSystem[];
 
-extern void Player_TransformPointByViewOrOwnerMatrix(SharedPlayer *, CVector3 *);
 
-extern CQuatern Graphu64_BuildDirectionQuaternion(CVector3 *);
+
+
 
 extern void InstHdr_CopyActorPositionAndModel(void *, Triple, void *, s32 *, s32, s32);
 
@@ -83,7 +87,7 @@ extern void Events_UpdateNodeAtPosition(s32 actor, s32 positionXWord, s32 positi
 
 extern void *g_gameplayCameraList;
 
-extern s32 Gsky_ContainsVisiblePoint(NodeEventsStartCameraFadeAtPoint *cameraAddress, Triple testPoint);
+
 
 
 f32 Events_ComputeDamageScale(ActorEventsComputeDamageScale *self, Target *target, CVector3 position, f32 radius, s32 falloff, s32 flags, Shield **found) {

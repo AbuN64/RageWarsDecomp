@@ -9,9 +9,10 @@
 #include "COMMON/EFFECTRENDER.H"
 #include "COMMON/WEAPON_SCREEN_MESSAGE_OPERATIONS.H"
 #include "COMMON/SESSIONHANDLERROW.H"
+#include "AI/PLAYER/PLAYERAI_FINDTRANSIENTPLAYER.H"
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
-extern int Playerai_GetFirstPlayer(void *world);
+
 
 
 void CCredits_UpdateScroll(void *session) {

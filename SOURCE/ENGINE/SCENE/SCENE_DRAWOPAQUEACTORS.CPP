@@ -10,6 +10,9 @@
 #include <PR/gbi.h>
 #include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 #include "RENDER/SETN64_GETPACKSECTION.H"
+#include "ENGINE/SETN64.H"
+#include "GOBJINST/GAMEOBJECT_LOADMODEL.H"
+#include "GOBJINST/GOBJINST_BUILDACTORPOSE.H"
 
 char *Scene_GetLinkedResourceSection(void *world, s32 resourceId) {
     return SetN64_GetPackSection((((struct ScenePackResourceView *) ((s8 *) world))->pack), resourceId);
@@ -32,7 +35,7 @@ void *Scene_GetStridedWorldRecord(struct Shared_World *object, int index) {
 extern Gfx *g_displayListCursor;
 
 
-extern void Gobjinst_DrawVisibleCachedActor(LevelActor *object, void *camera);
+
 
 void Scene_DrawOpaqueActors(SceneActorUpdateLists *scene, void *camera) {
     LevelActor *object;
@@ -125,7 +128,7 @@ int Scene_GetModelIdAtIndex(void *world, int modelIndex) {
 
 
 
-extern void Gobjinst_LoadModel(ObjectSceneChangeInstanceModel *,s32,s32,s32);
+
 static inline s32 find(SceneModelIdTable *table,u16 id) {
  s32 index=0,count; u16 *entry;entry=table->entries;count=table->count;
  if(count>0) { do {if(*entry==id) return index; index++;entry++;} while(index<count); }
@@ -183,7 +186,7 @@ s32 Scene_GetModelSectionTwoRecord(void *world, s32 modelId) {
     return base + (modelId << 5);
 }
 
-extern void SetN64_GetPackSectionSize(s32 table, s32 index);
+
 
 
 

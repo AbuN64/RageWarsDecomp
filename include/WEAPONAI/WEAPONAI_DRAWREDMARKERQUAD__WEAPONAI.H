@@ -1,0 +1,6 @@
+#ifndef WEAPONAI_WEAPONAI_DRAWREDMARKERQUAD_WEAPONAI_H
+#define WEAPONAI_WEAPONAI_DRAWREDMARKERQUAD_WEAPONAI_H
+s32 Weaponai_FindNextUsableWeapon(void *player);
+struct ObjectWeaponsNextAvailableWeapon;
+s32 Weaponai_NextAvailableWeapon(struct ObjectWeaponsNextAvailableWeapon *player);
+#endif

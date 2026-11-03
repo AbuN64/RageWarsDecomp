@@ -4,6 +4,7 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/LISTNODE.H"
 #include "AUDIO/LIST_AND_CHANNEL_VIEWS.H"
+#include "AUDIO/AUDIO_CHOOSEWEIGHTEDSOUNDVARIANT.H"
 
 struct AudioLevelSettingView;
 
@@ -46,7 +47,7 @@ extern void Audio_SetVolumeSettingZero(struct GameAudioContext *audioContext, in
 
 extern void Audio_SetDialogVolume(struct GameAudioContext *object, float value);
 
-extern int Audio_GetSpatialPanMode(void *object);
+
 
 struct AudioLevelSettingView {
     char pad[0x2B9C];
@@ -73,4 +74,15 @@ extern void AudioWorld_InitializeVoiceListSentinel(void *sentinel, s32 owner);
 extern void *AudioWorld_UnlinkChannelNode(LinkPair *channelNode);
 extern void AudioWorld_RecyclePendingSoundsByKey(void *channelOwner, s32 matchingKey);
 extern void AudioWorld_RecyclePendingSoundsByTrack(AudioPendingSoundListOwner *listNode, s32 matchingValue);
+struct Cache;
+void AudioWorld_DispatchPendingSounds(struct Cache *cache);
+struct ChannelSet;
+void AudioWorld_InitializePendingSoundPool(struct ChannelSet *set, s32 owner);
+struct AudioPriorityQueueManagerView;
+struct Vec3Words;
+s32 AudioWorld_QueuePrioritizedSound(struct AudioPriorityQueueManagerView *manager, void *desc, struct Vec3Words *position, s32 volume, s32 extra);
+struct Lists;
+void AudioWorld_RecyclePendingSoundsByFlags(struct Lists *lists, s32 matchingFlags);
+struct AudioPendingSoundListOwner;
+void AudioWorld_RecyclePendingSoundsExceptKey(struct AudioPendingSoundListOwner *channelOwner, s32 retainedKey);
 #endif

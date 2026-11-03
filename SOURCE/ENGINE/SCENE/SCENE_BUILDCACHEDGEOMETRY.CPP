@@ -22,14 +22,22 @@
 #include "COMMON/GAMEPLAY_CAMERA.H"
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/ACTOR_DEFINITION.H"
+#include "ENGINE/CACHE/CACHE.H"
+#include "ENGINE/INSTANCE/SIMPINST.H"
+#include "ENGINE/SETN64.H"
+#include "ENGINE/VISDATA2.H"
+#include "GRAPHU64/GRAPHU64_PACKFIXEDMATRIX.H"
+#include "GSKY/GSKY_FINDSCREENMESSAGE.H"
+#include "MENU/ITEMS/SCENE/SCENE_BUILDCACHEDGEOMETRY.H"
+#include "STATINST/STATINST_ACQUIREGEOMETRY.H"
 
 /* SCENE_3.CPP */
 /* Tag of the cell grid packs (the first .rodata of this unit; the items overlay reads it too). */
 const char s_gridSectionText[] = "grid section";
 extern DraftStreamPair g_cameraVolumeBoundsMinZ;
 extern char g_cResource_UnpackRequestEntry[];
-extern s32 SetN64_LocatePackSection(void *, s32, s32, s32 *);
-extern void **Cache_RequestPackSection(s32, void *, s32, s32, void *, void *, void *);
+
+
 extern void Cache_LockResource(void *, CacheResourceNode *);
 
 void Scene_RequestVisibleGridSections(DraftStreamWorld *world)
@@ -131,8 +139,8 @@ extern int Statinst_GetPropModelIndex(char *object);
 extern s32 Statinst_GetPropGeometryIndex(ObjectSceneDrawCachedOpaqueGeometry *object);
 extern s32 *Statinst_CollectPropResources(void *prop, s32 model, s32 geometryVariant, s32 *nextResource);
 extern void Statinst_DrawModel(ObjectSceneDrawCachedOpaqueGeometry *object, void *camera);
-extern DraftStreamHandle *Statinst_AcquireGeometry(ObjectSceneDrawCachedOpaqueGeometry *object, s32 index);
-extern void Graphu64_ConvertMatrixToFloat(f32 *dst, PackedMatrixWords *src);
+
+
 
 void Scene_BuildCachedGeometry(DraftStreamWorld *world) {
     f32 matrix[16];
@@ -377,13 +385,13 @@ typedef struct CScene_t {
 
 extern s32 g_textureVariationBypassEnabled;
 extern s32 g_gameLoopFrameCount;
-extern SharedCameraOwnerView *Gsky_FindScreenMessage(GameplayCamera *camera);
-extern s32 Visdata_TestVisibilityGridBit(void *grid, s32 x, s32 z, s32 index);
-extern s32 Visdata_TestBoxAgainstFrustum(void *planes, void *bounds);
+
+
+
 extern void Statinst_RegisterGeometryResources(ObjA *prop, GameplayCamera *camera);
 extern s32 Statinst_UpdateDistanceFade(void *prop, s32 cameraAddress);
 extern void Statinst_DrawDistanceFadedModel(ObjA *prop, GameplayCamera *camera);
-extern void Simpinst_RegisterModelVariantResources(ObjB *object, GameplayCamera *camera);
+
 struct ObjB; extern void Simple_DrawCachedModel(struct ObjB *obj);
 
 static __inline__ s32 SceneFindShip(SceneModelIdTable *table) {

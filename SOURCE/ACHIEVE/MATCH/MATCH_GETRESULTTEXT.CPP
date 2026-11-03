@@ -13,6 +13,7 @@
 #include "COMMON/STATERECAT91.H"
 #include "ACHIEVE/MATCH_GETRESULTTEXT.H"
 #include "COMMON/PLAYERPROFILES.H"
+#include "WORLD/PLAYERPROFILE.H"
 extern s32 Player_GetLevelProgress(Profile *, s32);
 
 /* Applies event *g_currentStagePreset to player record g_localPlayerProfiles[index] once per g_selectedLevelId: when that bit
@@ -30,19 +31,19 @@ extern s32 Defs_TestBit(void *bitArray, s32 index);
 
 extern void Defs_SetBitValue(u8 *, s32, s32);
 
-extern void Player_IncrementLevelProgress(Profile *, s32);
+
 
 extern void Player_SetAchievementFlag2F(Profile *, s32);
 
 extern void Player_SetAchievementFlagByIndex(Profile *, s32);
 
-extern void Player_AddTenToProfileValue14(Profile *);
+
 
 extern void Player_AddFiftyToProfileValue15(Profile *);
 
-extern void Player_AddFiftyToProfileValue16(Profile *);
 
-extern void Player_AdvanceProfileProgress(Profile *);
+
+
 
 /* Returns the message text for an event result from Match_ApplyLevelCompletionReward: for results 5001 to 5057 the
    text pointer k_matchResultTextJumpTable selects for the result, where result 5002 picks between two texts by

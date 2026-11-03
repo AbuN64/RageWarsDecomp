@@ -2,6 +2,7 @@
 #include "COMMON/ITEMRECAT20V1.H"
 #include <ultra64.h>
 #include "TYPES.H"
+#include "GAME/FRONTEND_HANDLEOPTIONSPAGESHORTCUT.H"
 
 /* Acts on the mode of the menu held first in the block g_optionsPage points to: in mode 4 it calls
    MarkMenuEventHandled and then either SmXlate_SwitchScreen with the block's word at 0x20, when that is not -1,

@@ -8,6 +8,7 @@
 #include "TYPES.H"
 #include "ENGINE/CACHE/LIST.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "ENGINE/SCENE_DRAWOPAQUEACTORS.H"
 
 /* Spawns an effect in a scene when effects are enabled and a count is given: resolves a missing effect id
  * from the variant (Scene_FindModelIdIndex, giving up when unknown) and a default variant from the id
@@ -23,7 +24,7 @@
 
 
 
-extern s32 Scene_FindModelIdIndex(struct Shared_World *, s32);
+
 
 extern s32 Scene_GetModelIdAtIndex(void *, s32);
 

@@ -19,6 +19,8 @@
 #include "COMMON/STATERECAT34.H"
 #include "ENGINE/AUDIO/T2SOUNDELEMENT.H"
 #include "ENGINE/CACHE/LIST.H"
+#include "AUDIO/AUDIO_CHOOSEWEIGHTEDSOUNDVARIANT.H"
+#include "CHANNEL/CHANNEL_STARTNOTEVOICE.H"
 
 /* 8025A3EC_4.CPP */
 /* Releases occupied nonlocal slots unless their value equals the exclusion. */
@@ -27,15 +29,15 @@
 
 
 
-extern void Channel_InitializeVoicePitchMotion(void *view, void *controller, s32 flags);
+
 
 extern void *Audio_GetMetadataSectionFiveEntry(GameAudioContext *audioContext, s32 entryIndex);
 
-extern s32 Audio_GetSpatialPanMode(void *object);
 
-extern s16 Channel_ComputeListenerRelativePan(void *position, GameplayCamera *listener);
 
-extern void Channel_UpdateVoicePlayback(void *view);
+
+
+
 
 /* Returns how strongly a listener at 0x128 hears a source at 0x34: one minus the squared distance over the squared range g_spatialSoundRangeSquared (zero beyond it), shaped by the source's curve at 0x44 as the eighth power, the square or the plain value. */
 

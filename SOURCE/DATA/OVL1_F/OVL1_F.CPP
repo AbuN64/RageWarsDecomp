@@ -13,6 +13,7 @@ extern char g_weaponFireStateCallbackTable[];
 #include "DATA/OVL1_F/g_overlayOneFLinkRecordConstantWordsBlock13_Ovl1F.H"
 #include "DATA/OVL1_F/g_overlayOneFLinkRecordLinkWordsBlock13_Ovl1F.H"
 #include "DATA/OVL1_F/g_overlayOneFLinkRecordConstantWordsBlock19_Ovl1F.H"
+#include "DATA/OVL1_F/OVL1_F.H"
 
 /* g_overlayOneFLinkRecordAddressWords_Ovl1F.CPP */
 #if defined(VERSION_US_REV1)
