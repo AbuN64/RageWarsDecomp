@@ -58,7 +58,8 @@ struct MenuBuildState {
     s32 value18, value1C;
     struct PakMenuInputStateView *input;
     s32 value24;
-    u16 state, ownerSlot;
+    s16 state;
+    u16 ownerSlot;
     f32 fade, openA, openB;
     s32 value38, value3C;
     void *context;
