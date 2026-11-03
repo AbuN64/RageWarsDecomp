@@ -1060,16 +1060,6 @@ struct BufferPool {
 
 
 
-/* Legacy sequence-player voice link; screen messages use CCameraText.
- * Its SDK callers are outside this card's write scope. */
-struct NodeGskyActivateMessagePool;
-typedef struct NodeGskyActivateMessagePool NodeGskyActivateMessagePool;
-
-struct NodeGskyActivateMessagePool;
-struct NodeGskyActivateMessagePool {
-    struct NodeGskyActivateMessagePool *next;
-};
-
 struct ConversionImageView;
 typedef struct ConversionImageView ConversionImageView;
 

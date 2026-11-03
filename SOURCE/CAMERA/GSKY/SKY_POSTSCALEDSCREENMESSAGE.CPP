@@ -38,7 +38,7 @@ extern f32 Gu_Sqrtf(f32);
 
 /* Posts a text as on-screen messages, one per line: the text (or g_screenMessageSubstitutionReplacement when given g_screenMessageSubstitutionSource) is split
  * at newlines and for each non-empty line the oldest message node of the owner's list at 0xF24 is recycled
- * (cleared through Gsky_ClearScreenMessage, unlinked, and pushed onto the free list at 0xE40 of the pool) and set up
+ * (cleared through Gsky_ClearScreenMessage, unlinked, and appended to the active message list at 0xE40 of the camera) and set up
  * as a kind 2 message centred horizontally 80 pixels above the bottom of the screen, scaled by the given
  * size. Returns the last message node. */
 
@@ -93,7 +93,7 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
                     message->target = target;
                     message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->postResetWordUnread = 0;
+                    message->postResetWord = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;

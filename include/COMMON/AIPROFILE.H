@@ -265,10 +265,8 @@ struct CCameraText_t {
     s32 forceScaledText; /* 0x20: flagged posts force the scaled-text draw branch. */
     u8 *text;
     f32 m_ModeTime;
-    /* 0x2C: write-only zero beside m_ModeTime in posting bodies in CAMERA.CPP,
-     * SKY_POSTSCREENMESSAGE.CPP, SKY_POSTSCALEDSCREENMESSAGE.CPP and
-     * SKY_POSTTARGETEDSCREENMESSAGE.CPP; SOURCE named/raw reader census: empty. */
-    s32 postResetWordUnread;
+    /* 0x2C: reset on posting; five-region census: four zero-store writer sites per region, no message-pointer read. */
+    s32 postResetWord;
     f32 x;
     f32 y;
     f32 m_XScale;

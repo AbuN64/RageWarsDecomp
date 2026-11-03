@@ -43,8 +43,8 @@ f32 Gsky_StepValueTowardTarget(s32 unused0, f32 value, f32 target, f32 step) {
 
 /* Posts a text as on-screen messages, one per line, with the given kind, target and size: the text (or
  * g_screenMessageSubstitutionReplacement when given g_screenMessageSubstitutionSource) is split at newlines and for each non-empty line the oldest message node
- * of the owner's list at 0xF24 is recycled (cleared through Gsky_ClearScreenMessage, unlinked, and pushed onto the free
- * list at 0xE40 of the pool) and set up as a message centred horizontally 80 pixels above the bottom of the
+ * of the owner's list at 0xF24 is recycled (cleared through Gsky_ClearScreenMessage, unlinked, and appended to the active
+ * message list at 0xE40 of the camera) and set up as a message centred horizontally 80 pixels above the bottom of the
  * screen, scaled by the given size. Returns the last message node. */
 
 extern u8 *g_screenMessageSubstitutionReplacement;
@@ -93,7 +93,7 @@ CCameraText *Sky_PostScreenMessage(void *owner, void *pool, u8 *text, s32 kind, 
                     message->target = target;
                     message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->postResetWordUnread = 0;
+                    message->postResetWord = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;

@@ -67,7 +67,7 @@ static inline CCameraText *post_lines(void *owner, void *pool, u8 *text, s32 kin
                     message->target = target;
                     message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->postResetWordUnread = 0;
+                    message->postResetWord = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;
@@ -110,18 +110,18 @@ CCameraText *Gsky_PostTargetedScreenMessage(void *owner, void *pool, u8 *text, s
 void Gsky_ActivateMessagePool(struct ScreenMessageOwner *owner, struct GameplayCamera *pool) {
     CCameraText *message;
     CCameraText *nextMessage;
-    void *freeList;
+    void *activeList;
 
     if (pool != 0) {
         message = pool->objects.tail;
-        freeList = &pool->objects;
+        activeList = &pool->objects;
         if (message != 0) {
             do {
                 nextMessage = message->prev;
-                List_RemoveIntrusive(freeList, message);
+                List_RemoveIntrusive(activeList, message);
                 List_PrependIntrusive(&owner->activeMessages, message);
                 message = nextMessage;
-                freeList = &pool->objects;
+                activeList = &pool->objects;
             } while (message != 0);
         }
     }
@@ -173,7 +173,7 @@ void Gsky_InitializeMessageEntryPool(int viewAddress) {
 void *Gsky_RecycleFirstScreenMessage(void *screenMessageOwner, struct GameplayCamera *screenMessagePool) {
     struct ScreenMessageOwner *owner = screenMessageOwner;
     struct GameplayCamera *pool = screenMessagePool;
-    void *message;
+    CCameraText *message;
 
     message = owner->activeMessages.head;
     if (message != 0) {

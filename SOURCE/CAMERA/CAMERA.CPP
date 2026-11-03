@@ -1798,7 +1798,7 @@ static inline CCameraText *post_lines(struct ScreenMessageOwner *owner, struct G
                     message->target = target;
                     message->forceScaledText = 0;
                     message->m_ModeTime = 0;
-                    message->postResetWordUnread = 0;
+                    message->postResetWord = 0;
                     message->m_XScale = 1.0f;
                     message->m_YScale = 1.0f;
                     height = g_hudReferenceViewportHeight;

@@ -60,7 +60,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, s32 delta)
 {
     ALEventListItem *item;
     ALEventListItem *nextItem;
-    ListLink *node;
+    ALLink *node;
     s32 postAtEnd = 0;
     s32 mask;
 
@@ -72,7 +72,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, s32 delta)
         return;
     }
 
-    alUnlink((ListLink *)item);
+    alUnlink((ALLink *)item);
     ((void (*)(void *, void *, s32))alCopy)(evt, &item->evt, sizeof(*evt));
 
     if (delta == 0x7FFFFFFF)
@@ -84,7 +84,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, s32 delta)
                 item->delta = 0;
             else
                 item->delta = delta;
-            alLink((ListLink *)item, node);
+            alLink((ALLink *)item, node);
             break;
         } else {
             nextItem = (ALEventListItem *)node->next;
@@ -93,7 +93,7 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, s32 delta)
                 item->delta = delta;
                 nextItem->delta -= delta;
 
-                alLink((ListLink *)item, node);
+                alLink((ALLink *)item, node);
                 break;
             }
 
@@ -106,8 +106,8 @@ void alEvtqPostEvent(ALEventQueue *evtq, ALEvent *evt, s32 delta)
 
 void alEvtqFlush(ALEventQueue *previousNode) {
     ALEventQueue *queue = previousNode;
-    NodeGskyActivateMessagePool *cur;
-    NodeGskyActivateMessagePool *next;
+    ALLink *cur;
+    ALLink *next;
     s32 saved;
 
     saved = osSetIntMask(1);
@@ -115,7 +115,7 @@ void alEvtqFlush(ALEventQueue *previousNode) {
     if (cur != 0) {
         do {
             next = cur->next;
-            alUnlink((ListLink *)cur);
+            alUnlink(cur);
             alLink(cur, previousNode);
             cur = next;
         } while (cur != 0);
@@ -138,7 +138,7 @@ void alEvtqFlushType(ALEventQueue *previousNode, s16 eventType) {
                 if (next != 0) {
                     ((ALEventListItem *)next)->delta = ((ALEventListItem *)next)->delta + ((ALEventListItem *)cur)->delta;
                 }
-                alUnlink((ListLink *)cur);
+                alUnlink(cur);
                 alLink(cur, previousNode);
             }
             cur = next;

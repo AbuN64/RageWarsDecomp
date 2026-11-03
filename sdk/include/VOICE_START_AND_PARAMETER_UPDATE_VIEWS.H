@@ -20,9 +20,9 @@ struct AudioVoiceStartView;
 typedef struct AudioVoiceStartView AudioVoiceStartView;
 
 struct ALStartParamAlt;
-struct NodeGskyActivateMessagePool;
+struct ALParam_s;
 struct ALStartParamAlt {
-    struct NodeGskyActivateMessagePool *next;
+    struct ALParam_s *next;
     s32 delta;
     s16 type;
     s16 unity;

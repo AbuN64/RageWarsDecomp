@@ -117,7 +117,6 @@ extern float k_screenMessageWavePhaseScale;
 struct Wave;
 extern f32 Gsky_SampleShakeWave(struct Wave *wave);
 
-struct NodeGskyActivateMessagePool;
 
 extern float k_floorShakeTargetHorizontal;
 
