@@ -60,7 +60,7 @@ typedef Node_Pak_CountLiveNodes TimingQueue;
 typedef struct TimingWorld {
  char pad0[0x255C8];
  ScreenMessageOwner viewport;
- char pad267C8[0x5E8]; f32 elapsedTime;
+ char pad267D0[0x26DB0 - 0x255C8 - sizeof(ScreenMessageOwner)]; f32 elapsedTime;
  s32 previousMode; u32 currentMode,pendingMode;
  u8 fadeFast; u8 fadeMode;
  char pad26DC2[2]; f32 fade;
