@@ -14503,8 +14503,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/G_PAKREADSCRATCHNOTENAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x1B328);
         SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.rodata .rdata);
-        . = MAX(., 0x1B33F);
-        SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.data);
         . = MAX(., 0x1B340);
         SOURCE/MENU/PAK/NOTE/S_BUFFERTEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x1B34C);
@@ -14517,8 +14515,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/FIFO_TEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x1B394);
         SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.rodata .rdata);
-        . = MAX(., 0x1B39F);
-        SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.data);
         . = MAX(., 0x1B3A0);
         SOURCE/MENU/PAK/SNAPSHOT/G_PAKSINGLESAVEBLOCKNAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x1B3B4);
@@ -14835,8 +14831,6 @@ SECTIONS
         SOURCE/UI/TSMOS/SCREENS/MATCH_REASON/MATCH_REASON.CPP.o(.data);
         . = MAX(., 0x1C170);
         SOURCE/FRONTEND/PLAYERCOUNT/FRONTEND_INCREASEPLAYERCOUNT_DATA.CPP.o(.rodata .rdata);
-        . = MAX(., 0x1C173);
-        SOURCE/FRONTEND/PLAYERCOUNT/FRONTEND_INCREASEPLAYERCOUNT_DATA.CPP.o(.data);
         . = MAX(., 0x1C180);
         . = ALIGN(8) /* SOURCE/FRONTEND/STAGE.CPP.o */;
         SOURCE/FRONTEND/STAGE.CPP.o(.rodata .rdata);
@@ -16902,8 +16896,6 @@ SECTIONS
         SOURCE/UI/QUAG/E_SMEM.CPP.o(.rodata .rdata);
         . = MAX(., 0x43D0);
         SOURCE/UI/N64ENG/N64ENG.CPP.o(.rodata .rdata);
-        . = MAX(., 0x43D3);
-        SOURCE/UI/N64ENG/N64ENG.CPP.o(.data);
         . = MAX(., 0x43E0);
         SOURCE/UI/QUAG/N64_ENG/INITFRONTENDMENUS_DATA.CPP.o(.rodata .rdata);
         . = MAX(., 0x43F8);
@@ -17545,8 +17537,6 @@ SECTIONS
         SOURCE/UI/TSMOS/SMP/SMP_FADE.CPP.o(.data);
         . = MAX(., 0x2BE70);
         SOURCE/UI/TSMOS/SMP/SMP_OVERLAY/SMP_OVERLAY.CPP.o(.rodata .rdata);
-        . = MAX(., 0x2BE73);
-        SOURCE/UI/TSMOS/SMP/SMP_OVERLAY/SMP_OVERLAY.CPP.o(.data);
         . = MAX(., 0x2BE80);
         . = DEFINED(__align8_literals_Preview_SelectMatchingPreviewModel) ? ALIGN(8) : .;
         SOURCE/FRONTEND/PREVIEW/FRONTEND_DRAWMODELPREVIEW.CPP.o(.rodata.literals_Preview_SelectMatchingPreviewModel .rdata.literals_Preview_SelectMatchingPreviewModel);
@@ -20394,8 +20384,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/G_PAKREADSCRATCHNOTENAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x26888);
         SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.rodata .rdata);
-        . = MAX(., 0x2689F);
-        SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.data);
         . = MAX(., 0x268A0);
         SOURCE/MENU/PAK/NOTE/S_BUFFERTEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x268AC);
@@ -20408,8 +20396,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/FIFO_TEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x268F4);
         SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.rodata .rdata);
-        . = MAX(., 0x268FF);
-        SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.data);
         . = MAX(., 0x26900);
         SOURCE/MENU/PAK/SNAPSHOT/G_PAKSINGLESAVEBLOCKNAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x26914);
@@ -20463,8 +20449,6 @@ SECTIONS
         SOURCE/FRONTEND/WIDGET/WIDGET_DRAWTEXTWIDGET.CPP.o(.rodata.literals_Widget_ComputeWidgetBounds .rdata.literals_Widget_ComputeWidgetBounds);
         . = MAX(., 0x26C50);
         SOURCE/FRONTEND/NODE/FRONTEND_OPENRESOURCEARCHIVE_DATA.CPP.o(.rodata .rdata);
-        . = MAX(., 0x26C53);
-        SOURCE/FRONTEND/NODE/FRONTEND_OPENRESOURCEARCHIVE_DATA.CPP.o(.data);
         . = MAX(., 0x26C60);
         SOURCE/MENU/GFX/DEBUG/DEBUG.CPP.o(.rodata .rdata);
         . = MAX(., 0x26C78);
@@ -20718,8 +20702,6 @@ SECTIONS
         SOURCE/UI/TSMOS/SCREENS/MATCH_REASON/MATCH_REASON.CPP.o(.rodata .rdata);
         . = MAX(., 0x276D0);
         SOURCE/FRONTEND/PLAYERCOUNT/FRONTEND_INCREASEPLAYERCOUNT_DATA.CPP.o(.rodata .rdata);
-        . = MAX(., 0x276D3);
-        SOURCE/FRONTEND/PLAYERCOUNT/FRONTEND_INCREASEPLAYERCOUNT_DATA.CPP.o(.data);
         . = MAX(., 0x276E0);
         . = ALIGN(8) /* SOURCE/FRONTEND/STAGE.CPP.o */;
         SOURCE/FRONTEND/STAGE.CPP.o(.rodata .rdata);
@@ -22791,8 +22773,6 @@ SECTIONS
         SOURCE/UI/QUAG/E_SMEM.CPP.o(.rodata .rdata);
         . = MAX(., 0x43D0);
         SOURCE/UI/N64ENG/N64ENG.CPP.o(.rodata .rdata);
-        . = MAX(., 0x43D3);
-        SOURCE/UI/N64ENG/N64ENG.CPP.o(.data);
         . = MAX(., 0x43E0);
         SOURCE/UI/QUAG/N64_ENG/INITFRONTENDMENUS_DATA.CPP.o(.rodata .rdata);
         . = MAX(., 0x43F8);
@@ -23371,8 +23351,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/G_PAKREADSCRATCHNOTENAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x1A0A8);
         SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.rodata .rdata);
-        . = MAX(., 0x1A0BF);
-        SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.data);
         . = MAX(., 0x1A0C0);
         SOURCE/MENU/PAK/NOTE/S_BUFFERTEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x1A0CC);
@@ -32640,8 +32618,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/G_PAKREADSCRATCHNOTENAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x1F8);
         SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.rodata .rdata);
-        . = MAX(., 0x20F);
-        SOURCE/MENU/PAK/NOTE/G_PAKWRITESCRATCHNOTENAME.CPP.o(.data);
         . = MAX(., 0x210);
         SOURCE/MENU/PAK/NOTE/S_BUFFERTEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x21C);
@@ -32654,8 +32630,6 @@ SECTIONS
         SOURCE/MENU/PAK/NOTE/FIFO_TEXT.CPP.o(.rodata .rdata);
         . = MAX(., 0x264);
         SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.rodata .rdata);
-        . = MAX(., 0x26F);
-        SOURCE/MENU/PAK/NOTE/AUDIO_HEAP_TEXT.CPP.o(.data);
         . = MAX(., 0x270);
         SOURCE/MENU/PAK/SNAPSHOT/G_PAKSINGLESAVEBLOCKNAME.CPP.o(.rodata .rdata);
         . = MAX(., 0x284);

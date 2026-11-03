@@ -934,8 +934,6 @@ build/eu/SOURCE/DATA/FRONTEND/J/CONSTANTS/EQUIP_ACTIVATEEQUIPMENTPANEL_DATA.CPP.
 build/eu/SOURCE/DATA/OVL1_C/SIRAWREAD/SIRAWREAD.CPP.o: NOALIGN := 1
 build/eu/SOURCE/ENGINE/SETN64/PARTICLE_DRAWRENDERLIST_DATA.CPP.o: NOALIGN := 1
 build/eu/SOURCE/ITEMMENU.CPP.o: NOALIGN := 1:data
-build/eu/SOURCE/UI/N64ENG/N64ENG.CPP.o: NOALIGN := 1:data
-build/eu/SOURCE/UI/TSMOS/SMP/SMP_OVERLAY/SMP_OVERLAY.CPP.o: NOALIGN := 1:data
 build/eu/sdk/libultra/io/pirawread.c.o: NOALIGN := 1:data
 build/eu/sdk/libultra/io/sirawdma.c.o: NOALIGN := 1:data
 build/eu/sdk/libultra/io/sprawdma/sprawdma.c.o: NOALIGN := 1:data
