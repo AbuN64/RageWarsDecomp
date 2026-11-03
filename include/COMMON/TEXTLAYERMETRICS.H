@@ -1,6 +1,7 @@
 #ifndef COMMON_TEXTLAYERMETRICS_H
 #define COMMON_TEXTLAYERMETRICS_H
 #include "TYPES.H"
+#include "MENU/BUILT_MENU.H"
 #include "COMMON/SESSION_STATE.H"
 #include "COMMON/LEVEL_ACTOR.H"
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
@@ -9,7 +10,7 @@ extern const char g_playerMenuValueFormat[];
 #include "COMMON/ITEMRECAT20V1.H"
 #include "COMMON/AIPROFILE.H"
 struct CMenu_t;
-typedef struct CMenu_t CMenu;
+typedef struct CMenu_t Node_Pak_CountLiveNodes;
 
 struct EntryPakCreateMenuFromParameters;
 
@@ -71,26 +72,6 @@ struct PakMenuInputStateView {
 struct CMenu_t;
 struct PakMenuInputStateView;
 struct TablePakUpdateDialogList;
-struct CMenu_t {
-    char pad00[0x8];
-    s32 handle;
-    char pad0C[0x14 - 0xC];
-    struct TablePakUpdateDialogList *table;
-    char pad18[0x20 - 0x18];
-    struct PakMenuInputStateView *state;
-    char pad24[0x28 - 0x24];
-    s16 kind;
-    char pad2A[0x1D4 - 0x2A];
-    struct CMenu_t *next;
-};
-
-
-
-struct TablePakUpdateDialogList {
-    char pad00[0xC];
-    void (*handler)(CMenu *, MessageList *);
-};
-
 struct ParamsPakAllocateMenu;
 
 struct PakMenuInputStateView;
@@ -104,21 +85,6 @@ struct MenuRules;
 struct Outer;
 
 struct Outer;
-
-struct PakMenuChoiceEntry;
-struct MenuRules;
-struct PakMenuChoiceEntry {
-    char pad0[8];
-    s32 flags;
-    char pad0C[4];
-    s8 back[4];
-    char pad14[4];
-    struct MenuRules *target;
-    char pad1C[0xC];
-};
-
-struct PakMenuChoiceEntry;
-struct MenuCursorNavigationView;
 
 struct PreviewWidget;
 typedef struct PreviewWidget PreviewWidget;
@@ -171,7 +137,6 @@ typedef struct StyledMenuTextEntryView StyledMenuTextEntryView;
 struct ObjectPakDrawMenuCharacter;
 
 
-typedef struct CMenu_t Node_Pak_CountLiveNodes;
 
 struct CMenuFontInfo_t;
 typedef struct CMenuFontInfo_t CMenuFontInfo;

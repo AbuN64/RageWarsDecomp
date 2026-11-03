@@ -17,44 +17,44 @@
 
 
 
-void Menu_MoveMenuCursor(struct MenuCursorNavigationView *menu, u8 dir) {
-    struct PakMenuChoiceEntry *entry;
+void Menu_MoveMenuCursor(MenuBuildState *menu, u8 dir) {
+    MenuBuildEntry *entry;
     s32 old;
 
-    entry = &menu->entries[menu->cursor];
+    entry = &menu->entries[menu->selected];
     do {
-        old = menu->cursor;
-        menu->cursor += ((s8 *)entry)[dir];
-        if (menu->cursor < 0) {
-            menu->cursor = menu->count - 1;
-        } else if (menu->cursor >= menu->count) {
-            menu->cursor = 0;
+        old = menu->selected;
+        menu->selected += ((s8 *)entry)[dir];
+        if (menu->selected < 0) {
+            menu->selected = menu->count - 1;
+        } else if (menu->selected >= menu->count) {
+            menu->selected = 0;
         }
-        entry = &menu->entries[menu->cursor];
-        old -= menu->cursor;
+        entry = &menu->entries[menu->selected];
+        old -= menu->selected;
         switch (dir) {
         case 16:
             if (entry->flags & 0x80000) {
-                entry->back[1] = old;
+                ((s8 *)&entry->red)[1] = old;
             }
             break;
         case 17:
             if (entry->flags & 0x40000) {
-                entry->back[0] = old;
+                ((s8 *)&entry->red)[0] = old;
             }
             break;
         case 18:
             if (entry->flags & 0x200000) {
-                entry->back[3] = old;
+                ((s8 *)&entry->red)[3] = old;
             }
             break;
         case 19:
             if (entry->flags & 0x100000) {
-                entry->back[2] = old;
+                ((s8 *)&entry->red)[2] = old;
             }
             break;
         }
-    } while ((entry->flags & 0x1800000) != 0x1800000 || entry->target->locked == 0);
+    } while ((entry->flags & 0x1800000) != 0x1800000 || entry->definition->activate == 0);
 }
 
 /* Update entry callbacks, animate opening/closing, and handle the selected entry. */
@@ -70,10 +70,10 @@ s32 Menu_UpdateMenuEntries(MenuBuildState *menu, void *context) {
     s32 allowRepeat;
     s32 buttons;
     s32 state;
-    s32 (*callback)();
-    callback = menu->definition->hold;
-    if (callback != 0) {
-        closeRequested = callback(menu, context);
+    MenuBuildItemCallback callback;
+    MenuBuildHoldCallback hold = menu->definition->hold;
+    if (hold != 0) {
+        closeRequested = hold(menu, context);
     }
     i = menu->count;
     entry = menu->entries;

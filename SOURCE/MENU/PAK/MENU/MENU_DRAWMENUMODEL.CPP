@@ -242,9 +242,9 @@ void Menu_DrawMenuModel(PakModelEntry *entry, PakMenuCursor *cursor, void *unuse
 #include "MENU/OBJECT1C8.H"
 #include "MENU/MENU_BOX.H"
 extern void *Menu_GetListContext(s8 *member);
-extern void Menu_StopMenuPulse(struct Object1C8 *object);
-extern void Menu_StartMenuPulse(struct Object1C8 *object);
 #include "MENU/BUILT_MENU.H"
+extern void Menu_StopMenuPulse(MenuBuildState *object);
+extern void Menu_StartMenuPulse(MenuBuildState *object);
 /* Private block size of an item: type 3 items own 0x480 bytes (inline copy of Menu_GetMenuItemExtraSize). */
 static inline s32 menuItemExtraSize(MenuBuildItem *definition) {
     s32 size = 0;
@@ -325,8 +325,8 @@ void Menu_InitializeMenu(MenuBuildState *menu, void **allocation, MenuBuildDefin
     input->buttons = 0;
     input->pressedButtons = 0;
     input->history1 = 0;
-    Menu_StopMenuPulse((struct Object1C8 *)menu);
-    Menu_StartMenuPulse((struct Object1C8 *)menu);
+    Menu_StopMenuPulse(menu);
+    Menu_StartMenuPulse(menu);
     if (definition->initialize != 0) definition->initialize(menu, owner);
     i = menu->count;
     entry = menu->entries;

@@ -6,6 +6,10 @@ struct MessageList;
 struct PakMenuInputStateView;
 typedef struct MenuBuildState MenuBuildState;
 typedef struct MenuBuildEntry MenuBuildEntry;
+/* The hold result requests closing. Update results are ignored; activate returns
+   zero to keep the menu open. Construction invokes that same activate callback. */
+typedef s32 (*MenuBuildHoldCallback)(MenuBuildState *, void *);
+typedef s32 (*MenuBuildItemCallback)(MenuBuildEntry *, MenuBuildState *, void *);
 /* One row of a menu definition's item table (0x24 bytes). */
 typedef struct MenuBuildItem {
     s16 type;
@@ -14,10 +18,10 @@ typedef struct MenuBuildItem {
     s16 x, y;
     u8 red, green, blue, alpha;
     s32 resource;
-    u32 reserved14;
-    s32 (*update)();
-    s32 (*activate)();
-    u8 reserved20[4];
+    u32 resourceCallback; /* encoded cartridge callback */
+    MenuBuildItemCallback update;
+    MenuBuildItemCallback activate;
+    s32 parameter;
 } MenuBuildItem;
 /* The definition a menu is built from: its item table and count, an optional setup callback and its
    screen position (unit view of struct Dialog). */
@@ -26,8 +30,9 @@ typedef struct MenuBuildDefinition {
     s16 count;
     u16 reserved06;
     void (*initialize)(MenuBuildState *, struct MessageList *);
-    u32 reserved0C[2];
-    s32 (*hold)();
+    void (*finalize)(MenuBuildState *, struct MessageList *);
+    u32 drawCallback; /* encoded cartridge callback */
+    MenuBuildHoldCallback hold;
     s16 x, y, kind;
     u16 reserved1E;
     s32 value;
@@ -67,6 +72,7 @@ struct MenuBuildState {
     Vtx_t vertices[2][8];
     u8 reserved148[0x1C8 - 0x148];
     s32 pulseFrame, pulseActive;
-    u8 reserved1D0[8];
+    u32 reserved1D0;
+    MenuBuildState *next;
 };
 #endif

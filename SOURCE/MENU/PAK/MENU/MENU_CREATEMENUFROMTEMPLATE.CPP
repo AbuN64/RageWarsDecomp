@@ -164,16 +164,16 @@ void Menu_InitMenuMessageList(void *object) {
 extern const char g_menuText[];
 extern void **Cache_AllocateResource(s32, s32, s32, char *);
 
-void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 controller, s32 d) {
+MenuBuildState *Menu_OpenDialog(void *parent, MenuBuildDefinition *list, s32 player, s32 controller, s32 d) {
     struct MenuCreationOwnerView *owner;
-    s32 size = list->count * 40 + 472;
+    s32 size = list->count * sizeof(MenuBuildEntry) + sizeof(MenuBuildState);
     s32 i;
     void **block;
-    void *first;
+    MenuBuildState *first;
 
     for (i = 0; i < list->count; i++) {
         s32 extra = 0;
-        if (list->entries[i].type == 3) {
+        if (list->items[i].type == 3) {
             extra = 1152;
         }
         size += extra;
@@ -186,7 +186,7 @@ void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 control
     if (first == 0) {
         return 0;
     }
-    Menu_InitializeMenu(first, block, list, 0, player, controller, d, parent);
+    Menu_InitializeMenu(first, block, list, 0, player, (PakMenuInputStateView *)controller, d, parent);
     List_PrependIntrusive(parent, first);
     owner = parent;
     if (++owner->menuFlags >= 4) {
@@ -197,19 +197,19 @@ void *Menu_OpenDialog(void *parent, struct Dialog *list, s32 player, s32 control
 
 /* Allocates a block sized for the entries of a list (forty bytes each plus 0x480 for every entry of type three, over a 0x1D8 header) through Cache_AllocateResource, builds it with Menu_InitializeMenu from four parameters, registers it with List_PrependIntrusive and advances the owner's rotating counter below four, returning the block or zero. */
 
-void *Menu_CreateMenuFromTemplate(struct MenuCreationOwnerView *owner, struct MenuTemplateParameters *params, struct Dialog *list) {
+MenuBuildState *Menu_CreateMenuFromTemplate(struct MenuCreationOwnerView *owner, struct MenuTemplateParameters *params, MenuBuildDefinition *list) {
     s32 a = params->a;
     s32 b = params->b;
     s32 c = params->c;
     s32 d = params->d;
-    s32 size = list->count * 40 + 472;
+    s32 size = list->count * sizeof(MenuBuildEntry) + sizeof(MenuBuildState);
     s32 i;
     void **block;
-    void *first;
+    MenuBuildState *first;
 
     for (i = 0; i < list->count; i++) {
         s32 extra = 0;
-        if (list->entries[i].type == 3) {
+        if (list->items[i].type == 3) {
             extra = 1152;
         }
         size += extra;
@@ -222,7 +222,7 @@ void *Menu_CreateMenuFromTemplate(struct MenuCreationOwnerView *owner, struct Me
     if (first == 0) {
         return 0;
     }
-    Menu_InitializeMenu(first, block, list, a, b, c, d, owner);
+    Menu_InitializeMenu(first, block, list, a, b, (PakMenuInputStateView *)c, d, owner);
     List_PrependIntrusive(owner, first);
     if (++owner->menuFlags >= 4) {
         owner->menuFlags = 0;
@@ -232,19 +232,19 @@ void *Menu_CreateMenuFromTemplate(struct MenuCreationOwnerView *owner, struct Me
 
 /* Allocates a block sized for the entries of a list through Cache_AllocateResource, builds it with Menu_InitializeMenu from four parameters, registers it with List_PrependIntrusive and advances the owner's rotating counter below four, returning the block or zero. Adapted from Menu_CreateMenuFromTemplate with the first parameter read from offset 0x14 instead of 0x18. */
 
-void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, struct Dialog *list) {
+MenuBuildState *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAllocateMenu *params, MenuBuildDefinition *list) {
     s32 a = params->a;
     s32 b = params->b;
     s32 c = params->c;
     s32 d = params->d;
-    s32 size = list->count * 40 + 472;
+    s32 size = list->count * sizeof(MenuBuildEntry) + sizeof(MenuBuildState);
     s32 i;
     void **block;
-    void *first;
+    MenuBuildState *first;
 
     for (i = 0; i < list->count; i++) {
         s32 extra = 0;
-        if (list->entries[i].type == 3) {
+        if (list->items[i].type == 3) {
             extra = 1152;
         }
         size += extra;
@@ -257,7 +257,7 @@ void *Menu_AllocateMenu(struct MenuCreationOwnerView *owner, struct ParamsPakAll
     if (first == 0) {
         return 0;
     }
-    Menu_InitializeMenu(first, block, list, a, b, c, d, owner);
+    Menu_InitializeMenu(first, block, list, a, b, (PakMenuInputStateView *)c, d, owner);
     List_PrependIntrusive(owner, first);
     if (++owner->menuFlags >= 4) {
         owner->menuFlags = 0;
@@ -275,24 +275,24 @@ extern MessageList g_matchEndingTeamWheelClose;
 extern s32 Menu_UpdateMenuEntries(MenuBuildState *menu, void *context);
 
 void Menu_UpdateDialogList(MessageList *list) {
-    CMenu *node;
-    CMenu *next;
+    MenuBuildState *node;
+    MenuBuildState *next;
     PakMenuInputStateView *state;
 
-    node = list->head;
+    node = (MenuBuildState *)list->head;
     while (node != 0) {
         next = node->next;
-        if (!((node->kind == 2) && (list != &g_matchEndingTeamWheelClose) && (g_matchEndingTeamWheelClose.flag != 0))) {
+        if (!((node->state == 2) && (list != &g_matchEndingTeamWheelClose) && (g_matchEndingTeamWheelClose.flag != 0))) {
             if (Menu_UpdateMenuEntries(node, list) != 0) {
-                if (node->table->handler != 0) {
-                    node->table->handler(node, list);
+                if (node->definition->finalize != 0) {
+                    node->definition->finalize(node, list);
                 }
-                state = node->state;
+                state = node->input;
                 state->buttons = 0;
                 state->pressedButtons = 0;
                 state->history1 = 0;
                 List_RemoveIntrusive(list, node);
-                Cache_ReleaseResource(0, node->handle);
+                Cache_ReleaseResource(0, node->allocation);
             }
         }
         node = next;
@@ -308,11 +308,11 @@ void Menu_DispatchMenuListCallback(struct MenuCallbackListOwner *owner) {
     }
 }
 
-int Menu_CountLiveNodes(Node_Pak_CountLiveNodes **head) {
-    Node_Pak_CountLiveNodes *node = *head;
+int Menu_CountLiveNodes(struct CMenu_t **head) {
+    MenuBuildState *node = (MenuBuildState *)*head;
     int count = 0;
     while (node != 0) {
-        if (node->kind != 4) {
+        if (node->state != 4) {
             count++;
         }
         node = node->next;

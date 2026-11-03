@@ -108,19 +108,19 @@ Menu_GetGermanDynamicItemText
    tests the word at 0x1CC. */
 
 
-void Menu_StopMenuPulse(struct Object1C8 *object) {
-    object->second = 0;
-    object->first = 0;
+void Menu_StopMenuPulse(MenuBuildState *object) {
+    object->pulseActive = 0;
+    object->pulseFrame = 0;
 }
 
 /* Starts a one-shot state: when the word at offset 0x1CC is clear it sets it and clears the word
    at 0x1C8; Menu_StopMenuPulse_MenuDrawanimatedmenusprite clears both. */
 
 
-void Menu_StartMenuPulse(struct Object1C8 *object) {
-    if (object->second == 0) {
-        object->second = 1;
-        object->first = 0;
+void Menu_StartMenuPulse(MenuBuildState *object) {
+    if (object->pulseActive == 0) {
+        object->pulseActive = 1;
+        object->pulseFrame = 0;
     }
 }
 
@@ -128,11 +128,11 @@ void Menu_StartMenuPulse(struct Object1C8 *object) {
    the counter reaches 0x30. */
 
 
-void Menu_StepSpriteFrame(struct Object1C8 *object) {
-    object->first += object->second;
-    if (object->first >= 48) {
-        object->first = 0;
-        object->second = 0;
+void Menu_StepSpriteFrame(MenuBuildState *object) {
+    object->pulseFrame += object->pulseActive;
+    if (object->pulseFrame >= 48) {
+        object->pulseFrame = 0;
+        object->pulseActive = 0;
     }
 }
 
@@ -140,8 +140,8 @@ void Menu_StepSpriteFrame(struct Object1C8 *object) {
    returned as they are and the rest as 0x2F less the value. */
 
 
-s32 Menu_GetMirroredMenuFrame(struct MenuItemCountView *object) {
-    s32 count = object->count;
+s32 Menu_GetMirroredMenuFrame(MenuBuildState *object) {
+    s32 count = object->pulseFrame;
 
     if (count < 24) {
         return count;
@@ -149,29 +149,29 @@ s32 Menu_GetMirroredMenuFrame(struct MenuItemCountView *object) {
     return 47 - count;
 }
 
-void Menu_DrawAnimatedMenuSprite(MenuSpriteElement *e) {
+void Menu_DrawAnimatedMenuSprite(MenuBuildState *e) {
     s32 frame;
     Gfx *gfx;
     Shared_HudView *o;
     f32 w;
     f32 h;
 
-    if (e->active != 0) {
-        if (e->frame < 24) {
-            frame = e->frame;
+    if (e->pulseActive != 0) {
+        if (e->pulseFrame < 24) {
+            frame = e->pulseFrame;
         } else {
-            frame = 47 - e->frame;
+            frame = 47 - e->pulseFrame;
         }
         OnScreen_SetupTextRendering();
         Geometry_SetModePreset(21);
-        o = e->owner;
+        o = e->context;
         gfx = g_displayListCursor++;
         w = o->width;
         h = o->height;
         gDPSetEnvColor(gfx, 255, 0, 0, 255);
         gfx = g_displayListCursor++;
         gDPSetPrimColor(gfx, 0, 0, 224, 0, 0, 255);
-        OnScreen_DrawSpriteResource(103, frame, e->owner->x, e->owner->y,
+        OnScreen_DrawSpriteResource(103, frame, o->x, o->y,
                       w / (f32)g_hudReferenceViewportWidth * 5.0f, h / (f32)g_hudReferenceViewportHeight * 4.0f, 1);
     }
 }
