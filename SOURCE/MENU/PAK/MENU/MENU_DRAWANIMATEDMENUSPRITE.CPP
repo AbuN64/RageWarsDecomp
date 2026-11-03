@@ -171,7 +171,7 @@ void Menu_DrawAnimatedMenuSprite(MenuBuildState *e) {
         gDPSetEnvColor(gfx, 255, 0, 0, 255);
         gfx = g_displayListCursor++;
         gDPSetPrimColor(gfx, 0, 0, 224, 0, 0, 255);
-        OnScreen_DrawSpriteResource(103, frame, o->x, o->y,
+        OnScreen_DrawSpriteResource(103, frame, ((Shared_HudView *)e->context)->x, ((Shared_HudView *)e->context)->y,
                       w / (f32)g_hudReferenceViewportWidth * 5.0f, h / (f32)g_hudReferenceViewportHeight * 4.0f, 1);
     }
 }
