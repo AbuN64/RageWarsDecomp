@@ -2,21 +2,16 @@
 #include "include_asm.h"
 #include "COMMON/RUNTIME_DECLARATIONS.H"
 #include "COMMON/VECTOR4F.H"
+#include "COMMON/RENDERCOUNTERS.H"
 #include "COMMON/OBJRECV5.H"
 #include "WEAPONS/PLAYERAI_APPLYSTUN.H"
 #include "WEAPONS/ACTOR_REQUESTACTORSTATE.H"
 
 
 
-/* Fuzzy draft: the other versions' body, not diffed against this version's asm. */
-typedef struct {
-    char pad0[0x98];
-    s32 rule;
-    char pad9C[0xA0 - 0x9C];
-    s32 protect;
-} StunProtectionRules;
+/* g_matchRoundCounters is g_gameSettings.counters in every region. */
 
-extern StunProtectionRules g_matchRoundCounters[];
+extern CGameStatus g_matchRoundCounters[];
 
 extern void Gsky_StartFade(void *camera, s32 requestedFadeMode, s32 startValue, s32 endValue, s32 stepAmount, s32 redChannel, s32 greenChannel, s32 blueChannel);
 
@@ -24,11 +19,11 @@ void Playerai_ApplyStun(SharedPlayer *player, f32 amount) {
     f32 stun;
 
     if (amount != 0.0f && !(75.0f <= player->views5E8.view11D8_149.stun) && !(player->views5E8.view670_31.shield > 0.0f)
-        && !(g_matchRoundCounters->rule != 0
+        && !(g_matchRoundCounters->enabled != 0
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
             && player->views5D8.view5D8_2.controls->team != 0
 #endif
-            && player->views5D8.view5D8_2.controls->mode == 11 && g_matchRoundCounters->protect > 0)
+            && player->views5D8.view5D8_2.controls->mode == 11 && g_matchRoundCounters->m_nBastilleShield > 0)
         && !(player->views122C.view122C_2.options & 0x8000)) {
         stun = player->views5E8.view11D8_149.stun + amount * 15.0f;
         if (75.0f < stun) {

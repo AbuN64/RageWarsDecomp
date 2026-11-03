@@ -203,13 +203,7 @@ extern s32 Insthdr_HasActorTerritory(void *actor);
 extern f32 InstHdr_GetActorTerritoryRadius(void *actor);
 extern s32 CCollision_SweepPoint(void *actor, CVector3 from, CVector3 to, CollisionInfo *info);
 
-/* The two player-record fields the picker reads from a found player (lives 0x5EA, state 0x650). */
-typedef struct CombatPlayerView {
-    u8 pad0[0x5EA];
-    s16 lives;
-    u8 pad5EC[0x650 - 0x5EC];
-    s16 state;
-} CombatPlayerView;
+/* The nearest-player queries return entries in the shared player list. */
 
 /* Picks the best target for an actor: the tracker's locked target (0x78) if it has one, otherwise
  * gathers up to two candidates (the tracker's own entry at 0x68 and the nearest player found around the
@@ -262,7 +256,7 @@ BarrelAnchorActorView *Cbarrel_SelectCombatTarget(BarrelAnchorActorView *actor, 
             if (candidate != 0) {
                 /* i and best are both reset again before the loop */
                 i = 1;
-                if (((CombatPlayerView *)candidate)->lives != 0 && ((CombatPlayerView *)candidate)->state != 1) {
+                if (((SharedPlayer *)candidate)->views5E8.view5EA_3.respawns != 0 && ((SharedPlayer *)candidate)->views5E8.view650_16.state != 1) {
                     if (InstHdr_FindActorModelEntry(candidate) != 0) {
                         best = candidate;
                     } else {

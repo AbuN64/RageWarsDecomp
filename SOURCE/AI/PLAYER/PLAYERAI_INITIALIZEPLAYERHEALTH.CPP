@@ -10,6 +10,7 @@
 #include "COMMON/SHAREDPLAYER.H"
 #include "COMMON/OBJRECV5.H"
 #include "TYPES.H"
+#include "COMMON/AIPROFILE.H"
 
 /* Runs a player's hold on a carried object: while the player has a view at 0x5DC, one frame in five
    on average it tints the view through Gsky_StartFade_PlayeraiInitializeplayerhealth with a random alpha below 7.5 and plays effect
@@ -143,30 +144,23 @@ positive:
 #include "TYPES.H"
 
 typedef struct { u8 pad0[0x18]; s32 health; u8 pad1C[0xE0]; f32 x, y, z; } ActorTemplate;
-typedef struct { u8 pad0[0x80]; s8 kind; u8 pad81[0xE]; u8 special; u8 pad90[4]; u8 boosted; } PlayerInfo;
 typedef struct {
     u8 pad0[3]; s8 alpha; u8 pad4[0x14]; ActorTemplate *model;
     u8 pad1C[0x34]; f32 x, y, z; u8 pad5C[0x118]; s32 health;
-    u8 pad178[0x45C]; s32 slot; PlayerInfo *info; s32 pad5DC;
+    u8 pad178[0x45C]; s32 slot; AiProfile *info; s32 pad5DC;
     s32 modelId; s32 maxHealth; u8 pad5E8[0xE68]; s32 bot;
 } BonusPlayer;
-typedef struct { s32 value; u8 pad4[0x18C]; } PlayerBonus;
 struct Shared_World;
 extern void *Scene_FindActorDefinition(struct Shared_World *, s32, s32);
 
-/* g_resultExitPending and g_selectedProfileHealthOptionEnabled are game option words, read through an option view. */
-typedef struct { s32 enabled; } GameOption;
-static inline s32 optionEnabled(GameOption *option) {
-    return option->enabled;
-}
 static inline ActorTemplate *findModel(s32 kind, s32 id) {
     return Scene_FindActorDefinition(&g_world, kind, id);
 }
 static inline s32 startHealth(BonusPlayer *player) {
     s32 health;
     s8 kind;
-    if (optionEnabled((GameOption *)&g_gameSettings.counters.enabled) && player->info->boosted != 0) {
-        kind = player->info->kind;
+    if (g_gameSettings.counters.enabled && player->info->enabled != 0) {
+        kind = player->info->character;
         if (kind == 11) health = 0x19000;
         else if (kind == 12) health = 0x19000;
         else if (kind == 14) health = 76800;
@@ -175,14 +169,14 @@ static inline s32 startHealth(BonusPlayer *player) {
     } else {
         health = player->model->health << 8;
     }
-    if (g_gameSettings.controllerMode == 1 && player->bot == 0) health += ((PlayerBonus *)g_characterHealthBonuses)[player->slot].value;
+    if (g_gameSettings.controllerMode == 1 && player->bot == 0) health += g_characterHealthBonuses[player->slot].value;
     return health;
 }
 void Playerai_InitializePlayerHealth(BonusPlayer *player) {
     ActorTemplate *model;
     s32 id;
     id = player->modelId;
-    if (optionEnabled((GameOption *)&g_gameSettings.counters.m_bFragTagOn) && player->info->special == 1) id = 19;
+    if (g_gameSettings.counters.m_bFragTagOn && player->info->bonus == 1) id = 19;
     model = findModel(11, id);
     if (model == 0) {
         model = findModel(11, -1);
@@ -190,7 +184,7 @@ void Playerai_InitializePlayerHealth(BonusPlayer *player) {
     }
     player->model = model;
     player->x = model->x; player->y = model->y; player->z = model->z;
-    if (optionEnabled((GameOption *)&g_gameSettings.counters.m_bFragTagOn) && player->info->special != 0) {
+    if (g_gameSettings.counters.m_bFragTagOn && player->info->bonus != 0) {
         player->maxHealth = 2560;
         player->health = 2560;
         return;

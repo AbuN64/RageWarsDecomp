@@ -128,13 +128,8 @@ void Playerai_DrawAimHud(SharedPlayer *player, void *view) {
 }
 
 #include "COMMON/AIPROFILE.H"
-struct PlayerEffectLight {
-    u8 pad0[8];
-    void *pattern;
-    f32 radius;
-    s16 x, y, z;
-    s16 active;
-};
+#include "COMMON/OBJB.H"
+/* Gdynlight allocates the same 0x18-byte CDLight records initialized by Ovlgame. */
 #if defined(VERSION_US)
 #define PLAYER_SECOND_LIGHT_RADIUS g_playerSecondLightRadiusUs
 #else
@@ -161,7 +156,7 @@ extern char PLAYER_EFFECT_LIGHT_PATTERN[], g_playerSecondaryLightPattern[], PLAY
 extern void *Gdynlight_AllocateLightNode(void *, void *);
 #include "ENGINE/INSTANCE/GOBJINST_GETACTOROFFSETPOSITIONANDMODEL.H"
 /* Position one effect light, reading its scale and radius at their use sites. */
-static inline void placePlayerLight(struct Player *player, struct PlayerEffectLight *light,
+static inline void placePlayerLight(struct Player *player, CDLight *light,
                                     f32 offsetZ, const f32 *heightScale, const f32 *radius) {
     CVector3 offset;
     CVector3 position;
@@ -170,15 +165,15 @@ static inline void placePlayerLight(struct Player *player, struct PlayerEffectLi
     offset.z = offsetZ;
     Gobjinst_TransformVectorByActorAim(&position, player, offset);
     Graphu64_AddVec3(&position, &position, &player->pos);
-    light->active = 1;
+    light->m_bEnabled = 1;
     light->x = (s16)position.x;
     light->y = (s16)(position.y + Gobjinst_GetActorHeight(player) * *heightScale);
     light->z = (s16)position.z;
-    light->radius = *radius;
+    light->m_ColorFade = *radius;
 }
 /* Keep the timer lights and the special-mode light in step with player state. */
 void Player_UpdatePlayerEffectLights(struct Player *player) {
-    struct PlayerEffectLight *light;
+    CDLight *light;
     s32 flicker;
     if (g_gameSettings.flags & 0x4000) {
         player->rangeTimer = 0.0f;
@@ -187,7 +182,7 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
         player->rangeNodes[2] = 0;
     }
     if (player->rangeTimer != 0.0f) {
-        light = (struct PlayerEffectLight *)player->rangeNodes[0];
+        light = (CDLight *)player->rangeNodes[0];
         if (light == 0) {
             light = Gdynlight_AllocateLightNode(&g_dynamicLightPool, PLAYER_EFFECT_LIGHT_PATTERN);
         }
@@ -195,7 +190,7 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
             player->rangeNodes[0] = (struct RangeNode *)light;
             placePlayerLight(player, light, g_playerFirstLightForwardOffset, &g_playerFirstLightHeight, &g_playerFirstLightRadius);
         }
-        light = (struct PlayerEffectLight *)player->rangeNodes[1];
+        light = (CDLight *)player->rangeNodes[1];
         if (light == 0) {
             light = Gdynlight_AllocateLightNode(&g_dynamicLightPool, g_playerSecondaryLightPattern);
         }
@@ -213,10 +208,10 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
                 }
             }
             if (player->rangeNodes[0] != 0) {
-                ((struct PlayerEffectLight *)player->rangeNodes[0])->active = flicker;
+                ((CDLight *)player->rangeNodes[0])->m_bEnabled = flicker;
             }
             if (player->rangeNodes[1] != 0) {
-                ((struct PlayerEffectLight *)player->rangeNodes[1])->active = flicker;
+                ((CDLight *)player->rangeNodes[1])->m_bEnabled = flicker;
             }
         }
     } else {
@@ -230,7 +225,7 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
         }
     }
     if (g_gameSettings.flags & 0x4000) {
-        light = (struct PlayerEffectLight *)player->rangeNodes[2];
+        light = (CDLight *)player->rangeNodes[2];
         if (light == 0) {
             light = Gdynlight_AllocateLightNode(&g_dynamicLightPool, PLAYER_MODE_LIGHT_PATTERN);
         }
@@ -239,11 +234,11 @@ void Player_UpdatePlayerEffectLights(struct Player *player) {
             placePlayerLight(player, light, 0.0f, &g_playerRangeLightHeight, &g_playerRangeLightRadius);
         }
         if ((player->actionFlags & 0x20) && player->rangeNodes[2] != 0) {
-            struct PlayerEffectLight *entry = (struct PlayerEffectLight *)player->rangeNodes[2];
-            if (entry->pattern == PLAYER_MODE_LIGHT_PATTERN) {
-                entry->pattern = g_playerAlternateModeLightPattern;
+            CDLight *entry = (CDLight *)player->rangeNodes[2];
+            if (entry->m_pROMLight == PLAYER_MODE_LIGHT_PATTERN) {
+                entry->m_pROMLight = g_playerAlternateModeLightPattern;
             } else {
-                entry->pattern = PLAYER_MODE_LIGHT_PATTERN;
+                entry->m_pROMLight = PLAYER_MODE_LIGHT_PATTERN;
             }
         }
     }

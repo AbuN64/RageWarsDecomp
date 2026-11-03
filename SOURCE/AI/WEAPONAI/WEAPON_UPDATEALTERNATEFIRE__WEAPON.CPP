@@ -21,7 +21,6 @@
 #include "COMMON/PLAYER_GETPLAYERINDEX.H"
 #include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
 #include "COMMON/VECTOR4F.H"
-/* AttackTrigger* are unresolved canonical player/actor/control/attack types. */
 
 
 
@@ -41,42 +40,6 @@ extern void Gsky_PostTargetedScreenMessage(void *, void *, s32, s32, f32);
 
 
 
-typedef struct AttackTriggerPlayer AttackTriggerPlayer;
-typedef struct AttackTriggerActor AttackTriggerActor;
-typedef struct AttackTriggerControl AttackTriggerControl;
-typedef struct AttackTriggerAction AttackTriggerAction;
-struct AttackTriggerPlayer {
-    char pad0[0x5D4];
-    s32 playerIndex;
-    char pad5D4[0x5DC - 0x5D4 - sizeof(s32)];
-    void* camera;
-    char pad5DC[0x62E - 0x5DC - sizeof(void*)];
-    s16 weaponMode;
-    char pad62E[0x6AC - 0x62E - sizeof(s16)];
-    s32 inputFlags;
-    char pad6AC[0x11D8 - 0x6AC - sizeof(s32)];
-    f32 cooldown;
-    char pad11D8[0x1450 - 0x11D8 - sizeof(f32)];
-    s32 computerControlled;
-    char pad1450[0x1454 - 0x1450 - sizeof(s32)];
-    char* control;
-};
-struct AttackTriggerActor {
-    char pad0[0x100];
-    s32 flags;
-    char pad100[0x1D8 - 0x100 - sizeof(s32)];
-    char* player;
-};
-struct AttackTriggerControl {
-    char pad0[0x23C];
-    s32 fireRequested;
-};
-struct AttackTriggerAction {
-    char pad0[0xCB];
-    u8 triggerConsumed;
-    char padCB[0x13C - 0xCB - sizeof(u8)];
-    s32 fireMode;
-};
 
 
 
@@ -88,7 +51,6 @@ extern s16 g_weaponActionRecords[];
 #include "COMMON/AIPROFILE.H"
 #include "COMMON/VECTOR4F.H"
 #include "COMMON/SHARED_OPTIONSSCREEN.H"
-typedef struct AlternateModeInfo { u8 pad0[0x14]; u32 flags; } AlternateModeInfo;
 /* The adjacent exact can_fire supplies the same readiness check; this call site
  * owns its distinct message-duration literal and localized European strings. */
 
