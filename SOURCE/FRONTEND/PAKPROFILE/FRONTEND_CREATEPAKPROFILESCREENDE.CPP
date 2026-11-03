@@ -1,3 +1,4 @@
+#include "COMMON/PLAYERPROFILES.H"
 #include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
 #include "include_asm.h"
 #include "FRONTEND/PAKMENU.H"
@@ -135,17 +136,10 @@
 
 
 
-typedef struct PakSetupProfile {
-    char pad0[0xD];
-    s8 owner;
-    s8 dropped;
-    char padF[0x190 - 0xF];
-} PakSetupProfile;
 
 
 extern s32 g_pakProfileControllerPort;
 extern s32 g_pakProfileOperationPhase;
-extern PakSetupProfile g_localPlayerProfiles[];
 
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
@@ -241,12 +235,12 @@ s32 Frontend_CreatePakProfileScreen(void *screen) {
         Widget_SetWidgetFlag08(GameSprite, 1);
         GameSprite->alpha = 0xFF;
         for (i = 0; i < 4; i++) {
-            if (g_localPlayerProfiles[i].owner >= 0) {
-                if (g_localPlayerProfiles[i].dropped == 1) {
-                    g_localPlayerProfiles[i].owner = -1;
-                    g_localPlayerProfiles[i].dropped = 0;
+            if (g_localPlayerProfiles[i].player >= 0) {
+                if (g_localPlayerProfiles[i].fresh == 1) {
+                    g_localPlayerProfiles[i].player = -1;
+                    g_localPlayerProfiles[i].fresh = 0;
                 }
-                if (g_localPlayerProfiles[i].owner >= 0) {
+                if (g_localPlayerProfiles[i].player >= 0) {
                     g_pakProfileScreenState->links[i].player = 0;
                     g_pakProfileScreenState->links[i].entry = i;
                     g_pakProfileScreenState->links[i].state = 1;
@@ -300,11 +294,11 @@ s32 Frontend_CreatePakProfileScreen(void *screen) {
         }
         for (i = 0; i < 4; i++) {
             globals = &g_gameSettings;
-            if (g_localPlayerProfiles[i].dropped == 0 && g_localPlayerProfiles[i].owner >= 0 && globals->playerSettings[i].enabled == 1 &&
+            if (g_localPlayerProfiles[i].fresh == 0 && g_localPlayerProfiles[i].player >= 0 && globals->playerSettings[i].enabled == 1 &&
                 globals->playerSettings[i].locked == 0) {
-                g_pakProfileScreenState->players[g_localPlayerProfiles[i].owner].back = 2;
-                g_pakProfileScreenState->players[g_localPlayerProfiles[i].owner].state = 2;
-                g_pakProfileScreenState->players[g_localPlayerProfiles[i].owner].next = 6;
+                g_pakProfileScreenState->players[g_localPlayerProfiles[i].player].back = 2;
+                g_pakProfileScreenState->players[g_localPlayerProfiles[i].player].state = 2;
+                g_pakProfileScreenState->players[g_localPlayerProfiles[i].player].next = 6;
             }
         }
         for (i = 0; i < 4; i++) {

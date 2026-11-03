@@ -72,9 +72,6 @@ s32 Menu_CreateLocalizedSettingsPage(void *node) {
     return 0;
 }
 #endif
-#if defined(VERSION_DE)
-typedef struct { char pad0[0x14]; char *text; } PakOperationLabelItem;
-#endif
 #if defined(VERSION_EU)
 #include "COMMON/REQUESTRECAT10.H"
 extern struct Record *Cache_AllocateMemory(s32 size);

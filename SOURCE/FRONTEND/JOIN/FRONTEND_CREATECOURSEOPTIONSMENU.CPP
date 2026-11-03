@@ -1,3 +1,4 @@
+#include "COMMON/ITEMRECAT20V1.H"
 #include "include_asm.h"
 #if defined(VERSION_US_REV1)
 #include "COMMON/SELECTIONSCREENSTATE.H"
@@ -52,8 +53,6 @@ s32 Frontend_CreateCourseOptionsMenu(void *root) {
 #if defined(VERSION_EU_X)
 #include "TYPES.H"
 /* 80406A88_14.CPP */
-typedef struct { void *list; s32 resourceWidget; void *item; s32 scrollDelay; s32 reservedWord10; char text14[12]; s32 playerCount; } SliderPopupEu;
-typedef struct { u8 pad0[0x10]; u8 alpha; u8 pad11[0x27]; void *text; } SliderItemEu;
 extern struct Record *Cache_AllocateMemory(s32 size);
 extern void Tsmos_ActivateControllerState(void);
 extern struct MenuWidget *Node_FindWidgetByResourceId(void *, s32);

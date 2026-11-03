@@ -195,9 +195,8 @@ found4:;
 #include "TYPES.H"
 #include "FRONTEND/FRONTEND_DRAWMODELPREVIEW.H"
 
-typedef struct PreviewSettings { char pad[13]; u8 mode; char padE[0xC2]; struct EntryFrontendRefreshTrialCharacterPreview entries[4]; } PreviewSettings;
 typedef struct PreviewRecord { char pad[4]; u8 kind; } PreviewRecord;
-extern void Results_FillTrialPresetWeaponRows(s32,PreviewSettings *);
+extern void Results_FillTrialPresetWeaponRows(s32,Shared_Game *);
 extern PreviewRecord *Scene_GetBlLevelData(void *,s32);
 
 void Results_RefreshTrialCharacterPreview(void) {
@@ -205,19 +204,19 @@ void Results_RefreshTrialCharacterPreview(void) {
     s32 record;
     s32 index;
     u8 kind;
-    struct EntryFrontendRefreshTrialCharacterPreview *entry;
-    PreviewSettings *settings = (PreviewSettings *)&g_gameSettings;
-    if (settings->mode == 4) {
+    Shared_PlayerSettingsRecord *entry;
+    Shared_Game *settings = (Shared_Game *)&g_gameSettings;
+    if (settings->controllerMode == 4) {
         record = (*(ResultsOptionsScreen **)&g_trialCatalogueScreen)->selection;
-        entry = &((PreviewSettings *)&g_gameSettings)->entries[(*(ResultsOptionsScreen **)&g_trialCatalogueScreen)->player];
+        entry = &((Shared_Game *)&g_gameSettings)->playerSettings[(*(ResultsOptionsScreen **)&g_trialCatalogueScreen)->player];
         Results_FillTrialPresetWeaponRows(record, settings);
         kind = Scene_GetBlLevelData(&g_world, record)->kind;
-        entry->kind = kind;
+        entry->character = kind;
         index = Key_FindKeyIndex((s8)kind);
         scale.x = g_characterPortraitRecords[index].scale[0];
         scale.y = g_characterPortraitRecords[index].scale[0];
         scale.z = g_characterPortraitRecords[index].scale[0];
-        Preview_InitModelPreview((ModelPreview *)(*(ResultsOptionsScreen **)&g_trialCatalogueScreen)->panels, 9, entry->kind + 911, 75, 24000, scale,
+        Preview_InitModelPreview((ModelPreview *)(*(ResultsOptionsScreen **)&g_trialCatalogueScreen)->panels, 9, entry->character + 911, 75, 24000, scale,
                          g_characterPortraitRecords[index].position[0], g_characterPortraitRecords[index].distance[0],
                          g_characterPortraitRecords[index].light[0]);
     }

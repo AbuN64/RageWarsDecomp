@@ -1,3 +1,4 @@
+#include "FRONTEND/MENUIMAGE.H"
 #include "COMMON/GAMEPLAY_SETTINGS.H"
 #include "include_asm.h"
 #include "FRONTEND/ENTRYRECAT4D4.H"
@@ -312,20 +313,11 @@ s32 Frontend_DispatchEquipmentEvent(void *eventTarget, s32 eventId, s32 eventCod
 #include "GFX/TEXT/ONSCREEN_DRAWSCALEDMASKEDTILEGRID.H"
 extern struct MenuModelScreen g_fallbackScreenMessageEmitter[];
 /* A menu's title image: image id, RGB tint words, animation frame and a shown flag. */
-typedef struct MenuImage {
-    s32 image;
-    s32 red;
-    s32 green;
-    s32 blue;
-    s32 reservedWord;
-    s32 frame;
-    s32 shown;
-} MenuImage;
-void Frontend_DrawMenuImage(MenuImage *menu) {
+void Frontend_DrawMenuImage(MenuImageState *menu) {
     s32 frame;
     float b, a;
     float *screen;
-    if (menu->shown == 1) {
+    if (menu->state == 1) {
         frame = menu->frame;
         screen = g_fallbackScreenMessageEmitter;
         OnScreen_SetupTextRendering();
@@ -345,9 +337,9 @@ void Frontend_DrawMenuImage(MenuImage *menu) {
             b = 1.0810812f;
             break;
         }
-        gDPSetEnvColor(g_displayListCursor++, (u8)menu->red, (u8)menu->green, (u8)menu->blue, 0xFF);
+        gDPSetEnvColor(g_displayListCursor++, (u8)menu->color[0], (u8)menu->color[1], (u8)menu->color[2], 0xFF);
         gDPSetPrimColor(g_displayListCursor++, 0, 0, 0xE0, 0, 0, 0xFF);
-        OnScreen_DrawSpriteResource(menu->image, frame, (s16)(s32)screen[169], (s16)(s32)screen[170],
+        OnScreen_DrawSpriteResource(menu->resource, frame, (s16)(s32)screen[169], (s16)(s32)screen[170],
                          a * 9.0f, b * 4.0f, 1);
     }
 }
