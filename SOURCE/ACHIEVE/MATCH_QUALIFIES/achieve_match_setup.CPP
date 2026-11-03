@@ -12,6 +12,7 @@
 #include "TYPES.H"
 #include "ACHIEVE/achieve_match_setup.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "ENGINE/SCENE_FINDTRACKEDACTORS.H"
 #define g_gameSettingsView (*(MatchMenuApplySlotValueGfx *)&g_gameSettings)
 
 /* Copies a player's enabled options into its option list: unless the player's info (at 0x5D8) is
@@ -34,7 +35,6 @@ void Achieve_ApplyPlayerOptionOverrides(PlayerLoadoutSelectionView *p) {
     }
 }
 
-extern void *Scene_GetBlLevelData(void *, s32);
 
 void Achieve_EnableLevelWeapons(WeaponPlayer *player) {
     WeaponStatus *status = player->status;

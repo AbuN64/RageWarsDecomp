@@ -10,9 +10,9 @@
 #include "COMMON/MENUSELECTIONMESSAGE.H"
 #include "TYPES.H"
 #include "ACHIEVE/ACHIEVE_DISPATCHRESULTSACTOREVENT.H"
+#include "COMMON/SCREEN.H"
 
 /* Calls MarkMenuEventHandled with the arguments it was given and returns zero. */
-extern void MarkMenuEventHandled();
 
 s32 Achieve_AcknowledgeResultsEvent(void) {
     MarkMenuEventHandled();

@@ -9,15 +9,14 @@
 #include "COMMON/SHARED_GAMESLOT.H"
 #include "COMMON/MENUSELECTIONMESSAGE.H"
 #include "ACHIEVE/ACHIEVE_OPENRESULTSFRONTEND.H"
+#include "COMMON/ROUND_STATE_VARIANTS.H"
+#include "COMMON/SELECTIONSCREENSTATE.H"
 
 /* Calls InitFrontendMenus and Tsmos_DeactivateControllerState, then SmXlate_SwitchScreen with 0x12. */
 #if defined(VERSION_EU)
-extern void Tsmos_InitializeEuropeanFrontend(void);
 #else
-extern void InitFrontendMenus(void);
 #endif
 
-extern void Tsmos_DeactivateControllerState(void);
 
 void Achieve_OpenResultsFrontend(void) {
 

@@ -20,6 +20,10 @@
 #include "FRONTEND/MENUIMAGE.H"
 #include "FRONTEND/MENU_IMAGE.H"
 #include "MATCH_REASON/MATCH_REASON.H"
+#include "COMMON/SELECTIONSCREENSTATE.H"
+#include "FRONTEND/NODE_FINDWIDGETBYRESOURCEID.H"
+#include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
+#include "FRONTEND/PAKINTERFACE_SETSCREENPHASE.H"
 
 /* Resets three words of the object g_resultsModelPreviewScreen points to: the words at 0x9C and 0xB0 to -1 and
    the word at 0x188 to zero. */
@@ -57,7 +61,6 @@ extern struct SelectionMessageScreen *g_resultsModelPreviewScreen;
 
 
 
-extern void Widget_SetWidgetFlag08(void *object, int enabled);
 
 
 
@@ -73,9 +76,7 @@ extern void Widget_SetWidgetFlag08(void *object, int enabled);
    assembly; the conditional tests the zero case first. */
 
 
-extern struct MenuWidget *Node_FindWidgetByResourceId(void *root, s32 identifier);
 
-extern s32 Widget_ListHasFlag100(struct WidgetNode *node);
 
 
 
@@ -206,8 +207,6 @@ enum { MSG_BACK = 627, MSG_HIDE = 626, MSG_LEAVE = 631 };
 #else
 enum { MSG_BACK = 632, MSG_HIDE = 631, MSG_LEAVE = 636 };
 #endif
-extern void PAKInterface_SetScreenPhase(s32);
-extern void Frontend_StartMenuImageTransition(s32 *record);
 
 s32 Achieve_HandleResultsMenuChoice(void) {
     MarkMenuEventHandled();

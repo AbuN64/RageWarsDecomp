@@ -15,4 +15,6 @@ extern s32 Frontend_IsMenuImageTransitionComplete(s32 *record);
 extern void Frontend_SetMenuImageResource(s32 *, s32);
 extern void Frontend_SetMenuImageColor(s32 *, s32, s32, s32);
 extern void Frontend_AdvanceMenuImageTransition(s32*record);
+extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
+extern void Frontend_StartMenuImageTransition(s32 *record);
 #endif

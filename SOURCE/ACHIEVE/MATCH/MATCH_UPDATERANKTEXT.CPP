@@ -6,13 +6,15 @@
 
 #include "TYPES.H"
 #include "COMMON/SHARED_GAMESLOT.H"
+#include "ENGINE/DEFS.H"
+#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "COMMON/EFFECTRENDER.H"
 extern u8 g_profileAchievementProgressRows[][0x96];
 extern s32 g_profileAchievementCountRows[][100];
 extern u8 g_profileAchievementCounters[];
 extern s8 g_matchAchievementQualificationFlagA;
 extern s8 g_matchAchievementQualificationFlagB;
 extern Shared_PlayerSettingsRecord g_playerSettings[];
-extern s32 g_playerCountedShots[];
 /* Increment the capped player match count and eligible level count. */
 void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
     s32 count;
@@ -67,31 +69,9 @@ void Match_UpdateMatchCounters(s32 playerIndex, s32 counterIndex) {
 
 /* Count achievements, store the rank, and select its version-specific title. */
 
-extern s32 Defs_TestBit(void *bitArray, s32 index);
 
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
-extern char *g_profileRankTitles[];
 #elif defined(VERSION_EU) || defined(VERSION_EU_X)
-extern char *g_profileRank0LocalizedTitles[];
-extern char *g_profileRank1LocalizedTitles[];
-extern char *g_profileRank2LocalizedTitles[];
-extern char *g_profileRank3LocalizedTitles[];
-extern char *g_profileRank4LocalizedTitles[];
-extern char *g_profileRank5LocalizedTitles[];
-extern char *g_profileRank6LocalizedTitles[];
-extern char *g_profileRank7LocalizedTitles[];
-extern char *g_profileRank8LocalizedTitles[];
-extern char *g_profileRank9LocalizedTitles[];
-extern char *g_profileRank10LocalizedTitles[];
-extern char *g_profileRank11LocalizedTitles[];
-extern char *g_profileRank12LocalizedTitles[];
-extern char *g_profileRank13LocalizedTitles[];
-extern char *g_profileRank14LocalizedTitles[];
-extern char *g_profileRank15LocalizedTitles[];
-extern char *g_profileRank16LocalizedTitles[];
-extern char *g_profileRank17LocalizedTitles[];
-extern char *g_profileRank18LocalizedTitles[];
-extern char *g_profileRank19LocalizedTitles[];
 #endif
 
 char *Match_UpdateRankText(s32 index) {

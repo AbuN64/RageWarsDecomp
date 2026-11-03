@@ -11,4 +11,6 @@ extern void Widget_SetPairValues(struct Pair14 *record, s16 first, s16 second);
 extern void Widget_FindWidgetAtPoint(WidgetPointHitView **hit, WidgetPointHitView *node, DrawArgsFrontendDrawVisibleWidgetClipped args, s32 px, s32 py);
 extern void Widget_ResetTextClipBounds(void);
 extern void Widget_SetWidgetFlag40(void *object, int enabled);
+extern s32 Widget_ListHasFlag100(struct WidgetNode *node);
+extern void Widget_SetWidgetFlag100(struct Widget *record, int enable);
 #endif

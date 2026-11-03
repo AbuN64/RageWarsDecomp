@@ -30,4 +30,6 @@ extern void XPlus_AcquireSemaphore(s32);
 extern void XPlus_ReleaseSemaphore(s32 *);
 void XPlus_SortArray(char *base, s32 n, s32 size, s32 (*compare)(char *a, char *b));
 s32 XPlus_StringLength(u8 *string);
+u8 *XPlus_CopyString(u8 *destination, u8 *source);
+u8 *XPlus_UppercaseString(u8 *string);
 #endif

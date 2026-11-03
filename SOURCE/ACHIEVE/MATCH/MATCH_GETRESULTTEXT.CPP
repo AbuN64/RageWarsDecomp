@@ -14,7 +14,7 @@
 #include "ACHIEVE/MATCH_GETRESULTTEXT.H"
 #include "COMMON/PLAYERPROFILES.H"
 #include "WORLD/PLAYERPROFILE.H"
-extern s32 Player_GetLevelProgress(Profile *, s32);
+#include "ENGINE/DEFS.H"
 
 /* Applies event *g_currentStagePreset to player record g_localPlayerProfiles[index] once per g_selectedLevelId: when that bit
    of the record's current slot flags is already set it returns -1; otherwise it sets the bit and,
@@ -27,19 +27,14 @@ extern s32 Player_GetLevelProgress(Profile *, s32);
 
 
 
-extern s32 Defs_TestBit(void *bitArray, s32 index);
-
-extern void Defs_SetBitValue(u8 *, s32, s32);
 
 
 
-extern void Player_SetAchievementFlag2F(Profile *, s32);
-
-extern void Player_SetAchievementFlagByIndex(Profile *, s32);
 
 
 
-extern void Player_AddFiftyToProfileValue15(Profile *);
+
+
 
 
 

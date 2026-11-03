@@ -25,28 +25,21 @@ const float g_resultPreviewTransformConstants[6] = {
 #include "COMMON/MENU_MATCH_GLOBALS.H"
 #include "COMMON/WORLD.H"
 #include "ACHIEVE/MODELPREVIEWSCREEN.H"
+#include "ENGINE/DEFS.H"
+#include "ENGINE/SCENE_FINDTRACKEDACTORS.H"
+#include "FRONTEND/MENUIMAGE.H"
+#include "FRONTEND/WIDGET_FINDWIDGETATPOINT.H"
+#include "ACHIEVE/ACHIEVE_CREATERESULTSSCREEN.H"
+#include "ACHIEVE/CPLAYERPREVIEW_RESETSELECTIONMESSAGESTATE.H"
+#include "COMMON/REQUESTRECAT10.H"
+#include "UI/X_FILES/X_STDIO.H"
+#include "MENU/PLAYER_PREVIEW/ACHIEVE/ACHIEVE.H"
 extern Active *g_currentStagePreset;
 extern struct ResultsHeadingCharacter g_resultCharacterHeadings[];
 #if !defined(VERSION_EU) && !defined(VERSION_EU_X)
 extern f32 g_resultTimeToSeconds;
 #endif
-extern char *g_resultCharacterUnlockFormat, *g_resultUnavailableText, *g_resultPreviouslyCompletedText, *g_resultModeHeadingText, *g_resultTrialModeText, *g_resultChallengeModeText, *g_resultCampaignCompleteText, *g_resultTrialsCompleteText;
-extern void Frontend_InitMenuImage(s32 *record, s32 first, s32 second, s32 third, s32 fourth);
-extern void Frontend_StartMenuImageTransition(s32 *record);
-extern void CPlayerPreview_ResetSelectionMessageState(void);
-extern void Achieve_MarkLevelPlayed(s32);
-extern s32 Defs_TestBit(void *bitArray, s32 index);
-extern void Defs_SetBitValue(u8 *, s32, s32);
-extern s32 Match_ApplyLevelCompletionReward(s32);
-extern s32 Achieve_AwardCharacterCompletionUnlock(s32);
-extern s32 Key_FindKeyIndex(s32);
-extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
-extern u8 *XPlus_CopyString(u8 *destination, u8 *source);
-extern void Widget_SetWidgetFlag100(MenuWidget *, s32);
-extern void Scene_CopyLevelName(struct Shared_World *world, s32 type, void *levelName, s32 maximumBytes);
-extern u8 *XPlus_UppercaseString(u8 *string);
-extern void Achieve_UpdatePlayerPreviewStats(void);
-extern void Achieve_ConfigureResultModelPreview(void);
+extern char *g_resultCharacterUnlockFormat, *g_resultPreviouslyCompletedText, *g_resultCampaignCompleteText, *g_resultTrialsCompleteText;
 /* Opens the level results screen: allocates the preview state, records the finished level for the winning
    player, unlocks the level-end achievements and fills the level name and status lines. */
 static inline Shared_Game *Results_CurrentGame(void) { return &g_gameSettings; }
@@ -215,10 +208,10 @@ done:
     SmpButton_WrapButtonWidget(622 + PREVIEW_ID_SHIFT);
     SmpButton_WrapButtonWidget(623 + PREVIEW_ID_SHIFT);
     SmpButton_WrapButtonWidget(627 + PREVIEW_ID_SHIFT);
-    Widget_SetWidgetFlag100(Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 1);
+    Widget_SetWidgetFlag100((struct Widget *)Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 1);
     for (i = 0; i < 4; i++) {
         if (g_localPlayerProfiles[i].player >= 0 && g_localPlayerProfiles[i].fresh == 0) {
-            Widget_SetWidgetFlag100(Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 0);
+            Widget_SetWidgetFlag100((struct Widget *)Node_FindWidgetByResourceId(menu, 623 + PREVIEW_ID_SHIFT), 0);
             break;
         }
     }
@@ -255,24 +248,17 @@ done:
 #include "COMMON/OBJECTRECAT28.H"
 extern char g_resultPercentFormat[];
 
-#if !defined(VERSION_US) && !defined(VERSION_US_REV1)
-extern s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
-#endif
 
 #if defined(VERSION_DE)
 extern char g_resultPreviewNumberFormatDe[];
 #define PREVIEW_NUMBER_FORMAT g_resultPreviewNumberFormatDe
 #elif defined(VERSION_US)
-extern const unsigned char g_resultPreviewNumberFormatUs[];
 #define PREVIEW_NUMBER_FORMAT g_resultPreviewNumberFormatUs
 #elif defined(VERSION_US_REV1)
-extern const unsigned char k_AchieveEncodedBytes[];
 #define PREVIEW_NUMBER_FORMAT k_AchieveEncodedBytes
 #elif defined(VERSION_EU)
-extern const unsigned char g_resultPreviewNumberFormatEu[];
 #define PREVIEW_NUMBER_FORMAT g_resultPreviewNumberFormatEu
 #elif defined(VERSION_EU_X)
-extern const unsigned char g_resultPreviewNumberFormatEuX[];
 #define PREVIEW_NUMBER_FORMAT g_resultPreviewNumberFormatEuX
 #endif
 

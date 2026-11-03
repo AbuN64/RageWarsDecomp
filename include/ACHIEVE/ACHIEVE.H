@@ -8,4 +8,6 @@ extern s32 Achieve_AwardMilestoneCompletion(s32);
 extern void Achieve_AwardAllMilestoneAchievement(s32, s32 *);
 extern Preset *Achieve_CopyPreset(s32 key, s32 row, s32 column);
 extern void Achieve_ApplyProfileWeaponUnlocks(WeaponUnlockPlayerView*player);
+extern s32 Achieve_AwardCharacterCompletionUnlock(s32 p);
+extern void Achieve_MarkLevelPlayed(s32 slot);
 #endif

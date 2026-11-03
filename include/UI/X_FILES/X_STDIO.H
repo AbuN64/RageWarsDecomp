@@ -26,4 +26,5 @@ extern s32 XStdio_SeekMemoryStream(s32 handle, s32 offset, s32 origin);
 extern unsigned int XStdio_TellMemoryStream(void);
 extern int XStdio_IsMemoryStreamAtEnd(void);
 extern void XStdio_SetTextOutputCallbacks(int first, int second);
+s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 #endif

@@ -27,4 +27,6 @@ s32 Defs_FindSortedValue(void *entries, s32 entryCount, s32 value);
 int Defs_IsAddressInCodeRanges(u32 callback);
 void Defs_MoveMemory(u8 *split, u8 *source, s32 byteCount);
 void Defs_SetupPointLights(char *view);
+s32 Defs_TestBit(void *bitArray, s32 index);
+void Defs_SetBitValue(u8 *bitArray, s32 index, s32 found);
 #endif

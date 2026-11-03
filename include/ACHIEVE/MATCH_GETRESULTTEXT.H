@@ -2,4 +2,5 @@
 #define ACHIEVE_MATCH_GETRESULTTEXT_H
 #include "TYPES.H"
 extern char *Match_GetResultText(s32 result);
+extern s32 Match_ApplyLevelCompletionReward(s32 index);
 #endif

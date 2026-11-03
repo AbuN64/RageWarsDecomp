@@ -15,11 +15,10 @@
 #include "ACHIEVE/ACHIEVE.H"
 #include "COMMON/PLAYERPROFILES.H"
 #include "WORLD/PLAYERPROFILE.H"
+#include "ENGINE/DEFS.H"
+#include "ENGINE/SCENE_FINDTRACKEDACTORS.H"
+#include "MENU/EVENT.H"
 
-extern s32 Defs_TestBit(void *, s32);
-extern void Defs_SetBitValue(u8 *, s32, s32);
-extern s32 Player_HasProfileUnlockFlag(u8 *, s32);
-extern s32 Player_TestAchievementFlag7(Profile *, s32);
 
 
 /* Upgrades the thirteen weapon levels of player record g_localPlayerProfiles[index] from the number of its 50
@@ -43,7 +42,6 @@ static inline s32 count_achievements(s32 index) {
     return count;
 }
 
-extern PresetTable *Scene_GetBlLevelData(void *table, s32 key);
 
 
 
@@ -254,7 +252,7 @@ void Achieve_UpdateUnlockTiers(s32 index) {
 Preset *Achieve_CopyPreset(s32 key, s32 row, s32 column) {
     PresetTable *table;
 
-    table = Scene_GetBlLevelData(&g_world, key);
+    table = (PresetTable *)Scene_GetBlLevelData(&g_world, key);
     if (table == 0) {
         return 0;
     }
@@ -393,7 +391,6 @@ unsigned int k_AchieveEncodedWordsBlock3[1] = {
 #endif
 
 #if defined(VERSION_DE)
-extern char g_Frontend_DispatchPlayModeEventAddress[];
 void *k_AchieveEncodedWordsBlock2[1] = {
     (void *)(g_Frontend_DispatchPlayModeEventAddress + 10088),
 };

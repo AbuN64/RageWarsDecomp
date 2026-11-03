@@ -13,4 +13,10 @@ struct Profile;
 s32 Player_GetProfileAchievementFlag(struct Profile *profile, s32 achievementIndex);
 void Player_IncrementLevelProgress(struct Profile *obj, int index);
 void Player_SetAchievementFlag7(struct Profile *record, s32 achievementIndex);
+int Player_AddFiftyToProfileValue15(void *player);
+s32 Player_GetLevelProgress(struct Profile *obj, s32 index);
+s32 Player_HasProfileUnlockFlag(u8 *profileBytes, s32 unlockIndex);
+void Player_SetAchievementFlag2F(struct Profile *player, s32 achievementIndex);
+void Player_SetAchievementFlagByIndex(struct Profile *player, s32 achievementIndex);
+s32 Player_TestAchievementFlag7(struct Profile *record, s32 index);
 #endif
