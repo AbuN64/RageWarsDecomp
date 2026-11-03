@@ -1204,27 +1204,27 @@ toolchain = "gcc-2.8.1-sn64"
 cflags = ["-fforce-addr"]
 omit = []
 
-[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTLIVE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETNACTIVE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTUNRELEASED.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETNPLAYERINFOACTIVE.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_COUNTOCCUPIED.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETNPLAYERSJOINED.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_FINDSTAGEDWHENIDLE.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_GETNEXTPLAYERTOCHOOSENAME.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]
 unrelocated = true
-[file."SOURCE/MULTI/SLOTS/PLAYERSLOTS_ASSERTSLOTINDEX.CPP"]
+[file."SOURCE/UI/TSMOS/SCREENS/PAKINTERFACE_INITPLAYERINFO.CPP"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = ["-O0"]
 omit = ["-O2", "-mgas"]

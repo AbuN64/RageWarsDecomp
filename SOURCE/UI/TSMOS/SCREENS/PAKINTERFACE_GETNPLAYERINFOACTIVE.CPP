@@ -1,9 +1,9 @@
-#include "MULTI/PLAYERSLOTS_COUNTUNRELEASED.H"
+#include "UI/TSMOS/SCREENS/PAKINTERFACE_GETNPLAYERINFOACTIVE.H"
 #include "TYPES.H"
 
 #if VERSION_US
 /* Counts the player slots that are neither empty nor released. */
-s32 PlayerSlots_CountUnreleased(void) {
+s32 PAKInterface_GetNPlayerInfoActive(void) {
     s32 i;
     s32 count;
 

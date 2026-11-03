@@ -1,5 +1,0 @@
-#ifndef MULTI_PLAYERSLOTS_FINDSTAGEDWHENIDLE_H
-#define MULTI_PLAYERSLOTS_FINDSTAGEDWHENIDLE_H
-#include "MULTI/PLAYER_SLOTS.H"
-extern s32 PlayerSlots_FindStagedWhenIdle(void);
-#endif

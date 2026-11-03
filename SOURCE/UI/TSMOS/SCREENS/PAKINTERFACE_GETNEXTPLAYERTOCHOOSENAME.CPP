@@ -1,11 +1,11 @@
 #include "include_asm.h"
 
-#include "MULTI/PLAYERSLOTS_FINDSTAGEDWHENIDLE.H"
+#include "UI/TSMOS/SCREENS/PAKINTERFACE_GETNEXTPLAYERTOCHOOSENAME.H"
 #include "TYPES.H"
 
 #if VERSION_US
 /* Returns -1 when any slot is live; otherwise the index of the first staged slot, or -1 when none is. */
-s32 PlayerSlots_FindStagedWhenIdle(void) {
+s32 PAKInterface_GetNextPlayerToChooseName(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {

@@ -1,11 +1,11 @@
 #include "include_asm.h"
 
-#include "MULTI/PLAYERSLOTS_COUNTLIVE.H"
+#include "UI/TSMOS/SCREENS/PAKINTERFACE_GETNACTIVE.H"
 #include "TYPES.H"
 
 #if VERSION_US
 /* Counts the player slots whose state is neither empty, staged nor released. */
-s32 PlayerSlots_CountLive(void) {
+s32 PAKInterface_GetNActive(void) {
     s32 i;
     s32 count;
 

@@ -1,9 +1,9 @@
-#include "MULTI/PLAYERSLOTS_COUNTOCCUPIED.H"
+#include "UI/TSMOS/SCREENS/PAKINTERFACE_GETNPLAYERSJOINED.H"
 #include "TYPES.H"
 
 #if VERSION_US
 /* Counts the player slots whose state is not empty. */
-s32 PlayerSlots_CountOccupied(void) {
+s32 PAKInterface_GetNPlayersJoined(void) {
     s32 i;
     s32 count;
 
