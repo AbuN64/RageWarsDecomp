@@ -6,7 +6,7 @@ id = "word-array-byte-use"
 kind = "decl-use"
 why = "A 32-bit array read through a byte or halfword pointer: packed byte data typed as words swaps on a little-endian host (font pair lists g_hudSecondaryByteLookupSource and the AI light bytes, cycle 2)."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 declare = '^(?P<local>static\s+)?(?:const\s+)?(?:extern\s+)?(?:unsigned int|unsigned long|u32|s32|int)\s+(?P<datum>[A-Za-z_]\w*)\s*\['
 use = '\(\s*(?:u8|s8|char|unsigned char|signed char|u16|s16|short|unsigned short)\s*\*\s*\)\s*&?\s*(?P<datum>[A-Za-z_]\w*)\b(?!\s*(?:->|\.|\[))'
 
@@ -24,7 +24,7 @@ id = "halfword-pair-in-word"
 kind = "pattern"
 why = "Two adjacent halfword members at a word boundary (offsets 0x40 and 0x42): when the game stores the pair as one word, the little-endian port reads the wrong half (pak slide step, cycle 3; the four-player speeds)."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 multiline = true
 match = '\b(?:u16|s16|unsigned short|short)\s+unk[0-9A-F]*[048C]\s*;\s*\b(?:u16|s16|unsigned short|short)\s+unk[0-9A-F]*[26AE]\s*;'
 
@@ -33,7 +33,7 @@ id = "wide-access-through-member-address"
 kind = "pattern"
 why = "A word read or written through the address of a struct member: if the member is narrower the access spans its neighbour and its half depends on byte order (sw/lhu at one offset, cycle 3)."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 match = '\*\s*\(\s*(?:u32|s32|unsigned int)\s*\*\s*\)\s*&\s*(?P<var>[A-Za-z_]\w*)\s*(?:->|\.)\s*(?P<member>\w+)'
 # a member declared 32 bits wide (a float's bit pattern stored through an s32 lvalue) spans no neighbour
 unless_type = '(?:(?:un)?signed\s+)?(?:s32|u32|f32|int|long|float)'
@@ -43,7 +43,7 @@ id = "pointer-to-word"
 kind = "pattern"
 why = "An address cast to a 32-bit integer: it holds only where pointers are 32 bits and the guest address space is mapped 1:1; a 64-bit port or a moved heap truncates it."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 match = '\(\s*(?:u32|s32|unsigned int|unsigned long|int|long)\s*\)\s*&\s*[A-Za-z_]'
 
 [[rule]]
@@ -57,14 +57,14 @@ id = "struct-return-spelling"
 kind = "return-spelling"
 why = "A function defined to return a struct by value and called or declared with the result pointer spelled out (or the reverse): MIPS passes the hidden result pointer where a first parameter goes, so the original mixes both, but a native 32-bit host pops the hidden pointer in the callee (ret $4) and every call spelled the other way leaves the stack 4 bytes off; the next call in that function reads garbage arguments (Graphu64_InterpolateQuaternionWithLinearFallback null read, first seen in monkey-wl1-start-pak-prompt)."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 returns = 'C(?:Vector3|Quatern|Matrix\w*)|Triple|Func\w+Result|MenuElementHandler'
 [[rule]]
 id = "narrow-alias-of-word-array"
 kind = "word-alias"
 why = "A halfword extern whose address lies inside a data array defined as 32-bit words: the original reads the low half of a big-endian word at +2, the native word holds it at +0 (Results_AnimateResultsOptionsScreen read D_800E0646_de as 0 and built a null menu widget; first seen in monkey-wl1-start-pak-prompt). Read the word and cast, or define the data as the narrow type."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 declare_paths = ["SOURCE/DATA/**/*.CPP", "SOURCE/DATA/**/*.c"]
 symbols = "versions/us-rev1/symbol_addrs.txt"
 defines = ["VERSION_US_REV1"]
@@ -75,7 +75,7 @@ id = "void-defined-value-declared"
 kind = "return-spelling"
 why = "A function defined void whose result another file declares as a value: the original leaves the result in $v0 or $f0 and the reader finds it there; a native host has no such register, so an integer reads garbage and a float read from an empty x87 stack faults (Scaled_DistanceToNode, Gsky_GetDistanceTo and Gobjinst_GetRootMeanSquareScale returned the distance of a sqrt call; first seen in monkey-wl8-arena-retaliation)."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "include/**/*.H", "include/**/*.h"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "Include/**/*.H", "Include/**/*.h"]
 returns = '(?!)'
 scalars = true
 [[rule]]
@@ -95,5 +95,5 @@ kind = "pattern"
 severity = "block"
 why = "An identifier that names an address instead of what it holds (a hex address or ROM offset suffix of 5 to 8 digits with at least one decimal digit, a D_/unk_/func_ placeholder, LinkerAlignmentFill): the name says nothing to its reader and moves with every version (DECOMP-STOCK census 11-02: 1,957 such identifiers; the 5-7 digit ROM offsets added 11-02: 3,500 more). The baseline only shrinks."
 trees = ["rw"]
-paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "SOURCE/**/*.s", "include/**/*.H", "include/**/*.h", "versions/*/symbol_addrs.txt"]
+paths = ["SOURCE/**/*.CPP", "SOURCE/**/*.c", "SOURCE/**/*.C", "SOURCE/**/*.s", "Include/**/*.H", "Include/**/*.h", "versions/*/symbol_addrs.txt"]
 match = '\b(?:[A-Za-z_]\w*?_(?=[0-9A-Fa-f]{0,7}[0-9])[0-9A-Fa-f]{5,8}|(?:D|unk|func)_[0-9A-Fa-f]+|\w*LinkerAlignmentFill\w*)\b'

@@ -1,6 +1,6 @@
 #ifndef LIBULTRA_AUDIO_REVERB_H
 #define LIBULTRA_AUDIO_REVERB_H
-#include "TYPES.H"
+#include "types.h"
 struct CallbackStateC {
     unsigned char padding_0[8];
     void (*callback)(void *, s32, s32);

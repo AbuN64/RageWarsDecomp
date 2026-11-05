@@ -1,8 +1,8 @@
 #ifndef LIBULTRA_OS_PI_DEVICE_MANAGER_OPERATIONS_H
 #define LIBULTRA_OS_PI_DEVICE_MANAGER_OPERATIONS_H
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Common/ospihandle_s.h"
+#include "types.h"
 extern void System_PeripheralManagerThreadEntry(void*);
 extern s32 System_PeripheralExtendedDmaEntry(struct OSPiHandle_s*, s32, u32, void*, u32);
 extern s32 System_PeripheralRawDmaEntry(s32, u32, void*, u32);

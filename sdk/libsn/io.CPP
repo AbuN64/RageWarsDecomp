@@ -1,7 +1,7 @@
-#include <ultra64.h>
-#include "IO/EXTERNS.H"
-#include "COMMON/OBJ.H"
-#include "TYPES.H"
+#include <platform_sdk.h>
+#include "Io/externs.h"
+#include "Common/obj.h"
+#include "types.h"
 #include "include_asm.h"
 
 s32 Libsn_ReadPortWord(s32 portAddress) {

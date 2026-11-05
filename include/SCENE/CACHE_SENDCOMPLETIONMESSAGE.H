@@ -1,5 +1,0 @@
-#ifndef SCENE_CACHE_SENDCOMPLETIONMESSAGE_H
-#define SCENE_CACHE_SENDCOMPLETIONMESSAGE_H
-#include "COMMON/WORLDSORTENTRY.H"
-extern void Cache_SendCompletionMessage(s32,s32);
-#endif

@@ -1,6 +1,6 @@
 #ifndef SDK_LEO_H
 #define SDK_LEO_H
-#include "TYPES.H"
+#include "types.h"
 #include "epirawdma.h"
 
 

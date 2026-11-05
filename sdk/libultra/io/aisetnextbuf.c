@@ -1,10 +1,10 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/OSTHREAD_S.H"
-#include "COMMON/GUMTXL2F.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "types.h"
+#include "Common/osthread_s.h"
+#include "Common/gumtxl2f.h"
+#include "Common/runtime_declarations.h"
 #include "../../include/libgultra/ai.h"
-#include <ultra64.h>
+#include <platform_sdk.h>
 
 /* aisetnextbuf.c */
 /* Queues an audio buffer for the AI DMA, backing the address up 0x2000 bytes after a buffer that ended on an 8 KiB boundary, returning -1 when __osAiDeviceBusy reports the interface busy and zero after writing the physical address from osVirtualToPhysical and the length to the AI registers (libultra osAiSetNextBuffer). Adapted from __osSiRawReadIo with the argument checks replaced by the boundary flag byte g_audioDmaBoundaryWorkaroundFlag read through its array declaration, the busy test by __osAiDeviceBusy, and the uncached read by two AI register writes. */

@@ -1,0 +1,6 @@
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Older build's rodata pool. */
+/* Words 0x801E7720..0x801E7C68 are runtime addresses of the older build's pickup pools, absent from every ROM. */
+unsigned int g_pickupLeftover_eu_15B498[2] = { 0x2271E8, 0x227238 };
+void *g_pickupLeftover_eu_15B4A0[1] = { (void *)0x801E7B48 };
+#endif

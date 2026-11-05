@@ -1,0 +1,5 @@
+#ifndef MENU_ITEMS_SCENE_SCENE_BUILDPLACEDACTORS_H
+#define MENU_ITEMS_SCENE_SCENE_BUILDPLACEDACTORS_H
+struct Shared_World;
+void Scene_LoadPreviewBufferA(struct Shared_World *previewToLoad);
+#endif

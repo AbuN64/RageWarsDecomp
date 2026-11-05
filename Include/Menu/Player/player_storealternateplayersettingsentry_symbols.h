@@ -1,0 +1,7 @@
+#ifndef MENU_PLAYER_PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY_SYMBOLS_H
+#define MENU_PLAYER_PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY_SYMBOLS_H
+struct MenuListScreen;
+extern struct MenuListScreen *g_alternatePlayerSettingsScreen;
+#include "Menu/Player/player_initplayersettingsscreen_symbols.h"
+#include "types.h"
+#endif

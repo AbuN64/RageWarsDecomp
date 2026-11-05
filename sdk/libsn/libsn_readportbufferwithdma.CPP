@@ -1,8 +1,8 @@
-#include "TYPES.H"
-#include "COMMON/LIBSN_AND_RESIDENT_CALLBACKS.H"
-#include "IO/libsn_readportbufferwithdma.H"
+#include "types.h"
+#include "Common/libsn_and_resident_callbacks.h"
+#include "Io/libsn_readportbufferwithdma.h"
 #include "include_asm.h"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

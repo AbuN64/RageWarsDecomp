@@ -1,0 +1,4 @@
+#ifndef SNAPSHOT_PAK_TIMER_PREVIEW_VALUE_FORMAT_H
+#define SNAPSHOT_PAK_TIMER_PREVIEW_VALUE_FORMAT_H
+extern const char g_pakTimerPreviewValueFormat[];
+#endif

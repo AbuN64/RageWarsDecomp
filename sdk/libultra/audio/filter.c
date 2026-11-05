@@ -1,5 +1,5 @@
 #include "include_asm.h"
-#include "COMMON/ALPARAM_S.H"
+#include "Common/alparam_s.h"
 
 void alFilterNew(void *filterStorage, void *pullHandler, void *parameterHandler, int filterType) {
     struct ALFilter_s *filter = filterStorage;

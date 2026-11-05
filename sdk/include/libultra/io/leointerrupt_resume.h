@@ -1,8 +1,8 @@
 #ifndef LIBULTRA_IO_LEOINTERRUPT_RESUME_H
 #define LIBULTRA_IO_LEOINTERRUPT_RESUME_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CTX.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/ctx.h"
 /* Disk transfer state embedded at offset 0x14 in the PI device handle. */
 typedef struct DiskTransferInfo {
     u16 command;

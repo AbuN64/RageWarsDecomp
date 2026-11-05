@@ -1,12 +1,11 @@
 #include "../../include/libgultra.h"
-#include "TYPES.H"
+#include "types.h"
 #include <PR/abi.h>
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "COMMON/ALAUXBUS_S.H"
-#include "COMMON/ALPARAM_S.H"
+#include "Common/audio_callbacks.h"
+#include "Common/runtime_declarations.h"
+#include "Common/resident_event_handler.h"
+#include "Common/alauxbus_s.h"
+#include "Common/alparam_s.h"
 #include "include_asm.h"
 
 /* MAINBUS.CPP */
@@ -55,7 +54,7 @@ Acmd *alMainBusPull(ALMainBus_s *filter, s16 *outp, s32 outCount, s32 sampleOffs
 
 /* mainbus.c */
 #if defined(VERSION_DE)
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/alauxbus_s.h"
 
 Acmd *alMainBusPull(ALMainBus_s *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p) {
     Acmd *ptr = p;

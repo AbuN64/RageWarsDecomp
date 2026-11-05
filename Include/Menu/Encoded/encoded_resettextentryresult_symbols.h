@@ -1,0 +1,5 @@
+#ifndef MENU_ENCODED_ENCODED_RESETTEXTENTRYRESULT_SYMBOLS_H
+#define MENU_ENCODED_ENCODED_RESETTEXTENTRYRESULT_SYMBOLS_H
+#include "types.h"
+extern u32 g_encodedCheatCharacterIndex;
+#endif

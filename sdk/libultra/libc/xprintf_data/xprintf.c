@@ -1,21 +1,20 @@
 #include "../../../include/LIBC.H"
 #include "include_asm.h"
 #include "../../../include/EXTERNS.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/LLDIVRESULT.H"
+#include "Common/runtime_declarations.h"
+#include "Common/lldivresult.h"
 #include <stdarg.h>
-#include "TYPES.H"
+#include "types.h"
 #include "../../../include/PRINTF/_LDTOB.H"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include <ultra64.h>
+#include "Common/audio_callbacks.h"
+#include "Common/resident_event_handler.h"
+#include <platform_sdk.h>
 #include "stdarg.h"
-#include "libc/libc_formatinteger_data.H"
+#include "Libc/libc_formatinteger_data.h"
 
 /* 800C7C68.CPP */
 #if defined(VERSION_DE)
-unsigned int g_XprintfWords1[22] = {
+unsigned int g_xprintfDecimalPowerDoubles[22] = {
     0x40590000, 0x00000000, 0x40240000, 0x00000000, 0x40590000, 0x00000000, 0x40C38800, 0x00000000,
     0x4197D784, 0x00000000, 0x4341C379, 0x37E08000, 0x4693B8B5, 0xB5056E17, 0x4D384F03, 0xE93FF9F5,
     0x5A827748, 0xF9301D32, 0x75154FDD, 0x7F73BF3C, 0x3B490FDB, 0x3C490FDB,

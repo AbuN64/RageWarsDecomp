@@ -1,6 +1,6 @@
 #include "include_asm.h"
-#include <ultra64.h>
-#include "TYPES.H"
+#include <platform_sdk.h>
+#include "types.h"
 
 
 

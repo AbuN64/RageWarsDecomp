@@ -1,20 +1,20 @@
-#include "COMMON/ALFXPARAM.H"
+#include <PR/libaudio.h>
+#include "Common/alfxparam.h"
 #include <PR/abi.h>
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/STATERECAT34.H"
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/music_track_volume.h"
+#include "Common/alauxbus_s.h"
 #include "../../include/libultra/audio/synthesizer.h"
-#include "TYPES.H"
+#include "types.h"
 #include "../../include/libgultra_inferred/__NEXTSAMPLETIME.H"
 #include "../../include/libgultra/alunlink.h"
 #include "../../include/al_globals.h"
 #include "../../include/libgultra.h"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/runtime_declarations.h"
 #include "include_asm.h"
-#include "COMMON/OSPIHANDLE_S.H"
+#include "Common/ospihandle_s.h"
 #include "../../include/libultra/debug/assert.h"
-#include "reverb/reverb.c.h"
-#include "synthesizer/synthesizer_data.h"
+#include "Reverb/reverb.c.h"
+#include "Synthesizer/synthesizer_data.h"
 #include "../../include/libultra/audio/auxbus.h"
 #include "../../include/libultra/audio/drvrnew.h"
 #include "../../include/libultra/audio/save.h"
@@ -62,7 +62,7 @@ extern void alLoadNew(ALLoadFilter *, ALDMANew, ALHeap *);
 
  /* alGlobals */
 
-s32 _timeToSamplesNoRound(SynthOutputRateView *synth, s32 microseconds);
+s32 _timeToSamplesNoRound(ALSynth *synth, s32 microseconds);
 
          /* _timeToSamplesNoRound */
 void _collectPVoices(void *synth);
@@ -231,7 +231,7 @@ void _collectPVoices(void *synth) {
     }
 }
 
-s32 _timeToSamples(SynthOutputRateView *synth, s32 microseconds) {
+s32 _timeToSamples(ALSynth *synth, s32 microseconds) {
     f32 v;
     int idx;
 
@@ -265,7 +265,7 @@ s32 __nextSampleTime(ALSynth4C *drvr, ALPlayer_s14 **client) {
  return (*client)->samplesLeft;
 }
 
-s32 _timeToSamplesNoRound(SynthOutputRateView *synth, s32 microseconds) {
+s32 _timeToSamplesNoRound(ALSynth *synth, s32 microseconds) {
     f32 v;
     int idx;
 

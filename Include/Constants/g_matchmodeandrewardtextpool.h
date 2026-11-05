@@ -1,0 +1,6 @@
+#ifndef CONSTANTS_G_MATCHMODEANDREWARDTEXTPOOL_H
+#define CONSTANTS_G_MATCHMODEANDREWARDTEXTPOOL_H
+#if defined(VERSION_US_REV1)
+extern char g_matchModeAndRewardTextPool[2320];
+#endif
+#endif

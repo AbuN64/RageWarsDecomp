@@ -1,6 +1,6 @@
-#include "TYPES.H"
+#include "types.h"
 
-#include "COMMON/OSVISCALE.H"
+#include "Common/osviscale.h"
 
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800D8450_unclaimed_D906C */

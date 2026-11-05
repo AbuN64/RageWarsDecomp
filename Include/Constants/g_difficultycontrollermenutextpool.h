@@ -1,0 +1,6 @@
+#ifndef CONSTANTS_G_DIFFICULTYCONTROLLERMENUTEXTPOOL_H
+#define CONSTANTS_G_DIFFICULTYCONTROLLERMENUTEXTPOOL_H
+#if defined(VERSION_US_REV1)
+extern char g_difficultyControllerMenuTextPool[96];
+#endif
+#endif

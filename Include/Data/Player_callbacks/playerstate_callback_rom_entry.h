@@ -1,0 +1,4 @@
+#ifndef DATA_PLAYER_CALLBACKS_PLAYERSTATE_CALLBACK_ROM_ENTRY_H
+#define DATA_PLAYER_CALLBACKS_PLAYERSTATE_CALLBACK_ROM_ENTRY_H
+extern char g_playerLateStateLinkRecordLeadingTarget[];
+#endif

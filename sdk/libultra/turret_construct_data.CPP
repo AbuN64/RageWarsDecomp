@@ -7,13 +7,13 @@ unsigned int k_TurretConstructDataEncodedWords[8] = {
 
 #if defined(VERSION_US)
 #if defined(VERSION_US)
-extern char g_secondaryCollisionContext[];
+#include "Common/ccollisionsetup_t.h"
 unsigned int g_turretConstructRecordTable_us[56] = {
-    0x00000000, 0x00000000, 0x00000000, (unsigned int)g_secondaryCollisionContext + 0x80, 0x00203A94, 0x00000000, 0x00000005, 0x00000000,
-    0x00000001, 0x00000000, 0x00203AB0, (unsigned int)g_secondaryCollisionContext + 0x80, 0x00203A94, 0x3F800000, 0x00000005, 0x00000000,
-    0x0000003E, 0x00000000, 0x00203AD8, (unsigned int)g_secondaryCollisionContext + 0x80, 0x00002F44, 0x3F800000, 0x00000005, 0x00000000,
-    0x0000003F, 0x00000000, 0x00203B1C, (unsigned int)g_secondaryCollisionContext + 0x80, 0x00002F4E, 0x3F800000, 0x00000005, 0x00000000,
-    0x00000040, 0x00203B60, 0x00203C08, (unsigned int)g_secondaryCollisionContext + 0x80, 0x00002F58, 0x3F800000, 0x00000005, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, (unsigned int)&g_secondaryCollisionContext[4], 0x00203A94, 0x00000000, 0x00000005, 0x00000000,
+    0x00000001, 0x00000000, 0x00203AB0, (unsigned int)&g_secondaryCollisionContext[4], 0x00203A94, 0x3F800000, 0x00000005, 0x00000000,
+    0x0000003E, 0x00000000, 0x00203AD8, (unsigned int)&g_secondaryCollisionContext[4], 0x00002F44, 0x3F800000, 0x00000005, 0x00000000,
+    0x0000003F, 0x00000000, 0x00203B1C, (unsigned int)&g_secondaryCollisionContext[4], 0x00002F4E, 0x3F800000, 0x00000005, 0x00000000,
+    0x00000040, 0x00203B60, 0x00203C08, (unsigned int)&g_secondaryCollisionContext[4], 0x00002F58, 0x3F800000, 0x00000005, 0x00000000,
     0xFFFFFFFF, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x0020388C, 0x00203908, 0x00000000, 0x00000000, 0x00203C84, 0x00000000, 0x00203C40, 0x00000000,
 };

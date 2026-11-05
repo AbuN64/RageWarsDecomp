@@ -1,10 +1,10 @@
-#include "TYPES.H"
-#include "IO/libsn_readportbufferwithdma.H"
-#include "IO/libsn_writememorybyte.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "IO/EXTERNS.H"
-#include "IO/libsn_disableinterrupts.H"
+#include "types.h"
+#include "Io/libsn_readportbufferwithdma.h"
+#include "Io/libsn_writememorybyte.h"
+#include "Common/runtime_declarations.h"
+#include "Common/resident_event_handler.h"
+#include "Io/externs.h"
+#include "Io/libsn_disableinterrupts.h"
 #include "../../include/libultra/io/io.H"
 
 /* 80200B14.CPP */

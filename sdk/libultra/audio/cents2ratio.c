@@ -1,7 +1,7 @@
 #include "include_asm.h"
-#include "COMMON/VECTOR4F.H"
+#include "Common/vector4f.h"
 #include "../../include/BUF16B.H"
-#include "TYPES.H"
+#include "types.h"
 
 /* ROM-grounded data: src/g_audio_CentsToPitchRatioConstantWords_Event.c */
 const float g_audio_CentsToPitchRatioConstantWords[2] = {
@@ -51,7 +51,7 @@ void alCSPPlay(ALCSPlayer *playerAddress) {
 
 
 #if defined(VERSION_EU)
-unsigned int k_EventEncodedWordsBlock1[1] = {
+unsigned int k_eventFragment[1] = {
     0x43999999,
 };
 #endif

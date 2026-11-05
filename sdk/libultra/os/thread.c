@@ -1,4 +1,4 @@
-#include "COMMON/NODERECAT1C.H"
+#include "Common/os_timer_nodes.h"
 #include "../../include/libultra/os/thread.h"
 
 void __osDequeueThread(void **listHead, void *node) {

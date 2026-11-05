@@ -1,9 +1,12 @@
-#include "COMMON/ALPARAM_S.H"
+#include "Common/alauxbus_s.h"
+#include "Common/alparam_s.h"
 #include "../../include/libgultra.h"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/SHAREDRECV4.H"
-#include "TYPES.H"
+#include "Common/audio_callbacks.h"
+#include "Audio/synth_player_and_voice_records.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/audio_voice_allocation.h"
+#include "types.h"
 #include "../../include/libultra/audio/synthesizer.h"
 #include "../../include/libultra/audio/synallocvoice.h"
 
@@ -43,7 +46,7 @@ void alSynAddPlayer(ALSynth *synth, ALPlayer *audioPlayer) {
 
 s32 alSynAllocVoice(ALSynth *synth, ALVoice *voice, ALVoiceConfig *vc)
 {
-    AudioSynthVoiceAllocatorView *drvr = (AudioSynthVoiceAllocatorView *)synth;
+    ALSynth4C *drvr = (ALSynth4C *)synth;
     AudioAllocatedPhysicalVoiceView *pvoice = 0;
     AudioVoiceChannelFilterView *f;
     AudioVoiceAllocationUpdate *update;

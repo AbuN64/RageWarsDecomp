@@ -1,5 +1,4 @@
 #include "include_asm.h"
-#include "libsn/nav_isballisticarcobstructed_data.H"
 
 #if defined(VERSION_DE)
 unsigned int g_particleCollisionProbeResult[] = {

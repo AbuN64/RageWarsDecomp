@@ -1,7 +1,7 @@
-#include "COMMON/OSPIHANDLE_S.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
+#include "Common/ospihandle_s.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
 
 /* osPiRawStartDma, drafted from ultralib src/io/pirawdma.c (2.0I, where __osPiRawStartDma is osPiRawStartDma). */
 

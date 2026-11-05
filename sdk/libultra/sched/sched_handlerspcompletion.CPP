@@ -1,18 +1,18 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include <ultra64.h>
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include "COMMON/UNSIGNED_QUOTIENT.H"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "COMMON/SESSIONHANDLERROW.H"
-#include "COMMON/TRIPLE.H"
-#include "SCENE/CACHE_SENDCOMPLETIONMESSAGE.H"
+#include "types.h"
+#include <platform_sdk.h>
+#include "Common/runtime_declarations.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include "Common/unsigned_quotient.h"
+#include "Common/worldsortentry.h"
+#include "Common/sessionhandlerrow.h"
+#include "Common/triple.h"
+#include "Scene/cache_sendcompletionmessage.h"
 #include "../../include/SCHED/osscremoveclient.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 
-#include "COMMON/GAME_SESSION.H"
+#include "Common/game_session.h"
 void Sched_HandleRspCompletion(void *object) {
  OSSched *scheduler=object;
  OSScTask *nextRsp,*nextRdp;
@@ -35,7 +35,7 @@ void Sched_HandleRspCompletion(void *object) {
   if(task->flags&0x20) {
    elapsed=((osGetTime()-g_schedulerGraphicsTaskStartTime)<<6)/3;
    duration1=(f32)elapsed;
-   g_schedulerAccumulatedGraphicsRspDuration+=duration1*g_schedulerAudioFirstDurationScale;
+   g_schedulerAccumulatedGraphicsRspDuration+=duration1*g_schedulerRspDurationScales[0];
   }
  } else {
   task->state&=~2;
@@ -44,23 +44,23 @@ void Sched_HandleRspCompletion(void *object) {
    if(task->flags&0x20) {
     elapsed=((osGetTime()-g_schedulerGraphicsTaskStartTime)<<6)/3;
     duration2=(f32)elapsed;
-    g_schedulerAccumulatedGraphicsRspDuration=g_schedulerAccumulatedGraphicsRspDuration+duration2*g_schedulerAudioSecondDurationScale;
+    g_schedulerAccumulatedGraphicsRspDuration=g_schedulerAccumulatedGraphicsRspDuration+duration2*g_schedulerRspDurationScales[1];
     g_schedulerAudioDuration=g_schedulerAccumulatedGraphicsRspDuration;
     elapsed=((osGetTime()-g_schedulerAudioTaskStartTime)<<6)/3;
     duration3=(f32)elapsed;
-    g_schedulerTaskDuration=duration3*g_schedulerTaskFirstDurationScale;
+    g_schedulerTaskDuration=duration3*g_schedulerRspDurationScales[2];
     frame=g_gameSession.ring.frames;
     if(task->framebuffer!=frame[0].colorImage) {
      if(task->framebuffer==frame[1].colorImage) frame+=1;
      else if(task->framebuffer==frame[2].colorImage) frame+=2;
     }
-    Cache_SendCompletionMessage(0,frame->commands==g_displayListBufferOne);
+    Cache_SendCompletionMessage(0,frame->commands==g_displayListBuffers[1]);
     if(osSendMesg(task->msgQ,task->msg,1)==-1) *((char *)NULL)=0;
    }
   } else {
    elapsed=((osGetTime()-g_schedulerAudioTaskStartTime)<<6)/3;
    duration4=(f32)elapsed;
-   g_schedulerTaskDuration=duration4*g_schedulerTaskSecondDurationScale;
+   g_schedulerTaskDuration=duration4*g_schedulerRspDurationScales[3];
    if(osSendMesg(task->msgQ,task->msg,1)==-1) *((char *)NULL)=0;
   }
   Sched_CompleteTaskAndSwapBuffer(scheduler,task);
@@ -70,13 +70,13 @@ void Sched_HandleRspCompletion(void *object) {
 }
 
 /* Mechanically ported from github/legacy:src/Sched_HandleRdpCompletion_SchedHandlerspcompletion.c by address. */
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "COMMON/OBJRECAT20V1.H"
-#include "COMMON/SESSIONHANDLERROW.H"
-#include "COMMON/TRIPLE.H"
-#include "sched/sched_handlerspcompletion.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/worldsortentry.h"
+#include "Common/frame_direction.h"
+#include "Common/sessionhandlerrow.h"
+#include "Common/triple.h"
+#include "Sched/sched_handlerspcompletion.h"
 
 
 extern u32 g_schedulerRetracesSinceSwap;

@@ -1,8 +1,9 @@
 #include "../../include/libgultra.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/PARAMSRECAT8V3.H"
-#include "COMMON/CONTREADFORMAT.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/sound_player_parameter_events.h"
+#include "Common/contreadformat.h"
+#include "types.h"
 
 
 
@@ -12,9 +13,9 @@ void alSndpPlay(ALSndPlayer *soundPlayer) {
     s32 base = (s32)soundPlayer->sndState;
 
     if (((ALSoundState *) (base + (soundPlayer->target * 0x30)))->state == 0) {
-        ParamsRecAt8V1 p;
-        p.f0 = 0;
-        p.f4 = base + soundPlayer->target * 0x30;
+        ALSndpEvent p;
+        p.common.type = 0;
+        p.common.state = (void *)(base + soundPlayer->target * 0x30);
         alEvtqPostEvent(&soundPlayer->evtq, (s16 *)&p, 0);
     }
 }

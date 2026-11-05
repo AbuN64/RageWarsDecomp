@@ -1,9 +1,8 @@
-#include "TYPES.H"
-#include "COMMON/OSTHREAD_S.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include <ultra64.h>
+#include "types.h"
+#include "Common/osthread_s.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_exception.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>

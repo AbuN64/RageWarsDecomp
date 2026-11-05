@@ -1,0 +1,43 @@
+#!/bin/sh
+# Regression slice for ci/placeholders: a placeholder spelled inside a string or character literal is ROM text, a number its symbol's own string initializer reads is text, a camelCase Rev version
+# tag and the console name N64 are no placeholder, and a numbered row with no such text still refuses under every one-letter data prefix (g_, k_, s_); an address name (R13) refuses on its own count
+# outside literals, comments and vendor words. Runs in a scratch repository under .tmp.
+set -eu
+root="$(cd "$(dirname "$0")/.." && pwd)"
+work="$root/.tmp/placeholders-test"
+rm -rf "$work"
+mkdir -p "$work/ci" "$work/Source" "$work/Include"
+cp "$root/ci/placeholders" "$work/ci/placeholders"
+cat > "$work/Source/text.cpp" <<'EOF'
+char g_euText_warpLevel4Activated[23] = "warp level 4 activated";
+char g_usRev1Text_10Health[12] = "10 health\000\000";
+EOF
+cat > "$work/Include/text.h" <<'EOF'
+extern char g_euText_warpLevel4Activated[];
+extern char g_usRev1Text_10Health[];
+extern char g_deText_15FragsIn5[]; /* "15 FRAGS IN 5 MINUTEN" */
+#define FORMAT GPACK_RGBA5551 /* D_800C6E28_eu_x */
+#ifdef __mc68020__
+#endif
+char g_sourceName[] = "g_weaponStateEndCFF98";
+char g_debugNames[2][16] = { "m_BlackColor2", 'm_Field2' };
+extern char g_setn64Startround[];
+EOF
+git -C "$work" init -q
+git -C "$work" add -A
+sh "$work/ci/placeholders"
+cat > "$work/Source/rows.cpp" <<'EOF'
+char g_euText_warpLevel4Activated2[23] = "warp level 4 activated";
+char g_menuRow5[4] = "row";
+extern char g_deText_15FragsIn6[]; /* "15 FRAGS IN 5 MINUTEN" */
+extern char g_weaponStateEndCFF98[];
+extern char D_800C6E28_eu_x[];
+const char k_ovlTable8[4] = "tab";
+extern char g_setn64Mode5[];
+static char s_menuSecondRow[4] = "row";
+EOF
+git -C "$work" add -A
+if out="$(sh "$work/ci/placeholders" 2>&1)"; then echo "placeholders-test: numbered rows passed" >&2; exit 1; fi
+printf '%s\n' "$out" | grep -q 'ci/placeholders: 6 placeholder lines, 0 placeholder paths, 2 address-name lines' || { printf '%s\n' "$out" >&2; exit 1; }
+rm -rf "$work"
+echo "placeholders-test: passed"

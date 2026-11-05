@@ -1,0 +1,5 @@
+#ifndef MENU_TRACK_TRACK_EVALUATETRACKOPACITY_SYMBOLS_H
+#define MENU_TRACK_TRACK_EVALUATETRACKOPACITY_SYMBOLS_H
+#include "types.h"
+extern f32 g_trackSplineRangeScale;
+#endif

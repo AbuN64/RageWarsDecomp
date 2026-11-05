@@ -1,0 +1,5 @@
+#ifndef DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS08POINTERWORDS1_OVL1E_H
+#define DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS08POINTERWORDS1_OVL1E_H
+extern char g_Player_UpdateLeapMotionPackedAddress[];
+extern char addrLow_Player_UpdateLeapMotion[];
+#endif

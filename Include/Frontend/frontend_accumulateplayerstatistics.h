@@ -1,0 +1,5 @@
+#ifndef FRONTEND_FRONTEND_ACCUMULATEPLAYERSTATISTICS_H
+#define FRONTEND_FRONTEND_ACCUMULATEPLAYERSTATISTICS_H
+#include "Common/menu_options_and_results.h"
+extern void Frontend_AccumulatePlayerStatistics(void);
+#endif

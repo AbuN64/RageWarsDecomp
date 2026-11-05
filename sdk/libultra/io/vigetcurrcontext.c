@@ -1,8 +1,8 @@
 #include "include_asm.h"
-#include "COMMON/OSVISCALE.H"
-#include "SYSTEM/VIDEO_CONTEXT_VIEWS.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/osviscale.h"
+#include "System/video_context_views.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

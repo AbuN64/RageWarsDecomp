@@ -1,6 +1,6 @@
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/runtime_declarations.h"
 #include "../include/BUF16B.H"
-#include "TYPES.H"
+#include "types.h"
 #include "../include/libgultra_inferred/cseq.H"
 
 /* cspsetseq.CPP */

@@ -1,10 +1,10 @@
 #include "include_asm.h"
-#include "COMMON/BOOT_TV_TYPE.H"
-#include <ultra64.h>
-#include "COMMON/OSVISCALE.H"
-#include "TYPES.H"
+#include "Common/boot_tv_type.h"
+#include <platform_sdk.h>
+#include "Common/osviscale.h"
+#include "types.h"
 #include "../../include/AUDIO/__OSVISWAPCONTEXT.H"
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Data/rest_source_records.h"
 
 /* viswapcontext.c */
 /* __osViSwapContext, drafted from ultralib src/io/viswapcontext.c (2.0I: vStart straight from the
@@ -92,6 +92,6 @@ void __osViSwapContext(void)
 
 /* VIDEO_SCALE_UNSIGNED_BIAS_DATA.CPP */
 /* ROM-grounded data: src/g_videoScaleUnsignedBias_StorageWords_VideoScaleUnsignedBiasData.c */
-const RestvideoScaleUnsignedBias_StorageWordsLayout386 g_videoScaleUnsignedBias_StorageWords = {
+const VideoScaleUnsignedBias_StorageWordsLayout g_videoScaleUnsignedBias_StorageWords = {
     { 3e+01f, 0.0f, 2.1474836e+09f },
 };

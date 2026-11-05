@@ -1,0 +1,4 @@
+#ifndef FRONTEND_PAKPROFILE_FRONTEND_UPDATEPAKSCREENPANELS_H
+#define FRONTEND_PAKPROFILE_FRONTEND_UPDATEPAKSCREENPANELS_H
+extern s32 Frontend_UpdatePakScreenPanels(s32 element, s32 eventId, s32 event);
+#endif

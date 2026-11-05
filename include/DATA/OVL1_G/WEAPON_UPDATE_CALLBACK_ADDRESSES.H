@@ -1,5 +1,0 @@
-#ifndef DATA_OVL1_G_WEAPON_UPDATE_CALLBACK_ADDRESSES_H
-#define DATA_OVL1_G_WEAPON_UPDATE_CALLBACK_ADDRESSES_H
-extern char g_weaponai_SettleSpinToThirdTurnEntry[];
-extern char g_weapon_ApplySideDependentYawEntry[];
-#endif

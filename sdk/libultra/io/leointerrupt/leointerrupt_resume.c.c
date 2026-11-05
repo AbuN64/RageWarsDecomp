@@ -1,10 +1,9 @@
 #include "../../../include/thread_queue.h"
 #include "include_asm.h"
-#include "COMMON/LONE/OS_RUNNABLE_THREAD_QUEUE.H"
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CTX.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/Lone/os_runnable_thread_queue.h"
+#include "types.h"
+#include "Common/ctx.h"
+#include "Common/runtime_declarations.h"
 #include "../../../include/libultra/io/leointerrupt_resume.h"
 
 /* leointerrupt_resume.c */

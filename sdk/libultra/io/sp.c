@@ -1,4 +1,4 @@
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include "../../include/libgultra/sp.h"
 
 int __osSpDeviceBusy(void) {

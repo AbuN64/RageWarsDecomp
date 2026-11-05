@@ -1,0 +1,5 @@
+#ifndef COMMON_LONE_G_PAKDIALOGIDREPAIR_SNAPSHOTCHECKEUROPEANSAVEAVAILABILITY_H
+#define COMMON_LONE_G_PAKDIALOGIDREPAIR_SNAPSHOTCHECKEUROPEANSAVEAVAILABILITY_H
+#include "Menu/Pak/Snapshot/snapshot_checkeuropeansaveavailability_symbols.h"
+#include "types.h"
+#endif

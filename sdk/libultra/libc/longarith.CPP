@@ -1,7 +1,7 @@
 #include "include_asm.h"
 #if !(defined(VERSION_EU_X) || defined(VERSION_US_REV1))
-#include "TYPES.H"
-#include "COMMON/EFFECTRENDER.H"
+#include "types.h"
+#include "Common/effectrender.h"
 /* Signed 64-bit integer to double: the high word scaled by 2^32 plus the low word, each word read
    as signed and corrected by 2^32 when negative. */
 

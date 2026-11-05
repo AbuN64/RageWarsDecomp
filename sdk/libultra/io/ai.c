@@ -1,6 +1,6 @@
 #include "../../include/libgultra.h"
-#include "COMMON/GUMTXL2F.H"
-#include "TYPES.H"
+#include "Common/gumtxl2f.h"
+#include "types.h"
 #include "../../include/libgultra/ai.h"
 
 /* Returns whether the audio interface status register at 0xA450000C has its top bit (FIFO full)

@@ -1,5 +1,0 @@
-#if defined(VERSION_EU_X)
-/* Older build's rodata pool. */
-double g_earlierPoolDoubles16[1] = { 43252845580.0 };
-unsigned int g_earlierPoolZeroWord12[1] = { 0 };
-#endif

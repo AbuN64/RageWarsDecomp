@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_ACTOR_STATE_ENTRY7_US_REV1_H
+#define DATA_OVLTBL_ACTOR_STATE_ENTRY7_US_REV1_H
+extern char g_triggeredMotionFlaggedEnterEntry[];
+extern char g_triggeredMotionFlaggedUpdateEntry[];
+#endif

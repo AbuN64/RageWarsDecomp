@@ -1,22 +1,22 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
+#include "types.h"
+#include "Common/controller_motor_state.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
 #include "../../include/libgultra.h"
 #include "../../include/libultra/io/si.h"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/libultra/debug/assert.h"
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "DATA/OVL1_C/NAVIGATION_CALLBACK_ADDRESS.H"
+#include "Data/rest_source_records.h"
+#include "Data/Ovl1_c/navigation_callback_address.h"
 
 extern void osWritebackDCache(void *addr, s32 size);
 
 extern void osInvalDCache(void *addr, s32 size);
 
 /* G_CONSTANTSENCODEDWORDSBLOCK19.CPP */
-/* g_ConstantsEncodedHalfwords_Constants18.CPP */
+/* g_ConstantsEncodedHalfwords.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800CCBF2 */
 unsigned short g_ConstantsEncodedHalfwords[1] = {
@@ -26,7 +26,7 @@ unsigned short g_ConstantsEncodedHalfwords[1] = {
 
 /* NAVIGATION_CALLBACK_ADDRESS.CPP */
 #if defined(VERSION_US_REV1)
-void * g_ConstantsEncodedWordsBlock19[3] = {
+void * g_navGoalRouteTargetingCallbackAddresses[3] = {
     (void *)&addrLow_Nav_RebuildRequestedGoalRoute, (void *)&addrLow_Nav_CollectEnemyTargets, (void *)&addrLow_Target_UpdateTargetSelection,
 };
 #endif

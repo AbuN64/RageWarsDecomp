@@ -1,9 +1,8 @@
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/alauxbus_s.h"
 #include <PR/abi.h>
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
 #include "../../include/libultra/audio/auxbus.h"
 
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
@@ -77,18 +76,18 @@ Acmd *alAuxBusPull(ALAuxBus_s *filter, s16 *outp, s32 outCount, s32 sampleOffset
 }
 #endif
 
-s32 alAuxBusParam(ObjalAuxBusParam *bus, s32 operation, s32 source) {
+s32 alAuxBusParam(ALAuxBus_s *bus, s32 operation, s32 source) {
     int sourceCount;
     s32 *base;
     s32 count;
 
-    base = bus->base;
+    base = (s32 *)bus->sources;
     if (operation == 2) {
-        sourceCount = bus->count;
+        sourceCount = bus->sourceCount;
         count = sourceCount;
         base[count] = source;
         sourceCount = count + 1;
-        bus->count = sourceCount;
+        bus->sourceCount = sourceCount;
     }
     return 0;
 }

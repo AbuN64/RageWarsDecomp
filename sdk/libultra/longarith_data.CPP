@@ -2,14 +2,14 @@
 #include "../include/libgultra.h"
 
 #if defined(VERSION_DE) || defined(VERSION_EU)
-const float k_LongarithDataEncodedWordsBlock2[6] = {
+const float k_longarithRangeFloats[6] = {
     30.0f, 0.0f, 7.5f, 0.0f,
     30.0f, 0.0f,
 };
 #endif
 
 #if defined(VERSION_EU)
-unsigned int k_LongarithDataEncodedWordsBlock1[2] = {
+unsigned int k_longarithDecimalAndHalfWords[2] = {
     0x3DCCCCCD, 0x3F000000,
 };
 #endif

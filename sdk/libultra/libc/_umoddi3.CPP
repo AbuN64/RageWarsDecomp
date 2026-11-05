@@ -6,6 +6,6 @@
 #if defined(VERSION_US)
 #define LIBGCC2_EXTERNAL_CLZ s_ambiencText
 #else
-#define LIBGCC2_EXTERNAL_CLZ g_u64RemainderNormalizationBitWidths
+#define LIBGCC2_EXTERNAL_CLZ g_countLeadingZerosTable
 #endif
 #include "../../libgcc/libgcc2.inc.c"

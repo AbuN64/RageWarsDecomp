@@ -1,9 +1,9 @@
-#include "COMMON/BOOT_TV_TYPE.H"
+#include "Common/boot_tv_type.h"
 #include <PR/abi.h>
-#include "COMMON/OSVISCALE.H"
-#include "TYPES.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include <ultra64.h>
+#include "Common/osviscale.h"
+#include "types.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

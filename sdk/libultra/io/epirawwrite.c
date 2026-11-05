@@ -1,14 +1,14 @@
 #include "include_asm.h"
-#include "COMMON/VECTOR4F.H"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include "COMMON/CACHE_ALLOCATERESOURCE.H"
-#include <ultra64.h>
+#include "Common/vector4f.h"
+#include "Common/ospihandle_s.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include "Common/cache_allocateresource.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "UI/X_FILES/X_PLUS.H"
+#include "Ui/X_files/x_plus.h"
 
 extern OSPiHandle *g_peripheralDomainHandles[];
 

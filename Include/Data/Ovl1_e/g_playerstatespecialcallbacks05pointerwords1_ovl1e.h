@@ -1,0 +1,7 @@
+#ifndef DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS05POINTERWORDS1_OVL1E_H
+#define DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS05POINTERWORDS1_OVL1E_H
+extern char g_Player_BeginJumpPackedAddress[];
+extern char g_Player_UpdateJumpAscentPackedAddress[];
+extern char addrLow_Player_BeginJump[];
+extern char addrLow_Player_UpdateJumpAscent[];
+#endif

@@ -1,9 +1,9 @@
-#include "COMMON/ALFXPARAM.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/GUMTXL2F.H"
-#include "COMMON/TRIPLE.H"
-#include <ultra64.h>
+#include "Common/alfxparam.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/gumtxl2f.h"
+#include "Common/triple.h"
+#include <platform_sdk.h>
 
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 const unsigned int k_perspectiveProjectionConstantWordsUsRev1[5] = {

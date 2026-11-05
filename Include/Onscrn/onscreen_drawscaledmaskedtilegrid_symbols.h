@@ -1,0 +1,5 @@
+#ifndef ONSCRN_ONSCREEN_DRAWSCALEDMASKEDTILEGRID_SYMBOLS_H
+#define ONSCRN_ONSCREEN_DRAWSCALEDMASKEDTILEGRID_SYMBOLS_H
+#include "types.h"
+extern u8 g_onScreenFontTextureStorage[144];
+#endif

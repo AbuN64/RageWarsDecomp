@@ -1,14 +1,15 @@
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CONTREADFORMAT.H"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/contreadformat.h"
+#include "Common/ospihandle_s.h"
+#include "Common/controller_motor_state.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
 #include "../../include/OS/siaccess.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "COMMON/LONE/siaccess.H"
+#include "Common/Lone/siaccess.h"
 
 extern OSMesgQueue g_serialInterfaceAccessQueue;
 extern OSMesg g_serialInterfaceAccessMessage;
@@ -16,7 +17,7 @@ extern OSMesg g_serialInterfaceAccessMessage;
 /* siaccess.CPP */
 /* 802BECB0.CPP */
 void __osSiCreateAccessQueue(void) {
-    g_serialInterfaceAccessQueueInitialized[0] = 1;
+    g_serialInterfaceAccessQueueInitialized = 1;
     osCreateMesgQueue(&g_serialInterfaceAccessQueue, &g_serialInterfaceAccessMessage, 1);
     osSendMesg(&g_serialInterfaceAccessQueue, 0, 0);
 }
@@ -27,7 +28,7 @@ void __osSiCreateAccessQueue(void) {
    when g_serialInterfaceAccessQueueInitialized says it does not exist yet. Adapted from __osPiGetAccess with the queue, its buffer and its flag changed. */
 
 static inline void create_access_queue(void) {
-    g_serialInterfaceAccessQueueInitialized[0] = 1;
+    g_serialInterfaceAccessQueueInitialized = 1;
     osCreateMesgQueue(&g_serialInterfaceAccessQueue, &g_serialInterfaceAccessMessage, 1);
     osSendMesg(&g_serialInterfaceAccessQueue, 0, 0);
 }
@@ -35,7 +36,7 @@ static inline void create_access_queue(void) {
 void __osSiGetAccess(void) {
     OSMesg token;
 
-    if (!g_serialInterfaceAccessQueueInitialized[0]) {
+    if (!g_serialInterfaceAccessQueueInitialized) {
         create_access_queue();
     }
     osRecvMesg(&g_serialInterfaceAccessQueue, &token, 1);
@@ -48,5 +49,5 @@ void __osSiRelAccess(void) {
 
 /* G_SERIALINTERFACEACCESSQUEUEINITIALIZED.CPP */
 #if defined(VERSION_US_REV1)
-s32 g_serialInterfaceAccessQueueInitialized[1] = {0};
+s32 g_serialInterfaceAccessQueueInitialized = 0;
 #endif

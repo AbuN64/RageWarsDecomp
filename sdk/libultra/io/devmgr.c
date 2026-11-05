@@ -1,12 +1,12 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "COMMON/ALFXPARAM.H"
+#include "types.h"
+#include "Common/ospihandle_s.h"
+#include "Common/alfxparam.h"
 #include "../../include/libultra/io/pirawread.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "UI/X_FILES/X_PLUS.H"
+#include "Ui/X_files/x_plus.h"
 
 extern OSPiHandle *g_peripheralHandleList;
 

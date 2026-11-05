@@ -1,7 +1,8 @@
 #include "../../include/libgultra.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/OBJRECAT18V1.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/sequence_timing.h"
+#include "types.h"
 #include "../../include/libgultra/alunlink.h"
 #include "../../include/al_globals.h"
 

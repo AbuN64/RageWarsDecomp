@@ -1,0 +1,4 @@
+#ifndef DATA_COMMON_MENU_TIMES_TEXT_FRAGMENT_US_REV1_H
+#define DATA_COMMON_MENU_TIMES_TEXT_FRAGMENT_US_REV1_H
+extern char s_menuTimesTextFragmentUsRev1[];
+#endif

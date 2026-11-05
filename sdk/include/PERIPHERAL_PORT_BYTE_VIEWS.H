@@ -1,6 +1,6 @@
 #ifndef PERIPHERAL_PORT_BYTE_VIEWS_H
 #define PERIPHERAL_PORT_BYTE_VIEWS_H
-#include "TYPES.H"
+#include "types.h"
 
 
 

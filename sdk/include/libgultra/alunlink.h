@@ -1,6 +1,6 @@
 #ifndef LIBGULTRA_ALUNLINK_H
 #define LIBGULTRA_ALUNLINK_H
-#include "TYPES.H"
+#include "types.h"
 struct ListLink;
-#include "COMMON/CARTRIDGEREADWORKER.H"
+#include "Common/cartridgereadworker.h"
 #endif

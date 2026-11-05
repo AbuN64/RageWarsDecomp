@@ -1,0 +1,6 @@
+#ifndef FRONTEND_RESIDENT_FRONTEND_HANDLEPAGE67CHOICE_H
+#define FRONTEND_RESIDENT_FRONTEND_HANDLEPAGE67CHOICE_H
+extern s32 Frontend_AcknowledgePage67Event(void);
+extern s32 Frontend_HandlePage67Choice(void);
+extern s32 Frontend_IgnorePage67Event(void);
+#endif

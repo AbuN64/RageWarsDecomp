@@ -1,9 +1,9 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/ALDELAY28.H"
-#include "COMMON/GUMTXL2F.H"
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "COMMON/ALFXPARAM.H"
+#include "types.h"
+#include "Common/audio_effect_chain.h"
+#include "Common/gumtxl2f.h"
+#include "Data/rest_source_records.h"
+#include "Common/alfxparam.h"
 
 /* mtxutil.CPP */
 void guMtxIdent(Mtx *m) {
@@ -197,7 +197,7 @@ const float k_lookatFloatConstantWords[7] = {
 };
 
 #if defined(VERSION_DE)
-float k_LookatEncodedWordsBlock1[3] = {
+float k_lookatFragment[3] = {
     0.5f, -1.0f, 2.0f,
 };
 #endif

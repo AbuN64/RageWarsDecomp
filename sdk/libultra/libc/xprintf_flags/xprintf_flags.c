@@ -8,7 +8,7 @@ const char g_printfFlagCharactersText[8] =
 #endif
 
 #if defined(VERSION_US_REV1)
-/* ROM-grounded data: src/g_printfFlagCharactersText_StorageWords_XprintfData0.c */
+/* ROM-grounded data: src/g_printfFlagCharactersText_StorageWords.c */
 const unsigned short g_printfFlagCharactersText_StorageWords[3] = {
     0x202B, 0x2D23, 0x3000,
 };
@@ -17,7 +17,7 @@ const unsigned short g_printfFlagCharactersText_StorageWords[3] = {
 /* 800CD394_7.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800CCD46 */
-unsigned short g_XprintfData0EncodedHalfwords[1] = {
+unsigned short g_printfFlagCharactersTrailingHalfword[1] = {
     0x0000,
 };
 #endif

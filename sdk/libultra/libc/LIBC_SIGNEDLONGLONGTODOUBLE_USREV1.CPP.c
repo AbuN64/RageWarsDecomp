@@ -9,8 +9,8 @@
    own constants (already covered as data at 0x800CD350/0x800CD358/0x800CD360), so the code loads
    them by reference instead of emitting a constant pool. */
 #include "../../include/EXTERNS.H"
-#include "COMMON/EFFECTRENDER.H"
-#include "COMMON/SITYPE.H"
+#include "Common/effectrender.h"
+#include "Common/sitype.h"
 
  /* 2^32 */
  /* 2^16, HIGH_HALFWORD_COEFF */

@@ -1,0 +1,5 @@
+#ifndef DATA_OVERLAYS_WEAPONSLOT_LINKTABLES_VI_DATA_H
+#define DATA_OVERLAYS_WEAPONSLOT_LINKTABLES_VI_DATA_H
+struct __OSViContext;
+extern struct __OSViContext g_viDataZeroWords[];
+#endif

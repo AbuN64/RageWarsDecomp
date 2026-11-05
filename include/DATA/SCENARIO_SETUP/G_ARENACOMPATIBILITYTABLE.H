@@ -1,6 +1,0 @@
-#ifndef DATA_SCENARIO_SETUP_G_ARENACOMPATIBILITYTABLE_H
-#define DATA_SCENARIO_SETUP_G_ARENACOMPATIBILITYTABLE_H
-extern char g_Frontend_ClearLoadingHintsPackedAddress242[];
-extern char g_Frontend_HandleMatchMenuMessagePackedAddress242[];
-extern char g_Frontend_CloseMatchMenuPackedAddress242[];
-#endif

@@ -1,5 +1,5 @@
 #include "include_asm.h"
-#include "libc/libc_formatinteger_data.H"
+#include "Libc/libc_formatinteger_data.h"
 
 #if !(defined(VERSION_US_REV1))
 const char g_lowercaseHexDigitsText[17] =

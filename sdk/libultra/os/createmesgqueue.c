@@ -1,12 +1,12 @@
 #include "include_asm.h"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/runtime_declarations.h"
 #include "../../include/libgultra.h"
-#include "COMMON/OSTHREAD_S.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/osthread_s.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Data/rest_source_records.h"
 
 /* createmesgqueue.c */
 /* 802BFD80_2.CPP */
@@ -26,7 +26,7 @@ extern char g_audioDiskTransferLinkTable[];
 
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #ifdef VERSION_DE
-RestOsstartthreadEncodedWordsLayout422 k_OsstartthreadEncodedWords = {
+OsstartthreadEncodedWordsLayout k_OsstartthreadEncodedWords = {
     { (void *)&__osThreadTail, (void *)&__osThreadTail, 0, 0 },
     "?s33",
     16.0f,

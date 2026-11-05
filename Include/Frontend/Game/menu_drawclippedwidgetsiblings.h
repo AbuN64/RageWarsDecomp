@@ -1,0 +1,4 @@
+#ifndef FRONTEND_GAME_MENU_DRAWCLIPPEDWIDGETSIBLINGS_H
+#define FRONTEND_GAME_MENU_DRAWCLIPPEDWIDGETSIBLINGS_H
+extern int Menu_DestroyEuxOptionsAndReloadLanguage(void);
+#endif

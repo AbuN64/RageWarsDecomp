@@ -1,21 +1,21 @@
-#include <ultra64.h>
-#include "COMMON/TEXTURE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/SOUNDINFO.H"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "COMMON/OSVISCALE.H"
-#include "COMMON/NODERECAT2A8.H"
-#include "TYPES.H"
+#include <platform_sdk.h>
+#include "Common/texture.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/runtime_declarations.h"
+#include "Common/soundinfo.h"
+#include "Common/worldsortentry.h"
+#include "Common/osviscale.h"
+#include "Common/frontend_video_mode.h"
+#include "types.h"
 #include "../../include/libgultra.h"
-#include "COMMON/BOOT_TV_TYPE.H"
-#include "FRONTEND/SCREEN_VIDEO_MODE.H"
-#include "SYSTEM/SOUND_CONTEXT_MUSIC_AND_VOICE_CONTROL.H"
+#include "Common/boot_tv_type.h"
+#include "Frontend/screen_video_mode.h"
+#include "System/sound_context_music_and_voice_control.h"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "sched/sched_handleretrace.H"
-#include "sched/sched_handlerspcompletion.H"
-#include "sched/sched_handletaskcommands.H"
+#include "Sched/sched_handleretrace.h"
+#include "Sched/sched_handlerspcompletion.h"
+#include "Sched/sched_handletaskcommands.h"
 
 #if !(defined(VERSION_EU) || defined(VERSION_US))
 

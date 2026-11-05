@@ -1,10 +1,10 @@
-#include "TYPES.H"
-#include "COMMON/LONE/CONTROLLER_MOTOR_STOP_DATA.H"
-#include "COMMON/SHAREDPLAYER.H"
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include <ultra64.h>
+#include "types.h"
+#include "Common/Lone/controller_motor_stop_data.h"
+#include "Common/sharedplayer.h"
+#include "types.h"
+#include "Common/controller_motor_state.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"

@@ -1,0 +1,13 @@
+#ifndef AUDIO_AUDIO_INITBITREVERSEORDER_H
+#define AUDIO_AUDIO_INITBITREVERSEORDER_H
+#include "Common/lldivresult.h"
+#include "Common/audio_loaddecodedsamples.h"
+struct FftTables;
+extern u32 Audio_DecodeFrameOk(void *stream);
+extern void Audio_RotateComplexSamples(float *samples, float *rotationReal, float *rotationImaginary);
+extern void Audio_ReorderTransformSamples(float *output, float *input);
+extern s16 Audio_QuantizeSampleS16(f32 sample);
+extern void Audio_TransformFft(f32 *data, struct FftTables *tables, s32 sign);
+extern void Audio_InitBitReverseOrder(s32 *permutation, s32 elementCount);
+u32 Audio_InitDecodeStream(s32 *source, u32 divisor, s32 *first);
+#endif

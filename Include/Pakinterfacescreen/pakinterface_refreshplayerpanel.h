@@ -1,0 +1,5 @@
+#ifndef PAKINTERFACESCREEN_PAKINTERFACE_REFRESHPLAYERPANEL_H
+#define PAKINTERFACESCREEN_PAKINTERFACE_REFRESHPLAYERPANEL_H
+#include "types.h"
+extern void PAKInterface_RefreshPlayerPanel(s32 player);
+#endif

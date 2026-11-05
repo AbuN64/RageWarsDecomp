@@ -1,0 +1,5 @@
+#ifndef AI_PLAYER_PLAYERAI_OFFSETACTORFORFORCEMARKER_DATA_H
+#define AI_PLAYER_PLAYERAI_OFFSETACTORFORFORCEMARKER_DATA_H
+struct Player;
+extern void Playerai_BeginRoundEndWait(struct Player *widget);
+#endif

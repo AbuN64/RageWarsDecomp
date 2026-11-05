@@ -1,19 +1,18 @@
 #include "include_asm.h"
-#include "AUDIO/ACMD.H"
+#include "Audio/acmd.h"
 #include <PR/abi.h>
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/runtime_declarations.h"
 #include "../../include/libultra/audio/EFFECT_FILTER_STATE.H"
 #include "../../include/libgultra.h"
-#include "COMMON/ALPARAM_S.H"
-#include "COMMON/ALDELAY28.H"
-#include "COMMON/TRIPLE.H"
-#include "TYPES.H"
-#include <ultra64.h>
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/alparam_s.h"
+#include "Common/audio_effect_chain.h"
+#include "Common/triple.h"
+#include "types.h"
+#include <platform_sdk.h>
+#include "Common/alauxbus_s.h"
 #include "../../include/al_globals.h"
-#include "COMMON/ALFXPARAM.H"
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Common/alfxparam.h"
+#include "Data/rest_source_records.h"
 
 f32 _getDelta(ALDelay28 *d, s32 count);
 Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p);
@@ -116,7 +115,7 @@ s32 alFxParamHdl(EffectFilterState *filter, s32 paramID, void *param)
         }
         case 7:
             if (f->delay[s].lp) {
-                f->delay[s].lp->mode = (s16)val;
+                ((AudioLowPassFilter *)f->delay[s].lp)->cutoff = (s16)val;
                 init_lpfilter(f->delay[s].lp);
             }
             break;

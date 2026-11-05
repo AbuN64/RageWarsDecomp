@@ -1,6 +1,6 @@
-#include "TYPES.H"
-#include "COMMON/AIPROFILE.H"
-#include "COMMON/OSTHREAD_S.H"
+#include "types.h"
+#include "Common/aiprofile.h"
+#include "Common/osthread_s.h"
 
 extern void *__osRunningThread;
 

@@ -1,5 +1,0 @@
-#ifndef DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS07POINTERWORDS1_OVL1E_H
-#define DATA_OVL1_E_G_PLAYERSTATESPECIALCALLBACKS07POINTERWORDS1_OVL1E_H
-extern char g_Player_BeginLateralLeapPackedAddress24[];
-extern char g_Player_UpdateLateralLeapPackedAddress24[];
-#endif

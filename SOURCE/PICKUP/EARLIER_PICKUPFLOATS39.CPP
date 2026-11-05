@@ -1,4 +1,0 @@
-#if defined(VERSION_EU_X)
-/* Older build's rodata of C:/Projects/DM/n64/Source/pickup.cpp. */
-float g_earlierPickupFloats39[2] = { 12.5857687f, 50.5676384f };
-#endif

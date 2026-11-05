@@ -1,28 +1,28 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Data/rest_source_records.h"
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 #include <PR/abi.h>
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ALSEQUENCEPLAYER.H"
-#include "COMMON/ALDELAY28.H"
+#include "Common/audio_callbacks.h"
+#include "Common/alsequenceplayer.h"
+#include "Common/audio_effect_chain.h"
 #include "../../include/libultra/audio/save.H"
-#include "TYPES.H"
+#include "types.h"
 #include "../../include/libultra/debug/assert.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/ALAUXBUS_S.H"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/alauxbus_s.h"
 
 /* ALSAVEPULL.CPP */
 /* 802B63E4_4.CPP */
 
 /* save_3.c */
 #if defined(VERSION_EU)
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 #include <PR/abi.h>
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ALSEQUENCEPLAYER.H"
-#include "COMMON/ALDELAY28.H"
+#include "Common/audio_callbacks.h"
+#include "Common/alsequenceplayer.h"
+#include "Common/audio_effect_chain.h"
 #include "libultra/audio/save.H"
-#include "TYPES.H"
+#include "types.h"
 #include "libultra/debug/assert.h"
 #include "../../include/libultra/audio/save.h"
 Acmd *alSavePull(ALSave_u1 *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
@@ -88,8 +88,8 @@ s32 alSaveParam(ALSave *saveFilter, s32 parameterId, ALFilter_s14 *parameterValu
 
 /* save_bytes.c */
 #if !(defined(VERSION_US))
-/* ROM-grounded data: src/g_SaveBytes2_Save.c */
-const unsigned char g_SaveBytes2[4] = {
+/* ROM-grounded data: src/g_saveAssertExpressionText.c */
+const unsigned char g_saveAssertExpressionText[4] = {
     0x45, 0x58, 0x00, 0x00,
 };
 #endif

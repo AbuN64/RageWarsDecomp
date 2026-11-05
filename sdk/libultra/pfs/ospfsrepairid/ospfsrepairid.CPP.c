@@ -1,8 +1,9 @@
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
-#include "TYPES.H"
+#include <libultra/pfs/PFS.H>
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/player_pool_and_inode_cache_views.h"
+#include "types.h"
 #include "../../../include/OSCONTREQUESFORMATSHORT.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include "../../../include/PFS/__OSCHECKID.H"
 #include "../../../include/PFS/PFS_SELECTACTIVEBANK.H"
 #include "../../../include/libultra/pfs/PFS.H"

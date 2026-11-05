@@ -1,5 +1,5 @@
 #include "include_asm.h"
-#include "COMMON/CTX.H"
+#include "Common/ctx.h"
 
 /* 802BB630_3.CPP */
 #if defined(VERSION_DE)

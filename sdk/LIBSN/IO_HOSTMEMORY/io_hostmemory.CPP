@@ -1,19 +1,22 @@
 #include "../../include/thread_queue.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "IO/EXTERNS.H"
-#include "TYPES.H"
-#include "IO/libsn_disableinterrupts.H"
-#include <ultra64.h>
+#include "Common/osviscale.h"
+#include "Common/runtime_declarations.h"
+#include "Common/triple.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/resident_event_handler.h"
+#include "Io/externs.h"
+#include "types.h"
+#include "Io/libsn_disableinterrupts.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "COMMON/LIBSN_AND_RESIDENT_CALLBACKS.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "IO/libsn_readportbufferwithdma.H"
-#include "IO/io_hostmemory.H"
-#include "IO/DEBUG_MEMORY.H"
-#include "IO/CONTROLLER_REQUEST.H"
-#include "COMMON/OSTHREAD_S.H"
+#include "Common/libsn_and_resident_callbacks.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Io/libsn_readportbufferwithdma.h"
+#include "Io/io_hostmemory.h"
+#include "Io/debug_memory.h"
+#include "Io/controller_request.h"
+#include "Common/osthread_s.h"
 #include "../../include/libultra/io/io.H"
 /* 80200B14_2.CPP */
 void Libsn_WriteTransferPortByte(s32 address, unsigned char byteValue)

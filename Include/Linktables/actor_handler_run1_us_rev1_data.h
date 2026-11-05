@@ -1,0 +1,4 @@
+#ifndef LINKTABLES_ACTOR_HANDLER_RUN1_US_REV1_DATA_H
+#define LINKTABLES_ACTOR_HANDLER_RUN1_US_REV1_DATA_H
+extern unsigned int g_actorNavRouteHandlers[];
+#endif

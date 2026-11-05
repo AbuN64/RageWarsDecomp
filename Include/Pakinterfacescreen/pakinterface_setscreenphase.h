@@ -1,0 +1,5 @@
+#ifndef PAKINTERFACESCREEN_PAKINTERFACE_SETSCREENPHASE_H
+#define PAKINTERFACESCREEN_PAKINTERFACE_SETSCREENPHASE_H
+#include "types.h"
+extern void PAKInterface_SetScreenPhase(s32);
+#endif

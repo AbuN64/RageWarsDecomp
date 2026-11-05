@@ -15,7 +15,7 @@ char k_LibcFormattocallbackDataEncodedBytes[11] =
 #endif
 
 #if defined(VERSION_EU_X)
-unsigned char k_LibcFormattocallbackDataEncodedBytesBlock1[11] = {
+unsigned char k_libcFormattocallbackDataFragment[11] = {
     0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 #endif
@@ -25,7 +25,7 @@ unsigned char k_LibcFormattocallbackDataEncodedBytesBlock1[11] = {
 #endif
 
 #if defined(VERSION_EU)
-unsigned char k_LibcFormattocallbackDataEncodedBytesBlock2[11] = {
+unsigned char k_libcFormattocallbackDataFragment[11] = {
     0x0C, 0x6B, 0x38, 0x80, 0x0C, 0x6B, 0x28, 0x80, 0x0C, 0x6B, 0x1C,
 };
 #endif

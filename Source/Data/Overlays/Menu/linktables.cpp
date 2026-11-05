@@ -1,0 +1,2432 @@
+#include "Common/resident_event_handler.h"
+#include "Data/Overlays/Menu/linktables_addresses.h"
+#include "Menu/event.h"
+#include "types.h"
+#include "include_asm.h"
+#include "Common/format.h"
+#include "data_overlay_layouts.h"
+#include "Frontend/frontend_handletaboptionsshortcut.h"
+#include "Game/frontend_closeoptionspage.h"
+#include "Game/frontend_closesettingspage.h"
+#include "Game/frontend_creategameoptionsscreen.h"
+#include "Game/frontend_handleoptionspageshortcut.h"
+#include "Game/game.h"
+#include "Game/menu_createlocalizedsettingspage.h"
+#include "Menu/menu_animatetaboptionsmenu.h"
+#include "Menu/menu_createsettingspage.h"
+#include "Menu/menu_finishtaboptionstransition.h"
+#include "Menu/menu_openlocalizedgameoptions.h"
+#include "options.h"
+#include "Frontend/Game/menu_drawclippedwidgetsiblings.h"
+#include "Data/Ovltbl/options_createoptionspage_data.h"
+#include "Common/aiprofile.h"
+#include "Common/ospihandle_s.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Smp/smp_list.h"
+#include "Ui/Tsmos/Smp/Smp_overlay/smp_overlay.h"
+#include "Common/gameplay_transition.h"
+#include "Common/audio_loaddecodedsamples.h"
+#include "Data/Common/common_resource_link_words.h"
+#include "Frontend/controllerpak_message_pool.h"
+#include "Data/Character_preview/character_preview.h"
+#include "Data/Ovltbl/menu_event_handlers3_us_rev1_data.h"
+#include "Data/Ovltbl/frontend_dispatchcompactoptionsevent_data.h"
+#include "Data/Ovltbl/frontend_dispatchtaboptionsevent_data.h"
+
+/* MENU_CREATEPAKACTIONMENU_DATA.CPP */
+#if defined(VERSION_DE)
+extern struct {
+    void * g_pakActionMenuState;
+} k_MenuCreatepakactionmenuZeroWords __attribute__((aligned(4)));
+typedef char k_MenuCreatepakactionmenuZeroWordsSizeCheck[(sizeof(k_MenuCreatepakactionmenuZeroWords) == 4) ? 1 : -1];
+#endif
+#if defined(VERSION_EU)
+extern struct {
+    void * g_pakActionMenuState;
+} k_MenuCreatepakactionmenuZeroWords __attribute__((aligned(4)));
+typedef char k_MenuCreatepakactionmenuZeroWordsSizeCheck[(sizeof(k_MenuCreatepakactionmenuZeroWords) == 4) ? 1 : -1];
+#endif
+#if defined(VERSION_EU_X)
+extern struct {
+    void * g_pakActionMenuState;
+} k_MenuCreatepakactionmenuZeroWords __attribute__((aligned(4)));
+typedef char k_MenuCreatepakactionmenuZeroWordsSizeCheck[(sizeof(k_MenuCreatepakactionmenuZeroWords) == 4) ? 1 : -1];
+#endif
+#if defined(VERSION_US)
+struct {
+    void * g_pakActionMenuState;
+} k_MenuCreatepakactionmenuZeroWords __attribute__((aligned(4))) = {
+    0
+};
+typedef char k_MenuCreatepakactionmenuZeroWordsSizeCheck[(sizeof(k_MenuCreatepakactionmenuZeroWords) == 4) ? 1 : -1];
+#endif
+#if defined(VERSION_US_REV1)
+struct {
+    void * g_pakActionMenuState;
+} k_MenuCreatepakactionmenuZeroWords __attribute__((aligned(4))) = {
+    0
+};
+typedef char k_MenuCreatepakactionmenuZeroWordsSizeCheck[(sizeof(k_MenuCreatepakactionmenuZeroWords) == 4) ? 1 : -1];
+#endif
+
+#if !(defined(VERSION_US) || defined(VERSION_US_REV1))
+#if defined(VERSION_DE)
+extern struct {
+    ResidentEventHandlerEntry handlers[6];
+    u32 retainedRecordWords[1];
+} g_menuCreateChoiceMenuRecord __attribute__((aligned(4)));
+#endif
+#if defined(VERSION_EU)
+extern struct {
+    ResidentEventHandlerEntry handlers[6];
+    u32 retainedRecordWords[1];
+} g_menuCreateChoiceMenuRecord __attribute__((aligned(4)));
+#endif
+#if defined(VERSION_EU_X)
+extern struct {
+    ResidentEventHandlerEntry handlers[6];
+    u32 retainedRecordWords[1];
+} g_menuCreateChoiceMenuRecord __attribute__((aligned(4)));
+#endif
+#endif
+
+#if defined(VERSION_US) || defined(VERSION_US_REV1)
+#if defined(VERSION_US)
+ResidentEventHandlerEntry g_MenuCreatepakactionmenuEncodedWords[6] = {
+    { 3592, 27, (ResidentEventHandler)(void *)&addrLow_Menu_UpdatePakActionMenu }, { 3590, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CreatePakActionMenu }, { 3587, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_DestroyPakActionMenu }, { 2, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CancelPakActionMenu }, { 1, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_ChoosePakActionOption }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+#if defined(VERSION_US_REV1)
+ResidentEventHandlerEntry g_MenuCreatepakactionmenuEncodedWords[6] = {
+    { 3592, 27, (ResidentEventHandler)(void *)&addrLow_Menu_UpdatePakActionMenu }, { 3590, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CreatePakActionMenu }, { 3587, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_DestroyPakActionMenu }, { 2, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CancelPakActionMenu }, { 1, 27,
+    (ResidentEventHandler)(void *)&addrLow_Menu_ChoosePakActionOption }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+#endif
+
+#if defined(VERSION_US)
+char k_MenuCreatepakactionmenuTailWords[4] __attribute__((aligned(4))) = "\000\000\000+";
+#endif
+
+/* OPTIONS_CREATEOPTIONSPAGE_DATA.CPP */
+#if defined(VERSION_DE)
+struct {
+    void * g_optionsPage;
+    void * g_gameOptionsScreenState;
+    void * g_optionsShortcutScreen;
+} g_optionsPageScreenPointers __attribute__((aligned(4))) = {
+    0,
+    0,
+    0
+};
+typedef char g_optionsPageScreenPointersSizeCheck[
+    (sizeof(g_optionsPageScreenPointers) == 12) ? 1 : -1];
+#endif
+#if defined(VERSION_EU)
+struct {
+    void * g_optionsPage;
+    void * g_gameOptionsScreenState;
+    void * g_optionsShortcutScreen;
+} g_optionsPageScreenPointers __attribute__((aligned(4))) = {
+    0,
+    0,
+    0
+};
+typedef char g_optionsPageScreenPointersSizeCheck[
+    (sizeof(g_optionsPageScreenPointers) == 12) ? 1 : -1];
+#endif
+#if defined(VERSION_EU_X)
+struct {
+    void * g_optionsPage;
+    void * g_gameOptionsScreenState;
+    void * g_optionsShortcutScreen;
+} g_optionsPageScreenPointers __attribute__((aligned(4))) = {
+    0,
+    0,
+    0
+};
+typedef char g_optionsPageScreenPointersSizeCheck[
+    (sizeof(g_optionsPageScreenPointers) == 12) ? 1 : -1];
+#endif
+#if defined(VERSION_US)
+struct {
+    void * g_optionsPage;
+    void * g_gameOptionsScreenState;
+    void * g_optionsShortcutScreen;
+} g_optionsPageScreenPointers __attribute__((aligned(4))) = {
+    0,
+    0,
+    0
+};
+typedef char g_optionsPageScreenPointersSizeCheck[
+    (sizeof(g_optionsPageScreenPointers) == 12) ? 1 : -1];
+#endif
+#if defined(VERSION_US_REV1)
+struct {
+    void * g_optionsPage;
+    void * g_gameOptionsScreenState;
+    void * g_optionsShortcutScreen;
+} g_optionsPageScreenPointers __attribute__((aligned(4))) = {
+    0,
+    0,
+    0
+};
+typedef char g_optionsPageScreenPointersSizeCheck[
+    (sizeof(g_optionsPageScreenPointers) == 12) ? 1 : -1];
+#endif
+
+#if !(defined(VERSION_US) || defined(VERSION_US_REV1))
+#if defined(VERSION_DE)
+ResidentEventHandlerEntry g_optionsCreateOptionsPageEventHandlers[19] = {
+    { 3592, 4, RESIDENT_HANDLER_PACKED(Frontend_UpdateOptionsPageExit) }, { 3590, 4,
+    RESIDENT_HANDLER_PACKED(Menu_CreateSettingsPage) }, { 3587, 4,
+    RESIDENT_HANDLER_PACKED(Frontend_CloseSettingsPage) }, { 2, 4, RESIDENT_HANDLER_PACKED(Frontend_CloseOptionsPage) },
+    { 1, 4, RESIDENT_HANDLER_PACKED(Frontend_HandleOptionsPageShortcut) }, { 0, 0, (ResidentEventHandler)0 }, { 3592,
+    11, RESIDENT_HANDLER_PACKED(Frontend_ActivateCompactOptionsPage) }, { 3590, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_CreateGameOptionsScreen) },
+    { 3587, 11, RESIDENT_HANDLER_PACKED(Frontend_DestroyCompactOptionsPage) }, { 2, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_CloseCompactOptionsPage) }, { 1, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_HandleCompactOptionsShortcut) }, { 0, 0, (ResidentEventHandler)0 }, { 3592, 22,
+    RESIDENT_HANDLER_PACKED(Menu_AnimateTabOptionsMenu) }, { 3594, 22,
+    RESIDENT_HANDLER_PACKED(Menu_FinishTabOptionsTransition) }, { 3590, 22,
+    RESIDENT_HANDLER_PACKED(Menu_OpenGameOptionsScreen) }, { 3587, 22,
+    RESIDENT_HANDLER_PACKED(Frontend_DestroyTabOptionsPage) },
+    { 2, 22, RESIDENT_HANDLER_PACKED(Frontend_ConsumeTabOptionsEvent) }, { 1, 22,
+    RESIDENT_HANDLER_PACKED(Frontend_HandleTabOptionsShortcut) }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+#if defined(VERSION_EU)
+ResidentEventHandlerEntry g_optionsCreateOptionsPageEventHandlers[19] = {
+    { 3592, 4, (ResidentEventHandler)(void *)&addrLow_Frontend_UpdateOptionsPageExit }, { 3590, 4,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CreateEuropeanSettingsPage }, { 3587, 4,
+    (ResidentEventHandler)(void *)&addrLow_Menu_DestroyOptionsPage }, { 2, 4,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_CloseOptionsPage }, { 1, 4,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_HandleOptionsPageShortcut }, { 0, 0,
+    (ResidentEventHandler)0 }, { 3592, 11,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_ActivateCompactOptionsPage }, { 3590, 11,
+    (ResidentEventHandler)(void *)&addrLow_Menu_CreateSessionSettingsControls },
+    { 3587, 11, (ResidentEventHandler)(void *)&addrLow_Frontend_DestroyCompactOptionsPage }, { 2, 11,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_CloseCompactOptionsPage }, { 1, 11,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_HandleCompactOptionsShortcut }, { 0, 0,
+    (ResidentEventHandler)0 }, { 3592, 22, (ResidentEventHandler)(void *)&addrLow_Menu_AnimateTabOptionsMenu },
+    { 3594, 22, (ResidentEventHandler)(void *)&addrLow_Menu_FinishTabOptionsTransition }, { 3590, 22,
+    (ResidentEventHandler)(void *)&addrLow_Menu_OpenLocalizedGameOptions }, { 3587, 22,
+    (ResidentEventHandler)(void *)&addrLow_Frontend_DestroyTabOptionsPage },
+    { 2, 22, (ResidentEventHandler)(void *)&addrLow_Frontend_TabOptionsEvent02PlayModeEvent01Handler }, { 1,
+    22, (ResidentEventHandler)(void *)&addrLow_Frontend_HandleTabOptionsShortcut }, { 0, 0,
+    (ResidentEventHandler)0 }
+};
+#endif
+#if defined(VERSION_EU_X)
+struct {
+    ResidentEventHandlerEntry eventHandlers0[8];
+    ResidentEventHandlerEntry eventHandlers96[6];
+    ResidentEventHandlerEntry eventHandlers168[7];
+    u8 retainedEventWords[8];
+} g_optionsCreateOptionsPageEventHandlers __attribute__((aligned(4))) = {
+    { { 3592, 4, RESIDENT_HANDLER_PACKED(Frontend_UpdateOptionsPageExit) }, { 3590, 4,
+    RESIDENT_HANDLER_PACKED(Menu_CreateLocalizedSettingsPage) }, { 3587, 4,
+    RESIDENT_HANDLER_PACKED(Menu_DestroyEuxOptionsAndReloadLanguage) }, { 2, 4,
+    RESIDENT_HANDLER_PACKED(Frontend_CloseOptionsPage) }, { 1, 4,
+    RESIDENT_HANDLER_PACKED(Frontend_HandleOptionsPageShortcut) }, { 8, 93,
+    RESIDENT_HANDLER_PACKED(Frontend_SelectNextLanguage) }, { 7, 93,
+    RESIDENT_HANDLER_PACKED(Frontend_SelectPreviousLanguage) }, { 0, 0, (ResidentEventHandler)0 } },
+    { { 3592, 11, RESIDENT_HANDLER_PACKED(Frontend_ActivateCompactOptionsPage) }, { 3590, 11,
+    RESIDENT_HANDLER_PACKED(Menu_CreateSessionSettingsControls) }, { 3587, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_DestroyCompactOptionsPage) }, { 2, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_CloseCompactOptionsPage) }, { 1, 11,
+    RESIDENT_HANDLER_PACKED(Frontend_HandleCompactOptionsShortcut) }, { 0, 0, (ResidentEventHandler)0 } },
+    { { 3592, 22, RESIDENT_HANDLER_PACKED(Menu_AnimateTabOptionsMenu) }, { 3594, 22,
+    RESIDENT_HANDLER_PACKED(Menu_FinishTabOptionsTransition) }, { 3590, 22,
+    RESIDENT_HANDLER_PACKED(Menu_OpenLocalizedGameOptions) }, { 3587, 22,
+    RESIDENT_HANDLER_PACKED(Frontend_DestroyTabOptionsPage) }, { 2, 22,
+    RESIDENT_HANDLER_PACKED(Frontend_ConsumeTabOptionsEvent) }, { 1, 22,
+    RESIDENT_HANDLER_PACKED(Frontend_HandleTabOptionsShortcut) }, { 0, 0, (ResidentEventHandler)0 } },
+    { 0x0, 0x0, 0xe, 0x3, 0x0, 0x0, 0x0, 0x1f }
+};
+typedef char g_optionsCreateOptionsPageEventHandlersSizeCheck[
+    (sizeof(g_optionsCreateOptionsPageEventHandlers) == 260) ? 1 : -1];
+#endif
+#endif
+
+#if defined(VERSION_US) || defined(VERSION_US_REV1)
+#if defined(VERSION_US)
+ResidentEventHandlerEntry g_OptionsCreateoptionspageEncodedWords[1] = {
+    { 3592, 4, (ResidentEventHandler)(void *)&g_frontend_UpdateOptionsPageExitEntry }
+};
+#endif
+#if defined(VERSION_US_REV1)
+ResidentEventHandlerEntry g_OptionsCreateoptionspageEncodedWords[1] = {
+    { 3592, 4, (ResidentEventHandler)(void *)&g_frontend_UpdateOptionsPageExitEntry }
+};
+#endif
+#endif
+
+#if defined(VERSION_US)
+ResidentEventHandlerEntry g_optionsCreateOptionsPageEntryTriples[18] = {
+    { 3590, 4, (ResidentEventHandler)(void *)&g_Menu_DispatchOptionsTransitionEventAddress[148] }, { 3587, 4,
+    (ResidentEventHandler)(void *)&g_Menu_DispatchOptionsTransitionEventAddress[3936] }, { 2, 4,
+    (ResidentEventHandler)(void *)&g_frontend_UpdateOptionsPageExitEntry[316] }, { 1, 4,
+    (ResidentEventHandler)(void *)&g_frontend_UpdateOptionsPageExitEntry[124] }, { 0, 0, (ResidentEventHandler)0 },
+    { 3592, 11, (ResidentEventHandler)(void *)&g_Frontend_DispatchOptionsPageEventAddress[604] }, { 3590, 11,
+    (ResidentEventHandler)(void *)&g_Frontend_DispatchOptionsPageEventAddress[144] }, { 3587, 11,
+    (ResidentEventHandler)(void *)&g_Frontend_DispatchOptionsPageEventAddress[548] },
+    { 2, 11, (ResidentEventHandler)(void *)&g_Frontend_DispatchOptionsPageEventAddress[860] }, { 1, 11,
+    (ResidentEventHandler)(void *)&g_Frontend_DispatchOptionsPageEventAddress[656] }, { 0, 0,
+    (ResidentEventHandler)0 }, { 3592, 22,
+    (ResidentEventHandler)(void *)&g_Menu_DispatchOptionsTransitionEventAddress[2520] }, { 3594, 22,
+    (ResidentEventHandler)(void *)&g_Menu_DispatchOptionsTransitionEventAddress[1956] }, { 3590, 22,
+    (ResidentEventHandler)(void *)&g_Menu_DispatchOptionsTransitionEventAddress[684] }, { 3587, 22,
+    (ResidentEventHandler)(void *)&g_Frontend_DispatchCompactOptionsEventAddress[144] }, { 2, 22,
+    (ResidentEventHandler)(void *)&g_Frontend_DispatchCompactOptionsEventAddress[568] },
+    { 1, 22, (ResidentEventHandler)(void *)&g_Frontend_DispatchCompactOptionsEventAddress[208] }, { 0, 0,
+    (ResidentEventHandler)0 }
+};
+#endif
+
+/* CHEAT_GAME_OPTIONS_AND_STATUS_TEXT_POOL_DE.CPP */
+#if defined(VERSION_DE)
+/* The DE layout of k_SkyPostscaledscreenmessageEncodedWords (SOURCE/FX/SKY_POSTSCALEDSCREENMESSAGE_DATA.CPP),
+   which holds the German text strings; cells into its bytes that no g_deText_* string covers name its field. */
+extern struct {
+    unsigned int w0[299];
+    unsigned char b1[2624];
+    unsigned int w2[10];
+    unsigned char b3[1796];
+    unsigned int w4[3];
+    unsigned char b5[56];
+    unsigned int w6;
+    unsigned char b7[10188];
+    unsigned int w8[3];
+    unsigned char b9[3828];
+    unsigned int w10[266];
+} k_SkyPostscaledscreenmessageEncodedWords;
+extern s32 g_artsendNextTextureHoldCount;
+extern s32 g_artsendPreviousTextureHoldCount;
+
+struct {
+    char text0[328];
+    unsigned int words1[1];
+    char textSpieler[8];
+    unsigned int words3[1];
+    char text4[8];
+    unsigned int words5[1];
+    char text6[8];
+    unsigned int words7[1];
+    char text8[68];
+    unsigned int words9[1];
+    char text10[116];
+    unsigned int words11[1];
+    char text12[500];
+    unsigned int words13[1];
+    char text14[188];
+    unsigned int words15[1];
+    char text16[12];
+    unsigned int words17[1];
+    char textFragTag[8];
+    unsigned int words19[1];
+    char text20[92];
+    unsigned int words21[1];
+    char textUndBet[8];
+    unsigned int words23[1];
+    char text24[296];
+    unsigned int words25[1];
+    char text26[24];
+    unsigned int words27[1];
+    char text28[248];
+    unsigned int words29[1];
+    char textLevelWillk[20];
+    unsigned int words31[1];
+    char text32[128];
+    unsigned int words33[1];
+    char text34[20];
+    unsigned int words35[1];
+    char text36[56];
+    unsigned int words37[1];
+    char text38[20];
+    unsigned int words39[1];
+    char text40[20];
+    unsigned int words41[1];
+    char text42[20];
+    unsigned int words43[1];
+    char text44[20];
+    unsigned int words45[1];
+    char text46[20];
+    unsigned int words47[1];
+    char text48[20];
+    unsigned int words49[1];
+    char text50[20];
+    unsigned int words51[1];
+    char text52[20];
+    unsigned int words53[1];
+    char text54[20];
+    unsigned int words55[1];
+    char text56[20];
+    unsigned int words57[1];
+    char text58[20];
+    unsigned int words59[1];
+    char text60[128];
+    unsigned int words61[1];
+    char textMissionGescheitert[20];
+    unsigned int words63[1];
+    char text64[84];
+    unsigned int words65[1];
+    char text66[96];
+    unsigned int words67[1];
+    char textWilliamTell[12];
+    unsigned int words69[1];
+    char text70[32];
+    unsigned int words71[1];
+    char text72[112];
+    unsigned int words73[1];
+    char text74[28];
+    unsigned int words75[266];
+    char text76[36];
+    unsigned int words77[1148];
+    unsigned char bytes78[4];
+    unsigned int words79[3];
+    unsigned char bytes80[4];
+    unsigned int words81[16];
+    char textHjgFlew[8];
+    unsigned int words83[2];
+    char text84[8];
+    unsigned int words85[3];
+    char text86[4];
+    unsigned int words87[3];
+    float floats88[1];
+    unsigned int words89[1025];
+    unsigned char bytes90[36];
+    float floats91[8];
+    unsigned int words92[3];
+    char text93[16];
+    unsigned int words94[1];
+    char text95[16];
+    unsigned int words96[164];
+    unsigned char bytes97[4];
+    float floats98[2];
+    unsigned int words99[622];
+    unsigned char bytes100[4];
+    float floats101[2];
+    unsigned int words102[102];
+    unsigned char bytes103[24];
+    float floats104[2];
+    unsigned int words105[102];
+    unsigned char bytes106[24];
+    float floats107[2];
+    unsigned int words108[102];
+    unsigned char bytes109[24];
+    float floats110[2];
+    unsigned int words111[102];
+    unsigned char bytes112[24];
+    float floats113[2];
+    unsigned int words114[630];
+    unsigned char bytes115[4];
+    float floats116[2];
+    unsigned int words117[102];
+    unsigned char bytes118[24];
+    float floats119[2];
+    unsigned int words120[102];
+    unsigned char bytes121[24];
+    float floats122[2];
+    unsigned int words123[102];
+    unsigned char bytes124[24];
+    float floats125[2];
+    unsigned int words126[102];
+    unsigned char bytes127[24];
+    float floats128[2];
+    unsigned int words129[102];
+    unsigned char bytes130[24];
+    float floats131[2];
+    unsigned int words132[102];
+    unsigned char bytes133[24];
+    float floats134[2];
+    unsigned int words135[102];
+    unsigned char bytes136[24];
+    float floats137[2];
+    unsigned int words138[102];
+    unsigned char bytes139[24];
+    float floats140[2];
+    unsigned int words141[1140];
+    char textJIJP[4];
+    unsigned int words143[6];
+    char text144[4];
+    unsigned int words145[2];
+    char text146[4];
+    unsigned int words147[4];
+    char text148[4];
+    unsigned int words149[2];
+    char text150[12];
+    unsigned int words151[19];
+    char text152[4];
+    unsigned int words153[8];
+    char text154[12];
+    unsigned int words155[81];
+    float floats156[1];
+    unsigned int words157[32];
+    char text158[4];
+    unsigned int words159[1];
+    char textKuYq[4];
+    unsigned int words161[141];
+    float floats162[1];
+    unsigned int words163[40];
+    char text164[4];
+    unsigned int words165[1];
+    char text166[4];
+    unsigned int words167[39];
+    float floats168[1];
+    unsigned int words169[6];
+    float floats170[1];
+    unsigned int words171[9];
+    float floats172[1];
+    unsigned int words173[2];
+    float floats174[1];
+    unsigned int words175[53];
+    float floats176[1];
+    unsigned int words177[48];
+    char text178[4];
+    unsigned int words179[1];
+    char text180[4];
+    unsigned int words181[1];
+    char text182[4];
+    unsigned int words183[1];
+    float floats184[1];
+    unsigned int words185[25];
+    char text186[8];
+    unsigned int words187[16];
+    char text188[4];
+    unsigned int words189[1];
+    char text190[4];
+    unsigned int words191[1];
+    char text192[4];
+    unsigned int words193[375];
+    char text194[4];
+    unsigned int words195[1];
+    char text196[4];
+    unsigned int words197[13];
+    char text198[8];
+    unsigned int words199[4];
+    char textKGwNKGWO[8];
+    unsigned int words201[293];
+    float floats202[1];
+    unsigned int words203[28];
+    char text204[4];
+    unsigned int words205[1];
+    char text206[4];
+    unsigned int words207[119];
+    float floats208[1];
+    unsigned int words209[70];
+    char text210[4];
+    unsigned int words211[6];
+    char text212[4];
+    unsigned int words213[1];
+    char text214[8];
+    unsigned int words215[4];
+    char text216[4];
+    unsigned int words217[2];
+    char text218[12];
+    unsigned int words219[28];
+    char text220[12];
+    unsigned int words221[2];
+    char textKbwE[4];
+    unsigned int words223[50];
+    char text224[4];
+    unsigned int words225[9];
+    char text226[4];
+    unsigned int words227[9];
+    float floats228[1];
+    unsigned int words229[3];
+    float floats230[1];
+    unsigned int words231[3];
+    float floats232[1];
+    unsigned int words233[1];
+    float floats234[1];
+    unsigned int words235[24];
+    char text236[4];
+    unsigned int words237[115];
+    char text238[8];
+    unsigned int words239[3];
+    float floats240[1];
+    unsigned int words241[1056];
+    char text242[4];
+    unsigned int words243[344];
+    char text244[68];
+    unsigned int words245[247];
+    char text246[68];
+    unsigned int words247[146];
+    float floats248[1];
+    unsigned int words249[189];
+    char textCinemaDirectory[16];
+    unsigned int words251[1];
+    char textCinema[8];
+    unsigned int words253[106];
+    char text254[60];
+    unsigned int words255[1];
+    char textBuffer[8];
+    unsigned int words257[1];
+    char text258[68];
+    unsigned int words259[1];
+    char textAudioHe[8];
+    unsigned int words261[1];
+} g_cheatGameOptionsAndStatusTextPoolDe = {
+    "tags    :0000\000\000\000frags   :0000\000\000\000erledigt:0000\000\000\000tschuess:0000\000\000\000eins    :0000\000\000\000zwei    :0000\000\000\000drei    :0000\000\000\000vier    :0000\000\000\000tags    :0000\000\000\000frags   :0000\000\000\000erledigt:0000\000\000\000tschuess:0000\000\000\000eins    :0000\000\000\000zwei    :0000\000\000\000drei    :0000\000\000\000vier    :0000\000\000\000tags    :0000\000\000\000frags   :0000\000\000\000erledigt:0000\000\000\000tschuess:0000\000\000\000spieler1",
+    {
+        0x00000000, 0x73706965, 0x6C657232, 0x00000000, 0x73706965, 0x6C657233, 0x00000000, 0x73706965,
+    },
+    "spieler2",
+    {
+        0x00000000, 0x73706965, 0x6C657233, 0x00000000, 0x73706965, 0x6C657234, 0x00000000, 0x65696E7A,
+    },
+    "spieler3",
+    {
+        0x00000000, 0x73706965, 0x6C657234, 0x00000000, 0x65696E7A, 0x656C0000, 0x6E657565, 0x73207370,
+    },
+    "spieler4",
+    {
+        0x00000000, 0x65696E7A, 0x656C0000, 0x6E657565, 0x73207370, 0x69656C00, 0x6C616465, 0x6E000000,
+    },
+    "einzel\000\000neues spiel\000laden\000\000\000mehrspieler\000mehrspieler spiel\000\000\000spielart",
+    {
+        0x2077E468, 0x6C656E00, 0x6A656465, 0x72206765, 0x67656E20, 0x6A656465, 0x6E000000, 0x6A656465,
+    },
+    "len\000jeder gegen jeden\000\000\000jeder gegen jeden\000\000\000zeitlimit          :keins\000\000\000frag limit         :keins\000\000\000level:        wi",
+    {
+        0x6C6C6BFC, 0x726C6963, 0x68000000, 0x6C657665, 0x6C3A2020, 0x20206578, 0x70657269, 0x6D656E74,
+    },
+    "rlich\000\000\000level:    experimentelles\000\000\000level: mord im mondschein\000\000\000level:     auf engem raum\000\000\000level:Schmiede des Vulkan\000\000\000level: Teleportersportler\000\000\000level:        Spiegelrand\000\000\000level:       Zielscheiben\000\000\000level:     Wasserwahnsinn\000\000\000level:           hysterie\000\000\000level:              Gruft\000\000\000level:         im Quadrat\000\000\000level:      abartige acht\000\000\000level:       ins Schwarze\000\000\000struktur   :         burg\000\000\000struktur   :    stahlwerk\000\000\000struktur   :palisadenfort\000\000\000struktur   :   katakomben\000\000\000struktur   :    ",
+    {
+        0x476566E4, 0x6E676E69, 0x73000000, 0x73747275, 0x6B747572, 0x2020203A, 0x20202067, 0x726F7373,
+    },
+    "ngnis\000\000\000struktur   :   grossstadt\000\000\000struktur   : roter drache\000\000\000struktur   :    paintball\000\000\000struktur   :       Smiley\000\000\000fadenkreuz         :   an\000\000\000fadenkreuz         :  aus\000\000\000spielstart\000\000",
+    {
+        0x7A7572FC, 0x636B0000, 0x66726167, 0x20746167, 0x00000000, 0x66726167, 0x20746167, 0x00000000,
+    },
+    "ck\000\000frag tag",
+    {
+        0x00000000, 0x66726167, 0x20746167, 0x00000000, 0x74616720, 0x6C696D69, 0x74202020, 0x20202020,
+    },
+    "frag tag",
+    {
+        0x00000000, 0x74616720, 0x6C696D69, 0x74202020, 0x20202020, 0x2020203A, 0x6B65696E, 0x73000000,
+    },
+    "tag limit          :keins\000\000\000level:          irrenhaus\000\000\000level:           erwischt\000\000\000level: l",
+    {
+        0xFC67656E, 0x20756E64, 0x20626574, 0x72FC6765, 0x6E000000, 0x6C657665, 0x6C3A2020, 0x20202020,
+    },
+    " und bet",
+    {
+        0x72FC6765, 0x6E000000, 0x6C657665, 0x6C3A2020, 0x20202020, 0x20202070, 0x72696D61, 0x74746963,
+    },
+    "n\000\000\000level:         primattica\000\000\000level:         kugelhagel\000\000\000level: anders als erhofft\000\000\000team gegner\000waffen einrichten\000\000\000gefrierkanone         : an\000\000gefrierkanone         :aus\000\000feuersturm-kanone     : an\000\000feuersturm-kanone     :aus\000\000schredder             : an\000\000schredder             :aus\000\000plasmage",
+    {
+        0x736368FC, 0x747A2020, 0x20202020, 0x20203A20, 0x616E0000, 0x706C6173, 0x6D616765, 0x736368FC,
+    },
+    "tz        : an\000\000plasmage",
+    {
+        0x736368FC, 0x747A2020, 0x20202020, 0x20203A61, 0x75730000, 0x7A69656C, 0x73756368, 0x6B616E6F,
+    },
+    "tz        :aus\000\000zielsuchkanone        : an\000\000zielsuchkanone        :aus\000\000granatenwerfer        : an\000\000granatenwerfer        :aus\000\000skorpion-raketenwerfer: an\000\000skorpion-raketenwerfer:aus\000\000torpedowerfer         : an\000\000torpedowerfer         :aus\000\000training",
+    {
+        0x00000000, 0x6C657665, 0x6C202020, 0x2020203A, 0x20202077, 0x696C6C6B, 0xFC726C69, 0x63680000,
+    },
+    "level      :   willk",
+    {
+        0xFC726C69, 0x63680000, 0x6C657665, 0x6C202020, 0x2020203A, 0x626F6765, 0x6E736368, 0x69657373,
+    },
+    "ch\000\000level      :bogenschiessen\000\000level      :     schiessen\000\000level      :     zehnkampf\000\000rundenzahl :              \000\000spielstart\000\000",
+    {
+        0x7A7572FC, 0x636B0000, 0x6C616465, 0x6E000000, 0x6F707469, 0x6F6E656E, 0x00000000, 0x63686561,
+    },
+    "ck\000\000laden\000\000\000optionen",
+    {
+        0x00000000, 0x63686561, 0x74730000, 0x63686563, 0x6B706F69, 0x6E740000, 0x73706569, 0x63686572,
+    },
+    "cheats\000\000checkpoint\000\000speicherpunkt\000\000\000sound-optionen\000\000laut",
+    {
+        0x7374E472, 0x6B652F6D, 0x7573696B, 0x20203A20, 0x61757300, 0x6C617574, 0x7374E472, 0x6B652F6D,
+    },
+    "ke/musik  : aus\000laut",
+    {
+        0x7374E472, 0x6B652F6D, 0x7573696B, 0x20203A20, 0x6D617800, 0x6C617574, 0x7374E472, 0x6B652F6D,
+    },
+    "ke/musik  : max\000laut",
+    {
+        0x7374E472, 0x6B652F6D, 0x7573696B, 0x20203A6E, 0x6F726D00, 0x6C617574, 0x7374E472, 0x6B652F6D,
+    },
+    "ke/musik  :norm\000laut",
+    {
+        0x7374E472, 0x6B652F6D, 0x7573696B, 0x20203A20, 0x20202000, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/musik  :    \000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x66782020, 0x20203A20, 0x61757300, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sfx    : aus\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x66782020, 0x20203A20, 0x6D617800, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sfx    : max\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x66782020, 0x20203A6E, 0x6F726D00, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sfx    :norm\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x66782020, 0x20203A20, 0x20202000, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sfx    :    \000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x70726163, 0x68653A20, 0x61757300, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sprache: aus\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x70726163, 0x68653A20, 0x6D617800, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sprache: max\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x70726163, 0x68653A6E, 0x6F726D00, 0x6C617574, 0x7374E472, 0x6B652F73,
+    },
+    "ke/sprache:norm\000laut",
+    {
+        0x7374E472, 0x6B652F73, 0x70726163, 0x68653A20, 0x20202000, 0x6D757369, 0x6B202020, 0x20202020,
+    },
+    "ke/sprache:    \000musik             :nein\000music             :    \000index             :nein\000sprache           :nein\000mission beendet.",
+    {
+        0x00000000, 0x6D697373, 0x696F6E20, 0x67657363, 0x68656974, 0x6572742E, 0x00000000, 0x746F7465,
+    },
+    "mission gescheitert.",
+    {
+        0x00000000, 0x746F7465, 0x6D207665, 0x72746569, 0x64696765, 0x6E000000, 0x73706965, 0x6C657274,
+    },
+    "totem verteidigen\000\000\000spielertempo :           \000\000\000spielertempo :   standard\000\000\000standard",
+    {
+        0x00000000, 0x67657375, 0x6E646865, 0x69742073, 0x63686C65, 0x63687400, 0x20000000, 0x30000000,
+    },
+    "gesundheit schlecht\000 \000\000\0000\000\000\0001\000\000\0002\000\000\0003\000\000\0004\000\000\0005\000\000\0006\000\000\0007\000\000\0008\000\000\0009\000\000\000MiniGames\000\000\000Chickens In The Mist",
+    {
+        0x00000000, 0x57696C6C, 0x69616D20, 0x54656C6C, 0x00000000, 0x54726170, 0x2053686F, 0x6F74696E,
+    },
+    "William Tell",
+    {
+        0x00000000, 0x54726170, 0x2053686F, 0x6F74696E, 0x67000000, 0x5370616E, 0x6B205468, 0x65204D6F,
+    },
+    "Trap Shooting\000\000\000Spank The Monkey",
+    {
+        0x00000000, 0x4D6F6E6B, 0x65792042, 0x7573696E, 0x65737300, 0x426F7720, 0x46697368, 0x696E6700,
+    },
+    "Monkey Business\000Bow Fishing\000Skeet Grapple\000\000\000Player One Wins\000Player Two Wins\000Player Three Wins\000\000\000Player Four Wins",
+    {
+        0x00000000, 0x47616D65, 0x20546965, 0x64210000, 0x47657420, 0x52656164, 0x79210000, 0x474F2100,
+    },
+    "Game Tied!\000\000Get Ready!\000\000GO!\000",
+    {
+        (unsigned int)s_controllerPakMessageDe_Projektmanager, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_Programmierleitung[16], (unsigned int)&s_controllerPakMessageDe_Programmierleitung[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_FranciscoJavierLafuente[12], (unsigned int)&s_controllerPakMessageDe_KbnstlerischeLeitung[8], (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_MichaelDaubert, (unsigned int)&s_controllerPakMessageDe_JasonBehrDesign[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_BruceCoonerProgrammierung[16], (unsigned int)&s_controllerPakMessageDe_JimCowlishawProgrammierung[16], (unsigned int)&s_controllerPakMessageDe_MichaelFongDigitalproduktion[20],
+        (unsigned int)&s_controllerPakMessageDe_NeillGlancyDesign[8], (unsigned int)&s_controllerPakMessageDe_MichaelHueyDesign[8], (unsigned int)&s_controllerPakMessageDe_MattKyleProgrammierung[12], (unsigned int)&s_controllerPakMessageDe_TrevorLemoineDigitalproduktion[20], (unsigned int)&s_controllerPakMessageDe_MarcMackinDigitalproduktion[16], (unsigned int)&s_controllerPakMessageDe_BradMarquesDigitalproduktion[20], (unsigned int)&s_controllerPakMessageDe_PaulMastersProgrammierung[16], (unsigned int)&s_controllerPakMessageDe_RobbieMillerDigitalproduktion[20],
+        (unsigned int)&s_controllerPakMessageDe_JeffSheltonDesign[8], (unsigned int)&s_controllerPakMessageDe_RobertWilsherDigitalproduktion[20], (unsigned int)&s_controllerPakMessageDe_RobWhitakerDigitalproduktion[20], (unsigned int)&s_controllerPakMessageDe_ZusetzlichesDesignCopy[32], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ScottBrocker, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_PeterFranco, (unsigned int)s_controllerPakMessageDe_AlexOmlansky, (unsigned int)&s_controllerPakMessageDe_DigitalImagingGroup[20], (unsigned int)&s_controllerPakMessageDe_DigitalImagingGroup[8], (unsigned int)&s_controllerPakMessageDe_ZusetzlicheProgrammierung[32], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_SteveBroumley,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_AndyOneil[8], (unsigned int)&s_controllerPakMessageDe_DavidSmith[8], (unsigned int)&s_controllerPakMessageDe_BrianWatson[12], (unsigned int)s_controllerPakMessageDe_BrianWatson, (unsigned int)&s_controllerPakMessageDe_ZusetzlichesDesign[28], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)&s_controllerPakMessageDe_DavidDienstbier[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_BeyBickerton, (unsigned int)&s_controllerPakMessageDe_Sounddesign[24], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_DarrenMitchell, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_MarcSchaefgen, (unsigned int)&s_controllerPakMessageDe_AustinQs[36], (unsigned int)&s_controllerPakMessageDe_AustinQs[24], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_ToddDowd[8], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_Projektleitung[12],
+        (unsigned int)s_controllerPakMessageDe_Projektleitung, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_Tester[40], (unsigned int)&s_controllerPakMessageDe_Tester[28], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_JerremyArnston, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ChrisKendall, (unsigned int)s_controllerPakMessageDe_MarkRichards, (unsigned int)s_controllerPakMessageDe_BrandonRowlett, (unsigned int)&s_controllerPakMessageDe_ShaneTate[8], (unsigned int)&s_controllerPakMessageDe_JustinWithers[12], (unsigned int)s_controllerPakMessageDe_JustinWithers, (unsigned int)&s_controllerPakMessageDe_Sprecher[16], (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_TravisDavisTurok[8], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_BernadetteNasonAdon[8], (unsigned int)&s_controllerPakMessageDe_ToddLowePurlin[4], (unsigned int)&s_controllerPakMessageDe_JessicaRobertsonSyra[12], (unsigned int)&s_controllerPakMessageDe_DavidKrauseFirebornDinosoids[20], (unsigned int)&s_controllerPakMessageDe_DavidDienstbierCampaigner[16],
+        (unsigned int)&s_controllerPakMessageDe_JoseBrownOblivionGuardian[20], (unsigned int)&s_controllerPakMessageDe_DougForrestBastille[8], (unsigned int)&s_controllerPakMessageDe_TitosMenchacaTalSet[12], (unsigned int)&s_controllerPakMessageDe_MarcSchaefgenLordOfThe[20], (unsigned int)&s_controllerPakMessageDe_LeitungAcclaimStudiosAustin[24], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_GmDerAcclaimStudiosAustin[16],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_RussellByrd, (unsigned int)&s_controllerPakMessageDe_TechnischerLeiter[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_StevenBroumley, (unsigned int)&s_controllerPakMessageDe_LeiterProduktentwicklung[12], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MalcolmCrummack[4],
+        (unsigned int)s_controllerPakMessageDe_Kreativdirektor, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_AudioManager, (unsigned int)s_controllerPakMessageDe_BeyBickerton, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_LeitungDigitalproduktion[12], (unsigned int)s_controllerPakMessageDe_MarcSchaefgen, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_AlanJohnson, (unsigned int)&s_controllerPakMessageDe_WeltweitesManagement[32], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_VpFbrProduktentwicklungUndDesign[24], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_VpFbrDieDigitalproduktion[28], (unsigned int)&s_controllerPakMessageDe_VpFbrDieDigitalproduktion[16],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_VpTechnologie[12], (unsigned int)s_controllerPakMessageDe_VpTechnologie, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_CraigGalley, (unsigned int)&s_controllerPakMessageDe_AusfbherenderVpDerAcclaimStudios[24], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_DarrenStubbington[4],
+        (unsigned int)&s_controllerPakMessageDe_PublisherCredits[32], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_AcclaimEntertainmentInc[28], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_NyProductDevelopment[28], (unsigned int)&s_controllerPakMessageDe_JamesDaly[8], (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_KathleenByrne[12], (unsigned int)s_controllerPakMessageDe_KathleenByrne, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_Tester[40], (unsigned int)s_controllerPakMessageDe_NicoleRuisi, (unsigned int)&s_controllerPakMessageDe_BillDickson[12],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_BillDickson, (unsigned int)&s_controllerPakMessageDe_CarolCaracciolo[16], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_CarolCaracciolo[4], (unsigned int)&s_controllerPakMessageDe_DaleTaylor[8],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_JeffRosa[8], (unsigned int)&s_controllerPakMessageDe_LeitungAnalyse[12], (unsigned int)s_controllerPakMessageDe_LeitungAnalyse, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MikePatterson[12],
+        (unsigned int)s_controllerPakMessageDe_MikePatterson, (unsigned int)&s_controllerPakMessageDe_MarkGarone[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MattCanonico[12], (unsigned int)s_controllerPakMessageDe_MattCanonico, (unsigned int)s_controllerPakMessageDe_Projektleiter, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_JonNicolai[8], (unsigned int)&s_controllerPakMessageDe_PaulDicarlo[12], (unsigned int)s_controllerPakMessageDe_PaulDicarlo, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_JerremyArnston, (unsigned int)s_controllerPakMessageDe_JoshuaRogers,
+        (unsigned int)&s_controllerPakMessageDe_BrhettHohwald[12], (unsigned int)s_controllerPakMessageDe_BrhettHohwald, (unsigned int)s_controllerPakMessageDe_LucAngrandIi, (unsigned int)s_controllerPakMessageDe_ScottSnopowski, (unsigned int)s_controllerPakMessageDe_MauricePhilips, (unsigned int)&s_controllerPakMessageDe_PaulJohnson[12], (unsigned int)s_controllerPakMessageDe_PaulJohnson, (unsigned int)&s_controllerPakMessageDe_JayCapozello[12],
+        (unsigned int)s_controllerPakMessageDe_JayCapozello, (unsigned int)s_controllerPakMessageDe_MarkBerkowitz, (unsigned int)s_controllerPakMessageDe_LloydThompson, (unsigned int)&s_controllerPakMessageDe_TurnoverKoordinator[20], (unsigned int)&s_controllerPakMessageDe_TurnoverKoordinator[8], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_TurnoverTechniker[16], (unsigned int)&s_controllerPakMessageDe_TurnoverTechniker[4],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_AnthonyGentile, (unsigned int)&s_controllerPakMessageDe_ChrisZino[8], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MikeSterzel[12], (unsigned int)s_controllerPakMessageDe_MikeSterzel, (unsigned int)s_controllerPakMessageDe_ChrisFrisone, (unsigned int)s_controllerPakMessageDe_UlisesBatalla,
+        (unsigned int)&s_controllerPakMessageDe_MarketingProduktmanager[12], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MarketingSpielanalyse[20], (unsigned int)&s_controllerPakMessageDe_MarketingSpielanalyse[8], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_JpCarnovale, (unsigned int)s_controllerPakMessageDe_JackScalici, (unsigned int)&s_controllerPakMessageDe_MichelleSeebach[16],
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_MichelleSeebach[4], (unsigned int)&s_controllerPakMessageDe_SrManagerAcclaimOnline[12], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_BenFischbach, (unsigned int)&s_controllerPakMessageDe_InternetArchitekt[4], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_OnlineEditor[12],
+        (unsigned int)s_controllerPakMessageDe_OnlineEditor, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_BesondererDankAn[40], (unsigned int)&s_controllerPakMessageDe_BesondererDankAn[28], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_WirMnchtenBesondersUnseren[16], (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)&s_controllerPakMessageDe_FreundenUndFamilienFbr[12], (unsigned int)&s_controllerPakMessageDe_IhreUnterstbtzungUndIhr[12], (unsigned int)&s_controllerPakMessageDe_VerstendnisDassWirNieZuhause[20], (unsigned int)s_controllerPakMessageDe_WarenDanken, (unsigned int)&s_controllerPakMessageDe_NochMehrDankAn[16], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_JennyCowlishaw, (unsigned int)&s_controllerPakMessageDe_DamarisAuchCocoUndSnikers[20],
+        (unsigned int)&s_controllerPakMessageDe_MarleneUndRaymondPaciniDanke[20], (unsigned int)&s_controllerPakMessageDe_DassIchTunDurfteWas[28], (unsigned int)&s_controllerPakMessageDe_DrDonTHueyJr[24], (unsigned int)&s_controllerPakMessageDe_BrotherIchVermisseDich[12], (unsigned int)&s_controllerPakMessageDe_DavidUndMattImSatellite[20], (unsigned int)&s_controllerPakMessageDe_JeffEverettDafbrDassEr[24], (unsigned int)&s_controllerPakMessageDe_HalbesTeamGeliehenHat[12], (unsigned int)&s_controllerPakMessageDe_SheaMackinCadeKylanUnd[24],
+        (unsigned int)s_controllerPakMessageDe_MikeMarques, (unsigned int)&s_controllerPakMessageDe_DanHillUndFamilie[8], (unsigned int)&s_controllerPakMessageDe_GreyThanksKasTsBehr[20], (unsigned int)&s_controllerPakMessageDe_LorraineBrittanyUndKatie[16], (unsigned int)&s_controllerPakMessageDe_AngelaDafbrDassSieIn[44], (unsigned int)&s_controllerPakMessageDe_RamiFbrAllesWasSie[28], (unsigned int)&s_controllerPakMessageDe_AnnaLangstonSimonSkedd[12], (unsigned int)&s_controllerPakMessageDe_JimDelbridgeHaileySebastian[20],
+        (unsigned int)&s_controllerPakMessageDe_PamTrumanUndTuckerFbr[24], (unsigned int)&s_controllerPakMessageDe_PamTrumanUndTuckerFbr[12], (unsigned int)&s_controllerPakMessageDe_BesuchenSieUnsereWebsiteUnter[48], (unsigned int)&s_controllerPakMessageDe_BesuchenSieUnsereWebsiteUnter[36], (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak,
+        (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)s_controllerPakMessageDe_ControllerPak, (unsigned int)&s_controllerPakMessageDe_DrCkeEineTaste[4], 0x00000000, 0x00000000,
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w10[260], (unsigned int)&g_pickupAmmoDefinitions[15].reserved8[0], 0x3C757365, 0x20746869, 0x7320746F, 0x20666164, 0x65206F75, 0x74206369,
+    },
+    "<use this to fade out cinema text>\000\000",
+    {
+        (unsigned int)g_screenMessageSubstitutionReplacement, (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b1[2608], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w2[0], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w2[1], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w2[2],
+        (unsigned int)g_screenMessageTextCells[0], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w2[6], (unsigned int)g_deText_2Gesundheit,
+        (unsigned int)g_deText_10Gesundheit, (unsigned int)g_deText_15Gesundheit, (unsigned int)g_deText_25Gesundheit, (unsigned int)g_deText_50Gesundheit, (unsigned int)&g_deText_volleGesundheit[4], (unsigned int)&g_deText_ultraGesundheit[4], (unsigned int)g_deText_1Lebenspunkt, (unsigned int)g_deText_10Lebenspunkte,
+        (unsigned int)g_deText_unbesiegbarkeit, (unsigned int)&g_deText_unbesiegbarkeit[12], (unsigned int)g_deText_taschenlampe, (unsigned int)&g_deText_taschenlampenbatterie[8], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b3[684], (unsigned int)g_deText_atemDesLebens, (unsigned int)&g_deText_augeDerWahrheit[4], (unsigned int)&g_deText_sprungDesGlaubens[4],
+        (unsigned int)&g_deText_flSterTalisman[4], (unsigned int)g_deText_herzAusFeuer, (unsigned int)&g_deText_blaueAdlerfeder[4], (unsigned int)&g_deText_graueAdlerfeder[4], (unsigned int)&g_deText_brauneAdlerfeder[4], (unsigned int)g_deText_lilaAdlerfeder, (unsigned int)&g_deText_etwasAnderes[12], (unsigned int)&g_deText_partikelbeschleunigerTeil[12],
+        (unsigned int)&g_deText_partikelbeschleunigerTeil[24], (unsigned int)&g_deText_flaggeGefordert[4], (unsigned int)g_deText_flaggeErobert, (unsigned int)&g_deText_flaggeZurCkgebracht[8], (unsigned int)g_deText_roteAdlerfeder, (unsigned int)&g_deText_funktionNichtVerfGbar[12], (unsigned int)&g_deText_funktionNichtVerfGbar[24], (unsigned int)g_deText_raptorKlaue,
+        (unsigned int)&g_deText_raptorKlaue[12], (unsigned int)&g_deText_miteBiss[8], (unsigned int)g_deText_tekArmbrust, (unsigned int)&g_deText_tekArmbrust[8], (unsigned int)g_deText_mag60, (unsigned int)&g_deText_shotgun[4], (unsigned int)&g_deText_sturmgewehr[4], (unsigned int)g_deText_plasmaGewehr,
+        (unsigned int)&g_deText_plasmaGewehr[12], (unsigned int)&g_deText_freezeGun[8], (unsigned int)&g_deText_flareGun[8], (unsigned int)&g_deText_granaten[8], (unsigned int)&g_deText_skorpion[8], (unsigned int)&g_deText_napalmGel[8], (unsigned int)&g_deText_emaciator[8], (unsigned int)g_deText_brustbrecher,
+        (unsigned int)g_deText_zerebralbohrer, (unsigned int)&g_deText_zerebralbohrer[12], (unsigned int)&g_deText_pfmMine[8], (unsigned int)g_deText_teleportMine, (unsigned int)&g_deText_teleportMine[12], (unsigned int)g_deText_signalEntfernt, (unsigned int)g_deText_zielMarkiert, (unsigned int)g_deText_teleportMineOptionsPageEntry,
+        (unsigned int)&g_deText_verlangsamung[4], (unsigned int)&g_deText_verlangsamung[16], (unsigned int)&g_deText_regeneration[4], (unsigned int)&g_deText_versteinerung[4], (unsigned int)&g_deText_schadensumkehr[4], (unsigned int)&g_deText_unsichtbarkeit[4], (unsigned int)&g_deText_energieBertragung[8], (unsigned int)&g_deText_geschwindigkeit[4],
+        (unsigned int)&g_deText_teleportieren[4], (unsigned int)&g_deText_inSicherheitTeleportiert[20], (unsigned int)&g_deText_schwererSchaden[8], (unsigned int)&g_deText_unverwundbarkeit[8], (unsigned int)g_deText_kugelschild, (unsigned int)&g_deText_energieschwund[4], (unsigned int)&g_deText_etwasAnderes[4], (unsigned int)g_deText_abwehrMarkiert,
+        (unsigned int)&g_deText_anTeamKojoteAngeschlossen[16], (unsigned int)&g_deText_anTeamBR[12], (unsigned int)&g_deText_anTeamPumaAngeschlossen[12], (unsigned int)&g_deText_anTeamViperAngeschlossen[12], (unsigned int)&g_deText_wasFREine[12], (unsigned int)g_deText_getTetVonS, (unsigned int)&g_deText_erwischtVonS[4], (unsigned int)&g_deText_geschlagenVonS[4],
+        (unsigned int)&g_deText_sHatDichAusgel[12], (unsigned int)&g_deText_sHatDichBesiegt[8], (unsigned int)&g_deText_sHatDichGelyncht[8], (unsigned int)&g_deText_vonSZermalmt[4], (unsigned int)&g_deText_durchDeineEigeneHand[12], (unsigned int)&g_deText_wasFREineOptionsPageEntry[12], (unsigned int)&g_deText_schlechterZug[4], (unsigned int)&g_deText_hmVorsicht[4],
+        (unsigned int)&g_deText_hmVorsicht[16], (unsigned int)&g_deText_schmatz[8], (unsigned int)&g_deText_duWurdestBesiegt[4], (unsigned int)&g_deText_embryoImplantiert[4], (unsigned int)g_deText_embryoZerstRt, (unsigned int)&g_deText_embryoZerstRt[12], (unsigned int)&g_deText_oderFindeDenEnergiekern[12], (unsigned int)g_deText_energiestE,
+        (unsigned int)g_deText_energiestE2, (unsigned int)&g_deText_energiestE2[8], (unsigned int)g_deText_schu, (unsigned int)&g_deText_explosivgeschosse[4], (unsigned int)&g_deText_explosivgeschosseOptionsPageEntry[4], (unsigned int)&g_deText_explosivgeschosseOptionsPageEntry[16], (unsigned int)&g_deText_munition[4], (unsigned int)&g_deText_schuOptionsPageEntry[4],
+        (unsigned int)g_deText_explosivgescho, (unsigned int)g_deText_zerebralbohrerOptionsPageEntry, (unsigned int)&g_deText_zerebralbohrerOptionsPageEntry[12], (unsigned int)&g_deText_pfmMineOptionsPageEntry[8], (unsigned int)&g_deText_wachturmOptionsPageEntry[8], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[1104], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[1112], (unsigned int)g_deText_novize,
+        (unsigned int)g_deText_neuling, (unsigned int)g_deText_grunzer, (unsigned int)g_deText_scout, (unsigned int)g_deText_spurensucher, (unsigned int)&g_deText_spurensucher[8], (unsigned int)g_deText_jeger, (unsigned int)&g_deText_kempfer[4], (unsigned int)&g_deText_darkling[8],
+        (unsigned int)&g_deText_suchender[4], (unsigned int)&g_deText_mnrder[4], (unsigned int)&g_deText_vernichter[8], (unsigned int)&g_deText_kriegsherr[8], (unsigned int)&g_deText_todeswind[8], (unsigned int)&g_deText_eroberer[4], (unsigned int)g_deText_meister, (unsigned int)g_deText_kriegssklave,
+        (unsigned int)&g_deText_kriegssklave[12], (unsigned int)&g_deText_kooperativSzenarioBeendet[16], (unsigned int)&g_deText_kooperativSzenarioBeendet[24], (unsigned int)&g_deText_neuerSpieler[4], (unsigned int)&g_deText_neuerSpieler[12], (unsigned int)&g_deText_turok[4], (unsigned int)&g_deText_warrior[4], (unsigned int)&g_deText_master[4],
+        (unsigned int)&g_deText_alpha[4], (unsigned int)&g_deText_beta[4], (unsigned int)&g_deText_gamma[4], (unsigned int)&g_deText_campain[4], (unsigned int)&g_deText_slaver[4], (unsigned int)g_deText_fireborn, (unsigned int)&g_deText_fireborn[8], (unsigned int)&g_deText_icelord[4],
+        (unsigned int)&g_deText_entrail[4], (unsigned int)&g_deText_mites[4], (unsigned int)&g_deText_compies[4], (unsigned int)g_deText_juggnaut, (unsigned int)&g_deText_juggnaut[8], (unsigned int)&g_deText_sloth[4], (unsigned int)&g_deText_mauler[4], (unsigned int)&g_deText_drone[4],
+        (unsigned int)&g_deText_grunt[4], (unsigned int)&g_deText_slave[4], (unsigned int)&g_deText_soldier[4], (unsigned int)&g_deText_captain[4], (unsigned int)g_deText_bastille, (unsigned int)&g_deText_bastille[8], (unsigned int)&g_deText_talSet[4], (unsigned int)g_deText_symbiont,
+        (unsigned int)g_deText_guardian, (unsigned int)&g_deText_guardian[8], (unsigned int)&g_deText_ravage[4], (unsigned int)g_deText_lorddead, (unsigned int)&g_deText_lorddead[8], (unsigned int)&g_deText_maggot[4], (unsigned int)&g_deText_vile[4], (unsigned int)&g_deText_elite[4],
+        (unsigned int)&g_deText_biobot[4], (unsigned int)&g_deText_killbot[4], (unsigned int)&g_deText_death[4], (unsigned int)g_deText_reaper, (unsigned int)g_deText_maw, (unsigned int)&g_deText_raptor[4], (unsigned int)&g_deText_slag[4], (unsigned int)g_deText_warclubs,
+        (unsigned int)&g_deText_warclubs[8], (unsigned int)&g_deText_mantidDrone[4], (unsigned int)g_deText_campaigner, (unsigned int)g_deText_firebornOptionsPageEntry, (unsigned int)&g_deText_mantidSoldier[4], (unsigned int)&g_deText_mantidSoldier[12], (unsigned int)&g_deText_lordOfTheDead[8], (unsigned int)g_deText_eliteGuard,
+        (unsigned int)g_deText_guardianOptionsPageEntry, (unsigned int)g_deText_juggernaut, (unsigned int)&g_deText_oblivionSpawn[4], (unsigned int)g_deText_bastilleOptionsPageEntry, (unsigned int)&g_deText_bastilleOptionsPageEntry[8], (unsigned int)g_deText_symbiontOptionsPageEntry, (unsigned int)&g_deText_symbiontOptionsPageEntry[8], (unsigned int)&g_deText_talSetOptionsPageEntry[4],
+        (unsigned int)&g_deText_mantidMites[4], (unsigned int)&g_deText_flaggeDMalErobern[12], (unsigned int)&g_deText_flaggeDMalErobernOptionsPageEntry[12], (unsigned int)&g_deText_dTeamCapturesErobern[16], (unsigned int)&g_deText_tagTheMonkeyD[12], (unsigned int)&g_deText_tagTheMonkeyD2[12], (unsigned int)&g_deText_dKreaturTagsErobern[12], (unsigned int)&g_deText_dFragErobern[4],
+        (unsigned int)&g_deText_dFragsErobern[8], (unsigned int)&g_deText_dTeamFragErobern[12], (unsigned int)&g_deText_dTeamFragsErobern[12], (unsigned int)&g_deText_in02dSekundenOder[20], (unsigned int)&g_deText_inDMinuteUnd[32], (unsigned int)&g_deText_inDMinutenUnd[36], (unsigned int)&g_deText_inDMinuteOder[16], (unsigned int)&g_deText_inDMinutenOder[16],
+        (unsigned int)&g_deText_mitDLeben[4], (unsigned int)&g_deText_mitDLebenOptionsPageEntry[4], (unsigned int)g_deText_sBesiegt, (unsigned int)&g_deText_sUndSBesiegt[8], (unsigned int)&g_deText_handGottes[8], (unsigned int)&g_deText_durchgefbhrtTrialOptionsPageEntry[16], (unsigned int)&g_deText_durchgefbhrtBasicTraining[20], (unsigned int)&g_deText_durchgefbhrtCrossroads[16],
+        (unsigned int)&g_deText_durchgefbhrtGrimRetreat[16], (unsigned int)&g_deText_durchgefbhrtCathedral[12], (unsigned int)&g_deText_durchgefbhrtFallout[12], (unsigned int)&g_deText_durchgefbhrtBoxedSet[12], (unsigned int)&g_deText_durchgefbhrtDireStraight[16], (unsigned int)&g_deText_durchgefbhrtPrey[8], (unsigned int)&g_deText_durchgefbhrtWarehouse[12], (unsigned int)&g_deText_durchgefbhrtWaterTemple[16],
+        (unsigned int)&g_deText_durchgefbhrtBombShelter[16], (unsigned int)&g_deText_durchgefbhrtTempered[12], (unsigned int)&g_deText_durchgefbhrtEarthTemple[16], (unsigned int)&g_deText_durchgefbhrtFireTemple[16], (unsigned int)&g_deText_durchgefbhrtMystic[12], (unsigned int)&g_deText_durchgefbhrtBottleneck[16], (unsigned int)&g_deText_durchgefbhrtTightrope[12], (unsigned int)&g_deText_durchgefbhrtThePit[12],
+        (unsigned int)&g_deText_durchgefbhrtLeapOfFaith[16], (unsigned int)&g_deText_durchgefbhrtWickedDance[16], (unsigned int)&g_deText_durchgefbhrtBunker[12], (unsigned int)&g_deText_durchgefbhrtAmphitheater[16], (unsigned int)&g_deText_durchgefbhrtFireWalker[16], (unsigned int)&g_deText_durchgefbhrtCrypts[12], (unsigned int)&g_deText_durchgefbhrtBreakdown[12], (unsigned int)&g_deText_durchgefbhrtRetaliation[16],
+        (unsigned int)&g_deText_durchgefbhrtHopeless[12], (unsigned int)&g_deText_durchgefbhrtMatrix[12], (unsigned int)&g_deText_durchgefbhrtFathom[12], (unsigned int)&g_deText_durchgefbhrtThePedestal[16], (unsigned int)&g_deText_durchgefbhrtDefcon5[12], (unsigned int)&g_deText_durchgefbhrtSpiritTemple[16], (unsigned int)&g_deText_durchgefbhrtStronghold[16], (unsigned int)&g_deText_durchgefbhrtCourtyard[12],
+        (unsigned int)&g_deText_durchgefbhrtStarlight[12], (unsigned int)&g_deText_15FragsIn5[12], (unsigned int)&g_deText_25FragsIn10[12], (unsigned int)g_deText_keineFrags, (unsigned int)&g_deText_fbnfmalSelbstGetntet[12], (unsigned int)&g_deText_fbnfmalSelbstGetntet[20], (unsigned int)&g_deText_fragAuszeichnungen[8], (unsigned int)&g_deText_tropheenFbrAbschbsse[12],
+        (unsigned int)&g_deText_10SpielerInEiner[28], (unsigned int)&g_deText_inDieserRundeNicht[20], (unsigned int)&g_deText_bastilleBesiegt[8], (unsigned int)&g_deText_syraBesiegt[4], (unsigned int)&g_deText_symbiontBesiegt[8], (unsigned int)&g_deText_talSetBesiegt[4], (unsigned int)&g_deText_jederFRSich[4], (unsigned int)&g_deText_jederFRSich[12],
+        (unsigned int)&g_deText_einfach[4], (unsigned int)&g_deText_mittel[4], (unsigned int)g_deText_schwer, (unsigned int)&g_deText_schwer[4], (unsigned int)g_deText_aus, (unsigned int)g_deText_rot, (unsigned int)g_deText_horizontal, (unsigned int)g_deText_vertikal,
+        (unsigned int)&g_deText_niedrigeAuflns[8], (unsigned int)&g_deText_hoheAuflns[4], (unsigned int)g_deText_letterbox, (unsigned int)&g_deText_letterbox[8], (unsigned int)g_deText_nein, (unsigned int)g_deText_ja, (unsigned int)&g_deText_novizeOptionsPageEntry[4], (unsigned int)&g_deText_einfachOptionsPageEntry[4],
+        (unsigned int)&g_deText_normal[4], (unsigned int)&g_deText_veteran[4], (unsigned int)&g_deText_experte[4], (unsigned int)g_deText_arcade, (unsigned int)&g_deText_arcade[4], (unsigned int)g_deText_gemischt, (unsigned int)&g_deText_controllerD[4], (unsigned int)&g_deText_controllerD[8],
+        (unsigned int)&g_deText_controllerD[12], (unsigned int)g_deText_ctf, (unsigned int)g_deText_tbl, (unsigned int)g_deText_gauntlet, (unsigned int)g_deText_fragfest, (unsigned int)g_deText_zeitspiel, (unsigned int)g_deText_spielerD, (unsigned int)&g_deText_adlerTalismanGefunden1[32],
+        (unsigned int)&g_deText_halbenAdlerTalisman1[40], (unsigned int)&g_deText_zweitenAdlerTalismanGefunden[44], (unsigned int)&g_deText_berTalismanGefunden5[40], (unsigned int)&g_deText_kojoteTalismanGefunden50[36], (unsigned int)&g_deText_pumaTalismanGefunden50[44], (unsigned int)&g_deText_viperTalismanGefundenMax[44], (unsigned int)&g_deText_kooperativeTalismanGefunden[20], (unsigned int)&g_deText_minigameSymbolGefunden[16],
+        (unsigned int)&g_deText_sturmgewehrGefunden[12], (unsigned int)&g_deText_schnellfeuerUpgradeFbrSturmgewehr[36], (unsigned int)&g_deText_scharfschbtzenvisierFbrTekArmbrust[36], (unsigned int)&g_deText_granatwerferGefunden[12], (unsigned int)&g_deText_granatwerferUpgradeGefunden[20], (unsigned int)&g_deText_plasmaGewehrGefunden[12], (unsigned int)&g_deText_visierFbrPlasmaGewehr[24], (unsigned int)&g_deText_seureangriffMnglich[12],
+        (unsigned int)&g_deText_sprungklaueGefunden[12], (unsigned int)&g_deText_radioaktiveFlareGunGefunden[20], (unsigned int)&g_deText_upgradeFbrDieRadioaktive[36], (unsigned int)&g_deText_skorpionWerferGefunden[16], (unsigned int)&g_deText_magnetUpgradeFbrSkorpion[32], (unsigned int)&g_deText_freezeGunGefunden[8], (unsigned int)&g_deText_upgradeFbrFreezeGun[20], (unsigned int)&g_deText_napalmGelGefunden[8],
+        (unsigned int)&g_deText_lasersichtgeretFbrMag60[24], (unsigned int)&g_deText_brustbrecherGefunden[12], (unsigned int)&g_deText_inflatorGefunden[8], (unsigned int)&g_deText_inflatorUpgradeGefunden[16], (unsigned int)&g_deText_bumerangGefunden[8], (unsigned int)&g_deText_upgradeFbrBumerangGefunden[20], (unsigned int)&g_deText_minigunGefunden[8], (unsigned int)&g_deText_schildUpgradeFbrMinigun[24],
+        (unsigned int)&g_deText_shotgunStrassenfegerUpgradeGefunden[28], (unsigned int)&g_deText_emaciatorGefunden[8], (unsigned int)&g_deText_upgradeFbrEmaciatorGefunden[20], (unsigned int)&g_deText_warhammerRaketenUpgradeGefunden[24], (unsigned int)&g_deText_duHastSEntriegelt[12], (unsigned int)&g_deText_missionGescheitert[8], (unsigned int)&g_deText_gegenstandBereitsGefunden[16], (unsigned int)&g_deText_gegenstandBereitsGefunden[24],
+        (unsigned int)g_deText_treffer, (unsigned int)&g_deText_treffer[8], (unsigned int)&g_deText_tags[4], (unsigned int)&g_deText_gratulationFragfestBberstanden[24], (unsigned int)&g_deText_gratulationZeitspielBeendet[20], (unsigned int)&g_deText_gratulationZeitspielBeendet[28], (unsigned int)&g_deText_pistolClip10Rounds[12], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[6228],
+        (unsigned int)&g_deText_schwierigkeitEinfach[16], (unsigned int)&g_deText_schwierigkeitMittel[16], (unsigned int)&g_deText_schwierigkeitSchwer[16], (unsigned int)&g_deText_steuermodusExperte[16], (unsigned int)&g_deText_steuermodusArcade[16], (unsigned int)&g_deText_steuermodus[16], (unsigned int)&g_deText_steuerseiteLinks[16], (unsigned int)&g_deText_steuerseiteRechts[16],
+        (unsigned int)&g_deText_quellblickEin[16], (unsigned int)&g_deText_quellblickAus[16], (unsigned int)&g_deText_automZielenEin[16], (unsigned int)&g_deText_automZielenAus[16], (unsigned int)&g_deText_farbeAus[16], (unsigned int)&g_deText_farbeRot[16], (unsigned int)&g_deText_farbeGrN[16], (unsigned int)&g_deText_2SpLayoutHorz[16],
+        (unsigned int)&g_deText_2SpLayoutVert[16], (unsigned int)&g_deText_oberflCheDurchsichtig[16], (unsigned int)&g_deText_oberflCheUndurchsichtig[16], (unsigned int)&g_deText_oberflChe[16], (unsigned int)&g_deText_controlStickHorzNorm[16], (unsigned int)&g_deText_controlStickHorz[16], (unsigned int)&g_deText_controlStickVertNorm[16], (unsigned int)&g_deText_controlStickVert[16],
+        (unsigned int)&g_deText_waffenwahlSchnell[16], (unsigned int)&g_deText_waffenwahlNorm[16], (unsigned int)&g_deText_auflSungNiedrig[16], (unsigned int)&g_deText_auflSungHoch[16], (unsigned int)&g_deText_auflSungHochFilm[16], (unsigned int)&g_deText_auflSungSuperniedrig[16], (unsigned int)&g_deText_auflSungNiedrigFilm[16], (unsigned int)&g_deText_helligkeitNorm[16],
+        (unsigned int)&g_deText_helligkeit[16], (unsigned int)&g_deText_languageGerman[16], (unsigned int)&g_deText_languageGerman[24], (unsigned int)&g_deText_zurCk[4], (unsigned int)&g_deText_keins[4], (unsigned int)&g_deText_namenNdern[4], (unsigned int)g_deText_blahblah, (unsigned int)&g_deText_handicapRows[0][8],
+        (unsigned int)&g_deText_handicapRows[1][8], (unsigned int)&g_deText_handicapRows[2][8], (unsigned int)&g_deText_handicapRows[3][8], (unsigned int)&g_deText_handicapKeins[8], (unsigned int)&g_deText_handicapMax[8], (unsigned int)&g_deText_steuerungExperte[8], (unsigned int)&g_deText_steuerungArcade[8], (unsigned int)&g_deText_steuerung[8],
+        (unsigned int)&g_deText_steuerung[16], (unsigned int)&g_deText_diesesSpielIst[8], (unsigned int)&g_deText_mitDemRumble[4], (unsigned int)&g_deText_pakKompatibel[4], (unsigned int)&g_deText_bitteSetzeDas[4], (unsigned int)g_deText_rumblePak, (unsigned int)&g_deText_jetztEinUmEs[8], (unsigned int)&g_deText_fRDiesesSpiel[8],
+        (unsigned int)&g_deText_zuVerwenden[4], (unsigned int)&g_deText_zuVerwenden[12], (unsigned int)&g_deText_wHlen[4], (unsigned int)&g_deText_blau[4], (unsigned int)g_deText_endergebnis, (unsigned int)&g_deText_ergebnisBlau[12], (unsigned int)&g_deText_ergebnisRot[12], (unsigned int)&g_deText_bitteWarten[8],
+        (unsigned int)&g_deText_bitteWarten[16], (unsigned int)&g_deText_spielWiederAufnehmen[12], (unsigned int)&g_deText_missionsstatus[4], (unsigned int)&g_deText_missionsstatus[12], (unsigned int)g_deText_inventar, (unsigned int)&g_deText_inventar[8], (unsigned int)g_deText_optionen, (unsigned int)&g_deText_optionen[8],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9148], (unsigned int)g_deText_inventarOptionsPageEntry, (unsigned int)&g_deText_inventarOptionsPageEntry[4], (unsigned int)g_deText_rageWars, (unsigned int)&g_deText_rageWars[8], (unsigned int)g_deText_turok2_, (unsigned int)g_deText_51, (unsigned int)g_deText_nrwd,
+        (unsigned int)&g_deText_nrwd[4], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9208], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9212], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9216], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9220], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9224], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9228], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9232],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9236], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9240], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9244], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9248], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9252], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9256], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9260], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9264],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9268], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9272], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9276], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9280], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9284], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9288], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9292], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9296],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9300], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9304], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9308], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9312], (unsigned int)&g_deText_anderesSpiel[4], (unsigned int)&g_deText_anderesSpiel[8], (unsigned int)&g_deText_anderesSpiel[12], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9340],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9344], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9348], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9352], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9356], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9360], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9364], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9368], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9372],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9376], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9380], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9384], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9388], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9392], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9396], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9400], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9404],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9408], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9412], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9416], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9420], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9456], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9460], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9464], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9468],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9472], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9476], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9480], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9484], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9488], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9492], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9496], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9500],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9504], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9508], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9516], (unsigned int)&g_deText_fehler[4], (unsigned int)g_deText_wichtig, (unsigned int)&g_deText_wichtig[4], (unsigned int)g_deText_okOptionsPageEntry, (unsigned int)g_deText_Text,
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9544], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9548], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9552], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9556], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9560], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9564], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9568], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9572],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9576], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9580], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9584], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9588], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9592], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9596], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9600], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9604],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9608], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9612], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9616], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9620], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9624], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9628], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9632], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9636],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9640], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9644], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9648], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9652], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9656], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9660], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9664], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9668],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9672], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9676], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9680], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9684], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9688], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9692], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9696], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9700],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9704], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9708], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9712], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9716], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9720], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9724], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9728], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9732],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9736], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9740], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9744], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9748], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9752], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9756], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9760], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9764],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9768], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9772], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9776], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9780], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9784], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9788], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9792], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9796],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9800], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9804], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9808], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9812], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9816], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9820], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9824], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9828],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9832], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9836], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9840], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9844], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9848], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9852], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9856], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9860],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9864], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9868], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9872], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9876], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9880], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9884], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9888], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9892],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9896], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9900], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9904], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9908], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9912], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9916], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9920], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9924],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9928], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9932], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9936], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9940], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9944], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9948], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9952], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9956],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9960], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9964], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9968], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9972], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9976], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9980], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9984], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9988],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9992], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[9996], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10000], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10004], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10008], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10012], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10016], (unsigned int)g_deText_speichern,
+        (unsigned int)g_deText_ladenOptionsPageEntry, (unsigned int)g_deText_gesundheit, (unsigned int)g_deText_munitionOptionsPageEntry, (unsigned int)g_deText_zurCkSaveLoadMenu, (unsigned int)&g_deText_zurCkSaveLoadMenu[4], (unsigned int)&g_deText_zurCkSaveLoadMenu[8], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10088], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10092],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10096], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10100], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10104], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10108], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10112], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b7[10116], (unsigned int)&g_deText_ufmTreffer[4], (unsigned int)g_deText_trefferCopies[0],
+        (unsigned int)g_deText_trefferCopies[1], (unsigned int)g_deText_trefferCopies[2], (unsigned int)&g_deText_trefferCopies[2][8], (unsigned int)g_deText_ndern, (unsigned int)&g_deText_ndern[4], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w8[0], (unsigned int)g_deText_tagVon, (unsigned int)g_deText_deineTags,
+        (unsigned int)&g_deText_besiegtVon[4], (unsigned int)g_deText_besiegt, (unsigned int)&g_deText_selbstGetTet[4], (unsigned int)&g_deText_flaggeVerlohren[8], (unsigned int)&g_deText_erHatDieFlagge[20], (unsigned int)g_deText_willstDu, (unsigned int)g_deText_wirklich, (unsigned int)&g_deText_wirklich[4],
+        (unsigned int)g_deText_jaOptionsPageEntry, (unsigned int)&g_deText_neinOptionsPageEntry[4], (unsigned int)&g_deText_cheatsOptionsPageEntry[4], (unsigned int)g_deText_speichernOptionsPageEntry, (unsigned int)&g_deText_cheatEingeben[4], (unsigned int)&g_deText_jetztBeitreten[4], (unsigned int)&g_deText_jetztBeitreten[12], (unsigned int)g_deText_verbinde,
+        (unsigned int)&g_deText_verbinde[8], (unsigned int)&g_deText_zurCkConnectMenu[4], (unsigned int)g_deText_gameOver, (unsigned int)g_deText_zeitXx, (unsigned int)&g_deText_zeitXx[8], (unsigned int)&g_deText_neuerCheatAktiviert[12], (unsigned int)&g_deText_neuerCheatAktiviert[16], (unsigned int)&g_deText_neuerCheatAktiviert[20],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[308], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[312], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[316], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[320], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[324], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[328], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[332], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[336],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[340], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[344], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[348], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[352], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[356], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[360], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[364], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[368],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[372], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[376], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[380], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[384], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[388], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[392], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[396], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[400],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[404], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[408], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[412], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[416], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[420], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[424], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[428], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[432],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[436], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[440], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[444], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[448], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[452], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[456], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[460], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[464],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[468], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[472], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[476], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[480], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[484], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[488], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[492], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[496],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[500], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[504], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[508], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[512], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[516], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[520], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[524], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[528],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[532], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[536], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[540], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[544], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[548], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[552], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[556], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[560],
+        (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[564], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[568], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[572], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[576], (unsigned int)g_deText_deineFrags, (unsigned int)g_deText_deineTagsOptionsPageEntry, (unsigned int)&g_deText_deineTagsOptionsPageEntry[8], (unsigned int)&g_deTotalsPanels[0].eins[4],
+        (unsigned int)&g_deTotalsPanels[0].zwei[4], (unsigned int)&g_deTotalsPanels[0].drei[4], (unsigned int)&g_deTotalsPanels[0].vier[4], (unsigned int)&g_deTotalsPanels[0].tags[4], (unsigned int)&g_deTotalsPanels[0].frags[4], (unsigned int)&g_deTotalsPanels[0].erledigt[4], (unsigned int)&g_deTotalsPanels[0].tschuess[4], (unsigned int)&g_deTotalsPanels[1].eins[4],
+        (unsigned int)&g_deTotalsPanels[1].zwei[4], (unsigned int)&g_deTotalsPanels[1].drei[4], (unsigned int)&g_deTotalsPanels[1].vier[4], (unsigned int)&g_deTotalsPanels[1].tags[4], (unsigned int)&g_deTotalsPanels[1].frags[4], (unsigned int)&g_deTotalsPanels[1].erledigt[4], (unsigned int)&g_deTotalsPanels[1].tschuess[4], (unsigned int)&g_deTotalsPanels[2].eins[4],
+        (unsigned int)&g_deTotalsPanels[2].zwei[4], (unsigned int)&g_deTotalsPanels[2].drei[4], (unsigned int)&g_deTotalsPanels[2].vier[4], (unsigned int)&g_deTotalsPanels[2].tags[4], (unsigned int)&g_deTotalsPanels[2].frags[4], (unsigned int)&g_deTotalsPanels[2].erledigt[4], (unsigned int)&g_deTotalsPanels[2].tschuess[4], (unsigned int)&g_deTotalsPanels[3].eins[4],
+        (unsigned int)&g_deTotalsPanels[3].zwei[4], (unsigned int)&g_deTotalsPanels[3].drei[4], (unsigned int)&g_deTotalsPanels[3].vier[4], (unsigned int)&g_deTotalsPanels[3].tags[4], (unsigned int)&g_deTotalsPanels[3].frags[4], (unsigned int)&g_deTotalsPanels[3].erledigt[4], (unsigned int)&g_deTotalsPanels[3].tschuess[4], (unsigned int)g_deText_spieler1,
+        (unsigned int)g_deText_spieler2, (unsigned int)g_deText_spieler3, (unsigned int)g_deText_spieler4, (unsigned int)&g_deText_spieler4[8], (unsigned int)g_deText_neuesSpiel, (unsigned int)&g_deText_neuesSpiel[8], (unsigned int)g_deText_mehrspieler, (unsigned int)&g_deText_mehrspielerSpiel[8],
+        (unsigned int)&g_deText_spielartWHlen[4], (unsigned int)&g_deText_jederGegenJeden[8], (unsigned int)&g_deText_jederGegenJedenOptionsPageEntry[8], (unsigned int)&g_deText_zeitlimitKeins[16], (unsigned int)&g_deText_fragLimitKeins[16], (unsigned int)&g_deText_levelWillkRlich[16], (unsigned int)&g_deText_levelExperimentelles[16], (unsigned int)&g_deText_levelMordImMondschein[16],
+        (unsigned int)&g_deText_levelAufEngemRaum[16], (unsigned int)&g_deText_levelSchmiedeDesVulkan[16], (unsigned int)&g_deText_levelTeleportersportler[16], (unsigned int)&g_deText_levelSpiegelrand[16], (unsigned int)&g_deText_levelZielscheiben[16], (unsigned int)&g_deText_levelWasserwahnsinn[16], (unsigned int)&g_deText_levelHysterie[16], (unsigned int)&g_deText_levelGruft[16],
+        (unsigned int)&g_deText_levelImQuadrat[16], (unsigned int)&g_deText_levelAbartigeAcht[16], (unsigned int)&g_deText_levelInsSchwarze[16], (unsigned int)&g_deText_strukturBurg[16], (unsigned int)&g_deText_strukturStahlwerk[16], (unsigned int)&g_deText_strukturPalisadenfort[16], (unsigned int)&g_deText_strukturKatakomben[16], (unsigned int)&g_deText_strukturGefNgnis[16],
+        (unsigned int)&g_deText_strukturGrossstadt[16], (unsigned int)&g_deText_strukturRoterDrache[16], (unsigned int)&g_deText_strukturPaintball[16], (unsigned int)&g_deText_strukturSmiley[16], (unsigned int)&g_deText_fadenkreuzAn[16], (unsigned int)&g_deText_fadenkreuzAus[16], (unsigned int)g_deText_spielstart, (unsigned int)&g_deText_spielstart[8],
+        (unsigned int)g_deText_fragTag, (unsigned int)g_deText_fragTagOptionsPageEntry, (unsigned int)&g_deText_tagLimitKeins[16], (unsigned int)&g_deText_levelIrrenhaus[16], (unsigned int)&g_deText_levelErwischt[16], (unsigned int)&g_deText_levelLGenUnd[16], (unsigned int)&g_deText_levelPrimattica[16], (unsigned int)&g_deText_levelKugelhagel[16],
+        (unsigned int)&g_deText_levelAndersAlsErhofft[16], (unsigned int)g_deText_teamGegner, (unsigned int)&g_deText_waffenEinrichten[8], (unsigned int)&g_deText_gefrierkanoneAn[16], (unsigned int)&g_deText_gefrierkanoneAus[16], (unsigned int)&g_deText_feuersturmKanoneAn[16], (unsigned int)&g_deText_feuersturmKanoneAus[16], (unsigned int)&g_deText_schredderAn[16],
+        (unsigned int)&g_deText_schredderAus[16], (unsigned int)&g_deText_plasmageschTzAn[16], (unsigned int)&g_deText_plasmageschTzAus[16], (unsigned int)&g_deText_zielsuchkanoneAn[16], (unsigned int)&g_deText_zielsuchkanoneAus[16], (unsigned int)&g_deText_granatenwerferAn[16], (unsigned int)&g_deText_granatenwerferAus[16], (unsigned int)&g_deText_skorpionRaketenwerferAn[16],
+        (unsigned int)&g_deText_skorpionRaketenwerferAus[16], (unsigned int)&g_deText_torpedowerferAn[16], (unsigned int)&g_deText_torpedowerferAus[16], (unsigned int)g_deText_training, (unsigned int)&g_deText_levelWillkRlichOptionsPageEntry[16], (unsigned int)&g_deText_levelBogenschiessen[16], (unsigned int)&g_deText_levelSchiessen[16], (unsigned int)&g_deText_levelZehnkampf[16],
+        (unsigned int)&g_deText_rundenzahl[16], (unsigned int)g_deText_spielstartOptionsPageEntry, (unsigned int)&g_deText_spielstartOptionsPageEntry[8], (unsigned int)&g_deText_zurCkCheckpointMenu[4], (unsigned int)g_deText_optionenOptionsPageEntry, (unsigned int)&g_deText_optionenOptionsPageEntry[8], (unsigned int)g_deText_checkpoint, (unsigned int)&g_deText_speicherpunkt[4],
+        (unsigned int)&g_deText_soundOptionen[4], (unsigned int)&g_deText_lautstRkeMusikAus[12], (unsigned int)&g_deText_lautstRkeMusikMax[12], (unsigned int)&g_deText_lautstRkeMusikNorm[12], (unsigned int)&g_deText_lautstRkeMusik[12], (unsigned int)&g_deText_lautstRkeSfxAus[12], (unsigned int)&g_deText_lautstRkeSfxMax[12], (unsigned int)&g_deText_lautstRkeSfxNorm[12],
+        (unsigned int)&g_deText_lautstRkeSfx[12], (unsigned int)&g_deText_lautstRkeSpracheAus[12], (unsigned int)&g_deText_lautstRkeSpracheMax[12], (unsigned int)&g_deText_lautstRkeSpracheNorm[12], (unsigned int)&g_deText_lautstRkeSprache[12], (unsigned int)&g_deText_musikNein[12], (unsigned int)&g_deText_music[12], (unsigned int)&g_deText_indexNein[12],
+        (unsigned int)&g_deText_spracheNein[12], (unsigned int)&g_deText_missionBeendet[8], (unsigned int)&g_deText_missionGescheitertOptionsPageEntry[12], (unsigned int)&g_deText_totemVerteidigen[8], (unsigned int)&g_deText_spielertempo[16], (unsigned int)&g_deText_spielertempoStandard[16], (unsigned int)g_deText_standard, (unsigned int)&g_deText_gesundheitSchlecht[8],
+        (unsigned int)&g_deText_gesundheitSchlecht[12], (unsigned int)&g_deText_gesundheitSchlecht[16], (unsigned int)g_deText_TextOptionsPageEntry, (unsigned int)g_deText_0, (unsigned int)g_deText_1, (unsigned int)g_deText_2, (unsigned int)g_deText_3, (unsigned int)g_deText_4,
+        (unsigned int)&g_artsendPreviousTextureHoldCount, (unsigned int)&g_artsendNextTextureHoldCount, (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.b9[3816],
+        0x41000000, (unsigned int)&g_unlockedLevelResultLabel[36], 0x42000000, (unsigned int)g_creditsLocalizedLines, 0x43000000,
+        (unsigned int)&g_creditsLocalizedLines[2], 0x44000000, (unsigned int)&g_creditsLocalizedLines[4], 0x45000000, (unsigned int)&g_creditsLocalizedLines[6], 0x46000000, (unsigned int)&g_creditsLocalizedLines[8], 0x47000000,
+        (unsigned int)&g_creditsLocalizedLines[10], 0x48000000, (unsigned int)&g_creditsLocalizedLines[12], 0x49000000, (unsigned int)&g_creditsLocalizedLines[14], 0x4A000000, (unsigned int)&g_creditsLocalizedLines[16], 0x4B000000,
+        (unsigned int)&g_creditsLocalizedLines[18], 0x4C000000, (unsigned int)&g_creditsLocalizedLines[20], 0x4D000000, (unsigned int)&g_creditsLocalizedLines[22], 0x4E000000, (unsigned int)&g_creditsLocalizedLines[24], 0x4F000000,
+        (unsigned int)&g_creditsLocalizedLines[26], 0x50000000, (unsigned int)&g_creditsLocalizedLines[28], 0x51000000, (unsigned int)&g_creditsLocalizedLines[30], 0x52000000, (unsigned int)&g_creditsLocalizedLines[32], 0x53000000,
+        (unsigned int)&g_creditsLocalizedLines[34], 0x54000000, (unsigned int)&g_creditsLocalizedLines[36], 0x55000000, (unsigned int)&g_creditsLocalizedLines[38], 0x56000000, (unsigned int)&g_creditsLocalizedLines[40], 0x57000000,
+        (unsigned int)&g_creditsLocalizedLines[42], 0x58000000, (unsigned int)&g_creditsLocalizedLines[44], 0x59000000, (unsigned int)&g_creditsLocalizedLines[46], 0x5A000000, (unsigned int)&g_creditsLocalizedLines[48], 0x30000000,
+        (unsigned int)&g_creditsLocalizedLines[50], 0x31000000, (unsigned int)&g_creditsLocalizedLines[52], 0x32000000, (unsigned int)&g_creditsLocalizedLines[54], 0x33000000, (unsigned int)&g_creditsLocalizedLines[56], 0x34000000,
+        (unsigned int)&g_creditsLocalizedLines[58], 0x35000000, (unsigned int)&g_creditsLocalizedLines[60], 0x36000000, (unsigned int)&g_creditsLocalizedLines[62], 0x37000000, (unsigned int)&g_creditsLocalizedLines[64], 0x38000000,
+        (unsigned int)&g_creditsLocalizedLines[66], 0x39000000, (unsigned int)&g_creditsLocalizedLines[68], 0x02000000, (unsigned int)&g_creditsLocalizedLines[70], 0x03000000, (unsigned int)&g_creditsLocalizedLines[72], 0x04000000,
+        (unsigned int)&g_creditsLocalizedLines[74], 0x00000000, (unsigned int)&g_creditsLocalizedLines[76], (unsigned int)&k_SkyPostscaledscreenmessageEncodedWords.w10[262], 0x00000000, 0x00000000, 0x00000000, 0x07400F0A,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x4C2D0FB0, 0x0335D220, 0x13E29B41, 0x00000003, 0x00000FA0, 0x00000000, 0x00000870,
+        0x00002666, 0xFFFFD99A, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x000002F8, 0x000005F0,
+        0x00000CCC, 0xFFFFF334, 0x00003FFF, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000960,
+        0x00001388, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00005000, 0x00000004, 0x00000FA0,
+        0x00000000, 0x00000A50, 0x00002666, 0xFFFFD99A, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000370, 0x00000870, 0x00000CCC, 0xFFFFF334, 0x00003FFF, 0x00000000, 0x00000000, 0x00000000,
+        0x00000A50, 0x00000E38, 0x00000CCC, 0xFFFFF334, 0x00003FFF, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000EB0, 0x00001F40, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00005000,
+        0x00000001, 0x00001F40, 0x00000000, 0x00001BF8, 0x00002EE0, 0x00000000, 0x00007FFF, 0x00000000,
+        0x00000000, 0x00000000, 0x00000001, 0x00000320, 0x00000000, 0x000000C8, 0x00004000, 0x00000000,
+        0x00007FFF, 0x00001DB0, 0x000002BC, 0x00000000, 0x00000001, 0x00000320, 0x00000000, 0x000000C8,
+        0x00000000, 0x00005FFF, 0x00007FFF, 0x0000017C, 0x000001F4, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x7FFF7FFC, 0x7FF57FE8, 0x7FD77FC0, 0x7FA57F84, 0x7F5F7F34, 0x7F057ED0, 0x7E977E58, 0x7E157DCD,
+    },
+    { 0x7F, 0x5F, 0x7F, 0x34 },
+    {
+        0x7F057ED0, 0x7E977E58, 0x7E157DCD, 0x7D7F7D2D, 0x7CD67C7A, 0x7C1A7BB4, 0x7B497ADA, 0x7A6679ED,
+    },
+    { 0x7D, 0x7F, 0x7D, 0x2D },
+    {
+        0x7CD67C7A, 0x7C1A7BB4, 0x7B497ADA, 0x7A6679ED, 0x796F78ED, 0x786677DA, 0x774976B4, 0x761A757B,
+        0x74D87430, 0x738472D3, 0x721E7164, 0x70A66FE3, 0x6F1C6E51, 0x6D816CAD, 0x6BD56AF9, 0x6A186933,
+    },
+    "hJg]flew",
+    {
+        0x647E6381, 0x6280617C, 0x60735F67, 0x5E575D43, 0x5C2C5B11, 0x59F258D0, 0x57AA5681, 0x55555425,
+    },
+    "`s_g^W]C",
+    {
+        0x5C2C5B11, 0x59F258D0, 0x57AA5681, 0x55555425, 0x52F251BC, 0x50824F46, 0x4E064CC3, 0x4B7D4A35,
+    },
+    "UUT%",
+    {
+        0x52F251BC, 0x50824F46, 0x4E064CC3, 0x4B7D4A35, 0x48E9479B, 0x464944F5, 0x439E4245, 0x40E93F8A,
+    },
+    { 16599605.0f },
+    {
+        0x48E9479B, 0x464944F5, 0x439E4245, 0x40E93F8A, 0x3E293CC6, 0x3B6039F8, 0x388D3721, 0x35B23441,
+        0x32CE3159, 0x2FE22E69, 0x2CEF2B72, 0x29F42875, 0x26F32570, 0x23EC2266, 0x20DF1F57, 0x1DCE1C43,
+        0x1AB7192A, 0x179C160E, 0x147E12ED, 0x115C0FCA, 0x0E380CA5, 0x0B11097D, 0x07E90654, 0x04C0032A,
+        0x01950000, 0x00000010, 0x00000010, 0x00000020, 0x00000000, 0xC1200000, 0x00000000, 0x02EFB323,
+        0xB315AD9E, 0x001FE11B, 0x2DB311DA, 0x0EE6E1F0, 0xE231A07D, 0x00000000, 0xE25FA4B3, 0x2B05302D,
+        0xACCDE410, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)&g_diskPiHandle,
+        (unsigned int)&g_diskPeripheralHandle, 0x236EF2E0,
+        0x001423B1, 0x00000000, 0xDFEC560E, 0xB33F0214, 0x4DFD2CB4, 0x00000000, 0x50041E41, 0xB1DDB3D9,
+        0x3E5FE443, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, (unsigned int)&g_serialInterfaceAccessQueueInitialized, 0x800D43D0, 0x42B2F9EC, 0xF12825B1,
+        0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x2ECF30A1, 0x02000000, 0x0000311E, 0x00000140,
+        0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x10000000, 0x0000311E, 0x00000140, 0x04541E3A, 0x00000271, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002,
+        0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x1E000000, 0x0000311E, 0x00000140,
+        0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x00000000, 0x0000320E, 0x00000140, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x01000000, 0x0000324E, 0x00000140,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x002301FD, 0x000E0204, 0x00000002, 0x00000280, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x02000000, 0x0000311E, 0x00000140, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x03000000, 0x0000305E, 0x00000140,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x002301FD, 0x000E0204, 0x00000002, 0x00000280, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x04000000, 0x0000330F, 0x00000140, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x05000000, 0x0000324F, 0x00000140,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x002301FD, 0x000E0204, 0x00000002, 0x00000500, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x06000000, 0x0000301F, 0x00000140, 0x03E52239, 0x0000020D, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x07000000, 0x0000305F, 0x00000140,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x002301FD, 0x000E0204, 0x00000002, 0x00000500, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x08000000, 0x0000324E, 0x00000500, 0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x002301FD, 0x000E0204, 0x00000002,
+        0x00000A00, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x09000000, 0x0000324E, 0x00000280,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x002301FD, 0x000E0204, 0x00000002, 0x00000A00, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x0A000000, 0x0000305E, 0x00000500, 0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x002301FD, 0x000E0204, 0x00000002,
+        0x00000A00, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x0B000000, 0x0000305E, 0x00000280,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x002301FD, 0x000E0204, 0x00000002, 0x00000A00, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x0C000000, 0x0000334F, 0x00000500, 0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000A00, 0x00000400, 0x002301FD, 0x000E0204, 0x00000002,
+        0x00001400, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x0D000000, 0x0000324F, 0x00000280,
+        0x03E52239, 0x0000020C, 0x00000C15, 0x0C150C15, 0x006C02EC, 0x00000400, 0x00000000, 0x00000A00,
+        0x02000800, 0x002301FD, 0x000E0204, 0x00000002, 0x00001400, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x0E000000, 0x0000320E, 0x00000140, 0x04541E3A, 0x00000271, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002,
+        0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x0F000000, 0x0000324E, 0x00000140,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x005D0237, 0x0009026B, 0x00000002, 0x00000280, 0x03000400, 0x005F0239, 0x000D0269,
+        0x00000002, 0x10000000, 0x0000311E, 0x00000140, 0x04541E3A, 0x00000271, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002,
+        0x00000280, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x11000000, 0x0000305E, 0x00000140,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x005D0237, 0x0009026B, 0x00000002, 0x00000280, 0x03000400, 0x005F0239, 0x000D0269,
+        0x00000002, 0x12000000, 0x0000330F, 0x00000140, 0x04541E3A, 0x00000271, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002,
+        0x00000500, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x13000000, 0x0000324F, 0x00000140,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x005D0237, 0x0009026B, 0x00000002, 0x00000500, 0x03000400, 0x005F0239, 0x000D0269,
+        0x00000002, 0x14000000, 0x0000301F, 0x00000140, 0x04541E3A, 0x00000271, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002,
+        0x00000500, 0x00000400, 0x005F0239, 0x0009026B, 0x00000002, 0x15000000, 0x0000305F, 0x00000140,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x005D0237, 0x0009026B, 0x00000002, 0x00000500, 0x03000400, 0x005F0239, 0x000D0269,
+        0x00000002, 0x16000000, 0x0000324E, 0x00000500, 0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x005D0237, 0x0009026B, 0x00000002,
+        0x00000A00, 0x00000400, 0x005F0239, 0x000D0269, 0x00000002, 0x17000000, 0x0000324E, 0x00000280,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x005D0237, 0x0009026B, 0x00000002, 0x00000A00, 0x02000800, 0x005F0239, 0x000D0269,
+        0x00000002, 0x18000000, 0x0000305E, 0x00000500, 0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x005D0237, 0x0009026B, 0x00000002,
+        0x00000A00, 0x00000400, 0x005F0239, 0x000D0269, 0x00000002, 0x19000000, 0x0000305E, 0x00000280,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x005D0237, 0x0009026B, 0x00000002, 0x00000A00, 0x02000800, 0x005F0239, 0x000D0269,
+        0x00000002, 0x1A000000, 0x0000334F, 0x00000500, 0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D,
+        0x00800300, 0x00000400, 0x00000000, 0x00000A00, 0x00000400, 0x005D0237, 0x0009026B, 0x00000002,
+        0x00001400, 0x00000400, 0x005F0239, 0x000D0269, 0x00000002, 0x1B000000, 0x0000324F, 0x00000280,
+        0x04541E3A, 0x00000270, 0x00170C69, 0x0C6F0C6D, 0x00800300, 0x00000400, 0x00000000, 0x00000A00,
+        0x02000800, 0x005D0237, 0x0009026B, 0x00000002, 0x00001400, 0x02000800, 0x005F0239, 0x000D0269,
+        0x00000002, 0x1C000000, 0x0000320E, 0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x1D000000, 0x0000324E, 0x00000140,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x002301FD, 0x000B0202, 0x00000002, 0x00000280, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x1E000000, 0x0000311E, 0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000280, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x1F000000, 0x0000305E, 0x00000140,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000200, 0x00000000, 0x00000280,
+        0x01000400, 0x002301FD, 0x000B0202, 0x00000002, 0x00000280, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x20000000, 0x0000330F, 0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x21000000, 0x0000324F, 0x00000140,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x002301FD, 0x000B0202, 0x00000002, 0x00000500, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x22000000, 0x0000301F, 0x00000140, 0x04651E39, 0x0000020D, 0x00040C11, 0x0C190C1A,
+        0x006C02EC, 0x00000200, 0x00000000, 0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002,
+        0x00000500, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x23000000, 0x0000305F, 0x00000140,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000200, 0x00000000, 0x00000500,
+        0x01000400, 0x002301FD, 0x000B0202, 0x00000002, 0x00000500, 0x03000400, 0x002501FF, 0x000E0204,
+        0x00000002, 0x24000000, 0x0000324E, 0x00000500, 0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x002301FD, 0x000B0202, 0x00000002,
+        0x00000A00, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x25000000, 0x0000324E, 0x00000280,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x002301FD, 0x000B0202, 0x00000002, 0x00000A00, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x26000000, 0x0000305E, 0x00000500, 0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000500, 0x00000400, 0x002301FD, 0x000B0202, 0x00000002,
+        0x00000A00, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x27000000, 0x0000305E, 0x00000280,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000400, 0x00000000, 0x00000500,
+        0x02000800, 0x002301FD, 0x000B0202, 0x00000002, 0x00000A00, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x28000000, 0x0000334F, 0x00000500, 0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C,
+        0x006C02EC, 0x00000400, 0x00000000, 0x00000A00, 0x00000400, 0x002301FD, 0x000B0202, 0x00000002,
+        0x00001400, 0x00000400, 0x002501FF, 0x000E0204, 0x00000002, 0x29000000, 0x0000324F, 0x00000280,
+        0x04651E39, 0x0000020C, 0x00000C10, 0x0C1C0C1C, 0x006C02EC, 0x00000400, 0x00000000, 0x00000A00,
+        0x02000800, 0x002301FD, 0x000B0202, 0x00000002, 0x00001400, 0x02000800, 0x002501FF, 0x000E0204,
+        0x00000002, 0x02E6D354, 0x00000000, 0x003FFF01, 0xB3DC74E4, 0x00000000, 0xFFFFFFFF,
+        (unsigned int)&g_audioClockRate,
+        (unsigned int)&g_audioClockRate, 0x00000000, 0x00000000, 0x1AB31103, 0x11F2E3CD, 0x80149BA8, 0x9BF43173,
+        0xE0A33370,
+        0xD2E1DF56, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0xB3492FF0, 0x0DEEF520,
+        0x0DA1C01F, 0x20202020, 0x20202020, 0x20202020, 0x20202020, 0x20202020, 0x20202020, 0x20202020,
+    },
+    { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+    0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0x00 },
+    { 6.4096906e-10f, 6.4096906e-10f, 6.4096906e-10f, 6.4096906e-10f, 6.4096906e-10f, 6.4096906e-10f, 6.4096906e-10f,
+    6.4096906e-10f },
+    {
+        0x00B1DF1E, 0x45106111, 0xEDB0B132, 0x30313233, 0x34353637, 0x38396162, 0x63646566, 0x00000000,
+    },
+    "0123456789abcdef",
+    {
+        0x00000000, 0x30313233, 0x34353637, 0x38394142, 0x43444546, 0x0033C0DB, 0x1ED126B1, 0x30320D40,
+    },
+    "0123456789ABCDEF",
+    {
+        0x0033C0DB, 0x1ED126B1, 0x30320D40, 0x00000000, 0xB1044EB3, 0xF64C41C7, 0x22B20230, 0x8014B838,
+        0x8014B938, (unsigned int)&g_audioDecodedSampleSlots[3072], 0x00000000, 0x00000001, 0x00030007, 0x000F001F, 0x003F007F, 0x00FF01FF,
+        0x03FF07FF, 0x0FFF1FFF, 0x3FFF7FFF, 0xFFFF0000, 0x00000001, 0x00020004, 0x00080010, 0x00200040,
+        0x00800100, 0x02000400, 0x08001000, 0x20004000, (unsigned int)g_tlbMissExceptionVector, 0x00040008, 0x000C0012, 0x00190021,
+        0x002C0035, 0x003F004B, 0x00590069, 0x007E0095, 0x00B90100, 0x379837F1, 0x37B504F3, 0x37D744FD,
+        0x38000000, 0x381837F0, 0x383504F3, 0x385744FD, 0x38800000, 0x389837F0, 0x38B504F3, 0x38D744FD,
+        0x39000000, 0x393504F3, 0x391837F0, 0x395744FD, 0x39800000, 0x399837F0, 0x39B504F3, 0x39D744FD,
+        0x3A000000, 0x3A1837F0, 0x3A3504F3, 0x3A5744FD, 0x3A800000, 0x3A9837F1, 0x3AB504F3, 0x3AD744FD,
+        0x3B000000, 0x3B1837F0, 0x3B3504F3, 0x3B5744FD, 0x3B800000, 0x3B9837F0, 0x3BB504F3, 0x3BD744FD,
+        0x3C000000, 0x3C1837F0, 0x3C3504F3, 0x3C5744FC, 0x3C800000, 0x3C9837F0, 0x3CB504F3, 0x3CD744FD,
+        0x3D000000, 0x3D1837F0, 0x3D3504F3, 0x3D5744FD, 0x3D800000, 0x3D9837F0, 0x3DB504F3, 0x3DD744FD,
+        0x3E000000, 0x3E1837F0, 0x3E3504F4, 0x3E5744FD, 0x3E800000, 0x3E9837F0, 0x3EB504F3, 0x3ED744FD,
+        0x3F000000, 0x3F1837F0, 0x3F3504F3, 0x3F5744FD, 0x3F800000, 0x00000000, 0x00000000, 0x00000000,
+        0xEA03820C, 0x43C00EE3, 0xBDF00E0E, 0xFFFFFF81, 0x0000007F, 0x000000FF, 0x00000010, 0x00000101,
+        0x00000100, 0x00000001, (unsigned int)&g_audioDecodeBlock[3].start, (unsigned int)&g_audioDecodeBlock[25].start, 0xFFFFFF81, 0x0000007F, 0x000000FF, 0x00000010,
+        0x00000105, 0x00000100, 0x00000005, (unsigned int)&g_audioDecodeBlock[128].start, (unsigned int)&g_audioDecodeBlock[238].start, 0xFFFFFF81, 0x0000007F, 0x000000FF,
+        0x00000010, 0x00000109, 0x00000100, 0x00000009, (unsigned int)&g_audioDecodeBlock[342].table, (unsigned int)&g_audioDecodeBlock[540].table, 0xFFFFFFC0, 0x00000040,
+        0xFFFFFFFF, 0x00000010, 0xFFFFFFFF, 0x00000081, 0x00000000, 0x00000000, (unsigned int)&g_audioDecodeBlock[647].kind, 0x00000004,
+        0x00000001, 0x00000000, 0x00000010, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords[29],
+        0x00000000, 0x00000000, 0x00000023,
+        0x00000000, (unsigned int)&g_audioTransformTablesInitialized, 0x00000000, 0x00000023, 0x00000059, 0x00000000,
+        (unsigned int)&g_audioInitdecodestreamDataConstantWords[11], 0x00000000,
+        0x0000007C, 0x00000084, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords[20], 0x28202031,
+        0x31202020, 0x30277320, 0x29200000,
+    },
+    { 0x28, 0x20, 0x20, 0x31 },
+    { 2.3301325e-09f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000000B, 0x00000000, 0x00000000,
+        0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0x00010006, 0x00020005, 0x00030004, 0x0800FFFE, 0x08000002,
+        0x08000000, 0x00070200, 0x000800A7, 0x0009000A, 0x0800FFFD, 0x000B000C, 0x08000004, 0x000D00A6,
+        0x000E00A1, 0x000F0058, 0x0010003B, 0x00110020, 0x0012001F, 0x0013001E, 0x0014001D, 0x0015001A,
+        0x00160019, 0x00170018, 0x0800006F, 0x0800FF83, 0x0800FFA4, 0x001B001C, 0x08000061, 0x08000058,
+        0x0800FFD8, 0x0800FFE3, 0x08000016, 0x00210022, 0x0800FFEA, 0x0023002A, 0x00240029, 0x00250028,
+        0x00260027, 0x0800004E, 0x08000052, 0x0800FFC2, 0x0800FFD6, 0x002B0036, 0x002C002F, 0x002D002E,
+        0x0800FFB0, 0x08000056, 0x00300033, 0x00310032, 0x0800FF89, 0x08000073, 0x00340035, 0x0800FF85,
+        0x0800FF87, 0x00370038, 0x0800FFCE, 0x0039003A, 0x0800FFA7, 0x0800FFA9, 0x003C0057, 0x003D0042,
+        0x003E0041, 0x003F0040, 0x08000029, 0x08000028, 0x0800001E, 0x00430052, 0x00440047, 0x00450046,
+        0x0800FFC5, 0x0800003D, 0x00480049, 0x08000038, 0x004A004D, 0x004B004C, 0x08000078, 0x0800FF8C,
+        0x004E004F, 0x0800FF9D, 0x00500051, 0x08000B00, 0x08000079, 0x00530056, 0x00540055, 0x0800003B,
+        0x08000035, 0x0800FFD9, 0x0800FFF0, 0x00590084, 0x005A006F, 0x005B006E, 0x005C006D, 0x005D0064,
+        0x005E005F, 0x08000039, 0x00600063, 0x00610062, 0x0800007A, 0x08000066, 0x08000053, 0x0065006A,
+        0x00660067, 0x08000062, 0x00680069, 0x0800FF98, 0x0800FF92, 0x006B006C, 0x0800FFAA, 0x0800004D,
+        0x0800001D, 0x08000015, 0x00700075, 0x00710074, 0x00720073, 0x08000027, 0x08000025, 0x0800001C,
+        0x00760077, 0x0800FFE5, 0x00780083, 0x00790080, 0x007A007D, 0x007B007C, 0x0800FF88, 0x0800FF99,
+        0x007E007F, 0x08000077, 0x0800007F, 0x00810082, 0x08000054, 0x0800FFAE, 0x0800FFDB, 0x00850086,
+        0x08000010, 0x00870088, 0x0800FFEB, 0x00890092, 0x008A008B, 0x0800FFDA, 0x008C0091, 0x008D0090,
+        0x008E008F, 0x0800FF8A, 0x0800FF8E, 0x0800FFAB, 0x08000036, 0x00930096, 0x00940095, 0x08000037,
+        0x0800FFC8, 0x0097009C, 0x0098009B, 0x0099009A, 0x08000069, 0x08000074, 0x0800FFB5, 0x009D009E,
+        0x0800004F, 0x009F00A0, 0x0800006B, 0x0800FF93, 0x00A200A3, 0x08000009, 0x00A400A5, 0x0800000C,
+        0x08000900, 0x0800FFFB, 0x00A801C7, 0x00A90146, 0x00AA00AB, 0x08000005, 0x00AC00C7, 0x00AD00AE,
+        0x0800FFF7, 0x00AF00B0, 0x0800FFF4, 0x00B100BA, 0x00B200B9, 0x00B300B4, 0x0800FFE4, 0x00B500B6,
+        0x08000026, 0x00B700B8, 0x0800FFCC, 0x0800FFC9, 0x0800FFEC, 0x00BB00BE, 0x00BC00BD, 0x0800001B,
+        0x0800FFE6, 0x00BF00C0, 0x08000A00, 0x00C100C6, 0x00C200C3, 0x0800FFC7, 0x00C400C5, 0x08000046,
+        0x0800FFBB, 0x0800FFDC, 0x00C800FF, 0x00C900E2, 0x00CA00E1, 0x00CB00E0, 0x00CC00D7, 0x00CD00D6,
+        0x00CE00D3, 0x00CF00D2, 0x00D000D1, 0x0800007E, 0x0800FF97, 0x0800FFB2, 0x00D400D5, 0x0800FFB3,
+        0x08000047, 0x08000022, 0x00D800DF, 0x00D900DA, 0x08000032, 0x00DB00DE, 0x00DC00DD, 0x0800FF8F,
+        0x0800005A, 0x0800FFB6, 0x08000023, 0x08000014, 0x0800FFF1, 0x00E300FE, 0x00E400F5, 0x00E500F4,
+        0x00E600EF, 0x00E700E8, 0x0800FFCA, 0x00E900EC, 0x00EA00EB, 0x0800FF96, 0x08000063, 0x00ED00EE,
+        0x0800FF9B, 0x08000072, 0x00F000F3, 0x00F100F2, 0x0800FFB8, 0x08000051, 0x08000034, 0x0800001A,
+        0x00F600FD, 0x00F700F8, 0x0800FFDD, 0x00F900FC, 0x00FA00FB, 0x0800FFB4, 0x08000048, 0x0800FFCD,
+        0x08000019, 0x0800000F, 0x01000101, 0x0800FFF5, 0x01020131, 0x0103010E, 0x01040105, 0x0800FFE7,
+        0x0106010D, 0x0107010C, 0x0108010B, 0x0109010A, 0x0800FF8B, 0x0800006E, 0x0800004B, 0x08000030,
+        0x08000024, 0x010F011A, 0x01100115, 0x01110114, 0x01120113, 0x08000044, 0x0800FFBF, 0x0800FFD0,
+        0x01160119, 0x01170118, 0x0800FFB9, 0x0800FFBC, 0x0800FFCF, 0x011B0124, 0x011C0123, 0x011D0122,
+        0x011E0121, 0x011F0120, 0x0800FF81, 0x08000076, 0x08000060, 0x0800FFBE, 0x08000031, 0x0125012A,
+        0x01260127, 0x0800004C, 0x01280129, 0x0800006C, 0x0800FF90, 0x012B0130, 0x012C012F, 0x012D012E,
+        0x08000075, 0x0800FF82, 0x0800FF95, 0x0800FFB7, 0x01320133, 0x08000013, 0x01340139, 0x01350138,
+        0x01360137, 0x08000033, 0x0800FFD1, 0x08000021, 0x013A013B, 0x0800FFDE, 0x013C0141, 0x013D013E,
+        0x0800FFB1, 0x013F0140, 0x0800FF9A, 0x0800006D, 0x01420145, 0x01430144, 0x08000070, 0x0800FF9C,
+        0x08000045, 0x0147014A, 0x01480149, 0x0800FFFA, 0x08000006, 0x014B0184, 0x014C014D, 0x0800FFF8,
+        0x014E014F, 0x0800000B, 0x0150015D, 0x01510152, 0x0800FFED, 0x01530154, 0x08000018, 0x0155015C,
+        0x01560157, 0x0800002E, 0x0158015B, 0x0159015A, 0x0800FF94, 0x0800FF91, 0x0800FFC6, 0x0800FFDF,
+        0x015E0173, 0x015F0172, 0x01600165, 0x01610162, 0x0800002D, 0x01630164, 0x0800004A, 0x0800003F,
+        0x0166016D, 0x0167016C, 0x01680169, 0x08000067, 0x016A016B, 0x0800FF84, 0x0800007C, 0x08000042,
+        0x016E0171, 0x016F0170, 0x0800FFAC, 0x0800FFA6, 0x0800FFC3, 0x0800FFE8, 0x0174017B, 0x0175017A,
+        0x01760177, 0x0800FFD3, 0x01780179, 0x0800FFC0, 0x08000043, 0x08000020, 0x017C0183, 0x017D0182,
+        0x017E017F, 0x08000041, 0x01800181, 0x08000068, 0x0800005F, 0x0800FFD5, 0x0800FFE0, 0x01850186,
+        0x08000008, 0x0187018A, 0x01880189, 0x0800FFF2, 0x0800000E, 0x018B01A0, 0x018C019F, 0x018D019E,
+        0x018E019B, 0x018F0196, 0x01900193, 0x01910192, 0x0800FF9E, 0x0800005E, 0x01940195, 0x0800FFA2,
+        0x0800FFA0, 0x0197019A, 0x01980199, 0x0800FF9F, 0x0800005C, 0x0800FFBD, 0x019C019D, 0x0800002F,
+        0x0800FFD4, 0x0800FFE9, 0x0800FFEE, 0x01A101C6, 0x01A201B3, 0x01A301B2, 0x01A401AB, 0x01A501A8,
+        0x01A601A7, 0x08000059, 0x0800FFA5, 0x01A901AA, 0x08000055, 0x0800006A, 0x01AC01AD, 0x0800FFBA,
+        0x01AE01AF, 0x0800005D, 0x01B001B1, 0x0800007B, 0x0800007D, 0x0800001F, 0x01B401B7, 0x01B501B6,
+        0x0800002B, 0x0800FFD2, 0x01B801BD, 0x01B901BC, 0x01BA01BB, 0x0800FFA3, 0x08000050, 0x08000049,
+        0x01BE01C1, 0x01BF01C0, 0x0800FFAD, 0x08000064, 0x01C201C5, 0x01C301C4, 0x08000071, 0x0800FF86,
+        0x0800FFAF, 0x08000012, 0x01C801FF, 0x01C901FE, 0x01CA01FB, 0x01CB01CE, 0x01CC01CD, 0x0800000A,
+        0x0800FFF6, 0x01CF01F6, 0x01D001F5, 0x01D101DE, 0x01D201D3, 0x08000017, 0x01D401D5, 0x0800FFE1,
+        0x01D601DB, 0x01D701D8, 0x0800FFC1, 0x01D901DA, 0x08000065, 0x0800FFA1, 0x01DC01DD, 0x0800003A,
+        0x0800FFC4, 0x01DF01E8, 0x01E001E1, 0x0800FFE2, 0x01E201E7, 0x01E301E6, 0x01E401E5, 0x0800005B,
+        0x0800FF8D, 0x08000040, 0x0800002A, 0x01E901F0, 0x01EA01EB, 0x0800002C, 0x01EC01ED, 0x0800003C,
+        0x01EE01EF, 0x08000057, 0x0800FFA8, 0x01F101F2, 0x0800FFD7, 0x01F301F4, 0x0800FFCB, 0x0800003E,
+        0x0800FFF3, 0x01F701F8, 0x0800000D, 0x01F901FA, 0x0800FFEF, 0x08000011, 0x01FC01FD, 0x0800FFF9,
+        0x08000007, 0x0800FFFC, 0x08000003, 0x02010202, 0x08000001, 0x0800FFFF, 0x28202031, 0x31202020,
+    },
+    { 0x28, 0x20, 0x20, 0x31 },
+    { 2.3301325e-09f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000000B, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x31 },
+    { 2.3860557e-06f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000010, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 3.728212e-08f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000017, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 3.817689e-05f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000001C, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x33 },
+    { 9.32053e-09f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000020, 0x00000000, 0x00000000,
+        0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0x0001020A, 0x00020003, 0x08000001, 0x00040209, 0x00050206,
+        0x00060017, 0x00070016, 0x00080009, 0x08000004, 0x000A000D, 0x000B000C, 0x08000006, 0x0800FFFA,
+        0x000E0011, 0x000F0010, 0x08000A02, 0x08000007, 0x00120013, 0x0800FFF9, 0x00140015, 0x0800FFF8,
+        0x08000008, 0x08000003, 0x00180019, 0x0800FFFD, 0x001A0201, 0x001B0200, 0x001C001D, 0x08000A01,
+        0x001E0175, 0x001F0172, 0x00200023, 0x00210022, 0x0800FFF5, 0x0800000B, 0x00240073, 0x00250072,
+        0x0026002F, 0x0027002C, 0x0028002B, 0x0029002A, 0x08000023, 0x08000025, 0x0800001F, 0x002D002E,
+        0x08000019, 0x0800FFEA, 0x00300047, 0x00310034, 0x00320033, 0x0800FFE1, 0x0800FFDE, 0x00350046,
+        0x00360037, 0x08000026, 0x0038003F, 0x0039003C, 0x003A003B, 0x0800FFA8, 0x0800FFCA, 0x003D003E,
+        0x0800FFA9, 0x0800FFC8, 0x00400043, 0x00410042, 0x08000057, 0x08000058, 0x00440045, 0x08000069,
+        0x0800006C, 0x0800FFE0, 0x00480049, 0x0800FFE8, 0x004A0067, 0x004B0058, 0x004C0053, 0x004D0050,
+        0x004E004F, 0x0800FF9B, 0x0800003A, 0x00510052, 0x0800FF9C, 0x08000039, 0x00540057, 0x00550056,
+        0x0800006A, 0x0800006B, 0x0800002A, 0x00590060, 0x005A005D, 0x005B005C, 0x08000074, 0x08000075,
+        0x005E005F, 0x08000071, 0x08000076, 0x00610064, 0x00620063, 0x0800007B, 0x0800007C, 0x00650066,
+        0x0800FFAE, 0x0800FFAF, 0x00680069, 0x0800FFDD, 0x006A0071, 0x006B006E, 0x006C006D, 0x0800FFA7,
+        0x0800FFCB, 0x006F0070, 0x0800FFAB, 0x0800FFC4, 0x0800002B, 0x0800FFF3, 0x00740105, 0x00750076,
+        0x0800000F, 0x007700A0, 0x00780079, 0x0800FFE6, 0x007A008D, 0x007B0084, 0x007C0083, 0x007D0080,
+        0x007E007F, 0x0800006D, 0x0800006E, 0x00810082, 0x0800FF90, 0x08000043, 0x08000029, 0x00850086,
+        0x0800FFCD, 0x0087008A, 0x00880089, 0x0800FF8C, 0x08000049, 0x008B008C, 0x0800FF8D, 0x08000046,
+        0x008E0097, 0x008F0090, 0x0800FFD5, 0x00910094, 0x00920093, 0x08000047, 0x08000048, 0x00950096,
+        0x0800FF97, 0x0800FF98, 0x00980099, 0x08000028, 0x009A009D, 0x009B009C, 0x0800FF8B, 0x0800004A,
+        0x009E009F, 0x0800005E, 0x08000061, 0x00A100DA, 0x00A200C1, 0x00A300B2, 0x00A400AB, 0x00A500A8,
+        0x00A600A7, 0x0800FFC2, 0x0800FFC3, 0x00A900AA, 0x08000063, 0x08000064, 0x00AC00AF, 0x00AD00AE,
+        0x0800004B, 0x0800004C, 0x00B000B1, 0x0800FF94, 0x0800003F, 0x00B300BA, 0x00B400B7, 0x00B500B6,
+        0x0800FF9E, 0x08000037, 0x00B800B9, 0x08000066, 0x08000067, 0x00BB00BE, 0x00BC00BD, 0x0800005A,
+        0x0800005D, 0x00BF00C0, 0x08000051, 0x08000054, 0x00C200D1, 0x00C300CA, 0x00C400C7, 0x00C500C6,
+        0x08000062, 0x08000065, 0x00C800C9, 0x0800FFAD, 0x0800FFC0, 0x00CB00CE, 0x00CC00CD, 0x0800007E,
+        0x0800007F, 0x00CF00D0, 0x0800FFAA, 0x0800FFC5, 0x00D200D3, 0x0800FFCE, 0x00D400D7, 0x00D500D6,
+        0x0800FFAC, 0x0800FFC1, 0x00D800D9, 0x0800FFB0, 0x0800FFBF, 0x00DB00F4, 0x00DC00E5, 0x00DD00E4,
+        0x00DE00E1, 0x00DF00E0, 0x0800FF85, 0x0800FF86, 0x00E200E3, 0x0800FF93, 0x08000040, 0x0800FFD0,
+        0x00E600ED, 0x00E700EA, 0x00E800E9, 0x0800007D, 0x08000078, 0x00EB00EC, 0x0800FFA2, 0x0800FFA3,
+        0x00EE00F1, 0x00EF00F0, 0x08000079, 0x0800007A, 0x00F200F3, 0x08000055, 0x08000056, 0x00F500FC,
+        0x00F600FB, 0x00F700FA, 0x00F800F9, 0x0800FF96, 0x0800003D, 0x0800FFB2, 0x0800002F, 0x00FD0104,
+        0x00FE0101, 0x00FF0100, 0x0800FFA0, 0x08000035, 0x01020103, 0x0800006F, 0x08000070, 0x0800FFC9,
+        0x01060171, 0x01070170, 0x01080141, 0x01090122, 0x010A0113, 0x010B0112, 0x010C010F, 0x010D010E,
+        0x0800FF99, 0x0800003C, 0x01100111, 0x0800FFB8, 0x0800FFBB, 0x0800FFC7, 0x0114011B, 0x01150118,
+        0x01160117, 0x0800FF8F, 0x08000044, 0x0119011A, 0x0800FFB9, 0x0800FFBA, 0x011C011F, 0x011D011E,
+        0x0800005B, 0x0800005C, 0x01200121, 0x0800FF95, 0x0800003E, 0x01230132, 0x0124012B, 0x01250128,
+        0x01260127, 0x0800FF91, 0x08000042, 0x0129012A, 0x0800FF92, 0x08000041, 0x012C012F, 0x012D012E,
+        0x0800FF9A, 0x0800003B, 0x01300131, 0x08000900, 0x0800FF83, 0x0133013A, 0x01340137, 0x01350136,
+        0x0800FF8E, 0x08000045, 0x01380139, 0x0800FF88, 0x0800FF89, 0x013B013E, 0x013C013D, 0x0800FFA1,
+        0x0800FFD1, 0x013F0140, 0x0800FFA4, 0x0800FFCC, 0x0142015F, 0x01430150, 0x01440149, 0x01450146,
+        0x0800FFC6, 0x01470148, 0x08000052, 0x08000053, 0x014A014D, 0x014B014C, 0x0800FFB3, 0x0800FFBD,
+        0x014E014F, 0x0800FFB4, 0x0800FFBC, 0x01510158, 0x01520155, 0x01530154, 0x0800FF9D, 0x08000038,
+        0x01560157, 0x0800004E, 0x08000059, 0x0159015C, 0x015A015B, 0x0800FF84, 0x0800FF87, 0x015D015E,
+        0x0800FFB1, 0x0800FFBE, 0x0160016F, 0x01610168, 0x01620165, 0x01630164, 0x0800005F, 0x08000060,
+        0x01660167, 0x0800FFA5, 0x0800FFA6, 0x0169016C, 0x016A016B, 0x0800FFB6, 0x0800FFB7, 0x016D016E,
+        0x0800FF8A, 0x0800004D, 0x0800FFDA, 0x08000013, 0x0800000E, 0x01730174, 0x08000009, 0x0800FFF7,
+        0x017601D9, 0x017701A6, 0x017801A3, 0x0179019C, 0x017A017B, 0x08000B00, 0x017C019B, 0x017D0198,
+        0x017E0197, 0x017F018E, 0x01800187, 0x01810184, 0x01820183, 0x0800FF9F, 0x08000036, 0x01850186,
+        0x08000072, 0x08000073, 0x0188018B, 0x0189018A, 0x08000068, 0x08000077, 0x018C018D, 0x0800004F,
+        0x08000050, 0x018F0194, 0x01900193, 0x01910192, 0x0800FF81, 0x0800FF82, 0x0800FFD2, 0x01950196,
+        0x08000032, 0x0800FFB5, 0x0800FFE5, 0x0199019A, 0x08000022, 0x08000024, 0x0800FFEE, 0x019D019E,
+        0x0800FFF1, 0x019F01A2, 0x01A001A1, 0x0800FFE7, 0x08000018, 0x0800FFED, 0x01A401A5, 0x0800000C,
+        0x0800FFF4, 0x01A701A8, 0x08000A04, 0x01A901BC, 0x01AA01B7, 0x01AB01AC, 0x08000012, 0x01AD01B0,
+        0x01AE01AF, 0x0800FFE2, 0x0800001B, 0x01B101B6, 0x01B201B3, 0x08000027, 0x01B401B5, 0x0800FFD4,
+        0x0800FFD7, 0x08000020, 0x01B801B9, 0x0800FFEF, 0x01BA01BB, 0x08000015, 0x08000017, 0x01BD01CA,
+        0x01BE01C9, 0x01BF01C0, 0x0800FFE9, 0x01C101C2, 0x0800FFE3, 0x01C301C6, 0x01C401C5, 0x0800FFD6,
+        0x0800FFD8, 0x01C701C8, 0x0800FFCF, 0x0800002D, 0x08000011, 0x01CB01D4, 0x01CC01CD, 0x08000016,
+        0x01CE01CF, 0x0800001A, 0x01D001D3, 0x01D101D2, 0x0800002C, 0x0800002E, 0x0800FFDB, 0x01D501D8,
+        0x01D601D7, 0x0800001C, 0x0800001D, 0x08000014, 0x01DA01DD, 0x01DB01DC, 0x08000A03, 0x0800000A,
+        0x01DE01DF, 0x0800FFF6, 0x01E001F1, 0x01E101E2, 0x0800FFF2, 0x01E301E4, 0x0800FFF0, 0x01E501F0,
+        0x01E601E9, 0x01E701E8, 0x08000021, 0x0800001E, 0x01EA01EF, 0x01EB01EE, 0x01EC01ED, 0x08000034,
+        0x08000030, 0x0800FFDC, 0x0800FFD9, 0x0800FFEC, 0x01F201FF, 0x01F301FE, 0x01F401F5, 0x0800FFEB,
+        0x01F601FD, 0x01F701FC, 0x01F801FB, 0x01F901FA, 0x08000033, 0x08000031, 0x0800FFD3, 0x0800FFDF,
+        0x0800FFE4, 0x08000010, 0x0800000D, 0x08000A00, 0x02020205, 0x02030204, 0x08000005, 0x0800FFFB,
+        0x0800FFFC, 0x02070208, 0x08000002, 0x0800FFFE, 0x0800FFFF, 0x08000000, 0x28202020, 0x38202020,
+    },
+    { 0x28, 0x20, 0x20, 0x20 },
+    { 3.817689e-05f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000008, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x31 },
+    { 1.4912848e-07f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000000E, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x31 },
+    { 3.817689e-05f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000012, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 9.32053e-09f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000016, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 1.4912848e-07f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000018, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 2.3860557e-06f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000001A, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x32 },
+    { 3.817689e-05f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000001C, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x33 },
+    { 5.8253313e-10f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x0000001E, 0x00000000, 0x00000000,
+    },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+    0xFF, 0x28, 0x20, 0x20, 0x33 },
+    { 9.32053e-09f, 6.091785e-10f },
+    {
+        0x29200000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000020, 0x00000000, 0x00000000,
+        0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0x00010212, 0x00020003, 0x08000001, 0x00040211, 0x0005001A,
+        0x00060007, 0x0800FFFE, 0x00080019, 0x00090018, 0x000A0015, 0x000B000C, 0x08000A08, 0x000D000E,
+        0x08000A05, 0x000F0010, 0x08000A07, 0x00110014, 0x00120013, 0x08000007, 0x0800FFF9, 0x08000006,
+        0x00160017, 0x0800FFFC, 0x08000004, 0x08000A01, 0x08000B00, 0x001B001C, 0x08000A00, 0x001D0210,
+        0x001E020D, 0x001F0020, 0x08000A02, 0x0021020A, 0x00220207, 0x00230206, 0x00240025, 0x0800FFFA,
+        0x002600AF, 0x0027002A, 0x00280029, 0x0800FFF7, 0x08000009, 0x002B003C, 0x002C003B, 0x002D002E,
+        0x0800FFF5, 0x002F0036, 0x00300031, 0x08000010, 0x00320035, 0x00330034, 0x0800001B, 0x08000044,
+        0x0800FFEC, 0x00370038, 0x0800FFF1, 0x0039003A, 0x08000016, 0x08000019, 0x0800FFF6, 0x003D004E,
+        0x003E003F, 0x0800000B, 0x0040004B, 0x00410042, 0x0800FFEF, 0x00430044, 0x0800FFEB, 0x00450048,
+        0x00460047, 0x0800FFAE, 0x0800FFB3, 0x0049004A, 0x0800FFD5, 0x0800FFD6, 0x004C004D, 0x0800000E,
+        0x0800FFF3, 0x004F0070, 0x00500051, 0x0800000D, 0x00520061, 0x0053005A, 0x00540057, 0x00550056,
+        0x0800FFD0, 0x0800FFD1, 0x00580059, 0x0800FF94, 0x0800FF95, 0x005B005E, 0x005C005D, 0x08000027,
+        0x08000028, 0x005F0060, 0x08000023, 0x08000024, 0x00620069, 0x00630066, 0x00640065, 0x08000058,
+        0x0800005B, 0x00670068, 0x0800FFDE, 0x0800FFDF, 0x006A006D, 0x006B006C, 0x0800FFBE, 0x08000050,
+        0x006E006F, 0x08000032, 0x08000035, 0x00710090, 0x00720081, 0x0073007A, 0x00740077, 0x00750076,
+        0x08000073, 0x08000074, 0x00780079, 0x0800004C, 0x0800004F, 0x007B007E, 0x007C007D, 0x0800001D,
+        0x08000043, 0x007F0080, 0x08000021, 0x08000041, 0x00820089, 0x00830086, 0x00840085, 0x08000026,
+        0x0800003F, 0x00870088, 0x0800002D, 0x0800003E, 0x008A008D, 0x008B008C, 0x0800FFBF, 0x08000049,
+        0x008E008F, 0x0800FFCC, 0x0800FFCD, 0x009100A0, 0x00920099, 0x00930096, 0x00940095, 0x0800002E,
+        0x0800003B, 0x00970098, 0x0800002F, 0x0800003A, 0x009A009D, 0x009B009C, 0x0800FFC4, 0x0800FFC5,
+        0x009E009F, 0x0800001F, 0x08000020, 0x00A100A8, 0x00A200A5, 0x00A300A4, 0x0800FFCE, 0x0800FFCF,
+        0x00A600A7, 0x08000076, 0x08000077, 0x00A900AC, 0x00AA00AB, 0x0800FFEA, 0x08000013, 0x00AD00AE,
+        0x08000079, 0x0800007A, 0x00B00203, 0x00B1017C, 0x00B2010D, 0x00B300EE, 0x00B400D1, 0x00B500C2,
+        0x00B600BB, 0x00B700BA, 0x00B800B9, 0x08000900, 0x0800FFC3, 0x0800001A, 0x00BC00BF, 0x00BD00BE,
+        0x08000053, 0x08000054, 0x00C000C1, 0x08000066, 0x08000067, 0x00C300CA, 0x00C400C7, 0x00C500C6,
+        0x0800FFA6, 0x0800FFA7, 0x00C800C9, 0x0800FFA4, 0x0800FFA9, 0x00CB00CE, 0x00CC00CD, 0x0800FFBA,
+        0x0800FFBD, 0x00CF00D0, 0x0800003C, 0x0800003D, 0x00D200DF, 0x00D300DA, 0x00D400D7, 0x00D500D6,
+        0x0800FFBB, 0x0800FFBC, 0x00D800D9, 0x0800FFAA, 0x0800FFAB, 0x00DB00DE, 0x00DC00DD, 0x0800FFB1,
+        0x0800FFB2, 0x0800FFC0, 0x00E000E7, 0x00E100E4, 0x00E200E3, 0x08000060, 0x08000065, 0x00E500E6,
+        0x0800FFB4, 0x0800FFB5, 0x00E800EB, 0x00E900EA, 0x0800001E, 0x08000042, 0x00EC00ED, 0x08000055,
+        0x0800006A, 0x00EF010C, 0x00F000FF, 0x00F100F8, 0x00F200F5, 0x00F300F4, 0x0800FFA0, 0x0800FFA3,
+        0x00F600F7, 0x08000036, 0x08000037, 0x00F900FC, 0x00FA00FB, 0x0800005C, 0x0800005D, 0x00FD00FE,
+        0x0800FF8C, 0x0800FF8D, 0x01000105, 0x01010102, 0x0800FFED, 0x01030104, 0x0800FF91, 0x0800FF92,
+        0x01060109, 0x01070108, 0x08000017, 0x08000018, 0x010A010B, 0x08000033, 0x08000034, 0x0800000C,
+        0x010E0143, 0x010F0126, 0x01100119, 0x01110112, 0x0800FFE7, 0x01130116, 0x01140115, 0x0800FFE2,
+        0x0800FF89, 0x01170118, 0x0800FFE4, 0x0800FF88, 0x011A011F, 0x011B011C, 0x08000012, 0x011D011E,
+        0x08000075, 0x0800FFE1, 0x01200123, 0x01210122, 0x0800FFA5, 0x0800FFA8, 0x01240125, 0x0800FFDC,
+        0x0800FFE0, 0x01270134, 0x0128012F, 0x0129012C, 0x012A012B, 0x0800FFE5, 0x0800FF85, 0x012D012E,
+        0x08000056, 0x08000057, 0x01300133, 0x01310132, 0x0800FFAF, 0x0800FFB0, 0x0800FFE3, 0x0135013C,
+        0x01360139, 0x01370138, 0x0800007C, 0x0800007F, 0x013A013B, 0x08000063, 0x08000064, 0x013D0140,
+        0x013E013F, 0x0800FFE8, 0x0800FF84, 0x01410142, 0x0800FFE9, 0x0800FF83, 0x01440163, 0x01450154,
+        0x0146014D, 0x0147014A, 0x01480149, 0x08000047, 0x08000048, 0x014B014C, 0x0800FFC9, 0x0800FFCA,
+        0x014E0151, 0x014F0150, 0x0800FF8B, 0x0800FF8E, 0x01520153, 0x0800FF9C, 0x0800FF9F, 0x0155015C,
+        0x01560159, 0x01570158, 0x0800FF90, 0x0800FF9B, 0x015A015B, 0x0800FF97, 0x0800FF98, 0x015D0160,
+        0x015E015F, 0x08000051, 0x08000052, 0x01610162, 0x08000071, 0x08000072, 0x01640173, 0x0165016C,
+        0x01660169, 0x01670168, 0x08000038, 0x08000039, 0x016A016B, 0x0800002B, 0x0800002C, 0x016D0170,
+        0x016E016F, 0x0800FF81, 0x0800FF82, 0x01710172, 0x08000078, 0x0800007B, 0x01740175, 0x0800FFF2,
+        0x01760179, 0x01770178, 0x0800FFAC, 0x0800FFAD, 0x017A017B, 0x0800006E, 0x0800006F, 0x017D01D8,
+        0x017E019B, 0x017F0180, 0x0800FFF4, 0x0181018E, 0x01820189, 0x01830186, 0x01840185, 0x0800006C,
+        0x0800006D, 0x01870188, 0x0800007D, 0x0800007E, 0x018A018B, 0x08000022, 0x018C018D, 0x0800FF8A,
+        0x0800FF8F, 0x018F0196, 0x01900193, 0x01910192, 0x0800FFB6, 0x0800FFB7, 0x01940195, 0x0800FF93,
+        0x0800FF9A, 0x01970198, 0x0800FFE6, 0x0199019A, 0x08000029, 0x0800002A, 0x019C01BB, 0x019D01AC,
+        0x019E01A5, 0x019F01A2, 0x01A001A1, 0x0800FF96, 0x0800FF99, 0x01A301A4, 0x08000061, 0x08000062,
+        0x01A601A9, 0x01A701A8, 0x08000014, 0x08000046, 0x01AA01AB, 0x08000015, 0x08000045, 0x01AD01B4,
+        0x01AE01B1, 0x01AF01B0, 0x08000030, 0x08000031, 0x01B201B3, 0x0800FFC6, 0x0800FFC7, 0x01B501B8,
+        0x01B601B7, 0x0800004A, 0x0800004B, 0x01B901BA, 0x0800005E, 0x0800005F, 0x01BC01CB, 0x01BD01C4,
+        0x01BE01C1, 0x01BF01C0, 0x0800FFEE, 0x08000011, 0x01C201C3, 0x0800004D, 0x0800004E, 0x01C501C8,
+        0x01C601C7, 0x08000025, 0x08000040, 0x01C901CA, 0x0800FFB8, 0x0800FFB9, 0x01CC01D1, 0x01CD01CE,
+        0x0800001C, 0x01CF01D0, 0x0800FF9D, 0x0800FF9E, 0x01D201D5, 0x01D301D4, 0x08000068, 0x08000069,
+        0x01D601D7, 0x0800FFA1, 0x0800FFA2, 0x01D90202, 0x01DA01E3, 0x01DB01E2, 0x01DC01E1, 0x01DD01DE,
+        0x0800FFDD, 0x01DF01E0, 0x0800FFD2, 0x0800FFD3, 0x0800000F, 0x0800FFF0, 0x01E401F3, 0x01E501EC,
+        0x01E601E9, 0x01E701E8, 0x08000059, 0x0800005A, 0x01EA01EB, 0x0800FFC1, 0x0800FFC2, 0x01ED01F0,
+        0x01EE01EF, 0x08000070, 0x0800006B, 0x01F101F2, 0x0800FFD7, 0x0800FFD8, 0x01F401FB, 0x01F501F8,
+        0x01F601F7, 0x0800FF86, 0x0800FF87, 0x01F901FA, 0x0800FFD4, 0x0800FFDB, 0x01FC01FF, 0x01FD01FE,
+        0x0800FFD9, 0x0800FFDA, 0x02000201, 0x0800FFC8, 0x0800FFCB, 0x0800000A, 0x02040205, 0x08000008,
+        0x0800FFF8, 0x08000A06, 0x02080209, 0x0800FFFB, 0x08000005, 0x020B020C, 0x08000A04, 0x08000A03,
+        0x020E020F, 0x08000003, 0x0800FFFD, 0x08000002, 0x0800FFFF, 0x08000000, 0x0001001E, 0x0002001D,
+        0x00030004, 0x08000002, 0x00050006, 0x0800FFFD, 0x0007001C, 0x00080009, 0x0800FFFA, 0x000A000B,
+        0x08000008, 0x000C001B, 0x000D000E, 0x0800000C, 0x000F001A, 0x00100019, 0x00110018, 0x00120017,
+        0x00130014, 0x0800001A, 0x00150016, 0x0800FFE3, 0x0800001E, 0x0800FFE6, 0x0800FFE9, 0x08000011,
+        0x0800000E, 0x0800000A, 0x0800FFFC, 0x08000000, 0x001F003A, 0x00200039, 0x00210022, 0x08000003,
+        0x00230038, 0x00240025, 0x08000006, 0x00260037, 0x00270028, 0x0800FFF6, 0x00290036, 0x002A0035,
+        0x002B002C, 0x0800FFEC, 0x002D0034, 0x002E0033, 0x002F0030, 0x0800FFE4, 0x00310032, 0x0800FFE2,
+        0x0800001D, 0x0800FFE7, 0x08000015, 0x0800FFF1, 0x0800FFF4, 0x0800FFF9, 0x08000004, 0x0800FFFF,
+        0x003B003C, 0x08000001, 0x003D0100, 0x003E00A3, 0x003F00A2, 0x004000A1, 0x004100A0, 0x0042009F,
+        0x00430046, 0x00440045, 0x08000010, 0x0800FFED, 0x0047009E, 0x00480049, 0x0800FFEA, 0x004A009D,
+        0x004B009C, 0x004C0065, 0x004D004E, 0x0800FFE1, 0x004F005C, 0x00500055, 0x00510052, 0x08000026,
+        0x00530054, 0x0800003F, 0x08000040, 0x00560059, 0x00570058, 0x0800FFD0, 0x0800FFD1, 0x005A005B,
+        0x0800FFC4, 0x0800FFC5, 0x005D005E, 0x0800FFDE, 0x005F0062, 0x00600061, 0x0800FFC0, 0x0800FFC1,
+        0x00630064, 0x0800FFC8, 0x0800FFC9, 0x0066007D, 0x00670076, 0x0068006F, 0x0069006C, 0x006A006B,
+        0x08000031, 0x08000034, 0x006D006E, 0x08000035, 0x08000036, 0x00700073, 0x00710072, 0x0800003D,
+        0x0800FFCB, 0x00740075, 0x0800FFCF, 0x0800FFD2, 0x0077007C, 0x00780079, 0x0800FFDC, 0x007A007B,
+        0x08000025, 0x08000029, 0x08000024, 0x007E008D, 0x007F0086, 0x00800083, 0x00810082, 0x0800FFD8,
+        0x0800002A, 0x00840085, 0x0800FFDB, 0x0800FFDD, 0x0087008A, 0x00880089, 0x0800003E, 0x0800FFCA,
+        0x008B008C, 0x0800FFC6, 0x0800FFC7, 0x008E0095, 0x008F0092, 0x00900091, 0x0800002B, 0x0800002E,
+        0x00930094, 0x08000039, 0x0800FFCD, 0x00960099, 0x00970098, 0x0800003A, 0x0800FFCC, 0x009A009B,
+        0x08000027, 0x08000028, 0x08000019, 0x08000017, 0x0800FFEE, 0x0800000B, 0x0800FFF7, 0x08000007,
+        0x0800FFFB, 0x00A400A5, 0x08000005, 0x00A600AD, 0x00A700A8, 0x08000009, 0x00A900AC, 0x00AA00AB,
+        0x0800FFF2, 0x0800000D, 0x0800FFF5, 0x00AE00FF, 0x00AF00EA, 0x00B000E5, 0x00B100E4, 0x00B200B3,
+        0x08000014, 0x00B400B5, 0x0800FFE8, 0x00B600B7, 0x0800FFE5, 0x00B800E3, 0x00B900D8, 0x00BA00C9,
+        0x00BB00C2, 0x00BC00BF, 0x00BD00BE, 0x0800003B, 0x0800003C, 0x00C000C1, 0x0800002C, 0x0800002D,
+        0x00C300C6, 0x00C400C5, 0x0800FFC2, 0x0800FFC3, 0x00C700C8, 0x0800FFCE, 0x0800FFD5, 0x00CA00D1,
+        0x00CB00CE, 0x00CC00CD, 0x0800FFD3, 0x0800FFD4, 0x00CF00D0, 0x0800002F, 0x08000030, 0x00D200D5,
+        0x00D300D4, 0x0800FFD6, 0x0800FFD7, 0x00D600D7, 0x08000037, 0x08000038, 0x00D900E2, 0x00DA00E1,
+        0x00DB00DE, 0x00DC00DD, 0x0800FFD9, 0x0800FFDA, 0x00DF00E0, 0x08000032, 0x08000033, 0x08000021,
+        0x08000020, 0x0800001C, 0x0800000F, 0x00E600E9, 0x00E700E8, 0x08000013, 0x08000012, 0x0800FFEF,
+        0x00EB00FE, 0x00EC00FD, 0x00ED00FC, 0x00EE00EF, 0x08000016, 0x00F000FB, 0x00F100FA, 0x00F200F3,
+        0x0800001F, 0x00F400F5, 0x0800FFE0, 0x00F600F9, 0x00F700F8, 0x08000022, 0x08000023, 0x0800FFDF,
+        0x0800001B, 0x08000018, 0x0800FFEB, 0x0800FFF0, 0x0800FFF3, 0x0800FFF8, 0x0800FFFE, 0x10F221C1,
+        0x3FC313BF, 0x60F31FE1, 0x09000419, 0x20010FC0, 0x8C220010, 0x20030F7F, 0x20071080, 0x40870000,
+        0x40820800, 0x40831000, 0x40043000, 0x1480FFFE, 0x00000000, 0x0D00040F, 0x00000000, 0x00E00008,
+        0x40803800, 0x40082000, 0x31080080, 0x15000002, 0x00000000, 0x03E00008, 0x40803800, 0x34085200,
+        0x40882000, 0x0000000D, 0x00000000, 0x8C220004, 0x30420002, 0x10400007, 0x00000000, 0x0D00040F,
+        0x00000000, 0x40025800, 0x30420100, 0x1C40FFED, 0x00000000, 0x8C220018, 0x8C23001C, 0x2063FFFF,
+        0x401E2800, 0x17C0FFFE, 0x00000000, 0x40800000, 0x40820800, 0x40831000, 0x40043000, 0x1480FFFE,
+        0x00000000, 0x0D00040F, 0x00000000, 0x09000402, 0x00000000, 0x00000000, 0x4A00002C, 0xC81F201B,
+        0xC81E201C, 0x20170BA8, 0x20160D00, 0x4B1F0051, 0x8C0B00F0, 0x8C0C0FC4, 0x20012800, 0x11600006,
+        0x40812000, 0x318C0001, 0x1180001E, 0xAC000FC4, 0x08000459, 0x8C1A0BF8, 0x400B5800, 0x316B0001,
+        0x1560000B, 0x40024800, 0x8C030FE8, 0x00625822, 0x1D600007, 0x40015000, 0x8C040FEC, 0x10200004,
+        0x00245822, 0x05610002, 0x00000000, 0x14220008, 0x400B5800, 0x316B0400, 0x1560FFFD, 0x200B0001,
+        0x408B5800, 0x8C020FEC, 0x40824000, 0x40824800, 0xAC0200F0, 0x8C0B00F4, 0x15600002, 0x8C0B0FE0,
+        0xAC0B00F4, 0x8C010FD0, 0x8C0202E0, 0x8C0302E8, 0x8C040410, 0x8C050418, 0x00411020, 0x00611820,
+        0xAC0202E0, 0xAC0302E8, 0x00812020, 0x00A12820, 0xAC040410, 0xAC050418, 0x8C1A0FF0, 0x200B02E8,
+        0x0C0007ED, 0x37EC0000, 0x201300A7, 0x37580000, 0x0C0007F6, 0x24140920, 0x275A00A8, 0x201BFF58,
+        0x0C0007F2, 0x40012000, 0x8F7909C8, 0x1360FFF6, 0x30210080, 0x00196603, 0x000C5840, 0x956B036E,
+        0x14200380, 0x8F7809CC, 0x01600008, 0x277B0008, 0x0C000487, 0x877409C1, 0x33330FF8, 0x0014A083,
+        0x080007F6, 0x201F1188, 0x8C0B01EC, 0x01795824, 0x01785825, 0x08000463, 0xAC0B01EC, 0x900100DE,
+        0x10200370, 0x2021FFFC, 0x08000408, 0x8C3A0138, 0xC81D181A, 0x8C1900D8, 0x22F70008, 0xEAFD187F,
+        0xAEF80004, 0xAEF90000, 0x08000494, 0x22F70008, 0x201F1208, 0x00185D82, 0x316B003C, 0x8D6B00F8,
+        0x0018C200, 0x0018C202, 0x03E00008, 0x030BC020, 0xAC1900C8, 0x08000482, 0xAC1800CC, 0xAC1900C0,
+        0x08000482, 0xAC1800C4, 0x201F118C, 0x02F65822, 0x1960035E, 0x400C3000, 0x8C1800F0, 0x25730158,
+        0x1580FFFC, 0x8C0C0FEC, 0x40984800, 0x03135820, 0x018B6022, 0x05810008, 0x400B5800, 0x316B0400,
+        0x1560FFFD, 0x8C180FE8, 0x400B5000, 0x1178FFFE, 0x00000000, 0x40984000, 0x400B5000, 0x01785822,
+        0x19600002, 0x01735822, 0x1960FFFB, 0x03135820, 0xAC0B00F0, 0x2273FFFF, 0x22D4DEA8, 0x3AD60208,
+        0x080007F6, 0x22D7FEA8, 0x200B0410, 0x080007ED, 0x200C12D0, 0x37FE0000, 0x24050014, 0x24120006,
+        0x240F09C8, 0xA64103CA, 0xA64203CC, 0xA64303CE, 0xA64003D0, 0x8C1D03CC, 0x8CA903F8, 0x8C700024,
+        0x02098024, 0x2251FFFA, 0x3A52001C, 0x2255FFFA, 0x962203D0, 0x22310002, 0x1040005E, 0x8C4B0024,
+        0x01695824, 0x11700056, 0x35700000, 0x12000003, 0x34530000, 0x34730000, 0x34430000, 0x00055840,
+        0xC9621830, 0xCA641801, 0xCA651800, 0xC8661801, 0xC8671800, 0x4B1F10C7, 0x4A022206, 0x4A022A4F,
+        0x4A03328E, 0x4A033ACF, 0x4A484214, 0xC819201D, 0x4A494A50, 0x4A4A5294, 0x4A4B5AD0, 0x4AA84214,
+    },
+    "JIJP",
+    {
+        0x4A4A5294, 0x4A4B5AD0, 0x4AA84214, 0x4AA94A50, 0x4AAA5294, 0x4AAB5AD0, 0x4B6B4772, 0x4B6A58B1,
+    },
+    "KkGr",
+    {
+        0x4B6A58B1, 0x4B0058F2, 0x4B795F53, 0x4B7D1086, 0x4B7D18CF, 0x4B0018E1, 0x4B1F10A7, 0x4B625744,
+    },
+    "Ky_S",
+    {
+        0x4B7D1086, 0x4B7D18CF, 0x4B0018E1, 0x4B1F10A7, 0x4B625744, 0x4B625ACD, 0x4B00028E, 0x4B6B5B72,
+    },
+    "KbWD",
+    {
+        0x4B625ACD, 0x4B00028E, 0x4B6B5B72, 0x4B6A5B31, 0x4B005B72, 0x4A0A6744, 0x4A0A6F4D, 0x4A0B628E,
+    },
+    "Kk[rKj[1K\000[r",
+    {
+        0x4A0A6744, 0x4A0A6F4D, 0x4A0B628E, 0x4A0B6ACF, 0x4B3F0F47, 0x4B9F528E, 0x4B9F5ACF, 0x4A0A6744,
+        0x4A0A6F4D, 0x4A0B630E, 0x4A0B6B4F, 0x4A0C4744, 0xC87A3802, 0x4A0C4F4D, 0xC87A1405, 0x4A0D428E,
+        0xCA793802, 0x4A0D4ACF, 0xCA791405, 0x4B625744, 0x4B625ACD, 0x4B00528E, 0x4B015AE0, 0x4B1F52A7,
+    },
+    "KbWD",
+    {
+        0x4B625ACD, 0x4B00528E, 0x4B015AE0, 0x4B1F52A7, 0x4B015755, 0x4B005AE3, 0x4B0152A7, 0x4B1F5086,
+    },
+    "Kj7DKj\?MKb'L",
+    {
+        0x4B622E0D, 0x4B0005CE, 0x4B6AD745, 0x4B62CD8D, 0x20070000, 0x20010002, 0xA6AF03D0, 0x08000605,
+        0x201F95D8, 0xE9F91072, 0xE9FA0A67, 0xE9F63878, 0xE9F61471, 0xE9E30A66, 0x21EFFFD8, 0x22B50002,
+        0x1600FFA3, 0x34430000, 0xA6A303D0, 0x080004C6, 0x22B50002, 0x02B25822, 0x0560000F, 0xA6A003D0,
+        0x96A303CE, 0x14A0FF94, 0x20A5FFFC, 0xAC0003CC, 0x964103CA, 0x964203CC, 0x96A303CE, 0x48811500,
+        0x4BBF00EA, 0x48822600, 0x0C000627, 0x48831700, 0x16B2FFF7, 0x22520002, 0x03C00008, 0xAC1D03CC,
+        0x97340380, 0x0C000487, 0x976109C1, 0x0281A022, 0x0C0007F6, 0x2033FFFF, 0x940501EC, 0x000108C2,
+        0x03217822, 0x95EF0380, 0x368E0000, 0x900801D9, 0x30A60002, 0x14C0FF6C, 0x30A70001, 0x15000006,
+        0x000738C0, 0xA01901D9, 0x20150040, 0x20140000, 0x0C000422, 0x20130080, 0xC8082008, 0xC80A2009,
+        0xC80C200A, 0xC80E200B, 0x4B004250, 0xC8091811, 0x4B0052D0, 0xC80B1813, 0x4B006350, 0xC80D1815,
+        0x4B0073D0, 0xC80F1817, 0xC8081C10, 0xC80A1C12, 0x0C000605, 0xC80C1C14, 0x0C0007F2, 0xC80E1C16,
+        0xC9D41800, 0x4B356C33, 0xC9D41C02, 0x4B017F46, 0x8DCB001C, 0x4B015F4F, 0xC9D61602, 0x4A94674E,
+    },
+    { 11889715.0f },
+    {
+        0xC9D41C02, 0x4B017F46, 0x8DCB001C, 0x4B015F4F, 0xC9D61602, 0x4A94674E, 0x34C90000, 0x4A94474F,
+        0xC9223016, 0x4AB46F4E, 0xADCB0008, 0x4AB44F4F, 0xC9C73001, 0x4AD475CE, 0x14C0FF81, 0x4AD4560F,
+        0x4B7FCEE3, 0xC9D61206, 0x4B00C8E3, 0x2021FFFC, 0x4B92BF44, 0x01075822, 0x4B92C08D, 0xE97B07F3,
+        0x4B00054E, 0xE97B03CB, 0x4B434EB3, 0xE9030E7A, 0x4BB2B9C6, 0xE919147C, 0x4BB2C18F, 0xE9191879,
+    },
+    "KbGr",
+    {
+        0xE91A0E7B, 0x4B755971, 0xE91A1173, 0x4BE25932, 0x201302D0, 0x8DCA0008, 0xAE6A0004, 0x8DCA000C,
+    },
+    "KuYq",
+    {
+        0xE91A1173, 0x4BE25932, 0x201302D0, 0x8DCA0008, 0xAE6A0004, 0x8DCA000C, 0xAE6A0000, 0xCA633800,
+        0x8C1301EC, 0x32730080, 0x12600023, 0x00000000, 0x340C0008, 0x200B0250, 0x4A1BDEEC, 0x20137F80,
+        0x4893DA00, 0x8573000A, 0x32738000, 0x16600017, 0x00000000, 0xC97D1800, 0xC97D1C00, 0x20130180,
+        0x8D6A0006, 0xAE6A0150, 0xAE6A0154, 0xCA7C382A, 0xC97B0805, 0xC97B0906, 0x4A18EF51, 0x4A1DEF53,
+        0x4880EB00, 0x4880EF00, 0x4A7DEF50, 0x4ADDEF50, 0x4B1BEF51, 0x4B7BEF60, 0x4A1DEF53, 0x4B3BEF46,
+        0x4A9DE705, 0x4A03E0D0, 0x4B5B18E0, 0x218CFFFF, 0x1580FFE4, 0x216B0010, 0x201302D0, 0xEA633800,
+        0xCA631800, 0x4BF57971, 0x00015FC3, 0x4B007932, 0x316B0028, 0x4AF8C765, 0x21EF0050, 0x4AF7BF64,
+        0x01EB4022, 0x4A05AF44, 0x484A0800, 0x4A05174D, 0xE9171C7C, 0x4A04AD4E, 0xC9D41804, 0x4A04108F,
+        0xE9F71877, 0x4B00C763, 0xC9170F72, 0x4B3F0F47, 0xE9181C7B, 0x4B9FAE8E, 0xC9F70B5E, 0x4B9F164F,
+        0xE9F81876, 0x4BFF00A7, 0xC9D41C06, 0x4AE6C765, 0xE903127A, 0x4A05D744, 0xC9180F6E, 0x4A05CF4D,
+        0xE9E31070, 0x4A04D14E, 0xC9F80B5A, 0x4A04C90F, 0xA50AFFFE, 0x4BFF108F, 0x000A5900, 0x4AE7BF64,
+        0x484A0800, 0x4AE5BF44, 0xE9050F7D, 0x4AE5C74D, 0x21CE0020, 0x4AE2BE8E, 0xA50AFFFC, 0x4AE2C64F,
+        0x000A5100, 0x4A12B0C5, 0xA5EBFFD6, 0xA5EAFFD4, 0x4B92D744, 0xE9E50B69, 0x4B92CE4D, 0xE9040F7C,
+        0x4B00068E, 0xE9E40B68, 0xE903127B, 0x4B018F47, 0xE9E31671, 0x4B7F9F4F, 0x4A10D68E, 0x1C20FF6E,
+        0x4A10CE4F, 0x07E0FF22, 0x4B00C8E3, 0xE919147C, 0x4B7FCEE3, 0xE9F91072, 0xE91A0E7B, 0xE9FA0A67,
+        0xE9030E7A, 0x10E0FE62, 0xE9E30A66, 0xE91B07EB, 0x08000463, 0xE9FB03C3, 0x200D0180, 0xC810181C,
+        0xC8101C1C, 0xC9BD1018, 0xC811181D, 0xC8111C1D, 0x4B7FFCE0, 0x4A100551, 0xC9B2121A, 0x4B1D8427,
+        0xC9B2161A, 0x4B0104E7, 0xC8121437, 0x4B3D8C67, 0xC9B20D03, 0x4B354C33, 0x03E00008, 0x22E80050,
+    },
+    { 11881523.0f },
+    {
+        0x03E00008, 0x22E80050, 0x0C00061B, 0xAEF80004, 0x201F118C, 0xAEF90004, 0xCAE23000, 0x92E10005,
+        0x92E20006, 0x92E30007, 0x4BBF00EA, 0x94210380, 0x4BDF0906, 0x94420380, 0x4B3E108C, 0x94630380,
+        0x4B00010E, 0x34240000, 0x4BFF016D, 0xC8261006, 0x4BFF01ED, 0xC8441006, 0x4BA271B3, 0xC8681006,
+        0x4BFF026D, 0x8C250024, 0x4BE27233, 0x8C460024, 0x4B260090, 0x8C670024, 0x4A043291, 0x30AB70B0,
+        0x4A0622D1, 0x00CB5824, 0x4A083311, 0x00EB5824, 0x4B241360, 0x4A0433A7, 0x156001B9, 0x900B01EE,
+    },
+    "K,WG",
+    {
+        0x8C0C03CC, 0x4B2B674F, 0x00A62825, 0x4B2410A3, 0x00A72825, 0x4A0432A7, 0x8D6B03C2, 0x4B2869A3,
+    },
+    "K+gO",
+    {
+        0x00A62825, 0x4B2410A3, 0x00A72825, 0x4A0432A7, 0x8D6B03C2, 0x4B2869A3, 0x4806E800, 0x4A087127,
+        0x00AC2824, 0x4A0E43A7, 0x14A0FE6C, 0x00CB5820, 0x4A0231A0, 0x056101A7, 0x4A0A20A7, 0x4A0452A7,
+        0x48017600, 0x4BBF7106, 0x10C001A2, 0x4A0E1191, 0x48021600, 0x4A0E5211, 0x48035600, 0x4A0272D1,
+        0x8C0601EC, 0x4A0A7311, 0xC82D1008, 0x4A0253D1, 0xC84D1408, 0x4B083407, 0xC86D1608, 0x4B0B440F,
+        0x00065A80, 0x4B118C5D, 0x0561000A, 0x4B30841D, 0xC8323002, 0x4B0653F3, 0xC8533002, 0x4B2F4530,
+    },
+    { 11486512.0f },
+    {
+        0xC8753002, 0x4B3145B2, 0x4B304DF1, 0x08000678, 0x4B004E32, 0xC8923002, 0x4B2F4530, 0xC8320313,
+    },
+    { 11486512.0f },
+    {
+        0xC8320313, 0x4B3145B2, 0xC8933002, 0x4B304DF1, 0xC8530313, 0x4B004E32, 0xC8953002, 0x4B0653F3,
+        0xC8750313, 0x4B265530, 0x4B2655B2, 0x8C250020, 0x4B285D30, 0x8C470020, 0x4B285DB2, 0x8C680020,
+    },
+    { 10900784.0f },
+    {
+        0x4B2655B2, 0x8C250020, 0x4B285D30, 0x8C470020, 0x4B285DB2, 0x8C680020, 0x4BFE9484, 0x900901E7,
+    },
+    { 11033904.0f },
+    {
+        0x8C470020, 0x4B285DB2, 0x8C680020, 0x4BFE9484, 0x900901E7, 0x4BFE9CC4, 0x00A75822, 0x4BFEAD44,
+        0x000B67C3, 0x4B085BF3, 0x016C5824, 0x4B5FA744, 0x00AB2822, 0x4B5FB58D, 0x00A85822, 0x4B00050E,
+        0x000B67C3, 0x4BBF7E45, 0x016C5824, 0x4B0003CE, 0x00AB2822, 0x4A040115, 0xAEE50010, 0x4A000691,
+        0xCAFB1004, 0x4A14CF45, 0x48058880, 0x4A147F4C, 0x900701E6, 0x4A167D0E, 0xC8530F0E, 0x4A16CBCF,
+        0xC8750F0E, 0x4A10BF44, 0xC8470F0F, 0x4A10C74D, 0xC8690F0F, 0x4A11BC0E, 0x34CB00C8, 0x4A11C44F,
+        0x01695825, 0x4B5E7BE6, 0xA2EB0000, 0x4BBE0F47, 0xEAEA0901, 0x4B9E840E, 0xEAE20902, 0x4B9E8C4F,
+        0xEAEE0903, 0x4B0E1F46, 0x30AC0080, 0x4B24A74C, 0x01876025, 0x4B247F4D, 0xA2EC0001, 0x4B3AA08E,
+    },
+    { 10780493.0f },
+    {
+        0xA2EC0001, 0x4B3AA08E, 0x1120001D, 0x4B3A78CF, 0x4B1B4772, 0x4B3B42B1, 0x4A6D0390, 0x4B0046F2,
+        0x4BFF05AA, 0x4B0A6F45, 0x4B0A774C, 0xC8361005, 0x4B1B738E, 0xC8561405, 0x4B1B6B4F, 0x4BFF02AA,
+        0x4BFEF763, 0xC86A1405, 0x4A8EB745, 0x4A8DB58F, 0x4B00064E, 0x4BCE5745, 0x4BCD528F, 0x4B00034E,
+        0xEAF61804, 0x4A169CE7, 0xEAF91805, 0x4A1939E7, 0xCAF21C04, 0x4A0AAD67, 0xCAE51C05, 0x4A0D4A67,
+        0x4A178744, 0xC8250F0F, 0x4A178F4D, 0xC8320F0E, 0x4A1885CE, 0x84410018, 0x4A188E0F, 0x26E20020,
+        0x4A054A95, 0x30C30004, 0x4A12AA51, 0x00010B80, 0x4A053B55, 0xAEE10008, 0x4A1299D1, 0xEAE30B08,
+    },
+    "K&WF",
+    {
+        0xEAE20B09, 0x4B264F4F, 0xEAE30A0C, 0x4B2C6F4E, 0xEAE20A0D, 0x4B2C3F4F, 0xEAEF0806, 0x4B22109D,
+    },
+    "K&OO",
+    {
+        0xEAE30A0C, 0x4B2C6F4E, 0xEAE20A0D, 0x4B2C3F4F, 0xEAEF0806, 0x4B22109D, 0xEAF40807, 0x4B0318DD,
+    },
+    "K,oN",
+    {
+        0xEAE20A0D, 0x4B2C3F4F, 0xEAEF0806, 0x4B22109D, 0xEAF40807, 0x4B0318DD, 0xEAEF0B0A, 0x4B086F46,
+    },
+    { 11288399.0f },
+    {
+        0xEAEF0806, 0x4B22109D, 0xEAF40807, 0x4B0318DD, 0xEAEF0B0A, 0x4B086F46, 0xEAF40B0B, 0x4B083F4F,
+        0xEAEF0A0E, 0x4B0B574E, 0xEAF40A0F, 0x4B0B4F4F, 0x00035900, 0x4B26319D, 0x004B0820, 0x4B0739DD,
+        0x00095940, 0x4B371744, 0x002BB820, 0x4B371F4D, 0x30C60001, 0x4B38108E, 0x00065900, 0x4B3818CF,
+        0x02EBB820, 0x4B373744, 0x4B373F4D, 0x4B38318E, 0xE8421803, 0x4B3839CF, 0xE8431801, 0x4B74174C,
+    },
+    "K77DK7\?M",
+    {
+        0x4B38318E, 0xE8421803, 0x4B3839CF, 0xE8431801, 0x4B74174C, 0xE8221C03, 0x4B741F4D, 0xE8231C01,
+        0x4B6F120E, 0xE8461807, 0x4B6F1A4F, 0xE8471805, 0x4B012F46, 0xE8261C07, 0x4B01974F, 0xE8271C05,
+    },
+    "K$GL",
+    {
+        0xE8481806, 0x4B244F4D, 0xE8491804, 0x4B3A414E, 0xE8281C06, 0x4B3A4C8F, 0xE8291C04, 0x4B244286,
+    },
+    "K$OM",
+    {
+        0xE8491804, 0x4B3A414E, 0xE8281C06, 0x4B3A4C8F, 0xE8291C04, 0x4B244286, 0x10C00016, 0x4BDE4206,
+    },
+    "K:AN",
+    {
+        0xE8281C06, 0x4B3A4C8F, 0xE8291C04, 0x4B244286, 0x10C00016, 0x4BDE4206, 0x4BDE4A4F, 0xE8451802,
+        0x4BDE1086, 0xE8521800, 0x4BDE18CF, 0xE8251C02, 0x4BDE3186, 0xE8321C00, 0x4BDE39CF, 0xEAE80F7D,
+        0x4BDE5744, 0xEAE90F7C, 0x4BDE294E, 0xEAE20F7B, 0x4BDE948F, 0xEAE30F7A, 0xEAE60F7F, 0xEAE70F7E,
+        0xEAE50F79, 0x08000495, 0xEAF20F78, 0xE8451802, 0xE8521800, 0xE8251C02, 0x08000495, 0xE8321C00,
+        0x97390380, 0x97180380, 0x240170B0, 0x8F2B0024, 0x002B0824, 0x1020FD24, 0x8F2B004C, 0x1738FFFC,
+        0x27390028, 0x08000479, 0x97390380, 0x8F39001C, 0x03381022, 0x0441FD1C, 0x8C1800D8, 0x08000402,
+        0x936109C1, 0x08000410, 0x97390380, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x200C1000, 0x200B02E0, 0x8D780000, 0x95730004, 0x0C0007F6, 0x95740006,
+        0x359F0000, 0x400B3000, 0x1560FFFF, 0x400B3000, 0x03E00008, 0x400B2800, 0x1560FFFF, 0x400B2800,
+        0x40940000, 0x06800003, 0x40980800, 0x03E00008, 0x40931000, 0x03E00008, 0x40931800, 0x02F65822,
+        0x256C0157, 0x05910094, 0x00000000, 0x0C0007F2, 0x8C1800F0, 0x0420001A, 0x40984800, 0x1420000F,
+        0x035BD020, 0x8F7809C4, 0xAC1A0FF0, 0xAC180FD0, 0x24141080, 0x0C0007F6, 0x20130F47, 0x8C1800D8,
+        0x24140180, 0x33330FFF, 0x0314C020, 0x0C0007F6, 0x02749822, 0x080007F2, 0x201F1084, 0x8C0B0FD0,
+        0xAC1A0BF8, 0xAC0B0BFC, 0x200C5000, 0x8C180FF8, 0x20148000, 0x20130BFF, 0x080007F6, 0x201F1088,
+        0x200C4000, 0x408C2000, 0x0000000D, 0x00000000, 0x00000000, 0x900100DE, 0x001913C0, 0x0C000487,
+        0x035B1820, 0x04400057, 0x371A0000, 0xAC230138, 0x20210004, 0x0800045C, 0xA00100DE, 0x200B1140,
+        0xAD79F0A4, 0x08000463, 0xAD78F0A8, 0x00191402, 0x944127FE, 0x00390820, 0x08000463, 0xAC380000,
+        0x8C0B00F4, 0x8C020FE0, 0x0178C022, 0x03020822, 0x04210002, 0x00000000, 0x34580000, 0x130B0048,
+        0xAC1800F4, 0x08000449, 0xAC0001D9, 0x943302F2, 0x0C0007F2, 0x943502F2, 0x201F118C, 0x228C0018,
+        0x4B00024E, 0x228B0008, 0x4B00020F, 0x22B5FFE0, 0x4B000747, 0xCAA51808, 0xCAA51C08, 0xCA832002,
+        0xCAA41804, 0xCAA41C04, 0xCA822000, 0x4A832F4C, 0x22940002, 0x4A83274D, 0x22B50008, 0x4A8229CE,
+        0x168BFFF4, 0x4A82218F, 0x168CFFED, 0x22940008, 0xEA692002, 0xEA682000, 0xEA672003, 0x03E00008,
+        0xEA662001, 0x332B0005, 0x15600008, 0x33220002, 0x8C1800F4, 0x2014E000, 0x0C0007F6, 0x2013003F,
+        0x23180040, 0xAC1800F4, 0x8F7809C4, 0x01826020, 0xAC0001D9, 0x0C000487, 0x332100FE, 0x937309C1,
+        0x943402F0, 0x00191142, 0x959F0336, 0x080007F6, 0x0282A020, 0x8D63EF8C, 0x3C028000, 0x03221007,
+        0x00190A02, 0x00221006, 0x00401027, 0x00621824, 0x00781825, 0xAD63EF8C, 0x8C1900C8, 0x08000482,
+        0x8C1800CC, 0x900B01DC, 0x080004BB, 0x900601DD, 0x37FE0000, 0x200B0418, 0x080007ED, 0x200C12E0,
+        0x1560008D, 0x20C60168, 0xA01901DC, 0xC80C2002, 0xC8082000, 0xC80D0915, 0xC8090905, 0x4B2C4373,
+    },
+    "K,Cs",
+    {
+        0xC80E0A1A, 0x4B284273, 0xC80A0A0A, 0x4B4C43B3, 0x20140150, 0x4B4842B3, 0xCA873015, 0x4BCC4BB3,
+    },
+    "K(Bs",
+    {
+        0xC80A0A0A, 0x4B4C43B3, 0x20140150, 0x4B4842B3, 0xCA873015, 0x4BCC4BB3, 0xC80D0A19, 0x4BC84AB3,
+        0xC8090A09, 0x4B8C4B33, 0xC80C0A18, 0x4B884A33, 0xC8080A08, 0x4B276F46, 0x4B274F4F, 0x4B07674E,
+    },
+    "K'oFK'OO",
+    {
+        0x4B07674E, 0xEA8F3016, 0x4B07474F, 0x8E8C00B0, 0x4B47774E, 0x4B47574F, 0x4B2B5ADD, 0xAE8C00B4,
+    },
+    "KGwNKGWO",
+    {
+        0x4B2B5ADD, 0xAE8C00B4, 0x4B0F7BDD, 0x1286006B, 0x4A0B5F44, 0x4A0B7F4D, 0x4A0F5C0E, 0x11600002,
+        0x4A0F7C4F, 0x22940018, 0x4B308494, 0x200B0001, 0x4B318F50, 0x4B509414, 0x4B51EC50, 0x4B114776,
+        0xCA873018, 0x4B104435, 0x4B004476, 0x4B105F44, 0x4B107F4D, 0x4B115ACE, 0x4B117BCF, 0x4BFE5AC6,
+        0x080004D2, 0x4BFE7BCF, 0x4AA70190, 0xC9343013, 0x4AC70150, 0xC9DB3801, 0x4AFFF922, 0xC93D3817,
+        0x4A823D41, 0xC9243814, 0x4AA23549, 0x112D002E, 0x4AC22D49, 0x4A943F01, 0xC9233811, 0x4AB43709,
+        0x212BFFE8, 0x4AD42F09, 0x2129FFD0, 0x4A1BEF67, 0x48802300, 0x4B0018E7, 0x48802700, 0x4BFFAD68,
+        0xC9223016, 0x4BFFE728, 0xC9343013, 0x4BFFEF40, 0x4A952748, 0x156DFFEA, 0x4A9C1F48, 0x4BBF00E7,
+        0xC9D61206, 0x4B7FCEE3, 0x30AB0004, 0x4A823D40, 0x1160005F, 0xE9DD3801, 0x4AA23548, 0x30AC0008,
+        0x4AC22D48, 0x4BBF192C, 0x4A943F00, 0x4AB43708, 0x4AD42F08, 0xC802201D, 0x4BBF0D87, 0x4A951D88,
+        0x11800053, 0x4A9C2588, 0x4B020D8F, 0x4A16B100, 0x4BFFB0C0, 0x4B42B0C8, 0x4BBF0D47, 0x4B22B588,
+        0x08000576, 0x4A032588, 0x4A1BEF67, 0x4B002127, 0x4BFFAD68, 0x4AFFF8E1, 0xC9223010, 0x4BBF00E7,
+        0xC9D61206, 0x4BFFEF40, 0x08000513, 0x4A952748, 0x4A00002C, 0xC81F201B, 0xC81E201C, 0x20170A80,
+        0x20160C68, 0x4B1F0051, 0x8C0B00F0, 0x8C0C0FC4, 0x20012800, 0x11600006, 0x40812000, 0x318C0001,
+        0x11800021, 0xAC000FC4, 0x08000459, 0x8C1A0BF8, 0x400B5800, 0x316B0001, 0x1560000B, 0x40024800,
+        0x8C030FE8, 0x00625822, 0x1D600007, 0x40015000, 0x8C040FEC, 0x10200004, 0x00245822, 0x05610002,
+        0x00000000, 0x14220008, 0x400B5800, 0x316B0400, 0x1560FFFD, 0x200B0001, 0x408B5800, 0x8C020FEC,
+        0x40824000, 0x40824800, 0xAC0200F0, 0x00000000, 0x00000000, 0x00000000, 0x8C0B00F4, 0x15600002,
+        0x8C0B0FE0, 0xAC0B00F4, 0x8C010FD0, 0x8C0202E0, 0x8C0302E8, 0x00411020, 0x00611820, 0xAC0202E0,
+        0xAC0302E8, 0x8C1900C0, 0x0C000496, 0x8C1800C4, 0x8C1A0FF0, 0x200B02E8, 0x0C0007ED, 0x37EC0000,
+        0x201300A7, 0x37580000, 0x0C0007F6, 0x241408E8, 0x275A00A8, 0x201BFF58, 0x0C0007F2, 0x40012000,
+        0x8F790990, 0x1360FFF6, 0x30210080, 0x00196603, 0x000C5840, 0x956B036E, 0x14200380, 0x8F780994,
+        0x01600008, 0x277B0008, 0x0C000489, 0x87740989, 0x33330FF8, 0x0014A083, 0x080007F6, 0x201F1188,
+        0x8C0B01EC, 0x01795824, 0x01785825, 0x08000463, 0xAC0B01EC, 0x900100DE, 0x10200370, 0x2021FFFC,
+        0x08000408, 0x8C3A0138, 0xC81D1818, 0xC81D1C1A, 0x8C1900D8, 0x22F70010, 0xEAFD187E, 0xEAFD1C7F,
+        0xAEF80004, 0xAEF90000, 0x080004A1, 0x22F70008, 0x201F1210, 0x00185D82, 0x316B003C, 0x8D6B00F8,
+        0x0018C200, 0x0018C202, 0x03E00008, 0x030BC020, 0xAC1900C8, 0x08000484, 0xAC1800CC, 0xAC1900C0,
+        0xAC1800C4, 0x201F1210, 0x332B0FFF, 0xA40B03E2, 0x00195B02, 0x316B0FFF, 0xA40B03E0, 0x330B0FFF,
+        0xA40B03E6, 0x00185B02, 0x316B0FFF, 0x03E00008, 0xA40B03E4, 0x201F118C, 0x02F65822, 0x19600351,
+        0x400C3000, 0x8C1800F0, 0x257301E8, 0x1580FFFC, 0x8C0C0FEC, 0x40984800, 0x03135820, 0x018B6022,
+        0x05810008, 0x400B5800, 0x316B0400, 0x1560FFFD, 0x8C180FE8, 0x400B5000, 0x1178FFFE, 0x00000000,
+        0x40984000, 0x400B5000, 0x01785822, 0x19600002, 0x01735822, 0x1960FFFB, 0x03135820, 0xAC0B00F0,
+        0x2273FFFF, 0x22D4DE18, 0x3AD60360, 0x080007F6, 0x22D7FE18, 0x00000000, 0x97340380, 0x0C000489,
+        0x97610989, 0x0281A022, 0x0C0007F6, 0x2033FFFF, 0x940501EC, 0x000108C2, 0x03217822, 0x95EF0380,
+        0x368E0000, 0x900801D9, 0x30A70001, 0x15000006, 0x000738C0, 0xA01901D9, 0x20150040, 0x20140000,
+        0x0C000422, 0x20130080, 0xC8082008, 0xC80A2009, 0xC80C200A, 0xC80E200B, 0x4B004250, 0xC8091811,
+        0x4B0052D0, 0xC80B1813, 0x4B006350, 0xC80D1815, 0x4B0073D0, 0xC80F1817, 0xC8081C10, 0xC80A1C12,
+        0x0C000571, 0xC80C1C14, 0x0C0007F2, 0xC80E1C16, 0xC9D41800, 0x4B356C33, 0xC9D41C02, 0x4B017F46,
+    },
+    { 11889715.0f },
+    {
+        0xC9D41C02, 0x4B017F46, 0x8DCB001C, 0x4B015F4F, 0xC9D61602, 0x4A94674E, 0x4A94474F, 0x4AB46F4E,
+        0xADCB0008, 0x4AB44F4F, 0x4AD475CE, 0x4AD4560F, 0x4B7FCEE3, 0xC9D61206, 0x4B00C8E3, 0x2021FFFC,
+        0x4B92BF44, 0x01075822, 0x4B92C08D, 0xE97B07F3, 0x4B00054E, 0xE97B03CB, 0x4B434EB3, 0xE9030E7A,
+        0x4BB2B9C6, 0xE919147C, 0x4BB2C18F, 0xE9191879, 0x4B624772, 0xE91A0E7B, 0x4B755971, 0xE91A1173,
+    },
+    "KbGr",
+    {
+        0xE91A0E7B, 0x4B755971, 0xE91A1173, 0x4BE25932, 0x201302D0, 0x8DCA0008, 0xAE6A0004, 0x8DCA000C,
+    },
+    "KuYq",
+    {
+        0xE91A1173, 0x4BE25932, 0x201302D0, 0x8DCA0008, 0xAE6A0004, 0x8DCA000C, 0xAE6A0000, 0xCA633800,
+        0x8C1301EC, 0x32730080, 0x1260000D, 0x00000000, 0x340C0008, 0x200B0250, 0x4A1BDEEC, 0x20137F80,
+        0x4893DA00, 0x8573000A, 0x32738000, 0x16600001, 0x00000000, 0x218CFFFF, 0x1580FFFA, 0x216B0010,
+        0x201302D0, 0xEA633800, 0xCA631800, 0x4BF57971, 0x00015FC3, 0x4B007932, 0x316B0028, 0x4AF8C765,
+        0x21EF0050, 0x4AF7BF64, 0x01EB4022, 0x4A05AF44, 0x484A0800, 0x4A05174D, 0xE9171C7C, 0x4A04AD4E,
+        0xC9D41804, 0x4A04108F, 0xE9F71877, 0x4B00C763, 0xC9170F72, 0x4B3F0F47, 0xE9181C7B, 0x4B9FAE8E,
+        0xC9F70B5E, 0x4B9F164F, 0xE9F81876, 0x4BFF00A7, 0xC9D41C06, 0x4AE6C765, 0xE903127A, 0x4A05D744,
+        0xC9180F6E, 0x4A05CF4D, 0xE9E31070, 0x4A04D14E, 0xC9F80B5A, 0x4A04C90F, 0xA50AFFFE, 0x4BFF108F,
+        0x000A5900, 0x4AE7BF64, 0x484A0800, 0x4AE5BF44, 0xE9050F7D, 0x4AE5C74D, 0x21CE0020, 0x4AE2BE8E,
+        0xA50AFFFC, 0x4AE2C64F, 0x000A5100, 0x4A12B0C5, 0xA5EBFFD6, 0xA5EAFFD4, 0x4B92D744, 0xE9E50B69,
+        0x4B92CE4D, 0xE9040F7C, 0x4B00068E, 0xE9E40B68, 0xE903127B, 0x4B018F47, 0xE9E31671, 0x4B7F9F4F,
+        0x4A10D68E, 0x1C20FF88, 0x4A10CE4F, 0x07E0009F, 0x4B00C8E3, 0xE919147C, 0x4B7FCEE3, 0xE9F91072,
+        0xE91A0E7B, 0xE9FA0A67, 0xE9030E7A, 0x10E0FEF6, 0xE9E30A66, 0xE91B07EB, 0x08000463, 0xE9FB03C3,
+        0x200D0180, 0xC810181C, 0xC8101C1C, 0xC9BD1018, 0xC811181D, 0xC8111C1D, 0x4B7FFCE0, 0x4A100551,
+        0xC9B2121A, 0x4B1D8427, 0xC9B2161A, 0x4B0104E7, 0xC8121437, 0x4B3D8C67, 0xC9B20D03, 0x4B354C33,
+    },
+    { 11881523.0f },
+    {
+        0x03E00008, 0x22E80050, 0x9365098D, 0x937D098E, 0x937E098F, 0x0800058C, 0x20191620, 0x93650989,
+        0x937D098A, 0x937E098B, 0x2019118C, 0x8364098C, 0x94BC0380, 0x97BD0380, 0x97DE0380, 0x94A50380,
+        0x20840003, 0x37820000, 0x0C0005A4, 0x37A30000, 0x37A20000, 0x0C0005A4, 0x37C30000, 0x37C20000,
+        0x37830000, 0x080005A4, 0x373F0000, 0x8364098B, 0x93650989, 0x9363098A, 0x20840003, 0x94A20380,
+        0x94630380, 0x94A50380, 0x201F118C, 0x8C460024, 0x8C670024, 0x8C0C03C4, 0x30CB7070, 0x01675824,
+        0x1560024B, 0x00C75825, 0x016C5824, 0x1160005F, 0xA41F03C2, 0x24060014, 0x240F0990, 0x8CCB03C8,
+        0x8C490024, 0x8C700024, 0x012B4824, 0x020B8024, 0x11300054, 0x00065840, 0x11200003, 0x344C0000,
+        0x34620000, 0x35830000, 0xC9621830, 0xC8441801, 0xC8451800, 0xC8661801, 0xC8671800, 0x4B1F10C7,
+        0x4A022206, 0x4A022A4F, 0x4A03328E, 0x4A033ACF, 0x4A484214, 0xC802201D, 0x4A494A50, 0x4A4A5294,
+    },
+    "JIJP",
+    {
+        0x4A4A5294, 0x4A4B5AD0, 0x4AA84214, 0x4AA94A50, 0x4AAA5294, 0x4AAB5AD0, 0x4B6B4772, 0x4B6A58F1,
+    },
+    "KkGr",
+    {
+        0x4B6A58F1, 0x4B005B32, 0x4B625F53, 0x4B7D18C6, 0x4B7D630F, 0x4B006321, 0x4B1F18E7, 0x4B635744,
+    },
+    "K\000[2Kb_S",
+    {
+        0x4B7D18C6, 0x4B7D630F, 0x4B006321, 0x4B1F18E7, 0x4B635744, 0x4B635ACD, 0x4B00028E, 0x4B6B5B72,
+    },
+    "KcWD",
+    {
+        0x4B635ACD, 0x4B00028E, 0x4B6B5B72, 0x4B6A5B31, 0x4B005B72, 0x4B9F6386, 0x4B9F6BCF, 0x4B3F0F47,
+    },
+    "Kk[rKj[1K\000[r",
+    {
+        0x4B9F6386, 0x4B9F6BCF, 0x4B3F0F47, 0x4A0A774C, 0x4A0A7F4D, 0x4A0B728E, 0x4A0B7ACF, 0x4A0A6744,
+        0x4A0A6F4D, 0x4A0B630E, 0x4A0B6B4F, 0x4A0C4744, 0xC86E3802, 0x4A0C4F4D, 0xC86E1405, 0x4A0D408E,
+        0xC84B3802, 0x4A0D4A8F, 0xC84B1405, 0x4B631744, 0x4B63528D, 0x4B00108E, 0x4B0152A0, 0x4B1F10A7,
+        0x4B011755, 0x4B0052A3, 0x4B0110A7, 0x4B1F10C6, 0x4B623744, 0x4B623F4D, 0x4B63274C, 0x4B632E0D,
+    },
+    "Kb7DKb\?MKc'L",
+    {
+        0x4B632E0D, 0x4B0005CE, 0x4B627745, 0x4B635D8D, 0x20070000, 0x20010002, 0x35E30000, 0x08000571,
+    },
+    "KbwE",
+    {
+        0x4B635D8D, 0x20070000, 0x20010002, 0x35E30000, 0x08000571, 0x201F93E0, 0xE9F91072, 0xE9FA0A67,
+        0xE9F63878, 0xE9F61471, 0xE9E30A66, 0x21EFFFD8, 0x14C0FFA5, 0x20C6FFFC, 0x8447001A, 0x4BFF00AD,
+        0x8468001A, 0x4BFF00ED, 0x8C0101EC, 0x900601E7, 0x01075822, 0x05610003, 0x344B0000, 0x34620000,
+        0x35630000, 0xC8441006, 0xC8651006, 0x00015A80, 0x05610006, 0x900901E6, 0x4A042A11, 0xC8463002,
+        0x4A042A63, 0x08000627, 0xC8673002, 0xC8A63002, 0x4A042A11, 0xC8460313, 0x4A042A63, 0xC8A73002,
+        0xC8670313, 0x200B03E0, 0x4A0842D3, 0xC96C1800, 0x4A042AA0, 0xC8420F0F, 0x4BFE3184, 0xC8630F0F,
+        0x4BFE39C4, 0xC8460F0E, 0x4B284B70, 0xC8670F0E, 0x4B004BB2, 0xC8461405, 0x4B084370, 0xC8671405,
+    },
+    "K(Kp",
+    {
+        0xC8670F0E, 0x4B004BB2, 0xC8461405, 0x4B084370, 0xC8671405, 0x4B0043B2, 0x4A021BD5, 0x4A063C11,
+        0x480A5800, 0x4B5F6F44, 0x480D5900, 0x4B5F738D, 0xC80C1C18, 0x4B00034E, 0x00260825, 0x4BBF42C5,
+    },
+    "K_oD",
+    {
+        0x480D5900, 0x4B5F738D, 0xC80C1C18, 0x4B00034E, 0x00260825, 0x4BBF42C5, 0x342100C8, 0x4B0001CE,
+        0xA2E10008, 0x4B2E7F46, 0x48849800, 0x4B2D874D, 0xEAEC1C00, 0x4B2D7C4C, 0x014D5822, 0x4B2E848F,
+    },
+    { 11435846.0f },
+    {
+        0x48849800, 0x4B2D874D, 0xEAEC1C00, 0x4B2D7C4C, 0x014D5822, 0x4B2E848F, 0x48808E00, 0x4B2D3F44,
+    },
+    { 11369548.0f },
+    {
+        0x014D5822, 0x4B2E848F, 0x48808E00, 0x4B2D3F44, 0x48809600, 0x4B2D5F4D, 0x4B2E39CE, 0x1D600014,
+    },
+    { 11353924.0f },
+    {
+        0x48809600, 0x4B2D5F4D, 0x4B2E39CE, 0x1D600014, 0x4B2E5ACF, 0x4BBF2506, 0x4B000590, 0xA2E90009,
+    },
+    { 11362125.0f },
+    {
+        0x4B2E39CE, 0x1D600014, 0x4B2E5ACF, 0x4BBF2506, 0x4B000590, 0xA2E90009, 0x4B0005D0, 0xEAE50905,
+        0x4B008E10, 0xEAE50906, 0x4B009650, 0x0C0006D2, 0xEAE40907, 0x4BBF9D0E, 0xEAE7080F, 0x4B00054F,
+        0xEAEB080E, 0x4B039E8E, 0xEAE70813, 0x4B0006CF, 0x080006A1, 0xEAEB0812, 0x4B0C52A3, 0x480B4000,
+    },
+    "KLJ`",
+    {
+        0x4BFE0710, 0x4A0B5DD3, 0x4B2CE744, 0x0160582A, 0x4BBE528E, 0x000B59C0, 0x4B6CE744, 0x012B4825,
+        0x4BBE4A4E, 0xA2E90009, 0x4B0D7F44, 0x480CB800, 0x4B0D874D, 0x22EB0001, 0x4B0E7D8E, 0xE96A0800,
+        0x4B0E85CF, 0xE9690802, 0x4B132390, 0x10E80015, 0x218CF8AB, 0x4B132351, 0x1D800013, 0x4B132F10,
+        0x4BBF6D06, 0xEAFC0905, 0x4B000610, 0xEAEE0906, 0x4B000650, 0xEAED0907, 0x0C0006D2, 0xEAE7080B,
+        0xEAEB080A, 0x4BBF26C5, 0xEAE7080F, 0x4B00068E, 0xEAEB080E, 0xEAE01009, 0xEAFB0808, 0x080006A1,
+        0xEAFA0809, 0x4B132351, 0x4BBF2545, 0x39290080, 0x4B00050E, 0xA2E90009, 0x4BBF2EC5, 0xEAE01007,
+        0x4B00068E, 0xEAE01009, 0x4B000450, 0xEAED0907, 0x4B000490, 0xEAEE0906, 0x4B000610, 0xEAEE0905,
+        0x4B000650, 0xEAF5080C, 0x4B0171B3, 0xEAF4080D, 0x4B0070B3, 0xEAFB0810, 0x4BDE1146, 0xEAFA0811,
+        0x4BDE320F, 0x22F70028, 0x4BDEB246, 0x302B0004, 0x4BDEBA8F, 0x4BDE8B06, 0x11600009, 0x302B0002,
+        0xEAE61800, 0xEAF71801, 0xEAF61803, 0xEAF21804, 0xEAF91805, 0xEAF11806, 0xEAF81807, 0x22F70040,
+        0x4BDE934F, 0x1160000A, 0x302B0001, 0x22F70040, 0xEAE61C78, 0xEAE21C7A, 0xEAF71C79, 0xEAF61C7B,
+        0xEAF21C7C, 0xEAF11C7E, 0xEAF91C7D, 0xEAF81C7F, 0x1160FDDD, 0x941F03C2, 0xEAE80F00, 0x22F70010,
+        0xEAE50F79, 0x4BDEC606, 0xEAEA0F7A, 0x4BDECE4F, 0xEAE90F7B, 0xEAED0F7C, 0xEAEC0F7D, 0xEAF90F7E,
+        0x080004A2, 0xEAF80F7F, 0x4A140515, 0x4A000551, 0x4B011746, 0x4B01374F, 0x4B348F4C, 0x4B34974D,
+        0x4B35888E, 0x4B35918F, 0x4BBF2746, 0x4B343F4C, 0x4B345F4D, 0xEAE21807, 0x4B353D0E, 0x03E00008,
+    },
+    "K4\?LK4_M",
+    {
+        0xEAE21807, 0x4B353D0E, 0x03E00008, 0x4B355D4F, 0x97390380, 0x97180380, 0x24017070, 0x8F2B0024,
+    },
+    { 11885903.0f },
+    {
+        0x97390380, 0x97180380, 0x24017070, 0x8F2B0024, 0x002B0824, 0x1020FD7C, 0x8F2B004C, 0x1738FFFC,
+        0x27390028, 0x08000479, 0x97390380, 0x8F39001C, 0x03381022, 0x0441FD74, 0x8C1800D8, 0x08000402,
+        0x93610989, 0x08000410, 0x97390380, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x200C1000, 0x200B02E0, 0x8D780000, 0x95730004, 0x0C0007F6, 0x95740006,
+        0x359F0000, 0x400B3000, 0x1560FFFF, 0x400B3000, 0x03E00008, 0x400B2800, 0x1560FFFF, 0x400B2800,
+        0x40940000, 0x06800003, 0x40980800, 0x03E00008, 0x40931000, 0x03E00008, 0x40931800, 0xC81D1818,
+        0x22F70008, 0xEAFD187F, 0x02F65822, 0x256C01E7, 0x0591009E, 0x00000000, 0x0C0007F2, 0x8C1800F0,
+        0x0420001A, 0x40984800, 0x1420000F, 0x035BD020, 0x8F78098C, 0xAC1A0FF0, 0xAC180FD0, 0x24141080,
+        0x0C0007F6, 0x20130F47, 0x8C1800D8, 0x24140180, 0x33330FFF, 0x0314C020, 0x0C0007F6, 0x02749822,
+        0x080007F2, 0x201F1084, 0x8C0B0FD0, 0xAC1A0BF8, 0xAC0B0BFC, 0x200C5000, 0x8C180FF8, 0x20148000,
+        0x20130BFF, 0x080007F6, 0x201F1094, 0x200C4000, 0x408C2000, 0x0000000D, 0x00000000, 0x900100DE,
+        0x001913C0, 0x0C000489, 0x035B1820, 0x04400057, 0x371A0000, 0xAC230138, 0x20210004, 0x0800045C,
+        0xA00100DE, 0x200B1140, 0xAD79F0A4, 0x08000463, 0xAD78F0A8, 0x00191402, 0x944127FE, 0x00390820,
+        0x08000463, 0xAC380000, 0x8C0B00F4, 0x8C020FE0, 0x0178C022, 0x03020822, 0x04210002, 0x00000000,
+        0x34580000, 0x130B0048, 0xAC1800F4, 0x08000449, 0xAC0001D9, 0x943302F2, 0x0C0007F2, 0x943502F2,
+        0x201F118C, 0x228C0018, 0x4B00024E, 0x228B0008, 0x4B00020F, 0x22B5FFE0, 0x4B000747, 0xCAA51808,
+        0xCAA51C08, 0xCA832002, 0xCAA41804, 0xCAA41C04, 0xCA822000, 0x4A832F4C, 0x22940002, 0x4A83274D,
+        0x22B50008, 0x4A8229CE, 0x168BFFF4, 0x4A82218F, 0x168CFFED, 0x22940008, 0xEA692002, 0xEA682000,
+        0xEA672003, 0x03E00008, 0xEA662001, 0x332B0005, 0x15600008, 0x33220002, 0x8C1800F4, 0x2014E000,
+        0x0C0007F6, 0x2013003F, 0x23180040, 0xAC1800F4, 0x8F78098C, 0x01826020, 0xAC0001D9, 0x0C000489,
+        0x332100FE, 0x93730989, 0x943402F0, 0x00191142, 0x959F0336, 0x080007F6, 0x0282A020, 0x8D63EF8C,
+        0x3C028000, 0x03221007, 0x00190A02, 0x00221006, 0x00401027, 0x00621824, 0x00781825, 0xAD63EF8C,
+        0x8C1900C8, 0x08000484, 0x8C1800CC, 0x20180360, 0x20170F90, 0x8C3C0030, 0x8C3B0034, 0x40055800,
+        0x30A40001, 0x10800006, 0x30A40100, 0x10800004, 0x00000000, 0x40045800, 0x30840100, 0x1C80FFFD,
+        0x00000000, 0x0D000454, 0x00000000, 0x2002000F, 0x20010320, 0xAC200000, 0x1C40FFFE, 0x2042FFFF,
+        0x40023000, 0x1440FFFE, 0x201D0380, 0x40803800, 0x8FBA0000, 0x8FB90004, 0x001A0DC2, 0x302100FE,
+        0x239C0008, 0x237BFFF8, 0x23BD0008, 0x23DEFFF8, 0x00011020, 0x84420010, 0x00400008, 0x00000000,
+        0x0000000D, 0x1FC0FFF2, 0x00000000, 0x1B600005, 0x00000000, 0x0D000454, 0x00000000, 0x09000435,
+        0x00000000, 0x34014000, 0x40812000, 0x0000000D, 0x00000000, 0x1000FFFF, 0x00000000, 0x23E50000,
+        0x001C1020, 0x23630000, 0x2064FEC0, 0x18800002, 0x20010380, 0x20030140, 0x207E0000, 0x0D000461,
+        0x2063FFFF, 0x201D0380, 0x00A00008, 0x00000000, 0x40043800, 0x1480FFFE, 0x00000000, 0x40042800,
+        0x1480FFFE, 0x00000000, 0x40810000, 0x40820800, 0x40831000, 0x03E00008, 0x00000000, 0x40043800,
+        0x1480FFFE, 0x00000000, 0x40042800, 0x1480FFFE, 0x00000000, 0x40810000, 0x40820800, 0x40831800,
+        0x03E00008, 0x00000000, 0x3323FFFF, 0x1060FFCD, 0x200405C0, 0x3342FFFF, 0x00441020, 0x4A01086C,
+        0x2063FFF0, 0xE8411800, 0xE8411801, 0x20420010, 0x1C60FFFC, 0x2063FFF0, 0x09000446, 0x00000000,
+        0x97030004, 0x1060FFBF, 0x00191200, 0x00021202, 0x00192602, 0x00042080, 0x8C850320, 0x00451020,
+        0x97010000, 0x0D000461, 0x2063FFFF, 0x40013000, 0x1420FFFE, 0x00000000, 0x09000446, 0x40803800,
+        0x97030004, 0x1060FFAF, 0x00191200, 0x00021202, 0x00192602, 0x00042080, 0x8C850320, 0x00451020,
+        0x97010002, 0x0D00046C, 0x2063FFFF, 0x40013000, 0x1420FFFE, 0x00000000, 0x09000446, 0x40803800,
+        0x00191200, 0x00021202, 0x00192602, 0x00042080, 0x8C850320, 0x00451020, 0x200104C0, 0x3343FFFF,
+        0x0D000461, 0x2063FFFF, 0x40013000, 0x1420FFFE, 0x00000000, 0x09000446, 0x40803800, 0x00191A00,
+        0x00031A02, 0x00191602, 0x00021080, 0x00022020, 0x09000446, 0xAC830320, 0x234105C0, 0x00191402,
+        0x204205C0, 0x001A2402, 0x30840008, 0x1C800005, 0x232305C0, 0xA7010000, 0xA7020002, 0x09000446,
+        0xA7190004, 0xA703000E, 0xA701000A, 0x09000446, 0xA702000C, 0x001A1402, 0x30410008, 0x10200004,
+        0x30410004, 0xA71A001C, 0x09000446, 0xA719001E, 0x10200007, 0x30410002, 0x10200003, 0x00000000,
+        0x09000446, 0xA71A0006, 0x09000446, 0xA71A0008, 0x10200005, 0x00190C02, 0xA71A0010, 0xA7010012,
+        0x09000446, 0xA7190014, 0xA71A0016, 0xA7010018, 0x09000446, 0xA719001A, 0x97010004, 0x97040002,
+        0x1020FF60, 0x3323FFFF, 0x206305C0, 0x00191402, 0x204205C0, 0xC8412000, 0xC8622000, 0xE8810800,
+        0xE8820801, 0xE8810902, 0xE8820903, 0xE8810A04, 0xE8820A05, 0xE8810B06, 0xE8820B07, 0xE8810C08,
+        0xE8820C09, 0xE8810D0A, 0xE8820D0B, 0xE8810E0C, 0xE8820E0D, 0xE8810F0E, 0xE8820F0F, 0x2021FFF0,
+        0x20420010, 0x20630010, 0x1C20FFEA, 0x20840020, 0x09000446, 0x00000000, 0x3321FFFF, 0x1020FF41,
+        0x3342FFFF, 0x204205C0, 0x00191C02, 0x206305C0, 0xC8411800, 0xC8421801, 0x2021FFF0, 0x20420010,
+        0xE8611800, 0xE8621801, 0x1C20FFF9, 0x20630010, 0x09000446, 0x00000000, 0x00190A00, 0x00010A02,
+        0x00191E02, 0x00031880, 0x8C620320, 0x00220820, 0xAF010010, 0x09000446, 0x00000000, 0xC81F2000,
+        0x4A1BDEEC, 0x97150000, 0x4A19CE6C, 0x4A18C62C, 0x22B40001, 0x97130002, 0x4A0D6B6C, 0x4A0E73AC,
+        0x97120004, 0x4A0F7BEC, 0x3C0100FF, 0x4A10842C, 0x3421FFFF, 0x4A118C6C, 0x03218824, 0x4A1294AC,
+        0x00191602, 0x4A139CEC, 0x00021080, 0x8C430320, 0x02238820, 0xEA7B2000, 0xEA7B2001, 0x001A0C02,
+        0x30210001, 0x1C20000C, 0x001A0C02, 0x30210002, 0x10010002, 0x22220000, 0x8F020010, 0x22610000,
+        0x0D000461, 0x2003001F, 0x40053000, 0x14A0FFFE, 0x00000000, 0x40803800, 0x20100030, 0x200F04C0,
+        0xCA191800, 0xCA181C00, 0xCA171801, 0xCA171C01, 0xCA7B2001, 0x22730020, 0x1240006E, 0xCA811800,
+        0x92A10000, 0x302B000F, 0x000B5940, 0x4B01C8E8, 0x016F6820, 0x4B21C128, 0x00017102, 0x4B41C968,
+        0x2002000C, 0x4B61C1A8, 0x004E7022, 0x21C2FFFF, 0x20030001, 0x00031BC0, 0x00432006, 0x4884B000,
+        0xC9B52000, 0xC9B42001, 0x21ADFFFE, 0xC9B32802, 0x21ADFFFE, 0xC9B22802, 0x21ADFFFE, 0xC9B12802,
+        0x21ADFFFE, 0xC9B02802, 0x21ADFFFE, 0xC9AF2802, 0x21ADFFFE, 0xC9AE2802, 0x21ADFFFE, 0xC9AD2802,
+        0x22940009, 0x4A171F86, 0x22B50009, 0x4A17278E, 0xCA811800, 0x4A172F46, 0x92A10000, 0x4A17374E,
+        0x19C00003, 0x302B000F, 0x4B16F785, 0x4B16EF45, 0x000B5940, 0x4B01C8E8, 0x016F6820, 0x4B21C128,
+        0x4B41C968, 0x4B61C1A8, 0x00017102, 0x4BDBA887, 0x2002000C, 0x4BFBA08F, 0x004E7022, 0x4B1E988F,
+        0x21C2FFFF, 0x4B3E908F, 0x20030001, 0x4B5E888F, 0x00031BC0, 0x4B7E808F, 0x00432006, 0x4B9E7F0F,
+        0x4884B000, 0x4BBE708F, 0x4BDE688F, 0x4BBFF08F, 0x4B3C3E9D, 0x4B1C3F1D, 0x4B9FD086, 0x4B9FE70F,
+        0x4B1D9887, 0x21ACFFFE, 0x4B3D908F, 0xC9932802, 0x4B5D888F, 0x218CFFFE, 0x4B7D808F, 0xC9922802,
+        0x4B9D788F, 0x218CFFFE, 0x4BBD708F, 0xC9912802, 0x4BDD688F, 0x218CFFFE, 0x4BBFE88F, 0xC9902802,
+        0x4BDCA88F, 0x218CFFFE, 0x4BFCA08F, 0xC98F2802, 0x4B3B3E9D, 0x218CFFFE, 0x4B1B3EDD, 0xC98E2802,
+        0x218CFFFE, 0xC98D2802, 0xC9B52000, 0x4B9FD086, 0xC9B42001, 0x4B9FDECF, 0x2252FFE0, 0xEA7C1800,
+        0xEA7C1C01, 0xEA7B1802, 0xEA7B1C03, 0x1E40FFB4, 0x22730020, 0x2261FFE0, 0x22220000, 0x0D00046C,
+        0x2003001F, 0x40053000, 0x14A0FFFE, 0x00000000, 0x09000446, 0x40803800, 0xC81F2000, 0x4A1CE72C,
+        0x97150000, 0x4A118C6C, 0x97140002, 0x4A1294AC, 0x97130004, 0x4A139CEC, 0x12600051, 0x334EFFFF,
+        0x488EFD00, 0x000E7080, 0x488E8000, 0x3C0100FF, 0x4A14A52C, 0x3421FFFF, 0x4A15AD6C, 0x03219024,
+        0x4A16B5AC, 0x00191602, 0x4A17BDEC, 0x00021080, 0x8C430320, 0x02439020, 0xEAFC1000, 0x001A0C02,
+        0x30210001, 0x1C200009, 0x00000000, 0x22E10000, 0x22420000, 0x0D000461, 0x20030007, 0x40053000,
+        0x14A0FFFE, 0x00000000, 0x40803800, 0x200D04C0, 0x20010004, 0x48817000, 0xC9B82001, 0x4B10C405,
+        0xCAFC1C00, 0xE9B02001, 0xC9B92000, 0x21ADFFFE, 0xC9B72802, 0x21ADFFFE, 0xC9B62802, 0x21ADFFFE,
+        0xC9B52802, 0x21ADFFFE, 0xC9B42802, 0x21ADFFFE, 0xC9B32802, 0x21ADFFFE, 0xC9B22802, 0x21ADFFFE,
+        0xC9B12802, 0xCABE1800, 0xCABE1C01, 0x4BDCCC07, 0x22B50010, 0x4BFCC40F, 0x2273FFF0, 0x4B1EBC0F,
+        0x4B3EB40F, 0x4B5EAC0F, 0x4B7EA40F, 0x4B9E9F0F, 0x4BBE940F, 0x4BDE8C0F, 0x4BBFF40F, 0xCABE1800,
+        0x4B3C7E9D, 0xCABE1C01, 0x4B1C7F1D, 0x4B0ED406, 0x4B0EE70F, 0xEA9C1800, 0xEA9C1C01, 0x1E60FFEB,
+        0x22940010, 0x2281FFF8, 0x22420000, 0x0D00046C, 0x20030007, 0x40053000, 0x14A0FFFE, 0x00000000,
+        0x09000446, 0x40803800, 0x87080000, 0x87130002, 0x87120004, 0x3C0400FF, 0x3484FFFF, 0x03241024,
+        0x00192E02, 0x00052880, 0x8CA60320, 0x00461020, 0x22E10000, 0xAEE20040, 0x2003001F, 0x001A3C02,
+        0x30EA0001, 0x1D400008, 0x00000000, 0x0D000461, 0x00000000, 0x40013000, 0x1420FFFE, 0x00000000,
+        0x0900063A, 0x40803800, 0xA6E00008, 0x4A10842C, 0xEAF01800, 0x30EA0002, 0x11400006, 0x00000000,
+        0x86EB000A, 0xCAE32001, 0xE903187E, 0xE9031C7F, 0x010B4022, 0x2108FFF8, 0xCAF70F04, 0xCAF01800,
+        0xE9101800, 0x48889200, 0x200A00C0, 0x488A9300, 0x489A9400, 0x200A0040, 0x488A9500, 0x20090040,
+        0xC93F2001, 0xC9392000, 0x4A1FCE51, 0xC93E2002, 0xC93D2003, 0xC93C2004, 0xC93B2005, 0xC93A2006,
+        0x4A1FCE51, 0xC9382007, 0x22F50020, 0x22F40030, 0x4A16B5AC, 0x4BF7FDC5, 0x4B92CD8D, 0x4B1EFDCE,
+        0x4B52FD46, 0x4B5EB54E, 0x4BB2BC44, 0x4B9E8C46, 0x4B72FC4E, 0xC9392000, 0xEAB52000, 0xEA912000,
+        0xEAF70B84, 0x86B10000, 0x86890000, 0x86AD0008, 0x86850008, 0x86B00002, 0x86880002, 0x86AC000A,
+        0x8684000A, 0x86AF0004, 0x86870004, 0x86AB000C, 0x8683000C, 0x86AE0006, 0x86860006, 0x86AA000E,
+        0x8682000E, 0xCA301800, 0x4BF7FDC5, 0xC92F1800, 0x4BF6FDCF, 0xC9B01C00, 0x4B92CD8D, 0xC8AF1C00,
+        0x4B1EFDCE, 0xCA0E1800, 0x4B52FD46, 0xC90D1800, 0x4B5EB54E, 0xC98E1C00, 0x4BB2BC44, 0xC88D1C00,
+        0xC9EC1800, 0xC8EB1800, 0xC96C1C00, 0x4B9E8C46, 0xC86B1C00, 0xC9CA1800, 0xC8C91800, 0x4B72FC4E,
+        0xC94A1C00, 0x4A0F8200, 0xC8491C00, 0x4A0D71C0, 0xEAB52000, 0x4A0B6180, 0xEA912000, 0x86B10000,
+        0x4A095140, 0x86890000, 0x4A684210, 0x86AD0008, 0x4A6739D0, 0x86850008, 0x4A663190, 0x86B00002,
+    },
+    "Je)P",
+    {
+        0x86880002, 0x4AC84210, 0x86AC000A, 0x4AC739D0, 0x8684000A, 0x4AC63190, 0x86AF0004, 0x4AC52950,
+        0x86870004, 0x4A88E906, 0x86AB000C, 0x4A87E10E, 0x8683000C, 0x4A86D90E, 0x86AE0006, 0x4A85D10E,
+        0x86860006, 0x86AA000E, 0x2252FFF0, 0xEA642000, 0x1A400003, 0x8682000E, 0x09000676, 0x22730010,
+        0xEAF70804, 0xCA301800, 0xEAF01800, 0x87060000, 0x22310008, 0x02262822, 0x30A4000F, 0x02248822,
+        0x10800002, 0x20070010, 0x00E42022, 0xA6E4000A, 0xCA231800, 0xCA231C01, 0xEAE32001, 0x8EE20040,
+        0x22E10000, 0x0D00046C, 0x2003001F, 0x40053000, 0x14A0FFFE, 0x00000000, 0x09000446, 0x40803800,
+        0x3C0400FF, 0x3484FFFF, 0x03241024, 0x00192E02, 0x00052880, 0x8CA60320, 0x00461020, 0x22E10000,
+        0x2003004F, 0x4A00002C, 0x200B0040, 0xC97F2001, 0xC80A2000, 0x001A6402, 0x318A0001, 0x11400003,
+        0xCB182001, 0x090006EC, 0x00000000, 0x0D000461, 0x00000000, 0x40053000, 0x14A0FFFE, 0x00000000,
+        0x40803800, 0xCAF42000, 0xCAF52001, 0xCAF22002, 0xCAF32003, 0xCAF82004, 0x870D0000, 0x87130002,
+        0x8712000A, 0x8711000C, 0x8710000E, 0x870E0004, 0x200F0010, 0x4815C100, 0x4814C400, 0x31890008,
+        0x1D200004, 0x00000000, 0x22F10050, 0x00118020, 0x200F0000, 0x11400040, 0xC97E2007, 0xC9B12000,
+        0xCA7D2000, 0xCA3B2000, 0x4A15AD6C, 0xCB140F03, 0x4B58A5C5, 0x4B38A58F, 0x4B00FDCE, 0x4A15BDD5,
+        0x4A14B591, 0x4BF7F5C4, 0x4BF6F5CE, 0x4B00FD8D, 0x4BF5FD4D, 0x4BF4FD0F, 0x1EA00004, 0x4B00FD4E,
+        0x4B18A523, 0x09000712, 0x00000000, 0x4B18A524, 0x4BD8A400, 0x4BF8A3C0, 0x4BCAEF40, 0x4A108F48,
+        0x4BCADEC0, 0x4A0F8EC8, 0xEA7D2000, 0xEA3B2000, 0xCA5C2000, 0xCA1A2000, 0x4A139CEC, 0xCB120F04,
+        0x4BB895C5, 0x4B98958F, 0x4B00FDCE, 0x4A13BDD5, 0x4A12B591, 0x4BF7F5C4, 0x4BF6F5CE, 0x4B00FD8D,
+        0x4BF3FCCD, 0x4BF2FC8F, 0x1E800004, 0x4B00FCCE, 0x4B7894A3, 0x0900072E, 0x00000000, 0x4B7894A4,
+        0x4BD89400, 0x4BF893C0, 0x4BCAE700, 0x4A108F08, 0x4BCAD680, 0x4A0F8E88, 0xEA5C2000, 0xEA1A2000,
+        0x21CEFFF0, 0x21AD0010, 0x22730010, 0x22520010, 0x022F8820, 0x020F8020, 0x4B58ADC4, 0x4B58A5CD,
+        0x4B38ADCE, 0x4B38A50F, 0x4B00FD4E, 0x1EA0000A, 0xC9B12000, 0x4B18A523, 0x4BB89DC4, 0x4BB895CD,
+        0x4B989DCE, 0xCA7D2000, 0x4B98948F, 0xCA3B2000, 0x09000754, 0x4B00FCCE, 0x4B18A524, 0x4BB89DC4,
+        0x4BB895CD, 0x4B989DCE, 0xCA7D2000, 0x4B98948F, 0xCA3B2000, 0x4B00FCCE, 0x4BD8A400, 0xEAF42000,
+        0x4BF8A3C0, 0xEAF52001, 0x4BCAEF40, 0x4A108F48, 0xCA5C2000, 0x4BCADEC0, 0xCA1A2000, 0x4A0F8EC8,
+        0x1E800009, 0xEA7D2000, 0x4B7894A3, 0x4B58ADC4, 0xEA3B2000, 0x4B58A5CD, 0x4B38ADCE, 0x4B38A50F,
+        0x0900076F, 0x4B00FD4E, 0x4B7894A4, 0x4B58ADC4, 0xEA3B2000, 0x4B58A5CD, 0x4B38ADCE, 0x4B38A50F,
+        0x4B00FD4E, 0x4BD89400, 0x21CEFFF0, 0x4BF893C0, 0x22730010, 0x4BCAE700, 0x022F8820, 0x4A108F08,
+        0x21AD0010, 0x4BCAD680, 0x4A0F8E88, 0xEA5C2000, 0x22520010, 0x19C00003, 0xEA1A2000, 0x09000741,
+        0x020F8020, 0xEAF22002, 0xEAF32003, 0xEAF82004, 0x0D00046C, 0x2003004F, 0x40053000, 0x14A0FFFE,
+        0x00000000, 0x09000446, 0x40803800, 0xC81F2000, 0x97120004, 0x12400019, 0x00000000, 0x3333FFFF,
+        0x227305C0, 0x0019A402, 0x229405C0, 0x3351FFFF, 0x4891F000, 0xCA7B2000, 0xCA9D2000, 0xCA7A2001,
+        0xCA9C2001, 0x4BDFDEC0, 0x2252FFE0, 0x4B1EEEC8, 0x22940020, 0xEA7B2000, 0x4BDFD680, 0xCA9D2000,
+        0x4B1EE688, 0xCA9C2001, 0xEA7A2001, 0x22730020, 0xCA7B2000, 0x1E40FFF3, 0xCA7A2001, 0x09000446,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0xED000000, 0x005003C0, 0xEF080CFF, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0xFFFF0048, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    },
+    "RSP Gfx ucode F3DEX.NoN   fifo 2.05  Yoshitaka Yasumoto 1998 Nintend",
+    {
+        0x6F2E0A00, 0x00010000, 0x00000002, 0x00000001, 0x00000002, 0x00010000, 0x0000FFFE, 0x00000001,
+        0x0000FFFE, 0x00000000, 0x0001FFFF, 0x00000000, 0x00000001, 0xFFFF0004, 0x00087F00, 0xFFFC4000,
+        0x04207FFF, 0x7FFC1400, 0x01CC0200, 0xFFF00010, 0x00200100, 0xC00044D3, 0x6CB30002, 0x00010000,
+        0x01000BA8, 0x00000000, 0x00000000, 0x00000000, 0x00800000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000F80, 0x00971000, 0x00001018, 0x016F1000, 0x09D00000, 0x09D00040, 0x00E001F0,
+        0x04200080, 0x01DA0180, 0x00F801E0, 0x022001D8, 0x00DA1188, 0x10781188, 0x118C118C, 0x118C11B8,
+        0x1028104C, 0x11D010F0, 0x10381120, 0x1FAC1000, 0x11E4118C, 0x10301140, 0x113C102C, 0x102C120C,
+        0x120C120C, 0x120C1208, 0x12081208, 0x12441208, 0x12381208, 0x11F81208, 0x12081208, 0x12081208,
+        0x12081208, 0x12081208, 0x12081208, 0x12181218, 0x1218120C, 0x14E81D24, 0x1CE41D0C, 0x1864185C,
+        0x185C118C, 0x04200448, 0x04700498, 0x04C004E8, 0x05100538, 0x05600588, 0x05B005D8, 0x06000628,
+        0x06500678, 0x06A006C8, 0x06F00718, 0x07400768, 0x079007B8, 0x07E00808, 0x08300858, 0x088008A8,
+        0x08D008F8, 0x0920FFFF, (unsigned int)g_tlbMissExceptionVector, 0x00008000, 0x30304080, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00100000,
+        0x00200000, 0x10000000, 0x20000000, 0x00004000, 0x00000080, 0x00001188, 0x020712D0, 0x00000250,
+        0x021712D0, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0xED000000, 0x005003C0, 0xEF080CFF, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0xFFFF0048, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x52535020,
+    },
+    "RSP Gfx ucode L3DEX       fifo 2.05  Yoshitaka Yasumoto 1998 Nintend",
+    {
+        0x6F2E0A00, 0x00010000, 0x00000002, 0x00000001, 0x00000002, 0x00010000, 0x0000FFFE, 0x00000001,
+        0x0000FFFE, 0x00000000, 0x0001FFFF, 0x00000000, 0x00010001, 0xFFFF0004, 0x00087F00, 0xFFFC4000,
+        0x03E87FFF, 0x7FFC1400, 0x01CC0200, 0xFFF00010, 0x00200100, 0xC00044D3, 0x6CB30002, 0x00010000,
+        0x01000A80, 0x00000000, 0x00000000, 0x00000000, 0x00800000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+        0x00000000, 0x00000F80, 0x009F1000, 0x00001020, 0x016F1000, 0x09900000, 0x09900040, 0x00E001F0,
+        0x03E80080, 0x01DA0180, 0x00F801E0, 0x022001D8, 0x00DA1188, 0x10781188, 0x118C118C, 0x118C11B8,
+        0x1028104C, 0x11D010F0, 0x10381120, 0x1FAC1000, 0x11E4118C, 0x10301140, 0x113C102C, 0x102C1214,
+        0x12141214, 0x12141210, 0x12101210, 0x124C1210, 0x12401210, 0x11F81210, 0x12101210, 0x12101210,
+        0x12101210, 0x12101210, 0x12101210, 0x12201220, 0x12201214, 0x13081BC4, 0x1B841BAC, 0x1620160C,
+        0x160C1670, 0x03E80410, 0x04380460, 0x048804B0, 0x04D80500, 0x05280550, 0x057805A0, 0x05C805F0,
+        0x06180640, 0x06680690, 0x06B806E0, 0x07080730, 0x07580780, 0x07A807D0, 0x07F80820, 0x08480870,
+        0x089808C0, 0x08E80000, 0x30304040, 0x00100000, 0x00200000, 0x10000000, 0x20000000, 0x00004000,
+    },
+    { 6.411973e-10f },
+    {
+        0x00100000, 0x00200000, 0x10000000, 0x20000000, 0x00004000, 0x00000040, 0x00000000, 0x050003C0,
+        0x00000000, 0x00000000, 0x00000001, 0x0002FFFF, 0x00200800, 0x7FFF4000, 0x11181470, 0x11DC1B38,
+        0x1214187C, 0x125412D0, 0x12EC1328, 0x140C1294, 0x1E24138C, 0x170C144C, 0xF0000F00, 0x00F0000F,
+        0x00010010, 0x01001000, 0x00020004, 0x00060008, 0x000A000C, 0x000E0010, 0x00010001, 0x00010001,
+        0x00010001, 0x00010001, 0x00000001, 0x00020004, 0x00080010, 0x01000200, 0x00010000, 0x00000000,
+        0x00010000, 0x00000000, 0x00000001, 0x00000000, 0x00000001, 0x00000000, 0x00000000, 0x00010000,
+        0x00000000, 0x00010000, 0x00000000, 0x00000001, 0x00000000, 0x00000001, 0x20004000, 0x60008000,
+        0xA000C000, 0xE000FFFF, 0x0C3966AD, 0x0D46FFDF, 0x0B396696, 0x0E5FFFD8, 0x0A446669, 0x0F83FFD0,
+        0x095A6626, 0x10B4FFC8, 0x087D65CD, 0x11F0FFBF, 0x07AB655E, 0x1338FFB6, 0x06E464D9, 0x148CFFAC,
+        0x0628643F, 0x15EBFFA1, 0x0577638F, 0x1756FF96, 0x04D162CB, 0x18CBFF8A, 0x043561F3, 0x1A4CFF7E,
+        0x03A46106, 0x1BD7FF71, 0x031C6007, 0x1D6CFF64, 0x029F5EF5, 0x1F0BFF56, 0x022A5DD0, 0x20B3FF48,
+        0x01BE5C9A, 0x2264FF3A, 0x015B5B53, 0x241EFF2C, 0x010159FC, 0x25E0FF1E, 0x00AE5896, 0x27A9FF10,
+        0x00635720, 0x297AFF02, 0x001F559D, 0x2B50FEF4, 0xFFE2540D, 0x2D2CFEE8, 0xFFAC5270, 0x2F0DFEDB,
+        0xFF7C50C7, 0x30F3FED0, 0xFF534F14, 0x32DCFEC6, 0xFF2E4D57, 0x34C8FEBD, 0xFF0F4B91, 0x36B6FEB6,
+        0xFEF549C2, 0x38A5FEB0, 0xFEDF47ED, 0x3A95FEAC, 0xFECE4611, 0x3C85FEAB, 0xFEC04430, 0x3E74FEAC,
+        0xFEB6424A, 0x4060FEAF, 0xFEAF4060, 0x424AFEB6, 0xFEAC3E74, 0x4430FEC0, 0xFEAB3C85, 0x4611FECE,
+        0xFEAC3A95, 0x47EDFEDF, 0xFEB038A5, 0x49C2FEF5, 0xFEB636B6, 0x4B91FF0F, 0xFEBD34C8, 0x4D57FF2E,
+        0xFEC632DC, 0x4F14FF53, 0xFED030F3, 0x50C7FF7C, 0xFEDB2F0D, 0x5270FFAC, 0xFEE82D2C, 0x540DFFE2,
+        0xFEF42B50, 0x559D001F, 0xFF02297A, 0x57200063, 0xFF1027A9, 0x589600AE, 0xFF1E25E0, 0x59FC0101,
+        0xFF2C241E, 0x5B53015B, 0xFF3A2264, 0x5C9A01BE, 0xFF4820B3, 0x5DD0022A, 0xFF561F0B, 0x5EF5029F,
+        0xFF641D6C, 0x6007031C, 0xFF711BD7, 0x610603A4, 0xFF7E1A4C, 0x61F30435, 0xFF8A18CB, 0x62CB04D1,
+        0xFF961756, 0x638F0577, 0xFFA115EB, 0x643F0628, 0xFFAC148C, 0x64D906E4, 0xFFB61338, 0x655E07AB,
+        0xFFBF11F0, 0x65CD087D, 0xFFC810B4, 0x6626095A, 0xFFD00F83, 0x66690A44, 0xFFD80E5F, 0x66960B39,
+        0xFFDF0D46, 0x66AD0C39, 0x3F800000, 0x3F800000, 0x40C00000, 0x43696E65, 0x6D612044, 0x69726563,
+    },
+    "Cinema Directory",
+    {
+        0x00000000, 0x43696E65, 0x6D610000, 0x3FC90FDB, 0x3F800000, 0x3F800000, 0x3E2AAAAB, 0x3F800000,
+    },
+    "Cinema\000\000",
+    {
+        0x3FC90FDB, 0x3F800000, 0x3F800000, 0x3E2AAAAB, 0x3F800000, 0x3F800000, 0x3F800000, 0x423E0000,
+        0x40400000, 0x3F800000, 0x4123D70A, 0x3FC90FDB, 0x3F800000, 0x4F000000, 0x40000000, 0x4F000000,
+        0x4F000000, 0x4F000000, 0x3F800000, 0x4F000000, 0x3F800000, 0x4F000000, 0x4F000000, 0x40000000,
+        0x4F000000, 0x40000000, 0x4F000000, 0x3F800000, 0x4F000000, 0x4F000000, 0x4F000000, 0x3F800000,
+        0x4F000000, 0x3F800000, 0x4F000000, 0x40000000, 0x4F000000, 0x4F000000, 0x3F800000, 0x4F000000,
+        0x4F000000, 0x4F000000, 0x4F000000, 0x3F800000, 0x4F000000, 0x3F800000, 0x4F000000, 0x4F000000,
+        0x3F800000, 0x4F000000, 0x4F000000, 0x3F800000, 0x4F000000, 0x4F000000, 0x4F000000, 0x4F000000,
+        0x3F800000, 0x4F000000, 0x3F800000, 0x4F000000, 0x4F000000, 0x3F800000, 0x3F000000, 0x3E99999A,
+        0x3F800000, 0x3F800000, 0x4F000000, 0x4F000000, 0x4F000000, 0x00000000, 0x41F00000, 0x00000000,
+        0x4F000000, 0x00000000, 0x41F00000, 0x00000000, 0x4F000000, 0x3F800000, 0x437F0000, 0x4F000000,
+        0x437F0000, 0x4F000000, 0x437F0000, 0x4F000000, 0x437F0000, 0x4F000000, 0xC61C4000, 0xC69C4000,
+        0x41200000, 0x41200000, 0x3F800000, 0x3F800000, 0xB225F251, 0xC16EFFBA, 0x004040E0, 0x004040F4,
+        0x004040E0, 0x00404120, 0x00404108, 0x00404120, 0x00404120, 0x00404120, 0x00404120, 0x00404120,
+        0x00404110, 0x00404108, 0x4D656D70, 0x616B2070, 0x616B7374, 0x61746500, 0x4D656D70, 0x616B2072,
+    },
+    "Mempak pakstate\000Mempak read temp data\000\000\000Mempak write temp da",
+    {
+        0x746100F3, 0x5A2D4275, 0x66666572, 0x00000000, 0x44697370, 0x6C617920, 0x42756666, 0x65720000,
+    },
+    "Z-Buffer",
+    {
+        0x00000000, 0x44697370, 0x6C617920, 0x42756666, 0x65720000, 0x636F6C6F, 0x72206672, 0x616D6520,
+    },
+    "Display Buffer\000\000color frame buffers + z buffer\000\000display lists\000\000\000fifo",
+    {
+        0x00000000, 0x61756469, 0x6F206865, 0x617000F1,
+    },
+    "audio he",
+    {
+        0x617000F1,
+    },
+};
+#endif
+
+/* SCENARIOSETUP_FILLRESULTROWS_DATA.CPP */
+#if defined(VERSION_US_REV1)
+struct {
+    s32 g_resultAchievementBadgeImages[52];
+} k_ScenariosetupFillresultrowsEncodedWords __attribute__((aligned(4))) = {
+    { 107, 108, 109, 110, 102, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129,
+    130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 111, 146, 147, 148, 106, 104, 105, 103,
+    150, 151, 149, 145, 4366800, 2 }
+};
+typedef char k_ScenariosetupFillresultrowsEncodedWordsSizeCheck[
+    (sizeof(k_ScenariosetupFillresultrowsEncodedWords) == 208) ? 1 : -1];
+#endif
+
+/* G_SELECTIONLAYOUTTAILUSREVONE.CPP */
+#if defined(VERSION_US_REV1)
+/* Widget IDs occupy the second halfword; kind and event fields remain words. */
+struct {
+    unsigned short firstRowWidgets[8][2];
+    struct {
+        unsigned int kind;
+        unsigned short widgets[8][2];
+    } rows[3];
+} g_selectionWidgetEventRowsUsRevision = {
+    { { 0, 0x007F }, { 0, 0x00C6 }, { 0, 0x00AD }, { 0, 0x00AF }, { 0, 0x00B1 }, { 0, 0x00C4 }, { 0, 0x00C3 }, { 0,
+    0x00C2 } },
+    {
+        { 0x00000086, { { 0, 0x007E }, { 0, 0x00A9 }, { 0, 0x0094 }, { 0, 0x0096 }, { 0, 0x0098 }, { 0, 0x00A8 }, { 0,
+        0x00A7 }, { 0, 0x00A6 } } },
+        { 0x0000008D, { { 0, 0x007C }, { 0, 0x00C7 }, { 0, 0x00B3 }, { 0, 0x00B5 }, { 0, 0x00B7 }, { 0, 0x00B9 }, { 0,
+        0x00BA }, { 0, 0x00BB } } },
+        { 0x0000008C, { { 0, 0x007D }, { 0, 0x00AA }, { 0, 0x009C }, { 0, 0x009B }, { 0, 0x009A }, { 0, 0x009E }, { 0,
+        0x009F }, { 0, 0x009D } } },
+    },
+};
+
+ResidentEventHandlerEntry g_eventHandlers_us_rev1[13] = {
+    { 3591, 7, (ResidentEventHandler)(void *)&g_selection_ActivateCharacterSelectionModeEntry }, { 3592, 7,
+    (ResidentEventHandler)(void *)&g_character_UpdateCharacterPreviewEntry }, { 10, 7,
+    (ResidentEventHandler)(void *)&g_selection_HandleCharacterVariantCycleEntry }, { 3594, 7,
+    (ResidentEventHandler)(void *)&g_menu_RenderPlayerCharacterPreviewsEntry }, { 3590, 7,
+    (ResidentEventHandler)(void *)&g_cCharacterSelection_OpenCharacterSelectionScreenEntry }, { 3587, 7,
+    (ResidentEventHandler)(void *)&g_selection_DestroyCharacterSelectionMenuEntry_GSelectionlayouttailusrevone }, { 2,
+    7, (ResidentEventHandler)(void *)&g_selection_CancelCharacterConfirmationEntry }, { 1, 7,
+    (ResidentEventHandler)(void *)&g_selection_ReadSelectionSlotEntry },
+    { 8, 7, (ResidentEventHandler)(void *)&g_selection_ReturnCharacterEventZeroAEntry }, { 7, 7,
+    (ResidentEventHandler)(void *)&g_selection_ReturnCharacterEventZeroBEntry }, { 5, 7,
+    (ResidentEventHandler)(void *)&g_selection_ReturnCharacterEventZeroCEntry }, { 6, 7,
+    (ResidentEventHandler)(void *)&g_selection_ReturnCharacterEventZeroDEntry }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+
+#if defined(VERSION_US_REV1)
+struct {
+    s32 event;
+} g_linktablesEventRecord __attribute__((aligned(4))) = {
+    3587
+};
+typedef char g_linktablesEventRecordSizeCheck[(sizeof(g_linktablesEventRecord) == 4) ? 1 : -1];
+#endif
+
+/* MENU_EVENT_MATCH_US_REV1_DATA.CPP */
+#if defined(VERSION_US_REV1)
+struct {
+    s32 event;
+    s32 actorKind;
+} g_menuEventMatch_us_rev1 __attribute__((aligned(4))) = {
+    3590,
+    4
+};
+typedef char g_menuEventMatch_us_rev1SizeCheck[(sizeof(g_menuEventMatch_us_rev1) == 8) ? 1 : -1];
+#endif
+
+/* MENU_EVENT_HANDLERS3_US_REV1_DATA.CPP */
+#if defined(VERSION_US_REV1)
+void * g_MenuEventHandlersTailUsRev1EncodedWords[1] = {
+    (void *)&g_options_CreateOptionsPageEntry
+};
+
+ResidentEventHandlerEntry g_menuOptionsPageEventHandlers[4] = {
+    { 3587, 4, (ResidentEventHandler)(void *)&g_menu_DestroyOptionsPageEntry }, { 2, 4,
+    (ResidentEventHandler)(void *)&g_frontend_CloseOptionsPageEntry }, { 1, 4,
+    (ResidentEventHandler)(void *)&g_frontend_HandleOptionsPageShortcutEntry }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+
+/* FRONTEND_DISPATCHCOMPACTOPTIONSEVENT_DATA.CPP */
+#if defined(VERSION_US_REV1)
+ResidentEventHandlerEntry g_menuCompactOptionsEventHandlers[6] = {
+    { 3592, 11, (ResidentEventHandler)(void *)&g_frontend_ActivateCompactOptionsPageEntry }, { 3590, 11,
+    (ResidentEventHandler)(void *)&g_frontend_CreateGameOptionsScreenEntry }, { 3587, 11,
+    (ResidentEventHandler)(void *)&g_frontend_DestroyCompactOptionsPageEntry }, { 2, 11,
+    (ResidentEventHandler)(void *)&g_frontend_CloseCompactOptionsPageEntry }, { 1, 11,
+    (ResidentEventHandler)(void *)&g_frontend_HandleCompactOptionsShortcutEntry }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif
+
+/* FRONTEND_DISPATCHTABOPTIONSEVENT_DATA.CPP */
+#if defined(VERSION_US_REV1)
+ResidentEventHandlerEntry g_menuTabOptionsEventHandlers[7] = {
+    { 3592, 22, (ResidentEventHandler)(void *)&g_menu_AnimateTabOptionsMenuEntry }, { 3594, 22,
+    (ResidentEventHandler)(void *)&g_menu_FinishTabOptionsTransitionEntry }, { 3590, 22,
+    (ResidentEventHandler)(void *)&g_options_OpenOptionsScreenEntry }, { 3587, 22,
+    (ResidentEventHandler)(void *)&g_frontend_DestroyTabOptionsPageEntry }, { 2, 22,
+    (ResidentEventHandler)(void *)&g_frontend_ConsumeTabOptionsEventEntry }, { 1, 22,
+    (ResidentEventHandler)(void *)&g_frontend_HandleTabOptionsShortcutEntry }, { 0, 0, (ResidentEventHandler)0 }
+};
+#endif

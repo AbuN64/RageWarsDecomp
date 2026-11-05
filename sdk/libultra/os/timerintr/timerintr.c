@@ -1,8 +1,8 @@
-#include "COMMON/NODERECAT1C.H"
+#include "Common/os_timer_nodes.h"
 #include "../../../include/libultra/os/timerintr.h"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/os_timer_interrupt_internals.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

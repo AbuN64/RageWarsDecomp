@@ -1,6 +1,6 @@
 #ifndef LIBGULTRA_INFERRED_LIBULTRA_EXCHANGEDEBUGLINKWORDS_H
 #define LIBGULTRA_INFERRED_LIBULTRA_EXCHANGEDEBUGLINKWORDS_H
-#include "COMMON/RESPONSE.H"
+#include "Common/response.h"
 #include "../libultra/libultra_exchangedebuglinkwords.H"
 extern s32 Libultra_SendDebugLinkWord(u32 value);
 extern s32 Libultra_ReceiveDebugLinkWord(s32 *wordOut);

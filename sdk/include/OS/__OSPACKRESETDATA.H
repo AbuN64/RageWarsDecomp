@@ -1,7 +1,7 @@
 #ifndef OS_OSPACKRESETDATA_H
 #define OS_OSPACKRESETDATA_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CONTREADFORMAT.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/contreadformat.h"
 extern void __osPackResetData();
 #endif

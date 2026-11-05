@@ -1,0 +1,41 @@
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Older build's rodata of 'AI_OBJECT_PC:/Projects/DM/n64/Source/Engine/particle.cpp. */
+char g_particleStrAiObjectPcProjectsDmN[60] = "'AI_OBJECT_PC:/Projects/DM/n64/Source/Engine/particle.cpp";
+char g_particleStrPthis[8] = "pThis";
+char g_particleStrPthisMPeffect[20] = "pThis->m_pEffect";
+char g_particleStrPtextureloader[16] = "pTextureLoader";
+char g_particleStrPtextureloaderRptextureset[32] = "pTextureLoader->rpTextureSet";
+char g_particleStrPplayer[8] = "pPlayer";
+char g_particleStrPplayerWaMAiMBoomerangammotypestolen[64] = "pPlayer->wa.m_AI.m_BoomerangAmmoTypeStolen <= AMMO_EXPLOSIVE";
+char g_particleStrPsystem[8] = "pSystem";
+char g_particleStrCollisionResultsPwallcollisionregion[40] = "collision_results.pWallCollisionRegion";
+char g_particleStrCollisionResultsNgroundcollisiontype[68] = "collision_results.nGroundCollisionType == GROUNDCOLLISION_GROUND";
+char g_particleStrCollisionResultsNgroundcollisiontype2[68] = "collision_results.nGroundCollisionType == GROUNDCOLLISION_CEILING";
+char g_particleStrCollisionResultsPwatercollisionregion[40] = "collision_results.pWaterCollisionRegion";
+float g_particleFloats_eu_14EB24[3] = { 1.0f, 1.0f, 1.0f };
+char g_particleStrPtargetMTypeIAnimated[32] = "pTarget->m_Type == I_ANIMATED";
+float g_particleFloats_eu_14EB50[7] = { 7.0f, 102.399994f, 1.0f, 153.599991f, 102.399994f, 1.0f, 1.0f };
+char g_particleStrPthisAhIhMNobjtypeParticle[128] = "(pThis->ah.ih.m_nObjType == PARTICLE_TYPE_MP_BOOMERANG) || (pThis->ah.ih.m_nObjType == PARTICLE_TYPE_MP_BOOMERANG_SECONDARY)";
+char g_particleStrPthisMPsourceMTypeI[40] = "pThis->m_pSource->m_Type == I_ANIMATED";
+float g_particleFloats_eu_14EC14[14] = { 30.0f, 0.5f, -40.9599991f, 51.1999969f, 5.0f, 10.0f, 0.100000001f, 90.0f, 5.0f, 0.300000012f, 1.0f, 30.0f, 51.1999969f, 1.0f };
+char g_particleStrPthisAhIhMNobjtypeParticle2[124] = "( pThis->ah.ih.m_nObjType == PARTICLE_TYPE_SCORPION_MISSILE ) || ( pThis->ah.ih.m_nObjType == PARTICLE_TYPE_MULTIPLAYER1 )";
+float g_particleFloats_eu_14ECC8[1] = { 1.0f };
+char g_particleStrPtarget[8] = "pTarget";
+float g_particleFloats_eu_14ECD4[15] = { 0.5f, 512.0f, 512.0f, 1.0f, 0.5f, 2.0f, 0.5f, 2.0f, 0.5f, 2.0f, 0.300000012f, 0.699999988f, 0.300000012f, 0.699999988f, 0.300000012f };
+char g_particleStr_eu_14ED10[8] = "?333?";
+float g_particleFloats_eu_14ED18[3] = { 0.0174532924f, 1.0f, 1.0f };
+char g_particleStrCollisionResultsPinstancecollision[40] = "collision_results.pInstanceCollision";
+char g_particleStrCollisionResultsPinstancecollisionMTypeI[60] = "collision_results.pInstanceCollision->m_Type == I_STATIC";
+char g_particleStrCollisionResultsPinstancecollisionMTypeI2[60] = "collision_results.pInstanceCollision->m_Type == I_ANIMATED";
+char g_particleStrCollisionResultsNinstancecollisionnode1[48] = "collision_results.nInstanceCollisionNode != -1";
+char g_particleStrPparticle[12] = "pParticle";
+float g_particleFloats_eu_14EE00[2] = { 10.2399998f, 0.5f };
+char g_particleStrPanim[8] = "pAnim";
+float g_particleFloats_eu_14EE10[30] = { 4.65661287e-10f, 0.25f, 1.41421354f, 1.41421354f, 1.41421354f, 0.5f, 1.41421354f, 1.41421354f, 1.41421354f, 0.5f, 32.0f, 6.0f, 6.0f, 32.0f, 0.0174532924f, 0.0666666701f, 10.2399998f, 4096.0f, 4096.0f, 4096.0f, 4096.0f, 400.0f, 400.0f, 4096.0f, 4096.0f, 4096.0f, 4096.0f, 400.0f, 400.0f, 0.00100000005f };
+char g_particleStrPins[8] = "pIns";
+char g_particleStrPanimAhIhMPi[20] = "pAnim->ah.ih.m_pI";
+char g_particleStrPanimAhIhMTypeI[36] = "pAnim->ah.ih.m_Type == I_ANIMATED";
+char g_particleStrPanimMPmtlastframedrawmtxs[32] = "pAnim->m_pmtLastFrameDrawMtxs";
+char g_particleStrGetappMOptionsMBmultiplayer[36] = "GetApp()->m_Options.m_bMultiPlayer";
+char g_particleStrPinsMTypeIStatic[28] = "pIns->m_Type == I_STATIC";
+#endif

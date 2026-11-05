@@ -1,6 +1,6 @@
 #ifndef SCHED_OSSCREMOVECLIENT_H
 #define SCHED_OSSCREMOVECLIENT_H
-#include "COMMON/WORLDSORTENTRY.H"
+#include "Common/worldsortentry.h"
 extern OSSched g_systemScheduler;
 extern OSMesgQueue g_gameSchedulerMessageQueue;
 extern OSScClientWork g_gameSchedulerClient;

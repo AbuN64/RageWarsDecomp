@@ -1,7 +1,7 @@
-#include "COMMON/FORMAT.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "DATA_OVERLAY_LAYOUTS.H"
-#include "TYPES.H"
+#include "Common/format.h"
+#include "Common/resident_event_handler.h"
+#include "data_overlay_layouts.h"
+#include "types.h"
 #include "include_asm.h"
 #if !(defined(VERSION_US))
 #ifdef VERSION_DE

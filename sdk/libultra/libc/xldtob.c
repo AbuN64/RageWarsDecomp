@@ -1,7 +1,7 @@
 #include "include_asm.h"
 #include "../../include/EXTERNS.H"
-#include "COMMON/LLDIVRESULT.H"
-#include "TYPES.H"
+#include "Common/lldivresult.h"
+#include "types.h"
 #include "../../include/PRINTF/_LDTOB.H"
 
 /* 802C31B0.CPP */

@@ -1,13 +1,13 @@
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/response.h"
 #include "../include/PERIPHERAL_PORT_BYTE_VIEWS.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
-#include "COMMON/LLDIVRESULT.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/lldivresult.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
 #include "../include/libgultra.h"
-#include "TYPES.H"
+#include "types.h"
 #include "../include/libgultra_inferred/LIBULTRA_WRITEDEBUGLINKBYTE.H"
 #include "../include/libgultra_inferred/libultra_executedebuglinkaddress.H"
 
@@ -378,7 +378,7 @@ extern s32 Libultra_ReadDebugLinkByte(u8 *);
 
 
 s32 Libultra_ExecuteDebugLinkAddress(void) {
-    ReadWord first;
+    ReadWordByte first;
     s32 word;
     s32 result;
 
@@ -452,7 +452,7 @@ s32 Libultra_WriteDebugLinkMemoryByte(void) {
 
 
 s32 Libultra_ReadDebugLinkMemoryByte(void) {
-    ReadWord first;
+    ReadWordByte first;
     s32 word;
     s32 result;
 

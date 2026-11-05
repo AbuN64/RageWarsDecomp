@@ -1,5 +1,0 @@
-#ifndef MENU_ITEMS_ITEMS_PREPARECONTROLLERRETURN_H
-#define MENU_ITEMS_ITEMS_PREPARECONTROLLERRETURN_H
-#include "MENU/OBJECT1C8.H"
-extern void Items_PrepareControllerReturn(void);
-#endif

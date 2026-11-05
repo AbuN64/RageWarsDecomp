@@ -51,13 +51,13 @@ char s_FloatdisfSFXRAIText[12] =
 #endif
 
 #if defined(VERSION_EU_X)
-unsigned int k_FloatdisfEncodedWordsBlock2[3] = {
+unsigned int k_floatdisfFragment[3] = {
     0x43020000, 0x3E800000, 0x00000000,
 };
 #endif
 
 #if defined(VERSION_EU)
-unsigned int k_FloatdisfEncodedWordsBlock1[3] = {
+unsigned int k_floatdisfFragment[3] = {
     0x3DCCCCCD, 0x44000000, 0x00000000,
 };
 #endif
@@ -71,7 +71,7 @@ unsigned int k_FloatdisfEncodedWords[3] = {
 /* G_LIBULTRAENCODEDWORDSBLOCK1.CPP */
 #if defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/unresolved/800CD388 */
-unsigned int g_LibultraEncodedWordsBlock1[3] = {
+unsigned int g_turretRangeAndQuarterScale[3] = {
     0x43020000, 0x3E800000, 0x00000000,
 };
 #endif

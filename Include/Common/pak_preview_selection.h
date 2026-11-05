@@ -1,0 +1,62 @@
+#ifndef COMMON_PAK_PREVIEW_SELECTION_H
+#define COMMON_PAK_PREVIEW_SELECTION_H
+#include "types.h"
+#include "Common/sharedplayer.h"
+#include "Common/textlayermetrics.h"
+#include "Snapshot/g_pakformatdottedtriple.h"
+#include "Snapshot/pak_profile_rank_score_format.h"
+
+
+
+
+struct TargetPakDisablePreviewSelection;
+struct TargetPakDisablePreviewSelection {
+    char pad0[0xA8];
+    s32 first;
+    char padAC[0xD0 - 0xAC];
+    s32 second;
+};
+struct PakPreviewSelectionView;
+struct TargetPakDisablePreviewSelection;
+
+struct PakPreviewSelectionView;
+
+struct PakPreview;
+typedef struct PakPreview PakPreview;
+
+
+struct PakChannelResultView;
+struct PakMenuSlot;
+
+struct PakPreview;
+
+
+struct PakSelectedPromptView;
+
+struct PakSelectedPromptView;
+
+struct PlayerSavedProfileOwner;
+
+struct Shared_PakMenu;
+
+struct PakChannelResultView;
+
+struct Shared_PakMenu;
+
+
+#if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
+s32 Timer_UpdateOwnerChannelLabel(struct LayeredText *field, struct Shared_PakMenu *holder);
+#endif
+
+extern s32 Control_PeekPakChange(s32);
+
+extern void Note_ProbeStatus(s32);
+void Note_ProbeStatus(s32);
+s32 Note_GetStatus(s32);
+
+extern char g_pakPreviewValueFormat[];
+
+
+
+
+#endif

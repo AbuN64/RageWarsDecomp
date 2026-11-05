@@ -1,5 +1,5 @@
 #include "../../include/libgultra.h"
-#include "COMMON/CONTREADFORMAT.H"
+#include "Common/contreadformat.h"
 
 /* 802B7488_9.CPP */
 

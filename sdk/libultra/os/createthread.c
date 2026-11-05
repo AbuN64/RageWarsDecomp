@@ -1,7 +1,7 @@
 #include "include_asm.h"
-#include "COMMON/OSTHREAD_S.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/osthread_s.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

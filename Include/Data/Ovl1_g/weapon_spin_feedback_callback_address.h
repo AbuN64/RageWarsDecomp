@@ -1,0 +1,4 @@
+#ifndef DATA_OVL1_G_WEAPON_SPIN_FEEDBACK_CALLBACK_ADDRESS_H
+#define DATA_OVL1_G_WEAPON_SPIN_FEEDBACK_CALLBACK_ADDRESS_H
+extern char g_weapon_EaseSpinAndUpdateFeedbackEntry[];
+#endif

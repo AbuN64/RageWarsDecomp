@@ -1,0 +1,49 @@
+#!/bin/sh
+# Placeholder names stay out of Source, Include and sdk; placeholder file names stay out of Source and Include
+# (sdk keeps the vendor libgcc and libultra file names). Families (any one-letter data prefix: g_ global, k_ constant, s_ static, m_ member): x_earlier*, a datum told apart by a number after a word (not the
+# rev of a version tag nor the console name N64) or an ordinal or number word, unusedN, Field_*. Older-build data with no recoverable meaning lives in leftover/,
+# the only tree where numbers in names are allowed (naming rule R1, R3, R7'), except numbers a symbol's own text reads.
+set -eu
+cd "$(dirname "$0")/.."
+WORDS='One|Two|Three|Four|Five|Six|Seven|Eight|Nine|Ten|Eleven|Twelve|Thirteen|Fourteen|Fifteen|Sixteen|Twenty|Thirty|Forty|Fifty|Sixty|Hundred|First|Second|Third|Fourth|Fifth|Sixth|Seventh|Eighth|Ninth|Tenth'
+NAMES="\\b[a-z]_earlier\\w*|\\b[a-z]_\\w*?[a-z](?<![Rr]ev)(?!(?<=[Nn])64(?![0-9]))[0-9]{1,4}(?:[A-Z_]\\w*)?\\b|\\b[a-z]_\\w*?(?:$WORDS)(?:[A-Z0-9_]\\w*)?\\b|\\bunused[0-9]+\\w*|\\bField_\\w+"
+PATHS="(?i)earlier|[A-Za-z][0-9]+\\.(CPP|C|H)\$|(^|[/_])($WORDS)([_.]|\$)"
+# String and character literal contents are ROM bytes, not our names, and are skipped (as for address names below).
+# A number in a name is the symbol's own text when the string its definition holds reads the same numbers: the
+# initializer (char g_x[] = "...") or, for bytes splat extracts, the literal its declaration records
+# (extern char g_euText_warpLevel4Activated[]; /* "warp level 4 activated" */). Such a symbol is not a placeholder on any line.
+DEFS='^\s*(?:\w+\s+)*[a-z]_\w*[0-9]\w*\s*(?:\[[^]]*\]\s*)*(?:=\s*\{?|;\s*/\*)\s*"'
+textnamed="$(git grep -hIP "$DEFS" -- Source Include | perl -ne '
+	next unless /^\s*(?:\w+\s+)*([a-z]_\w+)\s*(?:\[[^]]*\]\s*)*[=;](.*)$/;
+	my ($name, $init) = ($1, $2);
+	my $text = join " ", $init =~ /"((?:[^"\\]|\\.)*)"/g;
+	$text =~ s/\\(?:[0-7]{1,3}|x[0-9A-Fa-f]+|.)/ /g;
+	my %read = map { $_ => 1 } $text =~ /[0-9]+/g;
+	my @own = $name =~ /(?<![Rr]ev)(?<![0-9])[0-9]+/g;
+	print "$name\n" unless grep { !$read{$_} } @own;' || true)"
+names="$(git grep -nIP "$NAMES" -- Source Include sdk | TEXTNAMED="$textnamed" NAMES="$NAMES" perl -ne '
+	BEGIN { %text = map { $_ => 1 } split /\n/, $ENV{TEXTNAMED}; $names = qr/$ENV{NAMES}/; }
+	my ($code) = /^[^:]*:[0-9]+:(.*)$/;
+	$code =~ s{"(?:[^"\\]|\\.)*"|\x27(?:[^\x27\\]|\\.)*\x27}{ }g;
+	print if grep { !$text{$_} } $code =~ /($names)/g;' || true)"
+# Address names (R13): a run of 5 or more hex digits with at least one digit after a letter or underscore in a symbol
+# (g_overlayOneF_usrev1_D04C4, g_WeaponStateEndCFF98, D_800C6E28_eu_x) names a ROM or RAM address, not data; they count on
+# their own. String and character literals and comments are stripped first; the genuine words are vendor format and CPU
+# names (GPACK_RGBA5551, mc68020, ns32000).
+ADDRESS='\b[A-Za-z_]\w*?(?<=[A-Za-z_])(?![0-9A-F]*[G-Z])(?=[A-F]*[0-9])[0-9A-F]{5,}(?![0-9A-F])\w*'
+GENUINE='^(?:GPACK_RGBA5551|_*(?:mc68|mc88|m88|ns32|WE32)[0-9]{3,}_*)$'
+addresses="$(git grep -nIP "$ADDRESS" -- Source Include sdk | ADDRESS="$ADDRESS" GENUINE="$GENUINE" perl -ne '
+	BEGIN { $address = qr/$ENV{ADDRESS}/; $genuine = qr/$ENV{GENUINE}/; }
+	my ($code) = /^[^:]*:[0-9]+:(.*)$/;
+	$code =~ s{"(?:[^"\\]|\\.)*"|\x27(?:[^\x27\\]|\\.)*\x27|/\*.*?\*/|//.*$|/\*.*$}{ }g;
+	print if grep { $_ !~ $genuine } $code =~ /($address)/g;' || true)"
+paths="$(git ls-files -- Source Include | grep -P "$PATHS" || true)"
+n=$(printf '%s' "$names" | grep -c . || true)
+p=$(printf '%s' "$paths" | grep -c . || true)
+a=$(printf '%s' "$addresses" | grep -c . || true)
+[ "$n" -eq 0 ] && [ "$p" -eq 0 ] && [ "$a" -eq 0 ] && exit 0
+printf '%s\n' "$names" | grep . | head -20 | sed 's|$|: placeholder name: name it from its data, merge numbered rows into one table, or move older-build data to leftover/|' >&2
+printf '%s\n' "$paths" | grep . | head -20 | sed 's|$|: placeholder file name: name it from its contents or move it to leftover/|' >&2
+printf '%s\n' "$addresses" | grep . | head -20 | sed 's|$|: address name: name it from its data or reader, or move older-build data to leftover/|' >&2
+echo "ci/placeholders: $n placeholder lines, $p placeholder paths, $a address-name lines (must be 0)" >&2
+exit 1

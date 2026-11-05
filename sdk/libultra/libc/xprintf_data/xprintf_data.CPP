@@ -5,7 +5,7 @@
 #endif
 
 #if defined(VERSION_EU)
-unsigned char k_XprintfDataEncodedBytesBlock1[11] = {
+unsigned char k_xprintfDataCallInstructionBytes[11] = {
     0x0C, 0x6A, 0x98, 0x80, 0x0C, 0x65, 0xA0, 0x80, 0x0C, 0x6A, 0x8C,
 };
 #endif

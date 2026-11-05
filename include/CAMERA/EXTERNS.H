@@ -1,8 +1,0 @@
-#ifndef CAMERA_EXTERNS_H
-#define CAMERA_EXTERNS_H
-#include "COMMON/SHARED_OPTIONSSCREEN.H"
-#include "COMMON/SHAREDTRACKOBJECTPREFIX.H"
-
-
-struct SharedTrackObject;
-#endif

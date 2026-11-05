@@ -1,8 +1,8 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CONTREADFORMAT.H"
-#include "TYPES.H"
+#include "types.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/contreadformat.h"
+#include "types.h"
 #include "../../include/libultra/io/crc.h"
 
 /** CRC-5-style bit-shuffle: 16 rounds folding bit 10 of blockAddress with a rotating tap. */

@@ -1,18 +1,18 @@
 #include "../../../include/thread_queue.h"
-#include "COMMON/OSVISCALE.H"
-#include "COMMON/NODERECAT1C.H"
-#include "TYPES.H"
-#include "COMMON/BOOT_TV_TYPE.H"
+#include "Common/osviscale.h"
+#include "Common/os_timer_nodes.h"
+#include "types.h"
+#include "Common/boot_tv_type.h"
 #include "../../../include/AUDIO/vi.H"
-#include "SYSTEM/VIMGR.H"
-#include <ultra64.h>
+#include "System/vimgr.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "include_asm.h"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include "SYSTEM/VIDEO_CONTEXT_VIEWS.H"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/runtime_declarations.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include "System/video_context_views.h"
 #include "../../../include/AUDIO/__OSVISWAPCONTEXT.H"
 
 /* 802BA5F0_22.CPP */
@@ -77,9 +77,8 @@ void System_CreateVideoManager(s32 pri)
 
 /* 802BA5F0_23.CPP */
 #if defined(VERSION_EU)
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "COMMON/NODERECAT1C.H"
+#include "Common/resident_event_handler.h"
+#include "Common/os_timer_nodes.h"
 s32 osGetThreadPri(OSThread *thread);
 void osSetThreadPri(OSThread *thread, s32 priority);
 extern OSThread g_videoManagerThread;

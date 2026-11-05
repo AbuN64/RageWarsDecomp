@@ -1,6 +1,8 @@
-#include "COMMON/ITEMRECAT20V1.H"
+#include <libultra/pfs/PFS.H>
+#include "PFS/INODE.H"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
 #include "../../include/OSCONTREQUESFORMATSHORT.H"
-#include "TYPES.H"
+#include "types.h"
 #include "../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../include/PFS/__OSCHECKID.H"
 #include "../../include/PFS/PFS_SELECTACTIVEBANK.H"

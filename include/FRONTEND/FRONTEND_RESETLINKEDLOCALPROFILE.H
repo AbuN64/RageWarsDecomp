@@ -1,5 +1,0 @@
-#ifndef FRONTEND_FRONTEND_RESETLINKEDLOCALPROFILE_H
-#define FRONTEND_FRONTEND_RESETLINKEDLOCALPROFILE_H
-#include "COMMON/ENTRYRECAT6C.H"
-extern void Frontend_ResetLinkedLocalProfile(s32 index);
-#endif

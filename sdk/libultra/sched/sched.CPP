@@ -1,20 +1,18 @@
 #include "include_asm.h"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "COMMON/VECTOR4F.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
-#include "COMMON/OSVISCALE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/LLDIVRESULT.H"
-#include "TYPES.H"
-#include "TYPES.H"
-#include "COMMON/BOOT_TV_TYPE.H"
+#include "Common/worldsortentry.h"
+#include "Common/vector4f.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
+#include "Common/osviscale.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/lldivresult.h"
+#include "types.h"
+#include "types.h"
+#include "Common/boot_tv_type.h"
 #include "../../include/SCHED/osscremoveclient.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 extern s32 g_schedulerPendingFramebuffer;
-extern s32 g_displayedFramebufferAndRefreshRate;
 void __scAppendList(OSSched *scheduler, void *task) {
     void *previousTail;
 
@@ -49,7 +47,7 @@ void *Sched_GetTaskWithAvailableFramebuffer(struct OSScTask_s *scheduler) {
         return 0;
     }
     f1a = (s32)scheduler->framebuffer;
-    if (f1a == g_displayedFramebufferAndRefreshRate) {
+    if (f1a == ((s32 *)g_displayedFramebufferAndRefreshRate)[0]) {
         return 0;
     }
     v2 = osViGetCurrentFramebuffer();
@@ -90,7 +88,7 @@ char s_SchedLILLYJIMText[12] =
 #endif
 
 #if defined(VERSION_DE)
-float k_SchedEncodedWordsBlock1[3] = {
+float k_schedTimingScales[3] = {
     10.24f, 1.0f, 81.92f,
 };
 #endif

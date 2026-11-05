@@ -1,4 +1,0 @@
-#ifndef LIBSN_NAV_ISBALLISTICARCOBSTRUCTED_DATA_H
-#define LIBSN_NAV_ISBALLISTICARCOBSTRUCTED_DATA_H
-extern unsigned int g_particleCollisionProbeResult[];
-#endif

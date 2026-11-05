@@ -1,0 +1,5 @@
+#ifndef CONSTANTS_MENU_LABEL_WORDS_H
+#define CONSTANTS_MENU_LABEL_WORDS_H
+#if defined(VERSION_US_REV1)
+#endif
+#endif

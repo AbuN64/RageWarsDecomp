@@ -1,0 +1,16 @@
+#ifndef MENU_OPTION_MENU_SETSELECTEDLEVELLABEL_SYMBOLS_H
+#define MENU_OPTION_MENU_SETSELECTEDLEVELLABEL_SYMBOLS_H
+#include "Data/Overlays/Menu/linktables_addresses.h"
+#include "types.h"
+extern s32 g_selectedLevelPortOfAdiaLabel;
+extern s32 g_selectedLevelRiverOfSoulsLabel;
+extern s32 g_selectedLevelDeathMarshesLabel;
+extern s32 g_selectedLevelLairOfTheBlindOnesLabel;
+extern s32 g_selectedLevelHiveOfTheMantidsLabel;
+extern s32 g_selectedLevelPrimagensLightshipLabel;
+extern s32 g_selectedLevelQueenBossLabel;
+extern s32 g_selectedLevelBlindBossLabel;
+extern s32 g_selectedLevelMotherBossLabel;
+extern s32 g_selectedLevelPrimagenBossLabel;
+extern s32 g_selectedLevelCreditsLabel;
+#endif

@@ -1,12 +1,11 @@
 #include "../../include/PERIPHERAL_PORT_BYTE_VIEWS.H"
-#include "COMMON/VECTOR4F.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/vector4f.h"
+#include "Common/compressed_sequence_and_event_views.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
 #include "../../include/libgultra_inferred/cseq.H"
 #include "include_asm.h"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include "../../include/libultra/alcseqnewmarker_data.CPP.h"
 #include "../../include/libultra/audio/cseq.h"
 
@@ -111,7 +110,7 @@ void alCSeqNewMarker(ALCSeq *seq, ALCSeqMarker *m, u32 ticks)
 }
 
 /* __getTrackByte, drafted from ultralib src/audio/cseq.c: read the next byte of a compressed
-   sequence track, following a back-up block (0xFE, offset, length) into the track's earlier data
+   sequence track, following a back-up block (0xFE, offset, length) into the track's already-read data
    and counting down the back-up length while in it. */
 u8 __getTrackByte(ALCSeq *seq, u32 track)
 {

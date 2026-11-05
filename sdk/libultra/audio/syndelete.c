@@ -1,5 +1,5 @@
 #include "../../include/libgultra.h"
-#include "COMMON/SHAREDRECV4.H"
+#include "Common/audio_voice_allocation.h"
 
 void alSynDelete(ALSynth *s) {
     s->head = 0;

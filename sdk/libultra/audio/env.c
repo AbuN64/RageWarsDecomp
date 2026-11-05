@@ -1,17 +1,17 @@
 #include "include_asm.h"
-#include "COMMON/ALPARAM_S.H"
+#include "Common/alparam_s.h"
 #include <PR/abi.h>
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/audio_callbacks.h"
+#include "Common/runtime_declarations.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include "../../include/libultra/debug/assert.h"
 #include "../../include/al_globals.h"
 #include "../../include/VOICE_START_AND_PARAMETER_UPDATE_VIEWS.H"
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/alauxbus_s.h"
 #include "../../include/libultra/audio/synthesizer.h"
 #include "../../include/libultra/audio/env.h"
-#include "DATA/OVL1_C/ENV.H"
+#include "Data/Ovl1_c/env.h"
 
 /* libultra audio/env.c, built with -fforce-addr (config.toml): the eqpower base stays in a register. */
 extern s16 g_audioEqualPowerPanTable[128]; /* eqpower */

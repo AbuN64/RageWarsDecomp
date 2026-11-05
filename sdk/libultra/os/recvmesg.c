@@ -1,11 +1,11 @@
 #include "../../include/thread_queue.h"
 #include "include_asm.h"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Data/rest_source_records.h"
 
 /* recvmesg.c */
 /* 802C0390_4.CPP */
@@ -49,7 +49,7 @@ unsigned int g_osRecvMesgZeroTail[1] = {
 float g_osRecvMesgStaleFloat[1] = { 879.875f };
 
 /* Zero word after the stale float; no instruction reads it. */
-unsigned int g_osRecvMesgSecondZeroTail[1] = {
+unsigned int g_osRecvMesgStaleFloatZeroTail[1] = {
     0x00000000,
 };
 #endif

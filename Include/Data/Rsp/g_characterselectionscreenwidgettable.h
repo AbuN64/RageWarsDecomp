@@ -1,0 +1,16 @@
+#ifndef DATA_RSP_G_CHARACTERSELECTIONSCREENWIDGETTABLE_H
+#define DATA_RSP_G_CHARACTERSELECTIONSCREENWIDGETTABLE_H
+#if defined(VERSION_US)
+extern char g_cCharacterSelection_OpenCharacterSelectionScreenEntry[];
+extern char g_character_UpdateCharacterPreviewEntry[];
+extern char g_menu_RenderPlayerCharacterPreviewsEntry[];
+extern char g_selection_DestroyCharacterSelectionMenuEntry_GSelectionlayouttailusrevone[];
+extern char g_selection_HandleCharacterVariantCycleEntry[];
+extern char g_selection_ReturnCharacterEventZeroAEntry[];
+extern char g_selection_ReturnCharacterEventZeroBEntry[];
+extern char g_selection_ReturnCharacterEventZeroCEntry[];
+extern char g_selection_ReturnCharacterEventZeroDEntry[];
+extern char g_selection_CancelCharacterConfirmationEntry[];
+extern char g_selection_ReadSelectionSlotEntry[];
+#endif
+#endif

@@ -1,5 +1,5 @@
 #ifndef LIBGULTRA_SP_H
 #define LIBGULTRA_SP_H
-#include <ultra64.h>
+#include <platform_sdk.h>
 extern int __osSpDeviceBusy();
 #endif

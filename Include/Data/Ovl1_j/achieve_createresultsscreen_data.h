@@ -1,0 +1,7 @@
+#ifndef DATA_OVL1_J_ACHIEVE_CREATERESULTSSCREEN_DATA_H
+#define DATA_OVL1_J_ACHIEVE_CREATERESULTSSCREEN_DATA_H
+extern char g_Achieve_ResultScreenReturnZeroPackedAddress_AchieveCreateresultsscreenData[];
+extern char g_Achieve_UpdateResultSelectionMessagePackedAddress_AchieveCreateresultsscreenData[];
+extern char addrLow_Achieve_ResultScreenReturnZero_AchieveCreateresultsscreenData[];
+extern char addrLow_Achieve_UpdateResultSelectionMessage_AchieveCreateresultsscreenData[];
+#endif

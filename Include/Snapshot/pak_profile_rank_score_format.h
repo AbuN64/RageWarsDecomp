@@ -1,0 +1,4 @@
+#ifndef SNAPSHOT_PAK_PROFILE_RANK_SCORE_FORMAT_H
+#define SNAPSHOT_PAK_PROFILE_RANK_SCORE_FORMAT_H
+extern const char g_pakProfileRankScoreFormat[];
+#endif

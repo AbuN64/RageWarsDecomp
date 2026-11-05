@@ -1,0 +1,5 @@
+#ifndef UI_TSMOS_SCREENS_PAKINTERFACE_GETNPLAYERINFOACTIVE_H
+#define UI_TSMOS_SCREENS_PAKINTERFACE_GETNPLAYERINFOACTIVE_H
+#include "Multi/player_slots.h"
+extern s32 PAKInterface_GetNPlayerInfoActive(void);
+#endif

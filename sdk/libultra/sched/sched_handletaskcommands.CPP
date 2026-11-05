@@ -1,20 +1,21 @@
+#include "types.h"
+#include "Engine/Cache/decmprsr.h"
 #include "include_asm.h"
-#include "COMMON/LONE/RESOURCE_REQUEST_QUEUE.H"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "COMMON/VECTOR4F.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
-#include "COMMON/OSVISCALE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/LLDIVRESULT.H"
-#include "TYPES.H"
-#include "TYPES.H"
-#include "COMMON/BOOT_TV_TYPE.H"
+#include "Common/Lone/resource_request_queue.h"
+#include "Common/worldsortentry.h"
+#include "Common/vector4f.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
+#include "Common/osviscale.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/lldivresult.h"
+#include "types.h"
+#include "types.h"
+#include "Common/boot_tv_type.h"
 #include "../../include/SCHED/osscremoveclient.H"
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
-#include "sched/sched_handletaskcommands.H"
+#include "Sched/sched_handletaskcommands.h"
 
 extern s32 g_resourceLoadPriorityBoost;
 

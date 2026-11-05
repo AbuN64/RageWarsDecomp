@@ -1,10 +1,10 @@
 #include "../../include/libgultra.h"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/ALBANK_S.H"
-#include "COMMON/TRIPLE.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Common/albank_s.h"
+#include "Common/triple.h"
+#include "types.h"
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
 /* sndpallocate.c */
 ALSndId alSndpAllocate(ALSndPlayer *pool, ALSound *owner) {
@@ -41,21 +41,21 @@ const float g_alSndpAllocateConstantWords[1] = {
 };
 
 #if defined(VERSION_EU_X)
-unsigned int k_SndplayerEncodedWordsBlock5[3] = {
+unsigned int k_sndpAllocatePackedHalfwords[3] = {
     0xFFFF0000, 0x06A503E8, 0x06A601F4,
 };
 #endif
 
 #if defined(VERSION_EU)
 extern char g_Playerai_ApplyLinkedProjectileStatusAddressEu[];
-void *k_SndplayerEncodedWordsBlock3[3] = {
+void *k_sndpAllocateProjectileStatusCaseAddresses[3] = {
     (void *)(g_Playerai_ApplyLinkedProjectileStatusAddressEu + 2276), (void *)(g_Playerai_ApplyLinkedProjectileStatusAddressEu + 2344), (void *)(g_Playerai_ApplyLinkedProjectileStatusAddressEu + 2276),
 };
 #endif
 
 #if defined(VERSION_DE)
 extern char Seqplayer_ProcessSequenceEvents_Address[];
-void *k_SndplayerEncodedWordsBlock2[3] = {
+void *k_sndpAllocateSequenceEventCaseAddresses[3] = {
     (void *)(Seqplayer_ProcessSequenceEvents_Address + 9140), (void *)(Seqplayer_ProcessSequenceEvents_Address + 9252), (void *)(Seqplayer_ProcessSequenceEvents_Address + 9484),
 };
 #endif

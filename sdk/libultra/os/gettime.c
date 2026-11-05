@@ -1,9 +1,9 @@
-#include "COMMON/EXTERNS.H"
-#include "COMMON/OSTHREAD_S.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/OS_TIMER_INTERRUPT_INTERNALS.H"
-#include <ultra64.h>
+#include "Common/externs.h"
+#include "Common/osthread_s.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/os_timer_interrupt_internals.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

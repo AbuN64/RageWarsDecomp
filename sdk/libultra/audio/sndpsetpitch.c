@@ -1,8 +1,8 @@
 #include "../../include/libgultra.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/PARAMSRECAT8V3.H"
-#include "COMMON/SHAREDRECV4.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Common/sound_player_parameter_events.h"
+#include "Common/audio_voice_allocation.h"
+#include "types.h"
 
 
 

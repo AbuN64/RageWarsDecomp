@@ -1,8 +1,8 @@
 #include "include_asm.h"
-#include "COMMON/GUMTXL2F.H"
-#include "TYPES.H"
-#include "COMMON/ALFXPARAM.H"
-#include "COMMON/CTX.H"
+#include "Common/gumtxl2f.h"
+#include "types.h"
+#include "Common/alfxparam.h"
+#include "Common/ctx.h"
 
 /* sinf, drafted from ultralib src/gu/sinf.c in the single-precision form this library carries: x,
    its square, the polynomial, the quotient and the result are floats, only the polynomial is
@@ -88,7 +88,7 @@ const unsigned int k_SinfEncodedWords[17] = {
 #endif
 
 #if defined(VERSION_DE) || defined(VERSION_EU)
-unsigned int k_SinfEncodedWordsBlock1[1] = {
+unsigned int k_sinfIntegerLimit[1] = {
     0x4F000000,
 };
 #endif

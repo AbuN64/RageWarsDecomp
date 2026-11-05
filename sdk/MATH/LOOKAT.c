@@ -1,12 +1,11 @@
 #include "include_asm.h"
-#include "TYPES.H"
+#include "types.h"
 #include <PR/gbi.h>
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "COMMON/BALLISTICPARAMS.H"
-#include "COMMON/TRIPLE.H"
-#include <ultra64.h>
-#include "COMMON/ALFXPARAM.H"
+#include "Common/resident_event_handler.h"
+#include "Common/ballisticparams.h"
+#include "Common/triple.h"
+#include <platform_sdk.h>
+#include "Common/alfxparam.h"
 
 /* lookat.CPP */
 void guLookAt(Mtx *out, f32 ex, f32 ey, f32 ez, f32 ax, f32 ay, f32 az, f32 ux, f32 uy, f32 uz)
@@ -112,7 +111,7 @@ const unsigned int k_LookatEncodedWords[2] = {
 #endif
 
 #if defined(VERSION_DE)
-const float k_lookatOneFloat_de[1] = {
+const float k_lookatUnit[1] = {
     1.0f,
 };
 #endif

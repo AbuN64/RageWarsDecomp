@@ -1,8 +1,9 @@
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "PFS/INODE.H"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
 #include "../../include/OSCONTREQUESFORMATSHORT.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "types.h"
+#include <platform_sdk.h>
 #include "../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../include/PFS/__OSCHECKID.H"
 

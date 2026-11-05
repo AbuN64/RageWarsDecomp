@@ -1,0 +1,5 @@
+#ifndef JOIN_JOIN_CYCLEJOINREQUESTRANK_H
+#define JOIN_JOIN_CYCLEJOINREQUESTRANK_H
+s32 Join_CountUsedSlots(void);
+extern void Join_ResetJoinRequestEntries(void);
+#endif

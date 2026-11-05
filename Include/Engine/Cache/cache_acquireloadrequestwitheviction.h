@@ -1,0 +1,5 @@
+#ifndef ENGINE_CACHE_CACHE_ACQUIRELOADREQUESTWITHEVICTION_H
+#define ENGINE_CACHE_CACHE_ACQUIRELOADREQUESTWITHEVICTION_H
+#include "Engine/Cache/cache.h"
+#include "Common/heap_arena.h"
+#endif

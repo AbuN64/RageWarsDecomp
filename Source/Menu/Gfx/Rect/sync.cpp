@@ -1,0 +1,8 @@
+
+
+#if defined(VERSION_US)
+unsigned int k_SyncEncodedWords[11] = {
+    0x454E6571, 0x75520000, 0x35000000, 0x3F800000, 0x3C23D70A, 0x3F99999A, 0x3D4CCCCD, 0x3F800000,
+    0x3C23D70A, 0x3F800000, 0x3C23D70A,
+};
+#endif

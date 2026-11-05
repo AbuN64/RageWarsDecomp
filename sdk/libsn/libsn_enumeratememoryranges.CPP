@@ -1,5 +1,5 @@
-#include "TYPES.H"
-#include "IO/DEBUG_MEMORY.H"
+#include "types.h"
+#include "Io/debug_memory.h"
 
 /* Rebuild the debugger memory map: entries 16-47 describe the valid pages of the 32 TLB entries
  * (snapshot taken by Libgultra_TrwReadTlbEntry), entries 0-15 copy the static region table from

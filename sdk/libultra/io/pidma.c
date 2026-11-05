@@ -1,8 +1,7 @@
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "TYPES.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/runtime_declarations.h"
+#include "types.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/libultra/io/pigetcmdq.h"
@@ -18,7 +17,7 @@ s32 osPiStartDma(OSIoMesg *entry, s32 subtype, s32 direction, u32 deviceAddress,
                    void *dramAddress, u32 transferSize, OSMesgQueue *completionQueue) {
     s16 type;
 
-    if (__osPiDevMgr == 0) {
+    if (__osPiDevMgr.active == 0) {
         return -1;
     }
     type = 12;

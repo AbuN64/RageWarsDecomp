@@ -1,0 +1,9 @@
+#ifndef DATA_SCENARIO_SETUP_FRONTEND_DISPATCHPAKPROFILEEVENT_DATA_H
+#define DATA_SCENARIO_SETUP_FRONTEND_DISPATCHPAKPROFILEEVENT_DATA_H
+extern char g_Frontend_UpdatePakScreenExitPackedAddress_us_us_rev1[];
+extern char g_Frontend_UpdatePakScreenPanelsPackedAddress_us_us_rev1[];
+extern char g_Frontend_ReturnProfileEventZeroPackedAddress_us_us_rev1[];
+extern char addrLow_Frontend_UpdatePakScreenExit2[];
+extern char addrLow_Frontend_UpdatePakScreenPanels2[];
+extern char addrLow_Frontend_ReturnProfileEventZero2[];
+#endif

@@ -1,0 +1,90 @@
+#ifndef AI_PLAYER_SYMBOLS_H
+#define AI_PLAYER_SYMBOLS_H
+extern int g_difficulty;
+extern int g_playerCount;
+#include "types.h"
+#include "Common/sharedplayer.h"
+/* Globals and functions placed by the symbol map; no C definition exists. */
+extern char g_PlayerEnterRunEndWaitCallbackAddressUs[];
+extern char g_PlayerInterpolateTravelTargetCallbackAddressUs[];
+extern char g_PlayerRequestCinemaTrackCallbackAddressDe[];
+extern char g_PlayerRequestCinemaTrackCallbackAddressUs[];
+extern char g_PlayerResetStunAndMotionCallbackAddressDe[];
+extern char g_PlayerResetStunAndMotionCallbackAddressUs[];
+extern char addrLow_Playerai_StartGroundDeathSequence_us[];
+extern char addrLow_Playerai_StartExplosiveDeathSequence_us[];
+extern char addrLow_Playerai_StartRunningDeathSequence_us[];
+extern char addrLow_Playerai_StartBackwardMovingDeathSequence_us[];
+extern char addrLow_Playerai_StartClimbingDeathSequence_us[];
+extern char addrLow_Playerai_StartFallingDeathSequence_us[];
+extern char addrLow_Playerai_StartQuicksandDeathSequence_us[];
+extern char addrLow_Playerai_StartLavaDeathSequence_us[];
+extern char addrLow_Playerai_StartPrimagenDeathSequence_us[];
+extern char g_playerSequenceRunEndUpdateCallbackRecords[][0x38]; /* one 0x38-byte record per sequence-run-end row, base per version in symbol_addrs */
+extern unsigned int g_playerStateNoOperationCallbackWords[]; /* player-state no-operation callback slots, word-indexed */
+extern char addrLow_Playerai_UpdateGroundDeathSequenceWait_us[];
+extern char addrLow_Playerai_SetRunEndFlag_us[];
+extern char g_PlayerStateNoOperationCallbackAddressUs[];
+extern char g_PlayerTrackNearbyAimTargetCallbackAddressUs[];
+extern char g_PlayerUpdateHeldActorReleaseCallbackAddressUs[];
+extern char g_PlayerUpdateRunEndCameraCallbackAddressUs[];
+extern char g_PlayerUpdateRunEndSequenceCallbackAddressUs[];
+extern char g_PlayerUpdateViewAnglesCallbackAddressUs[];
+extern char g_Player_AbsorbImpactAddress_us[];
+extern char g_Player_AimPreviousPositionAtResetAddress[];
+extern char g_Player_BeginJumpAddress_us[];
+extern char g_Player_BeginLateralLeapAddress_us[];
+extern char g_Player_ClearGlobalFlagBitAddress_us[];
+extern char g_Player_DampMotionAddress[];
+extern char g_Player_DampMotionCallbackAddressDe[];
+extern char g_Player_ResetMovementInputAddress[];
+extern char g_Player_ResetMovementInputCallbackAddressDe[];
+extern char g_Player_ResetMovementInputCallbackAddressUs[];
+extern char g_Player_ResetObjectVelocityAddress_us[];
+extern char g_Player_ResetStunAndReleaseHandlesAddress_us[];
+extern char g_Player_ResetStunFlagsAddress[];
+extern char g_Player_StartMovingOnStickInputAddress_us[];
+extern char g_Player_UpdateFloatPoseAddress_us[];
+extern char g_Player_UpdateGroundMoveStateAddress[];
+extern char g_Player_UpdateJumpAirMotionAddress_us[];
+extern char g_Player_UpdateJumpAscentAddress_us[];
+extern char g_Player_UpdateLateralLeapAddress_us[];
+extern char g_Player_UpdateLeapMotionAddress_us[];
+extern char g_Player_ZeroBodyVelocityAddress_us[];
+extern char g_Playerai_ClearPlayerWeaponLockAddress[];
+extern char g_Playerai_EnterMovingSequenceStateCallbackAddressDe[];
+extern char g_Playerai_EnterMovingSequenceStateCallbackAddressUs[];
+extern char g_Playerai_EnterStoppedSequenceStateCallbackAddressUs[];
+extern char g_Playerai_InitializeActorModelEffectCallbackAddressUs[];
+extern char addrLow_Playerai_OffsetActorForForceMarker_us[];
+extern char addrLow_Playerai_ResetPlayerAfterDeath_us[];
+extern char g_Playerai_ResetPlayerWeaponLockAddress[];
+extern char addrLow_Playerai_StartImpalementDeathSequence_us[];
+extern char addrLow_Playerai_StartChestbursterDeathSequence_us[];
+extern char addrLow_Playerai_StartSwimmingChestbursterDeathSequence_us[];
+extern char addrLow_Playerai_StartRaptorChestbursterDeathSequence_us[];
+extern char addrLow_Playerai_StartSwimmingRaptorChestbursterDeathSequence_us[];
+extern char addrLow_Playerai_UpdateImpalementDeathSequenceWait_us[];
+extern char addrLow_Playerai_UpdateChestbursterDeathSequenceWait_us[];
+extern char addrLow_Playerai_UpdateSwimmingChestbursterDeathSequenceWait_us[];
+extern char addrLow_Playerai_UpdateRaptorChestbursterDeathSequenceWait_us[];
+extern char addrLow_Playerai_UpdateSwimmingRaptorChestbursterDeathSequenceWait_us[];
+extern char g_defaultActorCollisionInfo[];
+extern char g_globalGameplayFlags[];
+extern f32 PLAYER_SECOND_LIGHT_RADIUS;
+extern f32 g_playerAimMarkerDepth;
+extern f32 g_playerDamageAndDistanceConstants;
+extern f32 g_playerMotionResetAndProbeScales;
+extern f32 g_playerOutOfBoundsAndMarkerHeightConstants;
+extern f32 g_playerRideInitialSpeedHalf;
+extern f32 g_playerRoundEndWaitConstants[];
+extern s32 g_activeActorKind;
+extern struct MemoryUsageStats g_playerRoundEndSignal;
+extern u8 g_playerHudSpriteMode;
+extern u8 g_playerSequenceSavedViewBytes[];
+extern void *g_playerSourceEffectFinalMessageEuropean[];
+extern void *g_playerSourceEffectFinalMessage[];
+extern void *g_playerSourceEffectOwnerFormatEuropean[];
+extern void *g_playerSourceEffectOwnerFormat[];
+extern void *g_playerSourceEffectStartMessage[];
+#endif

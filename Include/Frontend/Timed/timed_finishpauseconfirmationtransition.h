@@ -1,0 +1,4 @@
+#ifndef FRONTEND_TIMED_TIMED_FINISHPAUSECONFIRMATIONTRANSITION_H
+#define FRONTEND_TIMED_TIMED_FINISHPAUSECONFIRMATIONTRANSITION_H
+extern s32 Timed_FinishPauseConfirmationTransition(s32 element, s32 eventId, s32 event);
+#endif

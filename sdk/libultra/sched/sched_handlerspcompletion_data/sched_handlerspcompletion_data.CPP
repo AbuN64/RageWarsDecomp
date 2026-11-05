@@ -9,8 +9,8 @@ const float g_schedulerVideoYScale_StorageWords[1] = {
 #endif
 
 /* 800CA444.CPP */
-const unsigned int g_schedulerAudioFirstDurationScale_StorageWords[4] = {
-    0x358637BD, 0x358637BD, 0x358637BD, 0x358637BD,
+const float g_schedulerRspDurationScales[4] = {
+    1.0e-6f, 1.0e-6f, 1.0e-6f, 1.0e-6f,
 };
 
 /* 800CA454.CPP */

@@ -1,6 +1,0 @@
-#ifndef AI_PLAYER_PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA_H
-#define AI_PLAYER_PLAYERAI_ENTERMOVINGSEQUENCESTATE_DATA_H
-struct SharedPlayer;
-struct PlayerBodyPositionYawView;
-void Playerai_UpdateMountedMovement(struct SharedPlayer *player,struct PlayerBodyPositionYawView *body);
-#endif

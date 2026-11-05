@@ -1,18 +1,17 @@
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 #include <PR/abi.h>
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "AUDIO/ACMD.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/ALDELAY28.H"
+#include "Common/audio_callbacks.h"
+#include "Audio/acmd.h"
+#include "Common/runtime_declarations.h"
+#include "Common/audio_effect_chain.h"
 #include "../../../include/libultra/audio/reverb.H"
-#include "TYPES.H"
-#include "COMMON/ALAUXBUS_S.H"
-#include "COMMON/ALSEQUENCEPLAYER.H"
-#include <ultra64.h>
+#include "types.h"
+#include "Common/alauxbus_s.h"
+#include "Common/alsequenceplayer.h"
+#include <platform_sdk.h>
 #include "../../../include/libultra/debug/assert.h"
-#include "reverb/reverb.c.h"
+#include "Reverb/reverb.c.h"
 
 /* reverb_Reverb.CPP */
 
@@ -30,11 +29,11 @@
 #if defined(VERSION_DE)
 extern const float g_audioResamplerAssertText;
 #elif defined(VERSION_EU)
-extern const float g_audioResamplerAssertTextUsRev1;
+extern const float g_audioResamplerAssertTextUsRevision;
 #elif defined(VERSION_EU_X)
 extern char g_audioResamplerAssertTextEuX[];
 #elif defined(VERSION_US)
-extern const float g_playerSecondLightRadius;
+extern const float g_playerSecondaryLightRadius;
 #else
 extern char g_audioResamplerAssertTextEu[];
 #endif
@@ -195,11 +194,11 @@ Acmd *alFxPull(struct ALFx *filter, s16 *outp, s32 outCount, s32 sampleOffset, A
 #if defined(VERSION_DE)
         __assert(&g_audioResamplerAssertText, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_EU)
-        __assert(&g_audioResamplerAssertTextUsRev1, g_audioResamplerSourceText, 75);
+        __assert(&g_audioResamplerAssertTextUsRevision, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_EU_X)
         __assert(g_audioResamplerAssertTextEuX, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_US)
-        __assert(&g_playerSecondLightRadius, g_audioResamplerSourceText, 75);
+        __assert(&g_playerSecondaryLightRadius, g_audioResamplerSourceText, 75);
 #else
         __assert(g_audioResamplerAssertTextEu, g_audioResamplerSourceText, 75);
 #endif
@@ -270,7 +269,7 @@ unsigned int k_ReverbEncodedWords[3] = {
 #endif
 
 #if defined(VERSION_EU)
-unsigned int k_ReverbEncodedWordsBlock1[3] = {
+unsigned int k_reverbCenteredScaleWords[3] = {
     0x00000000, 0x41F00000, 0x00000000,
 };
 #endif

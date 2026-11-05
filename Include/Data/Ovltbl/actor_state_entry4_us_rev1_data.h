@@ -1,0 +1,4 @@
+#ifndef DATA_OVLTBL_ACTOR_STATE_ENTRY4_US_REV1_DATA_H
+#define DATA_OVLTBL_ACTOR_STATE_ENTRY4_US_REV1_DATA_H
+extern char g_triggeredMotionIdleUpdateEntry[];
+#endif

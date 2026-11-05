@@ -1,6 +1,6 @@
 #include "../../include/libgultra.h"
-#include "COMMON/PARAMSRECAT8V3.H"
-#include "COMMON/CONTREADFORMAT.H"
+#include "Common/sound_player_parameter_events.h"
+#include "Common/contreadformat.h"
 
 /** Store the low byte of the third argument in an indexed 0x30-byte record. */
 void alSndpSetPriority(ALSndPlayer *object, short index, unsigned char value) {

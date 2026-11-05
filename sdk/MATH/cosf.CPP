@@ -1,6 +1,6 @@
 #include "include_asm.h"
-#include "COMMON/ALDELAY28.H"
-#include "TYPES.H"
+#include "Common/audio_effect_chain.h"
+#include "types.h"
 
 /* cosf, drafted from ultralib src/gu/cosf.c: reduce |x| by multiples of pi around pi/2 in double
    precision and evaluate the odd polynomial, negating for an odd multiple; anything beyond 2^28

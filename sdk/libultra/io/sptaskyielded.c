@@ -1,6 +1,6 @@
 #include "include_asm.h"
-#include "COMMON/AIPROFILE.H"
-#include <ultra64.h>
+#include "Common/aiprofile.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_rsp.h>
 
 

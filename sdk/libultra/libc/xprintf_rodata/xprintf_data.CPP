@@ -24,5 +24,5 @@ const char g_printfUppercaseDigitsLegacy[20] =
 #endif
 
 #if defined(VERSION_US_REV1)
-const char g_printfUppercaseDigitsUsRev1[17] = "0123456789ABCDEF";
+const char g_printfUppercaseDigits[17] = "0123456789ABCDEF";
 #endif

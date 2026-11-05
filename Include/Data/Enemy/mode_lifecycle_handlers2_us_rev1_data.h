@@ -1,0 +1,57 @@
+#ifndef DATA_ENEMY_MODE_LIFECYCLE_HANDLERS2_US_REV1_DATA_H
+#define DATA_ENEMY_MODE_LIFECYCLE_HANDLERS2_US_REV1_DATA_H
+#if defined(VERSION_US_REV1)
+extern char addrLow_SetN64_ClearSessionPlayerPools_us_rev1[];
+extern char addrLow_SetN64_AdvanceLoadingToSplashImage_us_rev1[];
+extern char addrLow_SetN64_SetupLoadingBackdrop_us_rev1[];
+extern char addrLow_SetN64_DrawFullscreenBackdrop_us_rev1[];
+extern char addrLow_SetN64_DrawSessionWithRoundTimeout_us_rev1[];
+extern char addrLow_SetN64_ResetSplashImageEffects_us_rev1[];
+extern char g_sessionTimedTransitionCallback[];
+extern char addrLow_SetN64_DrawSplashImage_us_rev1[];
+extern char addrLow_SetN64_StartOpeningCinema_us_rev1[];
+extern char addrLow_SetN64_HandleOpeningCinemaInput_us_rev1[];
+extern char addrLow_SetN64_DrawOpeningCinema_us_rev1[];
+extern char addrLow_SetN64_InitializeUnusedModeAfterOpeningCinema_us_rev1[];
+extern char addrLow_SetN64_UpdateUnusedModeAfterOpeningCinema_us_rev1[];
+extern char addrLow_SetN64_DrawUnusedModeAfterOpeningCinema_us_rev1[];
+extern char addrLow_SetN64_StartTitleMusic_us_rev1[];
+extern char addrLow_SetN64_HandleTitleScreenInput_us_rev1[];
+extern char addrLow_SetN64_InitializeMainMenuScene_us_rev1[];
+extern char addrLow_SetN64_UpdateMainMenu_us_rev1[];
+extern char addrLow_SetN64_DrawMainMenu_us_rev1[];
+extern char addrLow_SetN64_StartAttractCinema_us_rev1[];
+extern char addrLow_SetN64_HandleAttractCinemaInput_us_rev1[];
+extern char addrLow_SetN64_DrawAttractCinema_us_rev1[];
+extern char addrLow_SetN64_StartPreRoundCinema_us_rev1[];
+extern char addrLow_SetN64_HandlePreRoundCinemaInput_us_rev1[];
+extern char addrLow_SetN64_DrawPreRoundCinema_us_rev1[];
+extern char addrLow_SetN64_StartSkippablePreRoundCinema_us_rev1[];
+extern char addrLow_SetN64_HandleSkippablePreRoundCinemaInput_us_rev1[];
+extern char addrLow_SetN64_DrawSkippablePreRoundCinema_us_rev1[];
+extern char addrLow_SetN64_StartLevelIntroCinema_us_rev1[];
+extern char addrLow_SetN64_HandleLevelIntroCinemaInput_us_rev1[];
+extern char addrLow_SetN64_DrawLevelIntroCinema_us_rev1[];
+extern char addrLow_SetN64_ResumeSelectedSession_us_rev1[];
+extern char addrLow_SetN64_StartRound_us_rev1[];
+extern char addrLow_SetN64_UpdateActiveSession_us_rev1[];
+extern char addrLow_SetN64_InitializeUnusedModeAfterResume_us_rev1[];
+extern char addrLow_SetN64_UpdateUnusedModeAfterResume_us_rev1[];
+extern char addrLow_SetN64_DrawUnusedModeAfterResume_us_rev1[];
+extern char addrLow_SetN64_InitializeCreditsRoll_us_rev1[];
+extern char addrLow_SetN64_HandleCreditsRollInput_us_rev1[];
+extern char addrLow_SetN64_DrawCreditsRoll_us_rev1[];
+extern char addrLow_SetN64_InitializeSkippableCreditsRoll_us_rev1[];
+extern char addrLow_SetN64_HandleSkippableCreditsRollInput_us_rev1[];
+extern char addrLow_SetN64_DrawSkippableCreditsRoll_us_rev1[];
+extern char addrLow_SetN64_InitializeTransitionMode_us_rev1[];
+extern char addrLow_SetN64_EnterPendingSessionMode_us_rev1[];
+extern char addrLow_SetN64_DrawTransitionMode_us_rev1[];
+extern char addrLow_SetN64_InitializeUnusedModeAfterCredits_us_rev1[];
+extern char addrLow_SetN64_UpdateUnusedModeAfterCredits_us_rev1[];
+extern char addrLow_SetN64_DrawUnusedModeAfterCredits_us_rev1[];
+extern char addrLow_SetN64_InitializeUnusedModeBeforeTransition_us_rev1[];
+extern char addrLow_SetN64_UpdateUnusedModeBeforeTransition_us_rev1[];
+extern char addrLow_SetN64_DrawUnusedModeBeforeTransition_us_rev1[];
+#endif
+#endif

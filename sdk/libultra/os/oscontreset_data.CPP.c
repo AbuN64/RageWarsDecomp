@@ -1,7 +1,8 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CONTREADFORMAT.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/contreadformat.h"
 #include "../../include/os_pif.h"
 #include "../../include/libultra/os/oscontreset_data.CPP.h"
 

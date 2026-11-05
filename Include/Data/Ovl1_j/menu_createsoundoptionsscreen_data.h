@@ -1,0 +1,7 @@
+#ifndef DATA_OVL1_J_MENU_CREATESOUNDOPTIONSSCREEN_DATA_H
+#define DATA_OVL1_J_MENU_CREATESOUNDOPTIONSSCREEN_DATA_H
+extern char g_Menu_SoundOptionsReturnZeroPackedAddress_MenuCreatesoundoptionsscreenData[];
+extern char g_Menu_UpdateSoundOptionsScreenPackedAddress_MenuCreatesoundoptionsscreenData[];
+extern char addrLow_Menu_SoundOptionsReturnZero_MenuCreatesoundoptionsscreenData[];
+extern char addrLow_Menu_UpdateSoundOptionsScreen_MenuCreatesoundoptionsscreenData[];
+#endif

@@ -1,0 +1,4 @@
+#ifndef VOLUME_G_PAKFORMATSPACEDINT3DIGITS_H
+#define VOLUME_G_PAKFORMATSPACEDINT3DIGITS_H
+extern const char g_volumeNegativeStepPaddedFormat[];
+#endif

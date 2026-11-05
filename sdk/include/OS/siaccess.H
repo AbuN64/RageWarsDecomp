@@ -1,6 +1,6 @@
 #ifndef OS_SIACCESS_H
 #define OS_SIACCESS_H
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
+#include "types.h"
+#include "Common/controller_motor_state.h"
 extern void __osSiCreateAccessQueue();
 #endif

@@ -12,11 +12,11 @@ extern char Nav_SelectChaseObjectGoal_Address[];
 extern char Nav_SelectStationaryObjectGoal_Address[];
 extern char Target_UpdateTargetSelection_Address[];
 extern char Nav_SelectPlayerState_Address[];
-extern char g_Nav_SelectWeaponFromFirstAmmoGroupEncodedCallback[];
-extern char g_Nav_SelectWeaponFromSecondAmmoGroupEncodedCallback[];
-extern char g_Nav_SelectWeaponFromThirdAmmoGroupEncodedCallback[];
-extern char g_Nav_SelectSecondAmmoGroupVariantOneEncodedCallback[];
-extern char g_Nav_SelectSecondAmmoGroupVariantTwoEncodedCallback[];
+extern char g_Nav_SelectWeaponFromAmmoGroupAEncodedCallback[];
+extern char g_Nav_SelectWeaponFromAmmoGroupBEncodedCallback[];
+extern char g_Nav_SelectWeaponFromAmmoGroupCEncodedCallback[];
+extern char g_Nav_SelectAmmoGroupBPrimaryVariantEncodedCallback[];
+extern char g_Nav_SelectAmmoGroupBAlternateVariantEncodedCallback[];
 extern char Nav_CheckCloseAttackRoute_Address[];
 extern char Nav_CollectEnemyTargets_Address[];
 extern char Wheel_AdvanceWheelProbe_Address[];
@@ -48,8 +48,8 @@ extern char Nav_InitTimedJumpRoute_Address[];
 extern char Nav_UpdateTransientJumpRoute_Address[];
 extern char Nav_UpdateRoamingWithJumps_Address[];
 extern char Nav_InitRoamingWithJumps_Address[];
-extern char g_weapon_InitializeChargeForWeaponFiveEntry[];
-unsigned int k_NavEncodedWordsBlock3[596] = {
+extern char g_weapon_InitializeChargeAndLoopSoundEntry[];
+unsigned int k_navBehaviorDispatchWords[596] = {
     0x00000100, 0x00000000, 0x00000004, 0x00000000, 0x00000003, 0x00000001, 0x00000000, 0x00000005,
     0x00000005, 0x00000000, 0x00000003, 0x00000000, 0x00000002, 0x00000006, 0x00000006, 0x00000001,
     0x00000000, 0x00000001, 0x00000008, 0x00000000, 0x00000003, 0x00000000, 0x00000008, 0x00000000,
@@ -69,24 +69,24 @@ unsigned int k_NavEncodedWordsBlock3[596] = {
     0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address,
-    (unsigned int)UpdateCloseAttack_Address, (unsigned int)Nav_AdvancePickupRouteSelection_Address, (unsigned int)g_Nav_SelectWeaponFromThirdAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000,
+    (unsigned int)UpdateCloseAttack_Address, (unsigned int)Nav_AdvancePickupRouteSelection_Address, (unsigned int)g_Nav_SelectWeaponFromAmmoGroupCEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)UpdateCloseAttack_Address, (unsigned int)Nav_AdvancePickupRouteSelection_Address, (unsigned int)g_Nav_SelectWeaponFromSecondAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address,
+    0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)UpdateCloseAttack_Address, (unsigned int)Nav_AdvancePickupRouteSelection_Address, (unsigned int)g_Nav_SelectWeaponFromAmmoGroupBEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address,
     (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address,
-    (unsigned int)UpdateCloseAttack_Address, (unsigned int)g_Nav_SelectWeaponFromFirstAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    (unsigned int)UpdateCloseAttack_Address, (unsigned int)g_Nav_SelectWeaponFromAmmoGroupAEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectSecondAmmoGroupVariantOneEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000,
+    0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectAmmoGroupBPrimaryVariantEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address,
-    (unsigned int)g_Nav_SelectSecondAmmoGroupVariantTwoEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    (unsigned int)g_Nav_SelectAmmoGroupBAlternateVariantEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, (unsigned int)Nav_SelectPickupGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectSecondAmmoGroupVariantTwoEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address,
+    0x00000000, (unsigned int)Nav_SelectPickupGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectAmmoGroupBAlternateVariantEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_SelectCloseAttackPickupGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address,
-    (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)Nav_SelectPlayerState_Address, (unsigned int)g_Nav_SelectWeaponFromSecondAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)Nav_SelectPlayerState_Address, (unsigned int)g_Nav_SelectWeaponFromAmmoGroupBEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, (unsigned int)Nav_SelectChaseObjectGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectWeaponFromSecondAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, 0x00000000,
+    0x00000000, (unsigned int)Nav_SelectChaseObjectGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address, (unsigned int)g_Nav_SelectWeaponFromAmmoGroupBEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_SelectStationaryObjectGoal_Address, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
@@ -94,7 +94,7 @@ unsigned int k_NavEncodedWordsBlock3[596] = {
     0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, (unsigned int)Nav_RebuildRequestedGoalRoute_Address, (unsigned int)Nav_CollectEnemyTargets_Address, (unsigned int)Target_UpdateTargetSelection_Address,
-    (unsigned int)g_Nav_SelectWeaponFromThirdAmmoGroupEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    (unsigned int)g_Nav_SelectWeaponFromAmmoGroupCEncodedCallback, (unsigned int)Nav_RefineBallisticAim_Address, (unsigned int)Nav_SelectPlayerState_Address, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x800C9F10, 0x800C9F60, 0x800C9FB0, 0x800CA000, 0x800CA050, 0x800CA0A0, 0x800CA0F0,
     0x800CA140, 0x800CA190, 0x800CA1E0, 0x800CA230, 0x800CA280, 0x800CA2D0, 0x800CA320, 0x8010A3B8,
@@ -123,7 +123,7 @@ unsigned int k_NavEncodedWordsBlock3[596] = {
     0x00000898, 0x01000000, 0x00000898, 0x02000000, 0x00000898, 0x04000000, 0x00000898, 0x08000000,
     0x00000898, 0x10000000, 0x00000898, 0x20000000, 0x00000898, 0x40000000, 0x00000898, 0x80000000,
     0x00000898, 0x00000000, 0x00000000, 0x00000001, 0x00000898, 0x00000000, 0x00000000, 0x00000008,
-    (unsigned int)g_weapon_InitializeChargeForWeaponFiveEntry, 0x00010000, 0x00050000, 0x00040000, 0x000C0000, 0x00080000, 0x000A0000, 0x00020000,
+    (unsigned int)g_weapon_InitializeChargeAndLoopSoundEntry, 0x00010000, 0x00050000, 0x00040000, 0x000C0000, 0x00080000, 0x000A0000, 0x00020000,
     0x00030000, 0x41F00000, 0x42400000, 0x43020000,
 };
 #endif

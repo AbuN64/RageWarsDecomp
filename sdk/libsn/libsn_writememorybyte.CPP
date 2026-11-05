@@ -1,6 +1,6 @@
-#include "COMMON/SHAREDPLAYER.H"
-#include "COMMON/LIBSN_AND_RESIDENT_CALLBACKS.H"
-#include "IO/libsn_writememorybyte.H"
+#include "Common/sharedplayer.h"
+#include "Common/libsn_and_resident_callbacks.h"
+#include "Io/libsn_writememorybyte.h"
 
 /* Updates the selected byte in the aligned word addressed by address. */
 

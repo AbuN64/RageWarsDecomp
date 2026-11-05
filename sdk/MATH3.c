@@ -1,9 +1,9 @@
 #include "include_asm.h"
-#include <ultra64.h>
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/TRIPLE.H"
-#include "COMMON/GUMTXL2F.H"
-#include "COMMON/ALFXPARAM.H"
+#include <platform_sdk.h>
+#include "Common/runtime_declarations.h"
+#include "Common/triple.h"
+#include "Common/gumtxl2f.h"
+#include "Common/alfxparam.h"
 
 /* aisetfreq.CPP */
  /* 0.5, followed by 2^31 */

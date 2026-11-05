@@ -1,12 +1,11 @@
 #include "../../include/libgultra.h"
-#include "COMMON/VECTOR4F.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/OBJRECAT18V1.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
+#include "Common/vector4f.h"
+#include "Common/sequence_timing.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
 /* alSeqNextEvent, drafted from ultralib src/audio/seq.c: read the next MIDI file event into an
    ALEvent, decoding tempo and end-of-track meta events and applying running status to channel
@@ -17,7 +16,7 @@ extern u8 read8(ALSeq *);
 
 /* alSeqSecToTicks, drafted from ultralib src/audio/seq.c: convert seconds to ticks at the given
    tempo. The library evaluates it in single precision as sec * (division * 1e6f), so the product is
-   spelled in that order against the cartridge constant after g_sequenceMicrosecondsPerSecond; GCC's u32-to-float and
+   spelled in that order against the cartridge constant after g_sequenceMicrosecondScale; GCC's u32-to-float and
    float-to-u32 expansions are written out against g_sequenceSecondsToTicksUnsignedBias and g_sequenceSignedTickConversionLimit. */
 
  /* followed by 1000000.0f */
@@ -112,7 +111,7 @@ f32 alSeqTicksToSec(ALSeq *sequence, s32 ticks, s32 tempo) {
     if (tempo < 0) {
         v = v + g_sequenceTicksToSecondsUnsignedBias;
     }
-    return (tickCount * (f32)v) / ((f32)sequence->division * g_sequenceMicrosecondsPerSecond);
+    return (tickCount * (f32)v) / ((f32)sequence->division * g_sequenceMicrosecondScale);
 }
 
  /* 2147483648.0f */
@@ -122,7 +121,7 @@ u32 alSeqSecToTicks(ALSeq *seq, f32 sec, u32 tempo)
     f64 t;
     f32 q;
     u32 result;
-    ticks = sec * ((f32)seq->division * (*(&g_sequenceMicrosecondsPerSecond + 1)));
+    ticks = sec * ((f32)seq->division * (*(&g_sequenceMicrosecondScale + 1)));
     t = (f64)(s32)tempo;
     if ((s32)tempo < 0) {
         t = t + g_sequenceSecondsToTicksUnsignedBias;

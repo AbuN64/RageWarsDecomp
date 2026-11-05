@@ -1,24 +1,25 @@
+#include <PR/libaudio.h>
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/ALBANK_S.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/albank_s.h"
+#include "types.h"
 
 /* heapinit.c */
 #if defined(VERSION_EU)
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/ALBANK_S.H"
-#include "TYPES.H"
+#include "Common/albank_s.h"
+#include "types.h"
 void alHeapInit(ALHeap *heapStorage, u8 *base, s32 byteCount) {
     s32 alignmentBytes;
     alignmentBytes = 0x10 - ((s32) base & 0xF);
     if (alignmentBytes != 0x10) {
-        (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->left) = (s32) (base + alignmentBytes);
+        heapStorage->base = base + alignmentBytes;
     } else {
-        (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->left) = (s32) base;
+        heapStorage->base = base;
     }
-    (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->right) = byteCount;
-    (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->bottom) = 0;
-    (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->top) = (s32) (((struct MenuPlayerScissorRect *) ((s8 *) heapStorage))->left);
+    heapStorage->len = byteCount;
+    heapStorage->count = 0;
+    heapStorage->cur = heapStorage->base;
 }
 #endif
 
@@ -28,12 +29,12 @@ void alHeapInit(ALHeap *heap, u8 *base, s32 byteLength) {
     s32 alignmentOffset;
     alignmentOffset = 0x10 - ((s32) base & 0xF);
     if (alignmentOffset != 0x10) {
-        (((struct MenuPlayerScissorRect *) ((s8 *) heap))->left) = (s32) (base + alignmentOffset);
+        heap->base = base + alignmentOffset;
     } else {
-        (((struct MenuPlayerScissorRect *) ((s8 *) heap))->left) = (s32) base;
+        heap->base = base;
     }
-    (((struct MenuPlayerScissorRect *) ((s8 *) heap))->right) = byteLength;
-    (((struct MenuPlayerScissorRect *) ((s8 *) heap))->bottom) = 0;
-    (((struct MenuPlayerScissorRect *) ((s8 *) heap))->top) = (s32) (((struct MenuPlayerScissorRect *) ((s8 *) heap))->left);
+    heap->len = byteLength;
+    heap->count = 0;
+    heap->cur = heap->base;
 }
 #endif

@@ -1,0 +1,27 @@
+#ifndef ENGINE_UNICOL_INSTCOL_INSTCOL_PROCESSENTITYCONTACTS_H
+#define ENGINE_UNICOL_INSTCOL_INSTCOL_PROCESSENTITYCONTACTS_H
+#include "Common/box_contact.h"
+#include "Common/sharedplayer.h"
+#include "Common/resident_event_handler.h"
+#include "Common/approachlocation.h"
+#include "Common/output.h"
+#include "Common/rendersortrecord.h"
+#include "Common/objb.h"
+#include "types.h"
+#include "Engine/Unicol/instcol.h"
+#include "Common/ppdecom_unpackresource.h"
+#include "Common/texture_request.h"
+#include "Scene/cache_requestresource.h"
+#include "Render/setn64_getpacksection.h"
+#include "Common/world.h"
+#include "Common/level_actor.h"
+#include "Common/shared_gameslot.h"
+#include "Ai/Player/player_startplayeranimation.h"
+#include "Game/builddirectionmatrix.h"
+#include "Gobjinst/gobjinst_requestanimatedmodelvariant.h"
+#include "Graphu64/graphu64_packfixedmatrix.h"
+#include "Ppdecom/ppdecom_quicksortrecords.h"
+#include "Particle/graphu64_matrixfromeulerxyz.h"
+#include "Common/Lone/collision_current_actor.h"
+extern char CInstanceCollision_SwapSortedContacts[], CInstanceCollision_CompareSortedContacts[];
+#endif

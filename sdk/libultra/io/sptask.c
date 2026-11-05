@@ -1,9 +1,9 @@
 #include "../../include/LIBC.H"
-#include "COMMON/ALFXPARAM.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
-#include "COMMON/OSPIHANDLE_S.H"
+#include "Common/alfxparam.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
+#include "Common/ospihandle_s.h"
 #include <PR/os_internal_rsp.h>
 #include "../../include/libgultra/sp.h"
 

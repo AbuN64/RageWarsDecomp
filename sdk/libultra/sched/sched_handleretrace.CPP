@@ -1,22 +1,26 @@
 #include "include_asm.h"
-#include "COMMON/LONE/RESOURCE_REQUEST_QUEUE.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/PAKQUEUESTATE.H"
-#include "COMMON/WORLDSORTENTRY.H"
-#include "TYPES.H"
+#include "Common/Lone/resource_request_queue.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/runtime_declarations.h"
+#include "Common/sessionhandlerrow.h"
+#include "Engine/sched.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/pakqueuestate.h"
+#include "Common/worldsortentry.h"
+#include "types.h"
 #include "../../include/SCHED/osscremoveclient.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 
 #if defined(VERSION_EU)
-#include "COMMON/OSVISCALE.H"
-#include "sched/sched_handleretrace.H"
-#include "sched/sched_handlerspcompletion.H"
-#include "sched/sched_handletaskcommands.H"
+#include "Common/osviscale.h"
+#include "Sched/sched_handleretrace.h"
+#include "Sched/sched_handlerspcompletion.h"
+#include "Sched/sched_handletaskcommands.h"
 extern s32 g_schedulerFrameCountdown, g_frontendCurrentVideoModeIndex;
-extern OSViMode g_schedulerAlternateVideoMode, g_videoModeLabels;
+extern OSViMode g_schedulerAlternateVideoMode;
+extern OSViMode g_videoModeLabels[];
 
 extern void Frontend_UpdateScreenMode(void);
 
@@ -36,7 +40,7 @@ void Sched_RunEventLoopEu(OSSched *sc) {
             if (g_schedulerShutdownPending && --g_schedulerFrameCountdown <= 0) {
                 osViSetYScale(g_schedulerVideoYScale);
                 mode = &g_schedulerAlternateVideoMode;
-                if (g_frontendCurrentVideoModeIndex == 0) mode = &g_videoModeLabels;
+                if (g_frontendCurrentVideoModeIndex == 0) mode = &g_videoModeLabels[0];
                 osViSetMode(mode);
                 osViBlack(1);
                 osViSetSpecialFeatures(2);
@@ -74,9 +78,9 @@ void Sched_RunEventLoopEu(OSSched *sc) {
 
 
 
-extern s32 g_resourceLoadPriorityBoost, g_resourceLoadIdlePriority, g_renderFrameBufferCount;
-extern s32 g_schedulerFrameQueueReadIndex, g_schedulerRetracesSinceSwap, g_schedulerPendingFramebuffer, g_displayedFramebufferAndRefreshRate, g_schedulerSwapPending, g_schedulerQueuedFrameCount;
-#include "COMMON/DISPLAY.H"
+extern s32 g_resourceLoadPriorityBoost, g_resourceLoadIdlePriority;
+extern s32 g_schedulerFrameQueueReadIndex, g_schedulerRetracesSinceSwap, g_schedulerPendingFramebuffer, g_schedulerSwapPending, g_schedulerQueuedFrameCount;
+#include "Common/display.h"
 
 
 
@@ -101,7 +105,7 @@ void Sched_HandleRetrace(OSSched *sc) {
     if (g_schedulerSwapPending != 0) {
         g_schedulerRetracesSinceSwap = 0;
         g_schedulerSwapPending = 0;
-        g_displayedFramebufferAndRefreshRate = g_schedulerPendingFramebuffer;
+        ((s32 *)g_displayedFramebufferAndRefreshRate)[0] = g_schedulerPendingFramebuffer;
         g_schedulerPendingFramebuffer = 0;
     }
     if (g_schedulerQueuedFrameCount != 0) {

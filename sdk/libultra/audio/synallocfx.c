@@ -1,9 +1,9 @@
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
-#include "COMMON/ALAUXBUS_S.H"
+#include "Common/alfxparam.h"
+#include "Common/alauxbus_s.h"
 #include "../../include/libultra/audio/synthesizer.h"
-#include "COMMON/ALDELAY28.H"
-#include "TYPES.H"
+#include "Common/audio_effect_chain.h"
+#include "types.h"
 #include "../../include/libultra/audio/drvrnew.h"
 
 

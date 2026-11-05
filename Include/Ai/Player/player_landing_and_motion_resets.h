@@ -1,0 +1,4 @@
+#ifndef AI_PLAYER_PLAYER_LANDING_AND_MOTION_RESETS_H
+#define AI_PLAYER_PLAYER_LANDING_AND_MOTION_RESETS_H
+extern void Player_ResetStunAndReleaseHandles(void *widget);
+#endif

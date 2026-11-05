@@ -1,13 +1,12 @@
-#include "COMMON/LLDIVRESULT.H"
+#include "Common/lldivresult.h"
 #include <PR/abi.h>
-#include "COMMON/MATH_HELPERS.H"
+#include "Common/math_helpers.h"
 #include "LOAD_DECODE.H"
-#include "COMMON/AUDIO_LOADDECODEDSAMPLES.H"
-#include "TYPES.H"
+#include "Common/audio_loaddecodedsamples.h"
+#include "types.h"
 #include "include_asm.h"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/audio_callbacks.h"
+#include "Common/runtime_declarations.h"
 
 /* alLoadParam, drafted from ultralib src/audio/load.c: set a load filter's wave table, choosing the
    pull handler and loop points by the table's type, or reset its decode state. This cartridge's

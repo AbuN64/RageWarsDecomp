@@ -1,4 +1,0 @@
-#ifndef DATA_OVL1_D_WEAPON_CHARGE_FIVE_CALLBACK_ADDRESS_H
-#define DATA_OVL1_D_WEAPON_CHARGE_FIVE_CALLBACK_ADDRESS_H
-extern char addrLow_Weapon_InitializeChargeForWeaponFive[];
-#endif

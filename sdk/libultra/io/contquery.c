@@ -1,10 +1,10 @@
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/CONTREADFORMAT.H"
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/contreadformat.h"
+#include "types.h"
+#include "Common/controller_motor_state.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"

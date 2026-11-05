@@ -1,9 +1,8 @@
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/RESPONSE.H"
-#include "TYPES.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/runtime_declarations.h"
+#include "Common/response.h"
+#include "types.h"
+#include "types.h"
+#include <platform_sdk.h>
 
 #if defined(VERSION_US_REV1)
 

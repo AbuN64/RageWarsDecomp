@@ -1,0 +1,5 @@
+#ifndef FRONTEND_TIMED_FRONTEND_CONSUMECONFIRMATIONEVENT_H
+#define FRONTEND_TIMED_FRONTEND_CONSUMECONFIRMATIONEVENT_H
+extern s32 Frontend_ConsumeConfirmationEvent(void);
+extern s32 Frontend_ReturnConfirmationEventZero(void);
+#endif

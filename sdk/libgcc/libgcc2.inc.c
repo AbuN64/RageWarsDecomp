@@ -37,7 +37,7 @@ Boston, MA 02111-1307, USA.  */
 #include "machmode.h"
 #include "defaults.h" 
 #ifndef L_trampoline
-#include <ultra64.h>
+#include <platform_sdk.h>
 #endif
 
 /* Don't use `fancy_abort' here even if config.h says to use it.  */

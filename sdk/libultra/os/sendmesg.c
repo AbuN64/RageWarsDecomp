@@ -1,8 +1,10 @@
 #include "../../include/thread_queue.h"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "Common/osviscale.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

@@ -1,11 +1,11 @@
 #include "include_asm.h"
-#include "COMMON/BOOT_TV_TYPE.H"
-#include <ultra64.h>
-#include "COMMON/OSVISCALE.H"
-#include "TYPES.H"
+#include "Common/boot_tv_type.h"
+#include <platform_sdk.h>
+#include "Common/osviscale.h"
+#include "types.h"
 #include "../../../include/AUDIO/vi.H"
 #include "../../../include/AUDIO/__OSVISWAPCONTEXT.H"
-#include "UI/X_FILES/X_PLUS.H"
+#include "Ui/X_files/x_plus.h"
 #include "../../../include/libultra/audio/vi.h"
 
 extern __OSViContext *__osViCurr;

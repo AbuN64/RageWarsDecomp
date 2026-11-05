@@ -1,5 +1,5 @@
-#include "COMMON/NODERECAT1C.H"
-#include "TYPES.H"
+#include "Common/os_timer_nodes.h"
+#include "types.h"
 
 /* 802C07B0.CPP */
 /* 802C07B0.CPP */

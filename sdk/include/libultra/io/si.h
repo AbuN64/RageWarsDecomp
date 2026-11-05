@@ -1,6 +1,6 @@
 #ifndef LIBULTRA_IO_SI_H
 #define LIBULTRA_IO_SI_H
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
+#include "types.h"
+#include "Common/controller_motor_state.h"
 extern int __osSiDeviceBusy(void);
 #endif

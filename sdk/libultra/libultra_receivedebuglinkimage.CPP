@@ -1,9 +1,8 @@
 #include "../include/LIBC.H"
 #include "../include/libgultra_inferred/LIBULTRA_WRITEDEBUGLINKBYTE.H"
-#include "COMMON/RESPONSE.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "TYPES.H"
+#include "Common/response.h"
+#include "Common/runtime_declarations.h"
+#include "types.h"
 #include "../include/libgultra.h"
 #include "../include/libultra/libultra_receivedebuglinkimage.H"
 #include "../include/libultra/libultra_writedebuglinkblock.H"
@@ -23,7 +22,7 @@ extern u8 g_debugLinkImageFormatText;
 
 
 s32 Libultra_DispatchDebugLinkCallback(void) {
-    ReadWord first;
+    ReadWordByte first;
     s32 word;
     u32 value;
 
@@ -158,8 +157,8 @@ s32 Libultra_WriteDebugLinkHalfword(void) {
 }
 
 s32 Libultra_WriteDebugLinkWord(void) {
-    ReadWord first;
-    ReadWord second;
+    ReadWordByte first;
+    ReadWordByte second;
     s32 word;
     s32 result;
 
@@ -213,7 +212,7 @@ block_9:
 }
 
 s32 Libultra_ReadDebugLinkHalfword(void) {
-    ReadWord first;
+    ReadWordByte first;
     s32 word;
     s32 result;
     u16 value;
@@ -248,7 +247,7 @@ s32 Libultra_ReadDebugLinkHalfword(void) {
 }
 
 s32 Libultra_ReadDebugLinkWord(void) {
-    ReadWord first;
+    ReadWordByte first;
     s32 word;
     s32 result;
     u32 value;
@@ -289,8 +288,8 @@ s32 Libultra_ReadDebugLinkWord(void) {
 }
 
 s32 Libultra_ReceiveDebugLinkMemory(void) {
-    ReadWord first;
-    ReadWord second;
+    ReadWordByte first;
+    ReadWordByte second;
     s32 word;
     s32 succeeded;
     s32 output;
@@ -345,8 +344,8 @@ block_9:
 }
 
 s32 Libultra_SendDebugLinkMemory(void) {
-    ReadWord first;
-    ReadWord second;
+    ReadWordByte first;
+    ReadWordByte second;
     s32 word;
     s32 succeeded;
 
@@ -400,8 +399,8 @@ block_9:
 }
 
 s32 Libultra_ReceiveDebugLinkImage(void) {
-    ReadWord first;
-    ReadWord second;
+    ReadWordByte first;
+    ReadWordByte second;
     s32 word;
     s32 succeeded;
     s32 output;

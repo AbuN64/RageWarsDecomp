@@ -1,8 +1,7 @@
 #ifndef OSCONTREQUESFORMATSHORT_H
 #define OSCONTREQUESFORMATSHORT_H
-#include "TYPES.H"
-#include "COMMON/ENTRYRECAT0V3.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "types.h"
+#include "Common/note_state.h"
 
 
 struct __OSContRequesFormatShort;

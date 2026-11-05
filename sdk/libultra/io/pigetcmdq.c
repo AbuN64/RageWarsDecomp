@@ -1,7 +1,7 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "types.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
 #include "../../include/libultra/io/pigetcmdq.h"
 
 s32 osPiGetCmdQueue(void)

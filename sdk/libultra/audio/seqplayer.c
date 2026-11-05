@@ -1,27 +1,26 @@
 #include "include_asm.h"
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
+#include "types.h"
+#include "Common/resident_event_handler.h"
 #include "BUF16B.H"
 #include "libgultra/__INITCHANSTATE.H"
 #include "al_globals.h"
-#include "COMMON/TRIPLE.H"
-#include "COMMON/LONE/G_AUDIOSEQPLAYERTEXT.H"
-#include "COMMON/LONE/SEQUENCE_PLAYER_ASSERT_TEXT.H"
-#include "COMMON/ALBANK_S.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/OBJRECAT18V1.H"
+#include "Common/triple.h"
+#include "Common/Lone/g_audioseqplayertext.h"
+#include "Common/Lone/sequence_player_assert_text.h"
+#include "Common/albank_s.h"
+#include "Common/runtime_declarations.h"
+#include "Common/sequence_timing.h"
 #include "libgultra/seqplayer.h"
 #include "libgultra/__POSTNEXTSEQEVENT.H"
 #include "libultra/debug/assert.h"
-#include "COMMON/ALSEQUENCEPLAYER.H"
-#include "COMMON/ALPARAM_S.H"
-#include "COMMON/OBJRECAT4V6.H"
+#include "Common/alsequenceplayer.h"
+#include "Common/alparam_s.h"
+#include "Common/audio_voice_slots.h"
 #include "libgultra.h"
-#include "COMMON/ALDELAY28.H"
+#include "Common/audio_effect_chain.h"
 #include "libgultra/alunlink.h"
-#include "COMMON/ALFXPARAM.H"
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "Common/alfxparam.h"
+#include "Data/rest_source_records.h"
 #include "../../include/libultra/audio/seqplayer.h"
 
 /* seqplayer_2.c */
@@ -62,9 +61,9 @@ void __resetPerfChanState(void *playerObject, s32 index);
 /* seqplayer.c */
 /* 802B3B80_2.CPP */
 #if defined(VERSION_EU)
-#include "TYPES.H"
-#include "COMMON/ALSEQUENCEPLAYER.H"
-#include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
+#include "types.h"
+#include "Common/alsequenceplayer.h"
+#include "Common/compressed_sequence_and_event_views.h"
 #include "al_globals.h"
 extern void __initChanState(void *);
 
@@ -173,20 +172,20 @@ void alSeqpNew(ALSeqPlayer *p, ALSeqpConfig *c) {
 #if defined(VERSION_US_REV1)
 extern char addrLow_Device_EnableTriggerActor[];
 extern char addrLow_Link_ClearActorStateBit[];
-void * g_SeqplayerEncodedWordsBlock1[3] = {
+void * g_seqplayerDeviceLinkCallbackAddresses[3] = {
     (void *)&addrLow_Device_EnableTriggerActor, (void *)&addrLow_Link_ClearActorStateBit, 0,
 };
 #endif
 
 /* seqplayer_data.c */
 #if defined(VERSION_US)
-unsigned int k_SeqplayerEncodedWordsBlock1[3] = {
+unsigned int k_seqplayerTempoTagWords[3] = {
     0x74656D54, 0x00008855, 0x02000800,
 };
 #endif
 
 #if defined(VERSION_EU_X)
-unsigned int k_SeqplayerEncodedWordsBlock2[3] = {
+unsigned int k_seqplayerPointerWords[3] = {
     0x002056F0, 0x0027924C, 0x00000000,
 };
 #endif
@@ -1040,7 +1039,7 @@ void __postNextSeqEvent(void *seqPlayer) {
         (__alSeqNextDelta(sequence, &deltaTicks) & 0xFF)) {
         if ((((SequencePlayerEventView *)(seqPlayer))->loopCount != 0) &&
             ((alSeqGetTicks(sequence) + deltaTicks) >=
-             ((struct MenuTextOwnerView *) ((SequencePlayerEventView *) seqPlayer)->loopEnd)->flags)) {
+             ((ALSeqMarker *) ((SequencePlayerEventView *) seqPlayer)->loopEnd)->curTicks)) {
             alSeqSetLoc(sequence, ((SequencePlayerEventView *)(seqPlayer))->loopStart);
             remainingLoops = ((SequencePlayerEventView *)(seqPlayer))->loopCount;
             if (remainingLoops != -1) {

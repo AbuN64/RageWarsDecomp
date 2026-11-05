@@ -1,0 +1,15 @@
+#ifndef DATA_OVL1_J_MENU_DISPATCHSETTINGSTABLEEVENT_DATA_H
+#define DATA_OVL1_J_MENU_DISPATCHSETTINGSTABLEEVENT_DATA_H
+extern char addrLow_Menu_CreateUnlockGatedListScreen_us_rev1[];
+extern char addrLow_Menu_FreeScrollingChoiceScreen_us_rev1[];
+extern char addrLow_Menu_WrapScrollingChoiceNodes_us_rev1[];
+extern char addrLow_Menu_UpdateScrollingChoiceScreen_us_rev1[];
+extern char addrLow_Menu_CancelScrollingChoiceScreen_us_rev1[];
+extern char addrLow_Menu_HandleScrollingChoice_us_rev1[];
+extern char addrLow_Menu_SettingsTableEvent0E06Handler[];
+extern char addrLow_Menu_SettingsTableEvent0E03Handler[];
+extern char addrLow_Menu_SettingsTableEvent0E07Handler[];
+extern char addrLow_Menu_SettingsTableEvent0E08Handler[];
+extern char addrLow_Menu_SettingsTableEvent02Handler[];
+extern char addrLow_Menu_SettingsTableEvent01Handler[];
+#endif

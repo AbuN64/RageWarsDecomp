@@ -1,0 +1,127 @@
+#ifndef DATA_RSP_SCENARIOSETUP_HIDEARENACATALOGUEWIDGETS_DATA_H
+#define DATA_RSP_SCENARIOSETUP_HIDEARENACATALOGUEWIDGETS_DATA_H
+#include "Ui/Tsmos/Screens/scenariosetupscreen.h"
+#include "Data/rest_source_records.h"
+extern char ScenarioSetup_CloseSetupScreen_Address[];
+extern char addrLow_CScenarioSetup_OpenScenarioSetupScreen[];
+extern char addrLow_Frontend_DrawSetupResultPanelsEntryVariant1[];
+extern char addrLow_Frontend_DrawSetupResultPanelsEntryVariant2[];
+extern char addrLow_ScenarioSetup_UpdateSetupTransition[];
+extern char g_CScenarioSetup_OpenScenarioSetupScreenEncodedCallbackEntry[];
+extern char g_CScenarioSetup_OpenScenarioSetupScreenEncodedCallbackEntryAlt[];
+extern char g_CScenarioSetup_OpenScenarioSetupScreenPackedAddress[];
+extern char g_Frontend_DrawSetupResultPanelsPackedAddress[];
+extern char g_Frontend_MatchOptionsScenarioSetupHandlerPackedAddress[];
+extern char g_ScenarioSetup_BeginSetupConfirmationEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_BeginSetupConfirmationEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_BeginSetupConfirmationPackedAddress[];
+extern char g_ScenarioSetup_CloseSetupScreenEncodedCallback[];
+extern char g_ScenarioSetup_CloseSetupScreenPackedAddress[];
+extern char g_ScenarioSetup_EndSetupInputEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_EndSetupInputEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_RefreshSetupScreenEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_RefreshSetupScreenEncodedCallbackEntryEuX[];
+extern char addrLow_CScenarioSetup_OpenScenarioSetupScreen[];
+extern char addrLow_Frontend_DrawSetupResultPanels[];
+extern char addrLow_Frontend_MatchOptionsEvent0E03ScenarioSetupEvent0E08Handler[];
+extern char addrLow_ScenarioSetup_BeginSetupConfirmation[];
+extern char addrLow_ScenarioSetup_CloseSetupScreen[];
+extern char g_ScenarioSetup_RefreshSetupScreenPackedAddress[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltPackedAddress[];
+extern char g_ScenarioSetup_SelectNextCatalogueCategoryEncodedCallback[];
+extern char g_ScenarioSetup_SelectNextCatalogueCategoryPackedAddress[];
+extern char g_ScenarioSetup_SelectNextSetupItemEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectNextSetupItemEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectNextSetupItemPackedAddress[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryPackedAddress[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemPackedAddress[];
+extern char g_ScenarioSetup_EndSetupInputPackedAddress[];
+extern char g_ScenarioSetup_UpdateSetupTransitionEncodedCallback[];
+extern char g_ScenarioSetup_UpdateSetupTransitionPackedAddress[];
+extern char addrLow_ScenarioSetup_RefreshSetupScreen[];
+extern char addrLow_ScenarioSetup_ReturnSetupEventZeroAlt[];
+extern char addrLow_ScenarioSetup_SelectNextCatalogueCategory[];
+extern char addrLow_ScenarioSetup_SelectNextSetupItem[];
+extern char addrLow_ScenarioSetup_SelectPreviousCatalogueCategory[];
+extern char addrLow_ScenarioSetup_SelectPreviousCatalogueItem[];
+extern char addrLow_ScenarioSetup_SetupScreenEvent02Event08Handler[];
+extern char addrLow_ScenarioSetup_UpdateSetupTransition[];
+extern char g_frontend_DrawSetupResultPanelsEntry[];
+#if !(defined(VERSION_US_REV1))
+#ifdef VERSION_DE
+extern char g_CScenarioSetup_OpenScenarioSetupScreenEncodedCallbackEntry[];
+extern char addrLow_Frontend_DrawSetupResultPanelsEntryVariant1[];
+extern char g_Frontend_MatchOptionsScenarioSetupHandlerPackedAddress[];
+extern char addrLow_Frontend_MatchOptionsEvent0E03ScenarioSetupEvent0E08Handler[];
+extern char ScenarioSetup_CloseSetupScreen_Address[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_BeginSetupConfirmationEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectNextSetupItemEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_SelectNextCatalogueCategoryEncodedCallback[];
+extern char g_ScenarioSetup_EndSetupInputEncodedCallbackEntryDe[];
+extern char g_ScenarioSetup_RefreshSetupScreenEncodedCallbackEntryDe[];
+#endif
+#endif
+#if !(defined(VERSION_US_REV1))
+#ifdef VERSION_EU_X
+extern char g_CScenarioSetup_OpenScenarioSetupScreenEncodedCallbackEntryAlt[];
+extern char addrLow_Frontend_DrawSetupResultPanelsEntryVariant2[];
+extern char g_ScenarioSetup_UpdateSetupTransitionEncodedCallback[];
+extern char g_ScenarioSetup_CloseSetupScreenEncodedCallback[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_BeginSetupConfirmationEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectNextSetupItemEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_EndSetupInputPackedAddress[];
+extern char g_ScenarioSetup_EndSetupInputEncodedCallbackEntryEuX[];
+extern char g_ScenarioSetup_RefreshSetupScreenEncodedCallbackEntryEuX[];
+extern char addrLow_ScenarioSetup_SetupScreenEvent02Event08Handler[];
+#endif
+#endif
+#if !(defined(VERSION_US_REV1))
+#ifdef VERSION_EU
+extern char g_CScenarioSetup_OpenScenarioSetupScreenPackedAddress[];
+extern char g_Frontend_DrawSetupResultPanelsPackedAddress[];
+extern char g_ScenarioSetup_UpdateSetupTransitionPackedAddress[];
+extern char g_ScenarioSetup_CloseSetupScreenPackedAddress[];
+extern char g_ScenarioSetup_ReturnSetupEventZeroAltPackedAddress[];
+extern char g_ScenarioSetup_BeginSetupConfirmationPackedAddress[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueItemPackedAddress[];
+extern char g_ScenarioSetup_SelectNextSetupItemPackedAddress[];
+extern char g_ScenarioSetup_SelectPreviousCatalogueCategoryPackedAddress[];
+extern char g_ScenarioSetup_SelectNextCatalogueCategoryPackedAddress[];
+extern char g_ScenarioSetup_EndSetupInputPackedAddress[];
+extern char g_ScenarioSetup_RefreshSetupScreenPackedAddress[];
+extern char addrLow_CScenarioSetup_OpenScenarioSetupScreen[];
+extern char addrLow_Frontend_DrawSetupResultPanels[];
+extern char addrLow_ScenarioSetup_UpdateSetupTransition[];
+extern char addrLow_ScenarioSetup_CloseSetupScreen[];
+extern char addrLow_ScenarioSetup_ReturnSetupEventZeroAlt[];
+extern char addrLow_ScenarioSetup_BeginSetupConfirmation[];
+extern char addrLow_ScenarioSetup_SelectPreviousCatalogueItem[];
+extern char addrLow_ScenarioSetup_SelectNextSetupItem[];
+extern char addrLow_ScenarioSetup_SelectPreviousCatalogueCategory[];
+extern char addrLow_ScenarioSetup_SelectNextCatalogueCategory[];
+extern char addrLow_ScenarioSetup_SetupScreenEvent02Event08Handler[];
+extern char addrLow_ScenarioSetup_RefreshSetupScreen[];
+#endif
+#endif
+#if !(defined(VERSION_US_REV1))
+#ifdef VERSION_US
+extern char addrLow_CScenarioSetup_OpenScenarioSetupScreen[];
+extern char g_frontend_DrawSetupResultPanelsEntry[];
+extern char addrLow_ScenarioSetup_UpdateSetupTransition[];
+#endif
+#endif
+extern s32 CScenarioSetup_OpenScenarioSetupScreen(void *window);
+extern s32 ScenarioSetup_UpdateSetupTransition(void *root, s32 unusedEventId, s32 phaseStep);
+#endif

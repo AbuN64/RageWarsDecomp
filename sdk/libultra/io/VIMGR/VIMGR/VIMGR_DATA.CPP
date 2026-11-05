@@ -1,6 +1,6 @@
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "COMMON/OSVISCALE.H"
-#include "TYPES.H"
+#include "Common/resident_event_handler.h"
+#include "Common/osviscale.h"
+#include "types.h"
 #if defined(VERSION_EU)
 /* 800E4AA0.CPP */
 VideoDeviceManager g_videoDeviceManager = { 0 };

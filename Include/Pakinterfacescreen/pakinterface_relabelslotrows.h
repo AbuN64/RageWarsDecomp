@@ -1,0 +1,5 @@
+#ifndef PAKINTERFACESCREEN_PAKINTERFACE_RELABELSLOTROWS_H
+#define PAKINTERFACESCREEN_PAKINTERFACE_RELABELSLOTROWS_H
+#include "types.h"
+extern void PAKInterface_RelabelSlotRows(s32);
+#endif

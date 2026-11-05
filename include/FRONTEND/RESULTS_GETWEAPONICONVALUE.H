@@ -1,5 +1,0 @@
-#ifndef FRONTEND_RESULTS_GETWEAPONICONVALUE_H
-#define FRONTEND_RESULTS_GETWEAPONICONVALUE_H
-#include "COMMON/RESULTSOPTIONSSCREEN.H"
-extern int Results_GetWeaponIconValue(int id);
-#endif

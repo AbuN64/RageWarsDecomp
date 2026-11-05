@@ -1,7 +1,8 @@
 #ifndef VOICE_START_AND_PARAMETER_UPDATE_VIEWS_H
 #define VOICE_START_AND_PARAMETER_UPDATE_VIEWS_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/small_records.h"
 struct AudioStartVoiceUpdate;
 typedef struct AudioStartVoiceUpdate AudioStartVoiceUpdate;
 
@@ -16,8 +17,6 @@ struct AudioVoicePriorityView {
 
 typedef void ( *SharedRecV3)(void *, signed int, void *);
 
-struct AudioVoiceStartView;
-typedef struct AudioVoiceStartView AudioVoiceStartView;
 
 struct ALStartParamAlt;
 struct ALParam_s;
@@ -37,13 +36,6 @@ struct ALStartParamAlt {
 struct ALStartParamAlt;
 typedef struct ALStartParamAlt ALStartParamAlt;
 
-struct AudioVoiceStartView;
-struct AudioVoiceStartView {
-    char pad0[0x8];
-    ObjectLinks4_3 pvoice;
-    char pad8[0x1A - 0x8 - sizeof(ObjectLinks4_3)];
-    u16 unityPitch;
-};
 
 
 struct AudioVoicePriorityView;

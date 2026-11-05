@@ -1,14 +1,14 @@
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/runtime_declarations.h"
 #include "../include/BUF16B.H"
-#include "TYPES.H"
+#include "types.h"
 
 /* cspsetbank.CPP */
 void alCSPSetBank(ALCSPlayer *player, ALBank *bank) {
-    Buf16 bankEvent;
+    ALEvent bankEvent;
 
-    bankEvent.value = bank;
-    bankEvent.count = 0xE;
+    bankEvent.msg.spbank.bank = bank;
+    bankEvent.type = 0xE;
     alEvtqPostEvent(&player->evtq, &bankEvent, 0);
 }
 

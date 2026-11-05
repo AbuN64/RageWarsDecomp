@@ -1,19 +1,17 @@
 #include "include_asm.h"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
+#include "Common/controller_motor_state.h"
+#include "Common/player_pool_and_inode_cache_views.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
 
 #if !(defined(VERSION_EU_X) || defined(VERSION_US_REV1))
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "TYPES.H"
-#include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
+#include "Common/controller_motor_state.h"
+#include "types.h"
+#include "Common/player_pool_and_inode_cache_views.h"
 #include "../../include/os_pif.h"
 #include "../../include/libultra/os/oscontreset_data.CPP.h"
 void __osPfsRequestData(u8 cmd);

@@ -1,8 +1,8 @@
-#include "IO/EXTERNS.H"
-#include <ultra64.h>
-#include "COMMON/OBJ.H"
-#include "TYPES.H"
-#include "IO/libsn_disableinterrupts.H"
+#include "Io/externs.h"
+#include <platform_sdk.h>
+#include "Common/obj.h"
+#include "types.h"
+#include "Io/libsn_disableinterrupts.h"
 
 /* Libgultra_TrwGetSr: types.declaration: solved callee prototype */
 

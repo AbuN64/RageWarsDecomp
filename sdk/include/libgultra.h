@@ -1,7 +1,7 @@
 #ifndef LIBGULTRA_H
 #define LIBGULTRA_H
 
-#include "TYPES.H"
+#include "types.h"
 extern int Libultra_SendDebugLinkIdentification(void);
 
 extern s32 Libultra_ReceiveDebugLinkMemory(void);
@@ -20,21 +20,21 @@ extern u32 Libultra_ExchangeDebugLinkWord(u32 requestWord);
 
 extern s32 Libultra_SendDebugLinkString(u8 *text);
 
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/OBJRECAT18V1.H"
+#include "Common/runtime_declarations.h"
+#include "Common/sequence_timing.h"
 
 
-#include "COMMON/PARAMSRECAT8V3.H"
+#include "Common/sound_player_parameter_events.h"
 extern void _handleEvent(ALSndPlayer * sndp, union ALSndpEvent * event);
 
 extern s32 _sndpVoiceHandler(void *node);
 
 extern s32 readVarLen(ALSeq *);
-extern const float g_sequenceMicrosecondsPerSecond;
+extern const float g_sequenceMicrosecondScale;
 extern s32 readVarLen(struct ALSeq_s *sequence);
 
 
-#include "COMMON/ALPARAM_S.H"
+#include "Common/alparam_s.h"
 extern void init_lpfilter(AudioLowPassFilter *lp);
 
 extern int __osDpDeviceBusy();

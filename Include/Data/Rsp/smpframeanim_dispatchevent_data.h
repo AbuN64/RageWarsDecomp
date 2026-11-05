@@ -1,0 +1,71 @@
+#ifndef DATA_RSP_SMPFRAMEANIM_DISPATCHEVENT_DATA_H
+#define DATA_RSP_SMPFRAMEANIM_DISPATCHEVENT_DATA_H
+#include "Data/rest_source_records.h"
+extern char addrLow_SmpList_HandleStopEvent[];
+extern char g_smpButton_DestroyButtonControllerEntry[];
+extern char g_smpButton_DestroyListControllerEntry[];
+extern char g_smpButton_DimButtonItemsEntry[];
+extern char g_smpButton_DimButtonItemsWithSoundEntry[];
+extern char g_smpButton_DimListItemsEntry[];
+extern char g_smpButton_DimListItemsWithSoundEntry[];
+extern char g_smpButton_HighlightButtonItemsEntry[];
+extern char g_smpButton_HighlightListItemsEntry[];
+extern char g_smpButton_SelectNextListEntryEntry[];
+extern char g_smpButton_SelectPreviousListEntryEntry[];
+extern char g_smpFlicker_DestroyControllerEntry[];
+extern char g_smpFlicker_UpdateFlickerEntry[];
+extern char g_smpFrameAnim_DestroyControllerEntry[];
+extern char g_smpFrameAnim_UpdateFrameSequenceEntry[];
+extern char g_smpList_HandleDecrementInputEntry[];
+extern char g_smpList_HandleIncrementInputEntry[];
+extern char g_smpList_HandleStopEventEntry[];
+extern char g_smpList_ResetEntryCommandsEntry[];
+extern char g_smpList_UpdateSliderMotionEntry[];
+extern char addrLow_SmpOverlay_FollowListSlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowTextSlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowChildSlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowOverlaySlotTarget_de[];
+extern char g_smpOverlay_ForwardSlotEventEntry[];
+extern char g_smpOverlay_FreeEventObjectEntry[];
+extern char g_smpOverlay_ReturnUnhandledEventEntry[];
+extern char addrLow_SmpOverlay_SelectListWidgets_de[];
+extern char g_smpSlider_DestroyControllerEntry[];
+extern char g_smpSlider_DimSliderItemsEntry[];
+extern char g_smpSlider_HighlightSliderItemsEntry[];
+extern char g_smp_UpdateFadeProgressEntry[];
+#if defined(VERSION_DE)
+extern char g_smpFrameAnim_UpdateFrameSequenceEntry[];
+extern char g_smpFrameAnim_DestroyControllerEntry[];
+extern char g_smpFlicker_UpdateFlickerEntry[];
+extern char g_smpFlicker_DestroyControllerEntry[];
+extern char g_smp_UpdateFadeProgressEntry[];
+extern char g_smpSlider_DestroyControllerEntry[];
+extern char g_smpSlider_DimSliderItemsEntry[];
+extern char g_smpSlider_HighlightSliderItemsEntry[];
+extern char g_smpList_ResetEntryCommandsEntry[];
+extern char g_smpList_HandleIncrementInputEntry[];
+extern char g_smpList_HandleDecrementInputEntry[];
+extern char g_smpList_HandleStopEventEntry[];
+extern char g_smpList_UpdateSliderMotionEntry[];
+extern char addrLow_SmpList_HandleStopEvent[];
+extern char g_smpButton_DimListItemsEntry[];
+extern char g_smpButton_HighlightListItemsEntry[];
+extern char g_smpButton_DimListItemsWithSoundEntry[];
+extern char g_smpButton_SelectNextListEntryEntry[];
+extern char g_smpButton_SelectPreviousListEntryEntry[];
+extern char g_smpButton_DestroyListControllerEntry[];
+extern char g_smpButton_DimButtonItemsEntry[];
+extern char g_smpButton_HighlightButtonItemsEntry[];
+extern char g_smpButton_DimButtonItemsWithSoundEntry[];
+extern char g_smpButton_DestroyButtonControllerEntry[];
+extern char g_smpOverlay_ReturnUnhandledEventEntry[];
+extern char addrLow_SmpOverlay_FollowChildSlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowListSlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowOverlaySlotTarget_de[];
+extern char addrLow_SmpOverlay_FollowTextSlotTarget_de[];
+extern char g_smpOverlay_ForwardSlotEventEntry[];
+extern char g_smpOverlay_FreeEventObjectEntry[];
+extern char addrLow_SmpOverlay_SelectListWidgets_de[];
+#endif
+extern s32 SmpList_HandleStopEvent(struct SliderStepRecord *object, void *eventKind, u32 event, s32 value);
+#endif

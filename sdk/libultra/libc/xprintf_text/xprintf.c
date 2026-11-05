@@ -1,17 +1,16 @@
 #include "../../../include/LIBC.H"
 #include "include_asm.h"
 #include "../../../include/EXTERNS.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/LLDIVRESULT.H"
+#include "Common/runtime_declarations.h"
+#include "Common/lldivresult.h"
 #include <stdarg.h>
-#include "TYPES.H"
+#include "types.h"
 #include "../../../include/PRINTF/_LDTOB.H"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include <ultra64.h>
+#include "Common/audio_callbacks.h"
+#include "Common/resident_event_handler.h"
+#include <platform_sdk.h>
 #include "stdarg.h"
-#include "libc/libc_formatinteger_data.H"
+#include "Libc/libc_formatinteger_data.h"
 
 /* 800C7C68.CPP */
 

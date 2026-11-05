@@ -1,20 +1,19 @@
 #include "../../include/PERIPHERAL_PORT_BYTE_VIEWS.H"
-#include "COMMON/AIPROFILE.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
+#include "Common/aiprofile.h"
+#include "Common/runtime_declarations.h"
+#include "Common/compressed_sequence_and_event_views.h"
 #include "../../include/libgultra_inferred/cseq.H"
-#include "COMMON/ALBANK_S.H"
-#include "COMMON/TRIPLE.H"
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/albank_s.h"
+#include "Common/triple.h"
+#include "types.h"
 #include "../../include/BUF16B.H"
 #include "../../include/libgultra/__INITCHANSTATE.H"
 #include "../../include/libgultra/seqplayer.h"
 #include "../../include/libgultra_inferred/__CSPHANDLEMIDIMSG.H"
 #include "../../include/libultra/debug/assert.h"
 #include "../../include/al_globals.h"
-#include "COMMON/ALPARAM_S.H"
-#include "COMMON/SHAREDPLAYER.H"
+#include "Common/alparam_s.h"
+#include "Common/sharedplayer.h"
 #include "../../include/libgultra/alunlink.h"
 #include "include_asm.h"
 #include "../../include/libultra/audio/seqplayer.h"
@@ -100,7 +99,7 @@ void alCSPNew(ALCSPlayer *sequencePlayer, ALSeqpConfig *config) {
 }
 
 #if defined(VERSION_US)
-unsigned int k_CsplayerEncodedWordsBlock1[1] = {
+unsigned int k_csplayerFragment[1] = {
     0x6174615F,
 };
 #endif
@@ -112,13 +111,13 @@ unsigned int k_CsplayerZeroWords[1] = {
 #endif
 
 #if defined(VERSION_EU)
-unsigned int k_CsplayerEncodedWordsBlock3[1] = {
+unsigned int k_csplayerFragment[1] = {
     0x4275C28F,
 };
 #endif
 
 #if defined(VERSION_DE)
-unsigned int k_CsplayerEncodedWordsBlock2[1] = {
+unsigned int k_csplayerFragment[1] = {
     0xAFB60030,
 };
 #endif

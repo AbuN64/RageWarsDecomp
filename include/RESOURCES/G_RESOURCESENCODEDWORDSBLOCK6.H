@@ -1,4 +1,0 @@
-#ifndef RESOURCES_G_RESOURCESENCODEDWORDSBLOCK6_H
-#define RESOURCES_G_RESOURCESENCODEDWORDSBLOCK6_H
-extern void * g_ResourcesEncodedWordsBlock6[];
-#endif

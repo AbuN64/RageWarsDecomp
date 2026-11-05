@@ -1,4 +1,4 @@
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
 /* 800CC694_28.CPP */
 #if defined(VERSION_US_REV1)

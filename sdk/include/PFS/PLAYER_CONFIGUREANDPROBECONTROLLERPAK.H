@@ -1,6 +1,6 @@
 #ifndef PFS_PLAYER_CONFIGUREANDPROBECONTROLLERPAK_H
 #define PFS_PLAYER_CONFIGUREANDPROBECONTROLLERPAK_H
-#include "COMMON/ACTORRECAT260.H"
+#include "Common/respawn_menu_actor.h"
 extern void Player_ConfigureAndProbeControllerPak(ControllerPakMenuContext *pakMenu);
 extern void Player_ConfigureControllerPakMenu(ControllerPakMenuContext *pakMenu);
 #endif

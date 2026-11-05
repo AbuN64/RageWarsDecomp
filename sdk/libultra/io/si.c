@@ -1,5 +1,5 @@
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
+#include "types.h"
+#include "Common/controller_motor_state.h"
 #include "../../include/libultra/io/si.h"
 
 /** Report whether either low bit of the VI current register is set. */

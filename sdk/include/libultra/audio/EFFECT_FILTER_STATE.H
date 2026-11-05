@@ -1,7 +1,8 @@
 #ifndef LIBULTRA_AUDIO_EFFECT_FILTER_STATE_H
 #define LIBULTRA_AUDIO_EFFECT_FILTER_STATE_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/small_records.h"
 struct EffectFilterState {
     ALFilter_s14 filter;
     s16 *base;

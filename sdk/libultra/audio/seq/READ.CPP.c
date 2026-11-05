@@ -1,7 +1,7 @@
 #include "include_asm.h"
 #include "../../../include/libgultra.h"
-#include "COMMON/OBJRECAT18V1.H"
-#include "TYPES.H"
+#include "Common/sequence_timing.h"
+#include "types.h"
 
 /* READ.CPP */
 /* read8_Read.c */

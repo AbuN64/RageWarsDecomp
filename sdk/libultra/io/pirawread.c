@@ -1,8 +1,8 @@
 #include "include_asm.h"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "TYPES.H"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/ospihandle_s.h"
+#include "Common/runtime_declarations.h"
+#include "types.h"
+#include "Common/alfxparam.h"
 #include "../../include/libultra/io/pirawread.H"
 #include "../../include/libultra/debug/assert.h"
 
@@ -48,7 +48,7 @@ unsigned char k_PirawreadEncodedBytes[13] = {
 #endif
 
 #if defined(VERSION_EU)
-unsigned char k_PirawreadEncodedBytesBlock1[13] = {
+unsigned char k_pirawreadPaddingBytes[13] = {
     0x00, 0x4F, 0x00, 0x00, 0x00, 0x4F, 0x00, 0x00, 0x00, 0x4F, 0x00, 0x00, 0x00,
 };
 #endif

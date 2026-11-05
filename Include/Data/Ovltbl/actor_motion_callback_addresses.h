@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_ACTOR_MOTION_CALLBACK_ADDRESSES_H
+#define DATA_OVLTBL_ACTOR_MOTION_CALLBACK_ADDRESSES_H
+extern char g_triggeredMotionSettleEnterEntry[];
+extern char g_triggeredMotionSettleUpdateEntry[];
+#endif

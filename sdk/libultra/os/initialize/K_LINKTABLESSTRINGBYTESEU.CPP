@@ -1,4 +1,4 @@
-#include "TYPES.H"
+#include "types.h"
 #include "include_asm.h"
 #if defined(VERSION_US)
 /* 800C7934.CPP */
@@ -9,7 +9,7 @@ struct {
     unsigned char b3[4];
     unsigned int w4[2];
     unsigned short h5[64];
-} g_overlayOneLinkTargetTableUs = {
+} g_overlayLinkTargetTableUs = {
     {
         0x0010000B, 0x00000000, 0x0013534D,
     },

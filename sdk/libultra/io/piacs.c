@@ -1,9 +1,10 @@
-#include "COMMON/OSPIHANDLE_S.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "TYPES.H"
+#include "Common/ospihandle_s.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "types.h"
 #include "../../include/OSINT/CREATE.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"

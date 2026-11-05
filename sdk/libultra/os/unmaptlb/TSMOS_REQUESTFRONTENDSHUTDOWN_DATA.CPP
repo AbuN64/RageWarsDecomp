@@ -1,5 +1,5 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "TYPES.H"
+#include "Data/rest_source_records.h"
+#include "types.h"
 #if defined(VERSION_EU_X)
 /* 800D2D20_3.CPP */
 RestaudioGlobalsLayout302 g_audioGlobals = {

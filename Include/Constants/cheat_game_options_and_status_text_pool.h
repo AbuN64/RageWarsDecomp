@@ -1,0 +1,6 @@
+#ifndef CONSTANTS_CHEAT_GAME_OPTIONS_AND_STATUS_TEXT_POOL_H
+#define CONSTANTS_CHEAT_GAME_OPTIONS_AND_STATUS_TEXT_POOL_H
+#if defined(VERSION_US_REV1)
+extern char g_cheatGameOptionsAndStatusTextPool[5032];
+#endif
+#endif

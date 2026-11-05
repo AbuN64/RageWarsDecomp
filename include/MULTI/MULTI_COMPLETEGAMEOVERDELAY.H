@@ -1,5 +1,0 @@
-#ifndef MULTI_MULTI_COMPLETEGAMEOVERDELAY_H
-#define MULTI_MULTI_COMPLETEGAMEOVERDELAY_H
-#include "COMMON/PLAYERRECAT64E.H"
-extern s32 Multi_CompleteGameOverDelay(void);
-#endif

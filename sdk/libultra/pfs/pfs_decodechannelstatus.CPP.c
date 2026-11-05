@@ -1,10 +1,9 @@
 #include "../../include/OSCONTREQUESFORMATSHORT.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/BOOT_MEMORY_AND_THREAD_BOUNDARIES.H"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
+#include "Common/boot_memory_and_thread_boundaries.h"
+#include "types.h"
+#include "Common/runtime_declarations.h"
 #include "../../include/PFS/pfs_decodechannelstatus.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"

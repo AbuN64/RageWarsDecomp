@@ -1,6 +1,6 @@
 #ifndef LIBULTRA_OS_TIMERINTR_H
 #define LIBULTRA_OS_TIMERINTR_H
-#include "TYPES.H"
+#include "types.h"
 struct TimerInterruptNode {
     void *next;
     void *prev;

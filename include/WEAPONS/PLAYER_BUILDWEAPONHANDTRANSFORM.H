@@ -1,5 +1,0 @@
-#ifndef WEAPONS_PLAYER_BUILDWEAPONHANDTRANSFORM_H
-#define WEAPONS_PLAYER_BUILDWEAPONHANDTRANSFORM_H
-#include "COMMON/WEAPON_MARKER_AND_PROFILE_VIEWS.H"
-extern void Player_BuildWeaponHandTransform(char *actor);
-#endif

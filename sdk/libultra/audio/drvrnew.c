@@ -1,14 +1,13 @@
 #include "../../include/libgultra.h"
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/ALAUXBUS_S.H"
-#include "COMMON/ALPARAM_S.H"
-#include "COMMON/ALDELAY28.H"
-#include "COMMON/AUDIO_LOADDECODEDSAMPLES.H"
-#include "COMMON/TRIPLE.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/alauxbus_s.h"
+#include "Common/alparam_s.h"
+#include "Common/audio_effect_chain.h"
+#include "Common/audio_loaddecodedsamples.h"
+#include "Common/triple.h"
 #include "../../include/libgultra_inferred/ALFILTERNEW.H"
-#include "COMMON/OSPIHANDLE_S.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/ospihandle_s.h"
 #include "include_asm.h"
 #include "../../include/libultra/audio/drvrnew.h"
 
@@ -64,7 +63,7 @@ extern const f32 g_effectResampleIncrementScale;
  /* 2^32 */
 extern const f32 g_effectResampleDepthScale;
 
-typedef s32 (*FuncPtr)(void *);
+
 
 
 
@@ -176,7 +175,7 @@ void alFxNew(ALFx *r, ALSynConfig *c, ALHeap *hp)
     }
 }
 
-void alLoadNew(void *loadFilter, FuncPtr createDma, s32 heap) {
+void alLoadNew(void *loadFilter, ALDMANew createDma, s32 heap) {
     alFilterNew(loadFilter, &alAdpcmPull_Address, &alLoadParam_Address, 0);
     ((ALLoadFilter48_2 *)loadFilter)->state = alHeapDBAlloc(0, 0, heap, 1, 0x20);
     ((ALLoadFilter48_2 *)loadFilter)->lstate = alHeapDBAlloc(0, 0, heap, 1, 0x20);
@@ -188,16 +187,16 @@ void alLoadNew(void *loadFilter, FuncPtr createDma, s32 heap) {
 
 void alMainBusNew(void *busFilter, s32 maxSources, s32 sources) {
     alFilterNew(busFilter, (s32) &alMainBusPull_Address, (s32) &alMainBusParam_Address, 7);
-    (((struct TextLayerRect *) ((s8 *) busFilter))->x) = 0;
-    (((struct TextLayerRect *) ((s8 *) busFilter))->right) = sources;
-    (((struct TextLayerRect *) ((s8 *) busFilter))->y) = maxSources;
+    ((ALMainBus_s *)busFilter)->sourceCount = 0;
+    ((ALMainBus_s *)busFilter)->sources = (ALFilter_s14 **)sources;
+    ((ALMainBus_s *)busFilter)->maxSources = maxSources;
 }
 
 void alAuxBusNew(void *busFilter, s32 maxSources, s32 sources) {
     alFilterNew(busFilter, (s32) &alAuxBusPull_Address, (s32) &alAuxBusParam_Address, 6);
-    (((struct TextLayerRect *) ((s8 *) busFilter))->x) = 0;
-    (((struct TextLayerRect *) ((s8 *) busFilter))->right) = sources;
-    (((struct TextLayerRect *) ((s8 *) busFilter))->y) = maxSources;
+    ((ALMainBus_s *)busFilter)->sourceCount = 0;
+    ((ALMainBus_s *)busFilter)->sources = (ALFilter_s14 **)sources;
+    ((ALMainBus_s *)busFilter)->maxSources = maxSources;
 }
 
 

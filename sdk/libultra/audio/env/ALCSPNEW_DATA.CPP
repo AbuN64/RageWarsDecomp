@@ -1,5 +1,5 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "TYPES.H"
+#include "Data/rest_source_records.h"
+#include "types.h"
 
 #if defined(VERSION_US)
 s16 g_audioEqualPowerPanTable[128] = {
@@ -20,7 +20,7 @@ s16 g_audioEqualPowerPanTable[128] = {
     6044, 5646, 5246, 4845, 4444, 4042, 3640, 3237,
     2833, 2429, 2025, 1620, 1216, 810, 405, 0,
 };
-RestaudioGlobalsTailWordsUsLayout295 g_audioGlobalsTailWordsUs = {
+AudioGlobalsTailWordsUsLayout g_audioGlobalsTailWordsUs = {
     { 16, 16, 32, 0 },
     { -1e+01f, 0.0f },
     "REBORN_D\000MAGED_HOLDING_F\000\000\000\000",

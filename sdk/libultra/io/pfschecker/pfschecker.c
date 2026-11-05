@@ -1,13 +1,15 @@
+#include <libultra/pfs/PFS.H>
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "TYPES.H"
-#include "COMMON/CONTROLLER_MOTOR_STATE.H"
-#include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
+#include "PFS/INODE.H"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "types.h"
+#include "Common/controller_motor_state.h"
+#include "Common/player_pool_and_inode_cache_views.h"
 #include "../../../include/OSCONTREQUESFORMATSHORT.H"
 #include "../../../include/PFS/PFS_READWRITEINODE.H"
 #include "../../../include/PFS/__OSCHECKID.H"
 #include "../../../include/PFS/PFS_SELECTACTIVEBANK.H"
-#include <ultra64.h>
+#include <platform_sdk.h>
 #include "../../../include/libultra/pfs/PFS_COUNTPAGEREFERENCES.H"
 #include "../../../include/libultra/pfs/PFS.H"
 #include "../../../include/libultra/pfs/ospfschecker.h"
@@ -347,9 +349,8 @@ s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache) {
 
 /* pfschecker.c */
 #if !(defined(VERSION_EU_X) || defined(VERSION_US_REV1))
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/PLAYER_POOL_AND_INODE_CACHE_VIEWS.H"
-#include "TYPES.H"
+#include "Common/player_pool_and_inode_cache_views.h"
+#include "types.h"
 #include "../../../include/PFS/PFS_READWRITEINODE.H"
 s32 corrupted(OSPfs *pfs, __OSInodeUnit fpage, __OSInodeCache *cache) {
     int j;

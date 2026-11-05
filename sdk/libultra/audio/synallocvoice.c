@@ -1,7 +1,8 @@
+#include "Common/alauxbus_s.h"
 #include "include_asm.h"
 #include "../../include/libgultra.h"
-#include "COMMON/SHAREDRECV4.H"
-#include "TYPES.H"
+#include "Common/audio_voice_allocation.h"
+#include "types.h"
 #include "../../include/libgultra/alunlink.h"
 #include "../../include/libultra/audio/synallocvoice.h"
 
@@ -16,14 +17,14 @@ s32 _allocatePVoice(void *synth, void **selectedVoice, s16 requestedPriority) {
     void *candidateVoice;
 
     lowestPriority = requestedPriority;
-    candidateVoice = ((AudioSynthVoiceAllocatorView *)synth)->pLameList.next;
+    candidateVoice = ((ALSynth4C *)synth)->pLameList.next;
     voiceStolen = 0;
-    if ((candidateVoice != 0) || (candidateVoice = ((AudioSynthVoiceAllocatorView *)synth)->pFreeList.next, (candidateVoice != 0))) {
+    if ((candidateVoice != 0) || (candidateVoice = ((ALSynth4C *)synth)->pFreeList.next, (candidateVoice != 0))) {
         *selectedVoice = candidateVoice;
         alUnlink(candidateVoice);
-        alLink(candidateVoice, &((AudioSynthVoiceAllocatorView *)synth)->pAllocList.next);
+        alLink(candidateVoice, &((ALSynth4C *)synth)->pAllocList.next);
     } else {
-        candidateVoice = ((AudioSynthVoiceAllocatorView *)synth)->pAllocList.next;
+        candidateVoice = ((ALSynth4C *)synth)->pAllocList.next;
         stolenResultCopy = voiceStolen;
         if (candidateVoice != 0) {
             do {

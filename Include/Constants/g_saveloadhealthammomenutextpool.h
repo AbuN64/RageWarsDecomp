@@ -1,0 +1,6 @@
+#ifndef CONSTANTS_G_SAVELOADHEALTHAMMOMENUTEXTPOOL_H
+#define CONSTANTS_G_SAVELOADHEALTHAMMOMENUTEXTPOOL_H
+#if defined(VERSION_US_REV1)
+extern char g_saveLoadHealthAmmoMenuTextPool[8];
+#endif
+#endif

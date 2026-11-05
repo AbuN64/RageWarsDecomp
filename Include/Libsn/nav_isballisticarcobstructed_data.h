@@ -1,0 +1,4 @@
+#ifndef LIBSN_NAV_ISBALLISTICARCOBSTRUCTED_DATA_H
+#define LIBSN_NAV_ISBALLISTICARCOBSTRUCTED_DATA_H
+#include "frontend_symbols.h"
+#endif

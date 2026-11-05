@@ -1,6 +1,6 @@
 #include "include_asm.h"
-#include "COMMON/GUMTXL2F.H"
-#include <ultra64.h>
+#include "Common/gumtxl2f.h"
+#include <platform_sdk.h>
 
 /* aigetlen.CPP */
 /** Read the hardware register at 0xA450000C. */

@@ -275,8 +275,8 @@ LEAF(__osExceptionPreamble)
     lui     sp, 0x8014
     addiu   sp, sp, 0x7BD0
 #elif VERSION_US_REV1
-    lui     sp, %hi(g_exceptionStackTopUsRev1)
-    addiu   sp, sp, %lo(g_exceptionStackTopUsRev1)
+    lui     sp, %hi(g_exceptionStackTop)
+    addiu   sp, sp, %lo(g_exceptionStackTop)
 #else
     lui     sp, %hi(g_exceptionStackTopDe)
     addiu   sp, sp, %lo(g_exceptionStackTopDe)
@@ -417,8 +417,8 @@ LEAF(__osExceptionPreamble)
     lui     t1, 0x800D
     addiu   t1, t1, 0x3F04
 #elif VERSION_US_REV1
-    lui     t1, %hi(g_preNmiShutdownFlagUsRev1)
-    addiu   t1, t1, %lo(g_preNmiShutdownFlagUsRev1)
+    lui     t1, %hi(g_preNmiShutdownFlag)
+    addiu   t1, t1, %lo(g_preNmiShutdownFlag)
 #else
     lui     t1, %hi(g_preNmiShutdownFlagDe)
     addiu   t1, t1, %lo(g_preNmiShutdownFlagDe)
@@ -904,7 +904,7 @@ g_preNmiShutdownFlagEuX:
 .word 0
 #endif
 #if VERSION_US_REV1
-.globl g_preNmiShutdownFlagUsRev1
-g_preNmiShutdownFlagUsRev1:
+.globl g_preNmiShutdownFlag
+g_preNmiShutdownFlag:
 .word 0
 #endif

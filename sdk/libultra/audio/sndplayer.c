@@ -1,28 +1,27 @@
 #include "../../include/libgultra.h"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/ALBANK_S.H"
-#include "COMMON/PARAMSRECAT8V3.H"
-#include "COMMON/CONTREADFORMAT.H"
-#include "TYPES.H"
+#include "Common/audio_callbacks.h"
+#include "Common/runtime_declarations.h"
+#include "Common/albank_s.h"
+#include "Common/sound_player_parameter_events.h"
+#include "Common/contreadformat.h"
+#include "types.h"
 #include "../../include/libgultra/_DIVS32BYF32.H"
 #include "include_asm.h"
 #include "../../include/EXTERNS.H"
-#include "COMMON/TRIPLE.H"
+#include "Common/triple.h"
 #include "../../include/libgultra/alunlink.h"
 #include "../../include/libultra/debug/assert.h"
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "COMMON/ALFXPARAM.H"
+#include "Data/rest_source_records.h"
+#include "Common/alfxparam.h"
 
 /* sndplayer.c */
 extern int _sndpVoiceHandler_Address(void *soundPlayer);
 #if defined(VERSION_US_REV1)
-#define SNDP_MIN_PITCH g_SndplayerWords1
-#define SNDP_ASSERT_TEXT g_SndplayerBytes2
+#define SNDP_MIN_PITCH g_soundPlayerMinPitch
+#define SNDP_ASSERT_TEXT g_soundPlayerAssertText
 #define SNDP_SOURCE_TEXT g_audioSndplayerSourceText
 #else
-#define SNDP_MIN_PITCH g_SndplayerBytes1
+#define SNDP_MIN_PITCH g_soundPlayerMinPitch
 #define SNDP_ASSERT_TEXT g_soundPlayerAssertText
 #define SNDP_SOURCE_TEXT s_audioSndplayerText
 #endif
@@ -293,11 +292,11 @@ s32 _DivS32ByF32(s32 val, f32 div) {
 /* The rodata literals the voice handler and _DivS32ByF32 read, after the _handleEvent jump table:
    the 0.0001f pitch floor, the assert expression text and the source path of the assert. */
 #if defined(VERSION_US_REV1)
-const f32 g_SndplayerWords1 = 0.0001f;
-const char g_SndplayerBytes2[] = "EX";
+const f32 g_soundPlayerMinPitch = 0.0001f;
+const char g_soundPlayerAssertText[] = "EX";
 const char g_audioSndplayerSourceText[] = "audio/sndplayer.c";
 #else
-const f32 g_SndplayerBytes1 = 0.0001f;
+const f32 g_soundPlayerMinPitch = 0.0001f;
 const char g_soundPlayerAssertText[] = "EX";
 const char s_audioSndplayerText[] = "audio/sndplayer.c";
 #endif
@@ -326,8 +325,8 @@ unsigned int k_SpZeroWords[1] = {
 /* SpStoreWordUnit.CPP */
 
 /* SNDPLAYER_DATA.CPP */
-/* ROM-grounded data: src/k_SndplayerEncodedWordsBlock1_SndplayerData.c */
-const RestAudioFourByteDoubleConstant k_SndplayerEncodedWordsBlock1 = { 2147483647.0 };
+/* ROM-grounded data: src/k_sndplayerIntegerLimit_SndplayerData.c */
+const RestAudioFourByteDoubleConstant k_sndplayerIntegerLimit = { 2147483647.0 };
 
 #if defined(VERSION_US)
 char s_SndplayerTOptiText[8] =
@@ -336,7 +335,7 @@ char s_SndplayerTOptiText[8] =
 
 #if defined(VERSION_EU)
 extern char Weapon_FireStateEnterCallbackEntry[];
-void *k_SndplayerEncodedWordsBlock4[2] = {
+void *k_sndplayerFireStateCaseAddresses[2] = {
     (void *)(Weapon_FireStateEnterCallbackEntry + 1120), (void *)(Weapon_FireStateEnterCallbackEntry + 1120),
 };
 #endif

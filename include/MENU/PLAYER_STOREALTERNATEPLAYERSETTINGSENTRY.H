@@ -1,6 +1,0 @@
-#ifndef MENU_PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY_H
-#define MENU_PLAYER_STOREALTERNATEPLAYERSETTINGSENTRY_H
-#include "COMMON/MENULISTSCREEN.H"
-extern void Player_SelectAlternatePlayerSettingsEntry(s32);
-extern void Player_StoreAlternatePlayerSettingsEntry(s32);
-#endif

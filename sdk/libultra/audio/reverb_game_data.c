@@ -1,15 +1,15 @@
-#include "TYPES.H"
-#include "DATA/REST_SOURCE_RECORDS.H"
+#include "types.h"
+#include "Data/rest_source_records.h"
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
-/* G_RESOURCESENCODEDWORDSBLOCK39.CPP */
+/* G_COLLIDERETAINEDRECORDWORDS.CPP */
 #if defined(VERSION_EU_X)
 #if defined(VERSION_EU_X)
 /* 800C8DA4.CPP */
 struct {
     u8 alignmentFill[12];
-} g_ResourcesEncodedWordsBlock71 __attribute__((aligned(4))) = {
+} g_reverbAngleRadiansAndFlagWord __attribute__((aligned(4))) = {
     { 0x3F, 0x5F, 0x66, 0xF4, 0x3F, 0x06, 0x0A, 0x93, 0x00, 0x00, 0x01, 0x00 }
 };
 #endif
@@ -49,17 +49,17 @@ char s_SaveAudioSaveCText[12] =
 #endif
 
 #if defined(VERSION_US_REV1)
-const float k_saveFloatConstantWordsBlock1[3] = {
+const float k_reverbRateAndTinyScale[3] = {
     3.0e+01f, 0.0f, 5.7762263e-06f,
 };
 
-/* ROM-grounded data: src/k_saveFloatConstantWordsBlock2_Save.c */
-const float k_saveFloatConstantWordsBlock2[3] = {
+/* ROM-grounded data: src/k_reverbHalfWordRangeAndInverse_Save.c */
+const float k_reverbHalfWordRangeAndInverse[3] = {
     32768.0f, 3.0517578e-05f, 1.0f,
 };
 
-/* ROM-grounded data: src/k_saveFloatConstantWordsBlock3_Save.c */
-const float k_saveFloatConstantWordsBlock3[3] = {
+/* ROM-grounded data: src/k_reverbSmallScales_Save.c */
+const float k_reverbSmallScales[3] = {
     2.0f, 4.0f, 1.0f,
 };
 #endif

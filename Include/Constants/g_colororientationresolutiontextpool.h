@@ -1,0 +1,6 @@
+#ifndef CONSTANTS_G_COLORORIENTATIONRESOLUTIONTEXTPOOL_H
+#define CONSTANTS_G_COLORORIENTATIONRESOLUTIONTEXTPOOL_H
+#if defined(VERSION_US_REV1)
+extern char g_colorOrientationResolutionTextPool[64];
+#endif
+#endif

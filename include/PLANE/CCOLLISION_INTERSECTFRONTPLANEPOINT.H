@@ -1,4 +1,0 @@
-#ifndef PLANE_CCOLLISION_INTERSECTFRONTPLANEPOINT_H
-#define PLANE_CCOLLISION_INTERSECTFRONTPLANEPOINT_H
-f32 CCollision_GetSurfaceHeight(void *query, f32 x, f32 z);
-#endif

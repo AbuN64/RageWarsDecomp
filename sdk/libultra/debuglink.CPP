@@ -1,8 +1,8 @@
-#include "COMMON/RESPONSE.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "TYPES.H"
-#include "TYPES.H"
-#include <ultra64.h>
+#include "Common/response.h"
+#include "Common/runtime_declarations.h"
+#include "types.h"
+#include "types.h"
+#include <platform_sdk.h>
 #include "../include/libultra/debuglink.H"
 
 #if defined(VERSION_US_REV1)

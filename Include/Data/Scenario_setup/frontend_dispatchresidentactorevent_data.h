@@ -1,0 +1,17 @@
+#ifndef DATA_SCENARIO_SETUP_FRONTEND_DISPATCHRESIDENTACTOREVENT_DATA_H
+#define DATA_SCENARIO_SETUP_FRONTEND_DISPATCHRESIDENTACTOREVENT_DATA_H
+extern char addrLow_Frontend_CreateTimedMenu_us_rev1[];
+extern char addrLow_Frontend_FreePage67Screen_us_rev1[];
+extern char addrLow_Frontend_ClearPage67ModeFlag_us_rev1[];
+extern char addrLow_Frontend_UpdatePage67Exit_us_rev1[];
+extern char addrLow_Frontend_IgnorePage67Event_us_rev1[];
+extern char addrLow_Frontend_AcknowledgePage67Event_us_rev1[];
+extern char addrLow_Frontend_HandlePage67Choice_us_rev1[];
+extern char addrLow_Frontend_CreatePauseConfirmation3[];
+extern char addrLow_Timed_DestroyPauseConfirmation3[];
+extern char addrLow_Timed_SetConfirmationInputMode3[];
+extern char addrLow_Timed_FinishPauseConfirmationTransition3[];
+extern char addrLow_Frontend_ReturnConfirmationEventZero3[];
+extern char addrLow_Frontend_ConsumeConfirmationEvent3[];
+extern char addrLow_Timed_UpdateTimedScreen3[];
+#endif

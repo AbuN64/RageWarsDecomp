@@ -1,9 +1,9 @@
 #ifndef BUF16B_H
 #define BUF16B_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-#include "COMMON/AUDIO_INITIALIZE.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/resident_event_handler.h"
+#include "Common/audio_initialize.h"
 
 struct Buf16b;
 struct Buf16b {

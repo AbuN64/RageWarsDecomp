@@ -1,6 +1,6 @@
-#include "COMMON/COMPRESSED_SEQUENCE_AND_EVENT_VIEWS.H"
-#include "TYPES.H"
-#include "../include/MEASUREDRECAT18.H"
+#include "Common/compressed_sequence_and_event_views.h"
+#include "types.h"
+#include "../include/COMPRESSED_SEQUENCE_CURSOR.H"
 #include "../include/libultra/alcseqnewmarker_data.CPP.h"
 #include "../include/libultra/audio/cseq.h"
 

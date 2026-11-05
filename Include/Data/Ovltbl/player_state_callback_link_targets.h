@@ -1,0 +1,5 @@
+#ifndef DATA_OVLTBL_G_OVERLAYFIVELINKRECORDLINKWORDSBLOCK7_H
+#define DATA_OVLTBL_G_OVERLAYFIVELINKRECORDLINKWORDSBLOCK7_H
+extern char g_playerLinkTargetPairLeadingTarget[];
+extern char g_playerLinkTargetPairTrailingTarget[];
+#endif

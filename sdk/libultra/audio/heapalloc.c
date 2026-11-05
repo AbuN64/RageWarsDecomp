@@ -1,7 +1,8 @@
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
 #include "../../include/BUF16B.H"
-#include "TYPES.H"
+#include "types.h"
 
 void    *alHeapDBAlloc(u8 *a, s32 b, ALHeap *c, s32 d, s32 e) {
     ALHeap *heap = c;

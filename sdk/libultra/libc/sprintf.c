@@ -1,8 +1,8 @@
 #include "../../include/LIBC.H"
 #include "include_asm.h"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "COMMON/LLDIVRESULT.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Common/lldivresult.h"
+#include "types.h"
 #include "../../include/EXTERNS.H"
 
 /* sprintf: formats into a buffer through _Printf with the copying output routine, terminates the text when the length is not negative, and returns the length. */

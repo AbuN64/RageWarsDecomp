@@ -1,6 +1,6 @@
 #ifndef LIBULTRA_AUDIO_SEQP_H
 #define LIBULTRA_AUDIO_SEQP_H
-#include "TYPES.H"
+#include "types.h"
 extern char __CSPVoiceHandler_Address;
 extern void __CSPHandleNextSeqEvent(void *rawPlayer);
 extern void __CSPPostNextSeqEvent(void *sequencePlayer);

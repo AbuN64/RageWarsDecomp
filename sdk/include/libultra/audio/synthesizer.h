@@ -1,8 +1,8 @@
 #ifndef LIBULTRA_AUDIO_SYNTHESIZER_H
 #define LIBULTRA_AUDIO_SYNTHESIZER_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/ALAUXBUS_S.H"
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Common/alauxbus_s.h"
 
 struct ALEnvMixer4C {
     char pad[0x4C];
@@ -20,5 +20,5 @@ struct PVoice_s {
 extern void*__allocParam(void);
 extern void __freeParam(void*parameterStorage);
 extern void _freePVoice(s32 synthesizer, s32 listLink);
-extern s32 _timeToSamples(SynthOutputRateView*synth, s32 microseconds);
+extern s32 _timeToSamples(ALSynth*synth, s32 microseconds);
 #endif

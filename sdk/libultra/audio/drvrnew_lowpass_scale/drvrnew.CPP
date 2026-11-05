@@ -1,5 +1,5 @@
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
 #if defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 /* ROM-grounded data: rodata/shared/800CC840 */

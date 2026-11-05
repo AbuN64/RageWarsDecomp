@@ -1,12 +1,12 @@
-#include "COMMON/OSPIHANDLE_S.H"
-#include <ultra64.h>
-#include "TYPES.H"
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include "GAMECORE/EXTERNS.H"
+#include "Common/ospihandle_s.h"
+#include <platform_sdk.h>
+#include "types.h"
+#include "Common/runtime_declarations.h"
+#include "Gamecore/externs.h"
 #include "../../include/libultra/io/epirawread.H"
 #include "../../include/libultra/debug/assert.h"
 #include "include_asm.h"
-#include "COMMON/ALFXPARAM.H"
+#include "Common/alfxparam.h"
 
 /* epirawread.c */
 extern OSPiHandle *g_peripheralDomainHandles[];

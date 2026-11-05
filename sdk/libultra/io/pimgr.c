@@ -5,9 +5,9 @@
 
 /* 802BDEA0.CPP */
 #if !defined(VERSION_US_REV1)
-#include "TYPES.H"
-#include "COMMON/OSVISCALE.H"
-#include <ultra64.h>
+#include "types.h"
+#include "Common/osviscale.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 #include "../../include/os_pif.h"
@@ -62,8 +62,8 @@ void osCreatePiManager(s32 pri, OSMesgQueue *cmdQ, void **cmdBuf, s32 cmdMsgCnt)
 
 /* 802BDEC0.CPP */
 #if defined(VERSION_US_REV1)
-#include "TYPES.H"
-#include "COMMON/OSVISCALE.H"
+#include "types.h"
+#include "Common/osviscale.h"
 #include "../../include/os_pif.h"
 extern OSDevMgr __osPiDevMgr;
 

@@ -1,5 +1,5 @@
-#include "DATA/REST_SOURCE_RECORDS.H"
-#include "TYPES.H"
+#include "Data/rest_source_records.h"
+#include "types.h"
 #include "../../include/libgultra.h"
 
 /* DECODE.CPP */
@@ -33,7 +33,7 @@ struct {
 };
 #endif
 
-/* G_RESOURCESENCODEDWORDSBLOCK39.CPP */
+/* G_COLLIDERETAINEDRECORDWORDS.CPP */
 #if defined(VERSION_EU)
 /* 800C88E8.CPP */
 struct {

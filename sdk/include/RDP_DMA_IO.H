@@ -1,7 +1,7 @@
 #ifndef RDP_DMA_IO_H
 #define RDP_DMA_IO_H
-#include "TYPES.H"
-#include <ultra64.h>
+#include "types.h"
+#include <platform_sdk.h>
 
 /* Uncached RDP DMA registers; every access retains the shared volatile word type. */
 #define RDP_DMA_START_REG 0xA4100000U

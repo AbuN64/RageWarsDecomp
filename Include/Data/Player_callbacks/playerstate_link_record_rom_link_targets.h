@@ -1,0 +1,5 @@
+#ifndef DATA_PLAYER_CALLBACKS_PLAYERSTATE_LINK_RECORD_ROM_LINK_TARGETS_H
+#define DATA_PLAYER_CALLBACKS_PLAYERSTATE_LINK_RECORD_ROM_LINK_TARGETS_H
+extern char addrLow_Playerai_ClearPlayerWeaponLock[];
+extern char addrLow_Playerai_EnterMovingSequenceState[];
+#endif

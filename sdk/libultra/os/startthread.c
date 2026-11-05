@@ -1,12 +1,12 @@
 #include "../../include/thread_queue.h"
 #include "include_asm.h"
-#include "COMMON/LONE/OS_RUNNABLE_THREAD_QUEUE.H"
-#include "COMMON/NODERECAT1C.H"
-#include "COMMON/CTX.H"
-#include "TYPES.H"
-#include "COMMON/VERSION_CALLS.H"
-#include "COMMON/__OSDISPATCHTHREAD.H"
-#include <ultra64.h>
+#include "Common/Lone/os_runnable_thread_queue.h"
+#include "Common/os_timer_nodes.h"
+#include "Common/ctx.h"
+#include "types.h"
+#include "Common/version_calls.h"
+#include "Common/__osdispatchthread.h"
+#include <platform_sdk.h>
 #include <PR/os_internal_reg.h>
 #include <PR/os_internal_si.h>
 

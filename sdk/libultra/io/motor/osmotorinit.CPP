@@ -1,6 +1,8 @@
+#include <os_pif.h>
 #include "include_asm.h"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
+#include "types.h"
 #include "../../../include/libultra/io/contramread.h"
 #include "../../../include/libultra/io/contramwrite.h"
 

@@ -1,7 +1,7 @@
-#include "COMMON/RUNTIME_DECLARATIONS.H"
-#include <ultra64.h>
-#include "COMMON/ALFXPARAM.H"
-#include "TYPES.H"
+#include "Common/runtime_declarations.h"
+#include <platform_sdk.h>
+#include "Common/alfxparam.h"
+#include "types.h"
 #include <PR/os_internal_rsp.h>
 #include "../../../include/libgultra/sp.h"
 #include "../../../include/libultra/debug/assert.h"
@@ -18,7 +18,7 @@ char s_expandHudLabelFragment[14] =
 #endif
 
 #if defined(VERSION_EU_X)
-unsigned short k_GSprawdmatextEncodedHalfwordsBlock1[7] = {
+unsigned short k_gSprawdmatextFragment[7] = {
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 #endif
@@ -28,7 +28,7 @@ unsigned short k_GSprawdmatextEncodedHalfwordsBlock1[7] = {
 #endif
 
 #if defined(VERSION_EU)
-unsigned short k_GSprawdmatextEncodedHalfwordsBlock1[7] = {
+unsigned short k_gSprawdmatextFragment[7] = {
     0x0000, 0x41F0, 0x0000, 0x4180, 0x0000, 0x41F0, 0x0000,
 };
 #endif

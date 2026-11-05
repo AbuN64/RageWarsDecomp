@@ -1,9 +1,12 @@
-#include "COMMON/ALPARAM_S.H"
+#include "Common/alauxbus_s.h"
+#include "Common/alparam_s.h"
 #include "../../include/libgultra.h"
-#include "COMMON/AUDIO_CALLBACKS.H"
-#include "COMMON/ITEMRECAT20V1.H"
+#include "Common/audio_callbacks.h"
+#include "Audio/synth_player_and_voice_records.h"
+#include "Common/runtime_declarations.h"
+#include "Ui/Tsmos/Screens/pakinterfacescreen.h"
 #include "../../include/VOICE_START_AND_PARAMETER_UPDATE_VIEWS.H"
-#include "TYPES.H"
+#include "types.h"
 #include "../../include/libultra/audio/synthesizer.h"
 
 /* alSynStartVoiceParams, drafted from ultralib src/audio/synstartvoiceparam.c (2.0I branch, no
@@ -28,7 +31,7 @@
 
 void alSynStartVoiceParams(ALSynth *synth, ALVoice *v, ALWaveTable *w, f32 pitch, s16 vol, ALPan pan, u8 fxmix, ALMicroTime t)
 {
-    AudioSynthVoiceAllocatorView *s = (AudioSynthVoiceAllocatorView *)synth;
+    ALSynth4C *s = (ALSynth4C *)synth;
     ALStartParamAlt *update;
     AudioVoiceChannelFilterView *f;
 

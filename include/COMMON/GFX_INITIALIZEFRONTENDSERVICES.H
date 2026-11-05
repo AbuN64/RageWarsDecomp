@@ -1,7 +1,0 @@
-#ifndef COMMON_GFX_INITIALIZEFRONTENDSERVICES_H
-#define COMMON_GFX_INITIALIZEFRONTENDSERVICES_H
-#include "TYPES.H"
-#include "COMMON/ITEMRECAT20V1.H"
-#include "COMMON/RESIDENT_EVENT_HANDLER.H"
-extern void Gfx_InitializeFrontendServices(void);
-#endif

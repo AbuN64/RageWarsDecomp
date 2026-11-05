@@ -1,5 +1,0 @@
-#ifndef EARLIER_BUILD_EARLIER_MENU_DE_1C88E0_H
-#define EARLIER_BUILD_EARLIER_MENU_DE_1C88E0_H
-extern struct MenuBuildDefinitionData g_earlierMenuDef104;
-extern struct MenuBuildDefinitionData g_earlierMenuDef110;
-#endif

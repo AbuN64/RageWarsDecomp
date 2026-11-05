@@ -1,0 +1,28 @@
+Source of include/PR/*.h and include/platform_sdk.h
+  Open reconstruction: decompals/ultralib (https://github.com/decompals/ultralib), include/PR and include/platform_sdk.h,
+  commit "e24c836796df4bf520ff8b11a5c9d2cea3a66cbd" (2026-04-19). Files keep their SGI names, paths and macro names.
+  Nothing was copied from the leaked SDK.
+Deviation from the ultralib text
+  ultratypes.h: u32 is unsigned int and s32 is int (ultralib: unsigned long / long), as in BattleTanx 35dbea7 and as
+  the project's own TYPES.H has always typedef'd them. The matched libultra objects (sdk/libultra/os/sendmesg.c,
+  recvmesg.c, jammesg.c, osyieldthread.CPP) were matched with int-sized s32/u32; vu32/vs32 stay long.
+  ultratypes.h: _MIPS_SZLONG tests are guarded with defined(); the SN gcc 2.8.1 preprocessor (-undef) does not define it,
+  and the default is the 32-bit long case.
+  R4300.h: the include guard is __R4300_H__ and it includes <PR/ultratypes.h> (the project's own copy had the same).
+  libaudio.h: the tempo argument of alSeqTicksToSec, alCSeqTicksToSec and alCSeqSecToTicks is s32 (ultralib: u32). The matched
+  bodies in sdk/libultra/audio/seq.c (alSeqTicksToSec) and cseq.c (alCSeqTicksToSec, alCSeqSecToTicks) convert the signed
+  tempo to f64 and add the unsigned bias by hand; with u32 the compiler emits a different conversion.
+  os_thread.h: __OSThreadContext also holds fp1, fp3 .. fp31 after fp30 (sizeof(OSThread) 560, ultralib 432), as the
+  game's own type records in SOURCE/DATA/OVERLAYS/ELEVEN/CONSTANTS/G_SNDEBUGSYMBOLRECORDSSFXEQUATES.CPP list them (fp1 at 400). The
+  matched OSSched users (sdk/libultra/sched/sched_handleretrace.CPP, sched_runeventloop.CPP) read fields behind thread.
+  sptask.h, sched.h: OSTask's force_structure_alignment is u32[2] (ultralib: long long) and OSScTask
+  startTime/totalTime (OSScTime) are unsigned long long aligned to 4, so struct Frame in include/COMMON/DISPLAY.H is 4-aligned, sizeof(Display) is 0x3C4 and the GameSession members
+  follow it at their ROM offsets; SetN64_AdvanceDisplayFrame (SOURCE/ENGINE/SETN64/SETN64_ADVANCEDISPLAYFRAME.CPP) loads
+  ring.current with lw, not ulw.
+  sched.h: OSSched holds prenmiMsg before retraceMsg (ultralib: retraceMsg first); the matched
+  sdk/libultra/sched/sched_handleretrace.CPP, sched_runeventloop.CPP and SOURCE/ENGINE/SCHED/sched_runeventloopus.CPP send &sc->retraceMsg at +32.
+  ultratypes.h: the C typedefs are also skipped when _LANGUAGE_ASSEMBLY is defined. config.toml cppflags reach the assembler
+  preprocessor (AS_CPPFLAGS) too, and the hand-written .s files (sdk/boot/entry.s, sdk/libsn/debugexcept.s, debugger.s,
+  pfs_setwatchpoint.s, ...) include <PR/R4300.h>, which includes ultratypes.h.
+Compiler flags
+  -D_LANGUAGE_C (config.toml cppflags) selects the C declarations in the PR headers; no other flag was added.

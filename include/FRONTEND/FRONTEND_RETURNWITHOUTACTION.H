@@ -1,5 +1,0 @@
-#ifndef FRONTEND_FRONTEND_RETURNWITHOUTACTION_H
-#define FRONTEND_FRONTEND_RETURNWITHOUTACTION_H
-#include "COMMON/WIDGETRECAT1A.H"
-extern void Frontend_ReturnWithoutAction(void);
-#endif
