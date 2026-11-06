@@ -3,6 +3,6 @@
 #include "Common/aiprofile.h"
 struct SharedPlayer;
 void Playerai_DrawAimHud(struct SharedPlayer *player, void *view);
-extern void Player_UpdatePlayerEffectLights(struct Player *player);
+extern void Player_UpdatePlayerEffectLights(struct Player *player, void *actor);
 
 #endif

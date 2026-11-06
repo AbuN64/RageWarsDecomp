@@ -28,7 +28,7 @@ struct CheatMenuInputView {
     s32 input;
 };
 
-extern int g_persistedOptionUnlockFlags;
+extern int g_persistedOptionUnlockFlags[];
 
 
 struct Shared_Entry;

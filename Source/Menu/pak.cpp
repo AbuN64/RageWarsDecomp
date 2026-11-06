@@ -1,3 +1,4 @@
+#include "Control/control.h"
 #include "Menu/menu_box.h"
 #include "Menu/pak_records.h"
 #include "Engine/scene.h"
@@ -61,6 +62,7 @@
 #include "Menu/Pak/menu_drawanimatedmenusprite_symbols.h"
 #include "Ai/Player/player_updatefragtagselection_data_player_updatefragtagselection_data.h"
 #include "Menu/pak_load.h"
+#include "Control/control_cycleactorsnapshotmode.h"
 
 static __inline__ TextBoundsFont *textBoundsFont_menuMeasuremenutext(TextBoundsText *text) {
     s32 style = 0;
@@ -87,7 +89,7 @@ void Menu_MeasureMenuText(TextBoundsText *text, CItemInfo *metrics) {
     CItemInfo first, second, third;
     TextBoundsData *data;
     TextBoundsFont *font;
-    TextBoundsRecord23 *box;
+    TextBoundsBox *box;
     u8 *string;
     s32 count, width;
     f32 size, w, boxW, boxH, sx, sy, x, y;
@@ -501,7 +503,6 @@ typedef struct PakModelContext {
 extern Gfx *g_displayListCursor;
 extern s32 g_lightingBufferIndex, g_hudReferenceViewportWidth, g_gameLoopFrameCount;
 extern f32 literals_Scene_GetPlatformRoutePoint;
-extern u8 addrLow_Bound_DrawActorWithRedMenuEffect[], addrLow_Bound_DrawActorWithMenuLighting[];
 extern void *XPlus_FillMemory(void *destination, int fillValue, u32 byteCount);
 
 
@@ -583,9 +584,9 @@ void Menu_DrawMenuModel(PakModelEntry *entry, PakMenuCursor *cursor, void *bound
     opacity = context->fade * context->alpha;
     g_menuTintAlpha = (s32)(opacity * (wobble * 50.0f + 50.0f));
     if (context->selection == cursor->selection) {
-        draw->update = Bound_DrawActorWithRedMenuEffect;
+        draw->update = (void *)((u32)Bound_DrawActorWithRedMenuEffect - 0x80000000U);
     } else {
-        draw->update = Bound_DrawActorWithMenuLighting;
+        draw->update = (void *)((u32)Bound_DrawActorWithMenuLighting - 0x80000000U);
     }
     if (Cache_GetResourceActivityState() == 0) {
         Cache_SetResourceActivityState(1);
@@ -657,8 +658,9 @@ void Menu_InitializeMenu(MenuBuildState *menu, void **allocation, MenuBuildDefin
     menu->allocation = allocation;
     menu->entries = (MenuBuildEntry *)(menu + 1);
     menu->count = definition->count;
-    /* Per-entry extra data follows the entry array in the same allocation. */
-    extra = (u8 *)&menu->entries[definition->count];
+    /* Per-entry extra data follows the menu and its entry array in the same allocation. */
+    extra = (u8 *)(menu + 1);
+    extra += definition->count * sizeof(menu->entries[0]);
     i = 0;
     if (definition->count > 0) {
         do {
@@ -716,36 +718,6 @@ const f32 g_pakMenuAnimationLimits[4] = {
 
 /* An entry stores its four neighbour steps in the colour bytes: red, green, blue and alpha hold the
    relative index to move to for directions 16, 17, 18 and 19. */
-static s8 *MenuEntry_StepLink_pakMenuEntries(MenuBuildEntry *entry, u8 dir) {
-    switch (dir) {
-    case 16:
-        return (s8 *)&entry->red;
-    case 17:
-        return (s8 *)&entry->green;
-    case 18:
-        return (s8 *)&entry->blue;
-    default:
-        return (s8 *)&entry->alpha;
-    }
-}
-
-/* The flag an entry needs before arrival from the given direction records the way back. */
-static u32 MenuEntry_ReverseLinkFlag_pakMenuEntries(u8 dir) {
-    switch (dir) {
-    case 16:
-        return 0x80000;
-    case 17:
-        return 0x40000;
-    case 18:
-        return 0x200000;
-    default:
-        return 0x100000;
-    }
-}
-
-/* Moves a menu cursor in one direction (16 to 19) by the step stored on the current entry, wrapping at either
-   end. When the new entry allows it, it records the step back (direction 16 <-> 17, 18 <-> 19). The move repeats
-   until the cursor reaches an entry flagged 0x1800000 whose definition can be activated. */
 void Menu_MoveMenuCursor(MenuBuildState *menu, u8 dir) {
     MenuBuildEntry *entry;
     s32 old;
@@ -753,7 +725,7 @@ void Menu_MoveMenuCursor(MenuBuildState *menu, u8 dir) {
     entry = &menu->entries[menu->selected];
     do {
         old = menu->selected;
-        menu->selected += *MenuEntry_StepLink_pakMenuEntries(entry, dir);
+        menu->selected += ((s8 *)&entry->red)[dir - 16];
         if (menu->selected < 0) {
             menu->selected = menu->count - 1;
         } else if (menu->selected >= menu->count) {
@@ -761,8 +733,27 @@ void Menu_MoveMenuCursor(MenuBuildState *menu, u8 dir) {
         }
         entry = &menu->entries[menu->selected];
         old -= menu->selected;
-        if (dir >= 16 && dir <= 19 && (entry->flags & MenuEntry_ReverseLinkFlag_pakMenuEntries(dir))) {
-            *MenuEntry_StepLink_pakMenuEntries(entry, dir ^ 1) = old;
+        switch (dir) {
+        case 16:
+            if (entry->flags & 0x80000) {
+                entry->green = old;
+            }
+            break;
+        case 17:
+            if (entry->flags & 0x40000) {
+                entry->red = old;
+            }
+            break;
+        case 18:
+            if (entry->flags & 0x200000) {
+                entry->alpha = old;
+            }
+            break;
+        case 19:
+            if (entry->flags & 0x100000) {
+                entry->blue = old;
+            }
+            break;
         }
     } while ((entry->flags & 0x1800000) != 0x1800000 || entry->definition->activate == 0);
 }
@@ -985,7 +976,7 @@ void Menu_DrawMenuEntries(struct MenuStyle *menu, s8 *member) {
                     bottom = top + (bottom - top);
                     OnScreen_SetupFillMode();
                     alpha = menu->alpha * menu->fade *
-                        ((Gu_Sinf((f32)(g_gameLoopFrameCount * 10) * 0.017453294f) + 1.0f) * 50.0f + 50.0f);
+                        ((Gu_Sinf((f32)(u32)(g_gameLoopFrameCount * 10) * 0.017453294f) + 1.0f) * 50.0f + 50.0f);
                     if (entry->flags & 0x10) {
                         OnScreen_DrawBevelBox(placed.left - 4, top, placed.right + 4, bottom, 0, 0, 255, 0, 10, (u8)alpha);
                     } else {
@@ -1290,7 +1281,6 @@ s32 Menu_GetInnerMenuLock(struct Outer *outer) {
 }
 
 /* Adjusts a value from controller input and clamps or wraps it between its limits. */
-unsigned int Control_IsAButtonPressed(struct ControllerProfile *profile); /* extern */
 s32 Menu_AdjustValue(MenuValueStepView *menu,s32 value,s32 step,s32 minimum,s32 maximum,s32 wrap) {
  if(((s32 (*)(s32))Control_IsLeftPressed)(menu->flags))value-=step;
  if(((s32 (*)(s32))Control_IsRightPressed)(menu->flags)||Control_IsAButtonPressed(menu->flags))value+=step;
@@ -1639,7 +1629,7 @@ void Menu_InitMenuItemFromDescriptor(CMenuItem *w, WidgetDescriptor *d, char **a
  }
 }
 
-void *Menu_GetWidgetStyle(MenuItemFlagsView *widget) {
+void *Menu_GetWidgetStyle(MenuItemFlagsView *widget, s32 unused) {
  s32 index=0;
  switch(widget->flags & 0x3fe0) {
  case 32: break;

@@ -7,49 +7,7 @@
 #include "Data/Gfxdata/event_handler_code_targets.h"
 #include "Data/Pixel_format/g_pixelformatdescriptors.h"
 
-/* FRONTEND_UPDATESCREENMODE_DATA.CPP */
-#if defined(VERSION_DE)
-int g_frontendUpdateScreenModeData = -1;
-#endif
-#if defined(VERSION_EU)
-int g_frontendUpdateScreenModeData = -1;
-#endif
-#if defined(VERSION_EU_X)
-int g_frontendUpdateScreenModeData = -1;
-#endif
-#if defined(VERSION_US)
-int g_frontendUpdateScreenModeData = -1;
-#endif
-#if defined(VERSION_US_REV1)
-int g_frontendUpdateScreenModeData = -1;
-#endif
-
-/* FRONTEND_ADVANCEVIDEOMODE_DATA.CPP */
-#if defined(VERSION_DE)
-int g_frontendAdvanceVideoModeData[2] = {
-    3, 3
-};
-#endif
-#if defined(VERSION_EU)
-int g_frontendAdvanceVideoModeData[2] = {
-    3, 3
-};
-#endif
-#if defined(VERSION_EU_X)
-int g_frontendAdvanceVideoModeData[2] = {
-    3, 3
-};
-#endif
-#if defined(VERSION_US)
-int g_frontendAdvanceVideoModeData[2] = {
-    3, 3
-};
-#endif
-#if defined(VERSION_US_REV1)
-int g_frontendAdvanceVideoModeData[2] = {
-    3, 3
-};
-#endif
+/* The eu-x ROM slot holds only the format buffer below; these two words exist in the other four versions. */
 
 #if defined(VERSION_US)
 struct {

@@ -14,7 +14,7 @@ s32 Option_UpdateOptionInvincibilityItem(TextBoundsText *optionItem) {
     } else {
         optionItem->flags &= 0xFEFFFFFF;
     }
-    if (g_gameSettings.flags & 1) {
+    if (g_gameSettingsOptionFlags & 1) {
         optionItem->text = &g_menuOptionInvincibilityEnabledText;
     } else {
         optionItem->text = &g_menuOptionInvincibilityDisabledText;
@@ -24,14 +24,14 @@ s32 Option_UpdateOptionInvincibilityItem(TextBoundsText *optionItem) {
 
 /* Toggles bit 1 of the settings flag word g_gameSettings and returns 0. */
 s32 Option_ToggleOptionInfiniteLives(void) {
-    g_gameSettings.flags ^= 2;
+    g_gameSettingsOptionFlags ^= 2;
     return 0;
 }
 
 #if !(defined(VERSION_US_REV1))
 s32 Option_UpdateOptionInfiniteLivesItem(TextBoundsText *item) {
     if (g_menuOptionAvailabilityFlags & 2) item->flags |= 0x01000000; else item->flags &= 0xFEFFFFFF;
-    if (g_gameSettings.flags & 2) item->text = &g_menuOptionInfiniteLivesEnabledText; else item->text = &g_menuOptionInfiniteLivesDisabledText;
+    if (g_gameSettingsOptionFlags & 2) item->text = &g_menuOptionInfiniteLivesEnabledText; else item->text = &g_menuOptionInfiniteLivesDisabledText;
     return 0;
 }
 #endif
@@ -45,7 +45,7 @@ s32 Option_RefreshOptionInfiniteLivesItem(struct MenuOptionLabel *optionItem) {
     } else {
         optionItem->flags &= 0xFEFFFFFF;
     }
-    if (g_gameSettings.flags & 2) {
+    if (g_gameSettingsOptionFlags & 2) {
         optionItem->text = &g_menuOptionInfiniteLivesEnabledText;
     } else {
         optionItem->text = &g_menuOptionInfiniteLivesDisabledText;
@@ -57,7 +57,7 @@ s32 Option_RefreshOptionInfiniteLivesItem(struct MenuOptionLabel *optionItem) {
 /* Toggles bit 4 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionAllWeapons(void) {
-    g_gameSettings.flags ^= 4;
+    g_gameSettingsOptionFlags ^= 4;
     return 0;
 }
 
@@ -73,7 +73,7 @@ s32 Option_UpdateOptionAllWeaponsItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x4) {
+    if (g_gameSettingsOptionFlags & 0x4) {
         item->resource = (s32)(g_menuOptionAllWeaponsEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionAllWeaponsDisabledText);
@@ -84,7 +84,7 @@ s32 Option_UpdateOptionAllWeaponsItem(struct MenuBuildEntry *item) {
 /* Toggles bit 8 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionUnlimitedAmmo(void) {
-    g_gameSettings.flags ^= 8;
+    g_gameSettingsOptionFlags ^= 8;
     return 0;
 }
 
@@ -100,7 +100,7 @@ s32 Option_UpdateOptionUnlimitedAmmoItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x8) {
+    if (g_gameSettingsOptionFlags & 0x8) {
         item->resource = (s32)(g_menuOptionUnlimitedAmmoEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionUnlimitedAmmoDisabledText);
@@ -111,7 +111,7 @@ s32 Option_UpdateOptionUnlimitedAmmoItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x10 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionAllSpecialObjects(void) {
-    g_gameSettings.flags ^= 0x10;
+    g_gameSettingsOptionFlags ^= 0x10;
     return 0;
 }
 
@@ -127,7 +127,7 @@ s32 Option_UpdateOptionAllSpecialObjectsItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x10) {
+    if (g_gameSettingsOptionFlags & 0x10) {
         item->resource = (s32)(g_menuOptionAllSpecialObjectsEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionAllSpecialObjectsDisabledText);
@@ -138,7 +138,7 @@ s32 Option_UpdateOptionAllSpecialObjectsItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x20 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionBigHeadMode(void) {
-    g_gameSettings.flags ^= 0x20;
+    g_gameSettingsOptionFlags ^= 0x20;
     return 0;
 }
 
@@ -154,7 +154,7 @@ s32 Option_UpdateOptionBigHeadModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x20) {
+    if (g_gameSettingsOptionFlags & 0x20) {
         item->resource = (s32)(g_menuOptionBigHeadModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionBigHeadModeDisabledText);
@@ -165,7 +165,7 @@ s32 Option_UpdateOptionBigHeadModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x40 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionTinyMode(void) {
-    g_gameSettings.flags ^= 0x40;
+    g_gameSettingsOptionFlags ^= 0x40;
     return 0;
 }
 
@@ -181,7 +181,7 @@ s32 Option_UpdateOptionTinyModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x40) {
+    if (g_gameSettingsOptionFlags & 0x40) {
         item->resource = (s32)(g_menuOptionTinyModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionTinyModeDisabledText);
@@ -192,7 +192,7 @@ s32 Option_UpdateOptionTinyModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x80 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionStickMode(void) {
-    g_gameSettings.flags ^= 0x80;
+    g_gameSettingsOptionFlags ^= 0x80;
     return 0;
 }
 
@@ -208,7 +208,7 @@ s32 Option_UpdateOptionStickModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x80) {
+    if (g_gameSettingsOptionFlags & 0x80) {
         item->resource = (s32)(g_menuOptionStickModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionStickModeDisabledText);
@@ -219,7 +219,7 @@ s32 Option_UpdateOptionStickModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x100 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionBigHandsFeetMode(void) {
-    g_gameSettings.flags ^= 0x100;
+    g_gameSettingsOptionFlags ^= 0x100;
     return 0;
 }
 
@@ -235,7 +235,7 @@ s32 Option_UpdateOptionBigHandsFeetModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x100) {
+    if (g_gameSettingsOptionFlags & 0x100) {
         item->resource = (s32)(g_menuOptionBigHandsFeetModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionBigHandsFeetModeDisabledText);
@@ -246,7 +246,7 @@ s32 Option_UpdateOptionBigHandsFeetModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x200 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionPenAndInkMode(void) {
-    g_gameSettings.flags ^= 0x200;
+    g_gameSettingsOptionFlags ^= 0x200;
     return 0;
 }
 
@@ -262,7 +262,7 @@ s32 Option_UpdateOptionPenAndInkModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x200) {
+    if (g_gameSettingsOptionFlags & 0x200) {
         item->resource = (s32)(g_menuOptionPenAndInkModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionPenAndInkModeDisabledText);
@@ -273,7 +273,7 @@ s32 Option_UpdateOptionPenAndInkModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x400 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionGouraudMode(void) {
-    g_gameSettings.flags ^= 0x400;
+    g_gameSettingsOptionFlags ^= 0x400;
     return 0;
 }
 
@@ -289,7 +289,7 @@ s32 Option_UpdateOptionGouraudModeItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x400) {
+    if (g_gameSettingsOptionFlags & 0x400) {
         item->resource = (s32)(g_menuOptionGouraudModeEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionGouraudModeDisabledText);
@@ -300,7 +300,7 @@ s32 Option_UpdateOptionGouraudModeItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x800 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionJuansCheat(void) {
-    g_gameSettings.flags ^= 0x800;
+    g_gameSettingsOptionFlags ^= 0x800;
     return 0;
 }
 
@@ -316,7 +316,7 @@ s32 Option_UpdateOptionJuansCheatItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x800) {
+    if (g_gameSettingsOptionFlags & 0x800) {
         item->resource = (s32)(g_menuOptionJuansCheatEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionJuansCheatDisabledText);
@@ -327,7 +327,7 @@ s32 Option_UpdateOptionJuansCheatItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x1000 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionZachAttackCheat(void) {
-    g_gameSettings.flags ^= 0x1000;
+    g_gameSettingsOptionFlags ^= 0x1000;
     return 0;
 }
 
@@ -343,7 +343,7 @@ s32 Option_UpdateOptionZachAttackCheatItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x1000) {
+    if (g_gameSettingsOptionFlags & 0x1000) {
         item->resource = (s32)(g_menuOptionZachAttackCheatEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionZachAttackCheatDisabledText);
@@ -354,7 +354,7 @@ s32 Option_UpdateOptionZachAttackCheatItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x2000 of the option word g_gameSettings and returns zero; the functions after it in this
    run each toggle the next bit. */
 s32 Option_ToggleOptionAllMap(void) {
-    g_gameSettings.flags ^= 0x2000;
+    g_gameSettingsOptionFlags ^= 0x2000;
     return 0;
 }
 
@@ -370,7 +370,7 @@ s32 Option_UpdateOptionAllMapItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x2000) {
+    if (g_gameSettingsOptionFlags & 0x2000) {
         item->resource = (s32)(g_menuOptionAllMapEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionAllMapDisabledText);
@@ -381,7 +381,7 @@ s32 Option_UpdateOptionAllMapItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x4000 of the option word g_gameSettings and returns zero; it is one of a run of
    functions that each toggle one bit of that word. */
 s32 Option_ToggleOptionBlackout(void) {
-    g_gameSettings.flags ^= 0x4000;
+    g_gameSettingsOptionFlags ^= 0x4000;
     return 0;
 }
 
@@ -397,7 +397,7 @@ s32 Option_UpdateOptionBlackoutItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x4000) {
+    if (g_gameSettingsOptionFlags & 0x4000) {
         item->resource = (s32)(g_menuOptionBlackoutEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionBlackoutDisabledText);
@@ -408,7 +408,7 @@ s32 Option_UpdateOptionBlackoutItem(struct MenuBuildEntry *item) {
 /* Toggles bit 0x8000 of the option word g_gameSettings and returns zero; it is one of a run of
    functions that each toggle one bit of that word. */
 s32 Option_ToggleOptionFrootyStripes(void) {
-    g_gameSettings.flags ^= 0x8000;
+    g_gameSettingsOptionFlags ^= 0x8000;
     return 0;
 }
 
@@ -424,7 +424,7 @@ s32 Option_UpdateOptionFrootyStripesItem(struct MenuBuildEntry *item) {
     } else {
         item->flags &= ~0x1000000;
     }
-    if (g_gameSettings.flags & 0x8000) {
+    if (g_gameSettingsOptionFlags & 0x8000) {
         item->resource = (s32)(g_menuOptionFrootyStripesEnabledText);
     } else {
         item->resource = (s32)(g_menuOptionFrootyStripesDisabledText);

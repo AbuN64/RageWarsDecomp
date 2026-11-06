@@ -8,4 +8,6 @@ extern s32 SmpFrameAnim_GetLoopCount(struct FrameSequence *sequence);
 extern s32 SmpFrameAnim_GetSequenceFrame(struct FrameSequence *sequence);
 extern s32 SmpFrameAnim_DestroyController(void *allocation);
 extern s32 SmpFrameAnim_UpdateFrameSequence(struct FrameSequence *sequence, s32 eventId, s32 elapsed);
+struct FrameSequence;
+extern s32 SmpFrameAnim_HasSequenceFlags(struct FrameSequence *sequence, s32 bits);
 #endif

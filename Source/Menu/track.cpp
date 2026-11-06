@@ -299,13 +299,14 @@ s32 Track_LoadTrackSequence(s32 index) {
     pending=g_cinemaSequenceState->pendingTrackId;
     resources=&g_world;
     if(resources->trackLookup==0 || resources->trackBundle==0) {
+        failed:
         return 0;
     }
     else {
         if(g_cinemaSequenceState->active!=0)Cinema_ReleaseSequenceContext();
         loaded=SetN64_LocatePackSection(resources->trackBundle,resources->trackLookup,index+1,&size);
         owner=Cache_RequestResource(0,loaded,loaded,size,51,0,g_Track_BuildTrackResourceSplinesAddress,s_cinemaText,1);
-        if(owner==0)return 0;
+        if(owner==0)goto failed;
         g_cinemaSequenceState->owner=owner;
         g_cinemaSequenceState->resource=*owner;
         cues=Menu_GetTrackCues();
@@ -1057,11 +1058,11 @@ void Track_UpdateTrackCamera(SharedTrackCamera *camera) {
             saved = actor->prefix;
             actor->prefix.position = target;
             Scene_RequestVisibleGridSections(&g_world);
-            collisionHit = Unicol_MoveActorWithCollision(actor, eye.x, eye.y, eye.z, (u32 *)&g_defaultProbeMotionSettings);
+            collisionHit = Unicol_MoveActorWithCollision(actor, eye, (u32 *)&g_defaultProbeMotionSettings);
             Scene_UnlockActiveSectionResources(&g_world);
             actor->prefix = saved;
             if (collisionHit != 0) {
-                __builtin_memcpy(&eye, &((CCollisionResults *)&g_currentActorInstance)->vecE4, sizeof(eye));
+                __builtin_memcpy(&eye, &((CCollisionResults *)&g_currentActorInstance)->vec8, sizeof(eye));
             }
         }
     }
@@ -1093,4 +1094,8 @@ const char g_cinemaDirectoryText[17] =
 #if !(defined(VERSION_US_REV1))
 const char s_cinemaText[7] =
     "Cinema";
+#endif
+
+#if !defined(VERSION_US)
+float g_trackInitialYawOffset = 1.57079637f;
 #endif

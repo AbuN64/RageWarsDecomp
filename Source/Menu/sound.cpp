@@ -306,16 +306,29 @@ s32 Menu_SoundSliderReturnZero(void) {
 /* Stores the two sound slider positions as the volume options: a changed effects volume plays a confirmation sound; a changed
    music volume below 5 stops music playback and otherwise starts it when it is not already playing. Returns zero. */
 int Menu_ApplySoundSliders(void) {
- int value;
- value=SmpSlider_GetSliderItem(g_soundOptionSliders[1]);
- if(value!=g_soundEffectsVolumeOption[0]){g_soundEffectsVolumeOption[0]=value;SoundElement_PlayFlatSound(1120);}
- value=SmpSlider_GetSliderItem(g_soundOptionSliders[0]);
- if(value!=g_gameSettingsVolumeBytes[0]){
-  g_gameSettingsVolumeBytes[0]=value;
-  if((unsigned char)value<5) SoundElement_SetMusicPlaybackEnabled(0);
-  else if(SoundElement_GetMusicPlaybackEnabled()==0) SoundElement_SetMusicPlaybackEnabled(52);
- }
- return 0;
+    int value;
+    unsigned char *options;
+    int sound;
+
+    value = SmpSlider_GetSliderItem(g_soundOptionSliders[1]);
+    options = &g_gameSettings.volume[1];
+    if (value != options[0]) {
+        options[0] = value;
+        SoundElement_PlayFlatSound(1120);
+    }
+    value = SmpSlider_GetSliderItem(g_soundOptionSliders[0]);
+    if (value != options[-1]) {
+        options[-1] = value;
+        if ((unsigned char)value < 5) {
+            sound = 0;
+        } else {
+            if (SoundElement_GetMusicPlaybackEnabled() != 0) goto done;
+            sound = 52;
+        }
+        SoundElement_SetMusicPlaybackEnabled(sound);
+    }
+done:
+    return 0;
 }
 
 /* Calls MarkMenuEventHandled, then passes -1 to Random_SetMenuChoiceResult when Menu_GetPreviousScreenOwner reports 0x16 for zero

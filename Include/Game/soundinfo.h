@@ -2,6 +2,7 @@
 #define GAME_SOUNDINFO_H
 #include "Common/stream.h"
 #include "types.h"
+#include "Common/small_records.h"
 
 extern int SoundInfo_GetReservedHalf(void *soundDescriptor);
 
@@ -22,9 +23,7 @@ struct PackedCurveSegment {
     s32 segmentCount;
 };
 struct ScalarSampleDecodeState {
-    s32 bits;
-    f32 base;
-    f32 range;
+    Polytrak2QuantizationRange quantization;
     s32 unused;
     u32 stream;
     s32 first_bits;

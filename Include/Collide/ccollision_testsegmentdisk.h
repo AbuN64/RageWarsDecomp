@@ -10,7 +10,7 @@ extern s32 CCollision_IntersectFrontPlaneFraction(void *poly, void *start, void 
 extern void Graphu64_InterpolateVector(CVector3 *, f32, CVector3 *, CVector3 *);
 extern s32 CCollision_IsPointInsideDisk(void *poly, void *point, f32 radius, void *testPoint);
 
-void CCollision_ClearResultFlags(void);
+void CCollision_ClearResultFlags(void *collisionWork);
 
 void CCollision_UpdateModelSurfaceFlags(void *, u16 *);
 #endif

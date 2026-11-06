@@ -40,4 +40,9 @@ struct AttachmentTable {
     u8 bytes[1];
 };
 
+struct ModelAttachmentEffect;
+struct AttachmentTable;
+struct MatrixF;
+struct LevelActor;
+extern void Ghot_DispatchAttachmentEffects(struct ModelAttachmentEffect *effectAttachments, s32 attachmentsRemaining, struct MatrixF *attachmentMatrices, struct LevelActor *actor, struct AttachmentTable *attachmentNodes);
 #endif

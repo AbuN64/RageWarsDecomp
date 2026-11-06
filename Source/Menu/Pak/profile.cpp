@@ -457,12 +457,15 @@ s32 Pak_SelectPromptTextGroupFive(struct PakActionLabelView *field) {
 s32 Pak_SelectModalPromptLabel(struct PakActionLabelView *field) {
     u32 state = g_controllerPakPromptKind;
 
+    /* Every prompt kind 0-15 is a case, so the ROM's 16-entry jump table selects the label. */
     switch (state) {
-        case 8:
-            field->text = g_SelectModalPromptLabelEmptyText;
-            break;
+        case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+        case 9: case 10: case 11: case 12: case 13: case 14: case 15:
         default:
             field->text = g_SelectModalPromptLabelStateOtherText;
+            break;
+        case 8:
+            field->text = g_SelectModalPromptLabelEmptyText;
             break;
     }
     return 0;

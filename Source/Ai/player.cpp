@@ -1,3 +1,4 @@
+#include "Ai/player_updateplayercamera.h"
 #include "Ai/Nav/roam.h"
 #include "frontend_symbols.h"
 #include "Common/output.h"
@@ -204,6 +205,11 @@
 #include "Ai/cbarrel.h"
 #include "Ai/playerai_updatedelayeddamage__player.h"
 #include "Ai/Weapon/weapon.h"
+#include "Camera/ccinema_updatesequence.h"
+#include "Engine/Cache/cache.h"
+#include "Common/cache_allocateresource.h"
+#include "Engine/gameobject_loadmodel.h"
+#include "Engine/gobjinst_buildactortransform.h"
 
 /* Player state, projectiles, effects and linked-actor transitions. */
 /* Apply player transitions, regional control gates, and localized linked-actor notifications. */
@@ -583,7 +589,7 @@ case 7:
             SoundElement_PlaySoundAtPosition(2555, player->pos, (intptr_t)&player->pos, -1);
         }
         SoundElement_PlayFlatSound(530);
-        if ((((struct Player *)player)->overkill != 0) || (deathEffectActorKind = ((struct Player *)player)->objectId, (deathEffectActorKind == g_playerDeathEffectModelIds)) || (deathEffectActorKind == (&g_playerDeathEffectModelIds)[1])) {
+        if ((((struct Player *)player)->overkill != 0) || (deathEffectActorKind = ((struct Player *)player)->objectId, (deathEffectActorKind == g_playerDeathEffectModelIds[0])) || (deathEffectActorKind == g_playerDeathEffectModelIds[1])) {
             spawnVector.x = player->pos.x;
             spawnVector.y = player->pos.y + g_playerDeathHeightOffsets.projectile;
             deathEffectFlags = 1;
@@ -734,9 +740,9 @@ void Player_ApplyPlayerDamage(void *player, void *attacker, s32 amount, s32 dama
         }
     }
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
-    if (((SharedPlayer *)player)->views1450.view1450_5.f1450 != 0 && (state = (CGameStatus *)&g_matchRoundCounters)->enabled != 0 &&
+    if (((SharedPlayer *)player)->views1450.view1450_5.f1450 != 0 && (state = &g_playerViewRenderContext.game.counters)->enabled != 0 &&
 #else
-    state = &g_matchRoundCounters;
+    state = &g_playerViewRenderContext.game.counters;
     if (state->enabled != 0 &&
 #endif
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
@@ -910,7 +916,7 @@ void Playerai_ApplyProjectileStatus(void *playerObject, void *linkedActor, s32 s
 
 
 
-void Player_DrawRedMarkerPrism(PlayerMarkerPrismView *player) {
+void Player_DrawRedMarkerPrism(PlayerMarkerPrismView *player, void *camera) {
     s32 red;
     s32 low;
     s32 high;
@@ -1063,7 +1069,7 @@ void Player_DrawPlayerModel(void *player, void *camera) {
 
     Gobjinst_DrawVisibleCachedActor(player, camera);
     if (((Player *)player)->overlay != 0) {
-        Player_DrawRedMarkerPrism(player);
+        Player_DrawRedMarkerPrism(player, camera);
     }
 }
 
@@ -1207,7 +1213,9 @@ CQuatern Playerai_ComputeAimRotation(DraftAimPlayer *player, DraftAimPlayer **ta
         origin.y += Playerai_GetObjectOwnerHeight(player);
         enable = &g_frontendScreenStatus.settings.local;
         if (*enable) {
-            other = g_transientPlayerList.actorList;
+            other = ((Shared_GlobalRuntimeState *)(enable
+                - ((char *)&((Shared_GlobalRuntimeState *)0)->messageContext - (char *)0)
+                - ((char *)&((MenuMatchGlobals *)0)->settings.local - (char *)0)))->actorList;
             if (other) {
                 firstSpecial = 18;
                 scale = g_playerAimPrimaryTurnScale;
@@ -1594,7 +1602,7 @@ reset_position:
 /* Draws an icon sprite for a view: icons 0x2DA, 0x2E4, 0x2BC and 0x2EF to 0x2F2 sit at the centre of
    the view's viewport, any other icon is placed at a world point projected through Gsky_ProjectToScreen_PlayerUpdateplayereffectlightsData when
    the point lies in front of the view's plane and within 64 pixels of the screen g_hudReferenceViewportWidth, remapped
-   into the viewport when g_motionVisibilitySettings is set; the sprite is drawn back by its scaled size less one. */
+   into the viewport when g_gameSettings.local is set; the sprite is drawn back by its scaled size less one. */
 
 
 void Playerai_DrawProjectedAimIcon(View *view, CVector3 *point, s32 icon, f32 frame, f32 scale, f32 size) {
@@ -1765,7 +1773,7 @@ static inline void placePlayerLight(struct Player *player, CDLight *light,
     light->m_ColorFade = *radius;
 }
 /* Keep the timer lights and the special-mode light in step with player state. */
-void Player_UpdatePlayerEffectLights(struct Player *player) {
+void Player_UpdatePlayerEffectLights(struct Player *player, void *actor) {
     CDLight *light;
     s32 flicker;
     if (g_gameSettings.flags & 0x4000) {
@@ -2239,7 +2247,7 @@ forward:
    0x10 in shallow enough ground that allows it releases the player into mode 5, and otherwise the
    animation follows the vertical speed and a moving player plays the tuning's step sound
    whenever the step timer passes 11.25. Adapted from Player_UpdateFloatingState with the jump check as
-   an inline function and the g_globalGameplayFlags flags read as an array. */
+   an inline function and the g_globalGameplayFlags word read and written in place. */
 
 
 
@@ -2265,7 +2273,7 @@ void Player_UpdateWadingState(SharedPlayer *player, BodyPlayerUpdateWadingState 
     Player_UpdateViewAngles(player, body, &g_playerAirViewAngleParameters);
     Player_UpdateGroundThrustAndBoost(player, body, &g_playerClimbMovementParameters);
     if (!(body->flags & 0x2000)) {
-        TeamSelect_EmptyWeaponWheelHook();
+        TeamSelect_EmptyWeaponWheelHook(&((Player *)player)->weaponBusy);
         Player_SetPlayerState(player, body, 3);
         return;
     }
@@ -2327,7 +2335,7 @@ void Player_UpdateFloatingState(SharedPlayer *player, BodyPlayerUpdateFloatingSt
     player->views5E8.view730_79.sway[2] = 2.0f * Gu_Sinf(player->views5E8.view658_24.swimTime * 0.10471976548f) * 0.017453294f;
     Player_UpdateFlyingThrustAndBoost(player, body, &g_playerSwimMovementParameters);
     if (!(body->flags & 0x1000) && 2.0f < player->views5E8.view658_24.swimTime) {
-        TeamSelect_EmptyWeaponWheelHook();
+        TeamSelect_EmptyWeaponWheelHook(&((Player *)player)->weaponBusy);
         body->stroke = 0;
         SoundElement_PlaySoundAtPosition(734, *(CVector3 *)&body->x, 0, -1);
         player->views5E8.view840_118.surfaced = 0;
@@ -2543,7 +2551,7 @@ block_25:
 }}
 
 /* Handles a player's death: stops the body's motion to 0x24 and runs Player_ReleaseObjectHandles_PlayeraiResetplayerafterdeath; in a
-   single player game (g_motionVisibilitySettings) a player with limited lives gets the death menu for its
+   single player game (g_gameSettings.local) a player with limited lives gets the death menu for its
    profile slot 0 to 3 on its view, and when g_selectedProfileHealthOptionEnabled asks and the player is out of a team game, once
    every active player among the first eight is out the team is revived through Player_PlacePlayerForRound (every
    active player in mode 2 when the mode 14 leader is down, and the leader in modes below 3); in
@@ -2939,15 +2947,17 @@ void Playerai_InitializePlayerHealth(Player *player) {
         if (model == 0) model = findModel(-1, -1);
     }
     player->definition = model;
-    player->scale = model->spawnPosition;
+    player->scale.x = model->spawnPosition.x;
+    player->scale.y = model->spawnPosition.y;
+    player->scale.z = model->spawnPosition.z;
     if (g_gameSettings.counters.m_bFragTagOn && player->profile->bonus != 0) {
         player->health = 2560;
-        player->actorHealth = 2560;
+        player->actorParts[0].active = 2560;
         return;
     }
     player->health = startHealth(player);
-    player->actorHealth = startHealth(player);
-    player->playerId = 0xFF;
+    player->actorParts[0].active = startHealth(player);
+    *(s8 *)&player->playerId = -1;
 }
 
 /** Allocate and clear the player array and its per-player state blocks, linking each player to its block. */
@@ -3018,7 +3028,7 @@ void Player_UpdateWorldPlayers(struct WorldWeaponsUpdateWorldPlayers *world) {
                     ((MenuWeaponsUpdateWorldPlayers *)&g_matchEndingTeamWheelClose)->open = 1;
                     SoundElement_EnableMusicGainOverride();
                     SoundElement_DisablePeriodicSound();
-                    TeamSelect_EmptyWeaponWheelHook();
+                    TeamSelect_EmptyWeaponWheelHook(&((Player *)player)->weaponBusy);
                     player->views5E8.viewF54_132.selection = -1;
                     player->views5E8.viewF90_134.choice = -1;
                     Frontend_OpenGameplayFrontend();
@@ -3134,19 +3144,19 @@ void Player_BuildPlayerViewTransform(Player *player, f32 out[4][4])
     Graphu64_MultiplyAffineMatrices(out, oriented, placement);
 }
 
-/* g_matchRoundCounters is g_gameSettings.counters in every region. */
 
 
 
 void Playerai_ApplyStun(SharedPlayer *player, f32 amount) {
+    CGameStatus *counters;
     f32 stun;
 
     if (amount != 0.0f && !(75.0f <= player->views5E8.view11D8_149.stun) && !(player->views5E8.view670_31.shield > 0.0f)
-        && !(g_matchRoundCounters.enabled != 0
+        && !((counters = &g_gameSettings.counters)->enabled != 0
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
             && player->views5D8.view5D8_2.controls->team != 0
 #endif
-            && player->views5D8.view5D8_2.controls->mode == 11 && g_matchRoundCounters.m_nBastilleShield > 0)
+            && player->views5D8.view5D8_2.controls->mode == 11 && counters->m_nBastilleShield > 0)
         && !(player->views122C.view122C_2.options & 0x8000)) {
         stun = player->views5E8.view11D8_149.stun + amount * 15.0f;
         if (75.0f < stun) {
@@ -3491,6 +3501,7 @@ void Playerai_CreditDamageSource(TransientDamagePlayerView *damagedPlayer, Trans
 
 void Playerai_RotatePlayerPoseBuffers(struct CPlayerPool_t *playerPool) {
     void *node;
+    struct Shared_Game *settings;
 
     if (*(void **)playerPool != 0) {
         Cache_MarkResourceInUse(0, *(void **)playerPool);
@@ -3498,11 +3509,12 @@ void Playerai_RotatePlayerPoseBuffers(struct CPlayerPool_t *playerPool) {
 
     node = playerPool->m_ActiveList.head;
     if (node != 0) {
+        settings = &g_gameSettings;
         do {
             Gobjinst_RotatePoseMatrixBuffers(node);
             Gobjinst_RotatePoseMatrixBuffers(&((struct Player *)(node))->actorParts[1]);
             Playerai_DrawCachedModelAndShadow(node, 0);
-            if (g_gameSettings.local != 0) {
+            if (settings->local != 0) {
                 Gobjinst_BuildAnimatedPose(node, 1);
             }
             node = ((struct Player *)(node))->next;
@@ -3973,7 +3985,7 @@ s32 Playerai_GetWeaponFireMode(AimPlayer *aimPlayer, s32 weaponId) {
     return ((GlobalState *)weaponInfo)->alternateFireMode;
 }
 
-s16 Playerai_GetWeaponClassId(Player *player, s32 weaponId) {
+s32 Playerai_GetWeaponClassId(Player *player, s32 weaponId) {
     s16 *selectedClassEntry;
     WeaponInfo *weaponDefinition;
 
@@ -3989,7 +4001,7 @@ s16 Playerai_GetWeaponClassId(Player *player, s32 weaponId) {
     return -1;
 }
 
-s16 Playerai_GetWeaponAmmo(void *actor, s32 weaponId) {
+s32 Playerai_GetWeaponAmmo(void *actor, s32 weaponId) {
     s16 *selectedClassEntry;
     s32 ammoSlot;
     WeaponInfo *weapon;
@@ -4445,7 +4457,7 @@ void Player_StartSourceEffect(void *actor, void *effectSource) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Camera_PostScreenMessage((ScreenMessageOwner *)game, owner, g_playerSourceEffectStartMessage[settings->language]);
 #else
-    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, owner, g_playerSourceEffectStartMessage);
+    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, owner, g_playerSourceEffectStartMessage[0]);
 #endif
     if (source == 0) {
         return;
@@ -4462,13 +4474,13 @@ void Player_StartSourceEffect(void *actor, void *effectSource) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Libc_FormatString(payload, g_playerSourceEffectOwnerFormatEuropean[settings->language],
 #else
-    Libc_FormatString(payload, g_playerSourceEffectOwnerFormatEuropean,
+    Libc_FormatString(payload, g_playerSourceEffectOwnerFormatEuropean[0],
 #endif
 #else
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Libc_FormatString(payload, g_playerSourceEffectOwnerFormat[settings->language],
 #else
-    Libc_FormatString(payload, g_playerSourceEffectOwnerFormat,
+    Libc_FormatString(payload, g_playerSourceEffectOwnerFormat[0],
 #endif
 #endif
                   source->profile->name);
@@ -4481,18 +4493,17 @@ void Player_StartSourceEffect(void *actor, void *effectSource) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Camera_PostScreenMessage((ScreenMessageOwner *)game, state->camera, g_playerSourceEffectFinalMessageEuropean[settings->language]);
 #else
-    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, state->camera, g_playerSourceEffectFinalMessageEuropean);
+    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, state->camera, g_playerSourceEffectFinalMessageEuropean[0]);
 #endif
 #else
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     Camera_PostScreenMessage((ScreenMessageOwner *)game, state->camera, g_playerSourceEffectFinalMessage[settings->language]);
 #else
-    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, state->camera, g_playerSourceEffectFinalMessage);
+    Camera_PostScreenMessage((ScreenMessageOwner *)&g_frontendScreenStatus, state->camera, g_playerSourceEffectFinalMessage[0]);
 #endif
 #endif
 }
 
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 
 
@@ -4505,7 +4516,7 @@ void Playerai_UpdateDelayedDamage(void *player) {
     if (previousDelay > 0.0f) {
         remainingDelay = previousDelay - g_frameElapsedTime;
         ((PlayerWeaponDelayStateView *)(player))->delayedDamageTimer = remainingDelay;
-        if ((remainingDelay <= 0.0f) && !(g_gameSettingsView & 1)) {
+        if ((remainingDelay <= 0.0f) && !(g_gameSettings.flags & 1)) {
             Barrel_FillDamagePacket(&damage,
                           ((PlayerWeaponDelayStateView *)(player))->damageSource,
                           ((PlayerWeaponDelayStateView *)(player))->delayedDamage + 6400,
@@ -4515,7 +4526,6 @@ void Playerai_UpdateDelayedDamage(void *player) {
     }
 }
 
-#undef g_gameSettingsView
 
 /** Report whether the nested pointer's word is nonzero. */
 int Playerai_HasActiveView(void *object) {
@@ -4677,7 +4687,6 @@ void Playerai_ApplyDamageOverTime(Player *player, void *source) {
     }
 }
 
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Drains a player's ammunition over time: unless Cinema_IsSequenceActive reports a pause, Playerai_IsRoundEndState blocks
    the player, g_worldFrozenFlag is set, bit 1 of g_gameSettings is set or the player's state is below 2, it
@@ -4708,7 +4717,7 @@ void Playerai_ApplyPeriodicDamage(void *player, s32 damageSource, s32 period, s3
     if (g_world.frozen != 0) {
         return;
     }
-    if (g_gameSettingsView & 1) {
+    if (g_gameSettings.flags & 1) {
         return;
     }
     if ((u16)(((SharedPlayer *)(player))->views5E8.view650_15.actionState) < 2) {
@@ -4733,7 +4742,6 @@ void Playerai_ApplyPeriodicDamage(void *player, s32 damageSource, s32 period, s3
         ((((SharedPlayer *)(player))->views5E8.view5F4_11.ammo[2]) - 1 < 0) ? 0 : (((SharedPlayer *)(player))->views5E8.view5F4_11.ammo[2]) - 1);
 }
 
-#undef g_gameSettingsView
 
 /** Set up a player's starting lives from the game mode and character, then reset its respawn state. */
 
@@ -4797,11 +4805,11 @@ void Playerai_UpdateCountdown(void *player) {
 void Playerai_InitializeLivesAndRespawn(PlayerFragTagSelectionView *player) {
     short state;
 
-    if (g_gameSettingsView.started != 0) {
-        if (g_gameSettingsView.mode == 1 && player->isBot == 0) {
+    if (g_gameSettings.local != 0) {
+        if (g_gameSettings.controllerMode == 1 && player->isBot == 0) {
             player->lives = (unsigned char)Player_GetLevelProgress(&g_localPlayerProfiles[player->character], player->info->character) / 2 + 1;
         }
-        if (g_gameSettingsView.mode == 4 && player->isBot == 0 && g_currentStagePreset != 0) {
+        if (g_gameSettings.controllerMode == 4 && player->isBot == 0 && g_currentStagePreset != 0) {
             player->lives = g_currentStagePreset->laps;
         }
         state = 1;
@@ -4824,11 +4832,11 @@ void Playerai_DrawHudSprite1FC(char *player, char *view) {
 
     x = ((Shared_HudView *)view)->width;
     sx = x / (f32) g_hudReferenceViewportWidth;
-    bx = sx * g_playerHudSpriteMetrics[0];
+    bx = sx * g_playerHudSprite1FCOffset;
 
     y = ((Shared_HudView *)view)->height;
     sy = y / (f32) g_hudReferenceViewportHeight;
-    by = sy * g_playerHudSpriteMetrics[0];
+    by = sy * g_playerHudSprite1FCOffset;
 
     hudScreenX = ((Shared_HudView *)view)->x + x;
     hudScreenY = ((Shared_HudView *)view)->y + y;
@@ -4854,13 +4862,13 @@ void Playerai_DrawHudSprite1FB(void *unusedPlayer, struct ScreenRectangle *viewp
   f32 screenY;
   Onscrn_SetupSpriteMode(g_playerHudSpriteMode);
   x = viewport->x;
-  ax = x * g_playerHudSpriteMetrics[1];
+  ax = x * g_playerHudSprite1FBCenterScale;
   y = viewport->y;
-  ay = y * g_playerHudSpriteMetrics[1];
+  ay = y * g_playerHudSprite1FBCenterScale;
   sx = x / ((f32) g_hudReferenceViewportWidth);
-  bx = sx * g_playerHudSpriteMetrics[2];
+  bx = sx * g_playerHudSprite1FBOffset;
   sy = y / ((f32) g_hudReferenceViewportHeight);
-  by = sy * g_playerHudSpriteMetrics[2];
+  by = sy * g_playerHudSprite1FBOffset;
   screenX = ((viewport->width) + ax) - bx;
   screenY = ((viewport->height) + ay) - by;
   OnScreen_DrawSpriteResource(507, 0, (s16) ((s32) (((viewport->width) + ax) - bx)), (s16) ((s32) screenY), sx, sy, 1);
@@ -4878,13 +4886,13 @@ void Playerai_DrawHudSprite201(char *player, char *view) {
 
     x = ((Shared_HudView *)view)->width;
     sx = x / (f32) g_hudReferenceViewportWidth;
-    bx = sx * g_playerHudSpriteMetrics[3];
+    bx = sx * g_playerHudSprite201Offset;
 
     y = ((Shared_HudView *)view)->height;
     sy = y / (f32) g_hudReferenceViewportHeight;
-    by = sy * g_playerHudSpriteMetrics[3];
+    by = sy * g_playerHudSprite201Offset;
 
-    cz = sy * g_playerHudSpriteMetrics[4];
+    cz = sy * g_playerHudSprite201HeightScale;
 
     hudScreenX = ((Shared_HudView *)view)->x + x;
     hudScreenY = ((Shared_HudView *)view)->y + y;
@@ -5006,9 +5014,9 @@ s32 Playerai_CountActivePlayers(char *object) {
 void Player_InitRecordDefaults(void *recordMemory) {
     PlayerRecordDefaultsView *record = recordMemory;
     float defaultFirst = k_playerRecordDefaultPair;
-    float defaultSecond = (&k_playerRecordDefaultPair)[1];
+    float defaultSecond = *(float *)((char *)&k_playerRecordDefaultPair + 4);
     float vectorValue = k_playerRecordDefaultVectorValues;
-    float vectorSecondValue = (&k_playerRecordDefaultVectorValues)[1];
+    float vectorSecondValue = *(float *)((char *)&k_playerRecordDefaultVectorValues + 4);
     float scalarDefault = k_playerRecordDefaultScalar;
 
     record->reservedStateOne = 0;
@@ -5324,7 +5332,7 @@ void Player_UpdateLeapMotion(s32 player, s32 body) {
 }
 
 void Player_ClearGlobalFlagBit(void) {
-    int *gameplayFlags = &g_globalGameplayFlags;
+    s32 *gameplayFlags = g_globalGameplayFlags;
     *gameplayFlags &= 0xFFEFFFFF;
 }
 
@@ -5352,7 +5360,7 @@ void Player_AbsorbImpact(void *player, LevelActor *actor) {
 
     ((Player *)player)->collisionState = 0;
     Gsky_ResetHeadBob(((Player *)player)->camera);
-    TeamSelect_EmptyWeaponWheelHook();
+    TeamSelect_EmptyWeaponWheelHook(&((Player *)player)->weaponBusy);
 
     if (actor->motionState & 0x8000) {
         SoundElement_PlaySoundAtPosition(730, actor->position0, 0, -1);
@@ -5728,7 +5736,7 @@ s32 Playerai_ProbeCollisionAdjustedPosition(LevelActor *actor, CVector3 *positio
     __builtin_memcpy(saved, actor, sizeof(saved));
     ((struct LevelActor *)actor)->position0.y += Gobjinst_GetActorHeight(actor) * (&g_playerMotionResetAndProbeScales)[1];
     ((struct LevelActor *)actor)->position0.y += ((struct LevelActor *)actor)->eyeHeight;
-    Unicol_MoveActorWithCollision(actor, position->x, position->y, position->z, &g_defaultProbeMotionSettings);
+    Unicol_MoveActorWithCollision(actor, *position, &g_defaultProbeMotionSettings);
 
     moved = (position->x != ((struct LevelActor *)actor)->position0.x) ||
             (position->y != ((struct LevelActor *)actor)->position0.y) ||
@@ -6155,7 +6163,7 @@ void Playerai_RespawnFragTagPlayer(void *player) {
                       (s32)((char *)player + 8), -1);
         break;
     }
-    TeamSelect_EmptyWeaponWheelHook();
+    TeamSelect_EmptyWeaponWheelHook(&((Player *)player)->weaponBusy);
     ((Player *)player)->locked = 0;
     Actor_RequestActorState(&((Player *)player)->actorParts[1], &((Player *)player)->actorParts[1].behaviorFlags, 1);
     Player_PlacePlayerAtSpawnPoint(player, ((Player *)player)->model, 0, 1);
@@ -6242,9 +6250,9 @@ struct {
             (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000, 0x000007EE,
         0x00020000, 0x00000000, (unsigned int)Player_UpdateLeapMotion, (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000,
             0x000007EE, 0x00020000, (unsigned int)g_Player_DampMotionCallbackAddressDe,
-        (unsigned int)Player_UpdateWadingState, (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
+        (unsigned int)Player_UpdateWadingState, (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
             (unsigned int)g_Player_DampMotionCallbackAddressDe, (unsigned int)Player_UpdateWadingState,
-            (unsigned int)g_globalGameplayFlags,
+            (unsigned int)&g_globalGameplayFlags,
         0x00000080, 0x000008A2, 0x00030000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
             (unsigned int)&g_pagerPageCounters[8], 0x00000040, 0x000008A2,
         0x00020000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
@@ -6336,9 +6344,9 @@ struct {
         0x00000000, 0x00005E2D, 0x00020000, 0x00000000, (unsigned int)Player_UpdateLeapMotion,
             (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000, 0x00005E2D,
         0x00020000, (unsigned int)g_Player_DampMotionCallbackAddressDe, (unsigned int)Player_UpdateWadingState,
-            (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
+            (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
             (unsigned int)g_Player_DampMotionCallbackAddressDe,
-        (unsigned int)Player_UpdateWadingState, (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00030000,
+        (unsigned int)Player_UpdateWadingState, (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00030000,
             (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState, (unsigned int)&g_pagerPageCounters[8],
         0x00000040, 0x000008A2, 0x00020000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
             (unsigned int)&g_pagerPageCounters[8], 0x00000040, 0x000008A2,
@@ -6472,8 +6480,8 @@ struct {
             (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000, 0x000007EE,
         0x00020000, 0x00000000, (unsigned int)Player_UpdateLeapMotion, (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000,
             0x000007EE, 0x00020000, (unsigned int)Player_ClearGlobalFlagBit,
-        (unsigned int)Player_UpdateWadingState, (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
-            (unsigned int)Player_ClearGlobalFlagBit, (unsigned int)Player_UpdateWadingState, (unsigned int)g_globalGameplayFlags,
+        (unsigned int)Player_UpdateWadingState, (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000,
+            (unsigned int)Player_ClearGlobalFlagBit, (unsigned int)Player_UpdateWadingState, (unsigned int)&g_globalGameplayFlags,
         0x00000080, 0x000008A2, 0x00030000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
             (unsigned int)&g_pagerPageCounters[8], 0x00000040, 0x000008A2,
         0x00020000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
@@ -6570,8 +6578,8 @@ struct {
         0x00000000, 0x00005E2D, 0x00020000, 0x00000000, (unsigned int)Player_UpdateLeapMotion,
             (unsigned int)&g_secondaryCollisionContext[1].info, 0x00000000, 0x00005E2D,
         0x00020000, (unsigned int)Player_ClearGlobalFlagBit, (unsigned int)Player_UpdateWadingState,
-            (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000, (unsigned int)Player_ClearGlobalFlagBit,
-        (unsigned int)Player_UpdateWadingState, (unsigned int)g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00030000,
+            (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00020000, (unsigned int)Player_ClearGlobalFlagBit,
+        (unsigned int)Player_UpdateWadingState, (unsigned int)&g_globalGameplayFlags, 0x00000080, 0x000008A2, 0x00030000,
             (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState, (unsigned int)&g_pagerPageCounters[8],
         0x00000040, 0x000008A2, 0x00020000, (unsigned int)Player_AbsorbImpact, (unsigned int)Player_UpdateFloatingState,
             (unsigned int)&g_pagerPageCounters[8], 0x00000040, 0x000008A2,
@@ -6662,15 +6670,9 @@ struct {
 extern float k_DecodeData[16];
 #endif
 
-#if defined(VERSION_US)
-
-#endif
 
 /* Retained data for this translation unit. */
 
-const float k_PlayeraiSelectmovementanimationData[2] = {
-    1.024f, -1.024f,
-};
 #if defined(VERSION_EU_X)
 char s_PlayeraiSelectmovementanimationElsIndeText[8] =
     "els inde";
@@ -6685,4 +6687,132 @@ float k_overlayLinkRecordOffsetPairs[6] = {
     -132.0f, 64.0f, 64.0f, 24.0f,
     -12.0f, -48.0f,
 };
+#endif
+
+#if defined(VERSION_DE)
+/* Damage scaling: 8.8 fixed-point amount to float, base and difficulty scales, the primary and secondary attack-mode scales, and the final damage multiplier. */
+float g_playerDamageFixedPointScale = 0.00390625f;
+float g_playerDamageBaseScale = 0.25f;
+float g_playerDamageDifficultyScale = 256.0f;
+float g_playerDamagePrimaryFixedPointScale = 0.00390625f;
+float g_playerDamagePrimaryModeScale = 0.6f;
+float g_playerDamageSecondaryFixedPointScale = 0.00390625f;
+float g_playerDamageSecondaryModeScale = 0.8f;
+float g_playerDamageAndDistanceConstants = 256.0f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerWalkingCrouchThreshold = 5.11999989f;
+float g_playerWalkingCrouchReleaseThreshold = 5.11999989f;
+float g_playerWalkingJumpDelayLimit = 11.25f;
+float g_playerWalkingStepSpeedThreshold = 5.11999989f;
+float g_playerWalkingStepInterval = 6.0f;
+float g_playerWalkAnimationSwapTime = 10.0f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerAimDefaultRotationW = 1.0f;
+float g_playerAimConeAngleScale = 0.5f;
+float g_playerAimForwardDistance = 1.0f;
+float g_playerAimPrimaryTurnScale = 0.75f;
+float g_playerAimSecondaryTurnScale = 0.75f;
+float g_playerAimFallbackTurnScale = 0.5f;
+float g_playerAimTurnRootBase = 1.0f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerMovementForwardAnimationThreshold = 1.02400005f;
+float g_playerMovementReverseAnimationThreshold = -1.02400005f;
+#endif
+
+#if defined(VERSION_DE)
+f32 g_playerRideInitialSpeedHalf = 34.5599976f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerDefaultOwnerHeight = 82.9439926f;
+float g_playerOwnerHeightScale = 0.899999976f;
+float g_playerUndefinedActorHeight = 92.159996f;
+#endif
+
+#if defined(VERSION_DE)
+f32 g_playerDamageTimerDurationScale = 15.0f;
+float g_playerReactionReserveTarget = 1.0f;
+float g_playerImpulseScale = 15.0f;
+f32 g_playerSourceEffectDuration = 105.0f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerModelBlendRate = 0.200000003f;
+float g_playerHudSprite1FCOffset = -50.0f;
+float g_playerHudSprite1FBCenterScale = 0.5f;
+float g_playerHudSprite1FBOffset = 32.0f;
+float g_playerHudSprite201Offset = -50.0f;
+float g_playerHudSprite201HeightScale = 1.5f;
+const struct ScalarPair g_playerEyeMarkerYawAndHeight = { 0.0174532942f, 20.0f };
+#endif
+
+#if defined(VERSION_DE)
+/* de only: the jump input delay limit and initial speed scales sit before the ascent table. */
+float g_playerJumpInputDelayLimit = 11.25f;
+float g_playerJumpInitialSpeedScale = 389.119995f;
+float g_playerJumpInitialSpeedScaleSpecial = 481.279999f;
+#endif
+
+/* Jump landing limits, lateral leap speeds and impact damping. */
+f32 g_playerJumpLandingHeightLimits[2] = { 61.4399986f, 61.4399986f };
+float g_playerLateralLeapNegativeInputSpeed = -30.7199993f;
+float g_playerLateralLeapPositiveInputSpeed = 30.7199993f;
+float g_playerLateralLeapInitialVerticalSpeed = 307.199982f;
+float g_playerLateralLeapDuration = 1.5f;
+float g_playerLateralLeapVerticalSpeed = 307.199982f;
+const f32 g_playerImpactHorizontalDamping = 0.5f;
+const f32 g_playerImpactVerticalDamping = 0.75f;
+const f32 g_playerImpactMinimumVerticalSpeed = -51.1999969f;
+
+/* Motion animation thresholds, round-end and sequence waits, force marker, crouch clearance, action blend and weapon charge blend constants. */
+float g_playerFloatForwardAnimationThreshold = 1.02400005f;
+float g_playerFloatReverseAnimationThreshold = -1.02400005f;
+float g_playerFloatPoseMinimumDuration = 2.0f;
+f32 g_playerRoundEndWaitConstants[2] = { 0.0170442332f, 75.0f };
+float g_playerShortSequenceWaitLimit = 7.5f;
+float g_playerRunEndTransitionDelay = 60.0f;
+float g_playerRunEndModelScale = 0.0199999996f;
+float g_playerSequenceWaitLimit = 7.5f;
+float k_playeraiForceMarkerActorOffset = 18.75f;
+float g_playerForceMarkerTilt = 6.28318548f;
+float g_playerForceMarkerBasisScale = 384.0f;
+float g_playerStateBlendTarget = 0.401425779f;
+float g_playerSpeedThreshold = 5.11999989f;
+f32 g_playerCrouchDepthAndMinimumFall[2] = { 40.9599991f, 0.00100000005f };
+f32 g_playerCrouchMinimumRiseAndBaseClearance[2] = { 0.00100000005f, 40.9599991f };
+f32 g_playerCrouchClearanceMinimum = -10.2399998f;
+f32 g_playerCrouchClearanceMaximum = 10.2399998f;
+f32 g_playerActionBlendTargetAndMinimumStep[2] = { 66.5599976f, 0.00100000005f };
+float g_playerActionBlendMinimumRise = 0.00100000005f;
+float g_playerWeaponChargeBlendTarget = 0.699999988f;
+float g_playerWeaponChargeBlendCutoff = 0.00999999978f;
+float g_playerBodyFlagStatePitchOffset = 1.57079649f;
+
+#if defined(VERSION_DE)
+/* The match countdown digit layout: digit scales, limits, centring, positions and digit offsets. */
+float g_playerMatchCountdownDigitScales = 0.0166666675f;
+float g_playerMatchCountdownSecondsPerMinute = 60.0f;
+float g_playerMatchCountdownDigitLimit = 1.0f;
+float g_playerMatchCountdownFractionLimit = 30.0f;
+float g_playerMatchCountdownCenterXScale = 0.5f;
+float g_playerMatchCountdownSpriteScale = 0.800000012f;
+f32 g_playerMatchCountdownStandardPosition[2] = { 10.0f, 0.5f };
+f32 g_playerMatchCountdownAlternatePosition[2] = { 20.0f, 0.5f };
+float g_playerMatchCountdownDigitOffsets = 7.0f;
+float g_playerMatchCountdownSecondDigitOffset = 6.0f;
+#endif
+
+#if defined(VERSION_DE)
+/* Countdown sprite offset and the force marker unit, reach, strength and projection scale. */
+f32 g_playerMatchCountdownSpriteOffsets[1] = { 12.0f };
+float g_playerForceMarkerUnit = 1.0f;
+float g_playerForceMarkerMaximumDistance = 9.99999975e-06f;
+float g_playerForceMarkerStrength = 100000000.0f;
+float g_playerForceMarkerProjectionScale = 0.5f;
 #endif

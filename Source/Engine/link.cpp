@@ -134,9 +134,10 @@ void Link_CaptureVertexColors(VertexColorMeshView *object, u8 *colors) {
 s32 Link_SumWorldSectionCounts(void) {
     s32 total = 0;
     s32 i;
+    Shared_World *world = &g_world;
 
-    for (i = 0; i < g_world.sectorEntryCount; i++) {
-        total += ((struct ActorAnimationEventTable *)SetN64_GetPackSection(g_world.sectors[i].resource->data, 2))->entryCount;
+    for (i = 0; i < world->sectorEntryCount; i++) {
+        total += ((struct ActorAnimationEventTable *)SetN64_GetPackSection(world->sectors[i].resource->data, 2))->entryCount;
     }
     return total;
 }
@@ -145,6 +146,7 @@ void Link_ApplyPackedVertexDeltas(s32 table, s32 count, CVector3 *vtx) {
     Table *t;
     s32 zero;
     s32 i;
+    char *base = (char *)&g_world;
     s32 *d;
     s32 w;
     s32 dx;

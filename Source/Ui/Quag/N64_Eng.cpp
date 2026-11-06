@@ -84,41 +84,38 @@ void N64Eng_RegisterNumericWidgetClass(void) {
 }
 
 #ifdef VERSION_DE
-const unsigned int g_N64EngData[2] = {
-    0x00000000, 0x0000000F,
-};
 #endif
 #ifdef VERSION_EU
-const unsigned int g_N64EngData[2] = {
-    0x00000000, 0x00000000,
-};
 #endif
 #ifdef VERSION_EU_X
-const unsigned int g_N64EngData[2] = {
-    0x00000000, 0x74000000,
-};
 #endif
 #ifdef VERSION_US
-const unsigned int g_N64EngData[2] = {
-    0x00000000, 0x50414354,
-};
 #endif
 #ifdef VERSION_US_REV1
-const unsigned int g_N64EngData[2] = {
-    0x00000000, 0x20626F72,
-};
 #endif
 
 s32 N64Eng_DispatchNumericWidgetEvent(struct Tree *eventTarget, s32 eventId, s32 eventCode, s32 eventValue, s32 repeatCount) {
-    ResidentEventHandlerEntry *handlerEntry;
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_numericWidgetEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
-            s32 actorKind = eventTarget->id;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(eventTarget, eventId, eventCode, eventValue, repeatCount);
+    if (g_numericWidgetEventHandlers != 0) {
+        wildcard = 30000;
+        entry = (char *)&g_numericWidgetEventHandlers;
+        offset = 0;
+        do {
+            if (((s32 *) (((char *) (&g_numericWidgetEventIds)) + offset))[0] == eventId) {
+                actor_kind = eventTarget->id;
+                table_kind = ((s32 *) (((char *) (&g_numericWidgetEventActorKinds)) + offset))[0];
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(eventTarget, eventId, eventCode, eventValue, repeatCount);
+                }
             }
-        }
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }
@@ -264,7 +261,7 @@ s32 N64Eng_HandleNumericIncrement(void *widgetStorage, s32 eventId, s32 eventPay
     s32 repeatMagnitude;
 
     repeatMagnitude = XMath_AbsoluteInteger(fifth);
-    if (repeatMagnitude < (s32)Smos_GetControlRepeatLimit()) {
+    if (repeatMagnitude < Smos_GetControlRepeatLimit()) {
         object->stepState = 2;
         object->repeatCount = 0;
     }
@@ -282,7 +279,7 @@ s32 N64Eng_HandleNumericDecrement(void *widgetStorage, s32 eventId, s32 eventPay
     s32 repeatMagnitude;
 
     repeatMagnitude = XMath_AbsoluteInteger(fifth);
-    if (repeatMagnitude < (s32)Smos_GetControlRepeatLimit()) {
+    if (repeatMagnitude < Smos_GetControlRepeatLimit()) {
         object->stepState = 2;
         object->repeatCount = 0;
     }
@@ -397,46 +394,9 @@ NumericWidgetEventTable g_engDispatchNumericWidgetEventWords = {
 extern EventHandlerRecord g_numericWidgetEventIds_StorageWords[9];
 #endif
 
-#if defined(VERSION_DE)
-FrontendRibbonResourceData g_frontendShutdownStateDe = {
-    0, 0, 0, 1, 0, 1,
-    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
-    {
-        { { 5.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { -5.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 5.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 1.5450846f, 4.7552824f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { -4.04508448f, 2.93892598f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { -4.04508448f, -2.93892598f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 1.5450846f, -4.7552824f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 5.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { -0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { -0.0f, -0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, -0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 1.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, -1.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-        { { 0.0f, 0.0f, 0.0f }, { 0x00000000, 0x00000000 } },
-    },
-};
-#endif
-
-#if !(defined(VERSION_US_REV1))
-char *k_FxSpawnimpactmarkData[6] = {
-    g_ribbonBlendResources + 0xC, g_ribbonBlendResources + 0x34, g_ribbonBlendResources + 0x5C, g_ribbonBlendResources + 0xD4, g_ribbonBlendResources + 0x14C, g_ribbonBlendResources + 0x174,
-};
-#endif
 
 
 
-unsigned int g_FxSpawnimpactmarkData[2] = {
-    0x00000000, 0x00000000,
-};
 
 #if !(defined(VERSION_DE))
 const char k_InitfrontendmenusData[23] =

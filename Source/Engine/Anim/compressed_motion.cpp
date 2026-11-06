@@ -131,13 +131,18 @@ void Polytrak2_SampleRotationTrack(AnimRef *anim, s32 index, f32 time, CQuatern 
     s32 first;
     s32 second;
     CQuatern *frames;
+    s32 base;
     PoseTable *pose;
 
     root = *anim->data;
     tracks = SetN64_GetPackSection((s32 *)root, 5);
     track = (AnimTrack *)SetN64_GetPackSection((s32 *)tracks, 0);
-    /* Rotation key index of this joint: records in pack section 1 are 4 bytes apart and the key is the halfword KeyIndex.rotation names, 10 bytes in. */
-    key = ((s16 *)SetN64_GetPackSection((s32 *)root, 1))[index * 2 + 5];
+    {
+        u8 *keys = (u8 *)SetN64_GetPackSection((s32 *)root, 1);
+        base = index * 4;
+        keys += base;
+        key = ((KeyIndex *)keys)->rotation;
+    }
     rate = track->rate;
     length = track->length;
     time *= rate;
@@ -190,7 +195,6 @@ void Polytrak2_SampleRotationTrack(AnimRef *anim, s32 index, f32 time, CQuatern 
 
 void Polytrak2_DecodeScalarSamples(u32 *stream, ScalarSampleOutput *out, s32 count) {
     ScalarSampleDecodeState decode;
-    Polytrak2QuantizationRange quantization;
     f32 first;
     f32 second;
     s32 i;
@@ -218,13 +222,13 @@ void Polytrak2_DecodeScalarSamples(u32 *stream, ScalarSampleOutput *out, s32 cou
         first = Polytrak2_ScaleToRange(first, g_motionTrackDecodeRangeStart, g_motionTrackDecodeRangeEnd);
         second = Polytrak2_ScaleToRange(second, g_motionTrackDecodeRangeStart, g_motionTrackDecodeRangeEnd);
     }
-    quantization.start = first;
-    quantization.delta = second - first;
-    quantization.value = Polytrak2_ReadBitsAndAdvance(&decode.stream, 6);
+    decode.quantization.start = first;
+    decode.quantization.delta = second - first;
+    decode.quantization.value = Polytrak2_ReadBitsAndAdvance(&decode.stream, 6);
     i = 0;
     if (count > 0) {
         do {
-            out->value = Polytrak2_ReadQuantizedFloatAndAdvance(&decode.stream, quantization);
+            out->value = Polytrak2_ReadQuantizedFloatAndAdvance(&decode.stream, decode.quantization);
             i++;
             out++;
         } while (i < count);

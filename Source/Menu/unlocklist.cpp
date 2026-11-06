@@ -47,7 +47,7 @@ s32 Menu_CreateUnlockGatedListScreen(void *window) {
     void *obj;
 
     g_unlockGatedListScreen = (Shared_MenuWidgetState *)Cache_AllocateMemory(24);
-    ((struct StateMenuUpdateScrollingChoiceScreen *)g_unlockGatedListScreen)->list = SmpFade_CreateFadeWidget(unlockRes_menuCreateunlockgatedlistscreen(310), unlockRes_menuCreateunlockgatedlistscreen(311));
+    g_unlockGatedListScreen->list = (s32)SmpFade_CreateFadeWidget(unlockRes_menuCreateunlockgatedlistscreen(310), unlockRes_menuCreateunlockgatedlistscreen(311));
     g_unlockGatedListScreen->seen = 0;
 
     if (Defs_TestBit(g_profileModePlayedLevels[0], 0) == 0) {
@@ -190,7 +190,7 @@ s32 Menu_HandleScrollingChoice(void) {
 #elif defined(VERSION_EU_X)
     case 318:
 #endif
-        g_activeProfileCharacterSelections = g_profileCharacterSelections;
+        g_activeProfileCharacterSelections = g_profileCharacterSelections[0];
         ((struct StateMenuUpdateScrollingChoiceScreen *)g_unlockGatedListScreen)->target = 10;
         break;
     }
@@ -226,6 +226,59 @@ s32 Menu_DispatchSettingsColumnEvent(void *eventObject, s32 eventId, s32 eventPa
             entry += 3;
             index++;
         } while (*entry != 0);
+    }
+    return 0;
+}
+#endif
+
+#if !(defined(VERSION_DE) || defined(VERSION_EU_X))
+/* Dispatches event eventId through this file's 12-byte handler table, whose rows hold an event at g_scrollingChoiceEventIds, an actor kind at g_scrollingChoiceEventKinds and a handler at g_scrollingChoiceEventHandlers: the first row whose event equals eventId and whose kind equals the actor's halfword kind at 0xC, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. Adapted from N64Eng_DispatchNumericWidgetEvent. */
+
+
+
+
+
+
+
+
+s32 Menu_DispatchScrollingChoiceEvent(void *eventObject, s32 eventId, s32 eventPayload, s32 eventValue, s32 eventExtra) {
+    MenuChoiceEventHandler *entry;
+    s32 index;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+    MenuWidget *actor;
+
+    if (g_scrollingChoiceEventHandlers != 0) {
+        wildcard = 30000;
+        entry = &g_scrollingChoiceEventHandlers;
+        index = 0;
+        do {
+            if (g_scrollingChoiceEventIds[index].event == eventId) {
+                actor = eventObject;
+                actor_kind = actor->resource;
+                table_kind = g_scrollingChoiceEventKinds[index].value;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*entry)(eventObject, eventId, eventPayload, eventValue, eventExtra);
+                }
+            }
+            entry += 3;
+            index++;
+        } while (*entry != 0);
+    }
+    return 0;
+}
+#endif
+
+#if defined(VERSION_EU_X)
+
+s32 Menu_DispatchSettingsTableEvent(MenuWidget *pThis, s32 event, s32 eventPayload, s32 eventValue, s32 eventExtra) {
+    s32 i;
+    for (i = 0; g_scrollingChoiceEventIds[i].handler != 0; i++) {
+        if (g_scrollingChoiceEventIds[i].event == event &&
+            (g_scrollingChoiceEventIds[i].actorKind == pThis->resource || g_scrollingChoiceEventIds[i].actorKind == 30000)) {
+            return g_scrollingChoiceEventIds[i].handler(pThis, event, eventPayload, eventValue, eventExtra);
+        }
     }
     return 0;
 }
@@ -283,59 +336,6 @@ s32 Menu_WrapSettingsNodePair(void) {
     SmpButton_WrapButtonWidget(980);
     SmpButton_WrapButtonWidget(981);
 #endif
-    return 0;
-}
-#endif
-
-#if !(defined(VERSION_DE) || defined(VERSION_EU_X))
-/* Dispatches event eventId through this file's 12-byte handler table, whose rows hold an event at g_scrollingChoiceEventIds, an actor kind at g_scrollingChoiceEventKinds and a handler at g_scrollingChoiceEventHandlers: the first row whose event equals eventId and whose kind equals the actor's halfword kind at 0xC, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. Adapted from N64Eng_DispatchNumericWidgetEvent. */
-
-
-
-
-
-
-
-
-s32 Menu_DispatchScrollingChoiceEvent(void *eventObject, s32 eventId, s32 eventPayload, s32 eventValue, s32 eventExtra) {
-    MenuChoiceEventHandler *entry;
-    s32 index;
-    s32 wildcard;
-    s32 actor_kind;
-    s32 table_kind;
-    MenuWidget *actor;
-
-    if (g_scrollingChoiceEventHandlers != 0) {
-        wildcard = 30000;
-        entry = &g_scrollingChoiceEventHandlers;
-        index = 0;
-        do {
-            if (g_scrollingChoiceEventIds[index].event == eventId) {
-                actor = eventObject;
-                actor_kind = actor->resource;
-                table_kind = g_scrollingChoiceEventKinds[index].value;
-                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
-                    return (*entry)(eventObject, eventId, eventPayload, eventValue, eventExtra);
-                }
-            }
-            entry += 3;
-            index++;
-        } while (*entry != 0);
-    }
-    return 0;
-}
-#endif
-
-#if defined(VERSION_EU_X)
-
-s32 Menu_DispatchSettingsTableEvent(MenuWidget *pThis, s32 event, s32 eventPayload, s32 eventValue, s32 eventExtra) {
-    s32 i;
-    for (i = 0; g_scrollingChoiceEventIds[i].handler != 0; i++) {
-        if (g_scrollingChoiceEventIds[i].event == event &&
-            (g_scrollingChoiceEventIds[i].actorKind == pThis->resource || g_scrollingChoiceEventIds[i].actorKind == 30000)) {
-            return g_scrollingChoiceEventIds[i].handler(pThis, event, eventPayload, eventValue, eventExtra);
-        }
-    }
     return 0;
 }
 #endif

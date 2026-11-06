@@ -64,7 +64,7 @@ struct Pulse;
 extern char g_SelectModalPromptLabelStateOtherText[];
 extern char g_bloodColorOffText[];
 extern char g_collisionSurfaceExcludedFromTrace[];
-extern char g_globalGameplayFlags[];
+extern s32 g_globalGameplayFlags[];
 extern char g_menuOptionGouraudModeDisabledText[];
 extern char g_menuOptionJuansCheatDisabledText[];
 extern char g_menuOptionZachAttackCheatDisabledText[];
@@ -137,7 +137,7 @@ extern struct ManagerFrontendReleaseAllChunkImages g_frontendResourceScreenCount
 extern struct ArchiveTextureEntry *g_frontendResourceTextures;
 extern struct FrontendTextureTimerEntry *g_frontendResourceTextureTimers;
 extern char s_frontendResourceOpenMode;
-extern void Frontend_ConfigureOwnedImage(struct Config *out, unsigned char type, short x, short y, short a, short b, int enable1, int d, int e, int enable2, int f, int g, short last);
+extern void Frontend_ConfigureOwnedImage(struct Config *out, int type, short x, short y, int a, int b, int enable1, int d, int e, int enable2, int f, int g, int last);
 extern struct ArchiveChunkImageListsView *g_frontendResourceFonts;
 extern s32 g_pakUseScannedChannel;
 extern s32 g_pakPlayerMessagePending;
@@ -163,7 +163,7 @@ extern s32 g_frontendCurrentVideoModeIndex;
 extern struct FrontendVideoDimensions g_frontendRegionVideoModes[2][5];
 extern struct FrontendVideoModeParameters g_frontendDefaultVideoModes[];
 extern struct FrontendRenderConfig g_frontendVideoModeRenderConfigs[];
-extern u8 g_frontendSavedVideoModeIndex;
+extern u8 g_frontendSavedVideoModeIndex[];
 extern unsigned short g_frontendVideoModeId;
 extern Modep g_frontendVideoMode;
 extern Modep g_videoModeLabels[];
@@ -239,10 +239,16 @@ extern struct JoinNameEntry g_joinPlayerNamesLocalized[];
 extern struct ResidentEventHandlerEntry g_matchMenuEventIds[];
 /* German build: the same 12-byte rows as g_matchMenuEventIds. */
 extern struct ResidentEventHandlerEntry g_germanMatchMenuEventIds[];
-/* The seven match-options list labels in screen order: rows 0-1 the select list, rows 2-6 the cursor list
-   (row 4 is also g_matchOptionsCursorNormalLabel, which the player settings screens read). eu keeps one
-   pointer per language in each row. */
-extern char *g_matchOptionsListLabels[7];
+/* The seven match-options list labels in screen order: two for the select list, five for the cursor list
+   (the third cursor label, the normal cursor, is also read by the player settings screens). Each is its own
+   word: the screen loads each label by its own address. eu keeps one pointer per language in each row. */
+extern char *g_matchOptionsSelectFirstLabel;
+extern char *g_matchOptionsSelectSecondLabel;
+extern char *g_matchOptionsCursorFirstLabel;
+extern char *g_matchOptionsCursorSecondLabel;
+extern char *g_matchOptionsCursorNormalLabel[1];
+extern char *g_matchOptionsCursorFourthLabel;
+extern char *g_matchOptionsCursorFifthLabel;
 #if defined(VERSION_EU)
 extern char *g_matchOptionsListLabelsByLanguage[7][4];
 #elif defined(VERSION_EU_X)

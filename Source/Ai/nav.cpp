@@ -93,6 +93,7 @@
 #include "Common/player_sequence_state.h"
 #include "Ai/Nav/jumproute.h"
 #include "Ai/Nav/roam.h"
+#include "Ai/weaponselect.h"
 
 /* Stores an id in the first free (-1) of the object's 64 id slots and flags the node with that
    id in the object's list as active. */
@@ -197,17 +198,8 @@ struct CNavData_t; extern s32 Portal_SearchRelatedGoalPath(struct CNavData_t *ob
 
 
 
-#if defined(VERSION_US)
 
-#endif
 
-#if defined(VERSION_EU)
-
-#endif
-
-#if defined(VERSION_DE)
-
-#endif
 
 #if defined(VERSION_US_REV1)
 extern float g_FindData[3];
@@ -267,6 +259,16 @@ s32 Nav_AdvancePickupRouteSelection(Selection *sel)
 
 extern f32 Graphu64_GetSquaredDistance(f32 *a, f32 *b);
 
+#if defined(VERSION_DE)
+const unsigned int k_FindData[3] = {
+    0x3F800000, 0x3F800000, 0x0C0AC91C,
+};
+#endif
+#if defined(VERSION_EU)
+const unsigned int k_findFragment[3] = {
+    0x00000000, 0x0007000D, 0x2401FFFF,
+};
+#endif
 s32 Nav_AppendDirectionalRouteStage(SelectionNavAppendDirectionalRouteStage *sel) {
     CVector3 facing;
     CVector3 *node;
@@ -457,10 +459,6 @@ void *const k_NavComputescaledpointcentroidData[1] = {
 };
 #endif
 
-#if defined(VERSION_US_REV1)
-
-
-#endif
 
 #if defined(VERSION_US_REV1)
 #if defined(VERSION_US_REV1)
@@ -863,14 +861,14 @@ s32 Nav_ShouldSeekUnclaimedTeamMarker(void **controller) {
     char *base;
     f32 seekThreshold;
 
-    base = (char *)&g_matchRoundCounters;
+    base = (char *)&g_gameSettings.counters;
     if (((Shared_MatchRules *)base)->squads == 0) {
         return 0;
     }
     if (((Player *)*controller)->profile->bonus != 0) {
         return 0;
     }
-    if (Playerai_FindPlayerWithMarker((char *)&g_playerViewRenderContext) != 0) {
+    if (Playerai_FindPlayerWithMarker(base - (s32)offsetof(Shared_MenuData, game.counters)) != 0) {
         return 0;
     }
     seekThreshold = Scaled_GetScaledAggression(controller) * g_teamMarkerAggressionScale + g_teamMarkerSeekBaseThreshold;
@@ -889,9 +887,6 @@ s32 Nav_EvaluateCaptureFlagMarkerSearch(void **controller) {
 
 
 
-#if defined(VERSION_US)
-
-#endif
 
 #if defined(VERSION_EU_X)
 void *const k_playeraiApplyLinkedProjectileStatusCaseAddress[1] = {
@@ -982,17 +977,27 @@ struct CNavData_t; extern s32 Portal_FindNearestPointIndex(struct CNavData_t *po
 /* Finds the nav node of obj and stores weight as its goal weight (+0x18). */
 #define navigationNodeOf(graph, obj, out) do { (out) = Portal_FindSearchNode((CNavData *)(graph), Portal_FindNearestPointIndex((CNavData *)(graph), (obj))); } while (0)
 #define navigationSetGoalWeight(graph, obj, weight) do { u8 *node_; navigationNodeOf(graph, obj, node_); ((NavigationSearchNode *)node_)->extra = (weight); } while (0)
+#if defined(VERSION_US)
+const unsigned int k_TeammarkerData[1] = {
+    0x4353776F,
+};
+#endif
+#if defined(VERSION_US)
+const unsigned int k_navIsballisticarcobstructedFragment[1] = {
+    0x52000000,
+};
+#endif
 void Nav_SetPickupGoalWeights(void *arg) {
     s32 *ctrl = &g_navigationGraph;
     u8 *node;
     u8 *link;
     s32 i;
-    struct EffectSystem *effects = (struct EffectSystem *)g_actorParticleEffectSystem;
-    if (g_navigationGraph.points == 0) {
+    u8 *effects = (u8 *)g_actorParticleEffectSystem;
+    if (ctrl == 0) {
         return;
     }
     for (i = 0; i < 3; i++) {
-        for (node = (u8 *)effects->lists[i].head; node != 0; node = (u8 *)((struct Shared_Particle *)node)->next) {
+        for (node = (u8 *)((IntrusiveList *)(effects + offsetof(struct EffectSystem, lists) + i * sizeof(IntrusiveList)))->head; node != 0; node = (u8 *)((struct Shared_Particle *)node)->next) {
             switch (*(u16 *)(node + 4)) {
             case 1054:
                 link = (u8 *)((struct Shared_Particle *)node)->owner;
@@ -1003,7 +1008,7 @@ void Nav_SetPickupGoalWeights(void *arg) {
             case 1028:
             case 1035:
             case 1039:
-                navigationSetGoalWeight(&g_navigationGraph, (u8 *)&((struct Shared_Particle *)node)->inst.pos, 51200.0f);
+                navigationSetGoalWeight(ctrl, (u8 *)&((struct Shared_Particle *)node)->inst.pos, 51200.0f);
                 break;
             default:
                 break;
@@ -1012,9 +1017,6 @@ void Nav_SetPickupGoalWeights(void *arg) {
     }
 }
 
-#if !(defined(VERSION_US_REV1))
-
-#endif
 
 #if defined(VERSION_EU_X)
 void *const k_PickupgoalData[2] = {
@@ -1022,13 +1024,6 @@ void *const k_PickupgoalData[2] = {
 };
 #endif
 
-#if defined(VERSION_US_REV1)
-
-
-
-
-
-#endif
 
 
 struct CNavData_t; extern s32 Portal_SearchRelatedGoalPath(struct CNavData_t *obj, s32 key, s32 requested, void *owner);
@@ -1071,7 +1066,7 @@ void Nav_SetLinkedActorNodeCosts(char *actor) {
     }
 }
 
-void Nav_AccumulateNodeTickCosts(void) {
+void Nav_AccumulateNodeTickCosts(struct AiController *controller) {
     NavigationSearchNode *node;
     f32 nodeTickCostScale;
 
@@ -1087,7 +1082,7 @@ void Nav_AccumulateNodeTickCosts(void) {
     }
 }
 
-void Nav_AddPickupCategoryCosts(void) {
+void Nav_AddPickupCategoryCosts(struct AiController *controller) {
     CNavData *base;
     NavigationSearchNode *node;
     NavigationPoint *result;
@@ -1111,9 +1106,6 @@ void Nav_AddPickupCategoryCosts(void) {
     }
 }
 
-#if defined(VERSION_US)
-
-#endif
 
 #if defined(VERSION_DE)
 void *const k_navFragment[2] = {
@@ -1121,13 +1113,20 @@ void *const k_navFragment[2] = {
 };
 #endif
 
-#if defined(VERSION_US_REV1)
-
-#endif
 
 #undef navigationNodeOf
 #undef navigationSetGoalWeight
 
+#if defined(VERSION_US_REV1)
+const unsigned int g_navRouteCostUnitWeights[2] = {
+    0x3F800000, 0x3F800000,
+};
+#endif
+#if defined(VERSION_US)
+const unsigned int k_RoutecostData[2] = {
+    0x14000000, 0x00000E43,
+};
+#endif
 #if !defined(VERSION_EU)
 s32 Nav_SelectPickupGoal(PickupGoalControllerView *controller) {
     s32 buffer[30];
@@ -1448,7 +1447,7 @@ s32 Nav_SelectStationaryObjectGoal(AiController *controller) {
             result = Portal_GetGraphPoint(scanbase, node->key);
             if ((navigation_point_flags(result) & 1) &&
                 navigation_point_object_id(result) == type &&
-                ((ActorMotionState *)node->object->motion)->mode == 0) {
+                ((NavigationPlatform *)node->object->motion)->motion.mode == 0) {
                 Nav_AddGoalNode(scanbase, node->key);
                 count += 1;
             }
@@ -1687,28 +1686,38 @@ s32 Target_FindNearestFlaggedTarget(AiController *controller) {
     return found;
 }
 
-#if defined(VERSION_US)
-
-#endif
-
-#if defined(VERSION_EU_X)
-
-#endif
-
-#if defined(VERSION_EU)
-
-#endif
-
-#if defined(VERSION_DE)
-
-#endif
 
 
-#if defined(VERSION_US_REV1)
 
-#endif
+
+
 
 /* Choose the next AI state from game objectives, supplies and the current target. */
+#if defined(VERSION_US_REV1)
+const unsigned int g_Target_FindNearestFlaggedTargetConstants[2] = {
+    0x3DCCCCCD, 0x3C8EFA36,
+};
+#endif
+#if defined(VERSION_US)
+const unsigned int k_SetselectedtargetData[2] = {
+    0x08000000, 0x00001043,
+};
+#endif
+#if defined(VERSION_EU)
+const unsigned int k_setSelectedTargetLoadByteInstructionWords[2] = {
+    0x00000000, 0x90420000,
+};
+#endif
+#if defined(VERSION_EU_X)
+const unsigned int k_setSelectedTargetScalePair[2] = {
+    0x3FE52EDF, 0x3FE52EDF,
+};
+#endif
+#if defined(VERSION_DE)
+const unsigned int k_setSelectedTargetUnitAndRangeFloats[2] = {
+    0x3F800000, 0x42A00000,
+};
+#endif
 s32 Nav_SelectPlayerState(AiController *controller) {
     s32 nextState;
     s32 health;
@@ -1729,7 +1738,7 @@ s32 Nav_SelectPlayerState(AiController *controller) {
     health = controller->player->health >> 8;
     maxHealth = Player_GetMaxHealth(controller->player) >> 8;
     healthPercent = (f32)health / (f32)maxHealth * 100.0f;
-    ammoCount = Playerai_GetWeaponAmmo(controller->player, controller->player->selectedAction);
+    ammoCount = Playerai_GetWeaponAmmo(controller->player, (s16) controller->player->selectedAction);
     ammoType = Playerai_GetWeaponClassId(controller->player, controller->player->selectedAction);
     capacity = Player_GetAmmoCapacity(controller->player, ammoType, 1);
     if (capacity != 0 && ammoCount != -1) {
@@ -1753,7 +1762,7 @@ s32 Nav_SelectPlayerState(AiController *controller) {
             return 1;
         }
     }
-    gameStatus = &g_matchRoundCounters;
+    gameStatus = &g_playerViewRenderContext.game.counters;
     if (gameStatus->m_bFragTagOn != 0 && controller->player->profile->bonus != 0) {
         if (gameStatus->m_FragTagFlipTimer > 0) {
             if (controller->state != 2) {
@@ -1952,22 +1961,10 @@ void Nav_RequestRandomArmedWeapon(void *brain) {
 }
 
 
-#if defined(VERSION_EU_X)
-
-#endif
-
-#if defined(VERSION_EU)
-
-#endif
-
-#if defined(VERSION_US_REV1)
-
-#endif
 
 
-#if defined(VERSION_US)
 
-#endif
+
 
 /* Route-following check for a computer driver's brain: when it has a target, it calls UpdateCloseAttack if
  * Nav_CheckTarget_de reports the target reached, and again when its route node (unless -1) lies closer than 100
@@ -1977,6 +1974,21 @@ void Nav_RequestRandomArmedWeapon(void *brain) {
 struct Player;
 
 
+#if defined(VERSION_US_REV1)
+const unsigned int g_NavSelectplayerstateData[2] = {
+    0x3F800000, 0x3FE52EDF,
+};
+#endif
+#if defined(VERSION_EU)
+const unsigned int k_ActionMixedConstantFragmentsData[2] = {
+    0x01014824, 0x40896000,
+};
+#endif
+#if defined(VERSION_EU_X)
+const unsigned int k_actionMixedConstantFragments[2] = {
+    0x3C5F0B72, 0x3FE52EDF,
+};
+#endif
 s32 Nav_CheckCloseAttackRoute(Brain *brain) {
     void *pos;
 
@@ -2007,14 +2019,8 @@ float g_Nav_EvaluateAttackTargetConstants[3] = {
 };
 #endif
 
-#if defined(VERSION_US)
-
-#endif
 
 
-#if defined(VERSION_US_REV1)
-
-#endif
 
 /* Runs a computer rider's close attack state: refreshes its view, re-checks line of sight every fourth frame, backs off
    when its target is out of its layer or too close, re-rolls its strafe pattern and steers toward the target. */
@@ -2595,9 +2601,6 @@ unsigned int g_combatInitZeroTail[1] = {
 };
 #endif
 
-#if defined(VERSION_DE)
-
-#endif
 
 /* FARTHEST.CPP */
 /* 802106E0_17.CPP */
@@ -2843,19 +2846,7 @@ void Nav_SeekUnclaimedMarker(void *actorStorage) {
     Nav_UpdateTargetSteering(behaviorWords);
 }
 
-#if !(defined(VERSION_US_REV1))
 
-#endif
-
-#if defined(VERSION_US_REV1)
-
-
-
-
-
-
-
-#endif
 
 void Nav_InitCarrierRoute(AiTarget *aiTarget) {
     AiController *controller;
@@ -2929,9 +2920,6 @@ f32 g_navUpdateobjectarrivalchaseDataFloatConstants[2] = {
 #endif
 #endif
 
-#if defined(VERSION_DE)
-
-#endif
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 #if defined(VERSION_EU)
@@ -3146,9 +3134,6 @@ void Nav_UpdateTransientJumpRoute(LevelActor *actor)
     Nav_UpdatePlayerSteering(state);
 }
 
-#if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-
-#endif
 
 #if defined(VERSION_EU_X)
 extern const unsigned int k_jumprouteFragment[3];
@@ -3158,15 +3143,7 @@ extern const unsigned int k_jumprouteFragment[3];
 extern const unsigned int k_jumprouteFragment[3];
 #endif
 
-#if defined(VERSION_DE)
 
-#endif
-
-#if defined(VERSION_US_REV1)
-#if defined(VERSION_US_REV1)
-
-#endif
-#endif
 
 void Nav_SelectFlaggedRoamingGoal(void *controller)
 {
@@ -3389,34 +3366,15 @@ store_c:
 const char s_FindOshEdgeTCSText[12] =
     "oshEdge_t\013CS";
 #endif
-#if defined(VERSION_EU)
-const unsigned int k_findFragment[3] = {
-    0x00000000, 0x0007000D, 0x2401FFFF,
-};
-#endif
-#if defined(VERSION_DE)
-const unsigned int k_FindData[3] = {
-    0x3F800000, 0x3F800000, 0x0C0AC91C,
-};
-#endif
 #if defined(VERSION_US_REV1)
 const float g_Nav_ComputeScaledPointCentroidConstantWords[1] = {
     1.0f,
 };
 #endif
 
-const float k_NavIsballisticarcobstructedData[3] = {
-    1.0f, 1.3333334f, 0.5f,
-};
-
 const float g_Nav_ShouldSeekUnclaimedTeamMarkerConstantWords[3] = {
     0.6f, 0.2f, 1.0f,
 };
-#if defined(VERSION_US)
-const unsigned int k_TeammarkerData[1] = {
-    0x4353776F,
-};
-#endif
 #if !(defined(VERSION_US_REV1))
 const float g_Nav_SetLinkedActorNodeCostsConstantWords_de_eu_eu_x_us[3] = {
     51200.0f, 10.24f, -614.39996f,
@@ -3435,56 +3393,6 @@ const float g_Nav_AccumulateNodeTickCostsConstantWords[1] = {
 #if defined(VERSION_US_REV1)
 const float g_Nav_AddPickupCategoryCostsConstantWords[1] = {
     -614.39996f,
-};
-#endif
-#if defined(VERSION_US)
-const unsigned int k_RoutecostData[2] = {
-    0x14000000, 0x00000E43,
-};
-#endif
-#if defined(VERSION_US_REV1)
-const unsigned int g_navRouteCostUnitWeights[2] = {
-    0x3F800000, 0x3F800000,
-};
-#endif
-#if defined(VERSION_US)
-const unsigned int k_SetselectedtargetData[2] = {
-    0x08000000, 0x00001043,
-};
-#endif
-#if defined(VERSION_EU_X)
-const unsigned int k_setSelectedTargetScalePair[2] = {
-    0x3FE52EDF, 0x3FE52EDF,
-};
-#endif
-#if defined(VERSION_EU)
-const unsigned int k_setSelectedTargetLoadByteInstructionWords[2] = {
-    0x00000000, 0x90420000,
-};
-#endif
-#if defined(VERSION_DE)
-const unsigned int k_setSelectedTargetUnitAndRangeFloats[2] = {
-    0x3F800000, 0x42A00000,
-};
-#endif
-#if defined(VERSION_US_REV1)
-const unsigned int g_Target_FindNearestFlaggedTargetConstants[2] = {
-    0x3DCCCCCD, 0x3C8EFA36,
-};
-#endif
-#if defined(VERSION_EU_X)
-const unsigned int k_actionMixedConstantFragments[2] = {
-    0x3C5F0B72, 0x3FE52EDF,
-};
-#endif
-#if defined(VERSION_EU)
-const unsigned int k_ActionMixedConstantFragmentsData[2] = {
-    0x01014824, 0x40896000,
-};
-#endif
-#if defined(VERSION_US_REV1)
-const unsigned int g_NavSelectplayerstateData[2] = {
-    0x3F800000, 0x3FE52EDF,
 };
 #endif
 #if defined(VERSION_US)
@@ -3551,11 +3459,6 @@ const f32 g_navJumpRouteOffsetFloats[3] = {
 #if !(defined(VERSION_US_REV1))
 const float g_pointCentroidUnitScale = 1.0f;
 #endif
-#if defined(VERSION_US)
-const unsigned int k_navIsballisticarcobstructedFragment[1] = {
-    0x52000000,
-};
-#endif
 #if defined(VERSION_DE)
 const unsigned int k_navIsballisticarcobstructedFragment[1] = {
     0x10400002,
@@ -3580,4 +3483,10 @@ const unsigned int k_jumprouteFragment[3] = {
 const unsigned int k_jumprouteFragment[3] = {
     0x216BFFFF, 0x40021000, 0x04010002,
 };
+#endif
+
+#if defined(VERSION_DE)
+float g_ballisticInverseDistanceScale = 1.0f;
+float g_ballisticArcSampleRate = 1.33333337f;
+float g_ballisticAccelerationScale = 0.5f;
 #endif

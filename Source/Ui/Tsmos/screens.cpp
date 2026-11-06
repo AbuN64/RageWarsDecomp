@@ -14,6 +14,7 @@
 #include "Ui/pakinterface_updatestartgroup.h"
 #include <platform_sdk.h>
 #include "Ui/Tsmos/pakinterface.h"
+#include "Scene/cache_freememory.h"
 #include "Ui/Tsmos/Screens/pakinterface_getnactive.h"
 #include "Ui/Tsmos/Screens/pakinterface_getnplayerinfoactive.h"
 #include "Ui/Tsmos/Screens/pakinterface_getnplayersjoined.h"
@@ -191,7 +192,7 @@ s32 PAKInterface_OnDown(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, 
                 return 0;
             }
             SM_AcknowledgeMsg();
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1482, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();
@@ -210,7 +211,7 @@ s32 PAKInterface_OnDown(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, 
         break;
     case 22:
         if (selectionPressed == 1) {
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1590, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();
@@ -231,7 +232,7 @@ s32 PAKInterface_OnDown(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, 
         break;
     case 27:
         if (selectionPressed == 1) {
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1616, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();
@@ -298,7 +299,7 @@ s32 PAKInterface_OnUp(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, s3
                 return 0;
             }
             SM_AcknowledgeMsg();
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1715, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();
@@ -317,7 +318,7 @@ s32 PAKInterface_OnUp(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, s3
         break;
     case 22:
         if (selectionPressed == 1) {
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1830, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();
@@ -338,7 +339,7 @@ s32 PAKInterface_OnUp(s32 unusedWidget, s32 unusedEventId, s32 playerEntryId, s3
         break;
     case 27:
         if (selectionPressed == 1) {
-            pNode = PAKInterface_GetPAKUserWidgetect(g_pakInterfaceScreen->m_pUserList, nUser);
+            pNode = PAKInterface_GetUserObject(g_pakInterfaceScreen->m_pUserList, nUser);
             if (!pNode) {
                 if (AssertFailed(s_pakInterfaceScreenSourceFile, 1860, s_pakInterfaceScreenObjectNotNull)) {
                     HaltAfterFailedAssert();

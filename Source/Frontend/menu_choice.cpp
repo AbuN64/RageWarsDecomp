@@ -366,7 +366,7 @@ s32 Frontend_DispatchPlayModeEvent(void *eventTarget, s32 event, s32 itemId, s32
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_playModeEventHandlers != 0) {
         wildcard = 30000;

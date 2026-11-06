@@ -38,77 +38,102 @@ static inline void Slider_NotifyChanged_slider(Slider *slider) {
 /* Clamps the slider value into its range, then answers a read message with the requested field,
    or applies an input or write message and notifies the parent. Returns zero for everything else. */
 s32 Event_HandleSliderMessage(Slider *slider, s32 msg, s32 value, s32 inputState) {
-    if (slider->value < slider->min) {
-        slider->value = slider->min;
+    s32 result;
+    Slider *widget = slider;
+
+    if (widget->value < widget->min) {
+        widget->value = widget->min;
     }
-    if (slider->value > slider->max) {
-        slider->value = slider->max;
+    if (widget->value > widget->max) {
+        widget->value = widget->max;
     }
 
     switch (msg) {
-        case SLIDER_MSG_INCREASE_A:
-        case SLIDER_MSG_INCREASE_B:
+        case 5:
+        case 8:
             if (inputState != 0) {
-                s32 next = slider->value + slider->step;
-                slider->value = next;
-                if (slider->max < next) {
-                    slider->value = slider->max;
+                s32 v = widget->value + widget->step;
+                s32 hi = widget->max;
+                widget->value = v;
+                if (hi < v) {
+                    widget->value = hi;
                 }
             }
-            break;
+            goto post;
 
-        case SLIDER_MSG_DECREASE_A:
-        case SLIDER_MSG_DECREASE_B:
+        case 6:
+        case 7:
             if (inputState != 0) {
-                s32 next = slider->value - slider->step;
-                slider->value = next;
-                if (next < slider->min) {
-                    slider->value = slider->min;
+                s32 v = widget->value - widget->step;
+                s32 lo = widget->min;
+                widget->value = v;
+                if (v < lo) {
+                    widget->value = lo;
                 }
             }
-            break;
+            goto post;
 
-        case SLIDER_MSG_GET_VALUE:
-            return slider->value;
-        case SLIDER_MSG_GET_MIN:
-            return slider->min;
-        case SLIDER_MSG_GET_MAX:
-            return slider->max;
-        case SLIDER_MSG_GET_STEP:
-            return slider->step;
-        case SLIDER_MSG_GET_FLAGS:
-            return slider->flags;
+        case 4096:
+            result = widget->value;
+            goto end;
 
-        case SLIDER_MSG_SET_VALUE:
-            if (value >= slider->min && value <= slider->max) {
-                slider->value = value;
+        case 4098:
+            result = widget->min;
+            goto end;
+
+        case 4099:
+            result = widget->max;
+            goto end;
+
+        case 4102:
+            result = widget->step;
+            goto end;
+
+        case 4104:
+            result = widget->flags;
+            goto end;
+
+        case 4101:
+            if (value < widget->min) {
+                goto post;
             }
-            break;
-
-        case SLIDER_MSG_SET_RANGE:
-            if (slider->min < value) {
-                slider->max = value;
+            if (widget->max < value) {
+                goto post;
             }
-            if (inputState < slider->max) {
-                slider->min = inputState;
-            }
-            break;
+            widget->value = value;
+            goto post;
 
-        case SLIDER_MSG_SET_STEP:
-            if (value < (slider->max - slider->min)) {
-                slider->step = value;
+        case 4100:
+            if (widget->min < value) {
+                widget->max = value;
             }
-            break;
+            if (inputState < widget->max) {
+                widget->min = inputState;
+            }
+            goto post;
 
-        case SLIDER_MSG_SET_FLAGS:
-            slider->flags = value;
-            break;
+        case 4103:
+            if (value < (widget->max - widget->min)) {
+                widget->step = value;
+            }
+            goto post;
+
+        case 4105:
+            widget->flags = value;
+            goto post;
 
         default:
-            return 0;
+            result = 0;
+            goto end;
     }
 
-    Slider_NotifyChanged_slider(slider);
-    return 0;
+post:
+    Frontend_UpdateSliderGeometry(widget);
+    Menu_RouteElementEvent(GetMenuScreenOwner(), 4106, slider->parentId, widget->value, 0);
+    MarkMenuEventHandled();
+    result = 0;
+
+end:
+    return result;
 }
 #endif

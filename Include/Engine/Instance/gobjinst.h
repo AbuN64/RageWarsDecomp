@@ -159,4 +159,10 @@ static inline char *LitModel_VertexColors(struct LitModelResourceHeader *header)
     return (char *)header + header->vertexColorOffset;
 }
 
+struct GameplayCamera;
+extern s32 Gobjinst_RequestAnimationKind(void *a, s32 c, s32 flag);
+extern s32 Gobjinst_ChooseAvailableAnimationKind(void *actor, s16 *callback, s32 excludedAnimation);
+extern void Gobjinst_ReadActorMotionIndex(void *record);
+struct SceneObject;
+extern void Gobjinst_DrawVisibleCachedActor(struct SceneObject *object, struct GameplayCamera *camera);
 #endif

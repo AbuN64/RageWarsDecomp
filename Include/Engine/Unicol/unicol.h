@@ -13,4 +13,5 @@ extern s32 g_collisionNoDetachSettingsAlternate;
 extern float k_collisionUpNormalY_de;
 extern void CCollision_SetUniformSweepExtent(void *actorMotion, f32 extent);
 extern s32 CCollision_ApplyMotionResponse(void *actorStorage);
+extern s32 CCollision_SweepPoint(char *actorStorage, CVector3 startPosition, CVector3 desired, s32 motionSettings);
 #endif

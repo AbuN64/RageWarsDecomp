@@ -6,6 +6,7 @@
 #include "Common/runtime_declarations.h"
 #include "Common/resident_event_handler.h"
 #include "Common/rectangle_draw.h"
+#include "Gfx/rect.h"
 #include "Frontend/text_render.h"
 #include "Common/widget_tree.h"
 #include "Common/archive_chunk_images.h"
@@ -424,6 +425,11 @@ static inline void drawWidgetGroup(DraftWidget *widget, sm_dldc args) {
         }
 }
 
+#if defined(VERSION_US)
+const unsigned int k_widgetConstantWords[1] = {
+    0x10000B00,
+};
+#endif
 void Widget_DrawWidget(DraftWidget *widget, sm_dldc args) {
     switch (widget->type) {
     case 3:
@@ -576,11 +582,6 @@ s32 Widget_ComputeWidgetBounds(struct WidgetRect *draw, struct WidgetRect *hit, 
 }
 
 /* unit K_WIDGETCONSTANTWORDS.CPP */
-#if defined(VERSION_US)
-const unsigned int k_widgetConstantWords[1] = {
-    0x10000B00,
-};
-#endif
 
 /* unit WIDGET_FINDWIDGETATPOINT.CPP */
 /* Draws a visible widget (flag 8): when Widget_ComputeWidgetBounds places it, and its draw flags ask for
@@ -812,8 +813,7 @@ void Frontend_DrawEuropeanClippedChildren(MenuWidget *widget, sm_dldc args) {
             N64Eng_SetClipBounds(clip.w[0], clip.w[2], clip.w[1], clip.w[3]);
             changed = 1;
         }
-
-        Widget_DrawVisibleSiblings((Widget *)widget->child, args);
+        Widget_DrawVisibleSiblings(widget->child, args);
         if (changed != 0) {
             N64Eng_SetClipBounds(saved.w[0], saved.w[2], saved.w[1], saved.w[3]);
         }
@@ -837,8 +837,7 @@ void Frontend_DrawChildListWithClip(MenuWidget *widget, sm_dldc args) {
             N64Eng_SetClipBounds(clip.w[0], clip.w[2], clip.w[1], clip.w[3]);
             changed = 1;
         }
-
-        Widget_DrawVisibleSiblings((Widget *)widget->child, args);
+        Widget_DrawVisibleSiblings(widget->child, args);
         if (changed != 0) {
             N64Eng_SetClipBounds(saved.w[0], saved.w[2], saved.w[1], saved.w[3]);
         }

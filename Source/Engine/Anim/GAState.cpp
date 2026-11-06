@@ -450,6 +450,7 @@ void Gastate_InterpolateFrameAngles(AnimRef *animationState, f32 framePosition) 
 }
 
 s32 Gastate_RequestAnimationResource(AnimRef *animationState, s32 resourceTable, s32 resourceGroup, s32 animationId) {
+    AnimRef *out = animationState;
     void *resource;
     ResourceEntry *entry;
     u16 value;
@@ -457,14 +458,14 @@ s32 Gastate_RequestAnimationResource(AnimRef *animationState, s32 resourceTable,
     s32 resourceBytes;
 
     if (animationId == -1) {
-        animationState->data = 0;
+        out->data = 0;
         return 0;
     }
 
     key = SetN64_LocatePackSection(resourceTable, resourceGroup, animationId, &resourceBytes);
     resource = Cache_RequestResource(0, key, key, resourceBytes, 4, animationState,
                             &Gastate_AnimationResourceCallbackEntry, g_animationText, 0);
-    animationState->data = resource;
+    out->data = resource;
     if (!Gastate_IsAnimationResourceRetained(animationState)) {
         return 0;
     }
@@ -472,10 +473,10 @@ s32 Gastate_RequestAnimationResource(AnimRef *animationState, s32 resourceTable,
     resource = Polytrak2_GetResidentResource(animationState);
     entry = SetN64_GetPackSection(resource, 0);
     value = entry->count;
-    animationState->id = animationId;
-    animationState->count = value;
+    out->id = animationId;
+    out->count = value;
     resource = SetN64_GetPackSection(resource, 3);
-    animationState->span = ((ResourceEntry *)SetN64_GetPackSection(resource, 0))->span;
+    out->span = ((ResourceEntry *)SetN64_GetPackSection(resource, 0))->span;
     return 1;
 }
 

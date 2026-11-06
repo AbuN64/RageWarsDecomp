@@ -39,6 +39,8 @@ TOOLCHAIN_gcc_2_8_1_sn64 ?= tools/gcc-2.8.1-sn64/.stamp
 CPPFLAGS_gcc_2_7_2_sn64 := -P -undef -nostdinc -D_LANGUAGE_C -D__GNUC__=2 -D__STDARG_GCC -D_LANGUAGE_C -DF3DEX_GBI_2 -I$(LAYOUT_SDK)/libgcc -I$(LAYOUT_SDK_HEADER)
 CFLAGS_gcc_2_7_2_sn64 := -G0 -mips3 -mgp32 -mfp32 -O2 -fno-exceptions
 CPPFLAGS_gcc_2_8_1_sn64 := -P -undef -nostdinc -D_LANGUAGE_C -D__GNUC__=2 -D__STDARG_GCC -D_LANGUAGE_C -DF3DEX_GBI_2 -I$(LAYOUT_SDK)/libgcc -I$(LAYOUT_SDK_HEADER)
+# Source units refuse calls to undeclared functions; gcc 2.7.2 has no such flag.
+WERROR_gcc_2_8_1_sn64 := -Werror-implicit-function-declaration
 CFLAGS_gcc_2_8_1_sn64 := -G0 -mips3 -O2 -mgas -meb -mcpu=VR4300 -mhard-float -mgp32 -mfp64 -mno-fix4300
 STAMPS := tools/abumas/.stamp $(TOOLCHAIN_gcc_2_7_2_sn64) $(TOOLCHAIN_gcc_2_8_1_sn64)
 # The program of each toolchain in use (PASS runs a helper of MKTOOLS).
@@ -106,7 +108,6 @@ CFLAGS.Source/Engine/particle.cpp := -ffast-math
 FILE.Source/Ui/Smos/SM_Xlate.cpp := gcc_2_8_1_sn64
 CFLAGS.Source/Ui/Smos/SM_Xlate.cpp := -fno-thread-jumps -fno-rerun-cse-after-loop
 FILE.Source/Ui/Tsmos/Screens/pakinterfacescreen.cpp := gcc_2_8_1_sn64
-UNRELOC.Source/Ui/Tsmos/Screens/pakinterfacescreen.cpp := 1
 tools/abumas/.stamp:
 	$(Q)mkdir -p tools/abumas && curl -fsSL https://github.com/AbuN64/mas-n64/releases/download/v0.5.0/abumas-v0.5.0-linux-x86_64.tar.gz -o tools/abumas.tar.gz && echo '9173e4f2f3bad16d94eaf149cbe09e5363060dcdf72fa64f6f66fc7b7bdb9e03  tools/abumas.tar.gz' | sha256sum -c - >/dev/null && tar -xzf tools/abumas.tar.gz -C tools/abumas --strip-components=1 abumas-v0.5.0-linux-x86_64/abumas && rm -f tools/abumas.tar.gz && cd tools/abumas && printf '%s\n' '0fe945e19ccfb49b2b6cebd42d93de6de52c9bd811a8f4b0275c074050f6d418  abumas' | sha256sum -c - >/dev/null && touch .stamp
 
@@ -161,7 +162,7 @@ ROW = $(if $(filter undefined,$(origin ROW@$*)),$(eval ROW@$* := $(call rowof,$(
 # A row's toolchain and flags: the toolchain's flags and the project's, less the row's OMIT, plus the row's own.
 TC = $(or $(FILE.$(ROW)),$(TOOLCHAIN))
 CPPFLAGS = $(strip $(CPPFLAGS_$(TC)) $(CPPFLAGS.$(ROW)))
-CFLAGS = $(strip $(filter-out $(OMIT.$(ROW)),$(CFLAGS_$(TC))) $(CFLAGS.$(ROW)))
+CFLAGS = $(strip $(filter-out $(OMIT.$(ROW)),$(CFLAGS_$(TC))) $(if $(filter Source/%,$(ROW)),$(WERROR_$(TC))) $(CFLAGS.$(ROW)))
 HILO = $(HILO.$(ROW))
 UNRELOC = $(UNRELOC.$(ROW))
 DEFINES = -D$(VMACRO_$(call ver,$*)) $(if $(filter nmraw/%,$*),-D$(NM_DEFINE))
@@ -260,11 +261,11 @@ $(shell python3 -I $(MKTOOLS)/asm_deps.py $(LAYOUT_ASM) $(LAYOUT_BUILD) $(LAYOUT
 -include $(LAYOUT_BUILD)/asm.deps
 $(if $(filter 0,$(MAKELEVEL)),$(shell python3 -I $(MKTOOLS)/stamp_sweep.py $(LAYOUT_BUILD) sweep $(VERSIONS) >&2))
 endif
-# The link script names every object, so no rule here lists a file: $(LAYOUT_BUILD)/<version>/objs.mk is its list, made again
+# The link script names every object (a name ends at .o, so a section such as .text.osMotorInit names none), so no rule here lists a file: $(LAYOUT_BUILD)/<version>/objs.mk is its list, made again
 # (and make restarted) only when the script changes.
-$(LAYOUT_BUILD)/%/objs.mk: $(NAME).ld
+$(LAYOUT_BUILD)/%/objs.mk: $(NAME).ld Makefile
 	$(Q)mkdir -p $(@D)
-	$(Q){ printf 'OBJS_$* :='; $(CPP) -P -undef -D$(VMACRO_$*) $< | grep -oE '[[:alnum:]_./+-]+[.]o' | sort -u | sed 's@^@ $(LAYOUT_BUILD)/$*/@' | tr -d '\n'; echo; } > $@.$$$$ && mv -f $@.$$$$ $@
+	$(Q){ printf 'OBJS_$* :='; $(CPP) -P -undef -D$(VMACRO_$*) $< | LC_ALL=C grep -oE '[[:alnum:]_./+-]+[.]o\b' | sort -u | sed 's@^@ $(LAYOUT_BUILD)/$*/@' | tr -d '\n'; echo; } > $@.$$$$ && mv -f $@.$$$$ $@
 ifeq ($(CHECK),rom)
 -include $(VERSIONS:%=$(LAYOUT_BUILD)/%/objs.mk)
 endif
@@ -289,7 +290,10 @@ $(LAYOUT_BUILD)/hdrkey $(LAYOUT_BUILD)/stamprec: $(LAYOUT_BUILD)/%: $(MKTOOLS)/%
 	$(Q)$(HOSTCC) -O2 -o $@ $< 2>/dev/null || rm -f $@
 RECORD = { [ -x $(STAMPREC) ] && $(STAMPREC) record $(1); } || python3 -I $(MKTOOLS)/stamp_sweep.py $(LAYOUT_BUILD) record $(1)
 shq = '$(subst ','\'',$(1))'
-CC_FLAGS = $(TC) $(CC_$(TC)) $(CFLAGS) $(ASFLAGS) $(DEFINES) $(FSPLIT)
+# Every per-row switch of the object's passes (hilo, unreloc, noalign, textcut) is part of its flags, so a row that
+# gains or loses a pass remakes the object (and keys the object store) like a compiler flag does.
+CC_FLAGS = $(TC) $(CC_$(TC)) $(CFLAGS) $(ASFLAGS) $(DEFINES) $(FSPLIT) $(if $(HILO),pass=hilo) \
+	$(if $(UNRELOC),pass=unreloc) $(addprefix noalign=,$(NOALIGN)) $(addprefix textcut=,$(TEXTCUT))
 PP_FLAGS = $(TC) $(CPPFLAGS) $(DEFINES)
 same_flags = $(and $(findstring $(1),$(2)),$(findstring $(2),$(1)))
 flags_changed = $(if $(wildcard $@.flags),$(if $(call same_flags,$(CC_FLAGS),$(file <$@.flags)),,flags-changed))
@@ -302,10 +306,14 @@ $(LAYOUT_BUILD)/%.i.ok: $$(call src,$$*) $$(pp_flags_changed) | $(STAMPS) $(HDRK
 # make that extracts as it builds reads dates it cached): a different sum removes the object. The object rule's one
 # command (stamprec `object`, else cc_cache.py's): the extracted facts it was made from, whether it stands, the compile
 # (COMPILE_<toolchain>) when it does not, the flags/size/sum files and the input record.
+# A failed object removes its version's linked ROM, so a make -k that cannot relink never leaves an earlier ROM
+# (whose SHA-1 may still read exact) beside the failure.
+ROM_OUTPUTS = $(foreach e,elf bin z64,$(LAYOUT_BUILD)/$(call ver,$*)/$(NAME).$(e))
 OBJECT_ARGS = $@ $(call ver,$*) $(FACTS_NOW_$(call ver,$*)) $(call shq,$(filter-out %.i.ok,$?)$(flags_changed)) $(call shq,$(TEXTSIZE)) \
 	$(call shq,$(CC_FLAGS)) $(STAMPREC) $(filter-out %/.extracted,$(filter $(LAYOUT_ASM)/%,$^)) -- $(COMPILE_$(TC))
 $(LAYOUT_BUILD)/%.o: $(LAYOUT_BUILD)/%.i.ok $(LAYOUT_ASM)/$$(call ver,$$*)/.extracted $$(text_size_changed) $$(flags_changed) | $(STAMPS) $(STAMPREC)
-	$(Q)if [ -x $(STAMPREC) ]; then exec $(STAMPREC) object $(OBJECT_ARGS); fi; exec $(CCPY) --object $(OBJECT_ARGS)
+	$(Q)if [ -x $(STAMPREC) ]; then $(STAMPREC) object $(OBJECT_ARGS); else $(CCPY) --object $(OBJECT_ARGS); fi \
+	|| { rm -f $(ROM_OUTPUTS); exit 1; }
 # A hand-written .s source is preprocessed first (its #include and #if VERSION_ lines); its .d names the headers.
 $(LAYOUT_BUILD)/%.s.o: $$(call src,$$*).s $$(text_size_changed) | $(STAMPS)
 	$(Q)mkdir -p $(@D)

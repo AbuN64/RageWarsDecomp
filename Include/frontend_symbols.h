@@ -17,7 +17,7 @@ typedef struct CollisionInfoSlot {
 extern struct CollisionInfoSlot g_particleCollisionProbeResult[17];
 #if (defined(VERSION_US))
 extern struct CollisionInfoSlot g_collisionInfoSlotsB[17];
-extern char g_globalGameplayFlags[];
+extern s32 g_globalGameplayFlags[];
 #endif
 #endif
 extern char g_ResourcesEncodedWords[];

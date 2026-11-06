@@ -5,5 +5,5 @@
 #include "Common/audio_loaddecodedsamples.h"
 #include "Audio/audio_nextdecodedsampleblock.h"
 struct DecodeState;
-extern s32 Audio_DecodeFrame(struct DecodeState *stream);
+extern s16 Audio_DecodeFrame(struct DecodeState *stream);
 #endif

@@ -63,6 +63,7 @@
 #include "Menu/teammenu.h"
 #include "Audio/voice.h"
 #include "Engine/Audio/Voice/voice.h"
+#include "Gobjinst/gameobject_loadmodel.h"
 
 typedef struct CAIMovementInfo {
     CVector3 first;
@@ -1544,15 +1545,7 @@ void Barrel_SpawnEffectsFromMask(Player *actor, s32 trackerState, s32 effectMask
     }
 }
 
-#if !(defined(VERSION_US_REV1))
 
-#endif
-
-#if defined(VERSION_US_REV1)
-
-
-
-#endif
 
 extern const float g_goalBesideActorClearance;
 extern const float g_trackGoalTargetHeightFactor;
@@ -1615,11 +1608,6 @@ const float k_BarrelGetfacingsideData[1] = {
 const float k_barrelGetFacingSideThreshold[1] = {
     0.8f,
 };
-#if !(defined(VERSION_US_REV1))
-const float k_CbarrelUpdatetrackeraimData[4] = {
-    51.199997f, 51.199997f, 3.1415927f, 3.4028235e+38f,
-};
-#endif
 #if defined(VERSION_US_REV1)
 const float k_cbarrelUpdateTrackerAimConstants[3] = {
     51.199997f, 51.199997f, 3.1415927f,

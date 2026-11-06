@@ -77,5 +77,5 @@ struct LevelActor;
 extern int Statinst_SelectDistanceVariant(void *object);
 extern void Statinst_RefreshResourceUsage(void *resourceBinding);
 extern s8 Statinst_SelectGameModeVariant(struct LevelActor *actor);
-extern void Statinst_DrawForGameMode(void *);
+extern void Statinst_DrawForGameMode(void *owner, void *camera);
 #endif

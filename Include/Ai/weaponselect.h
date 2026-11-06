@@ -3,5 +3,5 @@
 #include "types.h"
 struct Player;
 extern s32 Player_GetMaxHealth(void *player);
-extern s32 Player_GetAmmoCapacity(struct Player *actor, s16 index, s32 capacityMode);
+extern s32 Player_GetAmmoCapacity(struct Player *actor, s32 index, s32 capacityMode);
 #endif

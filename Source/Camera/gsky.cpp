@@ -169,10 +169,9 @@ void Gsky_StartFade(void *camera, s32 requestedFadeMode, s32 startValue, s32 end
  do { if (camera != 0) { ((GameplayCamera *)camera)->fadeStep = (s8) stepAmount; ((GameplayCamera *)camera)->fadeMode = requestedFadeMode; ((GameplayCamera *)camera)->fadeStart = startValue; ((GameplayCamera *)camera)->fadeEnd = endValue; ((GameplayCamera *)camera)->fadeState = 0; ((GameplayCamera *)camera)->fadeRed = (s8) redChannel; ((GameplayCamera *)camera)->fadeGreen = (s8) greenChannel; ((GameplayCamera *)camera)->fadeBlue = (s8) blueChannel; ((GameplayCamera *)camera)->fadeCounter = 0; ((GameplayCamera *)camera)->fadeEnabled = 1; } } while (0);
 }
 
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 void Gsky_GetMaskedEffectColor(ThreeChannels *threeChannels, s8 *red, s8 *green, s8 *blue) {
-    if (g_gameSettingsView & 0x4000) {
+    if (g_gameSettings.flags & 0x4000) {
         *red = 0;
         *green = 0;
         *blue = 0;
@@ -280,7 +279,7 @@ f32 Gsky_GetDistanceTo(void *gameplayCamera, CVector3 *targetPosition) {
 }
 
 /** Perform no work for its callers. */
-void Gsky_DrawPlayerListNoOp(void) {
+void Gsky_DrawPlayerListNoOp(void *players) {
 }
 
 /* Spawns an emitter record: takes the head of the free emitter list into the active emitter list (or reuses the spare record when none is free) and fills its position, scale, shared value and three rates converted by k_cameraFadeResetValue. */
@@ -328,8 +327,8 @@ static inline CCameraText *Camera_PostMessageLines(void *owner, void *pool, u8 *
     if (pool == 0) {
         return message;
     }
-    if (text == g_screenMessageSubstitutionSource) {
-        text = (u8 *)g_screenMessageSubstitutionReplacement;
+    if (text == *(u8 **)g_screenMessageSubstitutionSource) {
+        text = (u8 *)*g_screenMessageSubstitutionReplacement;
     }
     p = text;
     line = p;
@@ -472,8 +471,8 @@ static inline CCameraText *Camera_PostTargetedMessageLines(void *owner, void *po
     if (pool == 0) {
         return message;
     }
-    if (text == g_screenMessageSubstitutionSource) {
-        text = (u8 *)g_screenMessageSubstitutionReplacement;
+    if (text == *(u8 **)g_screenMessageSubstitutionSource) {
+        text = (u8 *)*g_screenMessageSubstitutionReplacement;
     }
     p = text;
     line = p;
@@ -740,7 +739,7 @@ void Gsky_GetFloorSurfaceShake(void *gameplayCamera, CVector3 *out) {
 void Gsky_FloorSurfaceNoOp(void) {
 }
 
-void Gsky_DrawViewportEffectNoOp(void) {
+void Gsky_DrawViewportEffectNoOp(struct GameplayCamera *camera, s32 effect) {
 }
 
 void Gsky_UpdateFloorSurface(void *gameplayCamera) {
@@ -886,8 +885,8 @@ CCameraText *Sky_PostScreenMessage(void *owner, void *pool, u8 *text, s32 kind, 
     if (pool == 0) {
         return message;
     }
-    if (text == g_screenMessageSubstitutionSource) {
-        text = (u8 *)g_screenMessageSubstitutionReplacement;
+    if (text == *(u8 **)g_screenMessageSubstitutionSource) {
+        text = (u8 *)*g_screenMessageSubstitutionReplacement;
     }
     p = text;
     line = p;

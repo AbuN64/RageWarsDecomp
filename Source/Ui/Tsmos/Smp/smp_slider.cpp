@@ -78,13 +78,15 @@ void SmpSlider_DisableTransition(struct Access_s32_5C *object) {
 }
 
 s32 SmpSlider_DispatchTransitionEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    s32 i;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_sliderTransitionEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; g_sliderTransitionEventIds[i].handler != 0; i++) {
+        if (g_sliderTransitionEventIds[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (g_sliderTransitionEventIds[i].actorKind == actorKind || g_sliderTransitionEventIds[i].actorKind == ANY_ACTOR_KIND) {
+                return g_sliderTransitionEventIds[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }
@@ -152,13 +154,15 @@ void SmpSlider_SetSliderItem(struct Scroll *scroll, s32 item) {
 }
 
 s32 SmpSlider_DispatchSliderEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    s32 i;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_sliderWidgetEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; g_sliderWidgetEventIds[i].handler != 0; i++) {
+        if (g_sliderWidgetEventIds[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (g_sliderWidgetEventIds[i].actorKind == actorKind || g_sliderWidgetEventIds[i].actorKind == ANY_ACTOR_KIND) {
+                return g_sliderWidgetEventIds[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }

@@ -267,65 +267,146 @@ void Graphu64_MultiplyMatrices(f32 *out, f32 *left, f32 *right)
 }
 
 /* Converts a float matrix element to its 16.16 fixed-point word; values past the threshold constant wrap into the sign bit. */
-static s32 Graphu64_FloatToFixed(f32 element, const f32 *constants) {
-    f32 scaled = element * constants[0];
-    if (constants[1] <= scaled) {
-        return (s32)(scaled - constants[1]) | SIGN_BIT_32;
-    }
-    return (s32)scaled;
-}
+#define GRAPHU64_FLOAT_TO_FIXED(word, element, constants) \
+    do { \
+        f32 scaled = (element) * (constants)[0]; \
+        if (!((constants)[1] <= scaled)) { \
+            (word) = (s32)scaled; \
+        } else { \
+            (word) = (s32)(scaled - (constants)[1]); \
+            (word) |= SIGN_BIT_32; \
+        } \
+    } while (0)
+
+/* The same conversion, stepping the output pointers once the element is scaled. */
+#define GRAPHU64_FLOAT_TO_FIXED_AFTER(word, element, constants, step) \
+    do { \
+        f32 scaled = (element) * (constants)[0]; \
+        step; \
+        if (!((constants)[1] <= scaled)) { \
+            (word) = (s32)scaled; \
+        } else { \
+            (word) = (s32)(scaled - (constants)[1]); \
+            (word) |= SIGN_BIT_32; \
+        } \
+    } while (0)
 
 void GraphU64_PackFixedMatrix(f32 *src, FixedPointMatrix *dst) {
     u32 *upper = dst->upper;
     u32 *lower = dst->lower;
-    s32 firstWord;
-    s32 secondWord;
-    firstWord = Graphu64_FloatToFixed(src[(0) * 2], g_fullMatrixFixedConversionPairs[0]);
-    secondWord = Graphu64_FloatToFixed(src[(0) * 2 + 1], g_fullMatrixFixedConversionPairs[1]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    f32 value;
+    s32 a;
+    s32 b;
+    value = (src[(0) * 2]) * (g_fullFixedMatrixElement0ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement0ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement0ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(0) * 2 + 1]) * (g_fullFixedMatrixElement1ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement1ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement1ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(1) * 2], g_fullMatrixFixedConversionPairs[2]);
-    secondWord = Graphu64_FloatToFixed(src[(1) * 2 + 1], g_fullMatrixFixedConversionPairs[3]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(1) * 2]) * (g_fullFixedMatrixElement2ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement2ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement2ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(1) * 2 + 1]) * (g_fullFixedMatrixElement3ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement3ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement3ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(2) * 2], g_fullMatrixFixedConversionPairs[4]);
-    secondWord = Graphu64_FloatToFixed(src[(2) * 2 + 1], g_fullMatrixFixedConversionPairs[5]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(2) * 2]) * (g_fullFixedMatrixElement4ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement4ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement4ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(2) * 2 + 1]) * (g_fullFixedMatrixElement5ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement5ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement5ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(3) * 2], g_fullMatrixFixedConversionPairs[6]);
-    secondWord = Graphu64_FloatToFixed(src[(3) * 2 + 1], g_fullMatrixFixedConversionPairs[7]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(3) * 2]) * (g_fullFixedMatrixElement6ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement6ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement6ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(3) * 2 + 1]) * (g_fullFixedMatrixElement7ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement7ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement7ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(4) * 2], g_fullMatrixFixedConversionPairs[8]);
-    secondWord = Graphu64_FloatToFixed(src[(4) * 2 + 1], g_fullMatrixFixedConversionPairs[9]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(4) * 2]) * (g_fullFixedMatrixElement8ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement8ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement8ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(4) * 2 + 1]) * (g_fullFixedMatrixElement9ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement9ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement9ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(5) * 2], g_fullMatrixFixedConversionPairs[10]);
-    secondWord = Graphu64_FloatToFixed(src[(5) * 2 + 1], g_fullMatrixFixedConversionPairs[11]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(5) * 2]) * (g_fullFixedMatrixElement10ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement10ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement10ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(5) * 2 + 1]) * (g_fullFixedMatrixElement11ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement11ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement11ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(6) * 2], g_fullMatrixFixedConversionPairs[12]);
-    secondWord = Graphu64_FloatToFixed(src[(6) * 2 + 1], g_fullMatrixFixedConversionPairs[13]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(6) * 2]) * (g_fullFixedMatrixElement12ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement12ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement12ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(6) * 2 + 1]) * (g_fullFixedMatrixElement13ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement13ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement13ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    firstWord = Graphu64_FloatToFixed(src[(7) * 2], g_fullMatrixFixedConversionPairs[14]);
-    secondWord = Graphu64_FloatToFixed(src[(7) * 2 + 1], g_fullMatrixFixedConversionPairs[15]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[(7) * 2]) * (g_fullFixedMatrixElement14ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement14ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement14ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[(7) * 2 + 1]) * (g_fullFixedMatrixElement15ConversionConstants);
+    if (!(*(&(g_fullFixedMatrixElement15ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement15ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 }
@@ -333,57 +414,106 @@ void GraphU64_PackFixedMatrix(f32 *src, FixedPointMatrix *dst) {
 void Graphu64_ConvertMatrixToFixed(f32 *src, FixedPointMatrix *dst) {
     u32 *upper = dst->upper;
     u32 *lower = dst->lower;
-    s32 firstWord;
-    s32 secondWord;
-    firstWord = Graphu64_FloatToFixed(src[0], g_affineMatrixFixedConversionPairs[0]);
-    secondWord = Graphu64_FloatToFixed(src[1], g_affineMatrixFixedConversionPairs[1]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    f32 value;
+    s32 a;
+    s32 b;
+    value = (src[0]) * (g_affineFixedMatrixElement0ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement0ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement0ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[1]) * (g_affineFixedMatrixElement1ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement1ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement1ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[2], g_affineMatrixFixedConversionPairs[2]);
-    *upper = firstWord & 0xFFFF0000;
-    *lower = firstWord << 16;
+    value = (src[2]) * (g_affineFixedMatrixElement2ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement2ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement2ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[4], g_affineMatrixFixedConversionPairs[3]);
-    secondWord = Graphu64_FloatToFixed(src[5], g_affineMatrixFixedConversionPairs[4]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[4]) * (g_affineFixedMatrixElement4ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement4ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement4ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[5]) * (g_affineFixedMatrixElement5ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement5ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement5ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[6], g_affineMatrixFixedConversionPairs[5]);
-    *upper = firstWord & 0xFFFF0000;
-    *lower = firstWord << 16;
+    value = (src[6]) * (g_affineFixedMatrixElement6ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement6ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement6ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[8], g_affineMatrixFixedConversionPairs[6]);
-    secondWord = Graphu64_FloatToFixed(src[9], g_affineMatrixFixedConversionPairs[7]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[8]) * (g_affineFixedMatrixElement8ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement8ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement8ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[9]) * (g_affineFixedMatrixElement9ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement9ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement9ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[10], g_affineMatrixFixedConversionPairs[8]);
-    *upper = firstWord & 0xFFFF0000;
-    *lower = firstWord << 16;
+    value = (src[10]) * (g_affineFixedMatrixElement10ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement10ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement10ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[12], g_affineMatrixFixedConversionPairs[9]);
-    secondWord = Graphu64_FloatToFixed(src[13], g_affineMatrixFixedConversionPairs[10]);
-    *upper = (firstWord & 0xFFFF0000) | ((u32)secondWord >> 16);
-    *lower = (firstWord << 16) | (secondWord & 0xFFFF);
+    value = (src[12]) * (g_affineFixedMatrixElement12ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement12ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement12ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    value = (src[13]) * (g_affineFixedMatrixElement13ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement13ConversionConstants) + 1) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement13ConversionConstants) + 1));
+    (b) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    firstWord = Graphu64_FloatToFixed(src[14], g_affineMatrixFixedConversionPairs[11]);
-    *upper = (firstWord & 0xFFFF0000) | 1;
-    *lower = firstWord << 16;
+    value = (src[14]) * (g_affineFixedMatrixElement14ConversionConstants);
+    if (!(*(&(g_affineFixedMatrixElement14ConversionConstants) + 1) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement14ConversionConstants) + 1));
+    (a) |= 0x80000000;
+    };
+    *upper = (a & 0xFFFF0000) | 1;
+    *lower = a << 16;
 }
 
 void Graphu64_UnpackFixedMatrix(f32 *dst, FixedPointMatrix *src) {
@@ -1459,18 +1589,48 @@ void CopyMatrix(float *destinationMatrix, float *sourceMatrix) {
 }
 
 void Graphu64_TransposeMatrixBasis(f32 *destination, f32 *source) {
+    char *a0;
+    char *a2;
+    char *v1;
     s32 col;
     s32 row;
+    s32 coloff;
+    f32 last;
 
-    for (col = 0; col < 16; col++) {
-        destination[col] = source[col];
-    }
+    destination[0] = source[0];
+    destination[1] = source[1];
+    destination[2] = source[2];
+    destination[3] = source[3];
+    destination[4] = source[4];
+    destination[5] = source[5];
+    destination[6] = source[6];
+    destination[7] = source[7];
+    destination[8] = source[8];
+    destination[9] = source[9];
+    destination[10] = source[10];
+    destination[11] = source[11];
+    destination[12] = source[12];
+    destination[13] = source[13];
+    destination[14] = source[14];
+    last = source[15];
+    col = 0;
+    destination[15] = last;
 
-    for (col = 0; col < 3; col++) {
-        for (row = 0; row < 3; row++) {
-            destination[col * 4 + row] = source[row * 4 + col];
-        }
-    }
+    a0 = (char *)destination;
+    do {
+        row = 0;
+        coloff = col * 4;
+        a2 = a0;
+        v1 = (char *)source;
+        do {
+            *(f32 *)a2 = *(f32 *)(coloff + (s32)v1);
+            v1 += sizeof(CQuatern);
+            row += 1;
+            a2 += 4;
+        } while (row < 3);
+        col += 1;
+        a0 += sizeof(CQuatern);
+    } while (col < 3);
 }
 
 void Graphu64_BuildPlaneProjectionMatrix(void *projection, CVector3 *projectionDirection, f32 plane) {

@@ -594,6 +594,7 @@ void InstCol_ProcessEntityContacts(HitSelf *self) {
     SortedCandidate list[32];
     SortedCandidate *entry;
     HitOwner *owner;
+    CVector3 *ownerPosition;
     Shared_World *world;
     Shared_Game *game;
     LevelActor *candidate;
@@ -608,6 +609,7 @@ void InstCol_ProcessEntityContacts(HitSelf *self) {
     entry = list;
     count = i = 0;
     owner = self->owner;
+    ownerPosition = &owner->position;
     world = &g_world;
     total = world->moverCount;
     for (; i < total; i++) {
@@ -658,7 +660,7 @@ void InstCol_ProcessEntityContacts(HitSelf *self) {
             CInstanceCollision_BuildSweepQuery(self, scratch);
             Instcol_TestEntityContact(self, scratch, candidate);
         } else {
-            CInstanceCollision_TraceActorBounds(self, candidate, &owner->position, &self->box);
+            CInstanceCollision_TraceActorBounds(self, candidate, ownerPosition, &self->box);
         }
     }
 }

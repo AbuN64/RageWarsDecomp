@@ -276,7 +276,7 @@ void *Heap_AllocateFromBack(HeapFreeBlockList *heap, s32 request)
     size = (request + 47) & ~0xF;
     for (block = heap->tail; block != 0; block = block->prevFree) {
         if (block->free >= size) {
-            split = Heap_BlockAfter(block, block->size + block->free - size);
+            { u8 *cursor = (u8 *)block; cursor += block->size; cursor += block->free; cursor -= size; split = (HeapAllocationBlock *)cursor; }
             split->size = size;
             split->free = 0;
             block->free -= size;
@@ -310,7 +310,7 @@ void *Heap_AllocateFromBack(HeapFreeBlockList *heap, s32 request)
     return 0;
 }
 
-s32 Heap_FreeAllocation(HeapArena_Entryrecat18v3 *arena, char *dataToFree) {
+s32 Heap_FreeAllocation(HeapArenaBlockList *arena, char *dataToFree) {
     HeapArenaBlock *block;
     HeapArenaBlock *header;
     HeapArenaBlock *other;
@@ -379,7 +379,7 @@ s32 Heap_FreeAllocation(HeapArena_Entryrecat18v3 *arena, char *dataToFree) {
     return block->size - 32;
 }
 
-void Heap_GetFreeByteCounts(HeapArena_Entryrecat18v3 *arena, s32 *totalBytesOut, u32 *largestBlockBytesOut) {
+void Heap_GetFreeByteCounts(HeapArenaBlockList *arena, s32 *totalBytesOut, u32 *largestBlockBytesOut) {
     u32 previousLargestBytes;
     u32 largestBytes;
     void *freeBlockCursor;

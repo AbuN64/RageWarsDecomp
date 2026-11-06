@@ -14,6 +14,8 @@ extern void Scene_BuildCachedGeometry(struct Shared_World*world);
 
 extern void Scene_BuildCachedGeometry(struct Shared_World *world);
 extern const char s_gridSectionText[];
+extern const char s_sceneVisibilityResourceText[12];
+extern const char s_sceneMultiplayerResourceText[20];
 extern void Scene_DrawCachedOpaqueGeometry(struct Shared_World *scene, void *camera);
 extern void Scene_BuildPlacedActors(struct Shared_World *world, struct CacheResourceNode * *handle);
 extern void Scene_LoadGridCells(struct Shared_World *level);

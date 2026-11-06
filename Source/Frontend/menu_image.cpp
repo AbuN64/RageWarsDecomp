@@ -233,6 +233,8 @@ s32 Frontend_DispatchEquipmentEvent(void *eventTarget, s32 eventId, s32 eventCod
 #include "Node/node_replacewidgetlinks.h"
 #include "Frontend/frontend_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Common/weapon_marker_and_profile_views.h"
+#include "Frontend/frontend_drawmodelpreview.h"
 /* A menu's title image: image id, RGB tint words, animation frame and a shown flag. */
 void Frontend_DrawMenuImage(MenuImageState *menu) {
     s32 frame;

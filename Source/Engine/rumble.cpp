@@ -225,21 +225,21 @@ void Rumble_RecycleFinishedEffectNodes(void *pool) {
 
 void Rumble_FreeAllPoolNodes(RumbleNodePoolView *effectPool) {
 
-    RumbleEffectNode *node;
+    void *node;
     void *next;
     s32 saved;
 
     saved = __osDisableInt();
-    node = (effectPool)->active.head;
+    node = ((RumbleNodePoolView *)effectPool)->active.head;
     if (node != 0) {
         do {
-            next = (node)->next;
-            List_RemoveIntrusive(&(effectPool)->active, node);
+            next = ((RumbleEffectNode *)node)->next;
+            List_RemoveIntrusive(&((RumbleNodePoolView *)effectPool)->active, node);
             List_AppendIntrusive(effectPool, node);
             node = next;
         } while (node != 0);
     }
-    (effectPool)->baseLevel = 0;
+    ((RumbleNodePoolView *)effectPool)->baseLevel = 0;
     __osRestoreInt(saved);
 }
 

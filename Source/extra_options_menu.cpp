@@ -43,16 +43,27 @@ s32 Menu_ConfirmGermanExtraOptions(void) {
 #if defined(VERSION_DE)
 /* Dispatches event event through this file's 12-byte handler table, whose rows hold an event at g_extraOptionsEventCodes, an actor kind at g_extraOptionsActorKinds and a handler at g_extraOptionsEventCallbacks: the first row whose event equals event and whose kind equals the actor's input kind, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. */
 s32 Menu_DispatchExtraOptionsEvent(void *object, s32 event, s32 eventData, s32 eventValue, s32 eventContext) {
-    ResidentEventHandlerEntry *handlers = (ResidentEventHandlerEntry *)&g_extraOptionsEventCodes;
-    s32 wildcardKind = 30000;
-    s32 row;
+    /* The ROM walks the handler column by pointer and reads the event and kind columns by byte offset from their own symbols. */
+    WidgetEventHandler *handler;
+    s32 wildcardKind;
+    s32 offset;
 
-    for (row = 0; handlers[row].event != 0; row++) {
-        if (handlers[row].event == event &&
-            (handlers[row].actorKind == ((struct MenuWidget *)object)->resource ||
-             handlers[row].actorKind == wildcardKind)) {
-            return handlers[row].handler(object, event, eventData, eventValue, eventContext);
-        }
+    if (g_extraOptionsEventCallbacks != 0) {
+        wildcardKind = ANY_ACTOR_KIND;
+        handler = &g_extraOptionsEventCallbacks;
+        offset = 0;
+        do {
+            if (*(s32 *)((u8 *)g_extraOptionsEventCodes + offset) == event) {
+                s32 actorKind = ((struct MenuWidget *)object)->resource;
+                s32 tableKind = *(s32 *)((u8 *)g_extraOptionsActorKinds + offset);
+
+                if (tableKind == actorKind || tableKind == wildcardKind) {
+                    return (*handler)(object, event, eventData, eventValue, eventContext);
+                }
+            }
+            handler = (WidgetEventHandler *)((u8 *)handler + sizeof(ResidentEventHandlerEntry));
+            offset += sizeof(ResidentEventHandlerEntry);
+        } while (*handler != 0);
     }
     return 0;
 }

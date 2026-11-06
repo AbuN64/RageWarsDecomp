@@ -296,7 +296,6 @@
 #include "Ai/playerai_updatedelayeddamage__player.h"
 
 
-s32 k_PlayeraiTrystartplayersequenceZeroFill = 0;
 
 float k_constantsFragment[6] = {
     -132.0f, 64.0f, 64.0f, 24.0f, -12.0f, -48.0f,
@@ -305,12 +304,11 @@ float k_constantsFragment[6] = {
 float g_aiDistanceBounds[2] = {
     0.0f, 102.399994f,
 };
-
-s32 k_aiSignWords[15] = {
-    1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, -1, 1,
-    1, 1, 1,
+s32 g_playerSequenceAxisSigns[15] = {
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1,
 };
+
+
 
 struct {
     f32 targetFacingEaseRate;

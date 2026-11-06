@@ -10,6 +10,7 @@
 #include "Menu/menu_createmenufromtemplate.h"
 #include "Menu/menu_createmenufromparameters.h"
 #include "Menu/Items/Character/character_symbols.h"
+#include "Control/control.h"
 
 #if defined(VERSION_DE)
 typedef struct { char pad0[0x1C]; Player *rec; struct ControllerProfile *player; } CharacterPreviewMenuContext;

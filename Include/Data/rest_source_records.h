@@ -446,7 +446,7 @@ typedef struct CharacterPreviewSlotRecord {
 
 
 
-typedef struct RestscenarioSetupMenuEventHandlerWordsRecord35 {
+typedef struct ScenarioSetupMenuEventHandlerWords {
     u32 event0;
     u32 widgetType0;
     u32 callbackAddress0;
@@ -484,7 +484,7 @@ typedef struct RestscenarioSetupMenuEventHandlerWordsRecord35 {
     u32 widgetType11;
     u32 callbackAddress11;
     u32 eventTableTail[3];
-} RestscenarioSetupMenuEventHandlerWordsRecord35;
+} ScenarioSetupMenuEventHandlerWords;
 
 typedef struct RestSlotSelectionMenuEventHandlerRecordsUsRev1Record {
     u32 event0;
@@ -999,11 +999,11 @@ typedef struct SmpSliderListEventRecords {
     u32 eventTableTail[3];
 } SmpSliderListEventRecords;
 
-typedef struct Restwidth320Height240MinusOneWordsRecord15 {
+typedef struct ScreenExtentMinusOneWords {
     s32 width;
     s32 height;
     s32 unset;
-} Restwidth320Height240MinusOneWordsRecord15;
+} ScreenExtentMinusOneWords;
 
 typedef struct RestArenaCatalogueRecord { s32 arena; s32 label; s32 category; s32 index; } RestArenaCatalogueRecord;
 
@@ -1411,19 +1411,6 @@ typedef struct SmackFormatTableAltLayout {
 } SmackFormatTableAltLayout;
 typedef char SmackFormatTableAltLayoutSizeCheck[sizeof(SmackFormatTableAltLayout) == 64 ? 1 : -1];
 
-typedef struct RestSmackFormat {
-    s32 ids[2];
-    float constants[2];
-} RestSmackFormat;
-typedef char RestSmackFormatSizeCheck[sizeof(RestSmackFormat) == 16 ? 1 : -1];
-
-typedef struct RestSmackFormatVariant2 {
-    s32 id;
-    char text[4];
-    s32 ids[2];
-} RestSmackFormatVariant2;
-typedef char RestSmackFormatVariant2SizeCheck[sizeof(RestSmackFormatVariant2) == 16 ? 1 : -1];
-
 typedef struct XplusNextrandomintegerEncodedWordsLayout {
     s32 id;
     char text[4];
@@ -1752,6 +1739,28 @@ typedef struct SlotSelectionLabelIdPointerPairsUsRev1Layout {
     struct { s32 id; void * reference; } records[50];
 } SlotSelectionLabelIdPointerPairsUsRev1Layout;
 typedef char SlotSelectionLabelIdPointerPairsUsRev1LayoutSizeCheck[sizeof(SlotSelectionLabelIdPointerPairsUsRev1Layout) == 400 ? 1 : -1];
+
+typedef struct SlotSelectionLabel {
+    s32 id;
+    void *reference;
+} SlotSelectionLabel;
+
+/* Slot-selection label table of eu, eu-x and us (us-rev1 keeps its 50 pairs only). */
+typedef struct SlotSelectionLabelTable {
+    SlotSelectionLabel labels[50];
+    s32 menuEventWords[63];
+    void *menuEventReference;
+    SlotSelectionLabel rankLabels[15];
+    s32 rankListId;
+    void *rankListReferences[3];
+    SlotSelectionLabel achievementLabels[15];
+    s32 achievementListId;
+    void *achievementListReferences[3];
+    SlotSelectionLabel optionLabels[15];
+    s32 optionListId;
+    void *optionListReferences[4];
+} SlotSelectionLabelTable;
+typedef char SlotSelectionLabelTableSizeCheck[sizeof(SlotSelectionLabelTable) == 0x42C ? 1 : -1];
 
 typedef struct JoinOptionsTrailingWordsLayout {
     s32 ids[3];
@@ -2459,17 +2468,17 @@ typedef struct RestTrigConstantPool3 { s32 zero; s32 precision[2]; double one; }
 
 typedef struct RestDecimalPowersPool5 { u32 prefix[2]; double powers[9]; char tail[8]; } RestDecimalPowersPool5;
 
-typedef struct RestOvlgameInitializeplayerpoolEncodedWordsRecord391 {
+typedef struct PlayerPoolInitWords {
     s32 state;
-} RestOvlgameInitializeplayerpoolEncodedWordsRecord391;
+} PlayerPoolInitWords;
 
-typedef struct RestplayerControllerStateIdThirteenUsRev1Record397 {
+typedef struct PlayerControllerStateThirteenWords {
     s32 state;
-} RestplayerControllerStateIdThirteenUsRev1Record397;
+} PlayerControllerStateThirteenWords;
 
-typedef struct RestplayerControllerStateEndUsRev1Record399 {
+typedef struct PlayerControllerStateEndWords {
     s32 endState;
-} RestplayerControllerStateEndUsRev1Record399;
+} PlayerControllerStateEndWords;
 
 typedef struct RestBytes2 {
     u8 bytes[2];

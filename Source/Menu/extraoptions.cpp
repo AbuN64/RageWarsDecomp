@@ -360,7 +360,7 @@ s32 Menu_OpenRuleToggleScreen(void *window) {
     g_extraOptionsScreen = screen;
     screen->window = window;
     screen->full = 0;
-    /* The shared widget type has no color member; the options view of the item names it. */
+    /* the hub's item type carries no color; this unit's options view names the byte at +0x1A */
     ((OptionsOpenItem *) Node_FindWidgetByResourceId(window, ID(936)))->color = COLOR;
     g_extraOptionsScreen->title = SmpFade_CreateFadeWidget(ID(936), ID(937));
     SmpButton_WrapButtonWidget(ID(950));
@@ -402,7 +402,7 @@ s32 Menu_OpenRuleToggleScreen(void *window) {
     }
 
     SmpButton_WrapButtonWidget(ID(940));
-    g_extraOptionsScreen->cursor = (OptionsOpenItem *) Node_FindWidgetByResourceId(window, ID(951));
+    g_extraOptionsScreen->pad = Node_FindWidgetByResourceId(window, ID(951));
     g_extraOptionsScreen->length = 0;
     g_extraOptionsScreen->mode = 0;
     g_extraOptionsScreen->open = 1;
@@ -583,13 +583,27 @@ s32 Menu_ConfirmExtraOptions(void) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
 /* Dispatches event event through this file's 12-byte handler table, whose rows hold an event at g_extraOptionsEventCodes, an actor kind at g_extraOptionsActorKinds and a handler at g_extraOptionsEventCallbacks: the first row whose event equals event and whose kind equals the actor's input kind, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. */
 s32 Menu_DispatchExtraOptionsEvent(void *object, s32 event, s32 eventData, s32 eventValue, s32 eventContext) {
-    ResidentEventHandlerEntry *row = (ResidentEventHandlerEntry *)&g_extraOptionsEventCodes;
-    MenuWidget *actor = object;
-    for (; row->handler != 0; ++row) {
-        if (row->event == event &&
-            (row->actorKind == actor->resource || row->actorKind == ANY_ACTOR_KIND)) {
-            return row->handler(object, event, eventData, eventValue, eventContext);
-        }
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+
+    if (g_extraOptionsEventCallbacks != 0) {
+        wildcard = 30000;
+        entry = (char *)&g_extraOptionsEventCallbacks;
+        offset = 0;
+        do {
+            if (((s32 *) (((char *) (&g_extraOptionsEventCodes)) + offset))[0] == event) {
+                actor_kind = ((struct MenuWidget *) ((char *) object))->resource;
+                table_kind = ((s32 *) (((char *) (&g_extraOptionsActorKinds)) + offset))[0];
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(object, event, eventData, eventValue, eventContext);
+                }
+            }
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }

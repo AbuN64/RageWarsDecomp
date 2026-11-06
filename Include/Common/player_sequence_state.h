@@ -14,6 +14,10 @@ typedef struct PlayerSequenceRunEndStateView PlayerSequenceRunEndStateView;
 
 
 
+struct Player1680;
+struct Player;
+struct TransientDamagePlayerView;
+struct TransientPlayerDamagePacket;
 extern void Playerai_NoopRoundEndViewAngles_de(void);
 
 extern void Playerai_SetRunEndFlag(struct SharedPlayer *player);
@@ -164,4 +168,11 @@ extern void Playerai_TryStartPlayerSequence(struct PlayerSequenceActorView *a, v
 
 
 #endif
+extern s32 Playerai_GetWeaponAmmo(void *actor, s32 weaponId);
+extern s32 Playerai_GetWeaponClassId(struct Player *player, s32 weaponId);
+extern void Playerai_CreditDamageSource(struct TransientDamagePlayerView *damagedPlayer, struct TransientPlayerDamagePacket *damagePacket);
+extern void Playerai_BuildEyeMarkerTransform(struct Player1680 *player);
+extern void Playerai_DrawHudSprite1FC(char *player, char *view);
+extern void Playerai_DrawHudSprite201(char *player, char *view);
+extern void Playerai_UpdateReactionReserve(void *player);
 #endif

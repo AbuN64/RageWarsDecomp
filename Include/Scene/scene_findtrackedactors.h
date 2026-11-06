@@ -11,6 +11,9 @@ struct Shared_World;
 #include "Common/colorentry.h"
 #include "Engine/scene.h"
 #include "Common/runtime_declarations.h"
+struct CVector3_t;
+struct SceneLightVolume;
+struct Shared_ParticleLighting;
 extern void Scene_ReleaseCachedGeometry(struct Shared_World *);
 extern void Scene_CollectVisibleEffects(s32);
 extern void Scene_ClearTransparentInstanceCount(void *object);
@@ -33,4 +36,6 @@ extern void Scene_CollectTypeFourteenActors(struct Shared_World *world);
 extern void Scene_FindTrackedActors(struct Shared_World *world);
 #include "Common/world.h"
 extern void Scene_CopyLevelName(struct Shared_World *world, s32 type, void *levelName, s32 maximumBytes);
+extern char *Scene_GetPlatformRoute(void *world, s32 index);
+extern void Scene_SampleVolumeLighting(struct SceneLightVolume **volumes, s32 count, struct CVector3_t *position, struct Shared_ParticleLighting *lighting);
 #endif

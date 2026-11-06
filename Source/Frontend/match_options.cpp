@@ -267,7 +267,7 @@ s32 Frontend_DispatchMatchOptionsEvent(void *object, s32 event, s32 eventData, s
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_matchOptionsEventCallbacks != 0) {
         wildcard = 30000;
@@ -419,10 +419,17 @@ ResidentEventHandlerEntry g_FrontendCreatematchoptionsPointerWords[9] = {
 #endif
 
 /* unit FRONTEND_CREATEMATCHOPTIONS.CPP */
+#define MO_LABEL0 g_matchOptionsSelectFirstLabel
+#define MO_LABEL1 g_matchOptionsSelectSecondLabel
+#define MO_LABEL2 g_matchOptionsCursorFirstLabel
+#define MO_LABEL3 g_matchOptionsCursorSecondLabel
+#define MO_LABEL4 g_matchOptionsCursorNormalLabel[0]
+#define MO_LABEL5 g_matchOptionsCursorFourthLabel
+#define MO_LABEL6 g_matchOptionsCursorFifthLabel
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 #define MO_TEXT(i) (g_matchOptionsListLabelsByLanguage[i][settings->language])
 #else
-#define MO_TEXT(i) (g_matchOptionsListLabels[i])
+#define MO_TEXT(i) (MO_LABEL##i)
 #endif
 
 #if defined(VERSION_DE)

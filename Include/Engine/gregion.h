@@ -40,10 +40,10 @@ void Region_ComputePointBounds(f32 *pointBounds, s32 pointCount, struct CVector3
 struct Node75;
 f32 Region_GetPolygonHeight(struct Node75 *node, f32 x, f32 z);
 f32 Region_SetNodeGroupHeight(u16 *modelTreeNode, f32 height);
-extern void Gregion_ShiftColorHue(u8 hue, u8 red_arg, u8 green_arg, u8 blue_arg, u8 *red_out, u8 *green_out, u8 *blue_out);
+extern void Gregion_ShiftColorHue(s8 hue, u8 red_arg, u8 green_arg, u8 blue_arg, u8 *red_out, u8 *green_out, u8 *blue_out);
 extern void Gregion_DarkenColor(unsigned char percent, unsigned char r, unsigned char g, unsigned char b, unsigned char *outR, unsigned char *outG, unsigned char *outB);
-extern u8 Region_GetModelBlendByte59(s32 modelId);
-extern u8 Region_GetModelBlendByte58(s32 modelId);
+extern s32 Region_GetModelBlendByte59(s32 modelId);
+extern s32 Region_GetModelBlendByte58(s32 modelId);
 extern struct Triangle *g_regionCachedEdgePolygon;
 extern struct Triangle *g_regionCachedNormalPolygon;
 struct CVector3_t; extern void Gregion_ExpandHorizontalBounds(f32 *bounds, s32 pointCount, struct CVector3_t *points);

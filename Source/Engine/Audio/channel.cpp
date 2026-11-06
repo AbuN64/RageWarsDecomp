@@ -1097,19 +1097,24 @@ s32 Audio_HasVoiceWithKey(VoiceKeyTable *record, s32 value) {
 
 /* Marks one voice slot of the pool finished and, when its key no longer matches the owner's, stops that sound. */
 void Audio_StopVoiceSlot(s32 voicePoolAddress, s16 slotIndex) {
-    struct IntegerStateB4 *slot = (struct IntegerStateB4 *)(voicePoolAddress + slotIndex * 204 + 4);
-    s32 voiceOwner = slot->context;
-    void *soundPlayer = (void *)(voiceOwner + 132);
+    s32 base;
+    s32 a0;
+    void *s1;
 
-    slot->done = 1;
-    slot->tracked = 0;
-    if (slot->frame != ((struct VoiceMatchingKeyView *)voiceOwner)->voiceKey) {
-        s32 soundAddress = voiceOwner + slot->slotIndex * 2;
-        alSndpSetSound(soundPlayer, ((struct SoundSlotHandleView *)soundAddress)->soundId);
-        if (alSndpGetState(soundPlayer) != 0) {
-            alSndpStop(soundPlayer);
+    base = (slotIndex * 204) + voicePoolAddress;
+    base = base + 4;
+    a0 = ((struct IntegerStateB4 *) base)->context;
+    ((struct IntegerStateB4 *) base)->done = 1;
+    ((struct IntegerStateB4 *) base)->tracked = 0;
+    s1 = (void *)(a0 + 132);
+    if (((struct IntegerStateB4 *) base)->frame != ((struct VoiceMatchingKeyView *) a0)->voiceKey) {
+        s32 idx = ((struct IntegerStateB4 *) base)->slotIndex;
+        s32 addr = a0 + idx * 2;
+        alSndpSetSound(s1, ((struct SoundSlotHandleView *) addr)->soundId);
+        if (alSndpGetState(s1) != 0) {
+            alSndpStop(s1);
         }
-        slot->handle = -1;
+        ((struct IntegerStateB4 *) base)->handle = -1;
     }
 }
 
@@ -1747,13 +1752,7 @@ s32 *SoundVoicePool_GetGlobalState(void) {
 void SoundVoicePool_GetGlobalStateNoOp(void) {
 }
 
-#if !(defined(VERSION_US_REV1))
 
-#endif
-
-#if defined(VERSION_US_REV1)
-
-#endif
 
 
 
@@ -1806,21 +1805,6 @@ const float g_audio_ComputeSpatialAttenuationCurveConstant[1] = {
 /* CHANNEL_UPDATEDISTANCEPITCHFACTOR_DATA.CPP */
 
 
-#if defined(VERSION_DE)
-const char g_channelUpdateDistancePitchFactorData[4] __attribute__((aligned(4))) = ";e`B";
-#endif
-#if defined(VERSION_EU)
-const char g_channelUpdateDistancePitchFactorData[4] __attribute__((aligned(4))) = ";e`B";
-#endif
-#if defined(VERSION_EU_X)
-const char g_channelUpdateDistancePitchFactorData[4] __attribute__((aligned(4))) = ";e`B";
-#endif
-#if defined(VERSION_US)
-const char g_channelUpdateDistancePitchFactorData[4] __attribute__((aligned(4))) = ";e`B";
-#endif
-#if defined(VERSION_US_REV1)
-const char g_channelUpdateDistancePitchFactorData[4] __attribute__((aligned(4))) = ";e`B";
-#endif
 
 /* G_AUDIOPITCHRATIOCURVE.CPP */
 
@@ -1996,3 +1980,5 @@ const float g_channel_UpdateVoicePitchConstant[2] = {
 const float g_channel_UpdateVoicePlaybackConstant[1] = {
     0.075f,
 };
+
+float g_voicePitchTableBase = 0.00350000011f;

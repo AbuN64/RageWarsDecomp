@@ -115,15 +115,15 @@ typedef char g_weaponaiInitializeSwitchAndRequestIdleDataSizeCheck[
     (sizeof(g_weaponaiInitializeSwitchAndRequestIdleData) == 28) ? 1 : -1];
 
 void * g_weaponResourceDirectory[22] = {
-    (void *)&g_weaponSecondaryPresentationLabel, (void *)&g_weaponSlotRecords.linkedSlots[0].head.presentation,
-    (void *)&g_weaponSlotRecords.linkedSlots[1].head.presentation, (void *)&g_weaponSlotRecords.linkedSlots[2].head.presentation,
-    (void *)&g_weaponSlotRecords.linkedSlots[3].head.presentation, (void *)&g_weaponSlotRecords.linkedSlots[4].head.presentation,
-    (void *)&g_weaponSlotRecords.linkedSlots[5].head.presentation, (void *)&g_weaponSlotRecords.lastSlot.presentation,
+    (void *)&g_weaponSecondaryPresentationLabel, (void *)&g_weaponSlotRecords.slots[1].head.presentation,
+    (void *)&g_weaponSlotRecords.slots[2].head.presentation, (void *)&g_weaponSlotRecords.slots[3].head.presentation,
+    (void *)&g_weaponSlotRecords.slots[4].head.presentation, (void *)&g_weaponSlotRecords.slots[5].head.presentation,
+    (void *)&g_weaponSlotRecords.slots[6].head.presentation, (void *)&g_weaponSlotRecords.lastSlot.head.presentation,
     (void *)&g_weaponSlotPresentationRows[0].presentation, (void *)&g_weaponSlotPresentationRows[1].presentation,
     (void *)&g_weaponSlotPresentationRows[2].presentation, (void *)&g_weaponSlotPresentationRows[3].presentation,
     (void *)&g_weaponSlotPresentationRows[4].presentation, (void *)&g_weaponSlotPresentationRows[5].presentation,
     (void *)&g_weaponSlotPresentationRows[6].presentation, (void *)&g_weaponSlotPresentationRows[7].presentation,
-    (void *)&g_weaponPrimaryPresentationLabel, (void *)&g_weaponSlotRecords.firstSlot.presentation,
+    (void *)&g_weaponPrimaryPresentationLabel, (void *)&g_weaponSlotRecords.slots[0].head.presentation,
     (void *)&g_weaponSlotBlock.slots[0].presentationDescriptor, (void *)&g_weaponSlotBlock.slots[1].presentationDescriptor,
     (void *)&g_weaponSlotBlock.slots[2].presentationDescriptor, (void *)&g_weaponSlotBlock.slots[3].presentationDescriptor,
 };

@@ -127,7 +127,13 @@ extern char g_playerOptionControlTypeExpertText[];
 extern char g_playerOptionControlSideLeftText[];
 extern char g_playerOptionLookSpringOnText[];
 extern char g_playerOptionAutoAimOffText[];
+#if defined(VERSION_EU)
+extern char g_sceneMaskLabelTables[3][16];
+#elif defined(VERSION_EU_X)
+extern char g_sceneMaskLabelTables[3][12];
+#else
 extern char g_sceneMaskLabelTables[3][4];
+#endif
 extern char g_textureVariationBypassDisabledLabels[];
 extern char g_sfxVolumeText[];
 extern char g_speechVolumeText[];

@@ -7,5 +7,5 @@ extern char g_pakRestoreBlockPromptText[];
 extern f32 g_controllerPakPreviewSeconds[];
 extern f32 g_controllerPakPreviewMinutes[];
 extern f32 g_controllerPakPreviewHours[];
-extern u8 g_frontendSavedVideoModeIndex; /* g_gameSettings+0x580, kept across the options reload */
+extern u8 g_frontendSavedVideoModeIndex[]; /* g_gameSettings+0x580, kept across the options reload */
 #endif

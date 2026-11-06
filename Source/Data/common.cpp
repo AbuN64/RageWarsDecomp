@@ -448,7 +448,3 @@ VideoDeviceManager g_videoDeviceManager = { 0 };
 #if defined(VERSION_US_REV1)
 
 #endif
-
-#if defined(VERSION_US_REV1)
-extern unsigned int g_ribbonBlendResourceTable_StorageWords[6];
-#endif

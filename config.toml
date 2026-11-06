@@ -1443,7 +1443,6 @@ unrelocated = true
 [file."Source/Ui/Tsmos/Screens/pakinterfacescreen.cpp"]
 toolchain = "gcc-2.8.1-sn64"
 cflags = []
-unrelocated = true
 
 [file."Source/Ui/Tsmos/pakinterface_updatestartgroup.cpp"]
 toolchain = "gcc-2.8.1-sn64"

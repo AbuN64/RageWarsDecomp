@@ -124,6 +124,7 @@ void CCinema_ResetSequenceContext(void)
  * no pending game event fires its cue callback past its cue point and, past its length, releases its sound
  * and fires its end callback; a still-playing cue then refreshes channel 10 through Cache_SetResourceActivityState. */
 #include "Common/funcptr.h"
+#include "Common/viewflags.h"
 
 void CCinema_EnterSequenceScene(void) {
     Vec3Words origin;

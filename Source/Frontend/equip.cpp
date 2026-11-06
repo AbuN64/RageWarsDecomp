@@ -27,7 +27,6 @@
 #include "Frontend/frontend.h"
 
 /* unit EQUIP_ACTIVATEEQUIPMENTPANEL.CPP */
-#define g_gameSettingsView (*(HudStatusShared_Settings *)&g_gameSettings)
 
 /* Moves player p's column cursor on the screen g_equipmentAndResultsScreen: fades the shown item of the current
    column (g_equipmentSecondaryWidgetIds[p][column]) to alpha 0x23, calls Widget_SetWidgetFlag08_EquipActivateequipmentpanel(0) on the item g_equipmentPrimaryWidgetIds[p][column]
@@ -142,7 +141,7 @@ void Equip_CycleEquipmentChoice(s32 player, s32 step) {
             }
             if (valid == 1 && (category == 2 || category == 3) &&
                 g_loadoutWeaponItems[value].weapon == 15 &&
-                !(g_gameSettingsView.flags & 0x10000000) &&
+                !(g_gameSettings.flags & 0x10000000) &&
                 !Player_HasProfileUnlockFlag((intptr_t)&g_localPlayerProfiles[player], 15)) {
                 value += step;
                 valid = 0;
@@ -419,6 +418,7 @@ const unsigned int g_equipmentSelectionRetainedData[3] = {
 
 /* unit FRONTEND_CONFIRMEQUIPMENTSELECTION.CPP */
 s32 Frontend_ConfirmEquipmentSelection(void *element, void *eventId, s32 event) {
+    u8 *settings;
     s32 player;
     s32 i;
     s32 delay;
@@ -434,14 +434,20 @@ s32 Frontend_ConfirmEquipmentSelection(void *element, void *eventId, s32 event) 
             Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_equipmentAndResultsScreen->window, g_equipmentOptionWidgetIds[player][i].value), 1);
         }
         Key_FindKeyIndex(g_gameSettings.playerSettings[player].character);
-        Preview_SetPreviewTransformUpdate(&g_equipmentAndResultsScreen->panels[player].previewTransform, 0);
+        settings = (u8 *)&g_equipmentAndResultsScreen->panels[player].previewTransform;
+        {
+            void *panel = settings;
+            settings = (u8 *)g_playerSettings;
+            Preview_SetPreviewTransformUpdate(panel, 0);
+        }
         if (Frontend_CountActiveEquipmentPanels() != 0) return 0;
         {
             Equip_ApplySelectedPlayerLoadouts();
             screen = g_equipmentAndResultsScreen;
             screen->state = 5;
             screen->timer = 4;
-            switch (g_gameSettings.controllerMode) {
+            switch (settings[(u8 *)&g_gameSettings.controllerMode -
+                             (u8 *)g_gameSettings.playerSettings]) {
             case 0: delay = 20; break;
             case 3: delay = 10; break;
             case 2: delay = 15; break;

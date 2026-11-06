@@ -47,7 +47,7 @@ void Frontend_AwardMatchAchievements(s32 player, s32 *awarded) {
     }
     if (Defs_TestBit(g_localPlayerProfiles[player].achievementFlags, 36) == 0) {
         ok = 0;
-        if ((g_matchAchievementQualificationFlagA - 1U < 5 && status->kills >= 15) ||
+        if (((u8)g_matchAchievementQualificationFlagA - 1U < 5 && status->kills >= 15) ||
             ((rules = &g_gameSettings.counters)->timeLimit >= 0.0f && status->kills >= 15 &&
              (elapsed = rules->timeLimit * (1.0f / 15.0f),
               elapsed = (f32) (s32) (elapsed * (1.0f / 60.0f)),
@@ -63,7 +63,7 @@ void Frontend_AwardMatchAchievements(s32 player, s32 *awarded) {
     }
     if (Defs_TestBit(g_localPlayerProfiles[player].achievementFlags, 37) == 0) {
         ok = 0;
-        if ((g_matchAchievementQualificationFlagA - 1U < 10 && status->kills >= 25) ||
+        if (((u8)g_matchAchievementQualificationFlagA - 1U < 10 && status->kills >= 25) ||
             ((rules = &g_gameSettings.counters)->timeLimit >= 0.0f && status->kills >= 25 &&
              (elapsed = rules->timeLimit * (1.0f / 15.0f),
               elapsed = (f32) (s32) (elapsed * (1.0f / 60.0f)),

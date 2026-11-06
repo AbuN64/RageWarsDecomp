@@ -2,10 +2,10 @@
 #define LINKDATA_GERMAN_LINK_DATA_H
 #include "types.h"
 #if defined(VERSION_DE)
-extern void *g_slotSelectionNameText[]; /* table of pointers */
+extern void *g_slotRankNamePointers_Empty[]; /* table of pointers */
 extern void *g_slotSelectionMenuText[]; /* table of pointers */
-extern void *g_slotSelectionMenuPointerText[]; /* table of pointers */
-extern void *g_resultsModeMessage[]; /* table of pointers */
+extern void *g_playerNamesSymbiontToClaw[]; /* table of pointers */
+extern char *g_resultsModeMessage[]; /* table of pointers */
 extern void *g_slotAchievementTextPointers_DurchgefbhrtWarehouse[]; /* table of pointers */
 extern char addrLow_SmpList_HandleStopEvent[];
 extern char addrLow_SmpOverlay_ReturnUnhandledPakDialogEvent[];

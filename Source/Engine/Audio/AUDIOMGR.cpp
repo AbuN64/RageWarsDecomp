@@ -43,26 +43,26 @@ void Audiomgr_InitHeap(void) {
     s32 heapEnd;
     s32 size;
 
-    heapEnd = K0BASE + 0x400000;
+    heapEnd = 0x80400000;
     heapStart = g_runtimeHeapStart;
     if (Defs_GetMemorySize() != 0x400000) {
-        heapEnd = Defs_GetMemorySize() | K0BASE;
+        heapEnd = Defs_GetMemorySize() | 0x80000000;
     }
 
     size = heapEnd - (s32)heapStart;
     XPlus_FillMemory(heapStart, 0, size);
-    Heap_InitializeArena(g_runtimeHeap, heapStart, size);
-    Cache_StartResourceLoadWorker(g_resourceCacheWorker, 3);
+    Heap_InitializeArena(&g_runtimeHeap, heapStart, size);
+    Cache_StartResourceLoadWorker(&g_resourceCacheWorker, 3);
     Cartridge_StartReadWorker(g_cartridgeReadWorker, 4);
 
 #if defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    Vhandler_InitializePagerEuroExtended
+Vhandler_InitializePagerEuroExtended
 #elif defined(VERSION_EU_X)
-    Vhandler_InitializePagerEuroExtended
+Vhandler_InitializePagerEuroExtended
 #else
-    Vhandler_InitializePagerEuroExtended
+Vhandler_InitializePagerEuroExtended
 #endif
-    (0, 0);
+(0, 0);
     Cache_InitializeResourceCache(0, 5);
 }
 

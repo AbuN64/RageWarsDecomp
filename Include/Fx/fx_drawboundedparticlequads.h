@@ -10,7 +10,7 @@ s32 Fx_AllocateRibbonSegment(struct RibbonWorld *ribbonWorld, s32 ribbon);
 struct ParticleRibbonLifetimeView;
 struct FloatStateB0;
 #include "Common/effectcontribution.h"
-void Fx_DrawBoundedParticleQuads(struct RibbonWorld *scene);
+void Fx_DrawBoundedParticleQuads(struct RibbonWorld *scene, char *view);
 
 struct RibbonActor;
 struct RibbonSegment;

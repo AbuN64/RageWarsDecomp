@@ -39,8 +39,8 @@ struct HeapArenaBlock {
 struct HeapArenaBlock;
 typedef struct HeapArenaBlock HeapArenaBlock;
 
-struct HeapArena_Entryrecat18v3;
-struct HeapArena_Entryrecat18v3 {
+struct HeapArenaBlockList;
+struct HeapArenaBlockList {
     s32 reservedWord0;
     s32 reservedWord4;
     struct HeapArenaBlock *head;
@@ -92,8 +92,8 @@ struct HeapAllocationBlock;
 struct HeapFreeBlockList;
 
 
-struct HeapArena_Entryrecat18v3;
-typedef struct HeapArena_Entryrecat18v3 HeapArena_Entryrecat18v3;
+struct HeapArenaBlockList;
+typedef struct HeapArenaBlockList HeapArenaBlockList;
 
 
 

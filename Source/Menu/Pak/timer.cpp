@@ -218,16 +218,32 @@ unsigned int k_InitialZeroWords[1] = {
 #endif
 
 #if !(defined(VERSION_DE) || defined(VERSION_EU))
-/* Points a field's text at the pak action label for the frontend resource load stage: stages 1 and 2
-   use the alternate label, every other stage uses the default label. Returns zero. */
+/* Keep the original state dispatch and shared exit ordering. */
 s32 Frontend_SelectPakActionLabel(struct PakActionLabelView *field) {
-    u32 stage = g_frontendResourceLoadStage;
+    u32 state = g_frontendResourceLoadStage;
 
-    if (stage == 1 || stage == 2) {
-        field->text = s_nodeAlternateFieldText;
-    } else {
-        field->text = s_nodeDefaultFieldText;
+    if (state >= 5) {
+        goto state_other;
     }
+    switch (state) {
+        case 0: goto state_other;
+        case 1: goto state_alternate;
+        case 2: goto state_alternate;
+        case 3: goto state_three;
+        case 4: goto state_four;
+    }
+state_other:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+state_three:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+state_four:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+state_alternate:
+    field->text = s_nodeAlternateFieldText;
+done:
     return 0;
 }
 #endif
@@ -359,14 +375,14 @@ void Pak_RestoreSavedSession(Player *player) {
     Shared_World *world = &g_world;
     s32 i;
     u8 *from, *to;
-    u8 saved = g_frontendSavedVideoModeIndex;
+    u8 saved = g_frontendSavedVideoModeIndex[0];
     *(Copy70 *)&player->state = g_controllerPakSnapshotPayload->save.player;
     *(Copy584 *)&g_gameSettings = g_controllerPakSnapshotPayload->save.world;
     g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->save.view[0];
     g_gameSettings.counters.m_GameTimeSeconds = g_controllerPakSnapshotPayload->save.view[1];
     g_gameSettings.counters.m_GameTimeMinutes = g_controllerPakSnapshotPayload->save.view[2];
     g_gameSettings.counters.m_GameTimeHours = g_controllerPakSnapshotPayload->save.view[3];
-    g_persistedOptionUnlockFlags = ((Copy584 *)&g_gameSettings)->words[1];
+    g_persistedOptionUnlockFlags[0] = ((Copy584 *)&g_gameSettings)->words[1];
     g_gameSettings.resolution = saved;
     from = g_controllerPakSnapshotPayload->save.name;
     to = g_worldSnapshotNoteData;
@@ -628,19 +644,22 @@ s32 Timer_UpdateManagerChannelLabel(struct Field *field) {
     if (g_pakProfileLoadMode_de != 0) {
         if (g_pakSaveMenuActiveDe != 0) {
             field->text = g_pakSaveMenuProfileChannelLabels;
-            return 0;
+            goto done;
         }
     } else if (g_pakSaveMenuActiveDe != 0) {
         field->text = g_pakSaveMenuSnapshotChannelLabels;
-        return 0;
+        goto done;
     }
     if (g_pakUseScannedChannel != 0) {
-        table = g_pakScannedChannelNumberLabelsByLanguage;
+        do {
+            table = g_pakScannedChannelNumberLabelsByLanguage;
+        } while (0);
         field->text = table;
         value = g_introSelectedItem;
         text = table[g_languageIndex];
         Defs_FormatIntegerValue(text + (Menu_CountLineChars(field) - 1), g_pakChannelNumberFormat, value + 1);
     }
+done:
     return 0;
 }
 
@@ -672,13 +691,15 @@ s32 Timer_UpdateOwnerChannelLabel(struct Field *field, Shared_PakMenu *pThis) {
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
 s32 Timer_UpdateOwnerChannelLabel(LayeredText *field, struct Shared_PakMenu *holder) {
     char *text;
+    char **strings;
     s32 value;
     if (g_pakUseScannedChannel != 0) {
         field->text = g_unlockedLevelResultLabel;
     } else {
         value = holder->owner->controllerPort;
-        field->text = &g_pakOwnerChannelLabelFixed;
-        text = g_pakOwnerChannelLabelFixed;
+        strings = (char **)g_pakOwnerChannelLabelFixed;
+        field->text = strings;
+        text = *strings;
         Defs_FormatIntegerValue(text + (Menu_CountLineChars(field) - 1),
                         g_pakChannelDigitFormat, value + 1);
     }
@@ -701,7 +722,7 @@ s32 Timer_UpdateOperationChoiceLabel(struct Field *field, s16 *optionPtr) {
         } else {
             field->text = g_pakProfileLoadSnapshotChoiceLabels;
         }
-        return 0;
+        goto done;
     }
     if (g_pakSaveMenuActiveDe != 0) {
         if (rel < 16) {
@@ -715,11 +736,12 @@ s32 Timer_UpdateOperationChoiceLabel(struct Field *field, s16 *optionPtr) {
         } else {
             field->text = g_pakSaveMenuSnapshotChoiceLabels;
         }
-        return 0;
+        goto done;
     }
     if (g_pakUseScannedChannel != 0) {
         field->text = g_pakScannedChannelChoiceLabels;
     }
+done:
     return 0;
 }
 

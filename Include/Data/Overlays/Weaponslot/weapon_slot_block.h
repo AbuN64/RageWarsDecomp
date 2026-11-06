@@ -82,17 +82,26 @@ typedef struct WeaponSlotAmmoLinks {
     void *alternateReserved;
 } WeaponSlotAmmoLinks;
 
+/* One weapon slot as laid out from rom 0xD0984 (us-rev1): 0x60 bytes. reserved (+0x40) is zero in
+ * every slot; no reader is known. */
 typedef struct WeaponSlotLinkedRecord {
+    f32 viewOffset[3];
     WeaponSlotHead head;
+    unsigned int reserved;
     WeaponSlotAmmoLinks links;
 } WeaponSlotLinkedRecord;
 
-/* Rows indexed by slot: slot 1 is firstSlot, slots 2-7 are linkedSlots[slot - 2],
- * slot 8 is lastSlot. */
+/* Slot 8 ends before its ammo links, which g_weaponSlotPresentationRows owns at rom 0xD0C68. */
+typedef struct WeaponSlotLastRecord {
+    f32 viewOffset[3];
+    WeaponSlotHead head;
+    unsigned int reserved;
+} WeaponSlotLastRecord;
+
+/* Rows indexed by slot: slots 1-7 are slots[slot - 1], slot 8 is lastSlot. */
 typedef struct WeaponSlotRecordTable {
-    WeaponSlotHead firstSlot;
-    WeaponSlotLinkedRecord linkedSlots[6];
-    WeaponSlotHead lastSlot;
+    WeaponSlotLinkedRecord slots[7];
+    WeaponSlotLastRecord lastSlot;
 } WeaponSlotRecordTable;
 
 extern WeaponSlotRecordTable g_weaponSlotRecords;

@@ -40,7 +40,7 @@
 
 /* Calls InitFrontendMenus and Tsmos_DeactivateControllerState, then SmXlate_SwitchScreen with 0x11. */
 
-/* Clears the two round counters of g_matchRoundCounters, then calls SmXlate_SwitchScreen with 0x14
+/* Clears the two round counters of g_gameSettings.counters, then calls SmXlate_SwitchScreen with 0x14
    unless ScenarioSetup_IsCupSelected and ScenarioSetup_StartRandomCupStage both report something, in which case it calls
    Stage_StartConfiguredMatch. */
 
@@ -66,8 +66,8 @@ extern s32 Player_CheckTeamPointWin(Shared_World *world);
    Achieve_AwardAllMilestoneAchievement(id, the participant's award slot of g_matchResultBadgeScreen), and calls Achieve_UpdateUnlockTiers(id). */
 
 /* When the object g_matchResultBadgeScreen points to has a model target and its model-visible flag set, runs
-   Preview_DrawMenuModelItem on its model item with g_menuModelFillEnabled set and g_menuModelFillAlpha raised to g_resultBadgeDrawParameters[1],
-   then clears g_menuModelFillEnabled and sets g_menuModelFillAlpha to g_resultBadgeDefaultAlpha. */
+   Preview_DrawMenuModelItem on its model item with g_menuModelFillEnabled set and g_menuModelFillColor[3] raised to g_resultBadgeDrawParameters[1],
+   then clears g_menuModelFillEnabled and sets g_menuModelFillColor[3] to g_resultBadgeDefaultAlpha. */
 
 /* Draws player p's badge on the screen g_matchResultBadgeScreen: looks up the group item the third argument
    names in the screen window, picks its child 0x26C, 0x26B or 0x26A for kinds 1 to 3 and 0x26D
@@ -405,7 +405,7 @@ s32 Frontend_HandleResultsConfirmation(s32 context) {
             Menu_SetFocusedElement(message);
             Tsmos_ActivateControllerState();
         }
-        choice = (&g_selectionMessageReply + 1);
+        choice = &g_selectionMessageReply.ready;
         taken = choice[0];
         if (taken == 1) {
             choice[0] = 0;

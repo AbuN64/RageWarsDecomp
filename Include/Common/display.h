@@ -38,6 +38,9 @@ struct Display {
 extern struct Frame *g_currentRenderFrame;
 extern struct Frame *g_currentTaskFrame; /* the frame being built */
 extern Gfx *g_displayListBuffers[2]; /* command buffers, alternating per frame */
+/* The render-buffer allocator writes the two primary buffers as their own symbols, as the ROM addresses them (link-only aliases). */
+extern Gfx *g_primaryDisplayListBufferZero;
+extern Gfx *g_primaryDisplayListBufferAlternate;
 extern Gfx *g_secondaryDisplayListBufferAlternate, *g_secondaryDisplayListBufferZero; /* second command buffers */
 extern u64 *g_graphicsMicrocodeDataSize; /* RSP output buffer */
 extern s32 g_graphicsMicrocodeTextSize; /* its size */

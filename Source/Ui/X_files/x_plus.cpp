@@ -505,17 +505,17 @@ s32 XPlus_NextRandomInteger(void) {
 
 /** Return strlen(string) (byte count not including the terminating NUL). */
 s32 XPlus_StringLength(const char *string) {
-    const char *cursor;
+    const u8 *cursor;
     u8 c;
 
-    cursor = string + 1;
-    if (*string != 0) {
+    cursor = (const u8 *)string + 1;
+    if (*(const u8 *)string != 0) {
         do {
             c = *cursor;
             cursor += 1;
         } while (c != 0);
     }
-    return (cursor - string) - 1;
+    return (cursor - (const u8 *)string) - 1;
 }
 
 u8 *XPlus_CopyString(u8 *destination, u8 *source) {
@@ -1075,24 +1075,4 @@ XplusNextrandomintegerEncodedWordsLayout g_XplusNextrandomintegerData = {
 };
 #endif
 
-#if defined(VERSION_US_REV1)
-const float k_xplusParsedecimaldoubleDataFloatConstants[34] = {
-    1.875f, 0.0f, 0.0f, 0.0f, -1.875f, 0.0f,
-    0.0f, 0.0f, 2.5625f, 0.0f, 0.0f, 0.0f,
-    2.5625f, 0.0f, 1.875f, 0.0f, -1.875f, 0.0f,
-    0.0f, 0.0f, 2.5625f, 0.0f, 2.96875f, 0.0f,
-    0.0f, 0.0f, 1.875f, 0.0f, 2.5625f, 0.0f,
-    2.5625f, 0.0f, 0.0f, 0.0f,
-};
-#endif
 
-#if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
-const f32 k_xplusParsedecimaldoubleDataConstants[34] = {
-    1.875f, 0.0f, 0.0f, 0.0f, -1.875f, 0.0f,
-    0.0f, 0.0f, 2.5625f, 0.0f, 0.0f, 0.0f,
-    2.5625f, 0.0f, 1.875f, 0.0f, -1.875f, 0.0f,
-    0.0f, 0.0f, 2.5625f, 0.0f, 2.96875f, 0.0f,
-    0.0f, 0.0f, 1.875f, 0.0f, 2.5625f, 0.0f,
-    2.5625f, 0.0f, 0.0f, 0.0f,
-};
-#endif

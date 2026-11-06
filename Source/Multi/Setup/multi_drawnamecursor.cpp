@@ -12,7 +12,7 @@ unsigned int g_cinemaSequenceStateStaleWords[3] = {
 
 #if defined(VERSION_EU_X)
 unsigned int g_cinemaSequenceStateStaleWords[3] = {
-    0x00000001, (unsigned int)&g_multiNameCursorTextLocalized[0x24], 0x00000002,
+    0x00000001, (unsigned int)&g_slotRankNamePointers_Juggnaut[36], 0x00000002,
 };
 #endif
 

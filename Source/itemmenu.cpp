@@ -1,5 +1,4 @@
 #include "Common/hud_effects.h"
-extern void rw_boot_entry(void);
 #include "System/timed_effect_and_item_menu_views.h"
 #include "Common/sharedplayer.h"
 #include <PR/gbi.h>
@@ -399,14 +398,14 @@ s32 ItemMenu_RestoreBootMemory(void) {
     }
     if (g_systemBootMarkerComparison == 0) {
         src = (u32 *)0xB0001000;
-        dst = (u32 *)(unsigned int)rw_boot_entry;
+        dst = (u32 *)0x80000400;
         piStatus = (u32 *)0xA4600010;
         count = 262143;
         do {
             status = *piStatus & 3;
             while (status != 0) {
             }
-            if (isRestorable((u32)dst | (unsigned int)g_tlbMissExceptionVector)) {
+            if (isRestorable((u32)dst | 0x80000000)) {
                 *dst = *src;
             }
             dst++;
@@ -414,7 +413,7 @@ s32 ItemMenu_RestoreBootMemory(void) {
         } while (count-- != 0);
     }
     for (dst = (u32 *)&g_graphicsTaskYieldBuffer; (u32)dst < (uintptr_t)&g_runtimeHeapStart; dst++) {
-        if (is_restorable((u32)dst | 0x80000000)) {
+        if (isRestorable((u32)dst | 0x80000000)) {
             *dst = 0;
         }
     }

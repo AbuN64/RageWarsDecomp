@@ -112,6 +112,15 @@
 #include "Ai/Player/player_model_and_held_weapon_rendering.h"
 #include "Ai/Playerai/playerai_playerai.h"
 #include "Ai/player_updatefragtagselection.h"
+#include "Ai/cteamselect.h"
+#include "Common/player_record_and_fragtag_views.h"
+#include "Common/player_sequence_state.h"
+#include "Data/Weapon_callbacks/playerai_initializeplayerhealth.h"
+#include "Engine/Audio/voice.h"
+#include "Engine/gameobject_loadmodel.h"
+#include "Player/player_getammocapacity.h"
+#include "Scene/scene_findtrackedactors.h"
+#include "Ui/X_files/x_plus.h"
 #endif
 
 /* Steps an animation cursor one frame: looks up the clip in g_world_AchieveUpdateresultsscreen, keeps the previous frame,
@@ -569,14 +578,14 @@ block_88:
                             killerPlayerIndex = Player_GetPlayerIndex(&g_playerViewRenderContext, (u32) creditedPlayer);
                             victimKillStatistics = (void *)damagedPlayer->statistics;
                             if ((victimKillStatistics->isHuman == 1)
-                                    && (g_gameSettings.counters.m_bFragTagOn != 0)) {
+                                    && (g_playerViewRenderContext.game.counters.m_bFragTagOn != 0)) {
                                 victimKillStatistics->kills_special[killerPlayerIndex]++;
                             } else {
                                 damagedPlayer->statistics->kills_normal[killerPlayerIndex]++;
                             }
                             victimPlayerIndex = Player_GetPlayerIndex(&g_playerViewRenderContext, (u32) damagedPlayer);
                             if ((damagedPlayer->statistics->isHuman == 1)
-                                    && (g_gameSettings.counters.m_bFragTagOn != 0)) {
+                                    && (g_playerViewRenderContext.game.counters.m_bFragTagOn != 0)) {
                                 creditedPlayer->statistics->deaths_special[victimPlayerIndex]++;
                             } else {
                                 creditedPlayer->statistics->deaths_normal[victimPlayerIndex]++;
@@ -630,7 +639,8 @@ block_88:
                                 actorStatisticsNode = Portal_FindSearchNode(&g_navigationGraph, creditedPlayer->botRecord->searchNodeKey);
                                 actorStatisticsNode->secondaryReactionCount = (s32) (actorStatisticsNode->secondaryReactionCount + 1);
                                 if (damagedPlayer->statistics->isHuman == 1) {
-                                    if (g_matchRoundCounters.m_bFragTagOn != 0) {
+                                    CGameStatus *counters = &g_playerViewRenderContext.game.counters;
+                                    if (counters->m_bFragTagOn != 0) {
                                         specialKillStatistics = (void *)creditedPlayer->statistics;
                                         creditedPlayer->lastCountRuleVictim = damagedPlayer;
                                         specialKillStatistics->special_kills = (u16) (specialKillStatistics->special_kills + 1);
@@ -656,7 +666,7 @@ block_88:
                                                 }
                                             }
                                         }
-                                    } else if (g_matchRoundCounters.m_bCTFOn != 0) {
+                                    } else if (counters->m_bCTFOn != 0) {
                                         creditedPlayer->lastSquadVictim = damagedPlayer;
                                     } else {
                                         goto block_124;
@@ -729,8 +739,8 @@ void Player_DrawPlayerBodyAndWeapon(LevelActor *actor, s32 animationContext, Dra
         if (player->fixedAlpha) g_menuModelFillColor[3] = 70.0f;
         else g_menuModelFillColor[3] = (u8)player->camera->fadeState;
         g_menuModelFillColor[4] = 128.0f;
-        if (g_matchRoundCounters.m_bFragTagOn && player->controls->fragTagEnabled) actor->team = (u8)g_matchRoundCounters.m_nFragTagSkin;
-        else actor->team = (u8)actor->definition->first;
+        { CGameStatus *counters = &g_gameSettings.counters; if (counters->m_bFragTagOn && player->controls->fragTagEnabled) actor->team = (u8)counters->m_nFragTagSkin;
+        else actor->team = (u8)actor->definition->first; }
         Geometry_DrawActorModelParts(context->model, player, actor->animationMatrices, 1,
                        &actor->lighting[g_lightingBufferIndex], 0, actor->renderPass);
         g_menuModelFillEnabled = 0;
@@ -748,13 +758,14 @@ void Player_DrawPlayerBodyAndWeapon(LevelActor *actor, s32 animationContext, Dra
     } else {
         if (g_frontendScreenStatus.settings.local) {
             if (player->controls->fragTagEnabled && g_frontendScreenStatus.modes.tag && player->health == 0) return;
-            if (g_frontendScreenStatus.settings.local && (player->hidden || player->kind == g_playerDeathEffectModelIds) &&
+            if (g_frontendScreenStatus.settings.local && (player->hidden || player->kind == g_playerDeathEffectModelIds[0]) &&
                 player->health == 0) return;
         }
         if (player->flags & 0x20) Player_DrawTintedPlayer(actor, animationContext, context);
         else {
-            if (g_matchRoundCounters.m_bFragTagOn && player->controls->fragTagEnabled) actor->team = (u8)g_matchRoundCounters.m_nFragTagSkin;
-            else actor->team = (u8)actor->definition->first;
+            { CGameStatus *counters = &g_gameSettings.counters;
+            if (counters->m_bFragTagOn && player->controls->fragTagEnabled) actor->team = (u8)counters->m_nFragTagSkin;
+            else actor->team = (u8)actor->definition->first; }
             Geometry_DrawActorModelParts(context->model, player, actor->animationMatrices, 1,
                            &actor->lighting[g_lightingBufferIndex], 0, actor->renderPass);
             if (0.0f < player->opacity) {
@@ -1205,7 +1216,7 @@ typedef struct FragTagAssignmentProfileView FragTagPreviousProfileView;
 
 /* Advances an elimination round when rule g_resultReplayPending is on and not paused (Cinema_IsSequenceActive,
    Cinema_IsSequenceInWindow): counts the players still in, clears g_ctfWaitingPlayerFlag while one is waiting, then by the
-   round state of g_matchRoundCounters revives the first waiting player (crediting a point in state 1,
+   round state of g_gameSettings.counters revives the first waiting player (crediting a point in state 1,
    scheduling g_ctfMode = 3 otherwise) or moves to state 2, and ends the round through Playerai_EndRound
    when Player_CheckTeamPointWin_PlayerUpdatefragtagselection reports it over. */
 
@@ -1823,7 +1834,7 @@ s32 Player_CheckScoreLimit(Round *round) {
    in humanWon whether that team is the human side's and, when it is not, keeps looking. */
 
 /* Ends a match when its conditions are met, unless a menu or pause is up (Cinema_IsSequenceActive,
-   Cinema_IsSequenceInWindow), the match is locked of the rules g_matchRoundCounters or the game g_matchEndingTeamWheelClose disallows
+   Cinema_IsSequenceInWindow), the match is locked of the rules g_gameSettings.counters or the game g_matchEndingTeamWheelClose disallows
    it: outside a cutscene (Menu_CountLiveNodes_PlayerUpdatefragtagselection) the time limit of the rules counts down by
    the frame time while Playerai_CountActivePlayers says the clock runs and ends the match when it expires (clearing
    humanWon of the rules in trial kind 3); outside a cutscene a score limit reached through Player_CheckScoreLimit
@@ -1859,17 +1870,19 @@ static inline SharedPlayer *player_at(PlayerWorldActorTables *world, u32 index) 
 
 s32 Player_CheckTotalScoreWin(Root *root) {
     GameRules *initial = g_gameSession.match.rules; GameRules *state;
+ Settings580 *settings;
  FragTagPlayerListNode *node; int i, sum, skip;
  if (initial->totalScoreTarget == 0) return 0;
  node = root->players; state = initial;
  for (;node;node = node->next) {
+  settings = &g_gameSession.match.settings;
   skip = Player_GetPlayerIndex(root, node);
   sum = 0;
   for (i = 0;i<8;i++) {
    if (i != skip) {
     sum += node->scores->score[i];
     if (sum >= state->totalScoreTarget) {
-     { unsigned char controllerMode = g_gameSession.match.settings.trialKind; if (controllerMode) {
+     { unsigned char controllerMode = settings->trialKind; if (controllerMode) {
       if (node->playerIndex<4) {state->humanWon = 1;return 1;}
       state->humanWon = 0;
       if (controllerMode == 1) continue;
@@ -2302,22 +2315,10 @@ void Playerai_ApplyPlayerForces(void *listObject, void *bodyObject) {
     }
 }
 
-const float k_PlayerUpdatefragtagselectionData[8] = {
-    0.5f, 32.0f, 0.5f, 32.0f,
-    0.5f, 32.0f, 0.5f, 32.0f,
-};
-
 const char s_playerAnimObjectInfoText[24] = "player anim object info";
 
 const float g_playerAiActorHalfConstant[1] = {
     0.5f,
-};
-
-const float k_PlayeraiUpdatewalkingmovementData[16] = {
-    5.12f, 5.12f, 11.25f, 5.12f,
-    6.0f, 1e+01f, 8.0f, 12.0f,
-    8.0f, 23.0f, 8.0f, 23.0f,
-    8.0f, 23.0f, 7.0f, 23.0f,
 };
 
 /* Leading word of the target-facing distance limit pair (read as f32[], symbol_addrs name); Playerai_UpdateTargetFacing
@@ -2327,34 +2328,30 @@ s32 g_playerTargetFacingDistanceLimits = 1024;
 /* The colon drawn between minutes and seconds on the match countdown; identical in every version. */
 const char g_matchCountdownSeparatorText[4] __attribute__((aligned(4))) = ":\000\000\000";
 
-#if !(defined(VERSION_US_REV1))
-const float k_PlayeraiBuildforcemarkertransformData[1] = {
-    15.0f,
-};
-#endif
 
-#if defined(VERSION_US_REV1)
-const float k_PlayeraiBuildforcemarkertransformData[1] = {
-    15.0f,
-};
-#endif
 
+/* de holds this 1.0 as g_playerReactionReserveTarget (player.cpp). */
+#if !defined(VERSION_DE)
 const float k_PlayeraiBuildforcemarkertransformUnit[1] = {
     1.0f,
 };
-
-#if !(defined(VERSION_US_REV1))
-const float k_playeraiForceMarkerTransformReach[1] = {
-    15.0f,
-};
 #endif
 
-#if defined(VERSION_US_REV1)
-const float k_playeraiForceMarkerTransformReach[1] = {
-    15.0f,
-};
+#if defined(VERSION_DE)
+f32 g_fragTagRotatingBannerHalfWidth = 0.5f;
+f32 g_fragTagRotatingBannerSize = 32.0f;
+f32 g_fragTagRotatingViewCenterScale = 0.5f;
+f32 g_fragTagRotatingViewIconOffset = 32.0f;
+f32 g_fragTagChosenViewCenterScale = 0.5f;
+f32 g_fragTagChosenViewIconOffset = 32.0f;
+f32 g_fragTagChosenBannerHalfWidth = 0.5f;
+f32 g_fragTagChosenBannerSize = 32.0f;
 #endif
 
-const float k_playeraiForceMarkerTransformRange[1] = {
-    105.0f,
-};
+#if defined(VERSION_DE)
+float g_playerAnimatedSpriteScaleYZ = 1.0f;
+#endif
+
+#if defined(VERSION_DE)
+float g_playerMatchCountdownTimeScale = 0.0666666701f;
+#endif

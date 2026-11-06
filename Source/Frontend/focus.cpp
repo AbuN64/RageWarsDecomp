@@ -1,3 +1,4 @@
+#include "Engine/defs.h"
 #include "include_asm.h"
 #include "Scene/cache_freememory.h"
 #include "Common/playerprofiles.h"
@@ -32,6 +33,8 @@ enum { PROFILE_RESOURCE_498 = 498, PROFILE_RESOURCE_499 = 499, PROFILE_RESOURCE_
 #include "Achieve/achieve.h"
 #include "Frontend/frontend_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Achieve/match_updateranktext.h"
+#include "Achieve/modelpreviewscreen.h"
 #endif
 
 void Focus_UpdateFocusCaption(void) {
@@ -43,7 +46,7 @@ void Focus_UpdateFocusCaption(void) {
         return;
     }
     for (index = 0; index < 50; index++) {
-        if (g_focusUnlockEntries[index].id == Focus_GetStatisticsScreen()->focus->value) {
+        if (g_focusUnlockEntries[index].id == Focus_GetStatisticsScreen()->focus->resource) {
             if (Defs_TestBit(&g_profileUnlockFlagBase[Focus_GetStatisticsScreen()->player], index) == 1) {
                 text = 0;
                 count = 0;
@@ -123,7 +126,7 @@ void Focus_RefreshUnlockedFocusLabel(void) {
         return;
     }
     for (i = 0; i < 50; i++) {
-        if (g_focusUnlockEntries[i].id == ((MenuFrontendRefreshUnlockedFocusLabel *) g_profileStatisticsScreen)->focus->value) {
+        if (g_focusUnlockEntries[i].id == ((MenuFrontendRefreshUnlockedFocusLabel *) g_profileStatisticsScreen)->focus->resource) {
             if (Defs_TestBit(&g_profileUnlockFlagBase[((MenuFrontendRefreshUnlockedFocusLabel *) g_profileStatisticsScreen)->player], i) == 1) {
 #if defined(VERSION_DE) || defined(VERSION_US) || defined(VERSION_US_REV1)
                 ((MenuFrontendRefreshUnlockedFocusLabel *) g_profileStatisticsScreen)->label->text = g_focusUnlockEntries[i].text[0];

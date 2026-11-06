@@ -16,6 +16,7 @@
 #include "Menu/track.h"
 #include "Ui/X_files/x_plus.h"
 #include "Common/weapon_screen_message_operations.h"
+#include "Common/viewflags.h"
 
 /* CINEMA.CPP */
 

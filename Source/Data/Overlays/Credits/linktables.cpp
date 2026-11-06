@@ -11,46 +11,6 @@
 #include "Ai/weaponai.h"
 #include "Weapons/charge_and_linked_actor_handles.h"
 #include "Common/runtime_declarations.h"
-
-/* FX_CLAMPSCALARRANGE_DATA.CPP */
-#if !(defined(VERSION_US_REV1))
-#if defined(VERSION_DE)
-const f32 g_fxResetEffectContributionMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_EU)
-const f32 g_fxResetEffectContributionMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_EU_X)
-const f32 g_fxResetEffectContributionMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_US)
-const f32 g_fxResetEffectContributionMaxChannel = 255.0f;
-#endif
-#endif
-
-#if defined(VERSION_US_REV1)
-const f32 g_fxResetEffectContributionMaxChannel = 255.0f;
-#endif
-
-#if !(defined(VERSION_US_REV1))
-#if defined(VERSION_DE)
-const f32 g_fxClampScalarRangeMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_EU)
-const f32 g_fxClampScalarRangeMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_EU_X)
-const f32 g_fxClampScalarRangeMaxChannel = 255.0f;
-#endif
-#if defined(VERSION_US)
-const f32 g_fxClampScalarRangeMaxChannel = 255.0f;
-#endif
-#endif
-
-#if defined(VERSION_US_REV1)
-const f32 g_fxClampScalarRangeMaxChannel = 255.0f;
-#endif
-
 /* G_WEAPONSTATECALLBACKRECORDWORDS_EU.CPP */
 #if defined(VERSION_EU)
 #include "Data/Ovl1_g/weapon_update_callback_addresses.h"

@@ -3,7 +3,11 @@
 #include "types.h"
 #include "Common/Lone/g_languageindex.h"
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
+#if defined(VERSION_EU_X)
+extern char *g_playerStatusMessages[15][3];
+#else
 extern char *g_playerStatusMessages[15][4];
+#endif
 #define playerStatusText(row) g_playerStatusMessages[row][g_languageIndex]
 #else
 extern char *g_playerStatusMessages[15];

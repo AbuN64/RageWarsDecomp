@@ -63,11 +63,11 @@ s32 Pak_ConfirmProfileOrDeleteNote(void *entry, MenuPakConfirmProfileOrDeleteNot
         player = Playerai_FindPlayerByController(&g_playerViewRenderContext, menu->slot);
         menu->player = player;
         profile = player->views5D8.view5D8_6.profile;
-        profile->flags = g_controllerPakPreviewProfileFlags;
+        profile->flags = g_controllerPakPreviewProfileFlags[0];
         profile->words[0] = g_pakControllerRecord.values[0];
-        profile->words[1] = g_pakProfileSavedWords[0];
-        profile->words[2] = g_pakProfileSavedWords[1];
-        profile->words[3] = g_pakProfileSavedWords[2];
+        profile->words[1] = g_pakProfileSavedFirstWord[0];
+        profile->words[2] = g_pakProfileSavedSecondWord[0];
+        profile->words[3] = g_pakProfileSavedThirdWord[0];
         for (i = 0; i < 8; i++) {
             profile->name[i] = g_controllerPakPreviewProfileName[i];
         }
@@ -187,7 +187,7 @@ s32 Pak_ConfirmPendingOperation(void *owner, PakPromptContext *menu, void *arg) 
             }
             Note_ProbeStatus(ch);
             if (Note_DeleteNote(ch, g_controllerPakOverwriteNoteIndex) == 0) {
-                Snapshot_SaveSnapshotAndClose(owner, (struct Shared_PakMenu *)menu);
+                Snapshot_SaveSnapshotAndClose(owner, (struct Shared_PakMenu *)menu, arg);
                 return 1;
             }
             Menu_OpenDialog(&g_matchEndingTeamWheelClose, g_pakNoteDeleteFailedDialogResource, menu->player, menu->slot, menu->prompt);

@@ -717,6 +717,8 @@ s32 Sound_UpdateAudioContext(void *context) {
     u8 *bytes = &g_gameSettings.volume[1];
     u32 mask;
     s32 count;
+    u32 unlockMask;
+    MenuRules *lock;
 
     f32 gainScale = g_audioContextGainScaleConstants[0];
 
@@ -725,26 +727,28 @@ s32 Sound_UpdateAudioContext(void *context) {
     audio->blue = (f32)bytes[1] * gainScale;
     audio->spatialPanMode = bytes[-2];
 
+    lock = &audio->lock;
     mask = __osDisableInt();
-    count = audio->lock.locked + 1;
-    audio->lock.locked = count;
+    count = lock->locked + 1;
+    lock->locked = count;
     if (count != 1) {
         __osRestoreInt(mask);
-        osRecvMesg((OSMesgQueue *)&audio->lock, 0, 1);
+        osRecvMesg((OSMesgQueue *)lock, 0, 1);
     } else {
         __osRestoreInt(mask);
     }
 
     Audio_UpdateVoicePool(&audio->menu[0]);
 
-    mask = __osDisableInt();
-    count = audio->lock.locked - 1;
-    audio->lock.locked = count;
+    lock = &audio->lock;
+    unlockMask = __osDisableInt();
+    count = lock->locked - 1;
+    lock->locked = count;
     if (count != 0) {
-        __osRestoreInt(mask);
-        osSendMesg((OSMesgQueue *)&audio->lock, 0, 1);
+        __osRestoreInt(unlockMask);
+        osSendMesg((OSMesgQueue *)lock, 0, 1);
     } else {
-        __osRestoreInt(mask);
+        __osRestoreInt(unlockMask);
     }
 
     AudioWorld_DispatchPendingSounds((char *)&audio->view);

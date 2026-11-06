@@ -173,10 +173,10 @@ void Snapshot_CreateSaveSnapshot(u8 *player) {
     g_pakSaveSnapshot->player = *(Copy70 *)(&((Player *)player)->state);
     g_pakSaveSnapshot->world = *(Copy584 *)&g_gameSettings;
     snapshot = g_pakSaveSnapshot;
-    snapshot->view[0] = g_matchRoundCounters.m_GameTimeFifteenth;
-    snapshot->view[1] = g_matchRoundCounters.m_GameTimeSeconds;
-    snapshot->view[2] = g_matchRoundCounters.m_GameTimeMinutes;
-    snapshot->view[3] = g_matchRoundCounters.m_GameTimeHours;
+    snapshot->view[0] = g_playerViewRenderContext.game.counters.m_GameTimeFifteenth;
+    snapshot->view[1] = g_playerViewRenderContext.game.counters.m_GameTimeSeconds;
+    snapshot->view[2] = g_playerViewRenderContext.game.counters.m_GameTimeMinutes;
+    snapshot->view[3] = g_playerViewRenderContext.game.counters.m_GameTimeHours;
     snapshot->size = snapshotSize;
     snapshot->dataSize = g_world.noteCount;
     Libc_CopyBytes(snapshot->name, g_worldSnapshotNoteData, g_world.noteCount);
@@ -350,11 +350,11 @@ void Snapshot_BeginProfileSave(Shared_PakMenu *menu) {
     }
     if (!Note_GetStatus(channel)) {
         profile = (PakStatusProfile *)player->profile;
-        g_controllerPakPreviewProfileFlags = profile->flags;
+        g_controllerPakPreviewProfileFlags[0] = profile->flags;
         g_pakControllerRecord.values[0] = profile->words[0];
-        g_pakProfileSavedWords[0] = profile->words[1];
-        g_pakProfileSavedWords[1] = profile->words[2];
-        g_pakProfileSavedWords[2] = profile->words[3];
+        g_pakProfileSavedFirstWord[0] = profile->words[1];
+        g_pakProfileSavedSecondWord[0] = profile->words[2];
+        g_pakProfileSavedThirdWord[0] = profile->words[3];
         g_controllerPakPreviewProfilePadAfterFlags = 0;
         g_controllerPakPreviewProfilePadMiddle = 0;
         g_controllerPakPreviewProfilePadBeforeName = 0;
@@ -873,12 +873,12 @@ static inline char *pakSnapshotCapacityPrompt_snapshotSavecontrollerrecord(void)
 #elif defined(VERSION_US)
 static inline char *pakSnapshotCapacityPrompt_snapshotSavecontrollerrecord(void) { return (char *)&g_pakSnapshotCapacityPromptUsRevision; }
 #else
-static inline char *pakSnapshotCapacityPrompt_snapshotSavecontrollerrecord(void) { return g_pakSnapshotCapacityPromptDe; }
+static inline char *pakSnapshotCapacityPrompt_snapshotSavecontrollerrecord(void) { return (char *)&g_pakSnapshotCapacityPromptDe; }
 #endif
 #endif
 /* Save the snapshot only when both page and note capacity are available;
  * retain pending resources while showing the insufficient-capacity prompt. */
-s32 Snapshot_SaveSnapshotAndClose(void *owner, Shared_PakMenu *menu) {
+s32 Snapshot_SaveSnapshotAndClose(void *owner, Shared_PakMenu *menu, void *event) {
     Player *player, *selectedPlayer;
     char extension[8];
     s32 channel, freePages, freeNotes;
@@ -921,12 +921,6 @@ static __inline__ s32 pakNoteHasGameId_snapshotSelectnote(u8 *company, u8 *code)
 #define PAK_SNAPSHOT_CHECKSUM_SEED 11
 static __inline__ s32 pakBlockHasSize_snapshotSelectnote(ControllerPakPayload *data, s32 expected) { return data->header.length == expected; }
 /* Reports whether the payload's checksum word (stored after its data) and note byte count match this save. */
-static __inline__ s32 pakBlockIsConsistent_snapshotSelectnote(ControllerPakPayload *payload) {
-    s32 dataLength = payload->header.length - 4;
-    s32 *storedChecksum = (s32 *)&payload->bytes[dataLength];
-    return Note_Crc32(payload->bytes, dataLength, PAK_SNAPSHOT_CHECKSUM_SEED) == *storedChecksum &&
-           g_worldSnapshotNoteBytes == payload->header.noteBytes;
-}
 /* Ends a note selection: opens the load-error dialog when the read failed (returns 1), otherwise returns 0. */
 
 
@@ -947,6 +941,9 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
     s32 current;
     s32 allocationSize;
     u8 *text;
+    char *messageExtra;
+    struct Dialog *dialog;
+    s32 result;
     s32 readError;
     s32 blockState;
     s32 profileMatches;
@@ -988,16 +985,20 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
         }
         if ((status == 0) && (exists != 0)) {
             if (profileMatches != 0) {
-                if (Note_ReadNoteData(channel, noteIndex, (intptr_t)&g_pakControllerRecord, 24) != 0 ||
-                    Note_Crc32(&g_pakControllerRecord, 20, 4) != g_pakControllerRecord.checksum) {
+                if (Note_ReadNoteData(channel, noteIndex, (intptr_t)&g_pakControllerRecord, 24) != 0) {
                     profileMatches = 0;
-                    readError = 1;
-                } else {
-                    *rw_pak_loaded_profile() = g_pakControllerRecord;
-                    g_controllerPakOverwriteNoteIndex = noteIndex;
-                    Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, rw_pak_selected_profile_dialog(), (s32)menu->player, (s32)menu->slot, (s32)menu->dialogData);
-                    return 1;
+                    goto profile_failed;
                 }
+                if (Note_Crc32(&g_pakControllerRecord, 20, 4) != g_pakControllerRecord.checksum) {
+                    profileMatches = 0;
+                    goto profile_failed;
+                }
+                *rw_pak_loaded_profile() = g_pakControllerRecord;
+                g_controllerPakOverwriteNoteIndex = noteIndex;
+                Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, rw_pak_selected_profile_dialog(), (s32)menu->player, (s32)menu->slot, (s32)menu->dialogData);
+                return 1;
+profile_failed:
+                readError = 1;
             }
             if ((blockState != 0) && (readError == 0)) {
                 blockState = pages;
@@ -1016,7 +1017,9 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
                 XPlus_FillMemory(payload, 0, (u32) blockState);
                 if (Note_ReadNoteData(channel, noteIndex, (s32)g_controllerPakSnapshotPayload, pages << 8)==0 &&
                     pakBlockHasSize_snapshotSelectnote(g_controllerPakSnapshotPayload,expectedSize) &&
-                    pakBlockIsConsistent_snapshotSelectnote(g_controllerPakSnapshotPayload)) {
+                    Note_Crc32(g_controllerPakSnapshotPayload->bytes, g_controllerPakSnapshotPayload->header.length - 4, PAK_SNAPSHOT_CHECKSUM_SEED) ==
+                        *(s32 *)&g_controllerPakSnapshotPayload->bytes[g_controllerPakSnapshotPayload->header.length - 4] &&
+                    g_worldSnapshotNoteBytes == g_controllerPakSnapshotPayload->header.noteBytes) {
                     g_controllerPakOverwriteNoteIndex=noteIndex;
                     Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, rw_pak_selected_block_dialog(), (s32)menu->player, (s32)menu->slot, (s32)menu->dialogData);
                     return 1;
@@ -1092,7 +1095,7 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
             goto finish_select_note;
         }
         if ((g_pakProfileLoadActive != 0) && (g_pakProfileLoadMode_de == 0)) {
-            if (readError != 0) goto finish_select_note;
+            if (readError != 0) goto show_error;
             {
                 if (((status=Note_ReadNoteInfo(channel, noteIndex, &exists, name, extension, &pages, company, code)) == 0) && (exists != 0) && (XPlus_CompareStrings(name, rw_pak_block_name(&g_playerViewRenderContext.game)) == 0)) {
                     allocationSize = pages;
@@ -1111,7 +1114,9 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
                     XPlus_FillMemory(payload2, 0, (u32) allocationSize);
                     if (Note_ReadNoteData(channel, noteIndex, (s32)g_controllerPakSnapshotPayload, pages << 8) == 0) {
                         length = g_controllerPakSnapshotPayload->header.length;
-                        if (length == expectedSize && pakBlockIsConsistent_snapshotSelectnote(g_controllerPakSnapshotPayload)) {
+                        if (length == expectedSize && Note_Crc32(g_controllerPakSnapshotPayload->bytes, length - 4, PAK_SNAPSHOT_CHECKSUM_SEED) ==
+                        *(s32 *)&g_controllerPakSnapshotPayload->bytes[g_controllerPakSnapshotPayload->header.length - 4] &&
+                    g_worldSnapshotNoteBytes == g_controllerPakSnapshotPayload->header.noteBytes) {
                             Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, rw_pak_loaded_block_dialog(), (s32)menu->player, (s32)menu->slot, 0);
                         return 1;
                         }
@@ -1134,28 +1139,23 @@ s32 Snapshot_SelectNote(s32 *selection, Shared_PakMenu *menu) {
                 }
                 goto finish_select_note;
             }
-            readError = 1;
-            goto finish_select_note;
+            goto show_error;
         }
         goto finish_select_note;
     }
     goto finish_select_note;
-finish_select_note: {
-
-    char *messageExtra;
-    struct Dialog *dialog;
-
-    if (readError == 0) {
-        return 0;
+finish_select_note:
+    result = 0;
+    if (readError != 0) {
+show_error:
+        if (g_pakProfileLoadMode_de != 0) messageExtra = g_pakProfileActionDialogResource;
+        else messageExtra = g_controllerPakReadyDialogResource;
+        dialog = rw_pak_load_error_dialog();
+        g_controllerPakSelectedNoteIndex = noteIndex;
+        Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, dialog, (s32)menu->player, (s32)menu->slot, (s32)messageExtra);
+        result = 1;
     }
-    if (g_pakProfileLoadMode_de != 0) messageExtra = g_pakProfileActionDialogResource;
-    else messageExtra = g_controllerPakReadyDialogResource;
-    dialog = rw_pak_load_error_dialog();
-    g_controllerPakSelectedNoteIndex = noteIndex;
-    Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, dialog, (s32)menu->player, (s32)menu->slot, (s32)messageExtra);
-    return 1;
-
-}
+    return result;
 }
 #undef PAK_SNAPSHOT_CHECKSUM_SEED
 
@@ -1324,12 +1324,12 @@ s32 Snapshot_UpdateSpaceLabel(PakNoteTextEntry *entry, PakStatusPakSaveMenu *men
             *text = digits.c[1];
             text[1] = digits.c[2];
         }
-    } else if (g_pakUseScannedChannel != 0 || g_pakProfileLoadActive != 0) {
-        if (g_pakUseScannedChannel != 0) {
-            header = PAK_HEADER_376C;
-        } else {
-            header = &g_pakSpaceLabelText;
-        }
+    } else if (g_pakUseScannedChannel != 0) {
+        header = PAK_HEADER_376C;
+        goto show_space;
+    } else if (g_pakProfileLoadActive != 0) {
+        header = &g_pakSpaceLabelText;
+    show_space:
         entry->text = header;
         result = Note_GetFreePages(ch, &freeSpace);
         need = Note_BytesToPakPages(g_worldSnapshotNoteBytes + 1552);
@@ -1385,7 +1385,7 @@ s32 Snapshot_HandleMenuAction(s32 entry, Shared_PakMenu *menu, s32 unusedEvent)
             Menu_OpenDialog(&g_playerViewRenderContext.dialogOwner, PAK_OVERWRITE_NOTE_DIALOG, menu->player, menu->owner, g_pakAlternateReadyDialogResource);
             return 1;
         }
-        Snapshot_SaveSnapshotAndClose(entry, menu);
+        Snapshot_SaveSnapshotAndClose((void *)entry, menu, (void *)unusedEvent);
         return 1;
     }
     if (g_pakUseScannedChannel != 0) {
@@ -1540,22 +1540,22 @@ s32 Snapshot_RestoreSaveBlock(void *menuOwner, PakPromptContext *menu) {
     if (g_pakAlternateOptionEnabled != 0) {
         owner = Playerai_FindPlayerByController(&g_playerViewRenderContext, menu->slot);
         world = &g_world;
-        kept = g_frontendSavedVideoModeIndex;
+        kept = g_frontendSavedVideoModeIndex[0];
         *(Copy70 *)&owner->state = g_controllerPakSnapshotPayload->save.player;
         *(Copy584 *)&g_gameSettings = g_controllerPakSnapshotPayload->save.world;
         g_gameSettings.counters.m_GameTimeFifteenth = g_controllerPakSnapshotPayload->save.view[0];
         g_controllerPakPreviewSeconds[0] = g_controllerPakSnapshotPayload->save.view[1];
         g_controllerPakPreviewMinutes[0] = g_controllerPakSnapshotPayload->save.view[2];
         g_controllerPakPreviewHours[0] = g_controllerPakSnapshotPayload->save.view[3];
-        g_persistedOptionUnlockFlags = g_menuOptionAvailabilityFlags;
-        g_frontendSavedVideoModeIndex = kept;
+        g_persistedOptionUnlockFlags[0] = g_menuOptionAvailabilityFlags;
+        g_frontendSavedVideoModeIndex[0] = kept;
         src = g_controllerPakSnapshotPayload->save.name;
         dst = g_worldSnapshotNoteData;
         for (i = 0; i < world->noteCount; i++) {
             *dst++ = *src++;
         }
         /* The pre-fold s32 view stores at +0/+4 and addresses the dialog at 362 * 4. */
-        ((s32 *)&g_gameStateBlock)[0] = 0;
+        g_gameStateBlock.busy = 0;
         ((s32 *)&g_gameStateBlock)[1] = 0;
         Menu_OpenDialog(((char *)&g_gameStateBlock + 0x5A8), g_pakRestoreBlockPromptText, owner, owner->weaponAnimation, 0);
     } else if (Note_DeleteNote(channel, g_controllerPakOverwriteNoteIndex) == 0) {

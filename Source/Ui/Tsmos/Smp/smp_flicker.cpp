@@ -279,13 +279,15 @@ void SmpFlicker_StartFlicker(struct FlickerStartView *object, s32 count) {
 }
 
 s32 SmpFlicker_DispatchEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    s32 i;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_flickerWidgetEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; g_flickerWidgetEventIds[i].handler != 0; i++) {
+        if (g_flickerWidgetEventIds[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (g_flickerWidgetEventIds[i].actorKind == actorKind || g_flickerWidgetEventIds[i].actorKind == ANY_ACTOR_KIND) {
+                return g_flickerWidgetEventIds[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }

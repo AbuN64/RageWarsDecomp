@@ -217,13 +217,12 @@ void Pools_ResetPlayers(ScreenMessageOwner *actor) {
 
 /* Initialises the entry pool of the scene effects of every camera in the group's camera array, then the one of the group's own camera. */
 void Pools_InitGroupPools(Triple *group) {
-    RaceHeader *header = (RaceHeader *)group;
     int i;
 
-    for (i = 0; i < header->count; i++) {
-        Pool_InitEntryPool(&header->cameras[i].sceneEffects);
+    for (i = 0; i < group->z; i++) {
+        Pool_InitEntryPool((char *)(i * 3800 + group->y + 1392));
     }
-    Pool_InitEntryPool(&((ScreenMessageOwner *)header)->self.sceneEffects);
+    Pool_InitEntryPool((char *)&((ScreenMessageOwner *)group)->self.sceneEffects);
 }
 
 /* Moves an owner's model, when it has one, from the owner's model list to its recycled list after

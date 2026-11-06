@@ -2,6 +2,7 @@
 #define ENGINE_VOLUME_H
 extern int g_modelEditorApplyToAllRecords;
 #include "Common/Lone/g_languageindex.h"
+#include "Common/particle_lighting.h"
 #include "Data/Overlays/Credits/objectdata_addresses.h"
 #include "Common/pak_enter_player_options.h"
 #include "Common/shared_gameslot.h"
@@ -36,7 +37,7 @@ extern char g_modelEditorApplyToAllDisabledText[];
 extern char g_modelEditorApplyToAllEnabledText[];
 extern char g_musicPreviewValueFormat_eu[];
 extern char s_menuByteOptionValueFormat[];
-extern u8 g_playerModelLighting[];
+extern struct Shared_ParticleLighting g_playerModelLighting[];
 extern u8 g_savedPlayerModelLighting[];
 extern u8 g_savedSecondaryMenuByteOptions[];
 extern u8 g_secondaryMenuByteOptions[];

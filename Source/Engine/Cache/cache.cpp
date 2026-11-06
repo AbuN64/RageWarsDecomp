@@ -179,7 +179,7 @@ static inline void *pool_alloc(s32 byteCount) {
 
 /* Looks up a key in the hash table under the queue lock and, if found, bumps the object's reference count, flags it, stamps it and passes it to List_MoveIntrusiveToHead, returning the object. */
 
-void Cache_WaitForResourceSlotRelease(void) {
+void Cache_WaitForResourceSlotRelease(s32 slot) {
     s32 lockReleaseCount;
     s32 lockClaimCount;
     s32 slotCursor;
@@ -236,6 +236,7 @@ void Cache_WaitForResourceSlotRelease(void) {
 }
 
 s32 Cache_EvictResource(s32 cacheContext, s32 evictionMode, s32 keep_recent) {
+    extern CMemEntry **g_resourceFreeNodeStack;
     CMemEntry *recent;
     CMemEntry *node;
     s32 result;
@@ -250,7 +251,7 @@ s32 Cache_EvictResource(s32 cacheContext, s32 evictionMode, s32 keep_recent) {
     if (node != 0) {
         Cache_DetachResourceRequest(0, node);
         result = Heap_FreeAllocation(&g_runtimeHeap, node->resource);
-        List_RemoveIntrusive(&g_resourceCacheManager.entries, node);
+        List_RemoveIntrusive(&g_resourceRecencyList, node);
         if (node->flags & 0x1000) {
             List_RemoveIntrusive(&g_resourcesByAddress, node);
         }
@@ -260,8 +261,8 @@ s32 Cache_EvictResource(s32 cacheContext, s32 evictionMode, s32 keep_recent) {
         } else {
             node->flags = 0;
         }
-        g_resourceCacheManager.slots[g_resourceCacheManager.count] = node;
-        g_resourceCacheManager.count++;
+        *(CMemEntry **)(g_resourceFreeNodeCount * 4 + (char *)g_resourceFreeNodeStack) = node;
+        g_resourceFreeNodeCount++;
         return result;
     }
     return 0;
@@ -402,8 +403,8 @@ void *Cache_RetainResourceByKey(s32 unusedCache, s32 resourceKey) {
         object = *(void **)value;
         object->prevOffset += 1;
         object->nextOffset |= 0x100;
-        object->count = g_resourceCacheManager.activity.count;
-        List_MoveIntrusiveToHead(&g_resourceCacheManager.entries, object);
+        object->count = ((struct MemoryUsageStats *)&g_resourceCacheFrameStamp)->value;
+        List_MoveIntrusiveToHead(&g_resourceRecencyList, object);
     }
 
     releaseInterruptMask = __osDisableInt();
@@ -448,10 +449,14 @@ static inline void Cache_UnlockHeap(void) {
     }
 }
 
-/* Looks up the load request registered under a key: hashes to the home bucket, then follows its collision chain. */
+/* Looks up the load request registered under a key: tests the home bucket first, then follows its collision chain. */
 static inline void Cache_FindRequestByKey(u32 key, ResourceLoadRequest **out) {
     ResourceHashEntry *node = g_resourceHashBuckets + (((key << 5) ^ (key >> 1) ^ (key >> 9) ^ (key >> 17)) & g_resourceHashEvenIndexMask);
 
+    if (node->key == key) {
+        *out = node->value;
+        return;
+    }
     *out = 0;
     for (; node != 0; node = node->next) {
         if (node->key == key) {
@@ -477,23 +482,22 @@ static inline void Cache_StampResource(CachedResource *node) {
 static inline CachedResource *Cache_AllocateResourceNode(u32 size, u32 flags) {
     CachedResource *node = Cache_AcquireResourceNodeWithEviction(0, flags);
 
-    if (node == 0) {
-        return node;
+    if (node != 0) {
+        Cache_AddResourceReference(node);
+        node->data = Cache_AllocateHeapWithEviction(0, size, (flags >> 5) & 1, flags);
+        if (node->data != 0) {
+            node->dataSize = size;
+            node->flags |= flags;
+            Cache_InsertResourceByAddress(0, node);
+        } else {
+            if (--node->count == 0) {
+                node->flags &= ~0x100;
+            }
+            Cache_ReleasePendingResourceEntry(0, (s32)node);
+            node = 0;
+        }
     }
-    Cache_AddResourceReference(node);
-    node->data = Cache_AllocateHeapWithEviction(0, size, (flags >> 5) & 1, flags);
-    if (node->data != 0) {
-        node->dataSize = size;
-        node->flags |= flags;
-        Cache_InsertResourceByAddress(0, node);
-        return node;
-    }
-    node->count--;
-    if (node->count == 0) {
-        node->flags &= ~0x100;
-    }
-    Cache_ReleasePendingResourceEntry(0, (s32)node);
-    return 0;
+    return node;
 }
 
 /* Requests a resource by key. A resource already registered with enough priority is returned at once. Otherwise a node and
@@ -508,6 +512,7 @@ void *Cache_RequestResource(s32 cacheContext, u32 key, u32 source, u32 size,
     u32 flags;
     u32 requestFlags;
     s32 alreadyRequested;
+    ResourceLoadRequest *allocated;
 
     Cache_LockHeap();
     Cache_FindRequestByKey(key, &request);
@@ -519,19 +524,23 @@ void *Cache_RequestResource(s32 cacheContext, u32 key, u32 source, u32 size,
     }
     direct |= g_resourceRequestManager.mask;
     alreadyRequested = 0;
-    if (direct == 0) {
-        for (activeRequest = g_resourceRequestManager.active.head; activeRequest != 0; activeRequest = activeRequest->next) {
+    if (direct != 0) {
+        allocated = Cache_AcquireLoadRequestWithEviction(0, mode);
+    } else {
+        activeRequest = g_resourceRequestManager.active.head;
+        while (activeRequest != 0) {
             if (activeRequest->key == key && size <= (u32)activeRequest->priority) {
                 alreadyRequested = 1;
                 break;
             }
+            activeRequest = activeRequest->next;
         }
-        if (alreadyRequested) {
-            Cache_UnlockHeap();
-            return 0;
+        if (direct == 0 && alreadyRequested) {
+            goto alreadyLoading;
         }
+        allocated = Cache_AcquireLoadRequestWithEviction(0, mode);
     }
-    request = Cache_AcquireLoadRequestWithEviction(0, mode);
+    request = allocated;
     if (request != 0) {
         if (tag != 0) {
             flags = (mode & 0x1C) | 0x22;
@@ -586,6 +595,7 @@ void *Cache_RequestResource(s32 cacheContext, u32 key, u32 source, u32 size,
         }
         Cache_RecycleLoadRequest(0, request);
     }
+alreadyLoading:
     Cache_UnlockHeap();
     return 0;
 }
@@ -867,7 +877,9 @@ ResourceLoadRequest *Cache_FinalizeResourceLoad(s32 cacheContext, ResourceLoadRe
     CachedResource *node;
 
     List_RemoveIntrusive(&g_resourceCacheManager.pendingRequests, request);
-    List_PrependIntrusive(&g_resourceCacheManager.activeRequests, request);
+    List_PrependIntrusive((char *)&g_resourceCacheManager.pendingRequests -
+        ((char *)&((struct ResMgr *)0)->pendingRequests -
+         (char *)&((struct ResMgr *)0)->activeRequests), request);
     if (request->node != 0) {
         find(request->key, &existing);
         if (existing != 0) {
@@ -1052,7 +1064,7 @@ struct Record *Cache_AllocateMemory(s32 size) {
     } else {
         __osRestoreInt(token);
     }
-    node = Cache_AllocateResourceNodeStorage(0, allocation_size, 51U);
+    node = Cache_AllocateResourceNodeStorage(0, allocation_size, 51U, (void *)s_allocText);
     token2 = __osDisableInt();
     counter2 = g_resourceHeapLockUsers - 1;
     g_resourceHeapLockUsers = counter2;
@@ -1074,7 +1086,7 @@ struct Record *Cache_AllocateMemory(s32 size) {
         } else {
             __osRestoreInt(token3);
         }
-        Cache_WaitForResourceSlotRelease();
+        Cache_WaitForResourceSlotRelease(0);
         do {
         } while (Cache_SelectAllocationCandidate(0, 0, 0) != 0);
         Cache_CompactResourceHeap(0, 1);
@@ -1096,7 +1108,7 @@ struct Record *Cache_AllocateMemory(s32 size) {
         } else {
             __osRestoreInt(token3);
         }
-        node = Cache_AllocateResourceNodeStorage(0, allocation_size, 51U);
+        node = Cache_AllocateResourceNodeStorage(0, allocation_size, 51U, (void *)s_allocText);
         token2 = __osDisableInt();
         counter2 = g_resourceHeapLockUsers - 1;
         g_resourceHeapLockUsers = counter2;
@@ -1222,7 +1234,7 @@ struct CacheResourceNode *Cache_AllocateResource(s32 unusedCache, s32 byteCount,
     } else {
         __osRestoreInt(mask);
     }
-    resource = Cache_AllocateResourceNodeStorage(0, requestedBytes, requestedFlags);
+    resource = Cache_AllocateResourceNodeStorage(0, requestedBytes, requestedFlags, evictedResource);
     unlockInterruptMask = __osDisableInt();
     remainingLockUsers = g_resourceHeapLockUsers - 1;
     g_resourceHeapLockUsers = remainingLockUsers;
@@ -1382,7 +1394,7 @@ void Cache_DrainAndCompactResources(s32 unusedHeap) {
     } else {
         __osRestoreInt(mask);
     }
-    Cache_WaitForResourceSlotRelease();
+    Cache_WaitForResourceSlotRelease(0);
     while (Cache_SelectAllocationCandidate(0, 0, 0) != 0) {
     }
     Cache_CompactResourceHeap(0, 1);
@@ -1660,8 +1672,8 @@ void Cache_TouchResourceByKey(s32 unusedCache, s32 resourceKey) {
 
     if (value != 0) {
         void *object = *(void **)value;
-        ((CachedResource *)object)->stamp = g_resourceCacheManager.activity.count;
-        List_MoveIntrusiveToHead(&g_resourceCacheManager.entries, object);
+        ((CachedResource *)object)->stamp = g_resourceCacheFrameStamp;
+        List_MoveIntrusiveToHead(&g_resourceRecencyList, object);
     }
 
     releaseInterruptMask = __osDisableInt();
@@ -1927,7 +1939,7 @@ void Cache_FreeMemory(void *allocation) {
     __osRestoreInt(unlockInterruptMask);
 }
 
-struct CacheResourceNode *Cache_AllocateResourceNodeStorage(s32 arg0_unused, s32 byteCount, u32 allocationFlags) {
+struct CacheResourceNode *Cache_AllocateResourceNodeStorage(s32 pool, s32 byteCount, u32 allocationFlags, void *evicted) {
     struct CacheResourceNode *node;
     s32 result;
 
@@ -2113,7 +2125,7 @@ void Cache_ClearResourceSlotProtection(s32 unusedCache, s32 resourceSlot)
 
 void Cache_TouchResource(void *cacheContext, void *resource) {
     CMemEntry *animationResource = resource;
-    s32 *p = g_resourceCacheFrameStamp;
+    s32 *p = &g_resourceCacheFrameStamp;
     animationResource->lastUsed = *p;
     List_MoveIntrusiveToHead((char *)p - (((char *)&((struct ResMgr *)0)->activity.count - (char *)0) - ((char *)&((struct ResMgr *)0)->entries - (char *)0)), (s32)resource);
 }
@@ -2126,9 +2138,9 @@ void Cache_DetachResourceRequest(void *cacheContext, void *resourceCacheEntry) {
     if (((CMemEntry *)link)->owner != 0) {
         HashTable_RemoveResourceByKey(((ResourceLoadRequest *)((CMemEntry *)link)->owner)->key);
         link = ((CMemEntry *)link)->owner;
-        List_RemoveIntrusive(&g_resourceCacheManager.activeRequests, link);
+        List_RemoveIntrusive(&g_resourcePendingRequests, link);
         ((ResourceLoadRequest *)link)->flags = 0;
-        List_PrependIntrusive(&g_resourceCacheManager.freeLinks, link);
+        List_PrependIntrusive(&g_resourceAvailableRequests, link);
     }
 }
 

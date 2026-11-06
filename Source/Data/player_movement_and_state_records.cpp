@@ -21,7 +21,7 @@ float g_playerAlternateMovementTuningPrimary[8] = {
 #endif
 
 #if defined(VERSION_US)
-extern RestOvlgameInitializeplayerpoolEncodedWordsRecord391 k_OvlgameInitializeplayerpoolData;
+extern PlayerPoolInitWords k_OvlgameInitializeplayerpoolData;
 #endif
 
 #if defined(VERSION_US_REV1)
@@ -84,8 +84,8 @@ PlayerActionStateRecord g_playerActionStatesUsRev1[17] = {
     { 0, (void *)PACKED_CALLBACK_LOW(Player_UpdateJumpAirMotion), (void *)&g_collisionSurfaceExcludedFromTraceJumpEntry, 2048, 2030, 131072 },
     { (void *)PACKED_CALLBACK_LOW(Player_BeginLateralLeap), (void *)PACKED_CALLBACK_LOW(Player_UpdateLateralLeap), (void *)&g_secondaryCollisionContext[1].info, 0, 2030, 131072 },
     { 0, (void *)PACKED_CALLBACK_LOW(Player_UpdateLeapMotion), (void *)&g_secondaryCollisionContext[1].info, 0, 2030, 131072 },
-    { (void *)PACKED_CALLBACK_LOW(Player_ClearGlobalFlagBit), (void *)g_Player_UpdateWadingStateAddress_us_us_rev1, (void *)g_globalGameplayFlags, 128, 2210, 131072 },
-    { (void *)PACKED_CALLBACK_LOW(Player_ClearGlobalFlagBit), (void *)g_Player_UpdateWadingStateAddress_us_us_rev1, (void *)g_globalGameplayFlags, 128, 2210, 196608 },
+    { (void *)PACKED_CALLBACK_LOW(Player_ClearGlobalFlagBit), (void *)g_Player_UpdateWadingStateAddress_us_us_rev1, (void *)&g_globalGameplayFlags, 128, 2210, 131072 },
+    { (void *)PACKED_CALLBACK_LOW(Player_ClearGlobalFlagBit), (void *)g_Player_UpdateWadingStateAddress_us_us_rev1, (void *)&g_globalGameplayFlags, 128, 2210, 196608 },
     { (void *)PACKED_CALLBACK_LOW(Player_AbsorbImpact), (void *)g_Player_UpdateFloatingStateAddress_us_us_rev1, (void *)&g_pagerPageCounters[8], 64, 2210, 131072 },
     { (void *)PACKED_CALLBACK_LOW(Player_AbsorbImpact), (void *)g_Player_UpdateFloatingStateAddress_us_us_rev1, (void *)&g_pagerPageCounters[8], 64, 2210, 196608 },
     { (void *)PACKED_CALLBACK_LOW(Player_DampMotion), (void *)Player_AbsorbImpact, (void *)&g_collisionSurfaceExcludedFromTraceTravelEntry, 0, 2010, 131072 },

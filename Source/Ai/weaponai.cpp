@@ -361,6 +361,9 @@ void Weaponai_InitializeSwitchForSingleRound(void *actor, WeaponFireState *fireS
 #endif
 
 
+#if defined(VERSION_EU)
+const unsigned int k_weaponIdleSelectionPad[1] = { 0x00000000 };
+#endif
 s32 Weaponai_CanStartFiring(void *owner, void *slot) {
     WeaponFireState *weaponSlot = (WeaponFireState *)slot;
     WeaponPlayer *player = (WeaponPlayer *)((Player *)owner)->actorParts[0].controller;
@@ -518,9 +521,6 @@ void Weaponai_UpdateAlternateFire(void *actor, void *attack) {
 /* The PAL copy of Weapon_UpdateIdleWeaponSelection: the weapon switch and the idle request are two calls here. */
 #endif
 
-#if defined(VERSION_EU)
-
-#endif
 
 #if !(defined(VERSION_EU) || defined(VERSION_EU_X))
 
@@ -727,7 +727,7 @@ check_height:
         }
         goto done;
 check_state:
-        if (Playerai_GetWeaponAmmo(value, weaponMode) == 1) {
+        if (Playerai_GetWeaponAmmo(value, (s16) weaponMode) == 1) {
             Actor_RequestActorState(actor, stateController, 7);
         } else {
             Actor_RequestActorState(actor, stateController, 5);
@@ -797,7 +797,7 @@ static inline s32 can_fire_Weaponai_DecaySpinAndActivateEffect(char *player) {
         SoundElement_PlayFlatSound(3405);
         if (((SharedPlayer *)(player))->views5DC.view5DC_0.messageCamera != 0) {
             Gsky_PostTargetedScreenMessage(&g_frontendScreenStatus, ((SharedPlayer *)(player))->views5DC.view5DC_0.messageCamera,
-                RW_LOCALIZED_TEXT(g_weaponLockedNoticeText, g_weaponLockedNoticeTextEu, g_weaponLockedNoticeTextEuX, g_languageIndex),
+                RW_LOCALIZED_TEXT(g_weaponLockedNoticeText[0], g_weaponLockedNoticeTextEu, g_weaponLockedNoticeTextEuX, g_languageIndex),
                 Player_GetPlayerIndex(&g_playerViewRenderContext, player),
                           1.0f);
         }
@@ -1217,7 +1217,7 @@ static inline s32 can_fire_Weaponai_TryEnterAlternateFireState(char *player) {
                 ((g_weaponLockedNoticeTextEuX)[g_languageIndex]), Player_GetPlayerIndex(&g_playerViewRenderContext, player),
 #else
             Gsky_PostTargetedScreenMessage(&g_frontendScreenStatus, ((SharedPlayer *)(player))->views5DC.view5DC_0.messageCamera,
-                (g_weaponLockedNoticeText), Player_GetPlayerIndex(&g_playerViewRenderContext, player),
+                (g_weaponLockedNoticeText[0]), Player_GetPlayerIndex(&g_playerViewRenderContext, player),
 #endif
                           g_alternateFireLockedNoticeDuration);
         }
@@ -1654,16 +1654,9 @@ void Weaponai_UpdateAfterAmmoModeChange(LevelActor *levelActor, void *weaponSlot
 const s32 g_weaponEasedSpinSpinTarget = 20;
 
 /* Retained data for this translation unit. */
-#if defined(VERSION_EU)
-const unsigned int k_weaponIdleSelectionPad[1] = { 0x00000000 };
-#endif
 
 const float g_Weaponai_UpdateCallbacksAndTimersConstantWords[1] = {
     0.25f,
-};
-
-const float k_WeaponUpdatealternatefireData[2] = {
-    0.1f, 1.0f,
 };
 
 const float g_Weaponai_SelectReleasedFireStateConstantWords[1] = {
@@ -1685,3 +1678,8 @@ const float g_Weaponai_UpdateForceMarkerTriggerConstantWords[1] = {
 const float g_Weaponai_UpdateHeldFireConstantWords[1] = {
     1.0f,
 };
+
+#if defined(VERSION_DE)
+float g_weaponTriggerCooldownLimit = 0.100000001f;
+float g_alternateFireMessageDuration = 1.0f;
+#endif

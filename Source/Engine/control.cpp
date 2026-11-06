@@ -177,11 +177,13 @@ void Control_RefreshControllerConnection(ControllerProfile *profile) {
     ControllerProfile *controller = profile;
     s32 port;
     s32 plugged;
+    s32 rechecked;
     s32 i;
 
     port = controller->port;
     plugged = ((g_controllerReadStatusBytes[port * 4] >> 3) ^ 1) & 1;
     if (plugged != 0 && controller->connected == 0) {
+        i = 0;
         controller->port = port;
         controller->connected = 0;
         controller->pakActive = 0;
@@ -200,15 +202,17 @@ void Control_RefreshControllerConnection(ControllerProfile *profile) {
         controller->inputHistory[0] = 0;
         controller->inputHistory[1] = 0;
         controller->inputHistory[2] = 0;
-        for (i = 0; i < 32; i++) {
+        do {
             controller->buttonHistory[i].taps = 0;
             controller->buttonHistory[i].age = 0;
             controller->buttonHistory[i].repeat = 48;
             controller->buttonHistory[i].held = 0;
-        }
+            i += 1;
+        } while (i < 32);
+        rechecked = ((g_controllerReadStatusBytes[port * 4] >> 3) ^ 1) & 1;
         controller->pakAmount = 0;
         controller->pakTimer = 0;
-        controller->connected = ((g_controllerReadStatusBytes[port * 4] >> 3) ^ 1) & 1;
+        controller->connected = rechecked;
         Rumble_InitPoolNodes(&controller->effectPool, &controller->effectNodes, 3);
     }
     controller->connected = plugged;
@@ -350,32 +354,69 @@ Control_StopMotorDe
 /* Reinitializes a present controller pak entry under the pak queue lock: resets its rumble counters and effect pool, initialises the motor, stops it with the version's stop routine, retries the initialisation (marking the pak active when it succeeds), and releases the lock. */
 
 void Control_ResetControllerPak(ControllerProfile *pakProfile) {
-    ControllerRumbleView *rumble = (ControllerRumbleView *)pakProfile;
 
-    if (g_controllerInputReady != 0 && rumble->flags != 0) {
+    u32 address=(u32)pakProfile;
+    char *o=(char *)address;
+
+    if (g_controllerInputReady != 0 && ((ControllerRumbleView *)address)->flags != 0) {
         if (osRecvMesg(&g_controllerReadMessageQueue, 0, 1) == 0) {
             g_controllerAudioThreadId = osGetThreadId(0);
         }
         Control_ReadControllerStates();
         g_controllerPakFrontendState = 2;
-        rumble->state = 0;
-        rumble->amount = 0;
-        rumble->timer = 0;
-        Rumble_InitPoolNodes(&pakProfile->effectPool, &pakProfile->effectNodes, 3);
-        osMotorInit(&g_controllerSiMessageQueue, &pakProfile->pak, pakProfile->port);
+        ((ControllerRumbleView *)o)->state = 0;
+        ((ControllerRumbleView *)o)->amount = 0;
+        ((ControllerRumbleView *)o)->timer = 0;
+        Rumble_InitPoolNodes(&((ControllerProfile *)o)->effectPool, &((ControllerProfile *)o)->effectNodes, 3);
+        osMotorInit(&g_controllerSiMessageQueue, &((ControllerProfile *)o)->pak, pakProfile->port);
 
-#if defined(VERSION_DE)
-        ((u32 (*)(void *))Control_StopMotorDe)(&pakProfile->pak);
-#elif defined(VERSION_EU)
-        Control_StopMotorEu(&pakProfile->pak);
+#if defined(VERSION_EU)
+Control_StopMotorEu
 #elif defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-        ((u32 (*)(void *))Control_StopMotorEuX)(&pakProfile->pak);
-#else
-        ((u32 (*)(void *))osMotorStop)(&pakProfile->pak);
+#if defined(VERSION_EU) || defined(VERSION_US)
+Control_StopMotorEuX
+#elif defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+((u32 (*)(void *))Control_StopMotorEuX)
 #endif
+#elif defined(VERSION_US)
+#if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+osMotorStop
+#elif defined(VERSION_US)
+((u32 (*)(void *))osMotorStop)
+#endif
+#else
+#if defined(VERSION_DE)
+((u32 (*)(void *))Control_StopMotorDe)
+#elif defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
+Control_StopMotorDe
+#endif
+#endif
+(((ControllerRumbleView *)o)->status);
 
-        if (osMotorInit(&g_controllerSiMessageQueue, &pakProfile->pak, pakProfile->port) == 0) {
-            rumble->active = 1;
+#if defined(VERSION_EU)
+Control_StopMotorEu
+#elif defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+#if defined(VERSION_EU) || defined(VERSION_US)
+Control_StopMotorEuX
+#elif defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+((u32 (*)(void *))Control_StopMotorEuX)
+#endif
+#elif defined(VERSION_US)
+#if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+osMotorStop
+#elif defined(VERSION_US)
+((u32 (*)(void *))osMotorStop)
+#endif
+#else
+#if defined(VERSION_DE)
+((u32 (*)(void *))Control_StopMotorDe)
+#elif defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US) || defined(VERSION_US_REV1)
+Control_StopMotorDe
+#endif
+#endif
+(((ControllerRumbleView *)o)->status);
+        if (osMotorInit(&g_controllerSiMessageQueue, &((ControllerProfile *)o)->pak, pakProfile->port) == 0) {
+            ((ControllerRumbleView *)o)->active = 1;
         }
         g_controllerPakFrontendState = 2;
         g_controllerAudioThreadId = -1;

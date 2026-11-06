@@ -10,6 +10,7 @@
 #include "Frontend/player.h"
 #if defined(VERSION_DE)
 #include "Common/self.h"
+#include "Ai/Player/scaled_updatetargetpitch.h"
 #endif
 
 #if !(defined(VERSION_DE) || defined(VERSION_EU))

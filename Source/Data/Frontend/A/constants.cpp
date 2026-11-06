@@ -2,11 +2,6 @@
 #include "include_asm.h"
 #include "Frontend/controllerpak_message_pool.h"
 
-/* ACTION_DRAWFADEDACTOR_DATA.CPP */
-const float g_Actionai_DrawFadedActorConstants[2] = {
-    8.5f, 255.0f,
-};
-
 /* G_WORLDEXTENTCONSTANTSDE.CPP */
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)

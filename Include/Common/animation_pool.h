@@ -4,8 +4,6 @@
 struct EffectDesc;
 struct SceneEffect;
 struct CAnimPool;
-#ifndef COMMON_OBJRECAT5F14_BODY_H
-#define COMMON_OBJRECAT5F14_BODY_H
 #include "types.h"
 #include "Common/world.h"
 
@@ -107,5 +105,4 @@ typedef struct AnimationBlendEntry {
     u8 end;
 } AnimationBlendEntry;
 
-#endif
 #endif

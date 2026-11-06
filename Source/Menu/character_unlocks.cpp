@@ -92,7 +92,7 @@ void Menu_RefreshCharacterUnlocks(void) {
     for (i = 0; i < 17; i++) {
         found = 0;
         for (j = 0; j < 4 && !found; j++) {
-            if (g_profileSlotIndices[j * 400] >= 0) {
+            if (g_profileSlotIndices[j][0] >= 0) {
                 found = found || Player_TestAchievementFlag7(&g_localPlayerProfiles[j], g_frontendKeyUnlockEntries[i].key);
             }
         }

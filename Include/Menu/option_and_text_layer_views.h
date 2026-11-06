@@ -98,7 +98,7 @@ struct TextBoundsFont {
     f32 height;
     s32 rest[4];
 };
-struct TextBoundsRecord23 {
+struct TextBoundsBox {
     char pad0[0x24];
     s32 width;
     s32 height;

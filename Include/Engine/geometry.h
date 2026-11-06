@@ -7,6 +7,7 @@ extern int g_geometryOpaqueRenderMode;
 #include "Common/ballisticparams.h"
 #include <PR/gbi.h>
 #include "Common/rendercounters.h"
+#include "Common/shared_gameslot.h"
 #include "Common/runtime_declarations.h"
 #include "types.h"
 #include "Common/geometry_blend_and_instance_views.h"
@@ -82,7 +83,6 @@ extern u32 g_primaryDisplayListCapacity;
 extern u32 g_geometryEffectGeometryMode;
 extern f32 g_geometryDefaultTintAlpha;
 extern f32 g_geometryDefaultTintColor;
-extern CGameStatus g_matchRoundCounters;
 extern struct QueuedModelInstance g_modelInstanceQueue[];
 extern struct SharedModelTintMaterial g_tintedModelSharedMaterial;
 extern struct NodeGeometryGroupModelInstances *g_opaqueMaterialGroupList;

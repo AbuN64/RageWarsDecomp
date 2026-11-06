@@ -109,20 +109,30 @@ void Menu_DrawScreenStack(void) {
     args.word24 = g_screenDrawHeight - 1;
 
     now = (s32)(N64Eng_GetTimeSeconds() * g_menuTimeTickScale);
-    if (*(s32 *)&s_smackFormat == 0) {
-        *(s32 *)&s_smackFormat = now;
+    if (s_menuLastDrawTick == 0) {
+        s_menuLastDrawTick = now;
     }
-    delta = now - *(s32 *)&s_smackFormat;
-    *(s32 *)&s_smackFormat = now;
+    delta = now - s_menuLastDrawTick;
+    s_menuLastDrawTick = now;
     DispatchScreenRangeEvent(0, 3594, 0, &args, delta);
 
-    for (index = g_screenManager->lowIndex; index <= g_screenManager->current; index++) {
-        ScreenEntry *screen = &g_screenManager->screens[index];
-        N64Eng_RenderNoop();
-        Widget_DrawVisibleWidgetClipped(screen->primary, *(sm_dldc *)&args);
-        Widget_ResetTextClipBounds();
-        N64Eng_ResetRenderState();
-        Widget_ComputeWidgetBounds(&first, &basis, screen->primary, &args);
+    /* Each screen from the lowest to the current one is drawn; the screen table is read again
+       for every use, since a draw may move it. */
+    index = g_screenManager->lowIndex;
+    if (g_screenManager->current >= index) {
+        s32 offset = index * sizeof(ScreenEntry);
+
+        do {
+            index++;
+            N64Eng_RenderNoop();
+            Widget_DrawVisibleWidgetClipped(((ScreenEntry *)(offset + (s32)g_screenManager->screens))->primary,
+                                            *(sm_dldc *)&args);
+            Widget_ResetTextClipBounds();
+            N64Eng_ResetRenderState();
+            Widget_ComputeWidgetBounds(&first, &basis,
+                                       ((ScreenEntry *)(offset + (s32)g_screenManager->screens))->primary, &args);
+            offset += sizeof(ScreenEntry);
+        } while (g_screenManager->current >= index);
     }
     DispatchScreenRangeEvent(0, 3594, 1, 0, delta);
     g_menuElementLoadCount = 0;
@@ -399,7 +409,3 @@ void Menu_GetScreenDrawOrigin(s32 *xOut, s32 *yOut) {
     *xOut = g_screenManager->eventArgument0;
     *yOut = g_screenManager->eventArgument1;
 }
-
-const float g_Menu_DrawScreenStackConstantWords_de_eu_eu_x_usUsRev1[1] = {
-    1.0f,
-};

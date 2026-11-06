@@ -129,35 +129,80 @@ s32 Menu_UpdatePakActionMenu(void) {
     }
 }
 
-/* The option each row selects; the row that cancels holds PAK_ACTION_CANCEL. */
-#define PAK_ACTION_CANCEL (-1)
+/* Screen phases the PAK action menu requests through PAKInterface_SetScreenPhase (the panel modes of the PAK
+   interface screen). */
+enum PakScreenPhase {
+    PAK_PHASE_DEFAULT = 0,
+    PAK_PHASE_PROFILE_SELECT = 1,
+    PAK_PHASE_PAK_EVENT = 2,
+    PAK_PHASE_TIMED_RESET = 3,
+    PAK_PHASE_PAK_DIALOG = 4
+};
+
+/* Rows of the PAK action menu, in the order of their focused element ids; eu-x orders them differently. */
+enum PakActionRow {
 #if defined(VERSION_EU_X)
-static const s32 pakActionOptionByRow_menuAdvancefademeter[6] = { PAK_ACTION_CANCEL, 0, 3, 4, 2, 1 };
+    PAK_ACTION_ROW_CANCEL,
+    PAK_ACTION_ROW_DEFAULT,
+    PAK_ACTION_ROW_TIMED_RESET,
+    PAK_ACTION_ROW_PAK_DIALOG,
+    PAK_ACTION_ROW_PAK_EVENT,
+    PAK_ACTION_ROW_PROFILE_SELECT,
 #else
-static const s32 pakActionOptionByRow_menuAdvancefademeter[6] = { 4, 3, 0, 1, PAK_ACTION_CANCEL, 2 };
+    PAK_ACTION_ROW_PAK_DIALOG,
+    PAK_ACTION_ROW_TIMED_RESET,
+    PAK_ACTION_ROW_DEFAULT,
+    PAK_ACTION_ROW_PROFILE_SELECT,
+    PAK_ACTION_ROW_CANCEL,
+    PAK_ACTION_ROW_PAK_EVENT,
 #endif
+    PAK_ACTION_ROW_COUNT
+};
 
 s32 Menu_ChoosePakActionOption(void) {
-    s32 option;
-    u32 message;
+    s32 phase;
+    u32 row;
     MarkMenuEventHandled();
 #if defined(VERSION_DE)
-    message = Menu_GetFocusedElementId() - 924;
+    row = Menu_GetFocusedElementId() - 924;
 #elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    message = Menu_GetFocusedElementId() - 930;
+    row = Menu_GetFocusedElementId() - 930;
 #elif defined(VERSION_EU_X)
-    message = Menu_GetFocusedElementId() - 934;
+    row = Menu_GetFocusedElementId() - 934;
 #endif
-    if (message >= 6) {
+    if (row >= PAK_ACTION_ROW_COUNT) {
         return 0;
     }
-    option = pakActionOptionByRow_menuAdvancefademeter[message];
-    if (option == PAK_ACTION_CANCEL) {
-        g_pakActionMenuState->nextScreen = -1;
-    } else {
-        PAKInterface_SetScreenPhase(option);
-        g_pakActionMenuState->nextScreen = 19;
+    switch (row) {
+    case PAK_ACTION_ROW_PAK_DIALOG: goto choose_pak_dialog;
+    case PAK_ACTION_ROW_TIMED_RESET: goto choose_timed_reset;
+    case PAK_ACTION_ROW_DEFAULT: goto choose_default;
+    case PAK_ACTION_ROW_PROFILE_SELECT: goto choose_profile_select;
+    case PAK_ACTION_ROW_CANCEL: goto cancel;
+    case PAK_ACTION_ROW_PAK_EVENT: goto choose_pak_event;
     }
+choose_default:
+    phase = PAK_PHASE_DEFAULT;
+    goto choose;
+choose_profile_select:
+    phase = PAK_PHASE_PROFILE_SELECT;
+    goto choose;
+choose_timed_reset:
+    phase = PAK_PHASE_TIMED_RESET;
+    goto choose;
+choose_pak_dialog:
+    phase = PAK_PHASE_PAK_DIALOG;
+    goto choose;
+choose_pak_event:
+    phase = PAK_PHASE_PAK_EVENT;
+    goto choose;
+choose:
+    PAKInterface_SetScreenPhase(phase);
+    g_pakActionMenuState->nextScreen = 19;
+    goto close;
+cancel:
+    g_pakActionMenuState->nextScreen = -1;
+close:
     SmpSlider_SetTransitionMode(g_pakActionMenuState->slider, 2);
     return 0;
 }
@@ -173,14 +218,27 @@ s32 Menu_CancelPakActionMenu(void) {
 }
 
 s32 Menu_DispatchPakActionEvent(void *menuActor, s32 eventKind, s32 eventDataOne, s32 eventDataTwo, s32 eventDataThree) {
-    ResidentEventHandlerEntry *handlers = (ResidentEventHandlerEntry *)g_pakActionMenuEventKinds;
-    s32 row;
-    for (row = 0; handlers[row].handler != 0; row++) {
-        if (handlers[row].event == eventKind &&
-            (handlers[row].actorKind == ((struct MenuWidget *)menuActor)->resource ||
-             handlers[row].actorKind == ANY_ACTOR_KIND)) {
-            return handlers[row].handler(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
-        }
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+
+    if (g_pakActionMenuEventHandlers != 0) {
+        wildcard = 30000;
+        entry = (char *)&g_pakActionMenuEventHandlers;
+        offset = 0;
+        do {
+            if (((s32 *) (((char *) (&g_pakActionMenuEventKinds)) + offset))[0] == eventKind) {
+                actor_kind = ((struct MenuWidget *) ((char *) menuActor))->resource;
+                table_kind = ((s32 *) (((char *) (&g_pakActionMenuActorKinds)) + offset))[0];
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
+                }
+            }
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }

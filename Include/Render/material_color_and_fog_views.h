@@ -26,4 +26,9 @@ struct QueuedModelInstance {
  * separate addresses (a shared struct base breaks 18 exact fns), so they are two objects. */
 extern s32 g_menuModelFillEnabled;
 extern f32 g_menuModelFillColor[5];
+extern f32 g_menuModelFillRed;
+extern f32 g_menuModelFillGreen;
+extern f32 g_menuModelFillBlue;
+extern f32 g_menuModelFillAlpha;
+extern f32 g_menuModelFillTargetAlpha;
 #endif

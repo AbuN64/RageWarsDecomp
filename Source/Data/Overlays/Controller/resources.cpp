@@ -120,7 +120,7 @@ typedef struct NavControllerStateRecord {
 } NavControllerStateRecord;
 
 NavControllerStateRecord g_navControllerStateRecords[11] __attribute__((aligned(4))) = {
-    { 1, (void *)&Nav_ResetTargetFollowStateDe, (void *)&Nav_UpdateTargetRouteFollow, { 0x00000000, 0x00000000 }, 1.0f, 5, 0x00000000 },
+    { 1, (void *)&Nav_InitTargetFollowing, (void *)&Nav_UpdateTargetRouteFollow, { 0x00000000, 0x00000000 }, 1.0f, 5, 0x00000000 },
     { 2, (void *)&Nav_InitRoamingWithJumps, (void *)&Nav_UpdateRoamingWithJumps, { 0x00000000, 0x00000000 }, 1.0f, 5, 0x00000000 },
     { 3, (void *)&Nav_InitPursuitStrafe, (void *)&Nav_UpdatePursuitStrafe, { 0x00000000, 0x00000000 }, 1.0f, 5, 0x00000000 },
     { 4, (void *)&Nav_InitRangedCombat, (void *)&Nav_UpdateRangedCombat, { 0x00000000, 0x00000000 }, 1.0f, 5, 0x00000000 },

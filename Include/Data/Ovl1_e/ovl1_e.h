@@ -3,7 +3,7 @@
 #include "Ai/nav_symbols.h"
 #include "Ai/ai_shared_symbols.h"
 #include "Data/rest_source_records.h"
-extern char g_globalGameplayFlags[];
+extern s32 g_globalGameplayFlags[];
 #if defined(VERSION_US_REV1)
 extern char g_Player_UpdateStandingStateAddress_us_us_rev1[];
 extern char g_Player_ZeroBodyVelocityCallbackAddressDe[];

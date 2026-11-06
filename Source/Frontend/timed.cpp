@@ -29,53 +29,6 @@
 #include "Frontend/frontend.h"
 
 /* unit TIMED.CPP */
-/* Handles the menu message Menu_GetFocusedElementId reports after MarkMenuEventHandled: 0x3D5 waits 1 through
-   SmXlate_SwitchScreen; 0x3D3 plays cue 0x34 through SoundElement_SetMusicPlaybackEnabled when SoundElement_GetMusicPlaybackEnabled reports sound on,
-   resets through Tsmos_DeactivateControllerState, sets the timer at 0x1C of screen g_pauseTimedMenu by setting
-   g_gameControllerMode through k_timedControllerModeLockedJumpTable (10, 15 or 10, and 20 for any other setting) and shows the
-   screen through Frontend_StartMenuImageTransition. Returns zero. */
-
-#if defined(VERSION_DE)
-enum { TIMED_MENU_ELEMENT_START_TRANSITION = 973, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 975 };
-#elif defined(VERSION_EU_X)
-enum { TIMED_MENU_ELEMENT_START_TRANSITION = 983, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 985 };
-#else
-enum { TIMED_MENU_ELEMENT_START_TRANSITION = 979, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 981 };
-#endif
-
-s32 Timed_UpdateTimedScreen(void) {
-    MarkMenuEventHandled();
-    switch (Menu_GetFocusedElementId()) {
-    case TIMED_MENU_ELEMENT_SWITCH_SCREEN:
-        SmXlate_SwitchScreen(1);
-        return 0;
-    case TIMED_MENU_ELEMENT_START_TRANSITION:
-        if (SoundElement_GetMusicPlaybackEnabled() != 0) {
-            SoundElement_SetMusicPlaybackEnabled(52);
-        }
-        Tsmos_DeactivateControllerState();
-        switch (g_gameSettings.controllerMode) {
-        case 1:
-            g_pauseTimedMenu->locked = 10;
-            break;
-        case 2:
-            g_pauseTimedMenu->locked = 15;
-            break;
-        case 3:
-        case 4:
-            g_pauseTimedMenu->locked = 10;
-            break;
-        case 0:
-        default:
-            g_pauseTimedMenu->locked = 20;
-            break;
-        }
-        Frontend_StartMenuImageTransition(g_pauseTimedMenu);
-        return 0;
-    }
-    return 0;
-}
-
 #if defined(VERSION_EU_X)
 unsigned int k_TimedEncodedWords[3] = {
     0x00000015, 0x00000001, 0x00000004,
@@ -215,7 +168,6 @@ s32 Timed_SetConfirmationInputMode(void) {
 /* Event callback for screen g_pauseTimedMenu: on event 1 while Frontend_GetMenuImageState reports the screen in state 1 it advances the screen through Frontend_DrawMenuImage and Frontend_AdvanceMenuImageTransition, and when that leaves it in state 2 it calls Frontend_RequestScreenMode_AchieveUpdateresultsscreen(0) and MarkMenuEventHandled, clears the pause word g_simpleObjectPauseState (0x180C past the match objects at g_frontendScreenStatus), stops those objects and the ones 0x48 bytes before them, releases resource 0x24 of g_world_AchieveUpdateresultsscreen, restarts Cache_SetResourceActivityState when Cache_GetResourceActivityState reports it idle, stores 8 at 0x17F0 past the match objects, passes the screen's word at 0x1C to SmXlate_SwitchScreen and calls SoundElement_DisableMusicGainOverride, returning zero. */
 s32 Timed_FinishPauseConfirmationTransition(s32 element, s32 eventId, s32 event) {
     s32 *pause;
-    Shared_MenuData *menuData;
     if (event == 1) {
         if (Frontend_GetMenuImageState(g_pauseTimedMenu) != 1) {
             return 0;
@@ -229,14 +181,13 @@ s32 Timed_FinishPauseConfirmationTransition(s32 element, s32 eventId, s32 event)
         MarkMenuEventHandled();
         pause = &g_frontendScreenStatus.status[7];
         *pause = 0;
-        menuData = (Shared_MenuData *)&g_frontendScreenStatus;
-        Pools_ResetActorPools(&menuData->object, 0);
-        Player_InitializePlayerPool(menuData, 0, 0);
+        Pools_ResetActorPools((char *)pause - (((char *)&((Shared_MenuData *)0)->pause - (char *)0) - ((char *)&((Shared_MenuData *)0)->object - (char *)0)), 0);
+        Player_InitializePlayerPool((char *)pause - ((char *)&((Shared_MenuData *)0)->pause - (char *)0), 0, 0);
         Scene_LoadLevelResources(&g_world, 36, 0);
         if (Cache_GetResourceActivityState() == 0) {
             Cache_SetResourceActivityState(1);
         }
-        g_frontendScreenStatus.status[0] = 8;
+        pause[-7] = 8;
         SmXlate_SwitchScreen((void *)g_pauseTimedMenu->locked);
         SoundElement_DisableMusicGainOverride();
     }
@@ -252,6 +203,53 @@ s32 Frontend_ReturnConfirmationEventZero(void) {
 /* Calls MarkMenuEventHandled with the arguments it was given and returns zero. */
 s32 Frontend_ConsumeConfirmationEvent(void) {
     MarkMenuEventHandled();
+    return 0;
+}
+
+/* Handles the menu message Menu_GetFocusedElementId reports after MarkMenuEventHandled: 0x3D5 waits 1 through
+   SmXlate_SwitchScreen; 0x3D3 plays cue 0x34 through SoundElement_SetMusicPlaybackEnabled when SoundElement_GetMusicPlaybackEnabled reports sound on,
+   resets through Tsmos_DeactivateControllerState, sets the timer at 0x1C of screen g_pauseTimedMenu by setting
+   g_gameControllerMode through k_timedControllerModeLockedJumpTable (10, 15 or 10, and 20 for any other setting) and shows the
+   screen through Frontend_StartMenuImageTransition. Returns zero. */
+
+#if defined(VERSION_DE)
+enum { TIMED_MENU_ELEMENT_START_TRANSITION = 973, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 975 };
+#elif defined(VERSION_EU_X)
+enum { TIMED_MENU_ELEMENT_START_TRANSITION = 983, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 985 };
+#else
+enum { TIMED_MENU_ELEMENT_START_TRANSITION = 979, TIMED_MENU_ELEMENT_SWITCH_SCREEN = 981 };
+#endif
+
+s32 Timed_UpdateTimedScreen(void) {
+    MarkMenuEventHandled();
+    switch (Menu_GetFocusedElementId()) {
+    case TIMED_MENU_ELEMENT_SWITCH_SCREEN:
+        SmXlate_SwitchScreen(1);
+        return 0;
+    case TIMED_MENU_ELEMENT_START_TRANSITION:
+        if (SoundElement_GetMusicPlaybackEnabled() != 0) {
+            SoundElement_SetMusicPlaybackEnabled(52);
+        }
+        Tsmos_DeactivateControllerState();
+        switch (g_gameSettings.controllerMode) {
+        case 1:
+            g_pauseTimedMenu->locked = 10;
+            break;
+        case 2:
+            g_pauseTimedMenu->locked = 15;
+            break;
+        case 3:
+        case 4:
+            g_pauseTimedMenu->locked = 10;
+            break;
+        case 0:
+        default:
+            g_pauseTimedMenu->locked = 20;
+            break;
+        }
+        Frontend_StartMenuImageTransition(g_pauseTimedMenu);
+        return 0;
+    }
     return 0;
 }
 

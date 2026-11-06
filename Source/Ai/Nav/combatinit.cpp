@@ -7,7 +7,7 @@
 
 #if defined(VERSION_DE)
 
-void Nav_InitPursuitStrafeDe(CloseAttackActor *actor) {
+void Nav_InitPursuitStrafe(CloseAttackActor *actor) {
     CloseAttackBrain *brain = actor->self->brain;
     brain->state = 0;
     Scaled_ResetBehaviorState(brain);
@@ -17,7 +17,7 @@ void Nav_InitPursuitStrafeDe(CloseAttackActor *actor) {
 #endif
 
 #if defined(VERSION_DE)
-void Nav_InitRangedCombatDe(CloseAttackActor *actor) {
+void Nav_InitRangedCombat(CloseAttackActor *actor) {
     CloseAttackBrain *brain = actor->self->brain;
     brain->state = 0;
     Scaled_ResetBehaviorState(brain);
@@ -31,7 +31,7 @@ void Nav_InitRangedCombatDe(CloseAttackActor *actor) {
 #endif
 
 #if defined(VERSION_DE)
-void Nav_InitCloseCombatDe(CloseAttackActor *actor) {
+void Nav_InitCloseCombat(CloseAttackActor *actor) {
     CloseAttackBrain *brain = actor->self->brain;
     brain->state = 0;
     brain->timer = Graphu64_NextRandom() % 4 + 2;
@@ -45,11 +45,18 @@ void Nav_InitCloseCombatDe(CloseAttackActor *actor) {
 #endif
 
 #if defined(VERSION_DE)
-void Nav_InitVisiblePursuitDe(CloseAttackActor *actor) {
-    CloseAttackBrain *brain = actor->self->brain;
-    brain->state = 0;
-    Scaled_ResetBehaviorState(brain);
-    brain->timer = Graphu64_NextRandom() % 4 + 12;
-    brain->pattern = Graphu64_NextRandom() % 2;
+void Nav_InitVisiblePursuit(CloseAttackActor *actor) {
+    CloseAttackActor *level1 = actor->self;
+    CloseAttackBrain *inner = level1->brain;
+    s32 r1, r2;
+
+    inner->state = 0;
+    Scaled_ResetBehaviorState(inner);
+
+    r1 = Graphu64_NextRandom();
+    inner->timer = r1 % 4 + 12;
+
+    r2 = Graphu64_NextRandom();
+    inner->pattern = r2 % 2;
 }
 #endif

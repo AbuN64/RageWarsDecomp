@@ -31,6 +31,7 @@ extern s32 g_twoPlayerLayoutVerticalText;
 #include "Common/gameplay_settings.h"
 #endif
 #include "Menu/menu_event_handlers.h"
+#include "Control/control.h"
 
 /* Updates the selected menu option in response to the current input state. */
 
@@ -305,31 +306,35 @@ void Items_ResetPlayerSettings(CPlayerOptions *player, s8 controller) {
    slots 1 to 3 use their own tables, slots 4 to 7 leave the record unchanged, and any other slot uses the first table. */
 void Items_SetDefaultPlayerName(u8 *recordBytes) {
     Shared_PlayerSettingsRecord *record = (Shared_PlayerSettingsRecord *)recordBytes;
-    const u8 *preset;
     s32 i;
 
     switch ((s8)record->slot) {
+    case 0:
+    default:
+        for (i = 0; i < 8; i++) {
+            record->name[i] = g_defaultPlayerNames[0][i];
+        }
+        return;
     case 1:
-        preset = (const u8 *)g_defaultPlayerNames[1];
-        break;
+        for (i = 0; i < 8; i++) {
+            record->name[i] = g_defaultPlayerNames[1][i];
+        }
+        return;
     case 2:
-        preset = (const u8 *)g_defaultPlayerNames[2];
-        break;
+        for (i = 0; i < 8; i++) {
+            record->name[i] = g_defaultPlayerNames[2][i];
+        }
+        return;
     case 3:
-        preset = (const u8 *)g_defaultPlayerNames[3];
-        break;
+        for (i = 0; i < 8; i++) {
+            record->name[i] = g_defaultPlayerNames[3][i];
+        }
+        return;
     case 4:
     case 5:
     case 6:
     case 7:
         return;
-    case 0:
-    default:
-        preset = (const u8 *)g_defaultPlayerNames[0];
-        break;
-    }
-    for (i = 0; i < 8; i++) {
-        record->name[i] = preset[i];
     }
 }
 #endif
@@ -578,7 +583,7 @@ s32 Items_FormatPackedGameOption(LayeredText *field) {
         field->text = g_opacityOpaqueText;
     } else {
         field->text = &g_packedGameOptionValueText;
-        text = g_packedGameOptionValueText;
+        text = field->text[0];
         Defs_FormatIntegerValue(text + (Menu_CountLineChars(field) - 2), g_fmtDecPadShort, value);
     }
     return 0;
@@ -588,14 +593,15 @@ s32 Items_FormatPackedGameOption(LayeredText *field) {
 #endif
 
 s32 Items_AdjustPackedGameOption(void *first, void *second) {
+    u16 *option = &g_gamePackedOptions;
     u8 limited;
 
-    g_gamePackedOptions = Menu_AdjustValue(second, g_gamePackedOptions, 16, 0, 256, 0);
+    *option = Menu_AdjustValue(second, *option, 16, 0, 256, 0);
     limited = 0xFF;
-    if (g_gamePackedOptions < 0xFF) {
-        limited = g_gamePackedOptions & 0xFF;
+    if (*option < 0xFF) {
+        limited = ((u8 *) option)[1];
     }
-    g_playerHudSpriteMode = limited;
+    ((u8 *) option)[2] = limited;
     return 0;
 }
 
@@ -768,7 +774,7 @@ s32 Items_RequestScreenModeFade(void) {
     if (g_controllerPakProbeState == 0.0f) {
         Frontend_StartScreenModeFade();
         g_controllerPakProbeState = (18.0f);
-        g_frontendSavedVideoModeIndex = (u8)g_frontendCurrentVideoModeIndex;
+        g_frontendSavedVideoModeIndex[0] = (u8)g_frontendCurrentVideoModeIndex;
     }
     return 0;
 }

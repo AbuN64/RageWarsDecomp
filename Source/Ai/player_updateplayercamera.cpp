@@ -87,6 +87,8 @@
 #include "Ai/Player/playerai_entermovingsequencestate_data.h"
 #include "Ai/player_updateplayercamera.h"
 #include "Ai/Weapon/weapon.h"
+#include "Ai/weaponselect.h"
+#include "Engine/gameobject_loadmodel.h"
 
 /* Draws a player's HUD for one frame unless the game state is 8 or 11: ticks the HUD animations,
    draws the health counter and its hurt flash (four corner sprites in an environment colour that
@@ -1109,7 +1111,7 @@ void Player_UpdateBodyMovementAndActions(SharedPlayer *player)
         player->views5E8.view678_40.powerupCountdown = 0.0f;
       }
     }
-    Player_UpdatePlayerEffectLights(player);
+    Player_UpdatePlayerEffectLights(player, actor);
     oldModel = actor->views0.view14_6.model;
     prev = actor->views0.view8_3.pos;
     before = InstHdr_FindActorModelEntry(actor);
@@ -1120,7 +1122,7 @@ void Player_UpdateBodyMovementAndActions(SharedPlayer *player)
       {
         player->views5E8.view6E8_79.movementPosition = player->views0.view8_3.pos;
       }
-      hit = Unicol_MoveActorWithCollision(actor, player->views5E8.view6E8_79.movementPosition.x, player->views5E8.view6E8_79.movementPosition.y, player->views5E8.view6E8_79.movementPosition.z, stateFlags);
+      hit = Unicol_MoveActorWithCollision(actor, player->views5E8.view6E8_79.movementPosition, stateFlags);
       actor->views1C.view100_8.flags &= ~0x10000;
     }
     else
@@ -1357,7 +1359,7 @@ void Player_UpdateBodyMovementAndActions(SharedPlayer *player)
   Cteamselect_UpdateTeamWheel(&player->views5E8.viewCCC_164.teamWheel, player, &player->views1C.view458_40.weaponSelectionContext);
   if (player->views5E8.view62E_17.character == 0)
   {
-    player->views13B4.view13B4_5.states = g_playerSpecialAnimationTable;
+    player->views13B4.view13B4_5.states = (void *)&g_playerSpecialAnimationTable;
   }
   else
   {
@@ -1528,7 +1530,7 @@ void Player_UpdateBodyMovementAndActions(SharedPlayer *player)
   }
 }
 
-/* Switches a player to a new state unless option g_motionVisibilitySettings is on, Playerai_IsRoundEndState refuses and the
+/* Switches a player to a new state unless option g_gameSettings.local is on, Playerai_IsRoundEndState refuses and the
    state is not 0x13 to 0x15: keeps the previous state and timer, clears flag 0x800000, runs the new
    state's entry handler from the player's state table, loads the state's timer and its
    nonzero parameter, and returns 1 with the counter cleared when the handler left

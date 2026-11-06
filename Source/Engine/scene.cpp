@@ -1,3 +1,4 @@
+#include "Engine/gobjinst_buildactortransform.h"
 #include "Common/packed_callback_symbols.h"
 #include "Common/packed_callback.h"
 #include "Cache/cache_allocateresourceat.h"
@@ -210,6 +211,8 @@
 #include "Ai/Player/player_model_and_held_weapon_rendering.h"
 #include "Ai/Playerai/playerai_playerai.h"
 #include "Engine/Instance/Statinst/statinst.h"
+#include "Engine/gobjinst_buildactortransform.h"
+#include "Engine/gobjinst_findnearestbonebounds.h"
 #endif
 
 /* SCENE_DRAWTRANSPARENTOBJECTS.CPP */
@@ -449,7 +452,7 @@ void Scene_DrawTransparentObjects(Shared_World *world, void *camera) {
         object = entries[i].object;
         switch (object->kind) {
         case 0:
-            Statinst_DrawForGameMode(object);
+            Statinst_DrawForGameMode(object, camera);
             break;
         case 3:
             Simple_DrawCachedModel(object);
@@ -664,14 +667,19 @@ extern const unsigned char s_matricesText[];                          /* unable 
 /* Initializes scene resources, actors, and game mode state. */
 void Scene_LoadLevelResources(SceneResourceStateView *table, s32 target, s32 allowTransition) {
     struct SceneResourceStateView *state = table;
+    s32 actorType3, actorKindBd7, primarySlotByteOffset;
+    s32 kindActor, kind654, kind653, kind655, kind656;
+    s32 primaryDefinitionType;
+    u16 *primaryActorKind;
+    struct ModelBlend *primaryDefinition;
     s32 *unusedPointer3;
+    CGameStatus *gameStatus;
     struct CacheResourceNode *resourceResult;
     s32 actorCount;
     s32 unusedInteger4;
     s32 previousStageId;
     s32 resourceCount;
     s32 navigationPointCount;
-    s32 primaryDefinitionType;
     s32 secondaryDefinitionType;
     s32 resourceKey;
     s32 sceneDirectoryEntry;
@@ -684,10 +692,6 @@ void Scene_LoadLevelResources(SceneResourceStateView *table, s32 target, s32 all
     s32 i;
     s32 j;
     s32 count;
-    s32 kindActor;
-    s32 kind654;
-    s32 kind653;
-    s32 kind655;
     s32 secondType3;
     s32 secondType10;
     s32 secondKindBd6;
@@ -708,15 +712,11 @@ void Scene_LoadLevelResources(SceneResourceStateView *table, s32 target, s32 all
     s32 finalActorByteOffset;
     s32 transitionAllowed;
     s32 levelSelection;
-    s32 kind656;
     s32 hasSelectedActorCapacity;
-    s32 primarySlotByteOffset;
     s32 secondarySlotByteOffset;
     s32 hasSecondaryActorCapacity;
     s32 actorIterationIndex;
-    s32 actorKindBd7;
     s32 firstActorKind;
-    s32 actorType3;
     s32 unusedInteger7;
     s32 kind;
     u8 statusBarKind;
@@ -737,11 +737,9 @@ void Scene_LoadLevelResources(SceneResourceStateView *table, s32 target, s32 all
     NavigationBuffer *navigationVision;
     LevelActor *primaryActor;
     void *levelActor;
-    LevelActor *scene_actor_ptr;
     void *playerProfile;
     struct SceneResourceSixWordRecord *visibilityHeader;
     void *skyLayerTable;
-    struct ModelBlend *primaryActorDefinition;
     struct ModelBlend *secondaryActorDefinition;
     void *unusedPointer1;
     void *selectedActorSlot;
@@ -794,7 +792,8 @@ void Scene_LoadLevelResources(SceneResourceStateView *table, s32 target, s32 all
             if ((((AiProfile *)playerProfile)->loadFlagFirst == 1) && (((AiProfile *)playerProfile)->sessionApplied == 1)) {
                 Nav_ResetPlayerState((s32 *)playerActor->controller);
             }
-            if ((((CGameStatus *)(&g_matchRoundCounters))->enabled) != 0) {
+            gameStatus = &g_playerViewRenderContext.game.counters;
+            if (gameStatus->enabled != 0) {
                 playerHudProfile = playerActor->profile;
                 statusBarKind = (((AiProfile *)(playerHudProfile))->enabled);
                 if (statusBarKind != 0) {
@@ -1029,77 +1028,66 @@ loop_81:
     }
 
     actorIndex = 3;
-    scene_actor_ptr = (((struct Shared_World *)(table))->actors);
+    primaryActor = ((struct Shared_World *)table)->actors;
     actorType3 = 3;
     actorKindBd7 = 3031;
     primarySlotByteOffset = 3 * sizeof(void *);
-
     (((struct Shared_World *)(table))->specialActorCount) = i;
     g_fragTagObjectiveActor = 0;
     do {
-        *(LevelActor **)((u8 *)g_sceneTrackedActors + primarySlotByteOffset) = 0;
+        *(LevelActor **)((char *)g_sceneTrackedActors + primarySlotByteOffset) = 0;
         actorIndex -= 1;
         primarySlotByteOffset -= sizeof(void *);
     } while (actorIndex >= 0);
     actorIndex = 0;
-    if ((((struct Shared_World *)(table))->actorCapacity) > 0) {
+    if (((struct Shared_World *)table)->actorCapacity > 0) {
         kindActor = 10;
         kind654 = 1620;
         kind653 = 1619;
         kind655 = 1621;
         kind656 = 1622;
-        primaryActor = scene_actor_ptr;
-loop_89:
-        primaryActorDefinition = (ModelBlend *) primaryActor->definition;
-        primaryDefinitionType = primaryActorDefinition->kind;
+        primaryActorKind = &primaryActor->type;
+trackedActorLoop:
+        primaryDefinition = (struct ModelBlend *)((LevelActor *)((char *)primaryActorKind - offsetof(LevelActor, type)))->definition;
+        primaryDefinitionType = primaryDefinition->kind;
         if (primaryDefinitionType == actorType3) {
-            if (Scene_GetModelIdAtIndex(&g_world, primaryActorDefinition->modelIndex) != actorKindBd7) {
-                goto block_108;
+            if (Scene_GetModelIdAtIndex(&g_world, primaryDefinition->modelIndex) != actorKindBd7) {
+                goto nextTrackedActor;
             }
             g_fragTagObjectiveActor = primaryActor;
-            goto block_109;
+            goto trackedActorsFound;
         } else {
             if (primaryDefinitionType == kindActor) {
-                kind = primaryActor->type;
-                if (kind == kind654) {
-                    goto actor_kind_654;
-                }
+                kind = *primaryActorKind;
+                if (kind == kind654) goto trackedActor654;
                 if (kind < 1621) {
-                    if (kind == kind653) {
-                        goto actor_kind_653;
-                    }
-                        goto block_108;
+                    if (kind == kind653) goto trackedActor653;
+                    goto nextTrackedActor;
                 }
-                if (kind == kind655) {
-                    goto actor_kind_655;
-                }
-                if (kind == kind656) {
-                        goto actor_kind_656;
-                }
-                goto block_108;
-actor_kind_653:
+                if (kind == kind655) goto trackedActor655;
+                if (kind == kind656) goto trackedActor656;
+                goto nextTrackedActor;
+trackedActor653:
                 g_sceneTrackedActors[0] = primaryActor;
-                goto block_108;
-actor_kind_654:
+                goto nextTrackedActor;
+trackedActor654:
                 g_sceneTrackedActors[1] = primaryActor;
-                goto block_108;
-actor_kind_655:
+                goto nextTrackedActor;
+trackedActor655:
                 g_sceneTrackedActors[2] = primaryActor;
-                goto block_108;
-actor_kind_656:
+                goto nextTrackedActor;
+trackedActor656:
                 g_sceneTrackedActors[3] = primaryActor;
             }
-block_108:
+nextTrackedActor:
+            primaryActorKind = (u16 *)((char *)primaryActorKind + sizeof(LevelActor));
             primaryActor++;
-            scene_actor_ptr += 1;
-            actorIndex += 1;
-            if (actorIndex >= (((struct Shared_World *)(table))->actorCapacity)) {
-                goto block_109;
-            }
-            goto loop_89;
+            actorIndex++;
+            if (actorIndex >= ((struct Shared_World *)table)->actorCapacity) goto trackedActorsFound;
+            goto trackedActorLoop;
         }
     } else {
-block_109:
+trackedActorsFound:
         j = 0;
     }
 
@@ -1300,7 +1288,7 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
     RecordSet *staticSet;
     s32 efficientCount;
     Pack *blocks;
-    RecordSet *dst;
+    char *dst;
     s32 offset;
     s32 n;
     s32 i;
@@ -1338,8 +1326,8 @@ void Scene_BuildPlacedInstances(Shared_World *world, void ***handle) {
             blocks->offsets[blocks->count] = offset;
             SetN64_TransposeRecords(efficientSet, dst, 1);
             SetN64_TransposeRecords(staticSet, dst, 1);
-            (dst)->size = sizeof(ObjA);
-            (dst)->count = efficientCount + staticCount;
+            ((RecordSet *)dst)->size = sizeof(ObjA);
+            ((RecordSet *)dst)->count = efficientCount + staticCount;
             efficient = (PackedPlacedPropDefinition *)(efficientSet + 1);
             objects = SetN64_GetPackSection(world->modelSections, 2);
             statics = (PlacedPropRecord *)(staticSet + 1);
@@ -1418,12 +1406,12 @@ typedef struct SceneVisibilitySettings {
 
 /* Whether the actor's bounding box overlaps the box. */
 /* True when the actor's bounds intersect the box on all three axes. */
-#define ACTOR_OVERLAPS(actor, box) ((box)->max.x > (actor)->bounds.min.x && \
-    (box)->min.x < (actor)->bounds.max.x && \
-    (box)->max.z > (actor)->bounds.min.z && \
-    (box)->min.z < (actor)->bounds.max.z && \
-    (box)->max.y > (actor)->bounds.min.y && \
-    (box)->min.y < (actor)->bounds.max.y)
+#define ACTOR_OVERLAPS(actor, box) ((box)->x > (actor)->bounds.min.x && \
+    ((Box *)((u8 *)(box) - 12))->min.x < (actor)->bounds.max.x && \
+    (box)->z > (actor)->bounds.min.z && \
+    ((Box *)((u8 *)(box) - 12))->min.z < (actor)->bounds.max.z && \
+    (box)->y > (actor)->bounds.min.y && \
+    ((Box *)((u8 *)(box) - 12))->min.y < (actor)->bounds.max.y)
 
 /* Per-frame visibility scan over the world's actors. Rebuilds the lists of registered, interactive, mover, flagged and
  * per-model actors from the actors that are visible this frame (inside the clip box and the camera frustum, or within
@@ -1435,8 +1423,8 @@ void Scene_UpdateActorVisibility(Shared_World *world) {
     LevelActor *actor;
     GameplayCamera *camera;
     ActorDefinitionHeader *definition;
-    Box *clipBox;
-    Box *rangeBox;
+    CVector3 *clipBox;
+    CVector3 *rangeBox;
     s32 end;
     u32 mask;
     s32 i;
@@ -1448,10 +1436,10 @@ void Scene_UpdateActorVisibility(Shared_World *world) {
     world->registeredCount = 0;
     world->kind1Count = 0;
     world->flaggedCount = 0;
-    Playerai_UpdatePlayerRenderResources((struct CPlayerPool_t *)&g_playerViewRenderContext, world);
+    Playerai_UpdatePlayerRenderResources((struct CPlayerPool_t *)((u8 *)settings - offsetof(Shared_MenuData, game.sceneMask)), world);
     camera = 0;
     if (settings->local == 0) {
-        camera = ((MenuMatchGlobals *)&g_playerViewRenderContext.object)->cameras;
+        camera = ((MenuMatchGlobals *)&((Shared_MenuData *)((u8 *)settings - offsetof(Shared_MenuData, game.sceneMask)))->object)->cameras;
     }
     cull = 0;
     if (Cinema_IsSequenceInWindow() == 0) {
@@ -1461,8 +1449,8 @@ void Scene_UpdateActorVisibility(Shared_World *world) {
     end = world->actorCapacity;
     actors = (LevelActor *)world->actors;
     for (; i < end; i++) {
-        clipBox = &g_cameraClipBounds;
-        rangeBox = &g_cameraVolumeBounds;
+        clipBox = &g_cameraClipBounds.max;
+        rangeBox = &g_cameraVolumeBounds.max;
         actor = &actors[i];
         if (!(actor->flags & 0x100)) {
             continue;
@@ -1553,6 +1541,8 @@ void Scene_UpdateActorVisibility(Shared_World *world) {
 }
 
 const char s_gridSectionText[] = "grid section";
+const char s_sceneVisibilityResourceText[12] = "Vis Info";
+const char s_sceneMultiplayerResourceText[20] = "Multi player data";
 #undef ACTOR_OVERLAPS
 
 
@@ -1617,7 +1607,7 @@ void Scene_RequestVisibleGridSections(Shared_World *world)
         else {
             world->visibilityValid = 1;
             world->visibilityData = Cache_RequestPackSection(0, world->visibilityTable, focusX + focusZ * xCount + 1,
-                world->visibilityResourceKey, world, g_cResource_UnpackRequestEntry, "Vis Info");
+                world->visibilityResourceKey, world, g_cResource_UnpackRequestEntry, s_sceneVisibilityResourceText);
             Cache_LockResource(0, world->visibilityData);
             Visdata_DecodeRegionGrid(&world->visibilityGrid, focusX, focusZ, (void *)world->visibilityData->data, &viewers->position);
         }
@@ -1768,7 +1758,7 @@ void Scene_BuildCachedGeometry(Shared_World *world) {
                                     } else {
                                         model = Statinst_GetPropModelIndex(prop);
                                         nextResource = Statinst_CollectPropResources(prop, model, Statinst_GetPropGeometryIndex(prop), nextResource);
-                                        Statinst_DrawModel(prop);
+                                        Statinst_DrawModel(prop, 0);
                                     }
                                     geometry = Statinst_AcquireGeometry(prop, Statinst_GetPropGeometryIndex(prop));
                                     if (geometry != 0) {
@@ -1812,7 +1802,7 @@ void Scene_BuildCachedGeometry(Shared_World *world) {
     offset += size;
     gSPEndDisplayList(g_displayListCursor++);
     gfxBytes = (u8 *)g_displayListCursor - (u8 *)firstGfx;
-    handle = Cache_AllocateResource(0, offset + ((gfxBytes + 7) & ~7), 3, "Multi player data");
+    handle = Cache_AllocateResource(0, offset + ((gfxBytes + 7) & ~7), 3, s_sceneMultiplayerResourceText);
     world->cachedGeometryHandle = handle;
     cache = handle->data;
     world->cachedGeometryPack = cache;
@@ -1853,12 +1843,12 @@ void Scene_DrawCachedOpaqueGeometry(Shared_World *scene, void *camera) {
                 switch (pass) {
                 case 0:
                     if (!(object->flagsD8 & 4)) {
-                        Statinst_DrawModel(object);
+                        Statinst_DrawModel(object, camera);
                     }
                     break;
                 case 1:
                     if (object->flagsD8 & 4) {
-                        Statinst_DrawModel(object);
+                        Statinst_DrawModel(object, camera);
                     }
                     break;
                 }
@@ -1974,7 +1964,7 @@ void Scene_DrawVisibleInstances(Shared_World *world, GameplayCamera *camera) {
             }
             prop->block = sector->resource;
             if (g_gameLoopFrameCount == 0) {
-                Statinst_RegisterGeometryResources(prop);
+                Statinst_RegisterGeometryResources(prop, camera);
             }
             if ((prop->flagsD8 & 8) && (prop->descriptor->flags & 4)) {
                 queued = 1;
@@ -1987,7 +1977,7 @@ void Scene_DrawVisibleInstances(Shared_World *world, GameplayCamera *camera) {
                 }
             }
             if (scene->visibilityValid != 0 &&
-                Visdata_TestVisibilityGridBit(&scene->visibilityGrid, sector->gridX, sector->gridZ, i) == 0) {
+                Visdata_TestVisibilityGridBit(&scene->visibilityGrid, (u16)sector->gridX, (u16)sector->gridZ, i) == 0) {
                 continue;
             }
             if (camera->clipBounds[1].x > prop->bounds.min.x && camera->clipBounds[0].x < prop->bounds.max.x &&
@@ -2005,7 +1995,7 @@ void Scene_DrawVisibleInstances(Shared_World *world, GameplayCamera *camera) {
                             scene->drawables[scene->drawableCount++] = prop;
                         }
                     } else {
-                        Statinst_DrawDistanceFadedModel(prop);
+                        Statinst_DrawDistanceFadedModel(prop, camera);
                     }
                 }
                 prop->flagsD8 &= ~0x200;
@@ -2628,14 +2618,14 @@ void Scene_ShowResultsGoal(void) {
             XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalLabelFormat, g_resultsGoalLabelFormatLocalized), RESULTS_TEXT(*(int *)&g_characterNames[0x30], g_bastilleNameLocalized));
             break;
         case 9:
-            XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalValueFormat, g_resultsGoalValueFormatLocalized), RESULTS_TEXT(&g_characterNames[0x34], g_syraNameLocalized),
-                             RESULTS_TEXT(g_characterNames, g_characterNamesLocalized));
+            XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalValueFormat, g_resultsGoalValueFormatLocalized), RESULTS_TEXT(*(int *)&g_characterNames[0x34], g_syraNameLocalized),
+                             RESULTS_TEXT(*(int *)g_characterNames, g_characterNamesLocalized));
             break;
         case 22:
             XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalLabelFormat, g_resultsGoalLabelFormatLocalized), RESULTS_TEXT(*(int *)&g_characterNames[0x38], g_symbiontNameLocalized));
             break;
         case 35:
-            XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalLabelFormat, g_resultsGoalLabelFormatLocalized), RESULTS_TEXT((int *)&g_characterNames[0x3C], g_talSetRaptorMantidMitesNamesLocalized));
+            XStdio_FormatBuffer(goal, RESULTS_TEXT(g_resultsGoalLabelFormat, g_resultsGoalLabelFormatLocalized), RESULTS_TEXT(*(int *)&g_characterNames[0x3C], g_talSetRaptorMantidMitesNamesLocalized));
             break;
         default:
             if (g_currentStagePreset->limit < 2) {
@@ -2653,7 +2643,7 @@ void Scene_ShowResultsGoal(void) {
     switch (mode) {
     case 1:
         Cinema_AddMessage(goal);
-        players = (Player_GetLevelProgress(g_localPlayerProfiles, g_localPlayerProfiles[0].slot) >> 1) + 1;
+        players = ((u8)Player_GetLevelProgress(g_localPlayerProfiles, g_localPlayerProfiles[0].slot) >> 1) + 1;
         if (players < 2) {
             XStdio_FormatBuffer(name, RESULTS_TEXT(g_resultsPlayerOrLivesSingularFormat, g_resultsPlayerOrLivesSingularFormatLocalized), players);
         } else {
@@ -2704,10 +2694,10 @@ void Scene_ShowResultsGoal(void) {
         case 0:
             break;
         case 1:
-            Cinema_AddMessage(RESULTS_TEXT(g_resultsModeMessage, g_slotAchievementTextPointers_EveryManForThemselves));
+            Cinema_AddMessage(RESULTS_TEXT(g_resultsModeMessage[0], g_slotAchievementTextPointers_EveryManForThemselves));
             break;
         case 2:
-            Cinema_AddMessage(RESULTS_TEXT(g_resultsModeMessage, g_slotAchievementTextPointers_EveryManForThemselves));
+            Cinema_AddMessage(RESULTS_TEXT(g_resultsModeMessage[0], g_slotAchievementTextPointers_EveryManForThemselves));
             break;
         }
         break;
@@ -3612,7 +3602,7 @@ void Scene_SampleWorldLighting(Shared_World *world, CVector3 *position, Shared_P
     SceneLightVolume *volumes[10];
     s32 count;
     if (!worldHasLightVolumes(world) || g_vertexLightingMode == 0) {
-        *out = *(Shared_ParticleLighting *)&g_playerModelLighting[0];
+        *out = g_playerModelLighting[0];
     } else {
         Scene_FindLightVolumes(world, position, volumes, &count);
         Scene_SampleVolumeLighting(volumes, count, position, out);
@@ -4659,33 +4649,18 @@ void Scene_FindTrackedActors(Shared_World *world) {
 /* Collects platform actors, records the special actor and selects one of three random states. */
 
 void Scene_CollectSecondarySpecialActors(LevelActorArrayView *scene) {
-    s32 count = 0;
-    s32 i;
-    LevelActor *actor = scene->actors;
+ s32 count=0,i=9,offset=36;LevelActor *actor=scene->actors;
+ g_sceneFlagReturnPickupActor=0;
+ do {*(LevelActor **)((char *)g_sceneSpecialActorTables+offset)=0;i--;offset-=4;} while(i>=0);
+ i=0;
+ if(scene->count>0)do {
+  if(((struct Def *)actor->definition)->type==3) {if(((struct Def *)actor->definition)->id==3030){if(scene->count)g_sceneFlagReturnPickupActor=actor;else g_sceneFlagReturnPickupActor=actor;}}
+  else if(((struct Def *)actor->definition)->type==10) {if(actor->type==1614)g_sceneSpecialActorTables[count++]=actor;}
+  if(count>=10)return;
+  actor++;
 
-    g_sceneFlagReturnPickupActor = 0;
-    for (i = 9; i >= 0; i--) {
-        g_sceneSpecialActorTables[i] = 0;
-    }
-    if (scene->count > 0) {
-        i = 0;
-        do {
-            if (((struct Def *)actor->definition)->type == 3) {
-                if (((struct Def *)actor->definition)->id == 3030) {
-                    g_sceneFlagReturnPickupActor = actor;
-                }
-            } else if (((struct Def *)actor->definition)->type == 10) {
-                if (actor->type == 1614) {
-                    g_sceneSpecialActorTables[count++] = actor;
-                }
-            }
-            if (count >= 10) {
-                return;
-            }
-            actor++;
-        } while (++i < scene->count);
-    }
-    g_gameSettings.counters.m_nFragTagSkin = XPlus_NextRandomInteger() % 3;
+ }while(++i<scene->count);
+ g_gameSettings.counters.m_nFragTagSkin=XPlus_NextRandomInteger()%3;
 }
 
 /* Remaps every 4-bit pixel of every image in each of the 256 entries of a table through the given
@@ -5660,3 +5635,6 @@ const unsigned char s_levelInfoText[11] =
 const unsigned char s_levelNavVisionText[17] =
     "level nav vision";
 #endif
+
+float g_nearestRouteFrameAbsentIndex = -1.0f;
+float k_sceneDefinitionFieldScale_de = 1.0f;

@@ -44,6 +44,7 @@
 #include "Common/sharedplayer.h"
 #include "Common/selectionscreenstate.h"
 #include "Common/level_spawn.h"
+#include "Common/game_player_and_menu_state.h"
 #include "Common/level_track.h"
 #include "Common/propgeometry.h"
 #include "Engine/Instance/gobjinst_initializeplacedactor.h"
@@ -206,7 +207,7 @@ void Scene_LoadSceneLight(Shared_World *scene) {
     u8 *light;
     for (i = 0; i < 3; i++) {
         c = scene->levelInfo->m_AmbientLight[i];
-        light = g_playerModelLighting;
+        light = g_playerModelLighting[0].ambient;
         light[i] = c;
         g_savedPlayerModelLighting[i] = c;
         c = scene->levelInfo->m_DirectionalLight[i];
@@ -596,7 +597,7 @@ void Scene_BuildPlacedActors(Shared_World *world, struct CacheResourceNode **han
                 if (playerIndex < g_playerCount) {
                     slot = g_playerSettings;
                     do {
-                        player = &g_gamePlayerAndMenuState[playerIndex];
+                        player = &g_gamePlayerAndMenuState.entries[playerIndex];
                         if (nspawns != 0) {
                             if (slot->kind == 12 && player->views1450.view1450_1.computer != 0 && world->level == 9) {
                                 Scene_FindPlacedObjectsByKey(world, 9, specialSet, &extra, 1);
@@ -715,7 +716,7 @@ void Scene_LoadGridCells(Shared_World *level) {
                 for (i = 0; i < n; i++) {
                     a = &objsA[i];
                     a->block = block;
-                    Statinst_RegisterGeometryResources(a);
+                    Statinst_RegisterGeometryResources(a, 0);
                     handle = Statinst_AcquireGeometry(a, a->type);
                     if (handle != 0) {
                         Geometry_UnlockMaterialResources(handle);
@@ -745,7 +746,7 @@ void Scene_InitPreview(Shared_World *world, s32 level) {
     Scene_LoadPreviewBufferB((char *)world);
     world->previewState = 0;
     world->previewTimer = 21;
-    world->previewStart = g_menuOptionAvailabilityFlags;
+    world->previewStart = ((struct MemoryUsageStats *)&g_menuOptionAvailabilityFlags)->value;
 }
 /* Loads a selected resource into the shared buffer and releases the temporary allocation. */
 struct Shared_World;
@@ -773,7 +774,7 @@ void Scene_LoadPreviewBufferB(Shared_World *state) {
  int id;
  if(Control_IsSnapshotActive()==0) {
   resource=Cache_RequestResource(0,state->previewResourceKey,state->previewResourceKey,state->previewResourceBank,0,0,g_cResource_UnpackRequestEntry,g_gamePersistentData,1);
-  Libc_CopyBytes(g_sceneCollisionStorage,(const void *)*resource,0x5000);
+  Libc_CopyBytes(&g_sceneCollisionStorage,(const void *)*resource,0x5000);
   Cache_ReleaseResource(0,resource);
  }
 }

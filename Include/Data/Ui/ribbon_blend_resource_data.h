@@ -25,4 +25,5 @@ typedef struct FrontendRibbonResourceData {
 
 typedef char RibbonBlendKeyDataSize[(sizeof(RibbonBlendKeyData) == 20) ? 1 : -1];
 typedef char FrontendRibbonResourceDataSize[(sizeof(FrontendRibbonResourceData) == 432) ? 1 : -1];
+extern int g_ribbonBlendResourceTable[6];
 #endif

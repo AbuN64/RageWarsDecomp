@@ -265,22 +265,8 @@ LEAF(__osExceptionPreamble)
     li      a0, 0x10
     li      AT, -0x801
     and     s0, s0, AT
-#if VERSION_EU
-    lui     sp, %hi(g_exceptionStackTopEu)
-    addiu   sp, sp, %lo(g_exceptionStackTopEu)
-#elif VERSION_EU_X
-    lui     sp, %hi(g_exceptionStackTopEuX)
-    addiu   sp, sp, %lo(g_exceptionStackTopEuX)
-#elif VERSION_US
-    lui     sp, 0x8014
-    addiu   sp, sp, 0x7BD0
-#elif VERSION_US_REV1
     lui     sp, %hi(g_exceptionStackTop)
     addiu   sp, sp, %lo(g_exceptionStackTop)
-#else
-    lui     sp, %hi(g_exceptionStackTopDe)
-    addiu   sp, sp, %lo(g_exceptionStackTopDe)
-#endif
     addiu   sp, sp, 0xFF0
     li      t2, 0x4
 #if VERSION_DE || VERSION_US

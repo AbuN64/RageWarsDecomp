@@ -237,6 +237,8 @@ void Preview_SelectPreviewModel(ModelPreview *preview, s32 id, s32 extra, s32 ex
 #include "Camera/camera_address_symbols.h"
 #include "Common/weapon_marker_and_profile_views.h"
 #include "Frontend/frontend.h"
+#include "Cache/cache_allocateresourceat.h"
+#include "Scene/cache_requestresource.h"
 
 /* Draws a menu model with screen-scaled translation, animated and fixed rotations, restoring the render-state flag afterward; the unsigned offset-to-pointer cast preserves matrix-address scheduling. */
 #if !(defined(VERSION_US_REV1))
@@ -256,7 +258,7 @@ void Preview_DrawMenuModelItem(MenuModelItem *item) {
   gDPSetTexturePersp(g_displayListCursor++, G_TP_PERSP);
   gDPSetTextureFilter(g_displayListCursor++, G_TF_BILERP);
   Geometry_InitializeModelRenderState();
-  {Gfx *g=g_displayListCursor++; gSPMatrix(g, (u32)((GameplayCamera *)g_fallbackScreenMessageEmitter)->projection[g_lightingBufferIndex], G_MTX_LOAD | G_MTX_PROJECTION);}
+  {Gfx *g=g_displayListCursor++; char *address=(char *)(u32)(g_lightingBufferIndex<<6); address += ((char *)&((GameplayCamera *)0)->projection - (char *)0); address+=(u32)g_fallbackScreenMessageEmitter; gSPMatrix(g, (u32)address, G_MTX_LOAD | G_MTX_PROJECTION);}
   position=item->position;
   Graphu64_TransformPoint(&g_fallbackScreenMessageEmitter[0].camera,&position,&transformed);
   Graphu64_BuildTranslationMatrix(&matrix, transformed.x, transformed.y, transformed.z);

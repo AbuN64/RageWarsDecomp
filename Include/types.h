@@ -284,4 +284,10 @@ extern u32 Control_StopMotorDe(struct Triple *);
 
 extern u32 Control_StopMotorEuX(struct Triple *);
 
+/* A float range packed as two high halves, passed by value: base bits, then range bits. */
+typedef struct PackedFloatRange {
+    u16 base;
+    u16 range;
+} PackedFloatRange;
+
 #endif

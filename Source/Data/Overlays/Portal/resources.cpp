@@ -51,46 +51,6 @@
 #include "Data/Scenario_setup/frontend_dispatchresidentactorevent_data.h"
 
 /* FRONTEND_APPLYMODECHOICE_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    void * g_playModeMenuState;
-} g_frontendApplyModeChoiceData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendApplyModeChoiceDataSizeCheck[(sizeof(g_frontendApplyModeChoiceData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    void * g_playModeMenuState;
-} g_frontendApplyModeChoiceData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendApplyModeChoiceDataSizeCheck[(sizeof(g_frontendApplyModeChoiceData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    void * g_playModeMenuState;
-} g_frontendApplyModeChoiceData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendApplyModeChoiceDataSizeCheck[(sizeof(g_frontendApplyModeChoiceData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    void * g_playModeMenuState;
-} g_frontendApplyModeChoiceData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendApplyModeChoiceDataSizeCheck[(sizeof(g_frontendApplyModeChoiceData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    void * g_playModeMenuState;
-} g_frontendApplyModeChoiceData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendApplyModeChoiceDataSizeCheck[(sizeof(g_frontendApplyModeChoiceData) == 4) ? 1 : -1];
-#endif
 
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
@@ -520,46 +480,6 @@ typedef char g_resultsRefreshTrialCatalogueWidgetsWords_euSizeCheck[
 #endif
 
 /* SCENARIOSETUP_FILLRESULTROWS_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    void * g_matchResultBadgeScreen;
-} g_scenarioSetupFillResultRowsData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_scenarioSetupFillResultRowsDataSizeCheck[(sizeof(g_scenarioSetupFillResultRowsData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    void * g_matchResultBadgeScreen;
-} g_scenarioSetupFillResultRowsData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_scenarioSetupFillResultRowsDataSizeCheck[(sizeof(g_scenarioSetupFillResultRowsData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    void * g_matchResultBadgeScreen;
-} g_scenarioSetupFillResultRowsData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_scenarioSetupFillResultRowsDataSizeCheck[(sizeof(g_scenarioSetupFillResultRowsData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    void * g_matchResultBadgeScreen;
-} g_scenarioSetupFillResultRowsData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_scenarioSetupFillResultRowsDataSizeCheck[(sizeof(g_scenarioSetupFillResultRowsData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    void * g_matchResultBadgeScreen;
-} g_scenarioSetupFillResultRowsData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_scenarioSetupFillResultRowsDataSizeCheck[(sizeof(g_scenarioSetupFillResultRowsData) == 4) ? 1 : -1];
-#endif
 
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
@@ -633,51 +553,6 @@ ResidentEventHandlerEntry g_scenarioSetupFillResultRowsEventHandlers[9] = {
 #endif
 
 /* FRONTEND_UPDATEPLAYERCOUNTSCREEN_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    void * g_playerCountScreen;
-} g_frontendUpdatePlayerCountScreenData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendUpdatePlayerCountScreenDataSizeCheck[
-    (sizeof(g_frontendUpdatePlayerCountScreenData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    void * g_playerCountScreen;
-} g_frontendUpdatePlayerCountScreenData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendUpdatePlayerCountScreenDataSizeCheck[
-    (sizeof(g_frontendUpdatePlayerCountScreenData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    void * g_playerCountScreen;
-} g_frontendUpdatePlayerCountScreenData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendUpdatePlayerCountScreenDataSizeCheck[
-    (sizeof(g_frontendUpdatePlayerCountScreenData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    void * g_playerCountScreen;
-} g_frontendUpdatePlayerCountScreenData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendUpdatePlayerCountScreenDataSizeCheck[
-    (sizeof(g_frontendUpdatePlayerCountScreenData) == 4) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    void * g_playerCountScreen;
-} g_frontendUpdatePlayerCountScreenData __attribute__((aligned(4))) = {
-    0
-};
-typedef char g_frontendUpdatePlayerCountScreenDataSizeCheck[
-    (sizeof(g_frontendUpdatePlayerCountScreenData) == 4) ? 1 : -1];
-#endif
 
 /* FRONTEND_DISPATCHPLAYERCOUNTEVENT_DATA.CPP */
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
@@ -758,116 +633,7 @@ char s_projectsDmPath_us[12] =
 #endif
 
 /* FRONTEND_DISPATCHPAKPROFILEEVENT_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    s32 g_pakProfileRequestedPhase;
-    void * g_pakProfileScreenState;
-} g_frontendDispatchPakProfileEventData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_frontendDispatchPakProfileEventDataSizeCheck[
-    (sizeof(g_frontendDispatchPakProfileEventData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    s32 g_pakProfileRequestedPhase;
-    void * g_pakProfileScreenState;
-} g_frontendDispatchPakProfileEventData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_frontendDispatchPakProfileEventDataSizeCheck[
-    (sizeof(g_frontendDispatchPakProfileEventData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    s32 g_pakProfileRequestedPhase;
-    void * g_pakProfileScreenState;
-} g_frontendDispatchPakProfileEventData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_frontendDispatchPakProfileEventDataSizeCheck[
-    (sizeof(g_frontendDispatchPakProfileEventData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    s32 g_pakProfileRequestedPhase;
-    void * g_pakProfileScreenState;
-} g_frontendDispatchPakProfileEventData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_frontendDispatchPakProfileEventDataSizeCheck[
-    (sizeof(g_frontendDispatchPakProfileEventData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    s32 g_pakProfileRequestedPhase;
-    void * g_pakProfileScreenState;
-} g_frontendDispatchPakProfileEventData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_frontendDispatchPakProfileEventDataSizeCheck[
-    (sizeof(g_frontendDispatchPakProfileEventData) == 8) ? 1 : -1];
-#endif
 
-#if !(defined(VERSION_US) || defined(VERSION_US_REV1))
-#if defined(VERSION_DE)
-ResidentEventHandlerEntry g_frontendDispatchPakProfileEventHandlers[14] = {
-    { 3591, 19, RESIDENT_HANDLER_PACKED(Frontend_ReturnProfileEventZero) }, { 3594, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenExit) }, { 3592, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenPanels) }, { 3590, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenDe) }, { 3587, 19,
-    (ResidentEventHandler)(void *)&Frontend_DestroyPakProfileScreen_Address }, { 2, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandlePlayerPanelBack) }, { 1, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_ActivatePlayerPanelAction) }, { 10, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_HandlePakProfileInput) },
-    { 11, 19, RESIDENT_HANDLER_PACKED(Frontend_ResetNameRepeatOnEvent) }, { 5, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandlePakMenuConfirm) }, { 6, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandleNextPanelSelection) }, { 8, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorForward) }, { 7, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorBackward) }, { 0, 0, (ResidentEventHandler)0 }
-};
-#endif
-#if defined(VERSION_EU)
-ResidentEventHandlerEntry g_frontendDispatchPakProfileEventHandlers[14] = {
-    { 3591, 19, (ResidentEventHandler)(void *)&addrLow_Frontend_ReturnProfileEventZero }, { 3594, 19,
-    (ResidentEventHandler)(void *)&addrLow_Frontend_UpdatePakScreenExit }, { 3592, 19,
-    (ResidentEventHandler)(void *)&addrLow_Frontend_UpdatePakScreenPanels }, { 3590, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenEu) }, { 3587, 19,
-    (ResidentEventHandler)(void *)&addrLow_Frontend_DestroyPakProfileScreen }, { 2, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_HandlePlayerPanelBack }, { 1, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_ActivatePlayerPanelAction }, { 10, 19,
-    (ResidentEventHandler)(void *)&addrLow_Frontend_HandlePakProfileInput },
-    { 11, 19, (ResidentEventHandler)(void *)&addrLow_Frontend_ResetNameRepeatOnEvent }, { 5, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_HandlePakMenuConfirm }, { 6, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_HandleNextPanelSelection }, { 8, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_MoveNameCursorForward }, { 7, 19,
-    (ResidentEventHandler)(void *)&addrLow_PAKInterface_MoveNameCursorBackward }, { 0, 0,
-    (ResidentEventHandler)0 }
-};
-#endif
-#if defined(VERSION_EU_X)
-ResidentEventHandlerEntry g_frontendDispatchPakProfileEventHandlers[14] = {
-    { 3591, 19, RESIDENT_HANDLER_PACKED(Frontend_ReturnProfileEventZero) }, { 3594, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenExit) }, { 3592, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenPanels) }, { 3590, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenEux) }, { 3587, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_DestroyPakProfileScreen) }, { 2, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandlePlayerPanelBack) }, { 1, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_ActivatePlayerPanelAction) }, { 10, 19,
-    RESIDENT_HANDLER_PACKED(Frontend_HandlePakProfileInput) },
-    { 11, 19, RESIDENT_HANDLER_PACKED(Frontend_ResetNameRepeatOnEvent) }, { 5, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandlePakMenuConfirm) }, { 6, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_HandleNextPanelSelection) }, { 8, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorForward) }, { 7, 19,
-    RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorBackward) }, { 0, 0, (ResidentEventHandler)0 }
-};
-#endif
-#endif
 
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 #if defined(VERSION_US)
@@ -902,66 +668,6 @@ ResidentEventHandlerEntry g_pakProfileScreenEventHandlers[11] = {
 #endif
 
 /* FRONTEND_DESTROYPAUSEMENU_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    void * g_pauseMenuState;
-    void * g_pauseTimedMenu;
-    s32 g_residentChoiceScreen;
-} g_frontendDestroyPauseMenuData __attribute__((aligned(4))) = {
-    0,
-    0,
-    0
-};
-typedef char g_frontendDestroyPauseMenuDataSizeCheck[(sizeof(g_frontendDestroyPauseMenuData) == 12) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    void * g_pauseMenuState;
-    void * g_pauseTimedMenu;
-    s32 g_residentChoiceScreen;
-} g_frontendDestroyPauseMenuData __attribute__((aligned(4))) = {
-    0,
-    0,
-    0
-};
-typedef char g_frontendDestroyPauseMenuDataSizeCheck[(sizeof(g_frontendDestroyPauseMenuData) == 12) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    void * g_pauseMenuState;
-    void * g_pauseTimedMenu;
-    s32 g_residentChoiceScreen;
-} g_frontendDestroyPauseMenuData __attribute__((aligned(4))) = {
-    0,
-    0,
-    0
-};
-typedef char g_frontendDestroyPauseMenuDataSizeCheck[(sizeof(g_frontendDestroyPauseMenuData) == 12) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    void * g_pauseMenuState;
-    void * g_pauseTimedMenu;
-    s32 g_residentChoiceScreen;
-} g_frontendDestroyPauseMenuData __attribute__((aligned(4))) = {
-    0,
-    0,
-    0
-};
-typedef char g_frontendDestroyPauseMenuDataSizeCheck[(sizeof(g_frontendDestroyPauseMenuData) == 12) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    void * g_pauseMenuState;
-    void * g_pauseTimedMenu;
-    s32 g_residentChoiceScreen;
-} g_frontendDestroyPauseMenuData __attribute__((aligned(4))) = {
-    0,
-    0,
-    0
-};
-typedef char g_frontendDestroyPauseMenuDataSizeCheck[(sizeof(g_frontendDestroyPauseMenuData) == 12) ? 1 : -1];
-#endif
 
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
@@ -1119,61 +825,6 @@ typedef char g_pauseMenuEventHandlerRecordsSizeCheck[(sizeof(g_pauseMenuEventHan
 #endif
 
 /* PLAYER_INITPLAYERSETTINGSSCREEN_DATA.CPP */
-#if defined(VERSION_DE)
-struct {
-    void * g_playerSettingsScreen;
-    void * g_alternatePlayerSettingsScreen;
-} g_playerInitPlayerSettingsScreenData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_playerInitPlayerSettingsScreenDataSizeCheck[
-    (sizeof(g_playerInitPlayerSettingsScreenData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_EU)
-struct {
-    void * g_playerSettingsScreen;
-    void * g_alternatePlayerSettingsScreen;
-} g_playerInitPlayerSettingsScreenData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_playerInitPlayerSettingsScreenDataSizeCheck[
-    (sizeof(g_playerInitPlayerSettingsScreenData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_EU_X)
-struct {
-    void * g_playerSettingsScreen;
-    void * g_alternatePlayerSettingsScreen;
-} g_playerInitPlayerSettingsScreenData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_playerInitPlayerSettingsScreenDataSizeCheck[
-    (sizeof(g_playerInitPlayerSettingsScreenData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_US)
-struct {
-    void * g_playerSettingsScreen;
-    void * g_alternatePlayerSettingsScreen;
-} g_playerInitPlayerSettingsScreenData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_playerInitPlayerSettingsScreenDataSizeCheck[
-    (sizeof(g_playerInitPlayerSettingsScreenData) == 8) ? 1 : -1];
-#endif
-#if defined(VERSION_US_REV1)
-struct {
-    void * g_playerSettingsScreen;
-    void * g_alternatePlayerSettingsScreen;
-} g_playerInitPlayerSettingsScreenData __attribute__((aligned(4))) = {
-    0,
-    0
-};
-typedef char g_playerInitPlayerSettingsScreenDataSizeCheck[
-    (sizeof(g_playerInitPlayerSettingsScreenData) == 8) ? 1 : -1];
-#endif
 
 /* G_ARENACOMPATIBILITYTABLE.CPP */
 #if defined(VERSION_US_REV1)
@@ -1362,7 +1013,7 @@ s32 g_cupArenaControls[40] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-RestscenarioSetupMenuEventHandlerWordsRecord35 g_scenarioSetupMenuEventHandlerWords = {
+ScenarioSetupMenuEventHandlerWords g_scenarioSetupMenuEventHandlerWords = {
     3592,
     20,
     (unsigned int)&ScenarioSetup_UpdateSetupTransition,
@@ -1412,5 +1063,44 @@ s32 k_scenarioSetupCatalogueTextIds[40] = {
     588, 592, 596, 600, 606, 607,
     578, 613, 581, 585, 589, 593,
     597, 601, 608, 609,
+};
+#endif
+
+#if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X)
+/* The pak profile screen's resident event handlers (event, actor kind 19, handler), read by
+   Frontend_DispatchPakProfileEvent; a zero handler ends the table. */
+extern s32 Frontend_ReturnProfileEventZero();
+extern s32 Frontend_UpdatePakScreenExit();
+extern s32 Frontend_UpdatePakScreenPanels();
+extern s32 Frontend_DestroyPakProfileScreen();
+extern s32 PAKInterface_HandlePlayerPanelBack();
+extern s32 PAKInterface_ActivatePlayerPanelAction();
+extern s32 Frontend_HandlePakProfileInput();
+extern int Frontend_ResetNameRepeatOnEvent();
+extern s32 PAKInterface_HandlePakMenuConfirm();
+extern s32 PAKInterface_HandleNextPanelSelection();
+extern s32 PAKInterface_MoveNameCursorForward();
+extern s32 PAKInterface_MoveNameCursorBackward();
+ResidentEventHandlerEntry g_pakProfileEventHandlers[14] = {
+    { 3591, 19, RESIDENT_HANDLER_PACKED(Frontend_ReturnProfileEventZero) },
+    { 3594, 19, RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenExit) },
+    { 3592, 19, RESIDENT_HANDLER_PACKED(Frontend_UpdatePakScreenPanels) },
+#if defined(VERSION_EU)
+    { 3590, 19, RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenEu) },
+#elif defined(VERSION_EU_X)
+    { 3590, 19, RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenEux) },
+#else
+    { 3590, 19, RESIDENT_HANDLER_PACKED(Frontend_CreatePakProfileScreenDe) },
+#endif
+    { 3587, 19, RESIDENT_HANDLER_PACKED(Frontend_DestroyPakProfileScreen) },
+    { 2, 19, RESIDENT_HANDLER_PACKED(PAKInterface_HandlePlayerPanelBack) },
+    { 1, 19, RESIDENT_HANDLER_PACKED(PAKInterface_ActivatePlayerPanelAction) },
+    { 10, 19, RESIDENT_HANDLER_PACKED(Frontend_HandlePakProfileInput) },
+    { 11, 19, RESIDENT_HANDLER_PACKED(Frontend_ResetNameRepeatOnEvent) },
+    { 5, 19, RESIDENT_HANDLER_PACKED(PAKInterface_HandlePakMenuConfirm) },
+    { 6, 19, RESIDENT_HANDLER_PACKED(PAKInterface_HandleNextPanelSelection) },
+    { 8, 19, RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorForward) },
+    { 7, 19, RESIDENT_HANDLER_PACKED(PAKInterface_MoveNameCursorBackward) },
+    { 0, 0, (ResidentEventHandler)0 },
 };
 #endif

@@ -40,6 +40,7 @@
 #include "Onscrn/onscreen_drawscaledmaskedtilegrid_symbols.h"
 #include "Menu/pickup_drawscaledintensitytilegrid.h"
 #include "Common/Lone/hud_reference_viewport_height.h"
+#include "Render/setn64_updatefadetransition.h"
 
 /* The advance and kerning scale follow the currently selected font. */
 static inline f32 fontGlyphWidth(void)
@@ -512,13 +513,22 @@ f32 OnScreen_GetGlyphWidth(void) {
 void OnScreen_GetImageEntry(LoadedImageTable **handle, s32 index, void **out, u8 *tag) {
     LoadedImageTable *table;
     ImageTableEntry *entry;
+    void *result;
+    u8 entryTag;
+    s32 remainder;
 
     *out = 0;
     if (handle != 0) {
         table = *handle;
-        entry = &table->entries[index % table->count];
-        *tag = entry->tag[0];
-        *out = (u8 *)table + entry->offset;
+        entry = &table->entries[0];
+        remainder = index % table->count;
+        remainder *= 8;
+        remainder += (s32)entry;
+        entry = (ImageTableEntry *)remainder;
+        entryTag = entry->tag[0];
+        result = (u8 *)table + entry->offset;
+        *tag = entryTag;
+        *out = result;
     }
 }
 
@@ -534,7 +544,7 @@ void OnScreen_GetImageDimensions(s32 resourceId, s32 frameIndex, s32 *widthOutpu
     resourceHandle = Scene_StartWorldEffect(&g_world, resourceId, 0, 1);
     if (resourceHandle != 0)
     {
-void OnScreen_GetImageEntry(LoadedImageTable **handle, s32 index, void **out, u8 *tag);
+      OnScreen_GetImageEntry(resourceHandle, frameIndex, &imageEntry, &entryTag);
       imageData = imageEntry;
       *widthOutput = ((ImageSet *)imageEntry)->width;
       *heightOutput = ((ImageSet *)imageData)->height;
@@ -736,7 +746,7 @@ void OnScreen_DrawMaskedTileGrid(u16 *grid, s16 x0, s32 y) {
             w = tile[0];
             h = tile[1];
             area = w * h;
-            OnScreen_DrawTextureWithOpacity(tile + 2, (char *)tile + (area * 2 + 8), x, y, w, h);
+            OnScreen_DrawTextureWithOpacity(tile + 2, (char *)tile + (area * 2 + 8), x, (s16)y, w, h);
             x += w;
             TILE_GRID_ADVANCE(s32 *, tile, TILE_BYTES_16BPP_PLUS_4BPP(area));
             tile += 2;
@@ -781,7 +791,7 @@ void OnScreen_DrawScaledMaskedTileGrid(u16 *grid, f32 x0, f32 y, f32 sx, f32 sy)
 /* Draws a grid of 4-bit image tiles: the header holds the column and row counts, each tile holds
    its width, height and packed nibble data, and every tile goes to OnScreen_DrawIntensityTexture at the running
    position, advancing x by the tile width and y by the last tile height per row. */
-void Pickup_DrawIntensityTileGrid(u16 *grid, s16 x0, s32 y) {
+void Pickup_DrawIntensityTileGrid(u16 *grid, s16 x0, s16 y) {
     s32 *tile;
     s32 rows;
     s32 cols;
@@ -969,6 +979,9 @@ static inline void rectangle(s32 x0,s32 y0,s32 x1,s32 y1,s32 r,s32 g,s32 b,s32 a
 }
 
 /* Draws a signed integer of up to four digits with the font sprite set from Scene_StartWorldEffect: splits the magnitude into thousands, hundreds, tens and ones, draws a leading minus sign through OnScreen_DrawSpriteResource when negative, then draws at least minDigits digits through Text_DrawTileGrid, advancing 13 units per digit (0.7 of that for a one) scaled by the size, laid out right to left when rightAlign is set, and releases the sprite set. */
+extern const float g_moverScriptFixedPointScale;
+extern const float g_moverScriptArrivalThreshold;
+extern const float g_moverScriptCullBoundary;
 void OnScreen_UpdateMoverScript(COverlay *m) {
     s32 next;
     f32 dx;
@@ -1011,13 +1024,13 @@ void OnScreen_UpdateMoverScript(COverlay *m) {
                     m->active = 1;
                     m->state = 5;
                     m->velY = 0.0f;
-                    m->accelY = *m->script++ * (1.0f / 65536.0f);
+                    m->accelY = *m->script++ * g_moverScriptFixedPointScale;
                     break;
                 case 5:
                     m->active = 1;
                     m->state = 6;
                     m->velX = 0.0f;
-                    m->accelX = *m->script++ * (1.0f / 65536.0f);
+                    m->accelX = *m->script++ * g_moverScriptFixedPointScale;
                     break;
                 default:
                     m->state = 1;
@@ -1038,7 +1051,7 @@ void OnScreen_UpdateMoverScript(COverlay *m) {
             dy = (m->targetY - m->y) * m->rate;
             m->x += dx;
             m->y += dy;
-            if ((dx < 0.0f ? -dx < 0.25f : dx < 0.25f) && (dy < 0.0f ? -dy < 0.25f : dy < 0.25f)) {
+            if ((dx < 0.0f ? -dx < g_moverScriptArrivalThreshold : dx < g_moverScriptArrivalThreshold) && (dy < 0.0f ? -dy < g_moverScriptArrivalThreshold : dy < g_moverScriptArrivalThreshold)) {
                 m->x = m->targetX;
                 m->y = m->targetY;
                 next = 1;
@@ -1047,7 +1060,7 @@ void OnScreen_UpdateMoverScript(COverlay *m) {
         case 5:
             m->y += m->velY;
             m->velY += m->accelY;
-            if ((f32)bottom < m->y || m->y < -90.0f) {
+            if ((f32)bottom < m->y || m->y < g_moverScriptCullBoundary) {
                 m->active = 0;
                 next = 1;
             }
@@ -1055,7 +1068,7 @@ void OnScreen_UpdateMoverScript(COverlay *m) {
         case 6:
             m->x += m->velX;
             m->velX += m->accelX;
-            if ((f32)right < m->x || m->x < -90.0f) {
+            if ((f32)right < m->x || m->x < g_moverScriptCullBoundary) {
                 m->active = 0;
                 next = 1;
             }
@@ -1066,6 +1079,10 @@ void OnScreen_UpdateMoverScript(COverlay *m) {
         }
     } while (next);
 }
+
+const float g_moverScriptFixedPointScale = 1.0f / 65536.0f;
+const float g_moverScriptArrivalThreshold = 0.25f;
+const float g_moverScriptCullBoundary = -90.0f;
 
 void OnScreen_DrawBevelBox(s32 x0,s32 y0,s32 x1,s32 y1,s32 border,s32 invert,s32 red,s32 green,s32 blue,s32 alpha) {
     u8 r=red,g=green,b=blue,a=alpha;
@@ -1157,7 +1174,7 @@ void OnScreen_DrawSpriteNumber(s32 value, f32 x, f32 y, f32 size, f32 scaleY, s3
                 x -= width;
             }
             if ((u32)digit < 10) {
-                Text_DrawTileGrid(sprites, digit, x, y, size, scaleY, scaled);
+                Text_DrawTileGrid(sprites, digit, (s16)x, y, size, scaleY, scaled);
             }
             if (!rightAlign) {
                 x += width;

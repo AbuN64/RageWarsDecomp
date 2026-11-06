@@ -13,7 +13,6 @@ char g_lightingStrMag00F[12] = "Mag >= 0.0f";
 char g_lightingStrMag10F[12] = "Mag <= 1.0f";
 float g_lightingFloats_eu_14E488[13] = { 1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f, 64.0f, 64.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 char g_lightingStrPvoutcolor[12] = "pvOutColor";
-float g_lightingFloats_eu_14E4C8[2] = { 1.0f, -1.0f };
 char g_lightingStrPlight[8] = "pLight";
 float g_lightingFloats_eu_14E4D8[9] = { 0.600000024f, 0.300000012f, 2.14748365e+09f, 2.14748365e+09f, 2.14748365e+09f, 0.100000001f, 56.0f, 0.219607845f, 255.0f };
 char g_lightingStrNoverlappinggridsMaxGrid[32] = "nOverlappingGrids <= MAX_GRID";

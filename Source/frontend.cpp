@@ -773,7 +773,7 @@ void Frontend_ApplyVideoMode(void) {
         } else {
             g_frontendCurrentVideoModeIndex = 0;
         }
-        g_frontendSavedVideoModeIndex = (u8)g_frontendCurrentVideoModeIndex;
+        g_frontendSavedVideoModeIndex[0] = (u8)g_frontendCurrentVideoModeIndex;
     }
     switch(g_consoleTvType) {
     case 1: videoMode=&((struct FrontendVideoModeParameters *)g_frontendRegionVideoModes)[g_frontendCurrentVideoModeIndex];break;
@@ -937,7 +937,7 @@ void Frontend_UpdateScreenMode(void) {
         } else {
             g_frontendCurrentVideoModeIndex = 0;
         }
-        g_frontendSavedVideoModeIndex = (u8)g_frontendCurrentVideoModeIndex;
+        g_frontendSavedVideoModeIndex[0] = (u8)g_frontendCurrentVideoModeIndex;
     }
     if ((g_selectionMessageStage < 5) && (g_frontendActiveVideoModeIndex != g_frontendCurrentVideoModeIndex)) {
         Frontend_ApplyVideoMode();

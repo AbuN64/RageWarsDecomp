@@ -42,4 +42,5 @@ extern char g_menuResidentRegionEnd;
 extern char g_menuResidentRegionStart;
 extern char g_resourceWordRequestLabel;
 extern u32 osMemSize;
+extern int Defs_IsAddressInStaticRanges(u32 callback);
 #endif

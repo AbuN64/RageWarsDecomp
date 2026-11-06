@@ -21,4 +21,5 @@ struct Queue {
     s32 items[4];
 };
 
+extern void *Cartridge_AcquireReadRequest(struct CartridgeReadWorker *cartridgeReadWorker);
 #endif

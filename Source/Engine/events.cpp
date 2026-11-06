@@ -594,7 +594,7 @@ void Events_ApplyDamageEvent(Shared_ReactionActor *source, Shared_ReactionActor 
 
 /* Forwards the actor, event value and three-component input with a zero final flag. */
 
-/* Decides whether one actor may affect another: always when the override g_motionVisibilitySettings is set; never for actors of the same kind or a target lacking flags 0x310000, nor, while visibilityEnabled_AnimpoolSpawnsceneeffect is set, when neither actor carries 0x300000; otherwise only when the target is in state 1, 4, 7 or 11. */
+/* Decides whether one actor may affect another: always when the override g_gameSettings.local is set; never for actors of the same kind or a target lacking flags 0x310000, nor, while visibilityEnabled_AnimpoolSpawnsceneeffect is set, when neither actor carries 0x300000; otherwise only when the target is in state 1, 4, 7 or 11. */
 
 void Events_DispatchCallback(void *sourceActor, void *targetActor, s32 eventKind, CVector3 eventPosition, ResourceManagerState eventParams) {
     if (g_effectCallbackFlags[eventKind].handler != 0) {
@@ -1331,3 +1331,5 @@ const float k_eventsPlayteameffectDataFloatConstants[3] = {
 const float g_Events_IncrementNearbyPlayerCounterConstants[1] = {
     10.24f,
 };
+
+float k_damageDefaultScale = 1.0f;

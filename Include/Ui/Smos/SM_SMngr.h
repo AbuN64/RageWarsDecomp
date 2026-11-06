@@ -4,14 +4,22 @@
 extern void MoveMenuFocus(s32 direction);
 extern s32 DispatchScreenRangeEvent(s32,s32,s32,void *,s32);
 extern s32 DispatchCurrentScreenEvent(s32 recurse, s32 event, s32 value, s32 argument, s32 context);
-/* s_smackFormat (SM_SMngr.cpp) holds a different record per version; menu.cpp reads its first word as the last tick. */
+/* Menu_DrawScreenStack's tick of its last draw; zero until the first draw. */
+extern s32 s_menuLastDrawTick;
+/* The twelve bytes the linker places after it in SM_SMngr.cpp's data; no reader. */
+typedef struct MenuDrawClockTail {
 #if defined(VERSION_DE)
-extern float s_smackFormat[4];
+    float angles[3];
 #elif defined(VERSION_EU)
-extern struct RestSmackFormat s_smackFormat;
+    s32 id;
+    float constants[2];
 #elif defined(VERSION_US)
-extern struct RestSmackFormatVariant2 s_smackFormat;
+    char text[4];
+    s32 ids[2];
 #else
-extern char s_smackFormat[16];
+    char text[12];
 #endif
+} MenuDrawClockTail;
+typedef char MenuDrawClockTailSizeCheck[sizeof(MenuDrawClockTail) == 12 ? 1 : -1];
+extern MenuDrawClockTail s_menuDrawClockTail;
 #endif

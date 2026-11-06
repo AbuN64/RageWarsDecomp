@@ -210,6 +210,7 @@ extern s32 PAK_GetNotesFree(s32 anUser, s32 *apNotes);
 extern s32 PAK_PagesForBytes(s32 anBytes);
 extern s32 Chksum(void *apData, s32 anSize, s32 anSeed);
 extern void *memcpy(void *apDst, const void *apSrc, u32 anSize);
+extern void *memset(void *apDst, s32 anValue, u32 anSize);
 extern void CPersistentPlayerData_Initialize(struct PAKGlobalPlayer *apPlayer);
 extern void PAKInterface_RefreshMiddleList(s32 anUser);
 extern void PAKInterface_InitPlayerMode(s32 anUser);
@@ -631,7 +632,7 @@ extern void SMFL_Stop(void *f);
 extern void SM_ScreenLink(s32 n);
 #if VERSION_US
 extern s32 SMMU_GetActiveControlID(void *apUserList, s32 anUser);
-extern void SMMU_SetActiveControl(void *apUserList, s32 anUser, s32 anControl);
+extern void SMMU_SetActiveControl(void *apUserList, s32 anUser, s16 anControl);
 extern s32 x_atoi(char *apString);
 extern s32 x_stricmp(char *apA, char *apB);
 extern void PAK_UpdateSingle(s32 anUser);

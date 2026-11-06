@@ -8,7 +8,7 @@
 #include "Frontend/frontend_address_symbols.h"
 /* Symbols that exist only at a fixed ROM address; each is referenced through its address. */
 extern char g_playerSettingsSlotNumberFormat[];
-extern char g_playerViewRenderContextPlayerNames_de[];
+extern char g_playerViewRenderContextPlayerNamesDe[];
 extern char g_tlbMissExceptionVector[];
 extern struct List g_controllerPakEnabledDialogResource;
 extern char g_menuResidentRegionStart;
@@ -31,5 +31,5 @@ extern char Menu_OpenRuleToggleScreen_Address[];
 extern char Menu_DestroyExtraOptionsMenu_Address[];
 extern char Menu_UpdateExtraOptionsMenu_Address[];
 extern u8 *g_defaultPlayerNames[4];
-extern char g_multiNameCursorTextLocalized[];
+extern char g_slotRankNamePointers_Juggnaut[];
 #endif

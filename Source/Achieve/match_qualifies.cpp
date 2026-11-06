@@ -12,7 +12,6 @@
 #include "Common/shared_gameslot.h"
 #include "Engine/scene_findtrackedactors.h"
 
-#define g_gameSettingsView (*(MatchMenuApplySlotValueGfx *)&g_gameSettings)
 
 /* Copies a player's enabled options into its option list: unless the player's info is
    locked or absent, each of the 22 enabled option flags that is 1 is recorded in the player's option list
@@ -58,21 +57,21 @@ void Achieve_EnableLevelWeapons(WeaponPlayer *player) {
 #include "Common/characterselectionroot.h"
 
 s32 Achieve_MatchQualifies(void) {
-    MatchMenuApplySlotValueGfx *match;
+    struct Shared_Game *match;
     s32 i;
     s32 count;
     s32 result;
-    RosterSlot *slot;
+    Shared_PlayerSettingsRecord *slot;
 
-    match = &g_gameSettingsView;
-    if (match->matchQualifierFirst <= 0 && match->matchQualifierSecond <= 0) {
+    match = &g_gameSettings;
+    if (match->laps <= 0 && match->players <= 0) {
         return 0;
     }
     result = 1;
     count = 0;
     for (i = 0; i < 8; i++) {
-        slot = &g_gameSettingsView.slots[i];
-        if (slot->active == 1 && slot->m_IsBot != slot->active && g_playerCountedShots[i] >= 76) {
+        slot = &g_gameSettings.playerSettings[i];
+        if (slot->enabled == 1 && slot->locked != slot->enabled && g_playerCountedShots[i] >= 76) {
             count++;
         }
     }

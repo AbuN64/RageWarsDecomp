@@ -97,24 +97,14 @@
 #include "Ai/ai_address_labels.h"
 #include "Weapons/startup_cues_and_side_yaw.h"
 #include "Ai/playerai_updatedelayeddamage__player.h"
-
-const float k_PlayerDrawtintedplayerData[14] = {
-    0.06666667f, 0.016666668f, 6e+01f, 1.0f,
-    3e+01f, 0.5f, 0.8f, 1e+01f,
-    0.5f, 2e+01f, 0.5f, 7.0f,
-    6.0f, 12.0f,
-};
+#include "X_files/x_plus.h"
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 const float g_forceMarkerDurationEuropean = 150.0f;
 #endif
 
-const float k_PlayerDrawtintedplayerUnitEpsilonLimitHalf[4] = {
-    1.0f, 1.0e-05f, 100000000.0f, 0.5f,
-};
-
 /* Draws an actor's player model with its status tint: sets the other-mode lighting command and render
-   mode 2, gives the model the team colour byte (the match rule g_matchRoundCounters's colour when team
+   mode 2, gives the model the team colour byte (the match rule g_gameSettings.counters's colour when team
    colours apply to the player, else the model's own), and by the player's tint mode
    sets a colour override (flag g_menuModelFillEnabled, colour g_menuModelFillColor) that fades with the tint time:
    mode 0 draws through Gobjinst_DrawActorPartsWithViewEffects in yellow fading from full alpha and then draws the second pass
@@ -124,6 +114,7 @@ const float k_PlayerDrawtintedplayerUnitEpsilonLimitHalf[4] = {
 
 void Player_DrawTintedPlayer(LevelActor *actor, s32 animationContext, struct Draw *draw) {
     PlayerControllerView *player;
+    CGameStatus *counters;
     Gfx *gfx;
 
     if (actor != 0) {
@@ -131,8 +122,9 @@ void Player_DrawTintedPlayer(LevelActor *actor, s32 animationContext, struct Dra
         if (player != 0) {
             gDPSetRenderMode(g_displayListCursor++, 0xC4404B50, 0);
             Geometry_SetCombineMode(2);
-            if (g_matchRoundCounters.teams != 0 && player->controls->fragTagEnabled != 0) {
-                actor->team = (u8)g_matchRoundCounters.m_nFragTagSkin;
+            counters = &g_gameSettings.counters;
+            if (counters->m_bFragTagOn != 0 && player->controls->fragTagEnabled != 0) {
+                actor->team = (u8)counters->m_nFragTagSkin;
             } else {
                 actor->team = (u8)actor->definition->first;
             }
@@ -303,10 +295,6 @@ void Player_GiveAmmoWithMessage(SharedPlayer *player, s32 type, s32 amount) {
         Playerai_PostMessageHistoryEntry(player, message, 1.0f);
     }
 }
-
-const float k_PlayerDrawtintedplayerColorScales[3] = {
-    256.0f, 11.0f, 255744.0f,
-};
 
 extern char s_ammoPickupMessageSeparator[4];
 extern char s_ammoPickupPluralSuffix[4];
@@ -530,7 +518,7 @@ void Playerai_InitializeActorModelEffect(void *effectPlayerState, void *sourceAc
 
 void Playerai_ClearPlayerWeaponLock(void *lockedPlayerState) {
     struct Player *player = lockedPlayerState;
-    TeamSelect_EmptyWeaponWheelHook();
+    TeamSelect_EmptyWeaponWheelHook(&player->weaponBusy);
     player->locked = 0;
 }
 
@@ -545,7 +533,7 @@ void Playerai_EnterMovingSequenceState(void *player, void *body) {
 
 void Playerai_ResetPlayerWeaponLock(void *lockedPlayerState) {
     struct Player *player = lockedPlayerState;
-    TeamSelect_EmptyWeaponWheelHook();
+    TeamSelect_EmptyWeaponWheelHook(&player->weaponBusy);
     player->locked = 0;
 }
 
@@ -586,7 +574,7 @@ void Playerai_OffsetActorForForceMarker(Actor126 *actor, Object126 *positionedOb
    held or crouching is forced (which also enters state 4 unless already in it) and zero
    otherwise; the depth moves a quarter of the way through Graphu64_EaseValueToward, steps smaller than
    g_playerCrouchDepthAndMinimumFall[1] downward or g_playerCrouchMinimumRiseAndBaseClearance[0] upward are dropped, and bit 0x80 of the flags is set while
-   g_playerCrouchMinimumRiseAndBaseClearance[1] less the depth lies within g_playerCrouchClearanceBounds to (&g_playerCrouchClearanceBounds)[1],
+   g_playerCrouchMinimumRiseAndBaseClearance[1] less the depth lies within g_playerCrouchClearanceMinimum to g_playerCrouchClearanceMaximum,
        cleared otherwise. */
 
 
@@ -678,10 +666,10 @@ void Playerai_UpdateCrouchClearance(Player *player, LevelActor *actor, s32 event
         }
         moved = player->crouchDepth + step;
         clearance = g_playerCrouchMinimumRiseAndBaseClearance[1] - moved;
-        lo = g_playerCrouchClearanceBounds;
+        lo = g_playerCrouchClearanceMinimum;
     } while (0);
     player->crouchDepth = moved;
-    if (lo <= clearance && clearance <= (&g_playerCrouchClearanceBounds)[1]) {
+    if (lo <= clearance && clearance <= g_playerCrouchClearanceMaximum) {
         *flags |= 0x80;
     } else {
         *flags &= ~0x80;
@@ -931,20 +919,20 @@ void Player_InitializeProfile(void *profileStorage) {
 
 
 void Player_InitializeProfileSlot(s32 profileSlot) {
-    Profile *profile = &g_localPlayerProfiles[profileSlot];
-    AiProfile *config = (AiProfile *)((u8 *)g_playerSettings + profileSlot * sizeof(Shared_PlayerSettingsRecord));
+    AiProfile *config;
 
-    Player_InitializeProfile(profile);
-    profile->time = 0;
-    profile->owner = 0;
-    profile->player = profileSlot;
-    profile->fresh = 1;
-    XStdio_FormatBuffer(profile->name, g_profileSlotNameFormat, profileSlot + 1);
-    profile->setting[0] = config->controlMode;
-    profile->setting[1] = config->pitchMode;
-    profile->setting[2] = config->yawSensitivity;
-    profile->setting[3] = config->sensitivity;
-    profile->setting[4] = config->weaponWheelMode;
+    Player_InitializeProfile(&g_localPlayerProfiles[profileSlot]);
+    g_localPlayerProfiles[profileSlot].time = 0;
+    g_localPlayerProfiles[profileSlot].player = profileSlot;
+    g_localPlayerProfiles[profileSlot].owner = 0;
+    g_localPlayerProfiles[profileSlot].fresh = 1;
+    XStdio_FormatBuffer(g_localPlayerProfiles[profileSlot].name, g_profileSlotNameFormat, profileSlot + 1);
+    config = (AiProfile *)((u8 *)g_playerSettings + profileSlot * sizeof(Shared_PlayerSettingsRecord));
+    g_localPlayerProfiles[profileSlot].setting[0] = config->controlMode;
+    g_localPlayerProfiles[profileSlot].setting[1] = config->pitchMode;
+    g_localPlayerProfiles[profileSlot].setting[2] = config->yawSensitivity;
+    g_localPlayerProfiles[profileSlot].setting[3] = config->sensitivity;
+    g_localPlayerProfiles[profileSlot].setting[4] = config->weaponWheelMode;
 }
 
 void Player_SetProfileValue14(void *profileStorage, unsigned char value) {
@@ -1233,21 +1221,6 @@ extern f32 k_PlayeraiInitializeplayerhealthNegativeOffset;
 /* Trigger release weapon states searched before the base table. */
 #endif
 
-#if defined(VERSION_DE)
-const f32 k_aiConstantsUnit = 1.0f;
-#endif
-#if defined(VERSION_EU)
-const f32 k_aiConstantsUnit = 1.0f;
-#endif
-#if defined(VERSION_EU_X)
-const f32 k_aiConstantsUnit = 1.0f;
-#endif
-#if defined(VERSION_US)
-const f32 k_aiConstantsUnit = 1.0f;
-#endif
-#if defined(VERSION_US_REV1)
-const f32 k_aiConstantsUnit = 1.0f;
-#endif
 
 #if defined(VERSION_US_REV1)
 const float k_aiStepAndDiagonalFloats[4] = {
@@ -1305,11 +1278,6 @@ const float k_PlayeraiComputeaimrotationHalfWords[1] = {
 };
 
 
-const float k_PlayeraiComputeaimrotationData[7] = {
-    1.0f, 0.5f, 1.0f, 0.75f,
-    0.75f, 0.5f, 1.0f,
-};
-
 #if defined(VERSION_US_REV1)
 const float g_playerSwimConstants[34] = {
     2.048f, 0.1f, 0.0625f, 1.0f,
@@ -1348,11 +1316,6 @@ const float g_playerRideMovementConstantWordsUsRevision[16] = {
     1.0f, 10.24f, 10.24f, 15.0f,
 };
 
-const float k_PlayeraiFindtransientplayerData[8] = {
-    0.00390625f, 0.25f, 256.0f, 0.00390625f,
-    0.6f, 0.00390625f, 0.8f, 256.0f,
-};
-
 const float k_PlayeraiFindtransientplayerMaxFiniteFloatWords[1] = {
     3.4028235e+38f,
 };
@@ -1361,29 +1324,6 @@ const float k_PlayeraiFindnearestliveplayerMaxFiniteFloatWords[1] = {
     3.4028235e+38f,
 };
 
-const float k_PlayeraiGetobjectownerheightData[2] = {
-    82.94399f, 0.9f,
-};
-
-const float k_PlayerGetammocapacityData[1] = {
-    92.159996f,
-};
-
-#if defined(VERSION_DE)
-extern s32 k_PlayeraiTrystartplayersequenceZeroFill;
-#endif
-#if defined(VERSION_EU)
-extern s32 k_PlayeraiTrystartplayersequenceZeroFill;
-#endif
-#if defined(VERSION_EU_X)
-extern s32 k_PlayeraiTrystartplayersequenceZeroFill;
-#endif
-#if defined(VERSION_US)
-extern s32 k_PlayeraiTrystartplayersequenceZeroFill;
-#endif
-#if defined(VERSION_US_REV1)
-
-#endif
 
 #if defined(VERSION_DE)
 #if defined(VERSION_DE)
@@ -1423,33 +1363,12 @@ const f32 k_hudSpriteLeadHorizontalOffset = -132.0f;
 #endif
 #endif
 
-#if defined(VERSION_US_REV1)
-
-#endif
 
 #if !defined(VERSION_US_REV1)
 extern float g_aiDistanceBounds[2];
 #endif
 
-#if !defined(VERSION_US_REV1)
-extern s32 k_aiSignWords[15];
-#endif
 
-#if defined(VERSION_DE)
-const f32 k_PlayeraiEntermovingsequencestateDataData = 400.0f;
-#endif
-#if defined(VERSION_EU)
-const f32 k_PlayeraiEntermovingsequencestateDataData = 400.0f;
-#endif
-#if defined(VERSION_EU_X)
-const f32 k_PlayeraiEntermovingsequencestateDataData = 400.0f;
-#endif
-#if defined(VERSION_US)
-const f32 k_PlayeraiEntermovingsequencestateDataData = 400.0f;
-#endif
-#if defined(VERSION_US_REV1)
-const f32 k_PlayeraiEntermovingsequencestateDataData = 400.0f;
-#endif
 
 #if defined(VERSION_US_REV1)
 

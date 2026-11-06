@@ -36,8 +36,9 @@ s32 Pak_FormatPackedButtonOption(LayeredText *item) {
     u32 code;
     u8 *text;
     s32 length;
+    Shared_Game *game = &g_gameSettings;
 
-    code = (u32)g_gameSettings.lightingGamma >> 4;
+    code = (u32)game->lightingGamma >> 4;
     Cache_SetResourceActivityState((u32)Cache_GetResourceActivityState() + 2U);
     if (code == 0) {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
@@ -48,13 +49,13 @@ s32 Pak_FormatPackedButtonOption(LayeredText *item) {
     } else {
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
         item->text = g_packedButtonOptionStepTextTableEu;
-        text = item->text[g_languageIndex];
+        text = item->text[game->language];
 #else
         item->text = &g_packedButtonOptionStepText;
         text = *item->text;
 #endif
         length = Menu_CountLineChars(item);
-        Defs_FormatIntegerValue(Button_StepNumberField_button(text, length), g_playerMenuStepFormatGerman, code);
+        Defs_FormatIntegerValue((char *)text + (length - 4), g_playerMenuStepFormatGerman, code);
     }
     return 0;
 }

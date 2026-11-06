@@ -189,7 +189,7 @@ struct CCollisionResults {
     s32 instanceValueC4;
     Triple vecC8;
     s32 contactAuxValue;
-    u8 padD8[0xC];
+    Triple particleVelocity; /* +0xD8: written by Particle_Update, read by Particle_HitTarget */
     Triple vecE4;
     Triple vecF0;
     s32 typeFC;

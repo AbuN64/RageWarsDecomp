@@ -467,9 +467,9 @@ void TextLoad_ApplyArtsendTextureOverride(s32 resource, s32 **texture) {
         } else {
             choose = 1;
         }
-        if (resource == (s32)g_artsendTextureViewer.resource) {
+        if (resource == *(s32 *)&g_artsendSelectedTextureResource) {
             if (choose != 0) {
-                *texture = &g_artsendTextureViewer.textureData[0];
+                *texture = &((SelectionTextLoadApplyArtsendTextureOverride *)&g_artsendSelectedTextureResource)->alternative;
                 return;
             }
             *texture = g_artsendTextureViewer.textureOverride;
@@ -497,9 +497,9 @@ void TextLoad_ApplyArtsendPaletteOverride(s32 resource, s32 **palette) {
         } else {
             paletteOverrideSelected = 1;
         }
-        if (resource == (s32)g_artsendTextureViewer.resource) {
+        if (resource == *(s32 *)&g_artsendSelectedTextureResource) {
             if (paletteOverrideSelected != 0) {
-                *palette = &g_artsendTextureViewer.paletteData[0];
+                *palette = &g_artsendSelectedTextureResource.palette;
                 return;
             }
             *palette = g_artsendTextureViewer.paletteOverride;

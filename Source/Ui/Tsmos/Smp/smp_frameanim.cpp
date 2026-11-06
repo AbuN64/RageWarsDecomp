@@ -171,19 +171,57 @@ s32 SmpFrameAnim_HasSequenceFlags(struct FrameSequence *sequence, s32 bits) {
     return (sequence->flags & bits) != 0;
 }
 
-s32 SmpFrameAnim_DispatchEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+/* EU and EU-X lay this table out inside a larger record. */
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#define FRAME_ANIM_EVENTS ((ResidentEventHandlerEntry *)&g_smpEventHandlerTables)
+#else
+#define FRAME_ANIM_EVENTS g_smpEventHandlerTables
+#endif
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_smpEventHandlerTables; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* EU walks the handler column and reads the event and actor-kind columns at the same row offset. */
+s32 SmpFrameAnim_DispatchEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
+    ResidentEventHandler *handler;
+    s32 offset;
+    s32 wildcard;
+    s32 actorKind;
+    s32 tableKind;
+
+    if (g_frameAnimationEventHandlers != 0) {
+        wildcard = ANY_ACTOR_KIND;
+        handler = &g_frameAnimationEventHandlers;
+        offset = 0;
+        do {
+            if (*(s32 *)((char *)&FRAME_ANIM_EVENTS[0].event + offset) == eventId) {
+                actorKind = ((struct MenuWidget *)widget)->resource;
+                tableKind = *(s32 *)((char *)&FRAME_ANIM_EVENTS[0].actorKind + offset);
+                if (tableKind == actorKind || tableKind == wildcard) {
+                    return (*handler)(widget, eventId, eventData0, eventData1, eventData2);
+                }
+            }
+            handler = (ResidentEventHandler *)((char *)handler + sizeof(ResidentEventHandlerEntry));
+            offset += sizeof(ResidentEventHandlerEntry);
+        } while (*handler != 0);
+    }
+    return 0;
+}
+#else
+s32 SmpFrameAnim_DispatchEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
+    s32 i;
+
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; FRAME_ANIM_EVENTS[i].handler != 0; i++) {
+        if (FRAME_ANIM_EVENTS[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (FRAME_ANIM_EVENTS[i].actorKind == actorKind || FRAME_ANIM_EVENTS[i].actorKind == ANY_ACTOR_KIND) {
+                return FRAME_ANIM_EVENTS[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }
     return 0;
 }
+#endif
 
 /* Does nothing: an unreferenced empty stub that ignores its arguments. */
 

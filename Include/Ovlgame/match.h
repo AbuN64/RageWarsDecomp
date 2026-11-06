@@ -6,4 +6,5 @@ extern void Match_ResetGameClockAndSelectSpawn(struct GameSession *);
 
 #include "Common/game_session.h"
 extern void Match_StartMatchTransition(struct GameSession *, s32);
+extern void Hud_EmptyCallback(void);
 #endif

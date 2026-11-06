@@ -46,7 +46,7 @@ struct MenuBuildEntry {
     s32 index;
     s16 type;
     u16 reserved06;
-    u32 flags;
+    s32 flags;
     s16 x, y;
     u8 red, green, blue, alpha;
     s32 resource;

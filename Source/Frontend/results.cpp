@@ -265,7 +265,7 @@ s32 Results_RenderResultsOptionsPreview(void *element, void *eventId, s32 event)
             views = 2;
         }
         for (i = 0, k = 0; i < views; i++, k = 2) {
-            gDPSetScissor(g_displayListCursor++, G_SC_NON_INTERLACE, ((OverlayScissorRect *)g_menuPlayerScissorRects)[k].left, ((OverlayScissorRect *)g_menuPlayerScissorRects)[k].top, ((OverlayScissorRect *)g_menuPlayerScissorRects)[k].right, ((OverlayScissorRect *)g_menuPlayerScissorRects)[k].bottom);
+            gDPSetScissor(g_displayListCursor++, G_SC_NON_INTERLACE, g_menuPlayerScissorRects[k].left, g_menuPlayerScissorRects[k].top, g_menuPlayerScissorRects[k].right, g_menuPlayerScissorRects[k].bottom);
             Preview_DrawModelPreview(g_trialCatalogueScreen->panels[i]);
             gDPSetScissor(g_displayListCursor++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WD - 1, SCREEN_HT - 1);
         }
@@ -768,7 +768,7 @@ s32 CTrialCatalogue_DispatchOptionsEvent(void *eventObject, s32 eventId, s32 eve
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_trialOptionsEventHandlers != 0) {
         wildcard = 30000;
@@ -941,22 +941,26 @@ s32 Results_CreateResultsOptionsScreen(MenuWidget *rootWidget) {
    layout 0 of the record and the second layout 2 (uniform scale, position, distance and light).
    Returns zero. */
 s32 Results_ShowResultsPlayerModels(void) {
-    s32 shown = 0;
-    s32 layout = 0;
-    s32 previewOffset = 32;
+    s32 shown;
+    s32 layout;
+    s32 previewOffset;
     s32 row;
     s32 i;
     CVector3 scale;
     struct Status *status;
+    s32 statusOffset;
 
     Tsmos_SetMenuModelFlag(1);
     Tsmos_DeactivateControllerState();
+    shown = 0;
+    layout = 0;
+    i = 0;
+    statusOffset = 0;
+    previewOffset = 32;
     g_trialCatalogueScreen->wordA58 = 0;
-    for (i = 0; i < 4; i++) {
-        status = (struct Status *)((char *)g_playerSettings + i * 150);
-        if (status->active != 1) {
-            continue;
-        }
+next:
+    status = (struct Status *)((char *)g_playerSettings + statusOffset);
+    if (status->active == 1) {
         shown++;
         row = Key_FindKeyIndex(status->kind);
         scale.x = g_characterPortraitRecords[row].scale[layout];
@@ -968,9 +972,15 @@ s32 Results_ShowResultsPlayerModels(void) {
         previewOffset += 1192;
         layout = 2;
         if (shown >= layout) {
-            break;
+            goto done;
         }
     }
+    i++;
+    statusOffset += sizeof(struct Status);
+    if (i < 4) {
+        goto next;
+    }
+done:
     return 0;
 }
 
@@ -1013,23 +1023,30 @@ s32 Results_ShowResultsPlayerModels(void) {
    so the table address is not hoisted. */
 /* Read the optional resource as the low half of its word value on every host. */
 void Results_HideTrialCatalogueWidgets(void) {
-    const s32 absentResource = -1;
+    s32 absentResource;
+    s32 byteOffset;
     s32 index;
 
-    for (index = 0; index < 64; index++) {
-        struct Pair *entry = &g_arenaCompatibilityTable[index];
-
-        Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, entry->a & 0xFFFF), 0);
-        Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, entry->b & 0xFFFF), 0);
-        if (entry->c.id != absentResource) {
-            Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, (u16)entry->c.id), 0);
+    /* The ROM indexes the table by a byte offset on every pass, so the table address is not hoisted out of the loop. */
+#define CATALOGUE_PAIR_AT(offset) ((struct Pair *)((u8 *)g_arenaCompatibilityTable + (offset)))
+    index = 0;
+    absentResource = -1;
+    byteOffset = index;
+    do {
+        Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, CATALOGUE_PAIR_AT(byteOffset)->a & 0xFFFF), 0);
+        Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, CATALOGUE_PAIR_AT(byteOffset)->b & 0xFFFF), 0);
+        if (CATALOGUE_PAIR_AT(byteOffset)->c.id != absentResource) {
+            Widget_SetWidgetFlag08(Node_FindWidgetByResourceId(g_trialCatalogueScreen->root, (u16)CATALOGUE_PAIR_AT(byteOffset)->c.id), 0);
         }
-    }
+        index += 1;
+        byteOffset += sizeof(struct Pair);
+    } while (index < 64);
+#undef CATALOGUE_PAIR_AT
 }
 
 
 /* Returns the index of the trial catalogue stage whose value equals resourceKey, or zero when none does. */
-static s32 Results_FindTrialCatalogueStageIndex(s32 resourceKey) {
+static inline s32 Results_FindTrialCatalogueStageIndex(s32 resourceKey) {
     s32 index;
 
     for (index = 0; index < 36; index++) {
@@ -1259,11 +1276,12 @@ void Results_MarkLinkedTrialsAvailable(void *trialBits) {
         kind = 0;
         break;
     default:
-        kind = (&g_activeProfileCharacterSelections)[g_trialCatalogueScreen->player * 150];
-        category = 0;
-        break;
+        kind = (s8)(&g_activeProfileCharacterSelections)[g_trialCatalogueScreen->player * 150];
+        table = Achieve_CopyPreset(trialBits, 0, kind);
+        goto preset_selected;
     }
     table = Achieve_CopyPreset(trialBits, category, kind);
+preset_selected:
     if ((value = table->first) > 0) {
 
         if (Defs_TestBit(g_trialCatalogueScreen->owned, value-1) == 0) {
@@ -1579,7 +1597,7 @@ s32 Frontend_ActivateResultsAction(void) {
 #elif defined(VERSION_EU_X)
     case 574 - 2:
 #endif
-        if (((Shared_MenuData *)&g_frontendScreenStatus)->game.controllerMode == 0) {
+        if (((Shared_MenuData *)((u8 *)paused - offsetof(Shared_MenuData, pause)))->game.controllerMode == 0) {
             Frontend_StartMenuImageTransition(g_matchResultBadgeScreen);
             g_matchResultBadgeScreen->active = 0;
         } else {
@@ -1609,7 +1627,7 @@ s32 Frontend_ActivateResultsAction(void) {
             Random_SetMenuChoiceResult(33);
             return 0;
         }
-        if (((Shared_MenuData *)&g_frontendScreenStatus)->game.controllerMode == 0) {
+        if (((Shared_MenuData *)((u8 *)paused - offsetof(Shared_MenuData, pause)))->game.controllerMode == 0) {
             SmXlate_SwitchScreen(20);
         } else {
             SmXlate_SwitchScreen(15);
@@ -1670,7 +1688,7 @@ s32 Frontend_DispatchResultsEvent(void *eventObject, s32 eventId, s32 eventPaylo
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_resultsEventHandlers != 0) {
         wildcard = 30000;

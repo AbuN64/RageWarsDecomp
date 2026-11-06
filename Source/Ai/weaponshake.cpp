@@ -39,6 +39,3 @@ u32 Weapon_UpdateShakeAxis(CShakeAxis *state) {
 
     return state->m_Amp == 0.0f;
 }
-const float k_WeaponshakeData[4] = {
-    9e+01f, 3.0f, 6.0f, 6.0f,
-};

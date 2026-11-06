@@ -70,7 +70,7 @@ extern char addrLow_Playerai_UpdateSwimmingChestbursterDeathSequenceWait_us[];
 extern char addrLow_Playerai_UpdateRaptorChestbursterDeathSequenceWait_us[];
 extern char addrLow_Playerai_UpdateSwimmingRaptorChestbursterDeathSequenceWait_us[];
 extern char g_defaultActorCollisionInfo[];
-extern char g_globalGameplayFlags[];
+extern s32 g_globalGameplayFlags[];
 extern f32 PLAYER_SECOND_LIGHT_RADIUS;
 extern f32 g_playerAimMarkerDepth;
 extern f32 g_playerDamageAndDistanceConstants;

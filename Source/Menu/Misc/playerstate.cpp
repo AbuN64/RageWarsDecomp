@@ -44,9 +44,10 @@ extern s32 g_profileBlueBloodScoreLabel;
 #include "Render/soundelement_playflatsound.h"
 #include "Menu/menu_createmenufromtemplate.h"
 #include "Ovlgame/player_startplayeranimation.h"
+#include "Control/control.h"
 
 /* Advances the frame timer g_profileConfirmationElapsedTime by g_frameElapsedTime and, once it reaches
-   threshold g_profileGameSpeedPreview, clears a flag at g_matchRoundCounters+0x24 and reports the
+   threshold g_profileGameSpeedPreview, clears a flag at g_gameSettings.counters+0x24 and reports the
    round over through Playerai_EndRound on the menu root g_playerViewRenderContext. */
 void Playerai_EndRound(void *roundContext);
 
@@ -93,19 +94,29 @@ ControllerProfile *CMenuProfile_FindConfirmingController(s32 *out) {
 
 /* Counts the connected controllers; returns 0 as soon as one connected controller's player slot is not enabled. */
 s32 CMenuProfile_CountReadyConnectedPlayers(void) {
+    char *rosterRecord;
     s32 controllerIndex;
-    s32 connectedCount = 0;
-    Shared_PlayerSettingsRecord *player = g_gameSettings.playerSettings;
+    s32 connectedCount;
+    s32 controllerOffset;
 
-    for (controllerIndex = 0; controllerIndex < 4; controllerIndex++, player++) {
-        if (g_controllerProfiles[controllerIndex].connected != 0) {
-            connectedCount += 1;
-            if (player->enabled == 0) {
-                return 0;
-            }
+    connectedCount = 0;
+    controllerIndex = 0;
+    rosterRecord = (char *)&g_gameSettings;
+    controllerOffset = 0;
+loop_1:
+    if (*(s32 *) ((char *) g_controllerProfiles + controllerOffset) != 0) {
+        connectedCount += 1;
+        if (((FlaggedRosterView *)rosterRecord)->flag == 0) {
+            return 0;
         }
     }
-    return connectedCount;
+    rosterRecord += sizeof(Shared_PlayerSettingsRecord);
+    controllerIndex += 1;
+    controllerOffset += 548;
+    if (controllerIndex >= 4) {
+        return connectedCount;
+    }
+    goto loop_1;
 }
 
 /** Clears the global counter/flag g_profileConfirmationElapsedTime. */
@@ -115,12 +126,14 @@ void CMenuProfile_ResetRoundEndDelay(void) {
 
 s32 CMenuProfile_UpdateRoundEndDelay(void) {
     f32 time;
+    CGameStatus *counters;
 
     time = g_profileConfirmationElapsedTime + g_frameElapsedTime;
     g_profileConfirmationElapsedTime = time;
     if ((120.0f) <= time) {
-        g_playerViewRenderContext.game.counters.teams = 0;
-        Playerai_EndRound(&g_playerViewRenderContext);
+        counters = &g_gameSettings.counters;
+        counters->teams = 0;
+        Playerai_EndRound((char *)counters - offsetof(Shared_MenuData, game.counters));
         return 1;
     }
     return 0;
@@ -141,7 +154,7 @@ s32 CMenuProfile_ControllerSelectionReturnZero(void) {
     return 0;
 }
 
-/** True if any of three flags inside the g_matchRoundCounters record are set. */
+/** True if any of three flags inside the g_gameSettings.counters record are set. */
 s32 CMenuProfile_HasRoundProgress(void) {
     CGameStatus *base = &g_gameSettings.counters;
     s32 result;
@@ -198,7 +211,7 @@ s32 CMenuProfile_GameSpeedReturnZero(void) {
     return 0;
 }
 
-/* Returns 1 if any of g_matchRoundCounters's elapsed, state or round fields is nonzero, otherwise 0. */
+/* Returns 1 if any of g_gameSettings.counters's elapsed, state or round fields is nonzero, otherwise 0. */
 s32 CMenuProfile_HasDialogRoundProgress(void) {
     CGameStatus *s = &g_gameSettings.counters;
     s32 result;

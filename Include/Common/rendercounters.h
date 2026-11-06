@@ -1,7 +1,7 @@
 #ifndef COMMON_RENDERCOUNTERS_H
 #define COMMON_RENDERCOUNTERS_H
 #include "types.h"
-/* The session clock and round counters at g_matchRoundCounters. */
+/* The session clock and round counters, g_gameSettings.counters. */
 typedef struct CGameStatus_t {
     f32 m_GameTimeFifteenth, m_GameTimeSeconds, m_GameTimeMinutes, m_GameTimeHours; /* +0..+C: SetN64_AdvanceGameClock */
     f32 m_GameOverTimer; /* +0x10: Multi_DecreaseGameOverTimer counts it down by g_frameElapsedTime */

@@ -35,6 +35,7 @@
 #include "Common/round_state_variants.h"
 #include "Common/runtime_declarations.h"
 #include "Common/level_spawn.h"
+#include "Common/game_player_and_menu_state.h"
 #include "Pickup/pickup_applyspecialpickup_symbols.h"
 #include "Common/track_requesttrackbykey.h"
 #include "Common/world.h"
@@ -117,7 +118,7 @@ s32 Pickup_CanCollect(s32 prop, Player *actor) {
         }
         weapon = (PickupWeaponDefinition *)find_handler((char *)g_pickupWeaponDefinitions, 5, 20, id);
         if (weapon != 0) {
-            level = Player_GetAmmoCapacity(player, weapon->ids.slot, 0);
+            level = Player_GetAmmoCapacity(player, (s16) weapon->ids.slot, 0);
             if (player->objectId == g_playerSpecialModelIds[0] || player->objectId == g_playerSpecialModelIds[1]) {
                 return 1;
             }
@@ -299,19 +300,6 @@ struct SpecialPickupActorDefinitionView {
     s16 levelProgressId;
 };
 
-typedef struct SpecialPickupMatchModeView SpecialPickupMatchModeView;
-struct SpecialPickupMatchModeView {
-    char pad0[0x24];
-    s32 teamMode;
-    char pad28[0x2C];
-    s32 flagPickupEnabled;
-    char pad58[0x1C];
-    s32 flagReturnState;
-    char pad78[0x8];
-    s32 flagCarried;
-    s32 flagDropped;
-};
-
 typedef struct SpecialPickupPlayerOptions SpecialPickupPlayerOptions;
 struct SpecialPickupPlayerOptions {
     char pad0[0x8F];
@@ -321,58 +309,21 @@ struct SpecialPickupPlayerOptions {
     u8 team;
 };
 
-typedef struct SpecialPickupLinkedPlayerView SpecialPickupLinkedPlayerView;
-struct SpecialPickupLinkedPlayerView {
-    char pad0[0x5D8];
-    struct SpecialPickupLinkedPlayerOptions * options;
-    void * messageCamera;
-    char pad5E0[0xBFC];
-    f32 bonusDuration;
-    char pad11E0[0x4C];
-    s32 reactionFlags;
-    char pad1230[0x4B0];
-    struct SpecialPickupLinkedPlayerView * nextPlayer;
-    char pad16E4[0x4];
-};
-
-typedef struct SpecialPickupLinkedPlayerOptions SpecialPickupLinkedPlayerOptions;
-struct SpecialPickupLinkedPlayerOptions {
-    char pad0[0x92];
-    u8 team;
-};
-
-/* g_gamePlayerAndMenuState is the game root: the player records, the list of active players, then the match globals
-   g_frontendScreenStatus, whose modes block g_matchRoundCounters the pickup commands write. */
-typedef struct Shared_FullPlayerMenuGlobals Shared_FullPlayerMenuGlobals;
-struct Shared_FullPlayerMenuGlobals {
-    struct SpecialPickupLinkedPlayerView * entries; /* player records */
-    s32 count;
-    u8 pad8[0x14];
-    struct SpecialPickupLinkedPlayerView * players; /* active players, linked through nextPlayer */
-    u8 pad20[0x24];
-    union {
-        MenuMatchGlobals match; /* g_frontendScreenStatus */
-        struct {
-            u8 pad0[0x1818];
-            SpecialPickupMatchModeView modes; /* g_matchRoundCounters */
-        } view;
-    } game __attribute__((packed, aligned(4))); /* The menu owner follows the player list directly, so it is not aligned to eight bytes. */
-};
-
 typedef Shared_MenuBonusColumn MenuBonusColumn;
 
 typedef Shared_MenuAmountColumn MenuAmountColumn;
 
-typedef Shared_FullPlayerMenuGlobals FullPlayerMenuGlobals;
 
 /* PAL builds declare the match globals inside the game root, so their message context and language
    come from g_gamePlayerAndMenuState; the other builds post through g_frontendScreenStatus with the one language. */
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-#define PICKUP_CONTEXT (&((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->game.match)
-#define PICKUP_TEXT(table) ((table)[PICKUP_CONTEXT->settings.language])
+#define PICKUP_CONTEXT (&g_gamePlayerAndMenuState.game.match)
+#define PICKUP_LANGUAGE (PICKUP_CONTEXT->settings.language)
+#define PICKUP_TEXT(table) ((table)[PICKUP_LANGUAGE])
 #else
 #define PICKUP_CONTEXT (&g_frontendScreenStatus)
-#define PICKUP_TEXT(table) ((table)[0])
+#define PICKUP_LANGUAGE 0
+#define PICKUP_TEXT(table) ((table)[PICKUP_LANGUAGE])
 #endif
 /* Adds amount to the recipient's per-player bonus counter and to its own count, then requests the track. */
 #define PICKUP_ADD_BONUS(counters, field, amount, trackKey) \
@@ -389,274 +340,371 @@ typedef Shared_FullPlayerMenuGlobals FullPlayerMenuGlobals;
    (0x1398..0x13C1). A handled pickup then flashes the view, posts the row text, plays its sound and raises its
    event. Returns 1 when handled. */
 s32 Pickup_ApplySpecialPickup(SpecialPickupRecipientView *recipient, SpecialPickupDefinition *pickup) {
-    s32 handled = 0;
-    u8 **feedbackText;
+    f32 zeroReactionValue;
+    f32 loopBonus;
+    f32 previousDelay;
+    f32 flashAlpha;
+    f32 flashDuration;
     s32 soundId;
     s32 feedbackDialogId;
+    s16 pickupId;
+    s32 preservedReactionFlags;
+    s32 selectedReaction;
+    s32 ammoProfileOffset;
+    s32 secondBonusProfileOffset;
+    s32 firstBonusProfileOffset;
+    s32 healthProfileOffset;
+    s32 reactionFlags;
+    s32 counterProfileOffset;
+    register s32 playerIndex;
+    s32 pickupScratch;
+    s32 handled;
+    u8 **feedbackText;
+    u8 previousFlagState;
+    void *messageCamera;
+    void *messageCamera10;
+    void *messageCamera11;
+    void *messageCamera2;
+    void *messageCamera3;
+    void *messageCamera4;
+    void *messageCamera5;
+    void *messageCamera6;
+    void *messageCamera7;
+    void *messageCamera8;
+    void *messageCamera9;
+    SpecialPickupLinkedPlayerView *linkedPlayer;
+    struct SharedPlayer **loopEntries;
+    struct GamePlayerAndMenuState *menuGlobals;
+    SpecialPickupMatchModeView *loopMenuData;
+    SpecialPickupMatchModeView *commandMenuData;
+    SpecialPickupPlayerOptions *playerOptions;
 
+    handled = 0;
     if (recipient->health > 0) {
-        switch (pickup->id) {
-        case 3030: { /* Return the carried flag and lower saved music playback. */
-            SpecialPickupPlayerOptions *playerOptions = recipient->options;
-            SpecialPickupMatchModeView *matchMode = &((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->game.view.modes;
-            u8 previousFlagState = playerOptions->carryingFlag;
-            if (previousFlagState != 1 || matchMode->flagPickupEnabled == 0) {
-                break;
-            }
-            playerOptions->carryingFlag = 0U;
-            recipient->options->flagReturned = previousFlagState;
-            matchMode->flagReturnState = 2;
-            g_pickupSavedMusicPlaybackEnabled = SoundElement_GetMusicPlaybackEnabled();
-            if (SoundElement_GetMusicPlaybackEnabled() != 0) {
-                SoundElement_SetMusicPlaybackEnabled(61);
-            }
-            handled = 1;
-            break;
-        }
-        case 3031: { /* Take the flag and notify the other players. */
-            SpecialPickupMatchModeView *matchMode = &((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->game.view.modes;
-            SpecialPickupLinkedPlayerView *player;
-            matchMode->flagDropped = 0;
-            matchMode->flagCarried = 1;
-            recipient->options->carryingFlag = 1U;
-            for (player = ((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->players; player != 0; player = player->nextPlayer) {
-                if (player != recipient && player->messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, player->messageCamera, PICKUP_TEXT(g_pickupFlagCarriedText));
-                }
-            }
-            handled = 1;
-            break;
-        }
-        case 3032: { /* Clear the active reaction, or choose and apply a new one. */
-            f32 flashAlpha;
-            f32 flashDuration;
-            s32 preservedReactionFlags;
-            s32 selectedReaction;
-            s32 playerIndex;
-            void *messageCamera;
-            void *reactionText;
-            f32 previousDelay = recipient->pickupDelay;
-            handled = 1;
-
-            recipient->tintAlpha = 0.0f;
-            recipient->tintRed = 0;
-            recipient->tintGreen = 0;
-            recipient->tintBlue = 0;
-            if (previousDelay != recipient->tintAlpha) {
-                recipient->pickupDelay = recipient->tintAlpha;
-                recipient->pickupExpiryKind = 0;
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupEffectClearedText));
-                }
-                break;
-            }
-            preservedReactionFlags = recipient->reactionFlags & 0x6000;
-            selectedReaction = 1 << (XPlus_NextRandomInteger() % 13);
-            recipient->reactionFlags = selectedReaction;
-            if (selectedReaction & 0x20) {
-                recipient->reactionTarget = -1;
-                recipient->reactionDuration = recipient->tintAlpha;
-            } else {
-                recipient->reactionDuration = 105.0f;
-            }
-            switch (recipient->reactionFlags) {
-            case 1:
-                SoundElement_PlayDialogGroup(350);
-                for (playerIndex = 0; playerIndex < ((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->count; playerIndex++) {
-                    SpecialPickupLinkedPlayerView *other = &((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->entries[playerIndex];
-                    SpecialPickupMatchModeView *matchMode = &((Shared_FullPlayerMenuGlobals *)&g_gamePlayerAndMenuState)->game.view.modes;
-                    if (other != 0 && other != recipient && (matchMode->teamMode == 0 || other->options->team != recipient->options->team)) {
-                        other->reactionFlags = other->reactionFlags | 0x2000;
-                        other->bonusDuration = other->bonusDuration + 195.0f;
+        pickupId = pickup->id;
+        {
+            if (pickupId < 5023) {
+                if (pickupId < 5017) {
+                    if (pickupId == 5001) goto case_1389;
+                    if (pickupId < 5002) {
+                        if (pickupId == 3031) goto case_BD7;
+                        if (pickupId < 3032) {
+                            if (pickupId == 3030) goto case_BD6;
+                            goto command_done;
+                        }
+                        if (pickupId == 3032) goto case_BD8;
+                        if (pickupId == 5000) goto mark_handled;
+                        goto command_done;
                     }
-                    messageCamera = other->messageCamera;
-                    if (messageCamera != 0) {
-                        Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[0]));
+                    if (pickupId < 5016) {
+                        handled = 1;
+                        if (pickupId >= 5003) goto mark_handled;
+                        goto block_126;
                     }
+                    goto case_1398;
                 }
-                break;
-            case 0x2:
-                recipient->reactionDuration = 300.0f;
-                SoundElement_PlayDialogGroup(356);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[1]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintRed = 0xFF;
-                goto applyReactionFlash;
-            case 0x4:
-                recipient->reactionDuration = 225.0f;
-                SoundElement_PlayDialogGroup(351);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionBitTexts[2]);
-                    goto postReactionMessage;
-                }
-                break;
-            case 0x8:
-                recipient->reactionDuration = 150.0f;
-                SoundElement_PlayDialogGroup(357);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[3]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintRed = 0xFF;
-                recipient->tintGreen = 0xFF;
-                goto applyReactionFlash;
-            case 0x10:
-                recipient->reactionDuration = 150.0f;
-                SoundElement_PlayDialogGroup(352);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[4]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintRed = 0xFF;
-                recipient->tintBlue = 0xFF;
-                goto applyReactionFlash;
-            case 0x20:
-                recipient->reactionDuration = 180.0f;
-                SoundElement_PlayDialogGroup(358);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionBitTexts[5]);
-                    goto postReactionMessage;
-                }
-                break;
-            case 0x40:
-                recipient->reactionDuration = 225.0f;
-                SoundElement_PlayDialogGroup(353);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionBitTexts[6]);
-                    goto postReactionMessage;
-                }
-                break;
-            case 0x80:
-                recipient->reactionDuration = 225.0f;
-                SoundElement_PlayDialogGroup(361);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionBitTexts[7]);
-                    goto postReactionMessage;
-                }
-                break;
-            case 0x100:
-                recipient->reactionDuration = 450.0f;
-                SoundElement_PlayDialogGroup(354);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionBitTexts[8]);
-                    goto postReactionMessage;
-                }
-                break;
-            case 0x200:
-                recipient->reactionDuration = 270.0f;
-                SoundElement_PlayDialogGroup(362);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[10]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                goto applyReactionFlash;
-            case 0x400:
-                recipient->reactionDuration = 180.0f;
-                SoundElement_PlayDialogGroup(355);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[11]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintRed = 0xFF;
-                recipient->tintGreen = 0xFF;
-                recipient->tintBlue = 0xFF;
-                goto applyReactionFlash;
-            case 0x800:
-                recipient->reactionDuration = 300.0f;
-                SoundElement_PlayDialogGroup(360);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[12]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintBlue = 0xFF;
-                goto applyReactionFlash;
-            case 0x1000:
-                recipient->reactionDuration = 300.0f;
-                SoundElement_PlayDialogGroup(351);
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupReactionBitTexts[13]));
-                }
-                flashAlpha = 255.0f;
-                flashDuration = recipient->reactionDuration;
-                recipient->tintGreen = 0xFF;
-            applyReactionFlash:
-                recipient->tintAlpha = flashAlpha;
-                recipient->rightAxisValue = flashAlpha / flashDuration;
-                goto reactionComplete;
-            default:
-                messageCamera = recipient->messageCamera;
-                if (messageCamera != 0) {
-                    reactionText = PICKUP_TEXT(g_pickupReactionDefaultText);
-                postReactionMessage:
-                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, reactionText);
-                }
-                break;
+                handled = 1;
+                goto command_done;
             }
-        reactionComplete:
-            recipient->reactionFlags = recipient->reactionFlags | preservedReactionFlags;
-            break;
-        }
-        case 5001:
-            Player_IncrementLevelProgress(&g_localPlayerProfiles[recipient->playerIndex], (s32) recipient->definition->levelProgressId);
-            /* fall through: level 5001 counts progress twice */
-        case 5002:
+            if (pickupId < 5035) {
+                if (pickupId < 5033) {
+                    if (pickupId == 5024) goto case_13A0;
+                    if (pickupId < 5024) goto case_139F;
+                    if (pickupId < 5032) handled = 1;
+                    goto command_done;
+                }
+                goto mark_handled;
+            }
+            if (pickupId == 5052) { handled = 1; goto command_done; }
+            if (pickupId < 5053) {
+                if (pickupId == 5037) goto mark_handled;
+                goto command_done;
+            }
+            if (pickupId == 5053) goto case_13BD;
+            if (pickupId == 5057) goto case_13C1;
+            goto command_done;
+case_BD6:
+                playerOptions = recipient->options;
+                previousFlagState = playerOptions->carryingFlag;
+                if ((previousFlagState == 1) && ((commandMenuData = &g_gamePlayerAndMenuState.game.view.modes)->flagPickupEnabled != 0)) {
+                    playerOptions->carryingFlag = 0U;
+                    recipient->options->flagReturned = previousFlagState;
+                    commandMenuData->flagReturnState = 2;
+                    g_pickupSavedMusicPlaybackEnabled = SoundElement_GetMusicPlaybackEnabled();
+                    if (SoundElement_GetMusicPlaybackEnabled() != 0) {
+                        SoundElement_SetMusicPlaybackEnabled(61);
+                    }
+                    handled = 1;
+                }
+                goto command_done;
+case_BD7:
+            {
+                SpecialPickupMatchModeView *listMenuData = &g_gamePlayerAndMenuState.game.view.modes;
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+                MenuSettings *settings;
+                MenuMatchGlobals *game;
+#endif
+                listMenuData->flagDropped = 0;
+                listMenuData->flagCarried = 1;
+                recipient->options->carryingFlag = 1U;
+                linkedPlayer = g_gamePlayerAndMenuState.players;
+                handled = 1;
+                if (linkedPlayer != 0) {
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+                    game = PICKUP_CONTEXT;
+                    settings = &game->settings;
+#endif
+                    do {
+                    if (linkedPlayer != recipient) {
+                        messageCamera = linkedPlayer->messageCamera;
+                        if (messageCamera != 0) {
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+                            Camera_PostScreenMessage(game, messageCamera, g_pickupFlagCarriedText[settings->language]);
+#else
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera, PICKUP_TEXT(g_pickupFlagCarriedText));
+#endif
+                        }
+                    }
+                    linkedPlayer = linkedPlayer->nextPlayer;
+                    } while (linkedPlayer != 0);
+                }
+                goto command_done;
+            }
+case_BD8:
+                previousDelay = recipient->pickupDelay;
+                recipient->tintAlpha = 0.0f;
+                zeroReactionValue = recipient->tintAlpha;
+                handled = 1;
+                recipient->tintRed = 0;
+                recipient->tintGreen = 0;
+                recipient->tintBlue = 0;
+                if (previousDelay != zeroReactionValue) {
+                    messageCamera2 = recipient->messageCamera;
+                    recipient->pickupDelay = zeroReactionValue;
+                    recipient->pickupExpiryKind = 0;
+                    if (messageCamera2 != 0) {
+                        Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera2, gameplayReleaseMessage(PICKUP_LANGUAGE));
+                    }
+                } else {
+                    preservedReactionFlags = recipient->reactionFlags & 0x6000;
+                    selectedReaction = 1 << (XPlus_NextRandomInteger() % 13);
+                    recipient->reactionFlags = selectedReaction;
+                    if (selectedReaction & 0x20) {
+                        recipient->reactionTarget = -1;
+                        recipient->reactionDuration = zeroReactionValue;
+                    } else {
+                        recipient->reactionDuration = 105.0f;
+                    }
+                    reactionFlags = recipient->reactionFlags;
+                    switch (reactionFlags) {            /* switch 3; irregular */
+                    case 1:                       /* switch 3 */
+                        SoundElement_PlayDialogGroup(350);
+                        playerIndex = 0;
+                        if (playerIndex < g_gamePlayerAndMenuState.count) {
+                            menuGlobals = &g_gamePlayerAndMenuState;
+                            loopEntries = &menuGlobals->entries;
+                            loopMenuData = &menuGlobals->game.view.modes;
+                            loopBonus = 195.0f;
+                            do {
+                                linkedPlayer = (SpecialPickupLinkedPlayerView *)&(*loopEntries)[playerIndex];
+                                if ((linkedPlayer != 0) && (linkedPlayer != recipient) && (((loopMenuData->teamMode) == 0) || (linkedPlayer->options->team != recipient->options->team))) {
+                                    linkedPlayer->reactionFlags = (s32) (linkedPlayer->reactionFlags | 0x2000);
+                                    linkedPlayer->bonusDuration = (f32) (linkedPlayer->bonusDuration + loopBonus);
+                                }
+                                messageCamera3 = linkedPlayer->messageCamera;
+                                if (messageCamera3 != 0) {
+                                    Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera3, PICKUP_TEXT(g_pickupReactionBitTexts[0]));
+                                }
+                            } while (++playerIndex < g_gamePlayerAndMenuState.count);
+                        }
+                        break;
+                    case 2:                       /* switch 3 */
+                        recipient->reactionDuration = 300.0f;
+                        SoundElement_PlayDialogGroup(356);
+                        messageCamera4 = recipient->messageCamera;
+                        if (messageCamera4 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera4, PICKUP_TEXT(g_pickupReactionBitTexts[1]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintRed = 0xFF;
+                        goto block_115;
+                    case 4:                       /* switch 3 */
+                        recipient->reactionDuration = 225.0f;
+                        SoundElement_PlayDialogGroup(351);
+                        messageCamera11 = recipient->messageCamera;
+                        if (messageCamera11 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionBitTexts[2]));
+                        }
+                        break;
+                    case 8:                       /* switch 3 */
+                        recipient->reactionDuration = 150.0f;
+                        SoundElement_PlayDialogGroup(357);
+                        messageCamera5 = recipient->messageCamera;
+                        if (messageCamera5 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera5, PICKUP_TEXT(g_pickupReactionBitTexts[3]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintRed = 0xFF;
+block_114:
+                        recipient->tintGreen = 0xFF;
+                        goto block_115;
+                    case 16:                      /* switch 3 */
+                        recipient->reactionDuration = 150.0f;
+                        SoundElement_PlayDialogGroup(352);
+                        messageCamera6 = recipient->messageCamera;
+                        if (messageCamera6 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera6, PICKUP_TEXT(g_pickupReactionBitTexts[4]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintRed = 0xFF;
+                        recipient->tintBlue = 0xFF;
+                        goto block_115;
+                    case 32:                      /* switch 3 */
+                        recipient->reactionDuration = 180.0f;
+                        SoundElement_PlayDialogGroup(358);
+                        messageCamera11 = recipient->messageCamera;
+                        if (messageCamera11 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionBitTexts[5]));
+                        }
+                        break;
+                    case 64:                      /* switch 3 */
+                        recipient->reactionDuration = 225.0f;
+                        SoundElement_PlayDialogGroup(353);
+                        messageCamera11 = recipient->messageCamera;
+                        if (messageCamera11 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionBitTexts[6]));
+                        }
+                        break;
+                    case 128:                      /* switch 3 */
+                        recipient->reactionDuration = 225.0f;
+                        SoundElement_PlayDialogGroup(361);
+                        messageCamera11 = recipient->messageCamera;
+                        if (messageCamera11 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionBitTexts[7]));
+                        }
+                        break;
+                    case 0x100:                     /* switch 3 */
+                        recipient->reactionDuration = 450.0f;
+                        SoundElement_PlayDialogGroup(354);
+                        messageCamera11 = recipient->messageCamera;
+                        if (messageCamera11 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionBitTexts[8]));
+                        }
+                        break;
+                    case 0x200:                     /* switch 3 */
+                        recipient->reactionDuration = 270.0f;
+                        SoundElement_PlayDialogGroup(362);
+                        messageCamera7 = recipient->messageCamera;
+                        if (messageCamera7 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera7, PICKUP_TEXT(g_pickupReactionBitTexts[10]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintAlpha = flashAlpha;
+                        goto block_116;
+                    case 0x400:                     /* switch 3 */
+                        recipient->reactionDuration = 180.0f;
+                        SoundElement_PlayDialogGroup(355);
+                        messageCamera8 = recipient->messageCamera;
+                        if (messageCamera8 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera8, PICKUP_TEXT(g_pickupReactionBitTexts[11]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintRed = 0xFF;
+                        recipient->tintGreen = 0xFF;
+                        recipient->tintBlue = 0xFF;
+                        goto block_115;
+                    case 0x800:                     /* switch 3 */
+                        recipient->reactionDuration = 300.0f;
+                        SoundElement_PlayDialogGroup(360);
+                        messageCamera9 = recipient->messageCamera;
+                        if (messageCamera9 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera9, PICKUP_TEXT(g_pickupReactionBitTexts[12]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintBlue = 0xFF;
+                        goto block_115;
+                    case 0x1000:                    /* switch 3 */
+                        recipient->reactionDuration = 300.0f;
+                        SoundElement_PlayDialogGroup(351);
+                        messageCamera10 = recipient->messageCamera;
+                        if (messageCamera10 != 0) {
+                            Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera10, PICKUP_TEXT(g_pickupReactionBitTexts[13]));
+                        }
+                        flashAlpha = 255.0f;
+                        flashDuration = recipient->reactionDuration;
+                        recipient->tintGreen = 0xFF;
+                        goto block_115;
+                    default:                        /* switch 3 */
+                        goto block_default;
+                    }
+                    goto block_after_alpha;
+block_115:
+                    recipient->tintAlpha = flashAlpha;
+block_116:
+                    recipient->rightAxisValue = (f32) (flashAlpha / flashDuration);
+                    goto block_after_alpha;
+block_default:
+                    messageCamera11 = recipient->messageCamera;
+                    if (messageCamera11 != 0) {
+                        Camera_PostScreenMessage(PICKUP_CONTEXT, messageCamera11, PICKUP_TEXT(g_pickupReactionDefaultText));
+                    }
+block_after_alpha:
+                    recipient->reactionFlags = (s32) (recipient->reactionFlags | preservedReactionFlags);
+                }
+                goto command_done;
+case_1398:
+                ammoProfileOffset = recipient->playerIndex * 400;
+                handled = 1;
+                g_playerAmmoBonusProfileCounters[recipient->playerIndex].value += 10;
+                recipient->ammoBonusCount = (u16) (recipient->ammoBonusCount + 10);
+                Track_RequestTrackByKey(501);
+                goto command_done;
+case_13A0:
+            firstBonusProfileOffset = recipient->playerIndex * 400;
             handled = 1;
-            Player_IncrementLevelProgress(&g_localPlayerProfiles[recipient->playerIndex], (s32) recipient->definition->levelProgressId);
-            Track_RequestTrackByKey(500);
-            break;
-        case 5016:
+            g_playerPrimaryBonusProfileCounters[recipient->playerIndex].value += 50;
+            recipient->firstBonusCount = (u16) (recipient->firstBonusCount + 50);
+            Track_RequestTrackByKey(503);
+            goto command_done;
+case_139F:
             handled = 1;
-            PICKUP_ADD_BONUS(g_playerAmmoBonusProfileCounters, ammoBonusCount, 10, 501);
-            break;
-        case 5023:
+            secondBonusProfileOffset = recipient->playerIndex * 400;
+            g_playerSecondaryBonusProfileCounters[recipient->playerIndex].value += 50;
+            recipient->secondBonusCount = (u16) (recipient->secondBonusCount + 50);
+            Track_RequestTrackByKey(502);
+            goto command_done;
+case_13C1:
             handled = 1;
-            PICKUP_ADD_BONUS(g_playerSecondaryBonusProfileCounters, secondBonusCount, 50, 502);
-            break;
-        case 5024:
-            handled = 1;
-            PICKUP_ADD_BONUS(g_playerPrimaryBonusProfileCounters, firstBonusCount, 50, 503);
-            break;
-        case 5053:
+            healthProfileOffset = recipient->playerIndex * 400;
+            g_characterHealthBonuses[recipient->playerIndex].value += 1280;
+            recipient->health = (s32) (recipient->health + 1280);
+            Track_RequestTrackByKey(504);
+            goto command_done;
+case_1389:
+                Player_IncrementLevelProgress(&g_localPlayerProfiles[recipient->playerIndex], (s32) recipient->definition->levelProgressId);
+block_126:
+                handled = 1;
+                Player_IncrementLevelProgress(&g_localPlayerProfiles[recipient->playerIndex], (s32) recipient->definition->levelProgressId);
+                Track_RequestTrackByKey(500);
+                goto command_done;
+case_13BD:
+            counterProfileOffset = recipient->playerIndex * 400;
             handled = 1;
             g_playerPickupProfileCounters[recipient->playerIndex].value += 1;
-            break;
-        case 5057:
+            goto command_done;
+mark_handled:
             handled = 1;
-            PICKUP_ADD_BONUS(g_characterHealthBonuses, health, 1280, 504);
-            break;
-        case 5000: case 5003: case 5004: case 5005: case 5006: case 5007: case 5008: case 5009:
-        case 5010: case 5011: case 5012: case 5013: case 5014: case 5015:
-        case 5017: case 5018: case 5019: case 5020: case 5021: case 5022:
-        case 5025: case 5026: case 5027: case 5028: case 5029: case 5030: case 5031:
-        case 5033: case 5034: case 5037: case 5052:
-            handled = 1;
-            break;
-        default:
-            break;
+            goto command_done;
         }
+command_done:
+        ;
     }
-
     if (handled != 0) {
         feedbackText = pickup->text;
         soundId = pickup->sound;
@@ -807,84 +855,104 @@ s32 Pickup_ApplyEuropeanPowerup(struct Player *player, PowerupEntry *pickup, Lev
 /* Returns the record of g_pickupPowerupDefinitions whose id is itemId, or null when none matches. */
 void *Pickup_FindPowerupEntry(s32 itemId) {
     PickupPowerupDefinition *entry = g_pickupPowerupDefinitions;
-    s32 count = (s32)(sizeof(g_pickupPowerupDefinitions) / sizeof(g_pickupPowerupDefinitions[0]));
+    s32 remaining = 3;
 
-    while (count-- != 0) {
-        if (entry->ids.id == itemId) {
+    do {
+        remaining -= 1;
+        if (entry->ids.id != itemId) {
+            entry++;
+        } else {
             return entry;
         }
-        entry++;
-    }
+    } while (remaining != -1);
     return 0;
 }
 
 /* Returns the record of g_pickupWeaponDefinitions whose id is pickupId, or null when none matches. */
 void *Pickup_FindAmmoEntry(s32 pickupId) {
     PickupWeaponDefinition *entry = g_pickupWeaponDefinitions;
-    s32 count = (s32)(sizeof(g_pickupWeaponDefinitions) / sizeof(g_pickupWeaponDefinitions[0]));
+    s32 remaining = 5;
 
-    while (count-- != 0) {
-        if (entry->ids.id == pickupId) {
+    do {
+        remaining -= 1;
+        if (entry->ids.id != pickupId) {
+            entry++;
+        } else {
             return entry;
         }
-        entry++;
-    }
+    } while (remaining != -1);
     return 0;
 }
 
 /* Returns the record of g_pickupHealthDefinitions whose id is pickupId, or null when none matches. */
 void *Pickup_FindHealthEntry(s32 pickupId) {
-    PickupHealthDefinition *entry = g_pickupHealthDefinitions;
-    s32 count = (s32)(sizeof(g_pickupHealthDefinitions) / sizeof(g_pickupHealthDefinitions[0]));
+    char *v1;
+    s32 i;
 
-    while (count-- != 0) {
-        if (entry->ids.id == pickupId) {
-            return entry;
+    v1 = &g_pickupHealthDefinitions;
+    i = 7;
+    do {
+        i -= 1;
+        if (((struct PowerupIdEntry *)(v1))->id != pickupId) {
+            v1 += sizeof(PickupDefinition24);
+        } else {
+            return v1;
         }
-        entry++;
-    }
+    } while (i != -1);
     return 0;
 }
 
 /* Returns the record of g_pickupSpecialDefinitions whose id is pickupId, or null when none matches. */
 void *Pickup_FindSpecialEntry(s32 pickupId) {
-    PickupSpecialDefinition *entry = g_pickupSpecialDefinitions;
-    s32 count = (s32)(sizeof(g_pickupSpecialDefinitions) / sizeof(g_pickupSpecialDefinitions[0]));
+    char *v1;
+    s32 i;
 
-    while (count-- != 0) {
-        if (entry->ids.id == pickupId) {
-            return entry;
+    v1 = &g_pickupSpecialDefinitions;
+    i = 2;
+    do {
+        i -= 1;
+        if (((struct PowerupIdEntry *)(v1))->id != pickupId) {
+            v1 += sizeof(PowerupIdEntry);
+        } else {
+            return v1;
         }
-        entry++;
-    }
+    } while (i != -1);
     return 0;
 }
 
 /* Walks the 2 records of g_pickupSingleDefinitions, which has no typed definition yet; returns the one whose id is pickupId, or null. */
 void *Pickup_FindSingleEntry(s32 pickupId) {
-    char *record = (char *)&g_pickupSingleDefinitions;
+    char *v1;
     s32 i;
 
-    for (i = 0; i < 2; i++) {
-        if (((PowerupIdEntry *)record)->id == pickupId) {
-            return record;
+    v1 = &g_pickupSingleDefinitions;
+    i = 1;
+    do {
+        i -= 1;
+        if (((struct PowerupIdEntry *)(v1))->id != pickupId) {
+            v1 += sizeof(AmmoPickupDefinition);
+        } else {
+            return v1;
         }
-        record += sizeof(AmmoPickupDefinition);
-    }
+    } while (i != -1);
     return 0;
 }
 
 /* Walks the 16 records of g_pickupTargetedDefinitions, which has no typed definition yet; returns the one whose id is pickupId, or null. */
 void *Pickup_FindTargetedEntry(s32 pickupId) {
-    char *record = (char *)&g_pickupTargetedDefinitions;
+    char *v1;
     s32 i;
 
-    for (i = 0; i < 16; i++) {
-        if (((PowerupIdEntry *)record)->id == pickupId) {
-            return record;
+    v1 = &g_pickupTargetedDefinitions;
+    i = 15;
+    do {
+        i -= 1;
+        if (((struct PowerupIdEntry *)(v1))->id != pickupId) {
+            v1 += sizeof(PowerupIdEntry);
+        } else {
+            return v1;
         }
-        record += sizeof(PowerupIdEntry);
-    }
+    } while (i != -1);
     return 0;
 }
 
@@ -1077,7 +1145,8 @@ s32 Pickup_ApplyPowerup(Player *player, PowerupIdEntry *pickup, LevelActor *effe
         break;
     case 7:
         ItemMenu_SetEntry(&player->itemMenu, 1, 0, 2045,
-                       0, 0, 0, (s32)Pickup_ToggleEffectAndFlash, (s32)Pickup_HandleItemUpdate);
+                       0, 0, 0, (s32)((u8 *)Pickup_ToggleEffectAndFlash - 0x80000000u),
+                       (s32)((u8 *)Pickup_HandleItemUpdate - 0x80000000u));
         break;
 
     default: break;

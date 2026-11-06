@@ -2,6 +2,7 @@
 #define COMMON_MATH_HELPERS_H
 #define RW_CLAMP(value, low, high) ((value) < (low) ? (low) : (value) > (high) ? (high) : (value))
 #define RW_MIN(a, b) ((a) > (b) ? (b) : (a))
+#define RW_MIN_F32(a, b) ({ f32 _m = (a); if (!(_m <= (b))) _m = (b); _m; })
 
 #define RW_MIN_LT(a, b) ((a) < (b) ? (a) : (b))
 #define RW_MAX_GT(a, b) ((a) > (b) ? (a) : (b))

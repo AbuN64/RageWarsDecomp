@@ -50,14 +50,14 @@ s32 Options_CreateOptionsPage(void) {
     secondList = SmpButton_CreateListWidget(85, 86);
     g_optionsPage->twoPlayerScreenList = secondList;
     SmpButton_AppendListText(secondList, g_optionsPrimaryLocalizedLabels[0]);
-    SmpButton_AppendListText(g_optionsPage->twoPlayerScreenList, g_optionsSecondaryLocalizedLabels);
+    SmpButton_AppendListText(g_optionsPage->twoPlayerScreenList, *(u8 **)g_optionsSecondaryLocalizedLabels);
     SmpButton_SelectListEntry(g_optionsPage->twoPlayerScreenList, settings->twoPlayerScreenPreference);
     thirdList = SmpButton_CreateListWidget(81, 82);
     g_optionsPage->resolutionList = thirdList;
     SmpButton_AppendListText(thirdList, g_optionsResolutionLoRezChoiceLabels[0]);
     if (Defs_GetMemorySize() != 0x400000) {
-        SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsResolutionHiRezChoiceLabels);
-        SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsResolutionLetterboxChoiceLabels);
+        SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsResolutionHiRezChoiceLabels[0]);
+        SmpButton_AppendListText(g_optionsPage->resolutionList, g_optionsResolutionLetterboxChoiceLabels[0]);
     }
     SmpButton_SelectListEntry(g_optionsPage->resolutionList, settings->resolution);
     slider = SmpSlider_CreateSliderWidget(83, 84, 128);
@@ -132,8 +132,8 @@ s32 Options_OpenOptionsScreen(void *node) {
     g_optionsShortcutScreen->secondList = secondListHandle;
     SmpButton_AppendListText(secondListHandle, g_optionsResolutionLoRezChoiceLabels[0]);
     if (Defs_GetMemorySize() != 0x400000) {
-        SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsResolutionHiRezChoiceLabels);
-        SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsResolutionLetterboxChoiceLabels);
+        SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsResolutionHiRezChoiceLabels[0]);
+        SmpButton_AppendListText(g_optionsShortcutScreen->secondList, g_optionsResolutionLetterboxChoiceLabels[0]);
     }
     SmpButton_SelectListEntry(g_optionsShortcutScreen->secondList, settings->slots[7].secondListMode);
     slider = SmpSlider_CreateSliderWidget(890, 891, 128);

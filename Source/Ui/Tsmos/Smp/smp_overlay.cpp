@@ -180,15 +180,27 @@ void SmpOverlay_SetObjectValue(struct Object6C *object, s32 value) {
 }
 
 s32 SmpOverlay_DispatchSlotEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    WidgetEventHandler *handler;
+    s32 offset;
+    s32 wildcard;
+    s32 actorKind;
+    s32 tableKind;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_overlaySlotEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
-            s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+    if (g_overlaySlotEventHandlers != 0) {
+        wildcard = ANY_ACTOR_KIND;
+        handler = &g_overlaySlotEventHandlers;
+        offset = 0;
+        do {
+            if (*(s32 *)((char *)&g_overlaySlotEventIds + offset) == eventId) {
+                actorKind = ((struct MenuWidget *)widget)->resource;
+                tableKind = *(s32 *)((char *)&g_overlaySlotEventActorKinds + offset);
+                if (tableKind == actorKind || tableKind == wildcard) {
+                    return (*handler)(widget, eventId, eventData0, eventData1, eventData2);
+                }
             }
-        }
+            handler = (WidgetEventHandler *)((char *)handler + sizeof(ResidentEventHandlerEntry));
+            offset += sizeof(ResidentEventHandlerEntry);
+        } while (*handler != 0);
     }
     return 0;
 }
@@ -696,15 +708,27 @@ s32 SmpOverlay_HandlePakDialogChoice(void) {
 }
 
 s32 SmpOverlay_DispatchPakDialogEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    WidgetEventHandler *handler;
+    s32 offset;
+    s32 wildcard;
+    s32 actorKind;
+    s32 tableKind;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_pakDialogEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
-            s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+    if (g_pakDialogEventHandlers != 0) {
+        wildcard = ANY_ACTOR_KIND;
+        handler = &g_pakDialogEventHandlers;
+        offset = 0;
+        do {
+            if (*(s32 *)((char *)&g_pakDialogEventIds + offset) == eventId) {
+                actorKind = ((struct MenuWidget *)widget)->resource;
+                tableKind = *(s32 *)((char *)&g_pakDialogEventActorKinds + offset);
+                if (tableKind == actorKind || tableKind == wildcard) {
+                    return (*handler)(widget, eventId, eventData0, eventData1, eventData2);
+                }
             }
-        }
+            handler = (WidgetEventHandler *)((char *)handler + sizeof(ResidentEventHandlerEntry));
+            offset += sizeof(ResidentEventHandlerEntry);
+        } while (*handler != 0);
     }
     return 0;
 }

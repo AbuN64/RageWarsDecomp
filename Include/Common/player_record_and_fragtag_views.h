@@ -9,7 +9,11 @@ struct ScreenRectangle;
 extern void *Playerai_ResetProfileState(void *actorObject);
 
 
-extern float g_playerHudSpriteMetrics[5];
+extern float g_playerHudSprite1FCOffset;
+extern float g_playerHudSprite1FBCenterScale;
+extern float g_playerHudSprite1FBOffset;
+extern float g_playerHudSprite201Offset;
+extern float g_playerHudSprite201HeightScale;
 
 struct Player;
 extern int Playerai_SelectedWeaponUsesAmmo(struct Player *actor);

@@ -7,21 +7,20 @@
 typedef union FloatBits {
     float value;
     unsigned int bits;
+    /* The two halves in memory order: on the big-endian target halves[0] is the high half. */
+    unsigned short halves[2];
 } FloatBits;
 
 /* Returns the high half of the float's bit pattern: the sign, exponent and top mantissa bits. */
 unsigned short Menu_GetFloatHighWord(float value) {
-    FloatBits converted;
-    converted.value = value;
-    return converted.bits >> 16;
+    return ((unsigned short *)&value)[0];
 }
 
 #if defined(VERSION_EU)
 
 f32 Menu_ExpandFloatHighWord(u32 value) {
-    FloatBits expanded;
-    expanded.bits = value << 16;
-    return expanded.value;
+    u32 bits = value << 16;
+    return *(f32 *)&bits;
 }
 /* Stale code words (j, move, jr ra, nop); no instruction reads it. */
 unsigned int g_floatConvertStaleCode[4] = {
@@ -31,8 +30,7 @@ unsigned int g_floatConvertStaleCode[4] = {
 
 #if !(defined(VERSION_EU))
 float Menu_ExpandFloatHighWord(int floatHighBits) {
-    FloatBits expanded;
-    expanded.bits = floatHighBits << 16;
-    return expanded.value;
+    int tmp = floatHighBits << 16;
+    return *(float *)&tmp;
 }
 #endif

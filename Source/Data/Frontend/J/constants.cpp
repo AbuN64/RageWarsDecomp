@@ -31,16 +31,26 @@
 /* PLAYER_DISPATCHPLAYERSETTINGSEVENT_DATA.CPP */
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
-RestPlayerDispatchPlayerSettingsEventData g_playerDispatchPlayerSettingsEventData = { { { 3591, 5, (void *)Player_EmptySettingsEntryHook },
-         { 3592, 5, (void *)Player_UpdatePlayerSettingsExit }, { 3590, 5, (void *)Player_InitPlayerSettingsScreen },
-         { 3587, 5, (void *)Player_FreePlayerSettingsScreen }, { 10, 5, (void *)Player_EmptySettingsConfirmHook },
-         { 2, 5, (void *)Player_CancelPlayerSettingsEntry }, { 1, 5, (void *)Player_ConfirmPlayerSettingsEntry },
-         { 8, 92, (void *)Player_SelectNextPlayerSettingsEntry }, { 7, 92, (void *)Player_SelectPreviousPlayerSettingsEntry },
-         { 0, 0, 0 } }, { { 3591, 12, (void *)Player_EmptyAlternateSettingsEntryHook }, { 3592, 12, (void *)Player_EmptyAlternateSettingsExitHook },
-         { 3590, 12, (void *)Player_BuildItemLabelList }, { 3587, 12, (void *)&Player_FreeAlternatePlayerSettingsScreen_Address },
-         { 2, 12, (void *)Player_CancelAlternatePlayerSettingsEntry }, { 1, 12, (void *)Player_ConfirmAlternatePlayerSettingsEntry },
-         { 8, 450, (void *)Player_SelectNextAlternatePlayerSettingsEntry }, { 7, 450, (void *)Player_SelectPreviousAlternatePlayerSettingsEntry },
-         { 0, 0, 0 } }, 9 };
+extern char addrLow_Player_CancelAlternatePlayerSettingsEntry[];
+extern char addrLow_Player_CancelPlayerSettingsEntry[];
+extern char addrLow_Player_ConfirmAlternatePlayerSettingsEntry[];
+extern char addrLow_Player_ConfirmPlayerSettingsEntry[];
+extern char addrLow_Player_EmptyAlternateSettingsEntryHook[];
+extern char addrLow_Player_EmptyAlternateSettingsExitHook[];
+extern char addrLow_Player_EmptySettingsConfirmHook[];
+extern char addrLow_Player_EmptySettingsEntryHook[];
+extern char addrLow_Player_FreeAlternatePlayerSettingsScreen[];
+extern char addrLow_Player_FreePlayerSettingsScreen[];
+extern char addrLow_Player_InitPlayerSettingsScreen[];
+extern char addrLow_Player_SelectNextAlternatePlayerSettingsEntry[];
+extern char addrLow_Player_SelectNextPlayerSettingsEntry[];
+extern char addrLow_Player_SelectPreviousAlternatePlayerSettingsEntry[];
+extern char addrLow_Player_SelectPreviousPlayerSettingsEntry[];
+extern char addrLow_Player_UpdatePlayerSettingsExit[];
+RestPlayerDispatchPlayerSettingsEventData g_playerDispatchPlayerSettingsEventData = {
+    { { 3591, 5, (void *)addrLow_Player_EmptySettingsEntryHook }, { 3592, 5, (void *)addrLow_Player_UpdatePlayerSettingsExit }, { 3590, 5, (void *)addrLow_Player_InitPlayerSettingsScreen }, { 3587, 5, (void *)addrLow_Player_FreePlayerSettingsScreen }, { 10, 5, (void *)addrLow_Player_EmptySettingsConfirmHook }, { 2, 5, (void *)addrLow_Player_CancelPlayerSettingsEntry }, { 1, 5, (void *)addrLow_Player_ConfirmPlayerSettingsEntry }, { 8, 92, (void *)addrLow_Player_SelectNextPlayerSettingsEntry }, { 7, 92, (void *)addrLow_Player_SelectPreviousPlayerSettingsEntry }, { 0, 0, 0 } },
+    { { 3591, 12, (void *)addrLow_Player_EmptyAlternateSettingsEntryHook }, { 3592, 12, (void *)addrLow_Player_EmptyAlternateSettingsExitHook }, { 3590, 12, (void *)((u32)Player_BuildItemLabelList - 0x80000000u) }, { 3587, 12, (void *)addrLow_Player_FreeAlternatePlayerSettingsScreen }, { 2, 12, (void *)addrLow_Player_CancelAlternatePlayerSettingsEntry }, { 1, 12, (void *)addrLow_Player_ConfirmAlternatePlayerSettingsEntry }, { 8, 450, (void *)addrLow_Player_SelectNextAlternatePlayerSettingsEntry }, { 7, 450, (void *)addrLow_Player_SelectPreviousAlternatePlayerSettingsEntry }, { 0, 0, 0 } }, 9
+};
 #endif
 #if defined(VERSION_EU)
 RestPlayerDispatchPlayerSettingsEventDataVariant2 g_playerDispatchPlayerSettingsEventData = { { { 3591,
@@ -82,21 +92,6 @@ PlayerSettingsEventHandlersUsLayout g_playerSettingsEventHandlersUs = {
 #endif
 
 /* MENU_DISPATCHSETTINGSCOLUMNEVENT_DATA.CPP */
-#if defined(VERSION_DE)
-MenuDispatchsettingscolumneventPointerWords1Layout g_dispatchSettingsColumnEventHandlers = { { 3592, 9 },
-     (void *)addrLow_Menu_UpdateScrollingChoiceScreen, { 3590, 9, 4420368, 3591, 9 }, { { (void *)addrLow_Menu_WrapScrollingChoiceNodes,
-             { 3587, 9 } }, { (void *)addrLow_Menu_FreeScrollingChoiceScreen, { 1, 9 } }, { (void *)addrLow_Menu_HandleScrollingChoice,
-             { 2, 9 } } }, { (void *)addrLow_Menu_CancelScrollingChoiceScreen, 0, 0, 0 }, { { { 3592, 30 },
-             (void *)addrLow_Menu_UpdateTitleButtonScreen }, { { 3590, 30 }, (void *)addrLow_Menu_CreateTitleButtonScreen },
-         { { 3591, 30 }, (void *)addrLow_Menu_WrapSettingsNodePair }, { { 3587, 30 }, (void *)addrLow_Menu_FreeTitleButtonScreen },
-         { { 1, 30 }, (void *)addrLow_Menu_HandleTitleButtonChoice } }, { 2, 30 }, { (void *)addrLow_Menu_CancelTitleButtonScreen,
-         0, 0, 0 } };
-#endif
-
-/* ACHIEVE_CREATERESULTSSCREEN_DATA.CPP */
-s32 g_achieveCreateResultsScreenZeroWord[1] = {
-    0,
-};
 
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
@@ -211,11 +206,6 @@ RestAchieveCreateresultsscreenPointerTableTailUsRecord g_AchieveCreateresultsscr
 };
 #endif
 
-/* MENU_CREATESOUNDOPTIONSSCREEN_DATA.CPP */
-s32 g_createSoundOptionsScreenZero[2] = {
-    0, 0,
-};
-
 #if !(defined(VERSION_US) || defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
 RestMenuCreateSoundOptionsScreenData g_menuCreateSoundOptionsScreenData = { { { 3591, 6, (void *)Menu_SoundOptionsReturnZero },
@@ -279,11 +269,6 @@ MenuCreatesoundoptionsscreenPointerWordsTailUsLayout g_MenuCreatesoundoptionsscr
 };
 #endif
 
-/* FRONTEND_PULSEPROFILERESETWIDGET_DATA.CPP */
-s32 g_pulseProfileResetWidgetZeroWord[1] = {
-    0,
-};
-
 #if defined(VERSION_DE) || defined(VERSION_EU_X)
 #if defined(VERSION_DE)
 RestFrontendPulseProfileResetWidgetData g_frontendPulseProfileResetWidgetData = {
@@ -321,7 +306,7 @@ RestFrontendPulseprofileresetwidgetPointerTable1Record g_pulseProfileResetWidget
     PACKED_CALLBACK_LOW(Frontend_PulseProfileResetWidget),
     3590,
     24,
-    (unsigned int)addrLow_Frontend_CreateProfileResetScreenUs,
+    (unsigned int)addrLow_Frontend_CreateProfileResetScreen,
     3587,
     24,
     PACKED_CALLBACK_LOW(Frontend_FreeProfileResetScreen),
@@ -390,11 +375,6 @@ s32 g_equipmentPanelItemTable[174] = {
     6, 30000, PACKED_CALLBACK_LOW(Frontend_SelectNextEquipmentColumn), 0, 0, 0,
 };
 #endif
-
-/* ENCODED_INSERTTEXTENTRYCHARACTER_DATA.CPP */
-s32 g_insertTextEntryCharacterZero[3] = {
-    0, 0, 0,
-};
 
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
@@ -494,43 +474,14 @@ void *g_insertTextEntryCharacterSelfLinkedWords[7] = {
 
 /* G_MENUBOXCORNERS.CPP */
 #ifdef VERSION_DE
-RestGMenuboxcornersWords1 g_miniGamesLabelPool = {
-    5,
-    "MiniGames\000\000\000BLANK\000\000\000Trap Sho",
-    0x6F7400CC,
-    24.0f,
-    -1
-};
 #endif
 #ifdef VERSION_EU
-RestGMenuboxcornersWords1Variant2 g_miniGamesLabelPool = {
-    5,
-    "MiniGames\000\000\000BLANK\000\000\000Trap Sho",
-    0x6F7400F8,
-    { 4239624, -1 }
-};
 #endif
 #ifdef VERSION_EU_X
-RestGMenuboxcornersWords1Variant3 g_miniGamesLabelPool = {
-    5,
-    "MiniGames\000\000\000BLANK\000\000\000Trap Shoot\000$",
-    0x8FB40020,
-    -1
-};
 #endif
 #ifdef VERSION_US
-RestGMenuboxcornersWords1Variant4 g_miniGamesLabelPool = {
-    5,
-    "MiniGames\000\000\000BLANK\000\000\000Trap Shoot\000:\\Pro",
-    -1
-};
 #endif
 #ifdef VERSION_US_REV1
-RestGMenuboxcornersWords1Variant5 g_miniGamesLabelPool = {
-    5,
-    "MiniGames\000\000\000BLANK\000\000\000Trap Shoot\000ANTED",
-    -1
-};
 #endif
 
 #if !(defined(VERSION_US_REV1))
@@ -908,12 +859,6 @@ s32 g_equipmentPanelItemTable[174] = {
 
 
 
-void *g_multiplayerNameBufferTable[16] = {
-    g_multiplayerNameEntryStates[0].text, g_multiplayerNameEntryStates[0].text, g_multiplayerNameEntryStates[0].text, g_multiplayerNameEntryStates[0].text,
-    g_multiplayerNameEntryStates[1].text, g_multiplayerNameEntryStates[1].text, g_multiplayerNameEntryStates[1].text, g_multiplayerNameEntryStates[1].text,
-    g_multiplayerNameEntryStates[2].text, g_multiplayerNameEntryStates[2].text, g_multiplayerNameEntryStates[2].text, g_multiplayerNameEntryStates[2].text,
-    g_multiplayerNameEntryStates[3].text, g_multiplayerNameEntryStates[3].text, g_multiplayerNameEntryStates[3].text, g_multiplayerNameEntryStates[3].text,
-};
 
 
 
@@ -2634,7 +2579,7 @@ char s_janesCheatActivatedText[24] = "janes cheat activated";
 unsigned int k_GfxGetnormalizedcounterData[84] = {
     (unsigned int)&s_janesCheatActivatedText, 0x00000000, (unsigned int)&g_firstPlayerName, ((unsigned int)&g_profileAchievementProgressRows[0][137]), ((unsigned int)&g_profileAchievementProgressRows[1][137]), ((unsigned int)&g_profileAchievementProgressRows[2][137]), ((unsigned int)&k_GfxGetnormalizedcounterData[2]), ((unsigned int)&k_GfxGetnormalizedcounterData[3]),
     ((unsigned int)&k_GfxGetnormalizedcounterData[4]), ((unsigned int)&k_GfxGetnormalizedcounterData[5]), 0x00010000, 0x10000000, 0x00000000, 0x0000FF01, 0x00000385, (unsigned int)g_menuPaged_Menu_DrawMenuOptionSprite,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x08000021, 0x00000008, 0x0000FF01, ((unsigned int)&g_inventoryLabelSlotWords[3]),
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x08000021, 0x00000008, 0x0000FF01, ((unsigned int)&g_inventoryLabelSlot + 3),
     (unsigned int)g_menuPaged_Menu_DrawMenuItemLabel, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00010041, 0x00000028, 0x0000FF01,
     (unsigned int)&g_unlockedLevelResultLabel, (unsigned int)g_menuPaged_Menu_DrawMenuItemLabel, (unsigned int)&CMenuProfile_SetFirstResultLabel, 0x00000000, 0x00000000, 0x00000000, 0x00010041, 0x0000000F,
     0x0000FF01, (unsigned int)&g_unlockedLevelResultLabel, (unsigned int)g_menuPaged_Menu_DrawMenuItemLabel, (unsigned int)&CMenuProfile_SetSecondResultLabel, 0x00000000, 0x00000000, 0x00000000, 0x00010041,
@@ -2723,4 +2668,35 @@ EquipmentAndResultsMenuRecords g_equipmentAndPlayerSettingsMenuDataEu = {
         { 0x00000000, 0x00000000, 0x00000000 },
     },
 };
+#endif
+
+#if defined(VERSION_DE)
+extern char addrLow_Menu_CancelScrollingChoiceScreen[];
+extern char addrLow_Menu_CancelTitleButtonScreen[];
+extern char addrLow_Menu_CreateTitleButtonScreen[];
+extern char addrLow_Menu_CreateUnlockGatedListScreen[];
+extern char addrLow_Menu_FreeScrollingChoiceScreen[];
+extern char addrLow_Menu_FreeTitleButtonScreen[];
+extern char addrLow_Menu_HandleScrollingChoice[];
+extern char addrLow_Menu_HandleTitleButtonChoice[];
+extern char addrLow_Menu_UpdateScrollingChoiceScreen[];
+extern char addrLow_Menu_UpdateTitleButtonScreen[];
+extern char addrLow_Menu_WrapScrollingChoiceNodes[];
+extern char addrLow_Menu_WrapSettingsNodePair[];
+RestMenuDispatchSettingsTableEventData g_menuDispatchSettingsTableEventData = { {
+        { 3592, 9, (void *)addrLow_Menu_UpdateScrollingChoiceScreen },
+        { 3590, 9, (void *)addrLow_Menu_CreateUnlockGatedListScreen },
+        { 3591, 9, (void *)addrLow_Menu_WrapScrollingChoiceNodes },
+        { 3587, 9, (void *)addrLow_Menu_FreeScrollingChoiceScreen },
+        { 1, 9, (void *)addrLow_Menu_HandleScrollingChoice },
+        { 2, 9, (void *)addrLow_Menu_CancelScrollingChoiceScreen },
+        { 0, 0, 0 },
+        { 3592, 30, (void *)addrLow_Menu_UpdateTitleButtonScreen },
+        { 3590, 30, (void *)addrLow_Menu_CreateTitleButtonScreen },
+        { 3591, 30, (void *)addrLow_Menu_WrapSettingsNodePair },
+        { 3587, 30, (void *)addrLow_Menu_FreeTitleButtonScreen },
+        { 1, 30, (void *)addrLow_Menu_HandleTitleButtonChoice },
+        { 2, 30, (void *)addrLow_Menu_CancelTitleButtonScreen },
+        { 0, 0, 0 }
+} };
 #endif

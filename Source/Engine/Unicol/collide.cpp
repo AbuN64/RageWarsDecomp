@@ -872,7 +872,7 @@ s32 CCollision_TestSegmentDisk(CapsuleSweep *ray, PolygonCCollisionTestSegmentPo
     return 1;
 }
 
-void CCollision_ClearResultFlags(void)
+void CCollision_ClearResultFlags(void *collisionWork)
 {
   g_collisionCurrentActor->contactValue = (g_collisionCurrentActor->typeFC = (g_collisionCurrentActor->instanceValueC4 = (g_collisionCurrentActor->contactFlagsB0 = (g_collisionCurrentActor->contactFlags9C = (s32)(g_collisionCurrentActor->instance88 = (g_collisionCurrentActor->instance0 = 0))))));
 }
@@ -975,8 +975,8 @@ s32 CCollision_IsNearerContact(BoxContactRay *ray, BoxContactPolygon *polygon) {
     }
     isNearer = 0;
     {
-        f32 polygonFraction = polygon->t;
-        if (!(ray->nearest.t <= polygonFraction)) {
+        f32 b = polygon->t;
+        if (!(ray->nearest.t <= b)) {
             isNearer = 1;
         }
     }

@@ -116,6 +116,7 @@
 #include "Engine/lighting.h"
 #include "Ai/cbarrel.h"
 #include "Ai/Devices/Movingai/movingai.h"
+#include "Common/frustum.h"
 
 /* PARTICLE_SPAWNCHILDEFFECT.CPP */
 
@@ -1225,7 +1226,7 @@ void Particle_Update(Shared_Particle *particle) {
         }
     }
     if (particle->flags & 0x40000) {
-        if (Unicol_MoveActorWithCollision(particle, particle->inst.pos.x, particle->inst.pos.y, particle->inst.pos.z, &particle->render.dwFlags) && (*(s32 *)g_currentActorInstance.padB4) != 0) {
+        if (Unicol_MoveActorWithCollision(particle, particle->inst.pos, &particle->render.dwFlags) && (*(s32 *)g_currentActorInstance.padB4) != 0) {
             particle->space = PARTICLE_ALIGN_FLOOR;
         }
         if (particle->inst.instanceFlags & 0x1000) {
@@ -1265,7 +1266,7 @@ void Particle_Update(Shared_Particle *particle) {
     particle->rot.x += particle->rotSpeed.x * g_frameElapsedTime;
     particle->rot.y += particle->rotSpeed.y * g_frameElapsedTime;
     particle->rot.z += particle->rotSpeed.z * g_frameElapsedTime;
-    (*(CVector3 *)&g_collisionCurrentActor->vecF0) = particle->inst.velocity;
+    (*(CVector3 *)&g_collisionCurrentActor->particleVelocity) = particle->inst.velocity;
     Particle_DispatchSpatialContactEvents(particle);
     influenceRange = particle->desc->playerContactRadius;
     if (!(influenceRange <= 0.0f)) {
@@ -1295,7 +1296,7 @@ void Particle_Update(Shared_Particle *particle) {
         return;
     }
     if (!(particle->flags & 0x72000)) {
-        die = Unicol_MoveActorWithCollision(particle, particle->inst.pos.x, particle->inst.pos.y, particle->inst.pos.z, &particle->render.dwFlags);
+        die = Unicol_MoveActorWithCollision(particle, particle->inst.pos, &particle->render.dwFlags);
         if (particle->inst.instanceFlags & 0x1000) {
             particle->flags |= 4;
         } else {
@@ -1306,7 +1307,7 @@ void Particle_Update(Shared_Particle *particle) {
         }
         if (die) {
             if (g_currentActorInstance.instance0 != NULL) {
-                Graphu64_SubtractVectors(&particle->direction, &particle->inst.pos, &(*(CVector3 *)&g_currentActorInstance.vecE4));
+                Graphu64_SubtractVectors(&particle->direction, &particle->inst.pos, &(*(CVector3 *)&g_currentActorInstance.vec8));
             } else if (g_currentActorInstance.instance88 != 0) {
                 Graphu64_SubtractVectors(&particle->direction, &particle->inst.pos, &(*(CVector3 *)&g_currentActorInstance.vec90));
             } else if (g_currentActorInstance.contactFlags9C != 0) {
@@ -1683,7 +1684,7 @@ void Particle_HitTarget(void *particle) {
                 Graphu64_ConvertMatrixToFloat(boneMatrix, &((FixedPointMatrix *)owner->alternateAnimationMatrices)[g_currentActorInstance.value]);
                 hasMatrix=1;
                 if (owner->flags&0x1000000) {
-                    Gobjinst_ApplyImpactBoneTwist((char *)owner, (char *)&owner->behaviorFlags, (char *)boneMatrix, (*(CVector3 *)&g_currentActorInstance.vecE4), (*(CVector3 *)&g_currentActorInstance.vecF0), g_currentActorInstance.value);
+                    Gobjinst_ApplyImpactBoneTwist((char *)owner, (char *)&owner->behaviorFlags, (char *)boneMatrix, (*(CVector3 *)&g_currentActorInstance.vec8), (*(CVector3 *)&g_currentActorInstance.particleVelocity), g_currentActorInstance.value);
                 }
                 if (owner->flags&0x2000000) {
                     type=actor->inst.type;
@@ -1716,7 +1717,7 @@ void Particle_HitTarget(void *particle) {
     if (source->kind==1) {
         owner=source;
         if (owner->projectileContactCallback) owner->projectileContactCallback(owner, &owner->behaviorFlags, actor);
-        if (InstHdr_ReturnUnusedActorStatus()) enabled=0;
+        if (InstHdr_ReturnUnusedActorStatus(owner)) enabled=0;
         if (owner->behaviorFlags&2) enabled=0;
     }
     if (effect!=0xffff) {
@@ -1725,7 +1726,7 @@ void Particle_HitTarget(void *particle) {
         }
         other=source;
         if (g_effectCallbackFlags[effect].flags&2) other=actor;
-        Events_DeliverContactEffect(other, actor, effect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vecE4)), *(ContactEffectStyle *)&(primary.words));
+        Events_DeliverContactEffect(other, actor, effect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vec8)), *(ContactEffectStyle *)&(primary.words));
     }
     if (action!=4) {
         draw=1;
@@ -1741,7 +1742,7 @@ void Particle_HitTarget(void *particle) {
                 if (g_effectCallbackFlags[extraEffect].flags&4) {
                     other=source;
                     if (g_effectCallbackFlags[extraEffect].flags&2) other=actor;
-                    Events_DeliverContactEffect(other, actor, extraEffect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vecE4)), *(ContactEffectStyle *)&(secondary.words));
+                    Events_DeliverContactEffect(other, actor, extraEffect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vec8)), *(ContactEffectStyle *)&(secondary.words));
                 }
             }
         }
@@ -1751,7 +1752,7 @@ void Particle_HitTarget(void *particle) {
 #if defined(VERSION_DE)
         if (actor->inst.type!=297)
 #endif
-            SoundElement_PlaySoundAtPosition((s16)sound, (*(CVector3 *)&g_currentActorInstance.vecE4), 0, (s32)actor);
+            SoundElement_PlaySoundAtPosition((s16)sound, (*(CVector3 *)&g_currentActorInstance.vec8), 0, (s32)actor);
 #if defined(VERSION_DE)
         else Particle_DispatchSurfaceContact(actor);
 #endif
@@ -1777,7 +1778,7 @@ void Particle_HitTarget(void *particle) {
 }
 
 /* Reacts to a particle striking the current attachment target. The target picks the impact slot (slot 5 becomes slot 4
- * and sets flag 2). Under the controlled-impact mode (g_motionVisibilitySettings) descriptor slot 12 or 10 fires its event, particle
+ * and sets flag 2). Under the controlled-impact mode (g_gameSettings.local) descriptor slot 12 or 10 fires its event, particle
  * and sound at the particle. Otherwise slots 0, 2 and 3 leave a mark when the descriptor has flag 0x800000; a particle
  * whose response byte is 8 is handed to a kind 1 owner (flag 0x20000) or expires; types 0x56, 0x126, 0xCD and 0xF move
  * to the impact point and release their swooshes and light; then the particle is pushed off the surface along the hit
@@ -1825,14 +1826,14 @@ void Particle_ApplyImpactResponse(Shared_Particle *particle) {
         case 2:
         case 3:
             if (desc->flags & 0x800000) {
-                Fx_SpawnImpactMark(&g_gameSession.hud.actors, (*(CVector3 *)&g_currentActorInstance.vecE4), (*(CVector3 *)&(*(CVector3 *)&g_currentActorInstance.vecF0)), hit, 0);
+                Fx_SpawnImpactMark(&g_gameSession.hud.actors, (*(CVector3 *)&g_currentActorInstance.vec8), (*(CVector3 *)&(*(CVector3 *)&g_currentActorInstance.vecF0)), hit, 0);
             }
             break;
         }
         if (particle->render.WallBehavior == 8 || particle->render.GroundBehavior == 8) {
             if ((g_particleOwnerEffectFlags & 0x1000000) && (owner = (LevelActor *)particle->owner) && owner->kind == 1 && (owner->flags & 0x300000)) {
                 particle->flags |= 0x20000;
-                particle->inst.pos = (*(CVector3 *)&g_currentActorInstance.vecE4);
+                particle->inst.pos = (*(CVector3 *)&g_currentActorInstance.vec8);
                 particle->inst.velocity = g_particleZeroVector;
                 Player_SetPlayerResetPosition(((Player *)((LevelActor *)particle->owner)->controller), &particle->inst.pos);
             } else {
@@ -1842,7 +1843,7 @@ void Particle_ApplyImpactResponse(Shared_Particle *particle) {
         if (particle->inst.type == 86 || particle->inst.type == 294 || particle->inst.type == 205 ||
             particle->inst.type == 15) {
             particle->flags |= 0x20000;
-            particle->inst.pos = (*(CVector3 *)&g_currentActorInstance.vecE4);
+            particle->inst.pos = (*(CVector3 *)&g_currentActorInstance.vec8);
             particle->inst.velocity = g_particleZeroVector;
             if (particle->ribbonReferenceCount) {
                 Particle_UpdateMatrix(particle);
@@ -1866,13 +1867,13 @@ void Particle_ApplyImpactResponse(Shared_Particle *particle) {
             if (g_effectCallbackFlags[effect].flags & 2) {
                 eventSource = particle;
             }
-            Events_DeliverContactEffect(eventSource, particle, effect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vecE4)), *(ContactEffectStyle *)&(params));
+            Events_DeliverContactEffect(eventSource, particle, effect, -1, *(CVector3 *)&((*(CVector3 *)&g_currentActorInstance.vec8)), *(ContactEffectStyle *)&(params));
         }
         if (model != 0xFFFF) {
             Particle_SpawnChildEffect(particle, model, -8, 1);
         }
         if (sound != 0xFFFF) {
-            SoundElement_PlaySoundAtPosition(sound, (*(CVector3 *)&g_currentActorInstance.vecE4), 0, (s32)particle);
+            SoundElement_PlaySoundAtPosition(sound, (*(CVector3 *)&g_currentActorInstance.vec8), 0, (s32)particle);
         }
         if (particle->flags & 0x30000) {
             return;
@@ -2346,7 +2347,7 @@ void Particle_DrawGroundShadow(Shared_Particle *actor, GameplayCamera *view) {
     point.x = probe.pos.x;
     point.y = probe.pos.y - 102400.0f;
     point.z = probe.pos.z;
-    Unicol_MoveActorWithCollision(&probe, point.x, point.y, point.z, &g_defaultProbeMotionSettings);
+    Unicol_MoveActorWithCollision(&probe, point, &g_defaultProbeMotionSettings);
     ground = &g_currentActorInstance;
     if (ground->current == 0) {
         return;
@@ -2367,13 +2368,7 @@ void Particle_DrawGroundShadow(Shared_Particle *actor, GameplayCamera *view) {
     }
     size *= actor->desc->scaling->shadowScale;
     shrink = height * 0.1f;
-    {
-        f32 shrunkSize = size - shrink;
-        if (!(shrunkSize <= size)) {
-            shrunkSize = size;
-        }
-        size = (shrunkSize < 0.0f) ? 0.0f : shrunkSize;
-    }
+    size = RW_MIN_F32(size - shrink, size) < 0.0f ? 0.0f : RW_MIN_F32(size - shrink, size);
     if (actor->desc->flags & 1) {
         health = actor->life;
         if (0.0f < health) {
@@ -2394,7 +2389,7 @@ void Particle_DrawGroundShadow(Shared_Particle *actor, GameplayCamera *view) {
         cmd = g_displayListCursor++;
         gDPSetCycleType(cmd, G_CYC_2CYCLE);
     }
-    Geometry_DrawIntensityMask(model, 1, (u32)alpha);
+    Geometry_DrawIntensityMask(model, 1, (u8)(u32)alpha);
     {
         Gfx *cmd = g_displayListCursor++;
         gDPPipeSync(cmd);
@@ -2469,7 +2464,6 @@ struct Shared_AnimInfo;
  * frame for a shared camera, per view otherwise), selects the texture and render mode, works out its alpha from life,
  * fade-in, fade-out and distance from the view, and emits the colour and draw commands. */
 
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 
 static inline s32 Particle_IsSpriteOccluded(Shared_Particle *particle, GameplayCamera *view) {
@@ -2481,13 +2475,13 @@ static inline s32 Particle_IsSpriteOccluded(Shared_Particle *particle, GameplayC
         Shared_ParticleInstance saved;
         saved = *inst;
         inst->pos = view->position;
-        hit = Unicol_MoveActorWithCollision(inst, particle->inst.pos.x, particle->inst.pos.y, particle->inst.pos.z, &g_defaultProbeMotionSettings);
+        hit = Unicol_MoveActorWithCollision(inst, particle->inst.pos, &g_defaultProbeMotionSettings);
         *inst = saved;
     } else {
         Shared_ParticleInstance probe;
         probe = particle->inst;
         probe.pos = view->position;
-        hit = Unicol_MoveActorWithCollision(&probe, particle->inst.pos.x, particle->inst.pos.y, particle->inst.pos.z, &g_defaultProbeMotionSettings);
+        hit = Unicol_MoveActorWithCollision(&probe, particle->inst.pos, &g_defaultProbeMotionSettings);
     }
     return hit;
 }
@@ -2509,20 +2503,13 @@ static inline s32 Particle_GetNonnegativeScaledSpriteSize(f32 value, f32 div) {
     return (value < 0.0f) ? 0 : (s32)((s32)value / div);
 }
 
-static inline f32 lesser(f32 a, f32 b) { return a > b ? b : a; }
-static inline f32 greater(f32 a, f32 b) { return a < b ? b : a; }
+#define PARTICLE_MIN(a, b) ((a) > (b) ? (b) : (a))
+#define PARTICLE_MAX(a, b) ((a) < (b) ? (b) : (a))
 
-/* Linearly blends one colour channel from a start value to an end value and clamps the result to 0..255. */
-static inline u32 Particle_BlendColorChannel(f32 from, f32 to, f32 ratio) {
-    f32 blended = (to - from) * ratio + from;
-    if (blended > 255.0f) {
-        blended = 255.0f;
-    }
-    if (blended < 0.0f) {
-        blended = 0.0f;
-    }
-    return (u32)blended;
-}
+/* Linearly blends one colour channel from a start value to an end value and clamps the result to 0..255.
+   A macro, as in the ROM's unit: the clamp evaluates the blend once per comparison and once per result. */
+#define PARTICLE_BLEND_COLOR_CHANNEL(from, to, ratio) \
+    ((u32)PARTICLE_MAX(PARTICLE_MIN(((to) - (from)) * (ratio) + (from), 255.0f), 0.0f))
 
 void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view) {
     struct Shared_AnimInfo info;
@@ -2588,12 +2575,12 @@ void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view) {
     envFrom = particle->env;
     primTo = desc->colors->prim;
     envTo = desc->colors->env;
-    env[0] = Particle_BlendColorChannel(envFrom[0], envTo[0], ratio);
-    env[1] = Particle_BlendColorChannel(envFrom[1], envTo[1], ratio);
-    env[2] = Particle_BlendColorChannel(envFrom[2], envTo[2], ratio);
-    prim[0] = Particle_BlendColorChannel(primFrom[0], primTo[0], ratio);
-    prim[1] = Particle_BlendColorChannel(primFrom[1], primTo[1], ratio);
-    prim[2] = Particle_BlendColorChannel(primFrom[2], primTo[2], ratio);
+    env[0] = PARTICLE_BLEND_COLOR_CHANNEL(envFrom[0], envTo[0], ratio);
+    env[1] = PARTICLE_BLEND_COLOR_CHANNEL(envFrom[1], envTo[1], ratio);
+    env[2] = PARTICLE_BLEND_COLOR_CHANNEL(envFrom[2], envTo[2], ratio);
+    prim[0] = PARTICLE_BLEND_COLOR_CHANNEL(primFrom[0], primTo[0], ratio);
+    prim[1] = PARTICLE_BLEND_COLOR_CHANNEL(primFrom[1], primTo[1], ratio);
+    prim[2] = PARTICLE_BLEND_COLOR_CHANNEL(primFrom[2], primTo[2], ratio);
 
     if (view->monochrome != 0) {
         gray = env[0] + env[1] + env[2];
@@ -2708,9 +2695,9 @@ void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view) {
     } else if ((desc->flags & 0x400) && desc->fade->modeSelector != 4) {
         Geometry_SetModePreset(15);
     } else if (desc->flags & 0x4000) {
-        Geometry_SetModePreset(!(g_gameSettingsView & 0x200) ? 13 : 17);
+        Geometry_SetModePreset(!(g_gameSettings.flags & 0x200) ? 13 : 17);
     } else {
-        Geometry_SetModePreset((g_gameSettingsView & 0x200) ? 18 : 19);
+        Geometry_SetModePreset((g_gameSettings.flags & 0x200) ? 18 : 19);
     }
 
     alpha = 0xFF;
@@ -2784,7 +2771,6 @@ void Particle_DrawSprite(Shared_Particle *particle, GameplayCamera *view) {
 }
 
 /* Keep this source unit's macros local to its body. */
-#undef g_gameSettingsView
 
 /* PARTICLE_RECYCLERELEASEDEFFECTS.CPP */
 
@@ -2804,7 +2790,9 @@ void Particle_RecycleReleasedEffects(EffectSystem *recycleSystem) {
 
     i = 0;
     clear_mask = 0xFDFFFEFF;
+    remove_offset = 64512;
     active_mask = 0x01000000;
+    flagged_offset = 0xFC14;
     do {
         __builtin_memcpy(&next, &(recycleSystem)->lists[i].head, sizeof(next));
         if (next != 0) {
@@ -2831,9 +2819,9 @@ void Particle_RecycleReleasedEffects(EffectSystem *recycleSystem) {
                     effect->flags = effect->flags & clear_mask;
                     List_RemoveIntrusive(effect->list, effect);
                     effect->list = 0;
-                    List_PrependIntrusive(&(recycleSystem)->free, effect);
+                    List_PrependIntrusive((char *)recycleSystem + remove_offset, effect);
                     if (effect->flags & active_mask) {
-                        List_RemoveIntrusive(&(recycleSystem)->groups, effect);
+                        List_RemoveIntrusive((char *)recycleSystem + flagged_offset, effect);
                     }
                   }
                 }
@@ -3208,12 +3196,12 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                 } else {
                     effect->time = -(f32) effect_spawn_random_count(spread);
                 }
-                effect->sineAngleX = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[2])) * g_particleAngularVelocityScale;
-                effect->sineAngleSpeedX = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[1])) * 0.41887906f;
-                effect->sineAmplitudeX = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[0]));
-                effect->sineAngleY = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[5])) * g_particleAngularVelocityScale;
-                effect->sineAngleSpeedY = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[4])) * 0.41887906f;
-                effect->sineAmplitudeY = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->sineWave->ranges[3]));
+                effect->sineAngleX = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[2])) * g_particleAngularVelocityScale;
+                effect->sineAngleSpeedX = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[1])) * 0.41887906f;
+                effect->sineAmplitudeX = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[0]));
+                effect->sineAngleY = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[5])) * g_particleAngularVelocityScale;
+                effect->sineAngleSpeedY = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[4])) * 0.41887906f;
+                effect->sineAmplitudeY = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->sineWave->ranges[3]));
                 if (entry->flags & 2) {
                     effect->frame = effect_spawn_random_count(life);
                 } else {
@@ -3224,9 +3212,9 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                 effect->spriteFrame = 0;
                 effect->fixedSpriteFrame = -1;
                 if (aim == 0) {
-                    dir.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[0]));
-                    dir.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[1]));
-                    dir.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[2]));
+                    dir.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[0]));
+                    dir.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[1]));
+                    dir.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[2]));
                     Graphu64_NormalizeVec3(&dir.x);
                     if (dir.x != 0.0f || dir.y != 0.0f || dir.z != 0.0f) {
                         Graphu64_TransformPoint(&mtx, &dir, &dirOut);
@@ -3240,26 +3228,26 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                         effect->direction = dirOut;
                     }
                 }
-                effect->size.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[0]));
-                effect->size.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[2]));
-                effect->size.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[4]));
-                effect->growth.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[1]));
-                effect->growth.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[3]));
-                effect->growth.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->scaling->ranges[5]));
+                effect->size.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[0]));
+                effect->size.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[2]));
+                effect->size.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[4]));
+                effect->growth.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[1]));
+                effect->growth.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[3]));
+                effect->growth.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->scaling->ranges[5]));
                 if (entry->renderModel != 0) {
-                    effect->rot.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[0]));
-                    effect->rot.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[2]));
-                    effect->rot.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[4]));
-                    effect->rotSpeed.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[1]));
-                    effect->rotSpeed.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[3]));
-                    effect->rotSpeed.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[5]));
+                    effect->rot.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[0]));
+                    effect->rot.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[2]));
+                    effect->rot.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[4]));
+                    effect->rotSpeed.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[1]));
+                    effect->rotSpeed.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[3]));
+                    effect->rotSpeed.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[5]));
                 } else {
-                    effect->rot.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[0]));
-                    effect->rot.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[2]));
-                    effect->rot.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[4]));
-                    effect->rotSpeed.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[1]));
-                    effect->rotSpeed.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[3]));
-                    effect->rotSpeed.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->packedRangesB[5]));
+                    effect->rot.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[0]));
+                    effect->rot.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[2]));
+                    effect->rot.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[4]));
+                    effect->rotSpeed.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[1]));
+                    effect->rotSpeed.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[3]));
+                    effect->rotSpeed.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->packedRangesB[5]));
                 }
                 if ((entry->flags & 0x80000) && entry->playback == 1) {
                     effect->opacity = 0;
@@ -3270,9 +3258,9 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                 }
                 effect->inst.region = 0;
                 effect->inst.pos = pos;
-                offset.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->offset[0]));
-                offset.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->offset[1]));
-                offset.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->offset[2]));
+                offset.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->offset[0]));
+                offset.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->offset[1]));
+                offset.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->offset[2]));
                 if (offset.x != 0.0f || offset.y != 0.0f || offset.z != 0.0f) {
                     Graphu64_TransformPoint(&mtx, &offset, &offsetOut);
                     if (!(entry->flags & 0x8000)) {
@@ -3288,9 +3276,9 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                         effect->direction = g_particleSharedInitialDirection;
                         Graphu64_NormalizeVec3(&effect->direction.x);
                     } else {
-                        dir.x = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[0]));
-                        dir.y = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[1]));
-                        dir.z = Rumble_SamplePackedFloatRange(*(s32 *)&(entry->direction[2]));
+                        dir.x = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[0]));
+                        dir.y = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[1]));
+                        dir.z = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(entry->direction[2]));
                         Graphu64_NormalizeVec3(&dir.x);
                         if (dir.x != 0.0f || dir.y != 0.0f || dir.z != 0.0f) {
                             Graphu64_TransformPoint(&mtx, &dir, &dirOut);
@@ -3302,7 +3290,7 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                 }
                 effect->prevPos = effect->inst.pos;
                 effect->attachmentPosition = effect->inst.pos;
-                Graphu64_ScaleVector(&effect->inst.velocity, &dirOut, Rumble_SamplePackedFloatRange(*(s32 *)&(*(CharacterScreenCell *)&entry->motion->speedHi)));
+                Graphu64_ScaleVector(&effect->inst.velocity, &dirOut, Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(*(CharacterScreenCell *)&entry->motion->speedHi)));
                 if (entry->flags & 0x20) {
                     Graphu64_AddVec3(&effect->inst.velocity, &effect->inst.velocity, &inheritedVelocity);
                 }
@@ -3335,7 +3323,7 @@ s32 Particle_SpawnEffectGroup(EffectSystem *sys, void *source, void *owner, s32 
                 render->WallBehavior = entry->wallBehavior;
                 render->InstanceBehavior = entry->instanceBehavior;
                 render->GroundBehavior = entry->groundBehavior;
-                render->GravityAcceleration = Rumble_SamplePackedFloatRange(*(s32 *)&(*(CharacterScreenCell *)&entry->motion->gravityHi));
+                render->GravityAcceleration = Rumble_SamplePackedFloatRange(*(PackedFloatRange *)&(*(CharacterScreenCell *)&entry->motion->gravityHi));
 #if defined(VERSION_EU)
                 render->BounceReturnEnergy = Menu_ExpandFloatHighWord(entry->motion->bounceEnergy);
                 render->GroundFriction = Menu_ExpandFloatHighWord(entry->motion->groundFriction);
@@ -4349,8 +4337,8 @@ void Particle_FlagKind86ModeTwo(void *particle, s32 mode) {
 
 void Particle_CaptureSharedTrailState(void *particle) {
     ((Shared_Particle *)particle)->flags |= 0x20000;
-    ((Shared_Particle *)particle)->inst.pos = (*(CVector3 *)&g_currentActorInstance.vecE4);
-    ((Shared_Particle *)particle)->inst.velocity = (*(CVector3 *)&g_currentActorInstance.vecF0);
+    ((Shared_Particle *)particle)->inst.pos = (*(CVector3 *)&g_currentActorInstance.vec8);
+    ((Shared_Particle *)particle)->inst.velocity = (*(CVector3 *)&g_currentActorInstance.particleVelocity);
 }
 
 void Particle_AttachToCurrentTarget(void *particle, f32 *attachmentMatrix, s32 attachmentMode) {
@@ -4519,7 +4507,7 @@ void Particle_UpdateMatrix(Shared_Particle *particle) {
     f32 amount;
     s32 *state;
 
-    state = g_playerWeaponClassMode;
+    state = &g_playerWeaponClassMode;
     if (state[0] == 1) {
         camera = (GameplayCamera *)state[-4];
         Graphu64_TransformPoint(camera->worldToView, &particle->inst.pos, &delta);
@@ -4954,12 +4942,12 @@ s32 Particle_HasClearMotionPath(struct ActorInstanceHeader *particle, GameplayCa
     if (instance != 0 && messageId->bobSuppressed == 0) {
         saved = *instance;
         instance->position = messageId->position;
-        collisions = Unicol_MoveActorWithCollision(instance, particle->position.x, particle->position.y, particle->position.z, &g_defaultProbeMotionSettings);
+        collisions = Unicol_MoveActorWithCollision(instance, particle->position, &g_defaultProbeMotionSettings);
         *instance = saved;
     } else {
         saved = *particle;
         saved.position = messageId->position;
-        collisions = Unicol_MoveActorWithCollision(&saved, particle->position.x, particle->position.y, particle->position.z, &g_defaultProbeMotionSettings);
+        collisions = Unicol_MoveActorWithCollision(&saved, particle->position, &g_defaultProbeMotionSettings);
     }
     return collisions == 0;
 }

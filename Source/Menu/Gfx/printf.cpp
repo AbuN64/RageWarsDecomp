@@ -133,7 +133,6 @@ s32 Gfx_FormatArgumentList(u8 *out, u8 *fmt0, u8 *ap) {
     fmt = fmt0;
     ret = 0;
     for (;;) {
-next_format:
         for (cp = fmt; (ch = *fmt) != 0 && ch != '%'; fmt++) {
         }
         if ((n = fmt - cp) != 0) {
@@ -142,15 +141,14 @@ next_format:
         }
         fmt++;
         if (ch == 0) {
-            break;
+            goto done;
         }
         flags = 0;
         dprec = 0;
         width = 0;
         prec = -1;
         sign = 0;
-        /* Flags, width, precision and length modifiers loop here until a conversion character ends the spec. */
-        for (;;) {
+rflag:
         ch = *fmt++;
 reswitch:
         switch (ch) {
@@ -158,29 +156,29 @@ reswitch:
             if (!sign) {
                 sign = ' ';
             }
-            continue;
+            goto rflag;
         case '#':
             flags |= 0x10;
-            continue;
+            goto rflag;
         case '*':
             width = VA(ap, int);
             if (width >= 0) {
-                continue;
+                goto rflag;
             }
             width = -width;
         case '-':
             flags |= 0x40;
-            continue;
+            goto rflag;
         case '+':
             sign = '+';
-            continue;
+            goto rflag;
         case '.':
             if ((ch = *fmt++) == '*') {
                 prec = VA(ap, int);
                 if (prec < 0) {
                     prec = -1;
                 }
-                continue;
+                goto rflag;
             }
             n = 0;
             while ((u32)(ch - '0') < 10) {
@@ -191,7 +189,7 @@ reswitch:
             goto reswitch;
         case '0':
             flags |= 0x80;
-            continue;
+            goto rflag;
         case '1': case '2': case '3': case '4': case '5':
         case '6': case '7': case '8': case '9':
             n = 0;
@@ -203,16 +201,16 @@ reswitch:
             goto reswitch;
         case 'L':
             flags |= 1;
-            continue;
+            goto rflag;
         case 'h':
             flags |= 8;
-            continue;
+            goto rflag;
         case 'l':
             flags |= 2;
-            continue;
+            goto rflag;
         case 'q':
             flags |= 4;
-            continue;
+            goto rflag;
         case 'c':
             *(cp = buf) = VA(ap, int);
             size = 1;
@@ -223,7 +221,7 @@ reswitch:
         case 'd':
         case 'i':
             /* Single-pass loops preserve the original GCC allocation weights. */
-            {
+            do {
                 if (flags & 4) {
                     uqval = VA(ap, int);
                     if ((s32)uqval < 0) {
@@ -234,15 +232,16 @@ reswitch:
                     {
                         u8 **q = &ap;
                         switch (flags & 0xF) {
-                    case 1: case 2:
+                    case 1: case 2: case 4:
                         ulval = VA(ap, long);
                         break;
                     case 8:
                         ulval = (short)VA(ap, int);
                         break;
                     default:
-                        /* This loop has no visible effect; it is kept so the compiler hoists the
-                           va_arg alignment mask the same way as in the original build. */
+                        /* Removing this loop swaps the hoisted va_arg alignment mask (-4)
+                           from s7 to s8 and dprec from s8 to s7: 43 differing bytes
+                           in the otherwise unchanged 3920-byte US object text. */
                         do { ulval = VA(*q, s32); } while (0);
                         break;
                         }
@@ -253,8 +252,8 @@ reswitch:
                     }
                 }
                 base = 10;
-                goto signed_number;
-            }
+                goto number;
+            } while (0);
         case 'g':
         case 'G':
             if (prec == 0) {
@@ -293,7 +292,7 @@ reswitch:
                 pad_gfxFormatargumentlist(&out, -width - size, g_formatSpacePadding);
             }
             ret += width > size ? width : size;
-            goto next_format;
+            continue;
         }
         case 'n':
             if (flags & 4) {
@@ -305,7 +304,7 @@ reswitch:
             } else {
                 *VA(ap, int *) = ret;
             }
-            goto next_format;
+            continue;
         case 'o':
             if (flags & 4) {
                 uqval = VA(ap, int);
@@ -313,7 +312,7 @@ reswitch:
                 {
                     u8 **q = &ap;
                     switch (flags & 0xF) {
-                case 1: case 2:
+                case 1: case 2: case 4:
                     ulval = VA(ap, long);
                     break;
                 case 8:
@@ -326,7 +325,7 @@ reswitch:
                 }
             }
             base = 8;
-            goto unsigned_number;
+            goto nosign;
         case 'p':
             base = 16;
             xdigs = g_printfLowercaseHexDigits;
@@ -336,7 +335,7 @@ reswitch:
             if (prec < 0) {
                 prec = 8;
             }
-            goto unsigned_number;
+            goto nosign;
         case 's':
             cp = VA(ap, u8 *);
             if (prec >= 0) {
@@ -363,7 +362,7 @@ reswitch:
                 {
                     u8 **q = &ap;
                     switch (flags & 0xF) {
-                case 1: case 2:
+                case 1: case 2: case 4:
                     ulval = VA(ap, long);
                     break;
                 case 8:
@@ -376,17 +375,20 @@ reswitch:
                 }
             }
             base = 10;
-            goto unsigned_number;
+            goto nosign;
         case 'X':
+            xdigs = g_formatUppercaseHexDigits;
+            goto hex;
         case 'x':
-            xdigs = ch == 'X' ? g_formatUppercaseHexDigits : g_printfLowercaseHexDigits;
+            xdigs = g_printfLowercaseHexDigits;
+hex:
             if (flags & 4) {
                 uqval = VA(ap, int);
             } else {
                 {
                     u8 **q = &ap;
                     switch (flags & 0xF) {
-                case 1: case 2:
+                case 1: case 2: case 4:
                     ulval = VA(ap, long);
                     break;
                 case 8:
@@ -404,7 +406,24 @@ reswitch:
                     flags |= 0x20;
                 }
             }
-            goto unsigned_number;
+nosign:
+            sign = 0;
+number:
+            if ((dprec = prec) >= 0) {
+                flags &= ~0x80;
+            }
+            cp = buf + 128;
+            if (flags & 4) {
+                if (uqval != 0 || prec != 0) {
+                    cp = ultoa_gfxFormatargumentlist(uqval, cp, base, flags & 0x10, xdigs);
+                }
+            } else {
+                if (ulval != 0 || prec != 0) {
+                    cp = ultoa_gfxFormatargumentlist(ulval, cp, base, flags & 0x10, xdigs);
+                }
+            }
+            size = buf + 128 - cp;
+            break;
         default:
             if (ch == 0) {
                 goto done;
@@ -414,27 +433,7 @@ reswitch:
             sign = 0;
             break;
         }
-        break;
-        }
-        goto field;
-unsigned_number:
-    sign = 0;
-signed_number:
-        if ((dprec = prec) >= 0) {
-            flags &= ~0x80;
-        }
-        cp = buf + 128;
-        if (flags & 4) {
-            if (uqval != 0 || prec != 0) {
-                cp = ultoa_gfxFormatargumentlist(uqval, cp, base, flags & 0x10, xdigs);
-            }
-        } else {
-            if (ulval != 0 || prec != 0) {
-                cp = ultoa_gfxFormatargumentlist(ulval, cp, base, flags & 0x10, xdigs);
-            }
-        }
-        size = buf + 128 - cp;
-field:
+
         realsz = dprec > size ? dprec : size;
         if (sign) {
             realsz++;

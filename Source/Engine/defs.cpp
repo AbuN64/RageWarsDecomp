@@ -300,12 +300,12 @@ int Defs_IsAddressInBufferRanges(u32 address) {
 }
 
 int Defs_IsAddressInCodeRanges(u32 callback) {
-    if (callback >= (uintptr_t)Libsn_DisableInterrupts &&
-        callback < (uintptr_t)Libsn_DisableInterrupts + (uintptr_t)&g_mainCodeRegionByteCount) {
+    if (callback >= ((uintptr_t)Libsn_DisableInterrupts - 0x80000000U) &&
+        callback < ((uintptr_t)Libsn_DisableInterrupts - 0x80000000U) + (uintptr_t)&g_mainCodeRegionByteCount) {
         return 1;
     }
-    if (callback >= (uintptr_t)Track_SolveSplineSecondDerivatives &&
-        callback < (uintptr_t)Track_SolveSplineSecondDerivatives + (uintptr_t)&g_overlayCodeRegionByteCount) {
+    if (callback >= ((uintptr_t)Track_SolveSplineSecondDerivatives - 0x80000000U) &&
+        callback < ((uintptr_t)Track_SolveSplineSecondDerivatives - 0x80000000U) + (uintptr_t)&g_overlayCodeRegionByteCount) {
         return 1;
     }
     return 0;

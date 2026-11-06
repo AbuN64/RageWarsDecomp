@@ -20,21 +20,7 @@
 #include "Menu/menu_dispatchgermanmatchmenuevent.h"
 #include "Common/runtime_declarations.h"
 
-/* unit MATCH_SPLIT.CPP */
-#if defined(VERSION_EU_X)
-/* Calls the handler of the first row of g_matchMenuEventIds whose event equals eventId and whose kind equals the actor's kind or is the any-kind wildcard 30000. Returns the handler's result, or zero when no row matches. */
-s32 Match_DispatchEuxMatchMenuEvent(void *eventObject, s32 eventId, s32 eventPayload, s32 eventValue, s32 eventExtra) {
-    ResidentEventHandlerEntry *row = g_matchMenuEventIds;
-    MenuWidget *actor = eventObject;
-    for (; row->handler != 0; ++row) {
-        if (row->event == eventId &&
-            (row->actorKind == actor->resource || row->actorKind == ANY_ACTOR_KIND)) {
-            return row->handler(eventObject, eventId, eventPayload, eventValue, eventExtra);
-        }
-    }
-    return 0;
-}
-#endif
+
 
 #if defined(VERSION_DE)
 unsigned int g_matchPackedCodeAddresses_de[3] = {
@@ -188,6 +174,35 @@ s32 Frontend_CloseMatchMenu(void) {
     return 0;
 }
 
+/* unit MATCH_SPLIT.CPP */
+#if defined(VERSION_EU_X)
+/* Calls the handler of the first row of g_matchMenuEventIds whose event equals eventId and whose kind equals the actor's kind or is the any-kind wildcard 30000. Returns the handler's result, or zero when no row matches. */
+s32 Match_DispatchEuxMatchMenuEvent(void *eventObject, s32 eventId, s32 eventPayload, s32 eventValue, s32 eventExtra) {
+    ResidentEventHandlerEntry *entry;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+    MenuWidget *actor;
+
+    if (g_matchMenuEventIds[0].handler != 0) {
+        wildcard = 30000;
+        entry = g_matchMenuEventIds;
+        do {
+            if (entry->event == eventId) {
+                actor = eventObject;
+                actor_kind = actor->resource;
+                table_kind = entry->actorKind;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return entry->handler(eventObject, eventId, eventPayload, eventValue, eventExtra);
+                }
+            }
+            entry++;
+        } while (entry->handler != 0);
+    }
+    return 0;
+}
+#endif
+
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 /* Dispatches event eventId through this file's 12-byte handler table, whose rows hold an event at g_matchMenuEventIds, an actor kind at g_matchMenuEventKinds and a handler at g_matchMenuEventHandlers: the first row whose event equals eventId and whose kind equals the actor's halfword kind at 0xC, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. Adapted from N64Eng_DispatchNumericWidgetEvent. */
 
@@ -197,13 +212,26 @@ typedef s32 (*MatchMenuEventHandler)(void *, s32, s32, s32, s32);
 
 /* Calls the handler of the first row of g_matchMenuEventIds whose event equals eventId and whose kind equals the actor's kind or is the any-kind wildcard 30000. Returns the handler's result, or zero when no row matches. */
 s32 Frontend_DispatchMatchMenuEvent(void *eventObject, s32 eventId, s32 eventPayload, s32 eventValue, s32 eventExtra) {
-    ResidentEventHandlerEntry *row = g_matchMenuEventIds;
-    MenuWidget *actor = eventObject;
-    for (; row->handler != 0; ++row) {
-        if (row->event == eventId &&
-            (row->actorKind == actor->resource || row->actorKind == ANY_ACTOR_KIND)) {
-            return row->handler(eventObject, eventId, eventPayload, eventValue, eventExtra);
-        }
+    ResidentEventHandlerEntry *entry;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+    MenuWidget *actor;
+
+    if (g_matchMenuEventIds[0].handler != 0) {
+        wildcard = 30000;
+        entry = g_matchMenuEventIds;
+        do {
+            if (entry->event == eventId) {
+                actor = eventObject;
+                actor_kind = actor->resource;
+                table_kind = entry->actorKind;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return entry->handler(eventObject, eventId, eventPayload, eventValue, eventExtra);
+                }
+            }
+            entry++;
+        } while (entry->handler != 0);
     }
     return 0;
 }

@@ -44,6 +44,7 @@
 #include "Data/Ovl1_d/nav_initvisiblepursuit.h"
 #include "Data/Ovl1_d/addrlow_nav_updatevisiblepursuit.h"
 #include "Ai/Weapon/weapon.h"
+#include "Common/navigation_actor_search_views.h"
 
 void TeamSelect_DrawWeaponIcons(CBarrel *menu, Item *items, s32 count, Player *player) {
     s32 width;
@@ -413,7 +414,7 @@ void TeamSelect_DrawWeaponWheelSprites(s32 menu, s32 unusedView, s32 player) {
 }
 
 /** Preserve the empty hook. */
-void TeamSelect_EmptyWeaponWheelHook(void) {
+void TeamSelect_EmptyWeaponWheelHook(void *weaponWheelState) {
 }
 
 /* Counts the wheel's close delay down; once it has elapsed and the wheel button is released, clears the
@@ -421,15 +422,15 @@ void TeamSelect_EmptyWeaponWheelHook(void) {
 s32 TeamSelect_TryCloseWeaponWheel(CBarrel *wheel, Player *player) {
     f32 closeDelay;
 
-    closeDelay = wheel->m_Time;
+    closeDelay = ((ResetTimerStorage *)(wheel))->closeDelay;
     if (closeDelay > 0.0f) {
-        wheel->m_Time = closeDelay - g_frameElapsedTime;
+        ((ResetTimerStorage *)(wheel))->closeDelay = closeDelay - g_frameElapsedTime;
         return 0;
     }
-    if (((struct ControllerProfile *)player->controller)->buttons & 0x8000) {
+    if (((ResetFlagsStorage *)((((ResetOwnerStorage *)(player))->controller)))->buttons & 0x8000) {
         return 0;
     }
-    wheel->m_Selected = -1;
+    ((ResetTimerStorage *)(wheel))->selectedIndex = -1;
     return 1;
 }
 
@@ -595,7 +596,7 @@ void Cteamselect_UpdateTeamWheel(TeamMenu *menu, SharedPlayer *player, void *sel
         if (g_gameSettings.counters.teams == 0 || player->views5D8.view5D8_1.record->team != 0xFF) {
             goto run;
         }
-        Cteamselect_InitTeamChoices((Shared_MenuItemList *)menu);
+        Cteamselect_InitTeamChoices((Shared_MenuItemList *)menu, held, player);
         menu->state = 1;
     }
     player->views5E8.view11B4_136.locked = 1;
@@ -777,7 +778,7 @@ void Cteamselect_DrawTeamWheel(MenuCteamselectDrawTeamWheel *menu, s32 viewConte
     }
 }
 
-void Cteamselect_InitTeamChoices(Shared_MenuItemList *list) {
+void Cteamselect_InitTeamChoices(Shared_MenuItemList *list, s32 heldButtons, void *player) {
     s32 i;
     f32 scale = g_teamWheelChoiceScale;
     f32 value = g_teamWheelInitialSlotScale;
@@ -803,7 +804,7 @@ s32 Cteamselect_TryConfirmTeamChoice(void *menu, void *player) {
 void Cteamselect_UpdateTeamChoiceInput(char *menu, void *player) {
     s32 flags;
     s32 state;
-    s32 stickSlot;
+    s32 result;
     s32 value;
     char *entry;
     flags = ((struct ControllerButtonFlagsView *) ((TeamWeaponRuntimePlayerView *) player)->controller)->buttons & 0x8000;
@@ -811,7 +812,7 @@ void Cteamselect_UpdateTeamChoiceInput(char *menu, void *player) {
     if ((state == 0) || (state == 3)) {
         if ((g_gameSettings.counters.teams != 0) &&
             (((struct Record *) ((TeamWeaponRuntimePlayerView *) player)->options)->team == 0xFF)) {
-            Cteamselect_InitTeamChoices((Shared_MenuItemList *)menu);
+            Cteamselect_InitTeamChoices((void *)menu, flags, player);
             *(s32 *)menu = 1;
         } else {
             return;
@@ -820,25 +821,25 @@ void Cteamselect_UpdateTeamChoiceInput(char *menu, void *player) {
     ((TeamWeaponRuntimePlayerView *)(player))->shieldDuration = g_teamWheelPlayerShieldDuration;
     ((TeamWeaponRuntimePlayerView *)(player))->locked = 1;
     ((TeamWeaponRuntimePlayerView *)(player))->lockState = 1;
-    stickSlot = Cteamselect_GetFourWayStickSlot(player);
-    if (stickSlot != ((TeamMenuSelectionPairView *)(menu))->hover) {
-        if (stickSlot != -1) {
-            entry = (char *)menu + stickSlot * sizeof(TeamMenuSlotView);
+    result = Cteamselect_GetFourWayStickSlot(player);
+    if (result != ((TeamMenuSelectionPairView *)(menu))->hover) {
+        if (result != -1) {
+            entry = (char *)menu + result * sizeof(TeamMenuSlotView);
             value = ((Entry *)(entry))->team;
             if (((Entry *)(entry))->enabled != 0) {
                 if ((s16)value < 0) {
                     ((TeamMenuSelectionPairView *)(menu))->hover = -1;
                     return;
                 }
-                if (stickSlot != ((TeamMenuSelectionPairView *)(menu))->cursor) {
-                    ((TeamMenuSelectionPairView *)(menu))->cursor = stickSlot;
+                if (result != ((TeamMenuSelectionPairView *)(menu))->cursor) {
+                    ((TeamMenuSelectionPairView *)(menu))->cursor = result;
                 }
                 ((struct Record *) ((TeamWeaponRuntimePlayerView *) player)->options)->team = value;
             } else {
                 return;
             }
         }
-        ((TeamMenuSelectionPairView *)(menu))->hover = stickSlot;
+        ((TeamMenuSelectionPairView *)(menu))->hover = result;
     }
 }
 

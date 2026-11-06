@@ -49,11 +49,11 @@ static __inline__ SpawnChoice *spawnTable1(void) {
 }
 
 static __inline__ SpawnChoice *spawnTable2(void) {
-    return g_spawnChoices + 2;
+    return g_spawnHealthChoices;
 }
 
 static __inline__ SpawnChoice *spawnTable3(void) {
-    return g_spawnChoices + 6;
+    return g_spawnHealthChoicesVisible;
 }
 
 static __inline__ SpawnChoice *spawnTable4(void) {
@@ -248,8 +248,8 @@ void SpawnAI_DispatchSpawnChoice(SpawnDispatchObject *object, SpawnDispatchOwner
                 third = (s16)Lists_ChooseWeightedTableEntry(&otherPicker);
             }
         } else {
-            /* The game settings sit inside the menu data block; recover the first player from its start. */
-            context = Playerai_GetFirstPlayer((u8 *)&g_playerViewRenderContext);
+            /* The game settings sit inside the menu data block; recover the block start from them so the settings address is built once. */
+            context = Playerai_GetFirstPlayer((u8 *)&g_gameSettings - ((char *)&((Shared_MenuData *)0)->game - (char *)0));
             if (!context) {
                 return;
             }

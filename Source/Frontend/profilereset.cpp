@@ -15,6 +15,92 @@
 #include "Resmgr/tsmos_setidletimer.h"
 #include "Common/screen.h"
 
+#if defined(VERSION_EU_X)
+#include "Common/shared_worldfunc.h"
+#include "Common/world.h"
+#include "Ai/playerprofile.h"
+#include "Common/globals.h"
+#include "Frontend/screen.h"
+s32 Frontend_CreateProfileResetScreenExtended(MenuWidget *tree) {
+    s32 i;
+    Shared_Game *settings;
+    Shared_PlayerSettingsRecord *record;
+    Shared_MenuObject *object;
+
+    g_profileResetScreen = Cache_AllocateMemory(sizeof(*g_profileResetScreen));
+    object = &g_playerViewRenderContext.object;
+    Pools_ResetActorPools(object, 0);
+    Player_InitializePlayerPool(&g_playerViewRenderContext, 0, 0);
+    Scene_LoadLevelResources(&g_world, 0, 0);
+    if (Cache_GetResourceActivityState() == 0) {
+        Cache_SetResourceActivityState(1);
+    }
+    Frontend_RequestScreenMode(0);
+    i = 7;
+    Tsmos_DeactivateControllerState();
+    record = &object->playerSettings[7];
+    do {
+        record->enabled = 0;
+        i--;
+        record--;
+    } while (i >= 0);
+    g_profileResetScreen->widget = Node_FindWidgetByResourceId(tree, 923);
+    g_profileResetScreen->phase = 0;
+    settings = &g_gameSettings;
+    settings->laps = 10;
+    settings->players = 10;
+    for (i = 0; i < 4; i++) {
+        Player_InitializeProfile(&g_localPlayerProfiles[i]);
+    }
+    Tsmos_SetIdleTimer(0.0f);
+    return 0;
+}
+#endif
+
+/* unit FRONTEND_CREATEPROFILERESETSCREEN.CPP */
+#if defined(VERSION_US) || defined(VERSION_US_REV1)
+#include "Common/gameplay_settings.h"
+#include "Common/shared_gameslot.h"
+#include "Common/shared_optionsscreen.h"
+#include "Common/ballisticparams.h"
+#include "Frontend/frontend_address_symbols.h"
+/* Initialize the pulse screen, its shared menu state, and player profiles. */
+s32 Frontend_CreateProfileResetScreen(MenuWidget *tree) {
+    s32 i;
+    Shared_Game *settings;
+    Shared_PlayerSettingsRecord *record;
+    Shared_MenuObject *object;
+
+    g_profileResetScreen = Cache_AllocateMemory(sizeof(*g_profileResetScreen));
+    object = &g_playerViewRenderContext.object;
+    Pools_ResetActorPools(object, 0);
+    Player_InitializePlayerPool(&g_playerViewRenderContext, 0, 0);
+    Scene_LoadLevelResources(&g_world, 0, 0);
+    if (Cache_GetResourceActivityState() == 0) {
+        Cache_SetResourceActivityState(1);
+    }
+    Frontend_RequestScreenMode(0);
+    i = 7;
+    Tsmos_DeactivateControllerState();
+    record = &object->playerSettings[7];
+    do {
+        record->enabled = 0;
+        i--;
+        record--;
+    } while (i >= 0);
+    g_profileResetScreen->widget = Node_FindWidgetByResourceId(tree, 919);
+    g_profileResetScreen->phase = 0;
+    settings = &g_gameSettings;
+    settings->laps = 10;
+    settings->players = 10;
+    for (i = 0; i < 4; i++) {
+        Player_InitializeProfile(&g_localPlayerProfiles[i]);
+    }
+    Tsmos_SetIdleTimer(0.0f);
+    return 0;
+}
+#endif
+
 /* unit FRONTEND_CREATEPROFILERESETSCREENGERMAN.CPP */
 #if defined(VERSION_DE)
 #include "Common/menu_model_preview.h"
@@ -132,96 +218,3 @@ s32 Frontend_DispatchProfileResetEvent(Shared_Body *widget, s32 eventId, s32 eve
     }
     return 0;
 }
-
-/* unit FRONTEND_CREATEPROFILERESETSCREENEXTENDED.CPP */
-#if defined(VERSION_EU_X)
-#include "Common/menu_model_preview.h"
-#include "Common/shared_worldfunc.h"
-#include "Common/world.h"
-#include "Ai/playerprofile.h"
-#include "Cache/cache_allocresourceblock.h"
-#include "Frontend/screen.h"
-#include "Frontend/frontend_address_symbols.h"
-
-s32 Frontend_CreateProfileResetScreenExtended(MenuWidget *tree) {
-    s32 i;
-    Shared_Game *settings;
-    Shared_PlayerSettingsRecord *record;
-    Shared_MenuObject *object;
-
-    g_profileResetScreen = Cache_AllocateMemory(sizeof(*g_profileResetScreen));
-    object = &g_playerViewRenderContext.object;
-    Pools_ResetActorPools(object, 0);
-    Player_InitializePlayerPool(&g_playerViewRenderContext, 0, 0);
-    Scene_LoadLevelResources(&g_world, 0, 0);
-    if (Cache_GetResourceActivityState() == 0) {
-        Cache_SetResourceActivityState(1);
-    }
-    Frontend_RequestScreenMode(0);
-    i = 7;
-    Tsmos_DeactivateControllerState();
-    record = &object->playerSettings[7];
-    do {
-        record->enabled = 0;
-        i--;
-        record--;
-    } while (i >= 0);
-    g_profileResetScreen->widget = Node_FindWidgetByResourceId(tree, 923);
-    g_profileResetScreen->phase = 0;
-    settings = &g_gameSettings;
-    settings->laps = 10;
-    settings->players = 10;
-    for (i = 0; i < 4; i++) {
-        Player_InitializeProfile(&g_localPlayerProfiles[i]);
-    }
-    Tsmos_SetIdleTimer(0.0f);
-    return 0;
-}
-#endif
-
-/* unit FRONTEND_CREATEPROFILERESETSCREENUS.CPP */
-#if defined(VERSION_US)
-#include "Common/menu_model_preview.h"
-#include "Common/shared_worldfunc.h"
-#include "Common/world.h"
-#include "Ai/playerprofile.h"
-#include "Cache/cache_allocresourceblock.h"
-#include "Frontend/screen.h"
-#include "Frontend/frontend_address_symbols.h"
-#include "Frontend/frontend.h"
-
-s32 Frontend_CreateProfileResetScreenUs(MenuWidget *tree) {
-    s32 i;
-    Shared_Game *settings;
-    Shared_PlayerSettingsRecord *record;
-    Shared_MenuObject *object;
-
-    g_profileResetScreen = Cache_AllocateMemory(sizeof(*g_profileResetScreen));
-    object = &g_playerViewRenderContext.object;
-    Pools_ResetActorPools(object, 0);
-    Player_InitializePlayerPool(&g_playerViewRenderContext, 0, 0);
-    Scene_LoadLevelResources(&g_world, 0, 0);
-    if (Cache_GetResourceActivityState() == 0) {
-        Cache_SetResourceActivityState(1);
-    }
-    Frontend_RequestScreenMode(0);
-    i = 7;
-    Tsmos_DeactivateControllerState();
-    record = &object->playerSettings[7];
-    do {
-        record->enabled = 0;
-        i--;
-        record--;
-    } while (i >= 0);
-    g_profileResetScreen->widget = Node_FindWidgetByResourceId(tree, 919);
-    g_profileResetScreen->phase = 0;
-    settings = &g_gameSettings;
-    settings->laps = 10;
-    settings->players = 10;
-    for (i = 0; i < 4; i++) {
-        Player_InitializeProfile(&g_localPlayerProfiles[i]);
-    }
-    Tsmos_SetIdleTimer(0.0f);
-    return 0;
-}
-#endif

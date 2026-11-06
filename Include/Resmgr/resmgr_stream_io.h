@@ -9,4 +9,6 @@ extern void XStdio_InitializeStreams(void);
 extern void XStdio_ShutdownStreams(void);
 extern s32 XStdio_ReadStream(void *destination, s32 elementSize, s32 count, s32 handle);
 typedef s32 (*ResourceReadCallback)(s32 handle, void *destination, s32 bytes);
+/* A close callback releases the stream handle an open callback returned. */
+typedef void (*ResourceCloseCallback)(s32 handle);
 #endif

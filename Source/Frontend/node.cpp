@@ -43,7 +43,7 @@
 
 struct DraftWidget;
 void Widget_DrawWidget(struct DraftWidget *widget, sm_dldc args);
-extern s16 g_frontendResourceFontCount;
+extern struct PoolFrontendReleaseActiveChunkImages g_frontendResourceFontCount;
 
 /* unit FRONTEND_OPENRESOURCEARCHIVE_DATA.CPP */
 const unsigned char s_frontendResourceBinaryReadModeStorage[] = {
@@ -287,36 +287,48 @@ void Node_ReplaceNodeRefs(WidgetReferenceNodeView *node, void *from, void *to) {
     }
 }
 
-/* Returns the sibling before node in its parent's child list, or zero when node is the first child. */
-static WidgetTreePositionView *Node_FindPreviousSibling(WidgetTreePositionView *node) {
-    WidgetTreePositionView *current = node->parent->child;
-    WidgetTreePositionView *previous = 0;
-
-    while (current != node) {
-        previous = current;
-        if (previous == 0) {
-            break;
-        }
-        current = previous->next;
-    }
-    return previous;
-}
-
 /* Swaps two widgets within the widget tree: after walking up from the first widget to the root
    (type 2), it finds each widget's predecessor in its parent's child list, links the other widget
    in its place (as the predecessor's next or the parent's first child), and swaps the two widgets'
    parent and next links. */
 void Node_SwapWidgetTreePositions(WidgetTreePositionView *a, WidgetTreePositionView *b) {
+    WidgetTreePositionView *w;
     WidgetTreePositionView *cursorA;
     WidgetTreePositionView *cursorB;
     WidgetTreePositionView saved;
 
     cursorA = a;
-    while (cursorA->type != 2) {
+root:
+    if (cursorA->type != 2) {
         cursorA = cursorA->parent;
+        goto root;
     }
-    cursorA = Node_FindPreviousSibling(a);
-    cursorB = Node_FindPreviousSibling(b);
+    cursorA = a->parent;
+    w = cursorA->child;
+    cursorA = 0;
+    goto testA;
+nextA:
+    w = cursorA->next;
+testA:
+    if (w != a) {
+        cursorA = w;
+        if (cursorA != 0) {
+            goto nextA;
+        }
+    }
+    cursorB = b->parent;
+    w = cursorB->child;
+    cursorB = 0;
+    goto testB;
+nextB:
+    w = cursorB->next;
+testB:
+    if (w != b) {
+        cursorB = w;
+        if (cursorB != 0) {
+            goto nextB;
+        }
+    }
     if (cursorA != 0) {
         cursorA->next = b;
     } else {
@@ -379,29 +391,23 @@ void Node_SetRecordValueQuad(struct WidgetRecordValueQuadView *record, s32 first
    pressed (flag 0x100), highlighted (flag 0x40) or normal image of the widget, and when present
    moves the position back by the image's offset scaled by the style's scale factors and draws it
    through Widget_DrawWidget with the same flags and style. */
-void Node_DrawButtonImage(ButtonWidget *widget, Triple at, Style style) {
+void Node_DrawButtonImage(ButtonWidget *widget, sm_dldc args) {
     Shared_Quad box0;
     Shared_Quad box1;
     struct Pair14 *image;
-    union {
-        struct { Triple at; Style style; } split;
-        sm_dldc draw;
-    } context;
 
-    if (Widget_ComputeWidgetBounds((struct WidgetRect *)&box0, (struct WidgetRect *)&box1, (WidgetLayout *)widget, (sm_dldc *)&at) != 0) {
-        if (at.z & 0x100) {
+    if (Widget_ComputeWidgetBounds((struct WidgetRect *)&box0, (struct WidgetRect *)&box1, (WidgetLayout *)widget, &args) != 0) {
+        if (args.flags & 0x100) {
             image = widget->pressed;
-        } else if (at.z & 0x40) {
+        } else if (args.flags & 0x40) {
             image = widget->highlighted;
         } else {
             image = widget->normal;
         }
         if (image != 0) {
-            at.x -= (s32)(image->first * style.scaleX);
-            at.y -= (s32)(image->second * style.scaleY);
-            context.split.at = at;
-            context.split.style = style;
-            Widget_DrawWidget((struct DraftWidget *)image, context.draw);
+            args.x -= (s32)(image->first * args.XScale);
+            args.y -= (s32)(image->second * args.YScale);
+            Widget_DrawWidget((struct DraftWidget *)image, args);
         }
     }
 }
@@ -513,25 +519,23 @@ void Node_ReleaseActiveChunkImages(void) {
     s32 n;
     s32 i;
     ArchiveOwnedImageSlot *slot;
-    struct PoolFrontendReleaseActiveChunkImages *pool =
-        (struct PoolFrontendReleaseActiveChunkImages *)&g_frontendResourceFontCount;
 
-    for (e = 0; e < pool->count; e++) {
-        if (pool->entries[e].refCount != 0 && pool->entries[e].active != 0) {
-            for (n = 0; n < pool->entries[e].def->bitmapCount; n++) {
-                slot = pool->entries[e].pages[n];
+    for (e = 0; e < g_frontendResourceFontCount.count; e++) {
+        if (g_frontendResourceFontCount.entries[e].refCount != 0 && g_frontendResourceFontCount.entries[e].active != 0) {
+            for (n = 0; n < g_frontendResourceFontCount.entries[e].def->bitmapCount; n++) {
+                slot = g_frontendResourceFontCount.entries[e].pages[n];
                 for (i = 0; i < 96; i++) {
                     if (slot[i].flags & 1) {
                         Image_ReleaseImage((struct OwnedImage *)slot[i].data);
                         slot[i].flags = 0;
                         slot[i].owner = 0;
-                        g_frontendResourceState.Font[e].NumInUse--;
+                        g_frontendResourceFontCount.entries[e].refCount--;
                     }
                 }
             }
-            if (g_frontendResourceState.Font[e].NumInUse == 0) {
+            if (g_frontendResourceFontCount.entries[e].refCount == 0) {
                 Node_ReleaseChunkImages(e);
-                g_frontendResourceState.Font[e].Active = 0;
+                g_frontendResourceFontCount.entries[e].active = 0;
             }
         }
     }
@@ -627,7 +631,7 @@ void Node_LoadLanguageStrings(s32 languageIndex) {
     XStdio_SeekStream(g_frontendResourceState.In, g_frontendResourceState.LangTable[languageIndex].start + g_frontendResourceState.Header.StringTable, 0);
     XStdio_ReadStream(g_frontendResourceState.StringBuffer, bufferSize, 1, g_frontendResourceState.In);
     if (closeArchive) {
-        XStdio_CloseStream();
+        XStdio_CloseStream(g_frontendResourceState.In);
         g_frontendResourceState.In = 0;
     }
     g_frontendResourceState.StringTable = Cache_AllocateMemory(stringCount << 2);
@@ -750,7 +754,7 @@ void Node_OpenResourceArchive(u8 *name) {
     g_frontendResourceState.Init = 1;
     XPlus_CopyString(g_frontendResourceState.Name, name);
     g_frontendResourceState.NeverFreeResources = 0;
-    XStdio_CloseStream();
+    XStdio_CloseStream(g_frontendResourceState.In);
     g_frontendResourceState.In = 0;
 }
 
@@ -832,7 +836,7 @@ void Node_CloseResourceArchive(void) {
     }
     Node_ReleaseActiveChunkImages();
     state = &g_frontendResourceState;
-    if (state->In) XStdio_CloseStream();
+    if (state->In) XStdio_CloseStream(state->In);
     Node_ReleaseUnprotectedBuffers(1);
     Node_UpdateImageReleaseTimers(1);
     if (state->Texture) Cache_FreeMemory(state->Texture);
@@ -997,7 +1001,7 @@ s32 Node_GetImageTexture(s32 index, s32 mode) {
                   (int)palette, entry->paletteCount);
     Smp_CopyAndSwizzleImage((struct GameImage *)texture, (struct GameImage *)id);
     g_frontendResourceTextures[index].flags |= 1;
-    XStdio_CloseStream();
+    XStdio_CloseStream(g_frontendResourceState.In);
     g_frontendResourceState.In = 0;
     N64Eng_GetTimeSeconds();
     Frontend_TouchTextureEntry(index, mode);
@@ -1075,7 +1079,7 @@ void Node_LoadTextureIntoOutput(s32 index, s32 output) {
     }
     Frontend_ConfigureOwnedImage(output, format, entry->width, entry->height, stride, entry->height, 1, size, pixels, 1, paletteBytes,
                   palette, entry->paletteCount);
-    XStdio_CloseStream();
+    XStdio_CloseStream(g_frontendResourceState.In);
     g_frontendResourceState.In = 0;
 }
 
@@ -1214,8 +1218,11 @@ void *Node_GetBankTileTexture(u8 which, s32 group, s32 pass) {
         kind = 12;
     }
     if (((Bank *)g_frontendResourceState.Font)[group].loaded == 0) {
+        s32 *tables = &g_frontendResourceState.Header.FontData;
 
-        bank = &((Bank *)g_frontendResourceState.Font)[group];
+        bank = &((Bank *)*(struct _sm_font **)((char *)tables +
+            ((char *)&g_frontendResourceState.Font -
+             (char *)&g_frontendResourceState.Header.FontData)))[group];
         g_frontendResourceState.In = XStdio_OpenStream(&g_frontendResourceState.Name, &s_frontendResourceOpenMode);
         size = bank->image->size;
         i = 0;
@@ -1246,7 +1253,7 @@ void *Node_GetBankTileTexture(u8 which, s32 group, s32 pass) {
             }
             i += 1;
         } while (i < 96);
-        XStdio_CloseStream();
+        XStdio_CloseStream(g_frontendResourceState.In);
         g_frontendResourceState.In = 0;
         bank->loaded = 1;
     }
@@ -1274,12 +1281,10 @@ void *Node_GetBankTileTexture(u8 which, s32 group, s32 pass) {
 void Node_ReleaseChunkImages(s32 index) {
     s32 n;
     s32 i;
-    ArchiveChunkImageSlot *slot;
-    struct PoolFrontendReleaseChunkImages *pool =
-        (struct PoolFrontendReleaseChunkImages *)&g_frontendResourceFontCount;
+    ArchiveOwnedImageSlot *slot;
 
-    for (n = 0; n < pool->entries[index].def->bitmapCount; n++) {
-        slot = pool->entries[index].ns[n];
+    for (n = 0; n < g_frontendResourceFontCount.entries[index].def->bitmapCount; n++) {
+        slot = g_frontendResourceFontCount.entries[index].pages[n];
         for (i = 0; i < 96; i++) {
             if (slot[i].flags & 1) {
                 Image_ReleaseImage((struct OwnedImage *)slot[i].data);
@@ -1287,14 +1292,14 @@ void Node_ReleaseChunkImages(s32 index) {
             }
         }
     }
-    if (g_frontendResourceState.Font[index].CharBits[0] != 0) {
-        Cache_FreeMemory(g_frontendResourceState.Font[index].CharBits[0]);
-        g_frontendResourceState.Font[index].CharBits[0] = 0;
+    if (g_frontendResourceFontCount.entries[index].buffers[0] != 0) {
+        Cache_FreeMemory(g_frontendResourceFontCount.entries[index].buffers[0]);
+        g_frontendResourceFontCount.entries[index].buffers[0] = 0;
         for (n = 0; n < 96; n++) {
-            g_frontendResourceState.Font[index].CharBits[n] = 0;
+            g_frontendResourceFontCount.entries[index].buffers[n] = 0;
         }
     }
-    g_frontendResourceState.Font[index].Active = 0;
+    g_frontendResourceFontCount.entries[index].active = 0;
 }
 
 /* Loads entry index of the menu archive into memory and counts the use: in cache mode 1 an entry
@@ -1319,7 +1324,7 @@ void Node_AcquireArchiveEntry(s32 index) {
         g_frontendResourceState.ScreenOriginal[index].data = Cache_AllocateMemory(g_frontendResourceState.Screen[index].size);
         XPlus_CopyBytes(g_frontendResourceState.ScreenOriginal[index].data, g_frontendResourceState.Screen[index].data, g_frontendResourceState.Screen[index].size);
     }
-    XStdio_CloseStream();
+    XStdio_CloseStream(g_frontendResourceState.In);
     g_frontendResourceState.In = 0;
     data = g_frontendResourceState.Screen[index].data;
     Node_RelocateWidgetTree(data, data, g_frontendResourceState.Screen[index].offset - g_frontendResourceState.Screen[0].offset);
@@ -1863,8 +1868,10 @@ void Node_GetGridSelection(s32 identifier, s32 *first, s32 *second) {
 
 /* While active and the cursor row is above the minimum row, moves the cursor up one row; then clamps the cursor and scroll position and marks the menu event handled. Returns zero. */
 s32 Node_SelectPreviousGridRow(List *list, void *second, void *third, s32 active) {
-    if (active && list->minX < list->cursorX) {
-        list->cursorX = list->cursorX - 1;
+    s32 row = list->cursorX;
+
+    if (active && list->minX < row) {
+        list->cursorX = row - 1;
     }
     Node_ClampListCursorAndScroll(list);
     MarkMenuEventHandled();
@@ -1873,8 +1880,10 @@ s32 Node_SelectPreviousGridRow(List *list, void *second, void *third, s32 active
 
 /* While active and the cursor row is below the last row, moves the cursor down one row; then clamps the cursor and scroll position and marks the menu event handled. Returns zero. */
 s32 Node_SelectNextGridRow(List *list, void *second, void *third, s32 active) {
-    if (active && list->cursorX < list->maxX - 1) {
-        list->cursorX = list->cursorX + 1;
+    u8 row = list->cursorX;
+
+    if (active && row < list->maxX - 1) {
+        list->cursorX = row + 1;
     }
     Node_ClampListCursorAndScroll(list);
     MarkMenuEventHandled();
@@ -1883,8 +1892,10 @@ s32 Node_SelectNextGridRow(List *list, void *second, void *third, s32 active) {
 
 /* While active and the cursor column is above the minimum column, moves the cursor left one column; then clamps the cursor and scroll position and marks the menu event handled. Returns zero. */
 s32 Node_SelectPreviousGridColumn(List *list, void *second, void *third, s32 active) {
-    if (active && list->minY < list->cursorY) {
-        list->cursorY = list->cursorY - 1;
+    s32 column = list->cursorY;
+
+    if (active && list->minY < column) {
+        list->cursorY = column - 1;
     }
     Node_ClampListCursorAndScroll(list);
     MarkMenuEventHandled();
@@ -1893,8 +1904,10 @@ s32 Node_SelectPreviousGridColumn(List *list, void *second, void *third, s32 act
 
 /* While active and the cursor column is before the last column, moves the cursor right one column; then clamps the cursor and scroll position and marks the menu event handled. Returns zero. */
 s32 Node_SelectNextGridColumn(List *list, void *second, void *third, s32 active) {
-    if (active && list->cursorY < list->maxY - 1) {
-        list->cursorY = list->cursorY + 1;
+    u8 column = list->cursorY;
+
+    if (active && column < list->maxY - 1) {
+        list->cursorY = column + 1;
     }
     Node_ClampListCursorAndScroll(list);
     MarkMenuEventHandled();
@@ -1916,6 +1929,7 @@ s32 Node_DestroyGridList(struct ObjectFrontendDestroyGridList *object) {
 #include "Common/ccollisionsetup_t.h"
 #include "Frontend/frontend_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Frontend/widget_findwidgetatpoint.h"
 /* The collision setup table CCollision_Initialize hands to CCollision_ApplySetupTable (through its KUSEG alias
  * g_collisionSetupTableResource): one row per collision info, ended by an empty row. */
 /* ROM row targets use byte offsets: secondary slots 1/2/3/5/0/6/4 and

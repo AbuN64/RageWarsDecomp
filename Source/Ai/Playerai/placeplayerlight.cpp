@@ -89,3 +89,24 @@ SharedMovement g_playerJumpMovementParameters = {
 /* First field (acceleration) of g_playerRideMovementParameters[0]; the rest of the struct follows in the next object. */
 f32 g_playerRideMovementParameters = 4.608f;
 
+
+#if defined(VERSION_US_REV1)
+const float g_playerMountedMovementSpeedConstantsUsRevisionOne[1] = {
+    34.559998f,
+};
+#endif
+
+#if defined(VERSION_US_REV1)
+float g_playerTuningFloatTriplesUsRevisionOne[16] = {
+    1.7280002f, 2.7648f, 20.736f, 1.0368001f, 0.0f, 0.0f,
+    0.0f, 2.88f, 21.599998f, 1.08f, 1.7280002f, 12.960001f,
+    0.64800006f, 0.0f, 0.0f, 0.0f,
+};
+#endif
+
+#if defined(VERSION_US_REV1)
+float g_playerMovementTuningProfileOneUsRevisionOne[8] = {
+    10.24f, 30.72f, 13.44f, 10.24f,
+    35.84f, 13.44f, 0.0f, 0.0f,
+};
+#endif

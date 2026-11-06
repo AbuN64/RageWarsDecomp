@@ -41,23 +41,22 @@ void Rumble_ExpandMeshMaterial(MeshMaterial *dstData, CROMSection *section) {
     Textload_LocateTextureResource(&dstData->texture, reference);
 }
 
-f32 Rumble_SamplePackedFloatRange(s32 packedRange) {
+f32 Rumble_SamplePackedFloatRange(PackedFloatRange packedRange) {
     s32 baseFloatBits;
     s32 rangeFloatBits;
     u32 seed;
     s32 idx;
     f64 randomFraction;
-    u16 *packedHalves = (u16 *) &packedRange;
 
 #if defined(__BYTE_ORDER__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
     /* The halves are read by address below; a little-endian host holds them swapped. */
     packedRange = (s32) (((u32) packedRange << 16) | ((u32) packedRange >> 16));
 #endif
-    baseFloatBits = (s32) packedHalves[0] << 16;
-    if (packedHalves[1] == 0) {
+    baseFloatBits = (s32) (*(u16 *) &packedRange) << 16;
+    if (((struct PackedMaterialHalfwordView *) ((u16 *) (&packedRange)))->spreadHighWord == 0) {
         return *(f32 *) &baseFloatBits;
     }
-    rangeFloatBits = (s32) (packedHalves[1]) << 16;
+    rangeFloatBits = (s32) (((struct PackedMaterialHalfwordView *) ((u16 *) (&packedRange)))->spreadHighWord) << 16;
     seed = (g_primaryRandomSeed * (s32) 0xA84A5B53) + (s32) 0x58348C2D;
     idx = (s32) ((seed >> 16) & 0x7FFF);
     randomFraction = (f64) idx;

@@ -59,12 +59,16 @@ void List_InsertBeforeIntrusive(void *list, s32 anchorNode, s32 insertedNode) {
     void *anchor = (void *)anchorNode;
     void *inserted = (void *)insertedNode;
     void *previous = LinkAt(anchor, owner->prevOffset);
+    s32 count;
 
     if (previous != 0) {
+        s32 prevOffset;
         LinkAt(previous, owner->nextOffset) = inserted;
-        LinkAt(inserted, owner->prevOffset) = LinkAt(anchor, owner->prevOffset);
+        prevOffset = owner->prevOffset;
+        LinkAt(inserted, prevOffset) = LinkAt(anchor, prevOffset);
         LinkAt(anchor, owner->prevOffset) = inserted;
         LinkAt(inserted, owner->nextOffset) = anchor;
+        count = owner->count + 1;
     } else {
         void *oldHead = owner->head;
         if (oldHead != 0) {
@@ -76,8 +80,9 @@ void List_InsertBeforeIntrusive(void *list, s32 anchorNode, s32 insertedNode) {
         }
         LinkAt(inserted, owner->prevOffset) = 0;
         owner->head = inserted;
+        count = owner->count + 1;
     }
-    owner->count = owner->count + 1;
+    owner->count = count;
 }
 
 /* Links insertedNode into the list directly after anchorNode, or at the tail when the anchor has no successor. */
@@ -86,12 +91,16 @@ void List_InsertAfterIntrusive(void *list, s32 anchorNode, s32 insertedNode) {
     void *anchor = (void *)anchorNode;
     void *inserted = (void *)insertedNode;
     void *following = LinkAt(anchor, owner->nextOffset);
+    s32 count;
 
     if (following != 0) {
+        s32 nextOffset;
         LinkAt(following, owner->prevOffset) = inserted;
-        LinkAt(inserted, owner->nextOffset) = LinkAt(anchor, owner->nextOffset);
+        nextOffset = owner->nextOffset;
+        LinkAt(inserted, nextOffset) = LinkAt(anchor, nextOffset);
         LinkAt(anchor, owner->nextOffset) = inserted;
         LinkAt(inserted, owner->prevOffset) = anchor;
+        count = owner->count + 1;
     } else {
         void *oldTail = owner->tail;
         if (oldTail != 0) {
@@ -103,8 +112,9 @@ void List_InsertAfterIntrusive(void *list, s32 anchorNode, s32 insertedNode) {
         }
         LinkAt(inserted, owner->nextOffset) = 0;
         owner->tail = inserted;
+        count = owner->count + 1;
     }
-    owner->count = owner->count + 1;
+    owner->count = count;
 }
 
 void List_RemoveIntrusive(void *list, void *node) {
@@ -143,16 +153,18 @@ void List_DropIntrusiveTail(IntrusiveList *list) {
 }
 
 /* Detaches node from its neighbours and from the list's head and tail, and decrements the count. */
-static void List_UnlinkIntrusiveNode(IntrusiveList *owner, void *node) {
+static inline void List_UnlinkIntrusiveNode(IntrusiveList *owner, void *node) {
     void *previous = LinkAt(node, owner->prevOffset);
     void *following;
 
     if (previous != 0) {
-        LinkAt(previous, owner->nextOffset) = LinkAt(node, owner->nextOffset);
+        s32 nextOffset = owner->nextOffset;
+        LinkAt(previous, nextOffset) = LinkAt(node, nextOffset);
     }
     following = LinkAt(node, owner->nextOffset);
     if (following != 0) {
-        LinkAt(following, owner->prevOffset) = LinkAt(node, owner->prevOffset);
+        s32 prevOffset = owner->prevOffset;
+        LinkAt(following, prevOffset) = LinkAt(node, prevOffset);
     }
     if (owner->head == node) {
         owner->head = LinkAt(node, owner->nextOffset);
@@ -206,16 +218,22 @@ void List_MoveIntrusiveToTail(void *list, s32 nodeToMove) {
 /* Returns a pseudo-randomly chosen node of the list, or null when the list is empty
  * (the name is historical: it does not count anything). */
 void *List_CountIntrusiveNodes(void *intrusiveList) {
-    IntrusiveList *list = (IntrusiveList *)intrusiveList;
-    void *node = list->head;
-    s32 stepsRemaining;
+    s32 index;
+    s32 offset;
+    void *node;
 
+    node = ((IntrusiveList *)intrusiveList)->head;
     if (node == 0) {
         return 0;
     }
-    stepsRemaining = Graphu64_NextRandom() % (u32)list->count;
-    while (stepsRemaining-- != 0) {
-        node = LinkAt(node, list->nextOffset);
+    index = Graphu64_NextRandom() % (u32)((IntrusiveList *)intrusiveList)->count;
+    index--;
+    if (index != -1) {
+        offset = ((IntrusiveList *)intrusiveList)->nextOffset;
+        do {
+            { u8 *cursor = (u8 *)node; cursor += offset; node = *(void **)cursor; }
+            index--;
+        } while (index != -1);
     }
     return node;
 }
@@ -224,20 +242,26 @@ void *List_CountIntrusiveNodes(void *intrusiveList) {
 void List_TraverseIntrusiveNodes(IntrusiveList *list) {
     void *node = list->head;
 
-    while (node != 0) {
-        node = LinkAt(node, list->nextOffset);
+    if (node != 0) {
+        s32 nextOffset = list->nextOffset;
+
+        node = LinkAt(node, nextOffset);
+        while (node != 0) {
+            node = LinkAt(node, nextOffset);
+        }
     }
 }
 
 /* Returns 1 when wantedNode is linked into the list, else 0. */
 int List_ContainsIntrusiveNode(IntrusiveList *list, int wantedNode) {
-    void *node = list->head;
-
-    while (node != 0) {
-        if ((int)node == wantedNode) {
-            return 1;
-        }
-        node = LinkAt(node, list->nextOffset);
+    int node = list->head;
+    if (node != 0) {
+        do {
+            if (node == wantedNode) {
+                return 1;
+            }
+            node = *(int *)(node + list->nextOffset);
+        } while (node != 0);
     }
     return 0;
 }

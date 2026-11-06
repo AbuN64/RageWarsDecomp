@@ -7,8 +7,7 @@ import tempfile
 root = pathlib.Path(__file__).resolve().parents[2]
 functions = []
 for path, name in [("Source/Frontend/match.cpp", "Frontend_DispatchMatchMenuEvent"),
-                   ("Source/Frontend/match.cpp", "Match_DispatchEuxMatchMenuEvent"),
-                   ("Source/Menu/extraoptions.cpp", "Menu_DispatchExtraOptionsEvent")]:
+                   ("Source/Frontend/match.cpp", "Match_DispatchEuxMatchMenuEvent")]:
     text = (root / path).read_text()
     start = text.index("s32 " + name + "(")
     end = text.index("\n}\n", start) + 3
@@ -17,10 +16,10 @@ harness = r'''
 #include <assert.h>
 typedef int s32;
 typedef struct { int resource; } MenuWidget;
-typedef int (*Handler)(void *, int, int, int, int);
-typedef struct { int event, actorKind; Handler handler; } ResidentEventHandlerEntry;
+typedef int (*ResidentEventHandler)(void *, int, int, int, int);
+typedef struct { int event, actorKind; ResidentEventHandler handler; } ResidentEventHandlerEntry;
 #define ANY_ACTOR_KIND 30000
-ResidentEventHandlerEntry g_matchMenuEventIds[4], g_extraOptionsEventCodes[4];
+ResidentEventHandlerEntry g_matchMenuEventIds[4];
 static int calls;
 static int handle(void *actor, int event, int a, int b, int c) {
     assert(((MenuWidget *)actor)->resource == 7);
@@ -33,11 +32,11 @@ harness += "\n".join(functions)
 harness += r'''
 int main(void) {
     MenuWidget actor = {7};
-    Handler dispatchers[] = {Frontend_DispatchMatchMenuEvent,
-        Match_DispatchEuxMatchMenuEvent, Menu_DispatchExtraOptionsEvent};
+    ResidentEventHandler dispatchers[] = {Frontend_DispatchMatchMenuEvent,
+        Match_DispatchEuxMatchMenuEvent};
     int i;
-    for (i = 0; i < 3; ++i) {
-        ResidentEventHandlerEntry *rows = i == 2 ? g_extraOptionsEventCodes : g_matchMenuEventIds;
+    for (i = 0; i < 2; ++i) {
+        ResidentEventHandlerEntry *rows = g_matchMenuEventIds;
         rows[0] = (ResidentEventHandlerEntry){0, 0, 0};
         assert(dispatchers[i](&actor,42,3,4,5) == 0);
         rows[0] = (ResidentEventHandlerEntry){41, 7, handle};

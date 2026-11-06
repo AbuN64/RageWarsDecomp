@@ -21,6 +21,6 @@ void Smos_SetAxisThreshold(int threshold) {
 }
 
 /** Return how many control repeats the screen manager allows. */
-unsigned int Smos_GetControlRepeatLimit(void) {
+s32 Smos_GetControlRepeatLimit(void) {
     return g_screenManager->limit;
 }

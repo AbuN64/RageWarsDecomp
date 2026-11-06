@@ -17,7 +17,7 @@ extern float InstHdr_ReturnUnusedActorFloat(void);
 extern f32 InstHdr_GetActorTriangleTopOffset(void *);
 extern f32 InstHdr_GetActorTriangleBottomOffset(void *);
 extern s32 InstHdr_HasTypeOneFlagOne(void *actorStorage);
-extern int InstHdr_ReturnUnusedActorStatus(void);
+extern int InstHdr_ReturnUnusedActorStatus(void *owner);
 extern int InstHdr_ReturnUnusedActorStatusAlternate(void);
 extern int InstHdr_ReturnUnusedActorQuery(void);
 extern s32 InstHdr_CanActorCastShadow(void *);
@@ -37,4 +37,5 @@ struct Shared_CollisionActor;
 float InstHdr_GetShadowGroundHeight(struct Shared_CollisionActor *object, s32 mode);
 
 unsigned int InstHdr_UsesGroundRotation(char *object);
+extern s32 Insthdr_HasActorTerritory(void *actorStorage);
 #endif

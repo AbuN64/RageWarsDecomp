@@ -643,31 +643,23 @@ void SmSmngr_RegisterElementHandlers(s32 id, MenuElementHandler eventHandler, Me
     }
 }
 
-const float g_SmSmngr_InitializeScreenManagerConstants[2] = {
-    4.4765625f, 0.0f,
+s32 s_menuLastDrawTick = 0;
+MenuDrawClockTail s_menuDrawClockTail = {
+#if defined(VERSION_DE)
+    { 3.1415927f, 0.0f, -3.1415927f },
+#elif defined(VERSION_EU)
+    0,
+    { -1.0f, -0.70710677f },
+#elif defined(VERSION_EU_X)
+    { 'r', 'e', 0, 0, 'E', 'n', 'e', 'r', 'g', 'y', ' ', 'r' },
+#elif defined(VERSION_US)
+    "quR",
+    { 14223616, 1048587 },
+#else
+    { 0, 0, 0, 0, 'S', 'm', 'a', 'c', 'k', ' ', '%', 's' },
+#endif
 };
 
-#ifdef VERSION_DE
-float s_smackFormat[4] = {
-    0.0f, 3.1415927f, 0.0f, -3.1415927f,
-};
-#endif
-#ifdef VERSION_EU
-RestSmackFormat s_smackFormat = {
-    { 0, 0 },
-    { -1.0f, -0.70710677f }
-};
-#endif
-#ifdef VERSION_EU_X
-char s_smackFormat[16] = "\000\000\000\000re\000\000Energy r";
-#endif
-#ifdef VERSION_US
-RestSmackFormatVariant2 s_smackFormat = {
-    0,
-    "quR\000",
-    { 14223616, 1048587 }
-};
-#endif
-#ifdef VERSION_US_REV1
-char s_smackFormat[16] = "\000\000\000\000\000\000\000\000Smack %s";
+#if defined(VERSION_DE)
+double g_screenManagerFrameScale = 1000.0;
 #endif

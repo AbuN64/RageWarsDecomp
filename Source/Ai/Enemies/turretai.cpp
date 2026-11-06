@@ -125,15 +125,6 @@ void Turret_CalcOrientMtx(struct Owner *owner, TurretRiderTargetView *rider) {
     SwapMatrixUpForward(&owner->transform);
 }
 
-const float k_turretaiFloatConstants[5] = {
-    0.5f, 6.283186f, 0.5f, 0.01f,
-    0.01f,
-};
-
-const float k_turretaiUnitAndNegativeQuarterTurn[2] = {
-    1.0f, -1.5707965f,
-};
-
 struct Owner;
 
 /* Moves a rider along its path segment: limits the throttle change by the segment's length over its radius, then
@@ -155,6 +146,11 @@ struct Owner;
 
 
 
+#if defined(VERSION_DE)
+unsigned int g_turretUpDirectionLinkerFill[2] = {
+    0x00000000, 0x3F7FFF58,
+};
+#endif
 void Turret_Move(struct Owner *owner, Rider *rider, s32 mode, SharedPlayer *target) {
     Segment *segment;
     f32 throttle;
@@ -667,25 +663,9 @@ s32 AI_DynTurretCanSeePlayer(Player *player, TurretTargetVisibilityView *rider, 
 
 #if defined(VERSION_DE)
 /* two stale words ahead of the up vector (0, 0.99999f): linker fill, read by nothing */
-unsigned int g_turretUpDirectionLinkerFill[2] = {
-    0x00000000, 0x3F7FFF58,
-};
 /* 800C19F0: world up, copied to the stack by CVector3_GetDirectionRotation2 (lw x3) */
 CVector3 k_turretUpDirection = { 0.0f, 1.0f, 0.0f };
 #endif
-
-const float k_directionRotationFloats[8] = {
-    0.99999f, 1.0f, -0.99999f, 1.5707965f,
-    0.5f, 0.5f, 0.5f, 0.5f,
-};
-
-const float k_turretaiNegativeQuarterTurn[1] = {
-    -1.5707965f,
-};
-
-const float k_turretAdvanceDataFloatConstants[1] = {
-    675.0f,
-};
 
 #if defined(VERSION_US)
 /* two stale words ahead of the up vector ('RGBR', 0): linker fill, read by nothing */
@@ -741,3 +721,19 @@ unsigned int g_turretUpDirectionLinkerFill[2] = {
 CVector3 k_turretUpDirection = { 0.0f, 1.0f, 0.0f };
 #endif
 #endif
+
+float k_turretVerticalAimUpperLimit = 0.999989986f;
+float k_turretIdentityQuaternionW = 1.0f;
+float k_turretVerticalAimLowerLimit = -0.999989986f;
+f32 k_turretInvertedAimAngle = 1.57079649f;
+float k_turretTurnAngleScale = 0.5f;
+float k_turretQuaternionAngleScale = 0.5f;
+float k_turretHeadingSineScale = 0.5f;
+float k_turretHeadingCosineScale = 0.5f;
+
+float k_turretAimHeightScale = 0.5f;
+float k_turretTurnLimitThreshold = 6.28318596f;
+float k_turretMaximumTurnScale = 0.5f;
+float k_turretNegativeAimTolerance = 0.00999999978f;
+float k_turretPositiveAimTolerance = 0.00999999978f;
+float k_turretInitialRange = 1.0f;

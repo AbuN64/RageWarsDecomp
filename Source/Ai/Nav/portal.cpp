@@ -43,6 +43,9 @@
 #include "Graphu64/graphu64_getangledistance.h"
 #include "Ai/cbarrel.h"
 #include "Ai/Nav/farthest.h"
+#include "Engine/Scene/scene_findtrackedactors.h"
+#include "Gobjinst/gameobject_movetoxzkeepheight.h"
+#include "Scene/scene_findtrackedactors.h"
 
 /* Runs a computer player's engagement timer: while the countdown is positive it rerolls the
    wait as the config's base at 8 plus a random share (scale g_timedActionWaitRandomScale) of its spread
@@ -708,7 +711,7 @@ static __inline__ s32 navigationBlocked(Player *actor, CNavData *graph, s32 inde
     }
     query.w[0] = 0x4000;
     __builtin_memcpy(saved, actor, sizeof(saved));
-    result = Unicol_MoveActorWithCollision(actor, position.x, position.y, position.z, &query);
+    result = Unicol_MoveActorWithCollision(actor, position, &query);
     __builtin_memcpy(actor, saved, sizeof(saved));
     return result;
 }
@@ -1634,7 +1637,7 @@ s32 Portal_IsNodeMovementBlocked(s32 **nodeStorage, void *instance, s32 nodeKey)
     }
     collision.w[0] = 0x4000;
     saved = *(struct ActorInstanceHeader *)instance;
-    result = Unicol_MoveActorWithCollision(instance, position.x, position.y, position.z, &collision);
+    result = Unicol_MoveActorWithCollision(instance, position, &collision);
     *(struct ActorInstanceHeader *)instance = saved;
     return result == 0;
 }

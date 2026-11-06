@@ -156,28 +156,40 @@
    SoundElement_PlayFlatSound. Panels in state 13 and above are left alone; always returns zero. */
 
 s32 PAKInterface_MoveNameCursorBackward(s32 element, s32 eventId, s32 playerEntryId, s32 selectionPressed) {
-    struct ResourceSmpFlickerCreateFlickerWidget *slotWidget;
-    PakProfilePanelState *panel;
-    u8 *nameSlot;
+    struct ResourceSmpFlickerCreateFlickerWidget *sound;
+    struct PakPanelSelectionView *row;
+    char *base;
+    u8 *mark;
     s32 index;
+    s32 offset;
+    s32 state;
+    s32 count;
 
     index = playerEntryId & 0xFFFF;
-    panel = &g_pakProfileScreenState->players[index];
-    if (panel->state == 13 || panel->state >= 14) {
+    offset = index * 2920;
+    state = ((struct PakPanelSelectionView *)(offset + (char *)g_pakProfileScreenState))->state;
+    if (state == 13) {
         return 0;
     }
-    if (panel->state == 12 && selectionPressed == 1) {
-        slotWidget = SmpOverlay_GetSlotValue(g_pakProfileScreenState->root, index);
-        panel->namePhase = 2;
-        panel->nameTimer = 0;
-        if (panel->nameCursor > 0) {
-            panel->nameCursor -= 1;
+    if (state >= 14) {
+        return 0;
+    }
+    if (state == 12 && selectionPressed == 1) {
+        sound = SmpOverlay_GetSlotValue(g_pakProfileScreenState->root, index);
+        row = (struct PakPanelSelectionView *)(index * sizeof(PakProfilePanelState) + (char *)g_pakProfileScreenState);
+        row->phase = 2;
+        count = row->count;
+        row->timer = 0;
+        if (count > 0) {
+            row->count = count - 1;
         }
-        nameSlot = &panel->name[panel->nameCursor].available;
-        if (*nameSlot == 0) {
-            *nameSlot = 'A';
+        base = (char *)g_pakProfileScreenState;
+        mark = (u8 *)(base + ((((struct PakPanelSelectionView *)(offset + base))->count * 2) +
+                              index * sizeof(PakProfilePanelState)) + (((char *)&((struct PakMenuController *)0)->players - (char *)0) + ((char *)&((PakProfilePanelState *)0)->name - (char *)0)));
+        if (*mark == 0) {
+            *mark = 65;
         }
-        slotWidget->value = 0xFF;
+        sound->value = 0xFF;
         SoundElement_PlayFlatSound(3700);
     }
     return 0;
@@ -1886,13 +1898,11 @@ block_84:
    label; every player's animation clock (selected[player] of the screen state) then advances by phaseStep. */
 void PAKInterface_UpdatePlayerPanelAnimations(s32 phaseStep) {
     ResourceSmpFlickerCreateFlickerWidget *animatedLabel;
-    PakProfilePanelState *panel;
     f32 bobValue;
     s32 player;
 
     for (player = 0; player < 4; player++) {
-        panel = &g_pakProfileScreenState->players[player];
-        switch (panel->state) {
+        switch (g_pakProfileScreenState->players[player].state) {
         case 0:
             PAKInterface_PulseIdlePanelLabels(player);
             break;
@@ -1900,16 +1910,16 @@ void PAKInterface_UpdatePlayerPanelAnimations(s32 phaseStep) {
             animatedLabel = SmpOverlay_GetSlotValue(g_pakProfileScreenState->root, player);
             bobValue = (Math_Cosf((f32)player + ((f32)g_pakProfileScreenState->selected[player] * 0.005f)) * 100.0f) + 150.0f;
             animatedLabel->value = bobValue;
-            switch (panel->namePhase) {
+            switch (g_pakProfileScreenState->players[player].namePhase) {
             case 0:
-                panel->nameTimer += 1;
-                if (panel->nameTimer >= 6) {
+                g_pakProfileScreenState->players[player].nameTimer += 1;
+                if (g_pakProfileScreenState->players[player].nameTimer >= 6) {
                     PAKInterface_DecrementNameCharacter(player);
                 }
                 break;
             case 1:
-                panel->nameTimer += 1;
-                if (panel->nameTimer >= 6) {
+                g_pakProfileScreenState->players[player].nameTimer += 1;
+                if (g_pakProfileScreenState->players[player].nameTimer >= 6) {
                     PAKInterface_IncrementNameCharacter(player);
                 }
                 break;
@@ -1918,7 +1928,7 @@ void PAKInterface_UpdatePlayerPanelAnimations(s32 phaseStep) {
             }
             break;
         case 4:
-            animatedLabel = (ResourceSmpFlickerCreateFlickerWidget *)panel->labels[panel->slot - panel->scroll];
+            animatedLabel = (ResourceSmpFlickerCreateFlickerWidget *)g_pakProfileScreenState->players[player].labels[g_pakProfileScreenState->players[player].slot - g_pakProfileScreenState->players[player].scroll];
             bobValue = (Math_Cosf((f32)player + ((f32)g_pakProfileScreenState->selected[player] * 0.005f)) * 100.0f) + 150.0f;
             animatedLabel->value = bobValue;
             break;
@@ -2367,37 +2377,37 @@ typedef union BoundStorageView {
 
 /* Reads the number a menu item is bound to, converting its stored scalar type to float. */
 f32 Bound_ReadBoundValue(MenuBindingItemView *item) {
-    Binding *binding = item->binding;
-    BoundStorageView storage;
-    storage.raw = binding->storage();
-
-    switch (binding->type) {
-    case 0: return *storage.asF32;
-    case 3: return *storage.asS8;
-    case 4: return *storage.asS16;
-    case 1: case 2: case 5: return *storage.asS32;
-    case 6: return *storage.asU8;
-    case 7: return *storage.asU16;
-    case 8: return *storage.asU32;
-    default: return 0.0f;
-    }
+ Binding *v = item->binding;
+ void *p = v->storage();
+ switch(v->type) {
+ default: return 0.0f;
+ case 0: return *(f32 *)p;
+ case 3: return *(s8 *)p;
+ case 4: return *(s16 *)p;
+ case 1: case 2: case 5: return *(s32 *)p;
+ case 6: return *(u8 *)p;
+ case 7: return *(u16 *)p;
+ case 8: return *(u32 *)p;
+ }
 }
 
 /* Writes a numeric menu value through its bound storage callback using the selected scalar type. */
-void Bound_WriteBoundValue(MenuBindingItemView *item, f32 value) {
-    Binding *binding = item->binding;
-    BoundStorageView storage;
-    storage.raw = binding->storage();
+void Bound_WriteBoundValue(MenuBindingItemView *item,float value) {
+ float *storage;
+ struct Binding *binding;
+ unsigned int *word;
+ binding=item->binding;
+ storage=binding->storage();
 
-    switch (binding->type) {
-    case 0: *storage.asF32 = value; return;
-    case 3: *storage.asS8 = (s32)value; return;
-    case 4: *storage.asS16 = (s32)value; return;
-    case 1: case 2: case 5: *storage.asS32 = (s32)value; return;
-    case 6: *storage.asU8 = (u32)value; return;
-    case 7: *storage.asU16 = (u32)value; return;
-    case 8: *storage.asU32 = (u32)value; return;
-    }
+ switch(binding->type) {
+ case 0:*(float *)storage=value;return;
+ case 3:*(signed char *)storage=(int)value;return;
+ case 4:*(short *)storage=(int)value;return;
+ case 1:case 2:case 5:*(int *)storage=(int)value;return;
+ case 6:*(unsigned char *)storage=(unsigned int)value;return;
+ case 7:*(unsigned short *)storage=(unsigned int)value;return;
+ case 8:word=(unsigned int *)storage;*word=(unsigned int)value;return;
+ }
 }
 #endif
 /* Calls Gobjinst_DrawMaskedModelWithLighting with its three arguments and the table g_defaultParticleLighting as the fourth. */
@@ -4448,42 +4458,6 @@ EventHandlerRecord g_menuNodePairEventHandlers[4] = {
 
 #if defined(VERSION_US_REV1)
 extern char g_firstPlayerName[];
-/* Initialize the pulse screen, its shared menu state, and player profiles. */
-s32 Frontend_CreateProfileResetScreen(MenuWidget *tree) {
-    s32 i;
-    Shared_Game *settings;
-    Shared_PlayerSettingsRecord *record;
-    Shared_MenuObject *object;
-
-    g_profileResetScreen = Cache_AllocateMemory(sizeof(*g_profileResetScreen));
-    object = &g_playerViewRenderContext.object;
-    Pools_ResetActorPools(object, 0);
-    Player_InitializePlayerPool(&g_playerViewRenderContext, 0, 0);
-    Scene_LoadLevelResources(&g_world, 0, 0);
-    if (Cache_GetResourceActivityState() == 0) {
-        Cache_SetResourceActivityState(1);
-    }
-    Frontend_RequestScreenMode(0);
-    i = 7;
-    Tsmos_DeactivateControllerState();
-    record = &object->playerSettings[7];
-    do {
-        record->enabled = 0;
-        i--;
-        record--;
-    } while (i >= 0);
-    g_profileResetScreen->widget = Node_FindWidgetByResourceId(tree, 919);
-    g_profileResetScreen->phase = 0;
-    settings = &g_gameSettings;
-    settings->laps = 10;
-    settings->players = 10;
-    for (i = 0; i < 4; i++) {
-        Player_InitializeProfile(&g_localPlayerProfiles[i]);
-    }
-    Tsmos_SetIdleTimer(0.0f);
-    return 0;
-}
-
 #endif
 
 
@@ -5106,7 +5080,6 @@ void PAKInterface_SetScreenPhase(s32 value) {
 void PAKInterface_PulseIdlePanelLabels(s32 index) {
     float pulse;
     u32 alpha;
-    MenuWidget *window = g_pakProfileScreenState->players[index].sprite;
     pulse = Math_Cosf((float)index + (float)g_pakProfileScreenState->selected[index] * g_pakPanelPulsePhaseScale)
         * (*(&g_pakPanelPulsePhaseScale + 1)) + g_pakPanelPulseUnsignedThreshold;
     if (pulse >= (*(&g_pakPanelPulseUnsignedThreshold + 1))) {
@@ -5119,18 +5092,18 @@ large:
     alpha |= 0x80000000;
 converted:
 #if defined(VERSION_DE)
-    Node_FindWidgetByResourceId(window, 740)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 740)->alpha = alpha;
 #elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    Node_FindWidgetByResourceId(window, 706)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 706)->alpha = alpha;
 #elif defined(VERSION_EU_X)
-    Node_FindWidgetByResourceId(window, 725)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 725)->alpha = alpha;
 #endif
 #if defined(VERSION_DE)
-    Node_FindWidgetByResourceId(window, 741)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 741)->alpha = alpha;
 #elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    Node_FindWidgetByResourceId(window, 707)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 707)->alpha = alpha;
 #elif defined(VERSION_EU_X)
-    Node_FindWidgetByResourceId(window, 724)->alpha = alpha;
+    Node_FindWidgetByResourceId(g_pakProfileScreenState->players[index].sprite, 724)->alpha = alpha;
 #endif
 }
 
@@ -5317,8 +5290,8 @@ void PAKInterface_BuildSavePacket(s32 index) {
     PakSavePacket *packet = &g_pakProfileScreenState->packet;
 
     XPlus_CopyBytes(packet, g_pakProfileScreenState->players[index].records, 1600);
-    packet->savedProfile = g_pakProfileScreenState->players[index].profile;
-    packet->checksum = Note_Crc32(packet, 1600, 7);
+    g_pakProfileScreenState->packet.savedProfile = g_pakProfileScreenState->players[index].profile;
+    g_pakProfileScreenState->packet.checksum = Note_Crc32(packet, 1600, 7);
 }
 
 /* Copies the 1600-byte save packet of g_pakProfileScreenState back into the save area of the panel of player index through
@@ -5482,13 +5455,6 @@ const char s_pakNoteDottedFormat[9] =
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
 const char g_PAKInterface_LoadNoteListConstantsDe[6] =
     "%d.%s";
-#endif
-#if !(defined(VERSION_US))
-#if !(defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US))
-const float k_initialDataFloatConstants[1] = {
-    120.0f,
-};
-#endif
 #endif
 #if defined(VERSION_EU_X)
 const unsigned int g_pakInitialUnreferencedWordsEuX[3] = {

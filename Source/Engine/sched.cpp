@@ -82,7 +82,7 @@ s32 Sched_SelectRunnableTasks(OSSched *scheduler, OSScTask **rspTaskOut, OSScTas
     } else {
         if (gfxListHead == 0) {
             runnableGraphicsTask = 0;
-        } else if ((s32)gfxListHead->framebuffer == g_displayedFramebufferAndRefreshRate) {
+        } else if ((s32)gfxListHead->framebuffer == *(s32 *)&g_displayedFramebufferAndRefreshRate[0]) {
             runnableGraphicsTask = 0;
         } else if (gfxListHead->framebuffer == osViGetCurrentFramebuffer()) {
             runnableGraphicsTask = 0;
@@ -217,9 +217,8 @@ void Sched_StartSelectedTasks(OSSched *view, OSScTask *current, OSScTask *next) 
 /* SCHED_SENDSCHEDULERTASK.CPP */
 
 void Sched_SendSchedulerTask(s32 schedulerAddress, s32 taskMessage) {
-  OSSched *scheduler = (OSSched *) schedulerAddress;
-    osSendMesg(&scheduler->cmdQ, taskMessage, 1);
-    osSendMesg(&scheduler->interruptQ, 6, 1);
+    osSendMesg((char *)&((OSSched *)schedulerAddress)->cmdQ, taskMessage, 1);
+    osSendMesg((char *)&((OSSched *)schedulerAddress)->interruptQ, 6, 1);
 }
 
 /* sched_runeventloopus.CPP */

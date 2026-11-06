@@ -132,21 +132,22 @@ s32 Player_InitPlayerSettingsScreen(s32 root) {
 #define ST ((void **)g_playerSettingsScreen)
 /* Builds the five player-settings controls (labels picked by the current language) and opens their parent screen. */
 s32 Player_InitPlayerSettingsScreen(s32 root) {
+    u8 *settings = (u8 *)&g_gameSettings;
     g_playerSettingsScreen = (struct StateMenuSelectPlayerSettingsEntry *)Cache_AllocateMemory(100);
     ST[0] = SmpFade_CreateFadeWidget(EU_ID(91, 95), EU_ID(92, 96));
     SmpButton_WrapButtonWidget(EU_ID(94, 98));
     g_playerSettingsScreen->a = SmpButton_CreateListWidget(EU_ID(100, 104), EU_ID(101, 105));
-    SmpButton_AppendListText(g_playerSettingsScreen->a, g_matchOptionsCursorNormalLabelByLanguage[g_gameSettings.language]);
-    SmpButton_AppendListText(g_playerSettingsScreen->a, g_alternateSettingsModeLabels[g_gameSettings.language]);
+    SmpButton_AppendListText(g_playerSettingsScreen->a, g_matchOptionsCursorNormalLabelByLanguage[settings[1409]]);
+    SmpButton_AppendListText(g_playerSettingsScreen->a, g_alternateSettingsModeLabels[settings[1409]]);
     g_playerSettingsScreen->b = SmpButton_CreateListWidget(EU_ID(97, 101), EU_ID(99, 102));
-    SmpButton_AppendListText(g_playerSettingsScreen->b, g_optionsOffLabels[g_gameSettings.language]);
-    SmpButton_AppendListText(g_playerSettingsScreen->b, g_alternateSettingsControlLabels[g_gameSettings.language]);
+    SmpButton_AppendListText(g_playerSettingsScreen->b, g_optionsOffLabels[settings[1409]]);
+    SmpButton_AppendListText(g_playerSettingsScreen->b, g_alternateSettingsControlLabels[settings[1409]]);
     g_playerSettingsScreen->c = SmpSlider_CreateSliderWidget(EU_ID(102, 106), EU_ID(103, 107), 248);
     g_playerSettingsScreen->d = SmpSlider_CreateSliderWidget(EU_ID(106, 110), EU_ID(107, 111), 248);
     g_playerSettingsScreen->e = SmpButton_CreateListWidget(EU_ID(104, 108), EU_ID(105, 109));
-    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsHandLabels[g_gameSettings.language]);
-    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsFinalChoiceLabelsEu[g_gameSettings.language]);
-    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsFinalChoiceLabelsEuX[g_gameSettings.language]);
+    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsHandLabels[settings[1409]]);
+    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsFinalChoiceLabelsEu[settings[1409]]);
+    SmpButton_AppendListText(g_playerSettingsScreen->e, g_alternateSettingsFinalChoiceLabelsEuX[settings[1409]]);
     SmpButton_WrapButtonWidget(EU_ID(96, 100));
     ST[1] = SmpFlicker_CreateFlickerWidget(EU_ID(93, 97), 110);
     ((s32 *)g_playerSettingsScreen)[9] = 3;
@@ -190,6 +191,44 @@ void Player_StorePlayerSettingsEntry(s32 entryIndex) {
     config[122] = g_profileSlotSettingsSecondarySliderItem[entryIndex * 400];
     config[130] = g_profileSlotSettingsExtraListSelection[entryIndex * 400];
 }
+
+void Player_SelectAlternatePlayerSettingsEntry(s32 entryIndex);
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#if defined(VERSION_EU_X)
+#define ID(id) ((id) + 4)
+#else
+#define ID(id) (id)
+#endif
+
+/* Builds the 0x50-byte confirm popup: its three button rows (ids 0x1C9, 0x1D1, 0x1CB) get the labels of the current language,
+   the two fade windows ID(0x1CF)/ID(0x1CD) are created, and item ID(0x1C7) is kept as the cursor. Returns 0. */
+s32 Player_OpenAlternatePlayerSettingsScreen(void *window) {
+    u8 *settings;
+    void *firstList;
+    g_alternatePlayerSettingsScreen = Cache_AllocateMemory(80);
+    SmpButton_WrapButtonWidget(ID(454));
+    firstList = SmpButton_CreateListWidget(ID(457), ID(458));
+    settings = (u8 *)&g_gameSettings;
+    g_alternatePlayerSettingsScreen->listA = firstList;
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listA, g_matchOptionsCursorNormalLabelByLanguage[settings[1409]]);
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listA, g_alternateSettingsModeLabels[settings[1409]]);
+    g_alternatePlayerSettingsScreen->listB = SmpButton_CreateListWidget(ID(465), ID(466));
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listB, g_optionsOffLabels[settings[1409]]);
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listB, g_alternateSettingsControlLabels[settings[1409]]);
+    g_alternatePlayerSettingsScreen->panels[0] = SmpSlider_CreateSliderWidget(ID(463), ID(464), 0xFF);
+    g_alternatePlayerSettingsScreen->panels[1] = SmpSlider_CreateSliderWidget(ID(461), ID(462), 0xFF);
+    g_alternatePlayerSettingsScreen->listC = SmpButton_CreateListWidget(ID(459), ID(460));
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsHandLabels[settings[1409]]);
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsFinalChoiceLabelsEu[settings[1409]]);
+    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsFinalChoiceLabelsEuX[settings[1409]]);
+    SmpButton_WrapButtonWidget(ID(456));
+    g_alternatePlayerSettingsScreen->window = Node_FindWidgetByResourceId(window, ID(455));
+    g_alternatePlayerSettingsScreen->selection = 0;
+    Player_SelectAlternatePlayerSettingsEntry(0);
+    return 0;
+}
+#undef ID
+#endif
 #undef PLAYER_SETTINGS_ID
 #undef ST
 #undef EU_ID
@@ -436,7 +475,7 @@ s32 Player_ConfirmAlternatePlayerSettingsEntry(void) {
 #elif defined(VERSION_EU_X)
     if (Menu_GetFocusedElementId() == 460) {
 #endif
-        Player_StoreAlternatePlayerSettingsEntry(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item);
+        Player_StoreAlternatePlayerSettingsEntry(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item);
         Random_SetMenuChoiceResult(Menu_GetPreviousScreenOwner(0) == 22 ? -1 : 11);
         Menu_ReturnToPreviousScreen();
     }
@@ -455,15 +494,15 @@ s32 Player_SelectNextAlternatePlayerSettingsEntry(s32 element, s32 eventId, s32 
 
     MarkMenuEventHandled();
     if (selectionPressed == 1) {
-        Player_StoreAlternatePlayerSettingsEntry(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item);
-        selectedEntry = ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item + 1;
-        ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item = selectedEntry;
+        Player_StoreAlternatePlayerSettingsEntry(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item);
+        selectedEntry = ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item + 1;
+        ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item = selectedEntry;
         if (selectedEntry >= 4) {
-            ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item = 0;
+            ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item = 0;
         }
-        Player_SelectAlternatePlayerSettingsEntry(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item);
-        XStdio_FormatBuffer(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->text, RW_LOCALIZED_TEXT(g_playerSettingsSlotNumberFormat, g_playerSettingsSlotNumberTranslations, g_playerSettingsSlotNumberTranslations, g_languageIndex), ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item + 1);
-        ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->label->text = (void *) (((struct MenuStepState *)g_alternatePlayerSettingsScreen)->text);
+        Player_SelectAlternatePlayerSettingsEntry(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item);
+        XStdio_FormatBuffer(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->text, RW_LOCALIZED_TEXT(g_playerSettingsSlotNumberFormat, g_playerSettingsSlotNumberTranslations, g_playerSettingsSlotNumberTranslations, g_languageIndex), ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item + 1);
+        ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->label->text = (void *) (((struct StyleNextState *)g_alternatePlayerSettingsScreen)->text);
         return 0;
     }
     return 0;
@@ -474,15 +513,15 @@ s32 Player_SelectPreviousAlternatePlayerSettingsEntry(s32 element, s32 eventId, 
 
     MarkMenuEventHandled();
     if (selectionPressed == 1) {
-        Player_StoreAlternatePlayerSettingsEntry(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item);
-        selectedEntry = ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item - 1;
-        ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item = selectedEntry;
+        Player_StoreAlternatePlayerSettingsEntry(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item);
+        selectedEntry = ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item - 1;
+        ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item = selectedEntry;
         if (selectedEntry < 0) {
-            ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item = 3;
+            ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item = 3;
         }
-        Player_SelectAlternatePlayerSettingsEntry(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item);
-        XStdio_FormatBuffer(((struct MenuStepState *)g_alternatePlayerSettingsScreen)->text, RW_LOCALIZED_TEXT(g_playerSettingsSlotNumberFormat, g_playerSettingsSlotNumberTranslations, g_playerSettingsSlotNumberTranslations, g_languageIndex), ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->item + 1);
-        ((struct MenuStepState *)g_alternatePlayerSettingsScreen)->label->text = (void *) (((struct MenuStepState *)g_alternatePlayerSettingsScreen)->text);
+        Player_SelectAlternatePlayerSettingsEntry(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item);
+        XStdio_FormatBuffer(((struct StyleNextState *)g_alternatePlayerSettingsScreen)->text, RW_LOCALIZED_TEXT(g_playerSettingsSlotNumberFormat, g_playerSettingsSlotNumberTranslations, g_playerSettingsSlotNumberTranslations, g_languageIndex), ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->item + 1);
+        ((struct StyleNextState *)g_alternatePlayerSettingsScreen)->label->text = (void *) (((struct StyleNextState *)g_alternatePlayerSettingsScreen)->text);
         return 0;
     }
     return 0;
@@ -516,35 +555,3 @@ s32 Player_DispatchAlternatePlayerSettingsEvent(void *eventObject, s32 eventId, 
     return 0;
 }
 
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-#if defined(VERSION_EU_X)
-#define ID(id) ((id) + 4)
-#else
-#define ID(id) (id)
-#endif
-
-/* Builds the 0x50-byte confirm popup: its three button rows (ids 0x1C9, 0x1D1, 0x1CB) get the labels of the current language,
-   the two fade windows ID(0x1CF)/ID(0x1CD) are created, and item ID(0x1C7) is kept as the cursor. Returns 0. */
-s32 Player_OpenAlternatePlayerSettingsScreen(void *window) {
-    g_alternatePlayerSettingsScreen = Cache_AllocateMemory(80);
-    SmpButton_WrapButtonWidget(ID(454));
-    g_alternatePlayerSettingsScreen->listA = SmpButton_CreateListWidget(ID(457), ID(458));
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listA, g_matchOptionsCursorNormalLabelByLanguage[g_gameSettings.language]);
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listA, g_alternateSettingsModeLabels[g_gameSettings.language]);
-    g_alternatePlayerSettingsScreen->listB = SmpButton_CreateListWidget(ID(465), ID(466));
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listB, g_optionsOffLabels[g_gameSettings.language]);
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listB, g_alternateSettingsControlLabels[g_gameSettings.language]);
-    g_alternatePlayerSettingsScreen->panels[0] = SmpSlider_CreateSliderWidget(ID(463), ID(464), 0xFF);
-    g_alternatePlayerSettingsScreen->panels[1] = SmpSlider_CreateSliderWidget(ID(461), ID(462), 0xFF);
-    g_alternatePlayerSettingsScreen->listC = SmpButton_CreateListWidget(ID(459), ID(460));
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsHandLabels[g_gameSettings.language]);
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsFinalChoiceLabelsEu[g_gameSettings.language]);
-    SmpButton_AppendListText(g_alternatePlayerSettingsScreen->listC, g_alternateSettingsFinalChoiceLabelsEuX[g_gameSettings.language]);
-    SmpButton_WrapButtonWidget(ID(456));
-    g_alternatePlayerSettingsScreen->window = Node_FindWidgetByResourceId(window, ID(455));
-    g_alternatePlayerSettingsScreen->selection = 0;
-    Player_SelectAlternatePlayerSettingsEntry(0);
-    return 0;
-}
-#undef ID
-#endif

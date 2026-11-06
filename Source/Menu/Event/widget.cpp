@@ -18,25 +18,25 @@ s32 Event_IgnoreWidgetValueUs(s32 unusedValue) {
 
 void Event_DrawClippedWidgetChildren(void *widget, sm_dldc args) {
     NumericWidgetChildView *record = widget;
-    struct WidgetRect first;
-    struct WidgetRect basis;
-    struct WidgetRect value;
-    struct WidgetRect transformed;
+    QuadN64EngDrawNumericWidgetChildren first;
+    QuadN64EngDrawNumericWidgetChildren basis;
+    QuadN64EngDrawNumericWidgetChildren value;
+    QuadN64EngDrawNumericWidgetChildren transformed;
     s32 changed;
 
     changed = 0;
     if (Widget_ComputeWidgetBounds(&first, &basis, widget, &args) != 0) {
         if ((record->flags & 0x200) != 0) {
-            N64Eng_GetClipBounds(&value.left, &value.top, &value.right, &value.bottom);
+            N64Eng_GetClipBounds(&value.x, &value.z, &value.y, &value.w);
             transformed = value;
             Node_ClampRectToClip(&transformed, &basis);
-            N64Eng_SetClipBounds(transformed.left, transformed.top,
-                          transformed.right, transformed.bottom);
+            N64Eng_SetClipBounds(transformed.x, transformed.z,
+                          transformed.y, transformed.w);
             changed = 1;
         }
         Widget_DrawVisibleSiblings(record->firstChild, args);
         if (changed != 0) {
-            N64Eng_SetClipBounds(value.left, value.top, value.right, value.bottom);
+            N64Eng_SetClipBounds(value.x, value.z, value.y, value.w);
         }
     }
 }

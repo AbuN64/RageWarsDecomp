@@ -64,8 +64,6 @@ struct MovingPlatformActorView;
 typedef struct MovingPlatformActorView MovingPlatformActorView;
 
 
-struct MovingActorGameFlagView;
-typedef struct MovingActorGameFlagView MovingActorGameFlagView;
 
 
 
@@ -134,7 +132,6 @@ struct PathMotionInterpolationState;
 typedef struct PathMotionInterpolationState PathMotionInterpolationState;
 
 
-struct MovingActorGameFlagView;
 
 
 struct TriggeredMotionSoundOption;

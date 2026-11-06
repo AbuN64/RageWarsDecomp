@@ -280,6 +280,10 @@ s32 Frontend_SelectPakConfirmationLabel(struct PakActionLabelView *field) {
     u32 state = g_frontendResourceLoadStage;
 
     switch (state) {
+        default:
+        case 0:
+            field->text = g_pakConfirmationDefaultLabel;
+            break;
         case 3:
             field->text = g_pakConfirmationDefaultLabel;
             break;
@@ -289,9 +293,6 @@ s32 Frontend_SelectPakConfirmationLabel(struct PakActionLabelView *field) {
         case 1:
         case 2:
             field->text = g_pakConfirmationActiveLabel;
-            break;
-        default:
-            field->text = g_pakConfirmationDefaultLabel;
             break;
     }
     return 0;

@@ -293,12 +293,13 @@ void Link_DispatchMatchingTriggers(Trigger *triggers, s32 count, s32 require, s3
 }
 
 s32 Link_CheckTriggerMessage(LinkTriggerMessageView *trigger, struct Player *player) {
+    LinkTriggerMessageView *object = trigger;
     NavigationPlatform *platform;
 
-    if (trigger->sequenceId == g_activeLinkSequenceId) {
+    if (object->sequenceId == g_activeLinkSequenceId) {
         if (player != 0) {
-            platform = &g_navigationPlatformActors[trigger->platformIndex];
-            if ((trigger->messageKind == 10) && (trigger->messageState == 1)) {
+            platform = &g_navigationPlatformActors[object->platformIndex];
+            if ((object->messageKind == 10) && (object->messageState == 1)) {
                 return Action_ShowTriggerMessage(platform, &platform->motion, player);
             }
         }

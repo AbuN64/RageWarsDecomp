@@ -3,5 +3,5 @@
 #include "types.h"
 #include "Menu/menu_item_views.h"
 struct MenuItemFlagsView;
-void *Menu_GetWidgetStyle(struct MenuItemFlagsView *widget);
+void *Menu_GetWidgetStyle(struct MenuItemFlagsView *widget, s32 unused);
 #endif

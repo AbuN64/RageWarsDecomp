@@ -117,7 +117,13 @@ void Player_InitActorParts(SharedPlayer *player, LevelPlacedActorRecord *rec, s3
     record->actorParts[0].controller = actor;
     Gobjinst_InitializePlacedActor(actor, rec, (void *)mode, 0);
     record->actorParts[0].controller = actor;
-    flags = record->actorParts[0].flags | 0x100000 | 0x10000 | 0x1000000 | 0x2000000;
+    {
+        u32 withPart = record->actorParts[0].flags | 0x100000;
+        u32 withShadow = withPart | 0x10000;
+        u32 withContact = withShadow | 0x1000000;
+
+        flags = withContact | 0x2000000;
+    }
     record->actorParts[0].flags = flags;
     if (g_frontendScreenStatus.settings.local == 0) {
         record->actorParts[0].flags = flags | 0x10000000;
@@ -160,113 +166,114 @@ struct RespawnPlayer;
  * object, clears the per-slot counters and weapon tables, selects the start mode from the multiplayer setting
  * and zeroes the per-player entries of the two global tables. */
 void Player_ResetPlayerForRound(void *actor, s32 character, s32 force_active) {
-    Player *player = (Player *)actor;
     s32 i;
+    Shared_Game *globals;
     s32 openFlag = 0;
     unsigned long counterAddress, counterAddress2;
     Control_IsSnapshotActive();
-    player->actorState = 1;
-    player->state = character;
-    if (player->computer == 0) {
-        player->camera = Pools_RecycleModel(&g_frontendScreenStatus);
+    ((Player *)actor)->actorState = 1;
+    ((Player *)actor)->state = character;
+    if (((Player *)actor)->computer == 0) {
+        ((Player *)actor)->camera = Pools_RecycleModel(&g_frontendScreenStatus);
         if (g_frontendScreenStatus.modes.remoteSession != 0) {
-            player->computer = 1;
+            ((Player *)actor)->computer = 1;
         }
     } else {
-        player->camera = 0;
+        ((Player *)actor)->camera = 0;
     }
-    TeamSelect_ResetWeaponWheel((char *)&((SharedPlayer *)player)->views5E8.view938_128.strokes);
-    TeamSelect_ResetTeamWheel((char *)&((SharedPlayer *)player)->views5E8.viewCCC_164.teamWheel);
+    TeamSelect_ResetWeaponWheel((char *)&((SharedPlayer *)((Player *)actor))->views5E8.view938_128.strokes);
+    TeamSelect_ResetTeamWheel((char *)&((SharedPlayer *)((Player *)actor))->views5E8.viewCCC_164.teamWheel);
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
     for (i = 1; i < 22; i++) {
-        player->actions[i][0] = 0;
-        player->actions[i][1] = -1;
+        ((Player *)actor)->actions[i][0] = 0;
+        ((Player *)actor)->actions[i][1] = -1;
     }
-    player->actions[0][0] = 1;
-    player->actions[0][1] = 0;
-    player->actions[3][1] = 2;
-    player->actions[4][0] = 1;
-    player->actions[4][1] = 1;
-    player->actions[3][0] = 1;
-    player->actions[10][0] = 1;
-    player->actions[2][0] = 1;
-    player->actions[10][1] = 4;
-    player->actions[2][1] = 5;
-    player->actions[14][0] = 1;
-    player->actions[14][1] = 6;
+    ((Player *)actor)->actions[0][0] = 1;
+    ((Player *)actor)->actions[0][1] = 0;
+    ((Player *)actor)->actions[3][1] = 2;
+    ((Player *)actor)->actions[4][0] = 1;
+    ((Player *)actor)->actions[4][1] = 1;
+    ((Player *)actor)->actions[3][0] = 1;
+    ((Player *)actor)->actions[10][0] = 1;
+    ((Player *)actor)->actions[2][0] = 1;
+    ((Player *)actor)->actions[10][1] = 4;
+    ((Player *)actor)->actions[2][1] = 5;
+    ((Player *)actor)->actions[14][0] = 1;
+    ((Player *)actor)->actions[14][1] = 6;
 #endif
-    (*(s16 *)((char *)player + 1512)) = 0;
+    (*(s16 *)((char *)((Player *)actor) + 1512)) = 0;
     i = 5;
-    counterAddress = (unsigned long)player + i;
+    counterAddress = (unsigned long)((Player *)actor) + i;
     do {
         *(u8 *)(counterAddress + ((char *)&((Player *)0)->eventCounters[0] - (char *)0)) = 0;
         counterAddress--;
     } while (--i >= 0);
     i = 5;
-    counterAddress2 = (unsigned long)player + i;
+    counterAddress2 = (unsigned long)((Player *)actor) + i;
     do {
         *(u8 *)(counterAddress2 + ((char *)&((Player *)0)->eventCounters[1] - (char *)0)) = 0;
         counterAddress2--;
     } while (--i >= 0);
     if (g_frontendScreenStatus.settings.local != 0) {
-        if (g_gameControllerMode == 1 && player->computer == 0) {
-            u32 value = Player_GetLevelProgress(&g_localPlayerProfiles[player->slot], player->profile->character);
-            player->countdown = ((value & 0xFF) >> 1) + 1;
+        if (g_gameControllerMode == 1 && ((Player *)actor)->computer == 0) {
+            u32 value = Player_GetLevelProgress(&g_localPlayerProfiles[((Player *)actor)->slot], ((Player *)actor)->profile->character);
+            ((Player *)actor)->countdown = ((value & 0xFF) >> 1) + 1;
         }
-        if (g_gameControllerMode == 4 && player->computer == 0 && g_currentStagePreset != 0) {
-            player->countdown = g_currentStagePreset->laps;
+        if (g_gameControllerMode == 4 && ((Player *)actor)->computer == 0 && g_currentStagePreset != 0) {
+            ((Player *)actor)->countdown = g_currentStagePreset->laps;
         }
-        player->respawnHealth = 1;
+        ((Player *)actor)->respawnHealth = 1;
     } else {
-        player->respawnHealth = 3;
+        ((Player *)actor)->respawnHealth = 3;
     }
-    player->overkill = 0;
-    Player_ResetPlayerWeapons((struct RespawnPlayer *)player);
-    player->damageCooldown = 0;
-    player->europeanEffectTimer = 0;
-    player->animation = -1;
-    player->secondEffectId = -1;
+    ((Player *)actor)->overkill = 0;
+    Player_ResetPlayerWeapons((struct RespawnPlayer *)((Player *)actor));
+    ((Player *)actor)->damageCooldown = 0;
+    ((Player *)actor)->europeanEffectTimer = 0;
+    ((Player *)actor)->animation = -1;
+    ((Player *)actor)->secondEffectId = -1;
     for (i = 0; i < 8; i++) {
-        player->profile->roundCounts[2][i] = 0;
-        player->profile->roundCounts[3][i] = 0;
-        player->profile->roundCounts[0][i] = 0;
-        player->profile->roundCounts[1][i] = 0;
+        ((Player *)actor)->profile->roundCounts[2][i] = 0;
+        ((Player *)actor)->profile->roundCounts[3][i] = 0;
+        ((Player *)actor)->profile->roundCounts[0][i] = 0;
+        ((Player *)actor)->profile->roundCounts[1][i] = 0;
     }
-    player->profile->roundTotals[0] = 0;
-    player->profile->roundTotals[1] = 0;
-    player->profile->roundTotals[2] = 0;
-    player->profile->roundTotals[3] = 0;
-    player->profile->roundTotals[5] = 0;
-    player->profile->roundTotals[4] = 0;
-    player->profile->roundFlags[0] = 0;
-    player->profile->roundFlags[1] = 0;
-    player->profile->bonus = 0;
-    player->profile->state90 = 0;
-    player->trackEventBits = 0;
-    player->roundStateB = 1;
-    player->roundStateC = 0;
-    player->reservedWord868 = 1;
-    Player_ResetRespawnedPlayer((struct RespawnPlayer *)player);
-    if (g_gameSettings.local != 0) {
-        player->scoreResetFlag = 0;
+    ((Player *)actor)->profile->roundTotals[0] = 0;
+    ((Player *)actor)->profile->roundTotals[1] = 0;
+    ((Player *)actor)->profile->roundTotals[2] = 0;
+    ((Player *)actor)->profile->roundTotals[3] = 0;
+    ((Player *)actor)->profile->roundTotals[5] = 0;
+    ((Player *)actor)->profile->roundTotals[4] = 0;
+    ((Player *)actor)->profile->roundFlags[0] = 0;
+    ((Player *)actor)->profile->roundFlags[1] = 0;
+    ((Player *)actor)->profile->bonus = 0;
+    ((Player *)actor)->profile->state90 = 0;
+    ((Player *)actor)->trackEventBits = 0;
+    ((Player *)actor)->roundStateB = 1;
+    ((Player *)actor)->roundStateC = 0;
+    ((Player *)actor)->reservedWord868 = 1;
+    Player_ResetRespawnedPlayer((struct RespawnPlayer *)((Player *)actor));
+    globals = &g_gameSettings;
+    if (globals->local != 0) {
+        ((Player *)actor)->scoreResetFlag = 0;
     }
     if (openFlag != 0) {
         char *table;
-        if (g_gameSettings.local != 0) {
-            player->profile->character = 0;
-            player->state = 0;
-            player->playerStateDirty = 1;
+        if (globals->local != 0) {
+            ((Player *)actor)->profile->character = 0;
+            ((Player *)actor)->state = 0;
+            ((Player *)actor)->playerStateDirty = 1;
             table = g_roundStartModeSpecificDialogTable;
-            if (g_gameSettings.counters.teams == 0) {
+            if (globals->counters.teams == 0) {
                 table = g_playerMenuDialogTable;
             }
         } else {
             table = g_roundStartDefaultDialogTable;
         }
-        Menu_OpenDialog((char *)&player->camera->messageList, table, (void *)player, player->weaponAnimation, player->slot);
+        Menu_OpenDialog((char *)&((Player *)actor)->camera->messageList, table, (void *)((Player *)actor), ((Player *)actor)->weaponAnimation, ((Player *)actor)->slot);
     }
-    g_playerHitCounts[player->slot] = 0;
-    g_playerCountedShots[player->slot] = 0;
+    g_playerHitCounts[((Player *)actor)->slot] = 0;
+    g_playerCountedShots[((Player *)actor)->slot] = 0;
 
 }
 
@@ -277,10 +284,11 @@ void Player_InitActorHudState(SharedPlayer *actor) {
     char *widget;
     char *hud;
     s32 enabled;
-    if (g_gameSettings.local != 0) {
+    struct Shared_Game *settings = &g_gameSettings;
+    if (settings->local != 0) {
         Playerai_LoadActorModel(actor);
         Playerai_UpdateCharacterModel(actor);
-        if (((Player *)actor)->profile->sessionApplied == 0 && g_gameSettings.controllerMode == 1) {
+        if (((Player *)actor)->profile->sessionApplied == 0 && settings->controllerMode == 1) {
             Achieve_ApplyProfileWeaponUnlocks(actor);
         }
     }
@@ -374,6 +382,8 @@ void Player_InitActorHudState(SharedPlayer *actor) {
 #include "Common/stagepreset.h"
 #include "Common/playerprofiles.h"
 #include "Ai/Devices/Movingai/movingai.h"
+#include "Ai/player_death_playerai.h"
+#include "Common/viewflags.h"
 /* Phase1 source candidate; contract holds and immutable inputs in per-function JSON. */
 /** Reset a player for a new life: restore health, clear status timers and effects, and drop any carried object. */
 typedef struct RespawnPair {
@@ -464,7 +474,7 @@ void Player_ResetRespawnedPlayer(struct RespawnPlayer *player) {
     player->reservedWordG = 0;
     player->attachedSpecialEffectCount = 0;
     player->reservedWordF = 0;
-    if (SetN64_IsModeThirteen() != 0 && g_frontendScreenStatus.settings.local == 0 && g_gameLoopFrameCount > 10 && player->state < 11) {
+    if (SetN64_IsModeThirteen() != 0 && g_frontendScreenStatus.settings.local == 0 && (u32)g_gameLoopFrameCount > 10U && player->state < 11) {
         SoundElement_PlayDialogGroup(g_playerStateDialogGroups[player->state]);
     }
     if (isOnline()) {
@@ -492,14 +502,14 @@ void Player_ResetRespawnedPlayer(struct RespawnPlayer *player) {
     }
 }
 
-/* Starts a player's run: in a multiplayer session (g_motionVisibilitySettings) picks the lap count from the chosen track through Player_GetLevelProgress_MatchGetresulttext in mode 1 or from the loaded course in mode 4 for a human player, sets the run type at 0x5EA (1, or 3 in single player), clears 0x13C8 and 0x85C around Player_ResetRespawnedPlayer, then starts its vehicle through Player_PlacePlayerAtSpawnPoint with model 0xC1D for a computer player in state 12 during stage 9 and its own model otherwise, doubled when g_playerCount is two or more. */
+/* Starts a player's run: in a multiplayer session (g_gameSettings.local) picks the lap count from the chosen track through Player_GetLevelProgress_MatchGetresulttext in mode 1 or from the loaded course in mode 4 for a human player, sets the run type at 0x5EA (1, or 3 in single player), clears 0x13C8 and 0x85C around Player_ResetRespawnedPlayer, then starts its vehicle through Player_PlacePlayerAtSpawnPoint with model 0xC1D for a computer player in state 12 during stage 9 and its own model otherwise, doubled when g_playerCount is two or more. */
 
 
 void Player_PlacePlayerForRound(SharedPlayer *player) {
     s32 scale;
 
     scale = (g_playerCount >= 2) * 2;
-    if (g_motionVisibilitySettings.gameFlag != 0) {
+    if (g_gameSettings.local != 0) {
         if (g_gameControllerMode == 1 && player->views1450.view1450_1.computer == 0) {
             player->views133C.view133C_1.laps = ((u8)Player_GetLevelProgress(&g_localPlayerProfiles[player->views1C.view5D4_46.slot], player->views5D8.view5D8_1.record->characterId) >> 1) + 1;
         }
@@ -574,6 +584,7 @@ void Player_InitializePlayerPool(CPlayerPool *pool, s32 count, s32 force_active)
     s32 i;
     s32 j;
     s32 entry_offset;
+    s32 attribute_offset;
     s32 player_index;
     s32 object_offset;
     s32 roster_index;
@@ -615,11 +626,15 @@ void Player_InitializePlayerPool(CPlayerPool *pool, s32 count, s32 force_active)
 
     entry = (char *)&((Shared_Game *)global)->defaults;
     if (((GameModeEnableView *)(global))->local != 0) {
+        if (pool->count <= 0) {
+            goto initialized;
+        }
         i = 0;
         player_index = i;
+        attribute_offset = i;
         entry_offset = 208;
         object_offset = i;
-        for (i = 0; i < pool->count; i++) {
+initialize_object:
             entry = global + entry_offset;
             object = pool->m_Players + object_offset;
             ((struct Player *)(object))->computer = ((CPlayerOptions *)(entry))->isBot;
@@ -628,7 +643,7 @@ void Player_InitializePlayerPool(CPlayerPool *pool, s32 count, s32 force_active)
                 ContPad_InitControllerInput((char *)&((SharedPlayer *)object)->views5E8.view688_33.body, g_botControllerProfile);
                 ((struct Player *)(object))->slot = ((CPlayerOptions *)(entry))->controller;
             } else {
-                ContPad_InitControllerInput((char *)&((SharedPlayer *)object)->views5E8.view688_33.body, &g_controllerProfiles[((CPlayerOptions *)entry)->controller]);
+                ContPad_InitControllerInput((char *)&((SharedPlayer *)object)->views5E8.view688_33.body, (u8 *)g_controllerProfiles + attribute_offset);
                 ((struct Player *)(object))->slot = i;
             }
             owner = ((struct Player *)(object))->controller;
@@ -669,9 +684,12 @@ void Player_InitializePlayerPool(CPlayerPool *pool, s32 count, s32 force_active)
                 List_PrependIntrusive(&pool->m_ActiveList, object);
             }
             player_index += 2;
+            attribute_offset += 548;
             entry_offset += 150;
             object_offset += 5864;
-        }
+            if (++i < pool->count) {
+                goto initialize_object;
+            }
     } else {
         object = pool->m_Players;
         roster_index = ((CPlayerOptions *)(entry))->controller;
@@ -721,7 +739,8 @@ void Player_InitializePlayerPool(CPlayerPool *pool, s32 count, s32 force_active)
         List_PrependIntrusive(&pool->m_ActiveList, object);
     }
 
-    state = &g_matchRoundCounters;
+initialized:
+    state = &g_playerViewRenderContext.game.counters;
     ((PlayerPoolModeStateView *)(state))->fragTagMode = 1;
     ((PlayerPoolModeStateView *)(state))->ctfMode = 3;
 }
@@ -833,7 +852,7 @@ void Player_ReleaseObjectHandles(struct ItemsHandleOwner *object) {
     object->second = 0;
 }
 
-/* Stores the second argument at 0x5E0 of the actor, calls Playerai_InitializePlayerHealth and Player_ResetPlayerWeapons on it, then starts sound g_world_AchieveUpdateresultsscreen for it through Scene_ChangeInstanceModel with 0x66, g_fragTagModelId or its type's entry of g_characterModelIds chosen by the options g_motionVisibilitySettings and g_resultExitPending. */
+/* Stores the second argument at 0x5E0 of the actor, calls Playerai_InitializePlayerHealth and Player_ResetPlayerWeapons on it, then starts sound g_world_AchieveUpdateresultsscreen for it through Scene_ChangeInstanceModel with 0x66, g_fragTagModelId or its type's entry of g_characterModelIds chosen by the options g_gameSettings.local and g_resultExitPending. */
 void Player_StartPlayerAnimation(Player *animatedPlayer, s32 animationState) {
     s32 modelResource;
 

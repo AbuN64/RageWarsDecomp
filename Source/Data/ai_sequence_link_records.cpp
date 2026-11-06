@@ -1,8 +1,5 @@
 #include "types.h"
 #if defined(VERSION_US_REV1)
-#if defined(VERSION_US_REV1)
-s32 k_PlayeraiTrystartplayersequenceZeroFill = 0;
-#endif
 
 #if defined(VERSION_US_REV1)
 float k_ResourcesLayoutOffsets[6] = {
@@ -14,11 +11,10 @@ float k_ResourcesLayoutOffsets[6] = {
 float g_aiDistanceBounds[2] = {
     0.0f, 102.399994f,
 };
-
-
-s32 k_aiSignWords[15] = {
-    1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, -1, 1,
-    1, 1, 1,
+s32 g_playerSequenceAxisSigns[15] = {
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1,
 };
+
+
+
 #endif

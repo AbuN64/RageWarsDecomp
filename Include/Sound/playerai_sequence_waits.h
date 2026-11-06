@@ -1,5 +1,6 @@
 #ifndef SOUND_PLAYERAI_SEQUENCE_WAITS_H
 #define SOUND_PLAYERAI_SEQUENCE_WAITS_H
+struct Profile;
 extern void Playerai_UpdateBackwardMovingDeathSequenceWait(void *);
 extern void Playerai_UpdateSwimmingChestbursterDeathSequenceWait(void *);
 extern void Playerai_UpdateClimbingDeathSequenceWait(void *);
@@ -30,4 +31,9 @@ extern void Playerai_StartImpalementDeathSequence(void *player, void *sequenceAc
 extern void Playerai_StartChestbursterDeathSequence(void *player, void *sequenceActor);
 extern void Playerai_StartSwimmingChestbursterDeathSequence(void *player, void *sequenceActor);
 extern void Playerai_StartRaptorChestbursterDeathSequence(void *player, void *sequenceActor);
+extern void Player_SetProfileProgress(void *profileStorage, int progress);
+extern void Player_SetProfileSlotValue(struct Profile *profile, int index, char value);
+extern void Player_SetProfileValue14(void *profileStorage, unsigned char value);
+extern void Player_SetProfileValue15(void *object, unsigned char value);
+extern void Player_SetProfileValue16(void *object, unsigned char value);
 #endif

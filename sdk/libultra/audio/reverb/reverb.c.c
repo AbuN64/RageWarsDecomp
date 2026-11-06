@@ -29,7 +29,7 @@
 #if defined(VERSION_DE)
 extern const float g_audioResamplerAssertText;
 #elif defined(VERSION_EU)
-extern const float g_audioResamplerAssertTextUsRevision;
+extern char g_audioResamplerAssertTextEu[];
 #elif defined(VERSION_EU_X)
 extern char g_audioResamplerAssertTextEuX[];
 #elif defined(VERSION_US)
@@ -194,7 +194,7 @@ Acmd *alFxPull(struct ALFx *filter, s16 *outp, s32 outCount, s32 sampleOffset, A
 #if defined(VERSION_DE)
         __assert(&g_audioResamplerAssertText, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_EU)
-        __assert(&g_audioResamplerAssertTextUsRevision, g_audioResamplerSourceText, 75);
+        __assert(g_audioResamplerAssertTextEu, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_EU_X)
         __assert(g_audioResamplerAssertTextEuX, g_audioResamplerSourceText, 75);
 #elif defined(VERSION_US)

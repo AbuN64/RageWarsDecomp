@@ -634,6 +634,7 @@ s32 Frontend_FindProfileOwner(s32 id, s32 kind) {
 #include "Frontend/frontend_checkownedprofileids.h"
 #include "Frontend/frontend_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Ui/X_files/x_plus.h"
 
 /* Checks that every active player on the selected team has the configured value. */
 s32 Frontend_CheckOwnedProfileIds(s32 player) {
@@ -700,7 +701,7 @@ s32 Frontend_DispatchPakProfileEvent(void *eventTarget, s32 event, s32 eventValu
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_pakProfileHandlers != 0) {
         wildcard = 30000;

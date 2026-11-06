@@ -12,5 +12,4 @@ typedef struct LevelNode {
     s32 count;
     LevelPlacedActorRecord records[1];
 } LevelNode;
-extern struct SharedPlayer *g_gamePlayerAndMenuState;
 #endif

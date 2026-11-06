@@ -117,7 +117,8 @@ extern float g_playerForceMarkerTilt;
 
 extern void Playerai_EmptyImpactSoundHook(void);
 
-extern float g_playerCrouchClearanceBounds;
+extern f32 g_playerCrouchClearanceMinimum;
+extern f32 g_playerCrouchClearanceMaximum;
 
 extern void Playerai_ClearPlayerWeaponLock(void *lockedPlayerState);
 

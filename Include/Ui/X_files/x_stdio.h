@@ -32,7 +32,7 @@ extern void XStdio_SetTextOutputCallbacks(int first, int second);
 s32 XStdio_FormatBuffer(void *goal, s32 fmt0, ...);
 /* Stream callbacks the stdio layer installs for the resource manager. */
 extern ResourceOpenCallback g_stdioOpenCallback;
-extern FuncPtr g_stdioCloseCallback;
+extern ResourceCloseCallback g_stdioCloseCallback;
 extern ResourceReadCallback g_stdioReadCallback;
 extern ResourceSeekCallback g_stdioSeekCallback;
 extern FuncPtr g_stdioTellCallback;

@@ -51,7 +51,7 @@ void Menu_ProcessTrackItemEvents(void) {
     if (Cinema_IsSequenceActive() == 0) {
         return;
     }
-    if (g_cinemaSequenceState->active == 0) {
+    if (g_cinemaSequenceState->sequenceAdvanceRequested == 0) {
         return;
     }
     track = SetN64_GetPackSection(g_cinemaSequenceState->resource, 2);
@@ -99,7 +99,7 @@ void Menu_ProcessTrackItemEvents(void) {
         }
         if (hit) {
             Track_RequestTrackByIds(0, item);
-            g_cinemaSequenceState->pending = 0;
+            g_cinemaSequenceState->pendingTrackId = 0;
         } else {
             Link_ActivateTrigger(item);
         }
@@ -168,20 +168,34 @@ void Track_RequestCameraRefresh(void) {
 
 /* Track events 601 to 606 play once per actor. The first byte holds their low-to-high bits;
    the first trigger sets its bit and later triggers are ignored. */
+/* Tests bit index of a byte-packed bit array. */
+static inline int Track_TestEventBit(unsigned char *bits, int index) {
+    int offset = index >> 3;
+    int mask;
+    index &= 7;
+    mask = 1;
+    bits += offset;
+    return *bits & (mask << index);
+}
+
+/* Sets bit index of a byte-packed bit array. */
+static inline void Track_SetEventBit(unsigned char *bits, int index) {
+    int offset = index >> 3;
+    int mask;
+    index &= 7;
+    mask = 1;
+    bits += offset;
+    *bits |= mask << index;
+}
+
 void Menu_TriggerTrackEvent(int event) {
     Player *actor = (Player *)g_transientPlayerList.actorList;
     int index;
-    u32 eventBit;
-    u8 *eventByte;
-    u32 previousEvents;
     if (g_cinemaPlaybackFlag != 0) {
         index = event - 601;
         if ((unsigned int)index < 6 && actor != 0) {
-            eventByte = (u8 *)&actor->trackEventBits + (index >> 3);
-            eventBit = 1 << (index & 7);
-            previousEvents = *eventByte;
-            if (previousEvents & eventBit) return;
-            *eventByte = previousEvents | eventBit;
+            if (Track_TestEventBit((u8 *)&actor->trackEventBits, index)) return;
+            Track_SetEventBit((u8 *)&actor->trackEventBits, index);
         }
         Track_RequestTrackByKey(event);
     }

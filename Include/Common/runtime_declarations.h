@@ -458,7 +458,8 @@ extern char addrLow_Cartridge_RunReadWorker;
 extern s32 g_playerTargetFacingDistanceLimits;
 
 
-extern char g_cameraViewDisplayLists[2][0x30];
+extern Gfx g_cameraViewDisplayListPrimary[6];
+extern Gfx g_cameraViewDisplayListSecondary[6];
 
 extern s32 g_playerStatisticsAccumulatedKills[][100];
 
@@ -489,7 +490,7 @@ extern struct FieldRow g_resultsActorEventIds[];
 
 extern s32 g_controllerPakProbePending[];
 
-extern s32 g_buttonWidgetEventIds;
+extern ResidentEventHandlerEntry g_buttonWidgetEventIds[];
 
 
 
@@ -601,8 +602,12 @@ extern void System_CleanupThreadEntry(void);
 extern struct RestsmpEventHandlerTablesLayout880 g_smpEventHandlerTables;
 #elif defined(VERSION_EU)
 extern struct RestsmpEventHandlerTablesLayout881 g_smpEventHandlerTables;
+#endif
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+/* The first handler of g_smpEventHandlerTables; EU code loads it and walks the handler column from its address. */
+extern ResidentEventHandler g_frameAnimationEventHandlers;
 #else
-extern s32 g_smpEventHandlerTables;
+extern ResidentEventHandlerEntry g_smpEventHandlerTables[];
 #endif
 
 extern const char g_pakChannelDigitFormat[];
@@ -828,7 +833,6 @@ extern s32 g_menuBinaryChoice;
 
 extern struct FieldRow g_nodePairMenuEventActorKinds[];
 
-extern u8 g_controllerPakPreviewProfileName[];
 
 
 
@@ -1014,7 +1018,7 @@ extern f32 g_centsToPitchRatioConstants[];
 
 extern f32 k_playerMenuSpriteScaleConstants;
 
-extern u8 g_frontendSavedVideoModeIndex;
+extern u8 g_frontendSavedVideoModeIndex[];
 
 
 extern WidgetEventHandler g_optionsTransitionEventCallbacks;
@@ -1145,11 +1149,9 @@ extern char g_musicPreviewMenuResource[];
 
 extern char g_pakStatusPrimaryLabel[];
 
-extern u8 g_controllerPakPreviewProfileFlags;
 
 extern const f64 g_audioFrexpZero;
 
-extern WidgetEventHandler g_frameAnimationEventHandlers;
 
 extern char g_playerDeathDialogs[4][0x24];
 
@@ -1157,12 +1159,17 @@ extern char g_playerDeathDialogs[4][0x24];
 extern void addrLow_Playerai_UpdateStoredRunEndPlayer(void);
 
 
-extern u16 g_pakProfileSavedWords[3];
 
 
 extern struct UnitVtx g_playerDeathEffectVertices[];
 
 
+/* Profile preview words, flag and name: the ROM addresses each as its own object. */
+extern u16 g_pakProfileSavedFirstWord[];
+extern u16 g_pakProfileSavedSecondWord[];
+extern u16 g_pakProfileSavedThirdWord[];
+extern u8 g_controllerPakPreviewProfileFlags[];
+extern u8 g_controllerPakPreviewProfileName[];
 extern u64 g_systemClockFrequency;
 
 
@@ -1331,7 +1338,6 @@ extern s32 g_sliderTransitionEventActorKinds;
 
 extern f32 g_frameHeapLowAllocationStatLowerLimit;
 
-extern WidgetEventHandler g_overlaySlotEventHandlersUs;
 
 #include "SCHED/osscremoveclient.H"
 
@@ -1393,7 +1399,7 @@ extern u16 *g_frontendResourceScreenFlags;
 extern char g_ownerNotificationEnabledLabels[];
 
 
-extern s32 g_sliderWidgetEventIds;
+extern ResidentEventHandlerEntry g_sliderWidgetEventIds[];
 
 extern f32 g_weaponReleaseSpinApproachRate;
 
@@ -1553,7 +1559,7 @@ extern char g_pakActionLabel[];
 
 extern char g_primaryRenderMicrocodeText;
 
-extern s32 g_flickerWidgetEventIds;
+extern ResidentEventHandlerEntry g_flickerWidgetEventIds[];
 
 extern f32 k_barrelEffectQuaternionValues[];
 
@@ -1705,7 +1711,7 @@ extern s32 g_debugLinkTransferFailed;
 struct EntryFrontendRefreshTrialCharacterPreview;
 typedef struct EntryFrontendRefreshTrialCharacterPreview EntryFrontendRefreshTrialCharacterPreview;
 
-extern s32 g_sliderTransitionEventIds;
+extern ResidentEventHandlerEntry g_sliderTransitionEventIds[];
 
 
 
@@ -1841,7 +1847,6 @@ extern s32 g_buttonWidgetEventActorKinds;
 extern s32 g_initialMatchStartPending;
 
 
-extern WidgetEventHandler g_overlaySlotEventHandlersEuX;
 
 extern s32 g_regionNormalDefaultUpZ;
 
@@ -1877,7 +1882,6 @@ extern char g_actorAnimatedModelResourceTuning;
 
 extern const f64 g_lowPassCoefficientScale;
 
-extern WidgetEventHandler g_overlaySlotEventHandlersDe;
 
 extern s32 g_artsendTextureViewerEntryTable;
 
@@ -2012,7 +2016,6 @@ extern char g_turretDispatchTable[];
 
 extern s16 DEBUG_LINK_HANDSHAKE_REGISTER;
 
-extern WidgetEventHandler g_overlaySlotEventHandlersEu;
 
 extern struct FieldRow g_trialCatalogueEventKinds[];
 
@@ -2181,7 +2184,7 @@ extern u32 g_resourceHashSlotCount;
 
 extern char *g_playerSettingsTapText[];
 
-extern s32 g_listButtonEventIds;
+extern ResidentEventHandlerEntry g_listButtonEventIds[];
 
 extern char g_menuOptionAllSpecialObjectsDisabledText[];
 
@@ -2372,7 +2375,6 @@ extern s32 g_pakProfileControllerPort;
 
 extern char g_bloodColorOffText[];
 
-extern s32 g_matchOptionsCursorNormalLabel[];
 
 extern s32 g_frameAnimationEventActorKinds;
 
@@ -2993,8 +2995,8 @@ typedef struct TextBoundsFont TextBoundsFont;
 struct CItemInfo_t;
 typedef struct CItemInfo_t CItemInfo;
 
-struct TextBoundsRecord23;
-typedef struct TextBoundsRecord23 TextBoundsRecord23;
+struct TextBoundsBox;
+typedef struct TextBoundsBox TextBoundsBox;
 
 
 
@@ -4086,7 +4088,7 @@ struct CItemInfo_t {
     s32 m_Top; /* 0x1C */
     s32 m_Bottom; /* 0x20 */
 };
-struct TextBoundsRecord23;
+struct TextBoundsBox;
 struct TextBoundsText;
 struct TextBoundsHandlers {
     char pad0[0x14];

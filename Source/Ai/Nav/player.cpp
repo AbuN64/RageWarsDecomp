@@ -64,6 +64,7 @@
 #include "Data/Ovl1_d/nav_initvisiblepursuit.h"
 #include "Data/Ovl1_d/addrlow_nav_updatevisiblepursuit.h"
 #include "Data/Actor_state_callbacks/actor_state_callback_labels.h"
+#include "Ai/Nav/Portal/portal_updatealternatingactionbursts.h"
 
 /* Resets a player controller: marks the active, requested and committed selections empty, sets the
    request kind to 0xB, clears the four link words to -1, resets the stage counters
@@ -131,7 +132,7 @@ void Nav_ResetPlayerState(s32 *state) {
 }
 
 /* Nav_UpdateComputerPlayerStatus_Player.CPP */
-/* Updates a computer player's brain for the frame: fixes its route start, runs its planner through Scaled_UpdateTargetPitch and its state callback, counts down its cooldown at 0x324, and for a displayed player sets the health meter from its health over the character's maximum (400 for kinds 11 and 12, 300 for 13 and 14, otherwise Player_GetMaxHealth_Player), as a percentage, rescaled for kind 14 by the difficulty g_difficulty; in the tutorial (g_matchRoundCounters) kind 11 also shows the timer and refills its ammunition, then the meter is drawn through OnScreen_SetFirstBarTarget or OnScreen_SetSecondBarTarget; finally it restarts a stalled player (state 0x12) through Scaled_HandlePlayerTimeout. */
+/* Updates a computer player's brain for the frame: fixes its route start, runs its planner through Scaled_UpdateTargetPitch and its state callback, counts down its cooldown at 0x324, and for a displayed player sets the health meter from its health over the character's maximum (400 for kinds 11 and 12, 300 for 13 and 14, otherwise Player_GetMaxHealth_Player), as a percentage, rescaled for kind 14 by the difficulty g_difficulty; in the tutorial (g_gameSettings.counters) kind 11 also shows the timer and refills its ammunition, then the meter is drawn through OnScreen_SetFirstBarTarget or OnScreen_SetSecondBarTarget; finally it restarts a stalled player (state 0x12) through Scaled_HandlePlayerTimeout. */
 
 
 extern void Scaled_UpdateTargetPitch(Brain *);
@@ -462,7 +463,7 @@ void Nav_UpdatePlayerSteering(AiController *controller) {
                 }
                 if ((jumping || falling) && controller->airPitchNode) {
                     value = delta.y;
-                    Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)));
+                    Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)), 1);
                     player->forward = g_playerSteeringAirPitchForward;
                 }
             }
@@ -496,7 +497,7 @@ void Nav_UpdatePlayerSteering(AiController *controller) {
         }
         if ((jumping || falling) && controller->airPitchNode) {
             value = delta.y;
-            Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)));
+            Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)), 1);
             player->forward = g_playerSteeringAirForward;
         }
         if (controller->player->pose == 15) {
@@ -558,7 +559,7 @@ void Nav_UpdateTargetSteering(AiController *controller) {
                 }
                 if ((jumping || falling) && controller->airPitchNode) {
                     value = delta.y;
-                    Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)));
+                    Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)), 1);
                     player->forward = g_targetSteeringAirPitchForward;
                 }
             }
@@ -593,7 +594,7 @@ void Nav_UpdateTargetSteering(AiController *controller) {
         }
         if ((jumping || falling) && controller->airPitchNode) {
             value = delta.y;
-            Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)));
+            Scaled_SetPitchFromAngle(controller, XMath_EvaluateArcTangentTwo(value, Gu_Sqrtf(delta.x * delta.x + delta.z * delta.z)), 1);
             player->forward = g_targetSteeringAirForward;
         }
         if (controller->player->pose == 15) {
@@ -663,7 +664,7 @@ f32 Nav_SteerTowardPoint(PlayerAimBrainView *brain, CVector3 *target, f32 rate, 
             brain->player->steer = direction * scale;
         }
     }
-    Scaled_SetPitchFromAngle(brain, (brain->player->gear == 2 ? brain->speed[1] + brain->speed[3] : brain->speed[0] + brain->speed[2]) * 0.017453294f);
+    Scaled_SetPitchFromAngle(brain, (brain->player->gear == 2 ? brain->speed[1] + brain->speed[3] : brain->speed[0] + brain->speed[2]) * 0.017453294f, (s32)rate);
     return angle;
 }
 
@@ -830,7 +831,7 @@ s32 Scaled_SetBehaviourState(AiController *controller, s32 behaviourId) {
     return 1;
 }
 
-void Scaled_SetPitchFromAngle(AiController *controller, float amount) {
+void Scaled_SetPitchFromAngle(AiController *controller, float amount, s32 rate) {
     float result = amount * g_difficultyAimAmountScale;
     if (controller != 0) {
         controller->player->pitch = -result;

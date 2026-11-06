@@ -92,7 +92,7 @@ void Simple_InitSimpleInstance(ObjB *inst, CROMSimpleInstance *rec, s32 owner, c
     v.x = inst->position.x;
     v.y = inst->position.y + Gobjinst_GetActorHeight(inst) * 0.5f;
     v.z = inst->position.z;
-    inst->lights = *(Shared_ParticleLighting *)g_playerModelLighting;
+    inst->lights = g_playerModelLighting[0];
     inst->cached = 0;
 }
 
@@ -178,7 +178,6 @@ void Simpinst_DrawGroundShadow(void *actor) {
     f32 ground;
     f32 height;
     f32 size;
-    void *shadowMatrix;
     ground = ((Shared_CollisionActor *)actor)->groundY;
     height = ((Shared_CollisionActor *)actor)->y - ground;
     if (!(RW_MIN_LT(InstHdr_GetActorShadowRadius(actor) * 0.5f, InstHdr_GetActorShadowRadius(actor) * 0.5f - height * 0.1f) < 0.0f)) {
@@ -194,10 +193,8 @@ void Simpinst_DrawGroundShadow(void *actor) {
     MatrixFromQuaternion(&rotation.x, matrix);
     ScaleMatrixLocal(matrix, size, 1.0f, size);
     TranslateMatrix(matrix, position.x, position.y, position.z);
-    /* The actor keeps one 64-byte fixed-point matrix per lighting buffer, starting at its bounds. */
-    shadowMatrix = (char *)actor + ((g_lightingBufferIndex << 6) + offsetof(LevelActor, bounds));
-    Graphu64_ConvertMatrixToFixed(matrix, shadowMatrix);
-    Geometry_DrawIntensityMask(shadowMatrix, 1, 150);
+    Graphu64_ConvertMatrixToFixed(matrix, (char *)actor + ((g_lightingBufferIndex << 6) + ((char *)&((LevelActor *)0)->bounds - (char *)0)));
+    Geometry_DrawIntensityMask((char *)actor + ((g_lightingBufferIndex << 6) + ((char *)&((LevelActor *)0)->bounds - (char *)0)), 1, 150);
 }
 
 void Simpinst_RefreshModelResourceUsage(ObjB *staticObject) {
@@ -283,7 +280,6 @@ void Simpinst_RegisterModelVariantResources(struct ObjB *object, s32 camera) {
 }
 
 /* BARREL_SPAWNACTOREFFECT_DATA.CPP */
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /** Clear the cached resource of a static object. */
 void Simpinst_ClearCachedResource(void *staticObject) {
@@ -423,10 +419,10 @@ s32 Simpinst_SelectModelVariant(ObjB *staticObject) {
         if (index < 1705) {
             return value;
         }
-        if (g_gameSettingsView & 0x800) {
+        if (g_gameSettings.flags & 0x800) {
             value = 1;
         }
-        if (g_gameSettingsView & 0x1000) {
+        if (g_gameSettings.flags & 0x1000) {
             value = 2;
         }
     }
@@ -464,7 +460,6 @@ const float g_simpleObjectAlternateScaleTransitionConstants[4] = {
 #endif
 
 /* Keep this source unit's macros local to its body. */
-#undef g_gameSettingsView
 
 /* SIMPINST_SPAWNMODELEFFECT_DATA.CPP */
 

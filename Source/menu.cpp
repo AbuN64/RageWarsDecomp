@@ -702,14 +702,27 @@ s32 Selection_ReadSelectionSlot(s32 unusedFirst, s32 unusedSecond, s32 packedPla
 }
 
 s32 Selection_DispatchCharacterSelectionEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlers = (ResidentEventHandlerEntry *)g_characterSelectionEventIds;
-    s32 row;
-    for (row = 0; handlers[row].handler != 0; row++) {
-        if (handlers[row].event == eventId &&
-            (handlers[row].actorKind == ((struct MenuWidget *)widget)->resource ||
-             handlers[row].actorKind == ANY_ACTOR_KIND)) {
-            return handlers[row].handler(widget, eventId, eventData0, eventData1, eventData2);
-        }
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+
+    if (g_characterSelectionEventHandlers != 0) {
+        wildcard = 30000;
+        entry = (char *)&g_characterSelectionEventHandlers;
+        offset = 0;
+        do {
+            if (((s32 *) (((char *) (&g_characterSelectionEventIds)) + offset))[0] == eventId) {
+                actor_kind = ((struct MenuWidget *) ((char *) widget))->resource;
+                table_kind = ((s32 *) (((char *) (&g_characterSelectionEventActorKinds)) + offset))[0];
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(widget, eventId, eventData0, eventData1, eventData2);
+                }
+            }
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }
@@ -724,7 +737,8 @@ s32 Menu_FinishTabOptionsTransition(void *item, s32 eventId, s32 event) {
     s32 humans;
     s32 i;
     Shared_Game *settings;
-    Shared_MenuData *menuData;
+    u8 *player;
+    s32 *pause;
 
     if (event == 1) {
         state = Frontend_GetMenuImageState(g_optionsShortcutScreen);
@@ -752,13 +766,14 @@ s32 Menu_FinishTabOptionsTransition(void *item, s32 eventId, s32 event) {
             } else {
                 SoundElement_SetMusicPlaybackEnabled(g_optionsShortcutScreen->arena);
             }
-            menuData = &g_playerViewRenderContext;
-            menuData->pause = 0;
+            pause = &g_frontendScreenStatus.status[7];
+            *pause = 0;
             if (g_optionsShortcutScreen->mode == -1) {
                 humans = 0;
                 i = 0;
+                player = (u8 *)pause - (((char *)&((Shared_MenuData *)0)->pause - (char *)0) - ((char *)&((Shared_MenuData *)0)->game - (char *)0));
                 do {
-                    if (menuData->game.playerSettings[i].locked == 0 && menuData->game.playerSettings[i].enabled == 1) {
+                    if (((Shared_Game *)player)->playerSettings[i].locked == 0 && ((Shared_Game *)player)->playerSettings[i].enabled == 1) {
                         humans++;
                     }
                     i++;
@@ -772,8 +787,8 @@ s32 Menu_FinishTabOptionsTransition(void *item, s32 eventId, s32 event) {
                 Tsmos_RequestFrontendShutdown();
                 return 0;
             }
-            Pools_ResetActorPools(&menuData->object, 0);
-            Player_InitializePlayerPool(menuData, 0, 0);
+            Pools_ResetActorPools((u8 *)pause - (((char *)&((Shared_MenuData *)0)->pause - (char *)0) - ((char *)&((Shared_MenuData *)0)->object - (char *)0)), 0);
+            Player_InitializePlayerPool((u8 *)pause - ((char *)&((Shared_MenuData *)0)->pause - (char *)0), 0, 0);
             Scene_LoadLevelResources(&g_world, 0, 0);
             Stage_StartConfiguredMatch();
         }

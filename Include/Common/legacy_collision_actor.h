@@ -126,7 +126,7 @@ struct Shared_CollisionMoveFrame {
 
 
 typedef Shared_CollisionActor UnicolActor;
-extern s32 Unicol_MoveActorWithCollision(UnicolActor *actor, f32 x, f32 y, f32 z, u32 *motionSettings);
+extern s32 Unicol_MoveActorWithCollision(UnicolActor *actor, CVector3 position, u32 *motionSettings);
 typedef UnicolCurrentActorRoom UnicolCurrentActor;
 typedef Shared_CollisionProbeState CollisionProbeState;
 extern CollisionProbeState g_playerCollisionProbe;

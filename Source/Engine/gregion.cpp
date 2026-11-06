@@ -423,7 +423,7 @@ CVector3 *Region_GetCachedCeilingNormal(CVector3 *out, Node75 *node) {
     return out;
 }
 
-u8 Region_GetModelBlendByte58(s32 modelId) {
+s32 Region_GetModelBlendByte58(s32 modelId) {
     ModelBlend *blend = Scene_GetModelRecordByIndexPointer(&g_world, modelId);
     if (blend == 0) {
         return 0;
@@ -431,7 +431,7 @@ u8 Region_GetModelBlendByte58(s32 modelId) {
     return blend->byte58;
 }
 
-u8 Region_GetModelBlendByte59(s32 modelId) {
+s32 Region_GetModelBlendByte59(s32 modelId) {
     ModelBlend *blend = Scene_GetModelRecordByIndexPointer(&g_world, modelId);
     if (blend == 0) {
         return 0;
@@ -536,27 +536,23 @@ void Region_UnmarkMatchingNodes(struct ModelTreeNode *modelTreeNode, u16 matchin
 f32 Region_SetMatchingVertexHeights(u16 *modelTreeNode, f32 height, u16 modelId) {
     u16 *node = modelTreeNode;
     u16 id = modelId;
-    RegionTriangleVertexView *triangle = (RegionTriangleVertexView *) node;
-    CVector3 *v0 = (CVector3 *) triangle->firstVertex;
-    CVector3 *v1 = (CVector3 *) triangle->secondVertex;
-    CVector3 *v2 = (CVector3 *) triangle->thirdVertex;
 
     if (*node == id) {
-        if (v0->y != height ||
-            v1->y != height ||
-            v2->y != height) {
-            v0->y = height;
-            v1->y = height;
-            v2->y = height;
+        if (((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->firstVertex)->value != height ||
+            ((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->secondVertex)->value != height ||
+            ((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->thirdVertex)->value != height) {
+            ((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->firstVertex)->value = height;
+            ((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->secondVertex)->value = height;
+            ((struct PaddedFloatView *) ((RegionTriangleVertexView *) node)->thirdVertex)->value = height;
 
-            if (triangle->firstBranch.v0 != 0) {
-                Region_SetMatchingVertexHeights(triangle->firstBranch.v1, height, id);
+            if (((RegionTriangleVertexView *)(node))->firstBranch.v0 != 0) {
+                Region_SetMatchingVertexHeights(((RegionTriangleVertexView *)(node))->firstBranch.v1, height, id);
             }
-            if (triangle->secondBranch.v0 != 0) {
-                Region_SetMatchingVertexHeights(triangle->secondBranch.v1, height, id);
+            if (((RegionTriangleVertexView *)(node))->secondBranch.v0 != 0) {
+                Region_SetMatchingVertexHeights(((RegionTriangleVertexView *)(node))->secondBranch.v1, height, id);
             }
-            if (triangle->thirdBranch.v0 != 0) {
-                Region_SetMatchingVertexHeights(triangle->thirdBranch.v1, height, id);
+            if (((RegionTriangleVertexView *)(node))->thirdBranch.v0 != 0) {
+                Region_SetMatchingVertexHeights(((RegionTriangleVertexView *)(node))->thirdBranch.v1, height, id);
             }
         }
     }
@@ -727,7 +723,7 @@ unsigned char g_horizontalBoundsPaddingBytes[4] = { 0x00, 0x06, 0x00, 0x00 };
 
 extern const float g_regionHueWeightScales[3];
 
-void Gregion_ShiftColorHue(u8 hue, u8 redArg, u8 greenArg, u8 blueArg,
+void Gregion_ShiftColorHue(s8 hue, u8 redArg, u8 greenArg, u8 blueArg,
     u8 *redOut, u8 *green_out, u8 *blue_out) {
     s32 phase;
     s32 distance0, distance1, distance2;

@@ -91,13 +91,15 @@ void SmpButton_AppendListText(struct MenuListWidget *menu, u8 *text) {
 }
 
 s32 SmpButton_DispatchListEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    s32 i;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_listButtonEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; g_listButtonEventIds[i].handler != 0; i++) {
+        if (g_listButtonEventIds[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (g_listButtonEventIds[i].actorKind == actorKind || g_listButtonEventIds[i].actorKind == ANY_ACTOR_KIND) {
+                return g_listButtonEventIds[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }
@@ -247,13 +249,15 @@ void SmpButton_EnsureButtonWrapper(RecordSmpButtonEnsureButtonWrapper *source) {
 }
 
 s32 SmpButton_DispatchButtonEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *handlerEntry;
+    s32 i;
 
-    for (handlerEntry = (ResidentEventHandlerEntry *)&g_buttonWidgetEventIds; handlerEntry->handler != 0; handlerEntry++) {
-        if (handlerEntry->event == eventId) {
+    /* The table ends at the first entry without a handler. */
+    for (i = 0; g_buttonWidgetEventIds[i].handler != 0; i++) {
+        if (g_buttonWidgetEventIds[i].event == eventId) {
             s32 actorKind = ((struct MenuWidget *)widget)->resource;
-            if (handlerEntry->actorKind == actorKind || handlerEntry->actorKind == ANY_ACTOR_KIND) {
-                return handlerEntry->handler(widget, eventId, eventData0, eventData1, eventData2);
+
+            if (g_buttonWidgetEventIds[i].actorKind == actorKind || g_buttonWidgetEventIds[i].actorKind == ANY_ACTOR_KIND) {
+                return g_buttonWidgetEventIds[i].handler(widget, eventId, eventData0, eventData1, eventData2);
             }
         }
     }

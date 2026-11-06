@@ -30,6 +30,7 @@ extern s32 Region_IsPointInTriangleXZ(struct Node75 *,f32,f32);
 extern void InstHdr_CopyActorPositionAndModel(struct LevelActor *,CVector3,CVector3 *,s32 *,s32,s32);
 extern void Graphu64_AddVec3(CVector3 *,CVector3 *,CVector3 *);
 extern void Graphu64_SubtractVectors(CVector3 *,CVector3 *,CVector3 *);
+extern void Graphu64_ScaleVector(void *scaledVector, void *inputVector, f32 scaleFactor);
 
 static inline void approach(struct LevelActor *actor,struct LevelActor *target,struct LevelActor *referenceActor,CVector3 *posp,s32 *roomp) {
  CVector3 delta,offset; f32 targetRadius;
@@ -42,7 +43,8 @@ static inline void approach(struct LevelActor *actor,struct LevelActor *target,s
             delta.y = 0;
             delta.z = 0;
         }
-        targetRadius = Gobjinst_GetActorRadius(target);
+        targetRadius = Gobjinst_GetActorRadius(target) + Gobjinst_GetActorRadius(actor) + g_actorApproachRadiusMargin;
+        Graphu64_ScaleVector(&delta, &delta, targetRadius);
         Graphu64_AddVec3(&offset, &target->position0, &delta);
         InstHdr_CopyActorPositionAndModel(target, offset, posp, roomp, 0, 0);
 }

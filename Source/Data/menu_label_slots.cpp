@@ -49,9 +49,7 @@ void *g_pickupLabelDirectory[103] = {
 #if defined(VERSION_US_REV1)
 
 #include "Constants/menu_on_label_data.h"
-#include "Constants/g_colororientationresolutiontextpool.h"
 #include "Constants/menu_no_label_data.h"
-#include "Constants/g_difficultycontrollermenutextpool.h"
 void *g_itemLabelSlots[187] = {
     g_usRev1Text_bullet, g_usRev1Text_energyRound, g_usRev1Text_explosiveRound, g_usRev1Text_cerebralBoreItemLabel,
     g_usRev1Text_pfmMine, g_usRev1Text_sentryTurret, g_usRev1Text_ironClaw, s_itemMultiplayerAchievement_TeleportMineCopy,
@@ -94,9 +92,9 @@ void *g_itemLabelSlots[187] = {
     g_usRev1Text_totalFragAward, g_usRev1Text_totalBeingKilledAward, g_usRev1Text_sniping10PeopleIn, g_usRev1Text_notBeingKilledIn,
     g_usRev1Text_defeatedBastille, g_usRev1Text_defeatedSyra, g_usRev1Text_defeatedSymbiont, g_usRev1Text_defeatedTalSet,
     g_usRev1Text_beatingTheCooperativeScenario, g_usRev1Text_easy, g_usRev1Text_medium, g_usRev1Text_hard,
-    g_usRev1Text_off, g_MenuOnLabelStorage, g_colorOrientationResolutionTextPool, g_usRev1Text_green,
+    g_usRev1Text_off, g_MenuOnLabelStorage, s_colorOrientationResolution_Red, g_usRev1Text_green,
     g_usRev1Text_horizontal, g_usRev1Text_vertical, g_usRev1Text_lorez, g_usRev1Text_hirez,
-    g_usRev1Text_letterbox, g_MenuNoLabelStorage, g_difficultyControllerMenuTextPool, g_usRev1Text_noviceItemLabel,
+    g_usRev1Text_letterbox, g_MenuNoLabelStorage, s_difficultyControllerMenu_Yes, g_usRev1Text_noviceItemLabel,
     g_usRev1Text_easyItemLabel, g_usRev1Text_normal, g_usRev1Text_veteran, g_usRev1Text_expert,
     g_usRev1Text_arcade, g_usRev1Text_wheel, g_usRev1Text_tap, g_usRev1Text_mixed,
     g_usRev1Text_controllerD, g_usRev1Text_ctf, g_usRev1Text_tbl,
@@ -111,9 +109,8 @@ void *g_menuAbbreviationAndFtLabelSlots[2] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/g_matchmodeandrewardtextpool.h"
 void *g_matchOptionLabelSlots[88] = {
-    g_matchModeAndRewardTextPool, g_usRev1Text_fragFest, g_usRev1Text_timeTrial, g_usRev1Text_playerD,
+    s_matchModeReward_Gauntlet, g_usRev1Text_fragFest, g_usRev1Text_timeTrial, g_usRev1Text_playerD,
     g_usRev1Text_acquiredEagleTalisman1, g_usRev1Text_acquiredHalfEagleTalisman, g_usRev1Text_acquiredTheOtherEagle, g_usRev1Text_acquiredBearTalismanExplosive,
     g_usRev1Text_acquiredCoyoteTalismanBullet, g_usRev1Text_acquiredCougarTalismanEnergy, g_usRev1Text_acquiredViperTalismanHealth, g_usRev1Text_acquiredCooperativeTalisman,
     g_usRev1Text_acquiredMinigameIcon, g_usRev1Text_acquiredAssaultRifle, g_usRev1Text_acquiredAssaultRifleRapid, g_usRev1Text_acquiredTekCrossBow,
@@ -151,11 +148,10 @@ void *k_cheatMenuTextCells[22] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/g_bloodscoremenutextpool.h"
 void *g_inventoryLabelSlot[17] = {
-    g_bloodScoreMenuTextPool, g_usRev1Text_blueBlood, g_usRev1Text_redBlood, g_usRev1Text_finalScore,
+    s_bloodScoreMenu_Choose, g_usRev1Text_blueBlood, g_usRev1Text_redBlood, g_usRev1Text_finalScore,
     g_usRev1Text_blueBloodScore, g_usRev1Text_redBloodScore, g_usRev1Text_pleaseWait, g_usRev1Text_paused,
-    &g_bloodScoreMenuTextPool[120], g_usRev1Text_missionStatus, g_usRev1Text_missionObjectives, g_usRev1Text_inventory,
+    s_bloodScoreMenu_ResumeGame, g_usRev1Text_missionStatus, g_usRev1Text_missionObjectives, g_usRev1Text_inventory,
     g_usRev1Text_load, g_usRev1Text_options, g_usRev1Text_cheats, g_usRev1Text_quit,
     g_usRev1Text_inventoryInventoryLabel,
 };
@@ -169,9 +165,8 @@ void *g_menuOkayLabelSlot[1] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/game_title_text.h"
 void *g_gameTitleLabelSlots[2] = {
-    g_gameTitleLabelText, g_usRev1Text_turok2_,
+    s_gameTitle_RageWars, g_usRev1Text_turok2_,
 };
 #endif
 
@@ -215,9 +210,8 @@ void * g_otherGameBlankLabelSlots[17] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/g_notedifficultymenutextpool.h"
 void *g_pakNoteLabelSlots[22] = {
-    g_noteDifficultyMenuTextPool, g_usRev1Text_deleteNote, g_usRev1Text_difficultyEasyPakNoteLabel, g_usRev1Text_difficultyNormalPakNoteLabel,
+    s_noteDifficultyMenu_NoteInfo, g_usRev1Text_deleteNote, g_usRev1Text_difficultyEasyPakNoteLabel, g_usRev1Text_difficultyNormalPakNoteLabel,
     g_usRev1Text_difficultyHardPakNoteLabel, g_usRev1Text_health, g_usRev1Text_lives, g_usRev1Text_timeClockReadout,
     g_usRev1Text_noteInfo, g_usRev1Text_deleteNoteCopies[0], g_usRev1Text_deleteNoteCopies[1], g_usRev1Text_nameExt,
     g_usRev1Text_Text, g_usRev1Text_name, g_usRev1Text_type, g_usRev1Text_frags,
@@ -264,9 +258,8 @@ void * g_saveLoadAndHitShotLabelSlots[145] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/combat_and_confirmation_text.h"
 void *g_confirmationLabelSlot[10] = {
-    g_multiplayerTagAndKillMessageText, g_usRev1Text_youTagged, g_usRev1Text_killedBy, g_usRev1Text_youKilled,
+    s_combatConfirm_TaggedBy, g_usRev1Text_youTagged, g_usRev1Text_killedBy, g_usRev1Text_youKilled,
     g_usRev1Text_youKilledYourself, g_usRev1Text_youLostTheFlag, g_usRev1Text_heDroppedTheFlag, g_usRev1Text_areYouSure,
     g_usRev1Text_youWantTo, g_usRev1Text_yes,
 };
@@ -280,10 +273,9 @@ void *g_menuNoLabelSlot[1] = {
 #endif
 
 #if defined(VERSION_US_REV1)
-#include "Constants/cheat_game_options_and_status_text_pool.h"
 #include "Constants/menu_digit_labels_data.h"
 void *g_optionLabelSlots[224] = {
-    g_cheatGameOptionsAndStatusTextPool, g_usRev1Text_loadInGameMenuOptionLabel, g_usRev1Text_save, g_usRev1Text_enterCheat,
+    s_cheatOptions_Cheats, g_usRev1Text_loadInGameMenuOptionLabel, g_usRev1Text_save, g_usRev1Text_enterCheat,
     g_usRev1Text_joinNow, g_usRev1Text_waiting, g_usRev1Text_connect, g_usRev1Text_goBackInGameMenuOptionLabel,
     g_usRev1Text_continue, g_usRev1Text_gameOver, g_usRev1Text_timeXx, g_usRev1Text_done,
     g_usRev1Text_newCheatEnabled, g_usRev1Text_invincibilityActivated, g_usRev1Text_infiniteLivesActivated, g_usRev1Text_allWeaponsActivated,

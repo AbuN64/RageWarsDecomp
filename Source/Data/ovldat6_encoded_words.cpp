@@ -294,17 +294,11 @@
 #include "Ai/playerai_updatedelayeddamage__player.h"
 
 
-s32 k_PlayeraiTrystartplayersequenceZeroFill = 0;
 
 float g_aiDistanceBounds[2] = {
     0.0f, 102.399994f,
 };
 
-s32 k_aiSignWords[15] = {
-    1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, -1, 1,
-    1, 1, 1,
-};
 #endif
 
 #if defined(VERSION_US)
@@ -603,15 +597,16 @@ s32 k_aiSignWords[15] = {
 #include "Ai/playerai_updatedelayeddamage__player.h"
 
 
-s32 k_PlayeraiTrystartplayersequenceZeroFill = 0;
 
 float g_aiDistanceBounds[2] = {
     0.0f, 102.399994f,
 };
 
-s32 k_aiSignWords[15] = {
-    1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, -1, 1,
-    1, 1, 1,
+#endif
+
+#if defined(VERSION_US)
+
+s32 g_playerSequenceAxisSigns[15] = {
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1,
 };
 #endif

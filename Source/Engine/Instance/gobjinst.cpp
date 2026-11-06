@@ -34,6 +34,7 @@
 #include "Libsn/nav_isballisticarcobstructed_data.h"
 #include "Particle/graphu64_matrixfromeulerxyz.h"
 #include "Common/level_spawn.h"
+#include "Common/game_player_and_menu_state.h"
 #include "Gobjinst/gobjinst_data.h"
 #include "Common/object_instance_transform_and_render_views.h"
 #include "Common/resident_event_handler.h"
@@ -276,7 +277,7 @@ void GameObject_MoveToXZKeepHeight(Shared_ParticleInstance *actor, f32 x, f32 z)
     position.y = actor->pos.y;
     position.z = z;
     keep = g_portalAlternateCollisionQuery.w[0];
-    Unicol_MoveActorWithCollision(actor, position.x, position.y, position.z, g_portalAlternateCollisionQuery.w);
+    Unicol_MoveActorWithCollision(actor, position, g_portalAlternateCollisionQuery.w);
     g_portalAlternateCollisionQuery.w[0] = keep;
     actor->velocity = saved;
     actor->pos.y = Region_GetPolygonHeight(actor->region, actor->pos.x, actor->pos.z) + height;
@@ -304,7 +305,7 @@ static inline void *body_setup(char *obj) {
     }
     if (kind == 11) {
         for (i = 0; i < g_playerCount; i++) {
-            player = (char *)&g_gamePlayerAndMenuState[i];
+            player = (char *)&g_gamePlayerAndMenuState.entries[i];
             if (player == obj) {
                 return 0;
             }
@@ -344,7 +345,7 @@ s32 Gobjinst_ProbeActorMovement(struct ActorInstanceHeader *actorState, CVector3
         *out = set;
     }
     saved = *actorState;
-    collisions = Unicol_MoveActorWithCollision(actorState, position.x, position.y, position.z, set);
+    collisions = Unicol_MoveActorWithCollision(actorState, position, set);
     *actorState = saved;
     return collisions;
 }
@@ -361,7 +362,7 @@ s32 Gobjinst_HasClearPathToActor(struct ActorInstanceHeader *from, struct ActorI
     ((struct LevelActor *)from)->position0.y += Gobjinst_GetActorHeight(from) * scale;
     desired = ((struct LevelActor *)to)->position0;
     desired.y += Gobjinst_GetActorHeight(to) * scale;
-    collisions = Unicol_MoveActorWithCollision(from, desired.x, desired.y, desired.z, &g_particleCollisionProbeResult);
+    collisions = Unicol_MoveActorWithCollision(from, desired, &g_particleCollisionProbeResult);
     *from = savedFrom;
 
     return collisions == 0;
@@ -376,7 +377,7 @@ s32 Gobjinst_HasClearInstancePath(struct ActorInstanceHeader *actorState, CVecto
     collision_info = *collisionSettings;
     collision_info.ground_behavior = 0;
     collision_info.instance_behavior = 1;
-    Unicol_MoveActorWithCollision(actorState, position.x, position.y, position.z, &collision_info);
+    Unicol_MoveActorWithCollision(actorState, position, &collision_info);
     *actorState = saved;
 
     collisions = g_currentActorInstance.instance0 || g_currentActorInstance.contactFlags9C;
@@ -666,7 +667,7 @@ void Gobjinst_MoveActorWithContactCallback(char *actor, CVector3 *destination) {
             ((ActorCollisionDataView *)(collision))->collisionParams.word = 0;
         }
         old_contact = ((ActorModelResourceView *)(actor))->model;
-        collided = Unicol_MoveActorWithCollision(actor, destination->x, destination->y, destination->z, collision);
+        collided = Unicol_MoveActorWithCollision(actor, *destination, collision);
         if (old_contact != ((ActorModelResourceView *)(actor))->model) {
             ((ActorModelResourceView *)(actor))->previousModel = old_contact;
         }
@@ -1140,7 +1141,6 @@ void Gobjinst_ApplyTimedMatrixWobble(s32 time, s32 flags, f32 *matrix) {
 
 /* Builds and packs the animated part matrices of an actor, then updates the
  * frame timing totals. */
-#define g_gameSettingsView (*(s32 *)&g_gameSettings)
 
 /* Pose records whose fields are all in use, in the shared pose header layout. */
 typedef struct Shared_PoseJointRef Shared_PoseJointRef;
@@ -1455,7 +1455,7 @@ s32 Gobjinst_BuildActorPose(Shared_PoseActor *actor, void *modelPack, s32 model)
                 f.mode = 1;
             }
             if (!(actor->flags & 0x200000) && (kind == 1 || kind == 11)) {
-                if (g_gameSettingsView & 0x100) {
+                if (g_gameSettings.flags & 0x100) {
                     id0 = 195;
                     id1 = 199;
                     id2 = 194;
@@ -1467,10 +1467,10 @@ s32 Gobjinst_BuildActorPose(Shared_PoseActor *actor, void *modelPack, s32 model)
                     id3 = -1;
                 }
                 id4 = -1;
-                if (g_gameSettingsView & 0x20) {
+                if (g_gameSettings.flags & 0x20) {
                     id4 = 1;
                 }
-                if (g_gameSettingsView & 0x80) {
+                if (g_gameSettings.flags & 0x80) {
                     scaled = 1;
                     Graphu64_ScaleVector(&scale, &scale, 0.5f);
                 }
@@ -1805,7 +1805,6 @@ void Gobjinst_DrawVisibleCachedActor(SceneObject *object, struct GameplayCamera 
 }
 
 /* Keep this source unit's macros local to its body. */
-#undef g_gameSettingsView
 
 /* PLAYER_DRAWTINTEDPLAYER_DATA.CPP */
 
@@ -2001,7 +2000,7 @@ void Gobjinst_DrawTeamMaskedModel(LevelActor *actor, s32 unusedShadowContext, Lo
  * GameObject_DrawBlobShadow; otherwise, once per frame the shadow model from Map_ReserveEntries is built for an object above
  * the ground: the light of the current view (direction from its signed bytes, strength from its colour)
  * is sampled at the object through Gdynlight_AccumulateLightDirections, the shadow alpha is 128 plus 56 per unit of light (faded
- * by g_menuModelFillAlpha during a fade), the light direction is kept at least 0.15 from horizontal, and the shadow
+ * by g_menuModelFillColor[3] during a fade), the light direction is kept at least 0.15 from horizontal, and the shadow
  * is projected along it onto a plane just below the object (0.9 of its height up to 512), grown by 0.003
  * per unit of height, turned by the object's orientation and placed on the ground; the shadow is then
  * submitted through Gobjinst_DrawModelWithProjection. */
@@ -2150,7 +2149,7 @@ void GameObject_DrawBlobShadow(struct LevelActor *actor, CVector3 *offset, s32 r
 /* Finds the hit box of an object nearest a point: with the object's bone matrices (its primary set, else the
  * alternate set) and its hit-box resource from Gobjinst_RequestAnimatedModelVariant, each box whose mask matches the object's collision mask has the average
  * of its eight corners carried through its bone matrix, and the box whose center lies nearest the point is
- * copied out, taking weight 1 for a controlled actor unless the global option g_motionVisibilitySettings is set. The
+ * copied out, taking weight 1 for a controlled actor unless the global option g_gameSettings.local is set. The
  * resource is released afterwards; returns whether a box was found. */
 
 s32 Gobjinst_FindNearestBoneBounds(char *obj, CVector3 point, Box70 *out) {
@@ -2236,7 +2235,7 @@ void Gobjinst_DispatchActorTypeUpdate(char *actor)
         i = 0;
         if (count > 0) {
             limit = count;
-            object = g_gamePlayerAndMenuState;
+            object = (char *)g_gamePlayerAndMenuState.entries;
             do {
                 if (object == actor) {
                     goto zero_entry;
@@ -2373,7 +2372,7 @@ s32 Gobjinst_RequestAnimationIndex(void *levelActor, s32 animationIndex, s32 all
     return 1;
 }
 
-s16 Gobjinst_ChooseAvailableAnimationKind(void *actor, s16 *callback, s32 excludedAnimation) {
+s32 Gobjinst_ChooseAvailableAnimationKind(void *actor, s16 *callback, s32 excludedAnimation) {
     WeightedTable eligibleKinds;
     u16 animationKind;
 
@@ -3069,7 +3068,7 @@ void Gobjinst_SampleInterpolatedBoneRotation(BoneRotationTrackView *animation, s
 
 /* Converts a float to a signed word; values at or above the threshold are shifted down by it and flagged with the top bit,
  * which stores them as unsigned integers beyond the signed range. */
-static s32 Gobjinst_FloatToUnsignedFlaggedWord(f32 value, f32 threshold) {
+static inline s32 Gobjinst_FloatToUnsignedFlaggedWord(f32 value, f32 threshold) {
     s32 word;
 
     if (!(threshold <= value)) {
@@ -3080,45 +3079,113 @@ static s32 Gobjinst_FloatToUnsignedFlaggedWord(f32 value, f32 threshold) {
     return word;
 }
 
+/* Packs one row of the affine part: the first two values share a high/low halfword pair, the third fills the next pair alone. */
+#define GOBJINST_PACK_AFFINE_ROW(row, endFlag)                                                                                 \
+    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 0], g_affinePackUnsignedThresholdPairs[(row) * 3 / 2][((row) * 3) & 1]);       \
+    second = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 1], g_affinePackUnsignedThresholdPairs[((row) * 3 + 1) / 2][((row) * 3 + 1) & 1]); \
+    *upper++ = (first & 0xFFFF0000) | ((u32)second >> 16);                                                            \
+    *lower++ = (first << 16) | (second & 0xFFFF);                                                                      \
+    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 2], g_affinePackUnsignedThresholdPairs[((row) * 3 + 2) / 2][((row) * 3 + 2) & 1]); \
+    *upper++ = (first & 0xFFFF0000) | (endFlag);                                                                               \
+    *lower++ = first << 16;
+
 /* Converts the twelve used entries of a 4x4 float matrix (the fourth column is skipped) to unsigned integers, splitting
  * each pair into the high and low halfword arrays of a packed matrix and setting the final high word's low bit. */
 void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
-    static const s32 sourceIndexByValue[12] = { 0, 1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14 };
-    float *const thresholdPairs[6] = {
-        g_affinePackUnsignedThresholdPairs[0],
-        g_affinePackUnsignedThresholdPairs[1],
-        g_affinePackUnsignedThresholdPairs[2],
-        g_affinePackUnsignedThresholdPairs[3],
-        g_affinePackUnsignedThresholdPairs[4],
-        g_affinePackUnsignedThresholdPairs[5],
-    };
     u32 *upper = dst->upper;
     u32 *lower = dst->lower;
-    s32 group;
-    s32 first;
-    s32 second;
-    s32 single;
-
-/* Every group of three values fills two packed words: the first holds two values, the second holds one. */
-    for (group = 0; group < 4; group++) {
-        s32 valueIndex = group * 3;
-
-        first = Gobjinst_FloatToUnsignedFlaggedWord(src[sourceIndexByValue[valueIndex]], thresholdPairs[valueIndex / 2][valueIndex & 1]);
-        second = Gobjinst_FloatToUnsignedFlaggedWord(src[sourceIndexByValue[valueIndex + 1]], thresholdPairs[(valueIndex + 1) / 2][(valueIndex + 1) & 1]);
-        *upper = (first & 0xFFFF0000) | ((u32)second >> 16);
-        *lower = (first << 16) | (second & 0xFFFF);
-        upper++;
-        lower++;
-
-        single = Gobjinst_FloatToUnsignedFlaggedWord(src[sourceIndexByValue[valueIndex + 2]], thresholdPairs[(valueIndex + 2) / 2][(valueIndex + 2) & 1]);
-        *upper = single & 0xFFFF0000;
-        if (group == 3) {
-            *upper |= 1;
-        }
-        *lower = single << 16;
-        upper++;
-        lower++;
-    }
+    s32 a;
+    s32 b;
+    { f32 value = (src[0]);
+    if (!((g_affinePackUnsignedThresholdPairs[0][0]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[0][0]));
+    (a) |= 0x80000000;
+    } };
+    { f32 value = (src[1]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[0][0] + 1)) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[0][0] + 1)));
+    (b) |= 0x80000000;
+    } };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
+    upper++;
+    lower++;
+    { f32 value = (src[2]);
+    if (!((g_affinePackUnsignedThresholdPairs[1][0]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[1][0]));
+    (a) |= 0x80000000;
+    } };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
+    upper++;
+    lower++;
+    { f32 value = (src[4]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[1][0] + 1)) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[1][0] + 1)));
+    (a) |= 0x80000000;
+    } };
+    { f32 value = (src[5]);
+    if (!((g_affinePackUnsignedThresholdPairs[2][0]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedThresholdPairs[2][0]));
+    (b) |= 0x80000000;
+    } };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
+    upper++;
+    lower++;
+    { f32 value = (src[6]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[2][0] + 1)) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[2][0] + 1)));
+    (a) |= 0x80000000;
+    } };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
+    upper++;
+    lower++;
+    { f32 value = (src[8]);
+    if (!((g_affinePackUnsignedThresholdPairs[3][0]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[3][0]));
+    (a) |= 0x80000000;
+    } };
+    { f32 value = (src[9]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[3][0] + 1)) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[3][0] + 1)));
+    (b) |= 0x80000000;
+    } };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
+    upper++;
+    lower++;
+    { f32 value = (src[10]);
+    if (!((g_affinePackUnsignedThresholdPairs[4][0]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[4][0]));
+    (a) |= 0x80000000;
+    } };
+    *upper = a & 0xFFFF0000;
+    *lower = a << 16;
+    upper++;
+    lower++;
+    { f32 value = (src[12]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[4][0] + 1)) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[4][0] + 1)));
+    (a) |= 0x80000000;
+    } };
+    { f32 value = (src[13]);
+    if (!((g_affinePackUnsignedThresholdPairs[5][0]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedThresholdPairs[5][0]));
+    (b) |= 0x80000000;
+    } };
+    *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
+    *lower = (a << 16) | (b & 0xFFFF);
+    upper++;
+    lower++;
+    { f32 value = (src[14]);
+    if (!((*(&g_affinePackUnsignedThresholdPairs[5][0] + 1)) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[5][0] + 1)));
+    (a) |= 0x80000000;
+    } };
+    *upper = (a & 0xFFFF0000) | 1;
+    *lower = a << 16;
 }
 
 /* GAMEOBJECT_GETACTORHEIGHT.CPP */

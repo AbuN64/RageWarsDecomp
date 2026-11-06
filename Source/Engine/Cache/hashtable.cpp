@@ -54,37 +54,22 @@ struct Shared_HashLink {
 /* Stores a resource request under its key: the key hashes to a home bucket; a collision walks the chain from that bucket
  * and either replaces the value of a matching key or appends a node taken from the next free odd-indexed bucket. */
 void HashTable_SetResourceByKey(u32 key, struct ResourceLoadRequest *value) {
-    CacheHashEntry *entry = g_resourceHashBuckets + (((key << 5) ^ (key >> 1) ^ (key >> 9) ^ (key >> 17)) & g_resourceHashEvenIndexMask);
-    CacheHashEntry *tail;
-    CacheHashEntry *slot;
-    s32 index;
-
-    if (entry->value == 0) {
-        entry->key = key;
-        entry->value = value;
-        return;
-    }
-    tail = entry;
-    for (;;) {
-        if (entry->key == key) {
-            entry->value = value;
-            return;
-        }
-        entry = tail->next;
-        if (entry == 0) {
-            break;
-        }
-        tail = entry;
-    }
-    index = tail->index | 1;
-    while (g_resourceHashBuckets[index].value != 0) {
-        index += 2;
-        index &= g_resourceHashIndexMask;
-    }
-    slot = &g_resourceHashBuckets[index];
-    slot->key = key;
-    slot->value = value;
-    tail->next = slot;
+ CacheHashEntry *entry = g_resourceHashBuckets + (((key<<5)^(key>>1)^(key>>9)^(key>>17)) & g_resourceHashEvenIndexMask);
+ CacheHashEntry *tail;
+ CacheHashEntry *slot;
+ s32 index;
+ if (entry->value == 0) {entry->key=key;entry->value=value;return;}
+ tail=entry;
+ for (;;) {
+  if (entry->key==key) {entry->value=value;return;}
+  entry=tail->next;
+  if (!entry) break;
+  tail=entry;
+ }
+ index=tail->index|1;
+ while (g_resourceHashBuckets[index].value != 0) {index+=2; index &= g_resourceHashIndexMask;}
+ slot=(CacheHashEntry *)((index << 4) + (u32)g_resourceHashBuckets);
+ slot->key=key;slot->value=value;tail->next=slot;
 }
 
 void HashTable_RemoveResourceByKey(s32 resourceKey) {

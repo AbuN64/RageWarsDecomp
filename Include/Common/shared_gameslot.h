@@ -72,7 +72,7 @@ struct Shared_Game {
             u8 reserved5B8[0x14];
             s32 simpleObjectsPaused; /* +0x5CC: g_simpleObjectPauseState */
             u8 reserved5D0[8];
-            CGameStatus counters; /* +0x5D8: g_matchRoundCounters */
+            CGameStatus counters; /* +0x5D8 */
         };
     };
     /* origin/legacy shared/game.h retains the complete 0xCAC-byte game record. */

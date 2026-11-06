@@ -22,10 +22,10 @@ void Map_ResetFramePool(void *batch) {
 s32 Map_ReserveEntries(struct MapBlockAllocatorView *map, s32 entryCount) {
     s32 firstReservedEntry;
     firstReservedEntry = 0;
-    if (((map)->remainingBlocks) >= entryCount) {
-        firstReservedEntry = ((map)->nextBlockAddress);
-        ((map)->nextBlockAddress) = (s32) (firstReservedEntry + (entryCount << 6));
-        ((map)->remainingBlocks) = (s32) (((map)->remainingBlocks) - entryCount);
+    if ((((struct MapBlockAllocatorView *) ((s8 *) map))->remainingBlocks) >= entryCount) {
+        firstReservedEntry = (((struct MapBlockAllocatorView *) ((s8 *) map))->nextBlockAddress);
+        (((struct MapBlockAllocatorView *) ((s8 *) map))->nextBlockAddress) = (s32) (firstReservedEntry + (entryCount << 6));
+        (((struct MapBlockAllocatorView *) ((s8 *) map))->remainingBlocks) = (s32) ((((struct MapBlockAllocatorView *) ((s8 *) map))->remainingBlocks) - entryCount);
     }
     return firstReservedEntry;
 }

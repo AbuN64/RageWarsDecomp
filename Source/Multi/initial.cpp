@@ -261,6 +261,7 @@ s32 Initial_OpenInitialDialog(void *first, void *second, void *third) {
 #include "Frontend/frontend.h"
 #include "Menu/Misc/cmenuprofile_opentimedplayerdialog.h"
 #include "Menu/pak_load.h"
+#include "Common/pak_preview_selection.h"
 
 typedef struct FlagOwnerMultiResetPlayerGameOverTimer {
     char pad0[0x30];

@@ -8,6 +8,14 @@
 #include "Common/rg.h"
 #include "Menu/Option/menu_updateunlockedoptionlabel_symbols.h"
 
+s32 Menu_UpdateUnlockedOptionLabel(struct MenuOptionLabel *label, s32 optionMask, s32 *enabledText, s32 *disabledText) {
+    if (g_menuOptionAvailabilityFlags & optionMask) label->flags |= 0x01000000;
+    else label->flags &= 0xFEFFFFFF;
+    if (g_gameSettings.flags & optionMask) label->text = enabledText;
+    else label->text = disabledText;
+    return 0;
+}
+
 /* Toggles the bits optionMask names in the settings flag word g_gameSettings and returns 0. */
 s32 Menu_ToggleGameOptionBits(s32 entry, s32 optionMask) {
     s32 *flags = (s32 *)&g_gameSettings.flags;
@@ -124,11 +132,3 @@ s32 Menu_UpdateOptionToggleLabel(OptionRowEux *row) {
     return 0;
 }
 #endif
-
-s32 Menu_UpdateUnlockedOptionLabel(struct MenuOptionLabel *label, s32 optionMask, s32 *enabledText, s32 *disabledText) {
-    if (g_menuOptionAvailabilityFlags & optionMask) label->flags |= 0x01000000;
-    else label->flags &= 0xFEFFFFFF;
-    if (g_gameSettings.flags & optionMask) label->text = enabledText;
-    else label->text = disabledText;
-    return 0;
-}

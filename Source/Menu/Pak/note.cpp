@@ -763,7 +763,6 @@ s32 Note_ProbeAccessoryPresence(s32 channel) {
 /* Converts a controller-pak filename through its character table, blanking leading nulls, then trims trailing spaces. */
 void Note_DecodeNoteText(const char *encodedText, u8 *noteText, s32 characterCount) {
     s32 i;
-    u8 code;
     s32 started;
 
     for (i = 0; i < characterCount; i++) {
@@ -772,12 +771,11 @@ void Note_DecodeNoteText(const char *encodedText, u8 *noteText, s32 characterCou
 
     started = 0;
     for (i = started; i < characterCount; i++, encodedText++) {
-        code = (u8)*encodedText;
-        if (code < 66) {
-            if (code == 0 && !started) {
+        if (*(const u8 *)encodedText < 66) {
+            if (*(const u8 *)encodedText == 0 && !started) {
                 noteText[i] = ' ';
             } else {
-                noteText[i] = g_controllerPakFilenameAlphabet[code];
+                noteText[i] = g_controllerPakFilenameAlphabet[*(const u8 *)encodedText];
                 started = 1;
             }
         } else {
@@ -955,10 +953,10 @@ int Note_AllocateRenderBuffers(struct RenderBufferResources *record) {
     record->audioHeap = Cache_AllocateResource(0, 0x22000, 35, s_audioHeapText);
     g_graphicsMicrocodeTextSize = 0x8000;
     g_audioContextHeapBytes = 0x22000;
-    g_displayListBuffers[0] = record->displayLists->data;
-    g_secondaryDisplayListBufferZero = g_displayListBuffers[0] + g_primaryDisplayListCapacity;
-    g_displayListBuffers[1] = g_secondaryDisplayListBufferZero + g_secondaryDisplayListCapacity;
-    g_secondaryDisplayListBufferAlternate = g_displayListBuffers[1] + g_primaryDisplayListCapacity;
+    g_primaryDisplayListBufferZero = record->displayLists->data;
+    g_secondaryDisplayListBufferZero = g_primaryDisplayListBufferZero + g_primaryDisplayListCapacity;
+    g_primaryDisplayListBufferAlternate = g_secondaryDisplayListBufferZero + g_secondaryDisplayListCapacity;
+    g_secondaryDisplayListBufferAlternate = g_primaryDisplayListBufferAlternate + g_primaryDisplayListCapacity;
     g_graphicsMicrocodeDataSize = record->fifo->data;
     g_audioContextHeapBuffer = (u8 *)record->audioHeap->data;
     for (i = 0; i < g_renderFrameBufferCount; i++) {

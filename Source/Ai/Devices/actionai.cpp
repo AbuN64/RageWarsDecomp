@@ -34,6 +34,7 @@
 #include "Fx/fx_spawnimpactmark.h"
 #include "Camera/camera.h"
 #include "Ai/devices_symbols.h"
+#include "Engine/Audio/T2SoundElement.h"
 
 
 #if defined(VERSION_EU_X)
@@ -52,7 +53,7 @@ void Action_UpdateBreakableProximity(u8 *self, u8 *hit) {
     u8 *record;
     u8 *node;
     CVector3 playerOffset;
-    Shared_MenuData *menuData;
+    u8 *list;
     f32 distance;
     u32 clearedFlags;
     switch (kind) {
@@ -113,17 +114,22 @@ void Action_UpdateBreakableProximity(u8 *self, u8 *hit) {
                 break;
             }
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-            menuData = &g_playerViewRenderContext;
-            for (node = g_transientPlayerList.actorList; node != 0; node = (u8 *)((SharedPlayer *)node)->views16E0.view16E0_0.next) {
-                if (((Player *)node)->camera != 0) {
-                    Camera_PostScreenMessage((u8 *)&menuData->object, ((Player *)node)->camera,
-                        g_breakableNotificationText[menuData->game.language]);
+            /* The transient player list sits inside the menu data block; recover the block from it. */
+            list = (u8 *)&g_transientPlayerList;
+            node = *(u8 **)list;
+            if (node != 0) {
+                u8 *status = list + offsetof(Shared_MenuData, object) - offsetof(Shared_MenuData, transientPlayers);
+                struct Shared_Game *game = (struct Shared_Game *)(list + offsetof(Shared_MenuData, game) - offsetof(Shared_MenuData, transientPlayers));
+                for (; node != 0; node = (u8 *)((SharedPlayer *)node)->views16E0.view16E0_0.next) {
+                    if (((Player *)node)->camera != 0) {
+                        Camera_PostScreenMessage(status, ((Player *)node)->camera, g_breakableNotificationText[game->language]);
+                    }
                 }
             }
 #else
             for (node = g_transientPlayerList.actorList; node != 0; node = (u8 *)((SharedPlayer *)node)->views16E0.view16E0_0.next) {
                 if (((Player *)node)->camera != 0) {
-                    Camera_PostScreenMessage((u8 *)&g_frontendScreenStatus, ((Player *)node)->camera, g_breakableNotificationText);
+                    Camera_PostScreenMessage((u8 *)&g_frontendScreenStatus, ((Player *)node)->camera, g_breakableNotificationText[0]);
                 }
             }
 #endif
@@ -202,7 +208,7 @@ void Actionai_CopyTrackBytes(char *ownerRecord, char *eventRecord) {
     if (hooks != 0 && hooks->onStep != 0) {
         hooks->onStep(ownerRecord, eventRecord);
     }
-    if (event->mode == 0) {
+    if (((ActorMotionState *)eventRecord)->mode == 0) {
         ownerRecord[1] = base[14];
         ownerRecord[3] = base[15];
     } else {
@@ -360,10 +366,6 @@ const float k_actionUpdateBreakableProximityLiteral[1] = {
 
 const float k_actionClearMotionFlagsLiteral[1] = {
     3e+01f,
-};
-
-const float k_actionResolvebreakablehitDataFloatConstants[1] = {
-    0.007874016f,
 };
 
 #if defined(VERSION_EU_X)

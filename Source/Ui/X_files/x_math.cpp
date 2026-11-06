@@ -2005,15 +2005,20 @@ void XMath_SetIdentityMatrix(s32 matrixAddress) {
 }
 
 void XMath_TransposeMatrix(f32 *matrix) {
-    s32 row;
-    s32 column;
-    f32 swapped;
+    s32 i;
+    s32 j;
+    s32 offset1;
+    s32 offset2;
+    f32 temp;
 
-    for (row = 0; row < 3; row++) {
-        for (column = row + 1; column < 4; column++) {
-            swapped = matrix[column * 4 + row];
-            matrix[column * 4 + row] = matrix[row * 4 + column];
-            matrix[row * 4 + column] = swapped;
+    for (i = 0; i < 3; i++) {
+        for (j = i + 1; j < 4; j++) {
+            offset2 = j * 16 + i * 4;
+            offset1 = i * 16 + j * 4;
+            temp = *(f32 *)((u8 *)matrix + offset2);
+            *(f32 *)((u8 *)matrix + offset2) =
+                *(f32 *)((u8 *)matrix + offset1);
+            *(f32 *)((u8 *)matrix + offset1) = temp;
         }
     }
 }
@@ -2361,11 +2366,13 @@ void XMath_BuildScaleRotationTranslationMatrix(void *matrix, CVector3 *scale, vo
 
 
 
-#if !(defined(VERSION_US_REV1))
-const float k_xMathFloatConstants[5] = {
-    1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-};
-#endif
+
+/* Unit scale of each angle-matrix builder (Matrix_FromAngles and its axis variants). */
+float k_xmathAngleMatrixIdentityUnit = 1.0f;
+float k_xmathAngleMatrixYUnit = 1.0f;
+float k_xmathAngleMatrixXUnit = 1.0f;
+float k_xmathAngleMatrixZUnit = 1.0f;
+float k_xmathAnglesMatrixHomogeneousUnit = 1.0f;
 
 #if !(defined(VERSION_US_REV1))
 const float k_xmathUnit[1] = {
@@ -2373,57 +2380,40 @@ const float k_xmathUnit[1] = {
 };
 #endif
 
-#if !(defined(VERSION_US_REV1))
-const double k_xMathFloatWordsAsDoubles[5] = {
-    0.007812505573383532, -1.70077535352162e-18, 2.0970922926377217e-13, 2.584343760022579e-08,
-    0.19579639696478843,
-};
-#endif
+/* YXZ and ZYX Euler extraction: clamp bounds, the arcsine polynomial coefficient and addend of each Horner step, half pi and the sine tolerance (each second word is read through the first one's address); then the vector-normalize, determinant-tolerance and affine units. */
+float k_yxzExtractionClampAndZero = 1.0f;
+float k_yxzExtractionClampMinimum = -1.0f;
+float k_yxzExtractionPolynomialCoefficientsHigh = -0.0116805276f;
+float k_yxzExtractionPolynomialCoefficientsHighAddend = 0.0308918804f;
+float k_yxzExtractionPolynomialCoefficientsMiddle = 0.0501743034f;
+float k_yxzExtractionPolynomialCoefficientsMiddleAddend = 0.0889789909f;
+float k_yxzExtractionPolynomialCoefficientsLow = 0.214598805f;
+float k_yxzExtractionPolynomialCoefficientsLowAddend = 1.57079625f;
+float k_yxzExtractionHalfPi = 1.57079637f;
+float k_yxzExtractionSineTolerance = 9.99999975e-05f;
+float k_zyxExtractionClampAndZero = 1.0f;
+float k_zyxExtractionClampMinimum = -1.0f;
+float k_zyxExtractionPolynomialCoefficientsHigh = -0.0116805276f;
+float k_zyxExtractionPolynomialCoefficientsHighAddend = 0.0308918804f;
+float k_zyxExtractionPolynomialCoefficientsMiddle = 0.0501743034f;
+float k_zyxExtractionPolynomialCoefficientsMiddleAddend = 0.0889789909f;
+float k_zyxExtractionPolynomialCoefficientsLow = 0.214598805f;
+float k_zyxExtractionPolynomialCoefficientsLowAddend = 1.57079625f;
+float k_zyxExtractionHalfPi = 1.57079637f;
+float k_xmathNormalizeXUnit = 1.0f;
+float k_xmathNormalizeYUnit = 1.0f;
+float k_xmathMatrixDeterminantTolerance = 9.99999975e-05f;
+float k_xmathAffineMatrixUnit = 1.0f;
 
-#if !(defined(VERSION_US_REV1))
-const unsigned int k_xMathArcTangentFloatWords[9] = {
-    0x3F800000, 0xBF800000, 0xBC3F5FAF, 0x3CFD10F8, 0x3D4D8392, 0x3DB63A9E, 0x3E5BBFCA, 0x3FC90FDA,
-    0x3FC90FDB,
-};
-#endif
 
-#if !(defined(VERSION_US_REV1))
-const float k_xMathUnitFloatPair[2] = {
-    1.0f, 1.0f,
-};
-#endif
 
-#if !(defined(VERSION_US_REV1))
-const float k_xmathEpsilonAndUnit[2] = {
-    0.0001f, 1.0f,
-};
-#endif
+
+
 
 #if defined(VERSION_US_REV1)
-const float k_xMathFloatConstants[5] = {
-    1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-};
 
 const float k_xmathUnit[1] = {
     1.0f,
-};
-
-const double k_xMathFloatWordsAsDoubles[5] = {
-    0.007812505573383532, -1.70077535352162e-18, 2.0970922926377217e-13, 2.584343760022579e-08,
-    0.19579639696478843,
-};
-
-const unsigned int k_xMathArcTangentFloatWords[9] = {
-    0x3F800000, 0xBF800000, 0xBC3F5FAF, 0x3CFD10F8, 0x3D4D8392, 0x3DB63A9E, 0x3E5BBFCA, 0x3FC90FDA,
-    0x3FC90FDB,
-};
-
-const float k_xMathUnitFloatPair[2] = {
-    1.0f, 1.0f,
-};
-
-const float k_xmathEpsilonAndUnit[2] = {
-    0.0001f, 1.0f,
 };
 
 #endif
@@ -2434,99 +2424,18 @@ const float k_xmathEvaluatereciprocalsquarerootUnit[1] = {
 };
 #endif
 
-#if !(defined(VERSION_US_REV1))
-const float k_xmathEvaluatereciprocalsquarerootDataFloatConstants[20] = {
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-    1.875f, 0.0f,
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-};
-#endif
 
-#if !(defined(VERSION_US_REV1))
-const unsigned int k_xmathEvaluatereciprocalsquarerootDecimalLogOfEWords[2] = {
-    0x3FDBCB7B, 0x1FFFFFFF,
-};
-#endif
 
 /* Keep the original four-byte constant-pool alignment; the linked coefficient
  * arrays themselves remain eight-byte aligned at their ROM addresses. */
-#if defined(VERSION_US)
-#if defined(VERSION_US)
-const double k_xmathEvaluatereciprocalsquarerootDataConstants[12] __attribute__((aligned(4))) = {
-    -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
-    1.4426950216293335, 0.5, 0.693359375,
-    0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
-    0.00049586285604164, 0.0555538684129715, 0.25,
-};
-#endif
-#endif
 
-#if defined(VERSION_EU_X)
-#if defined(VERSION_EU_X)
-const double k_xmathEvaluatereciprocalsquarerootDataConstants[12] __attribute__((aligned(4))) = {
-    -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
-    1.4426950216293335, 0.5, 0.693359375,
-    0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
-    0.00049586285604164, 0.0555538684129715, 0.25,
-};
-#endif
-#endif
 
-#if defined(VERSION_EU)
-#if defined(VERSION_EU)
-const double k_xmathEvaluatereciprocalsquarerootDataConstants[12] __attribute__((aligned(4))) = {
-    -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
-    1.4426950216293335, 0.5, 0.693359375,
-    0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
-    0.00049586285604164, 0.0555538684129715, 0.25,
-};
-#endif
-#endif
 
-#if defined(VERSION_DE)
-#if defined(VERSION_DE)
-const double k_xmathEvaluatereciprocalsquarerootDataConstants[12] __attribute__((aligned(4))) = {
-    -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0,
-    1.4426950216293335, 0.5, 0.693359375,
-    0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411,
-    0.00049586285604164, 0.0555538684129715, 0.25,
-};
-#endif
-#endif
 #if defined(VERSION_US_REV1)
 const float k_xmathEvaluatereciprocalsquarerootUnit[1] = {
     1.0f,
 };
 
-const float k_xmathEvaluatereciprocalsquarerootDataFloatConstants[20] = {
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-    1.875f, 0.0f,
-    176.0f, 0.0f, 0.0f, 0.0f, 1.875f, 0.0f,
-};
-
-const unsigned int k_xmathEvaluatereciprocalsquarerootDecimalLogOfEWords[2] = {
-    0x3FDBCB7B, 0x1FFFFFFF,
-};
-#endif
-
-#if !(defined(VERSION_US_REV1))
-
-#endif
-
-#if defined(VERSION_US_REV1)
-
-
-
-
-
-
-
-
-
-
-
 #endif
 
 
@@ -2537,73 +2446,15 @@ const unsigned int k_xmathEvaluatereciprocalsquarerootDecimalLogOfEWords[2] = {
 
 
 
-#if !(defined(VERSION_US_REV1))
-#if defined(VERSION_DE)
-const double k_xmathSubtractanglescenteredDataConstants[7] = {
-    6.283185958862305, 12831.720727093452, 50.12387851302602, 840939907.5707965, 6.283185958862305,
-    12831.720727093452, 50.12387841939926,
-};
-#endif
-#if defined(VERSION_EU)
-const double k_xmathSubtractanglescenteredDataConstants[7] = {
-    6.283185958862305, 12831.720727093452, 50.12387851302602, 840939907.5707965, 6.283185958862305,
-    12831.720727093452, 50.12387841939926,
-};
-#endif
-#if defined(VERSION_EU_X)
-const double k_xmathSubtractanglescenteredDataConstants[7] = {
-    6.283185958862305, 12831.720727093452, 50.12387851302602, 840939907.5707965, 6.283185958862305,
-    12831.720727093452, 50.12387841939926,
-};
-#endif
-#if defined(VERSION_US)
-const double k_xmathSubtractanglescenteredDataConstants[7] = {
-    6.283185958862305, 12831.720727093452, 50.12387851302602, 840939907.5707965, 6.283185958862305,
-    12831.720727093452, 50.12387841939926,
-};
-#endif
-#endif
-
-#if defined(VERSION_US_REV1)
 
 
 
 
 
-#endif
 
-#if !(defined(VERSION_US_REV1))
-
-#endif
-
-#if defined(VERSION_US_REV1)
-
-
-
-#endif
-
-float g_SSmackformatData[4] = {
-    0.0f, 3.1415927f, 0.0f, -3.1415927f,
-};
-
-#if defined(VERSION_US_REV1)
-
-#endif
 
 /* Retained data for this translation unit. */
 
-const unsigned int k_xMathConstants[6] = {
-    0x7FF00000, 0x00000000, 0x3FF00000, 0x00000000, 0x3FF00000, 0x00000000,
-};
-#if !(defined(VERSION_US_REV1))
-const float k_xmathSplitdoubleexponentDataFloatConstants[25] = {
-    0.0f, 0.0f, 1.5707964f, 1.5707964f, 1.0f, -0.004054058f,
-    0.02186123f, 0.055909887f, 0.09642004f, 0.13908534f, 0.19946536f, 0.33329856f,
-    0.99999934f, 0.7853982f, 1.0f, -1.0f, -0.011680528f, 0.03089188f,
-    0.050174303f, 0.08897899f, 0.2145988f, 1.5707963f, 1.5707964f, 1.0f,
-    -1.0f,
-};
-#endif
 #if defined(VERSION_US_REV1)
 const unsigned int k_xmathSplitdoubleexponentDataZero[2] = {
     0x00000000, 0x00000000,
@@ -2637,26 +2488,6 @@ const float k_xmathSplitdoubleexponentSigns[2] = {
 };
 #endif
 
-const double k_xmathEvaluatearccosineDataFloatConstants[3] = {
-    6.454012398653054e-15, 2.0217136903303863e-11, 0.1957962809993877,
-};
-
-const float k_xmathWrapanglecenteredDataFloatConstants[1] = {
-    25.132744f,
-};
-
-const double k_xmathWrapanglepositiveDataFloatConstants[2] = {
-    6.283185958862305, 12831.720727093452,
-};
-
-const float k_xMathPiAndWrapBoundFloats[3] = {
-    3.1415927f, 25.132744f, -25.132744f,
-};
-#if defined(VERSION_US_REV1)
-const float k_xmathSubtractanglescenteredDataFloatConstants[5] = {
-    2.392699f, -0.0f, 6.283186f, 6.283186f, 3.1415927f,
-};
-#endif
 #if defined(VERSION_US_REV1)
 const float k_xmathSubtractanglescenteredRangeFloats[8] = {
     3.1415927f, 25.132744f, -25.132744f, 2.392699f, -0.0f, 6.283186f, 6.283186f, 3.1415927f,
@@ -2667,26 +2498,122 @@ const float k_xmathSubtractanglescenteredUnit[1] = {
     1.0f,
 };
 #endif
-#if !(defined(VERSION_US_REV1))
-const float k_vector3intersectplaneDataFloatConstants[9] = {
-    0.001f, -0.001f, 0.5f, 1.0f, 1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f,
-};
-#endif
-#if defined(VERSION_US_REV1)
-const float k_vectorIntersectPlaneEpsilonBandAndHalf[3] = {
-    0.001f, -0.001f, 0.5f,
-};
-#endif
 #if defined(VERSION_US_REV1)
 const float k_vectorIntersectPlaneUnitScales[6] = {
     1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
 };
 #endif
-#if defined(VERSION_US_REV1)
-const double k_xmathEvaluateexponentialdoubleDataConstants[12] = {
-    -2.7105049465376212e-20, 2.7105049465376212e-20, 1.0, 1.4426950216293335, 0.5, 0.693359375,
-    0.00021219444170128557, 1.652032915444579e-05, 0.006943599786609411, 0.00049586285604164,
-    0.0555538684129715, 0.25,
-};
+const f64 k_xmathFloorIntegralLimit = 4503599627370496.0;
+const f64 k_xmathFloorSignBoundary = 0.0;
+const f64 k_xmathFloorIntegralBias = 1.0;
+const f64 k_xmathCeilIntegralLimit = 4503599627370496.0;
+const f64 k_xmathCeilSignBoundary = 0.0;
+const f64 k_xmathCeilIntegralBias = 1.0;
+const f64 k_xmathCeilRoundUpUnit = 1.0;
+const f64 k_xmathFractionIntegralLimit = 4503599627370496.0;
+const f64 k_xmathFractionSignBoundary = 0.0;
+const f64 k_xmathFractionIntegralBias = 1.0;
+double k_xmathNaturalLogToDecimalScale = 0.4342944920063018;
+double k_xmathExponentialUpperLimit = -2.7105049465376212e-20;
+double k_xmathExponentialLowerLimit = 2.7105049465376212e-20;
+double k_xmathExponentialInitialResult = 1.0;
+double k_xmathExponentialToBinaryScale = 1.4426950216293335;
+double k_xmathExponentialRoundingAndDenominatorConstant = 0.5;
+double k_xmathExponentialReductionLeadingTerm = 0.693359375;
+double k_xmathExponentialReductionTrailingTerm = 0.00021219444170128557;
+double k_xmathExponentialNumeratorCubicCoefficient = 1.652032915444579e-05;
+double k_xmathExponentialNumeratorLinearCoefficient = 0.006943599786609411;
+double k_xmathExponentialDenominatorQuadraticCoefficient = 0.00049586285604164;
+double k_xmathExponentialDenominatorLinearCoefficient = 0.0555538684129715;
+double k_xmathExponentialNumeratorConstant = 0.25;
+#if !defined(VERSION_US_REV1)
+double k_xmathExponentSpecialValue = 0.0;
+float k_xmathCosinePhaseOffset = 1.57079637f;
+float k_xmathTangentCosinePhaseOffset = 1.57079637f;
+float k_xmathArcTangentReductionUnit = 1.0f;
+float k_xmathArcTangentPolynomialLeadingCoefficient = -0.00405405788f;
 #endif
+
+#if !defined(VERSION_US_REV1)
+/* Arctangent and arcsine polynomial coefficient and addend of each Horner step (each second word is read through the first one's address), the arctangent quarter-pi offset and the arcsine/arccosine clamps. */
+float k_xmathArcTangentCoefficientPairHigh = 0.0218612291f;
+float k_xmathArcTangentCoefficientPairHighAddend = 0.055909887f;
+float k_xmathArcTangentCoefficientPairMiddle = 0.0964200422f;
+float k_xmathArcTangentCoefficientPairMiddleAddend = 0.139085338f;
+float k_xmathArcTangentCoefficientPairLow = 0.199465364f;
+float k_xmathArcTangentCoefficientPairLowAddend = 0.333298564f;
+float k_xmathArcTangentCoefficientAndOffset = 0.999999344f;
+float k_xmathArcTangentQuarterPi = 0.785398185f;
+float k_xmathArcSineClampConstants = 1.0f;
+float k_xmathArcSineClampMinimum = -1.0f;
+float k_xmathArcSineCoefficientPairHigh = -0.0116805276f;
+float k_xmathArcSineCoefficientPairHighAddend = 0.0308918804f;
+float k_xmathArcSineCoefficientPairMiddle = 0.0501743034f;
+float k_xmathArcSineCoefficientPairMiddleAddend = 0.0889789909f;
+float k_xmathArcSineCoefficientPairLow = 0.214598805f;
+float k_xmathArcSineCoefficientPairLowAddend = 1.57079625f;
+float k_xmathArcSineResultConstants = 1.57079637f;
+float k_xmathArcCosineUpperClamp = 1.0f;
+float k_xmathArcCosineLowerClamp = -1.0f;
+#endif
+
+/* Arccosine polynomial coefficient and addend of each Horner step, its offset and half pi, and the positive-angle wrap threshold. */
+float k_xmathArcCosineCoefficientPairHigh = 0.0308918804f;
+float k_xmathArcCosineCoefficientPairHighAddend = 0.0501743034f;
+float k_xmathArcCosineCoefficientPairLow = 0.0889789909f;
+float k_xmathArcCosineCoefficientPairLowAddend = 0.214598805f;
+float k_xmathArcCosineCoefficientAndOffset = 1.57079625f;
+float k_xmathArcCosineHalfPi = 1.57079637f;
+float k_xmathPositiveAngleModuloThreshold = 25.1327438f;
+
+#if defined(VERSION_US) || defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Plane-intersection tolerances and the identity, rotation and axis-angle units. */
+float k_xmathPlaneDenominatorUpperTolerance = 0.00100000005f;
+float k_xmathPlaneDenominatorLowerTolerance = -0.00100000005f;
+float k_xmathPlaneParallelFraction = 0.5f;
+float k_xmathIdentityMatrixUnit = 1.0f;
+float k_xmathRotationResetUnit = 1.0f;
+float k_xmathPitchRotationUnit = 1.0f;
+float k_xmathYawRotationUnit = 1.0f;
+float k_xmathRollRotationUnit = 1.0f;
+float k_xmathAxisAngleUnit = 1.0f;
+#endif
+
+#if defined(VERSION_US) || defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X)
+/* Angle wrap periods, thresholds and offsets, vector-angle and plane tolerances, and the rotation units read by the angle helpers. */
+double k_xmathPositiveAnglePeriodDouble = 6.2831859588623047;
+f32 k_xmathPositiveAngleWrapConstants[2] = { 6.28318596f, 6.28318596f };
+float k_xmathAngleCenterOffset = 3.14159274f;
+float k_xmathCenteredAngleUpperThreshold = 25.1327438f;
+float k_xmathCenteredAngleLowerThreshold = -25.1327438f;
+double k_xmathCenteredAnglePeriodDouble = 6.2831859588623047;
+float k_xmathCenteredAngleUpperLimit = 6.28318596f;
+float k_xmathCenteredAnglePeriod = 6.28318596f;
+float k_xmathCenteredAngleOffset = 3.14159274f;
+float k_xmathVectorAngleCenterOffset = 3.14159274f;
+float k_xmathVectorAngleUpperThreshold = 25.1327438f;
+float k_xmathVectorAngleLowerThreshold = -25.1327438f;
+double k_xmathVectorAnglePeriodDouble = 6.2831859588623047;
+f32 k_xmathVectorAngleWrapConstants[2] = { 6.28318596f, 6.28318596f };
+f32 k_xmathVectorAngleCenterResultOffset = 3.14159274f;
+float k_xmathVectorNormalizeUnit = 1.0f;
+#endif
+
+/* Constants for decimal parsing, retained in their original data slots. */
+double k_decimalInitialSign = 1.0;
+double k_decimalInitialFraction = 0.0;
+double k_decimalNegativeSign = -1.0;
+double k_decimalInitialInteger = 0.0;
+double k_decimalIntegerRadix = 10.0;
+double k_decimalFractionZero = 0.0;
+double k_decimalFractionRadix = 10.0;
+double k_decimalInitialExponentSign = 1.0;
+double k_decimalNegativeExponentSign = -1.0;
+double k_decimalInitialExponent = 0.0;
+double k_decimalExponentRadix = 10.0;
+double k_decimalDirectExponentLimit = 30.0;
+double k_decimalExponentLoopLimit = 0.0;
+double k_decimalInitialExponentScale = 1.0;
+double k_decimalExponentScaleRadix = 10.0;
+double k_decimalPowerRadix = 10.0;
+double k_decimalOverflowExponentLimit = 0.0;

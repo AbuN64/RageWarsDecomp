@@ -297,7 +297,7 @@ void Setup_DrawNameCursor(void *menu, MenuLocalizedTextItemView *item, void *thi
 
     i = Player_GetPlayerIndex(&g_playerViewRenderContext, style->id);
     if (g_multiplayerNameEntryStates[i].timer <= *(&(*(float *)&g_multiplayerNameEntryTimingLimits) + 1)) {
-        width = ((struct PaddedFloatView *)Menu_GetWidgetStyle((struct MenuItemFlagsView *)menu))->value * (f32)g_hudReferenceViewportWidth * g_multiplayerNameCursorWidthScale;
+        width = ((struct PaddedFloatView *)Menu_GetWidgetStyle((struct MenuItemFlagsView *)menu, 0))->value * (f32)g_hudReferenceViewportWidth * g_multiplayerNameCursorWidthScale;
         x = (f32)item->x + (f32)g_multiplayerNameEntryStates[i].value * width;
         g_multiplayerItemRenderState = -1;
         alpha = style->alpha * (style->fade * (64.0f));
@@ -313,7 +313,7 @@ void Setup_DrawNameCursor(void *menu, MenuLocalizedTextItemView *item, void *thi
 
 /* Copies a player label with spaces for empty characters and refreshes the entry. */
 
-/* Returns 1 when any of the words at 0x28, 0x1C or 0x20 of g_matchRoundCounters is nonzero, else 0. */
+/* Returns 1 when any of the words at 0x28, 0x1C or 0x20 of g_gameSettings.counters is nonzero, else 0. */
 s32 Setup_DeleteNameCharacter(s32 owner, NameEditMenuContext *menuEntry) {
     s32 i;
     s32 count;
@@ -490,7 +490,7 @@ struct {
     },
     "janes cheat activated\000\000\000",
     {
-        (unsigned int)&g_encodedCheatCode[0x24], 0xD0543EBB, (unsigned int)g_playerViewRenderContextPlayerNames_de, (unsigned int)&g_profileAchievementProgressRows[0x89], (unsigned int)&g_profileAchievementProgressRows[0x11F], (unsigned int)&g_profileAchievementProgressRows[0x1B5],
+        (unsigned int)&g_encodedCheatCode[0x24], 0xD0543EBB, (unsigned int)g_playerViewRenderContextPlayerNamesDe, (unsigned int)&g_profileAchievementProgressRows[0x89], (unsigned int)&g_profileAchievementProgressRows[0x11F], (unsigned int)&g_profileAchievementProgressRows[0x1B5],
     },
 };
 #endif

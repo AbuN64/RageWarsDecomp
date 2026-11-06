@@ -31,6 +31,391 @@ enum { MENU_RESOURCE = 918 };
 enum { MENU_RESOURCE = 914 };
 #endif
 
+#if !(defined(VERSION_US))
+
+/* Steps the model of the join request the screen g_courseOptionsScreen edits (by its selection index) back on event 1
+   unless Menu_GetPreviousScreenOwner reports 0x16: calls MarkMenuEventHandled, finds the request's place in the 3 by 17
+   model table g_rewardItemTiers through Join_FindJoinModelIndex, walks back through its variants and, before the
+   first, to the last variant of the previous model (wrapping to the last), skipping entries whose
+   id is -1, then stores the variant and the id in the request in
+   g_joinRequestEntries, copies the name of the entry the found id selects in that variant row into the request, redraws through Join_UpdateJoinRequestDisplay and plays sound
+   0xE81. Returns zero. */
+s32 Frontend_SelectPreviousJoinModel(void *element, void *eventId, void *eventPayload, s32 event) {
+    s32 variant;
+    s32 model;
+    s32 id;
+
+    if (event != 1) {
+        return 0;
+    }
+    MarkMenuEventHandled();
+    if (Menu_GetPreviousScreenOwner(0) == 22) {
+        return 0;
+    }
+    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
+    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
+    do {
+        variant--;
+        if (variant < 0) {
+            variant = 2;
+            model--;
+            if (model < 0) {
+                model = 16;
+            }
+        }
+        id = g_rewardItemTiers[variant][model].id;
+    } while (id == -1);
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
+    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
+    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+        g_rewardItemTiers[variant][id].text[g_languageIndex]
+#else
+        *g_rewardItemTiers[variant][id].text
+#endif
+    );
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
+    Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->selection);
+    SoundElement_PlayFlatSound(3713);
+    return 0;
+}
+
+/* Steps the model of the join request the screen g_courseOptionsScreen edits (by its selection index) forward on event 1
+   unless Menu_GetPreviousScreenOwner reports 0x16: calls MarkMenuEventHandled, finds the request's place in the 3 by 17
+   model table g_rewardItemTiers through Join_FindJoinModelIndex, walks forward through its variants and, past the
+   last, to the first variant of the next model (wrapping to the first), skipping entries whose
+   id is -1, then stores the variant and the id in the request in
+   g_joinRequestEntries, copies the name of the entry the found id selects in that variant row into the request, redraws through Join_UpdateJoinRequestDisplay and plays sound
+   0xE81. Returns zero. */
+s32 Frontend_SelectNextJoinModel(void *element, void *eventId, void *eventPayload, s32 event) {
+    s32 variant;
+    s32 model;
+    s32 id;
+
+    if (event != 1) {
+        return 0;
+    }
+    MarkMenuEventHandled();
+    if (Menu_GetPreviousScreenOwner(0) == 22) {
+        return 0;
+    }
+    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
+    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
+    do {
+        variant++;
+        if (variant >= 3) {
+            variant = 0;
+            model++;
+            if (model >= 17) {
+                model = 0;
+            }
+        }
+        id = g_rewardItemTiers[variant][model].id;
+    } while (id == -1);
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
+    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
+    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+        g_rewardItemTiers[variant][id].text[g_languageIndex]
+#else
+        *g_rewardItemTiers[variant][id].text
+#endif
+    );
+    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
+    id = g_courseOptionsScreen->selection;
+    Join_UpdateJoinRequestDisplay(id);
+    SoundElement_PlayFlatSound(3713);
+    return 0;
+}
+#endif
+
+/* unit JOIN_UPDATEJOINREQUESTDISPLAY.CPP */
+#if defined(VERSION_EU_X)
+enum { DRAW_ICON=913, DRAW_NAME=915, DRAW_VARIANT=914, DRAW_FIRST=916, DRAW_SECOND=917 };
+#elif defined(VERSION_DE)
+enum { DRAW_ICON=903, DRAW_NAME=905, DRAW_VARIANT=904, DRAW_FIRST=906, DRAW_SECOND=907 };
+#else
+enum { DRAW_ICON=909, DRAW_NAME=911, DRAW_VARIANT=910, DRAW_FIRST=912, DRAW_SECOND=913 };
+#endif
+void Join_UpdateJoinRequestDisplay(s32 index) {
+    void *window;
+    RequestDrawScreen *screen;
+    MenuWidget *widget;
+    s32 model;
+    char *name;
+    Shared_Game *game;
+    void *widgetObject;
+    void *variantObject;
+    char ***variantSlot;
+    screen = (RequestDrawScreen *)g_courseOptionsScreen;
+    window = screen->roots[index];
+    if (screen->count < index || g_joinRequestEntries[index].id < 0) {
+        Widget_SetWidgetFlag08(window, 0);
+    } else {
+        widgetObject = Node_FindWidgetByResourceId(window, DRAW_ICON);
+        widget = widgetObject;
+        widget->alpha = 125;
+        model = Key_FindKeyIndex(g_joinRequestEntries[index].id);
+        widget->value = g_characterPortraitRecords[model].portrait;
+        widgetObject = Node_FindWidgetByResourceId(window, DRAW_NAME);
+        widget = widgetObject;
+        widget->alpha = 125;
+        model = Join_FindJoinModelIndex(g_joinRequestEntries[index].variant, g_joinRequestEntries[index].id);
+    name = g_joinRequestEntries[index].name;
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+        game = &g_gameSettings;
+        XPlus_CopyString((u8 *)name, g_joinPlayerNamesLocalized[g_joinRequestEntries[index].variant * 17 + model].names[game->language]);
+#else
+        XPlus_CopyString((u8 *)name,
+          (u8 *)*g_rewardItemTiers[g_joinRequestEntries[index].variant][model].text
+        );
+#endif
+        widget->text = name;
+        widgetObject = Node_FindWidgetByResourceId(window, DRAW_VARIANT);
+        widget = widgetObject;
+        widget->alpha = 125;
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+        widget->text = g_resultsRankTexts[g_joinRequestEntries[index].variant][game->language];
+#else
+        variantObject = &g_resultsRankTexts[g_joinRequestEntries[index].variant];
+        variantSlot = variantObject;
+        widget->text = **variantSlot;
+#endif
+        widgetObject = Node_FindWidgetByResourceId(window, DRAW_FIRST);
+        widget = widgetObject;
+        widget->alpha = 125;
+        widget->value = g_joinRequestDrawPairs[g_joinRequestEntries[index].word8].first;
+        widgetObject = Node_FindWidgetByResourceId(window, DRAW_SECOND);
+        widget = widgetObject;
+        widget->alpha = 125;
+        widget->value = g_joinRequestDrawPairs[g_joinRequestEntries[index].word8].second;
+    }
+}
+
+/* Seats the three join requests in free player settings slots, searching down from slot 7. */
+void Join_SeatJoinRequests(void) {
+    Shared_PlayerSettingsRecord *player;
+    s32 slot = 7;
+    s32 i = 0;
+    Shared_Game *g = &g_gameSettings;
+    Shared_PlayerSettingsRecord *settings = g->playerSettings;
+    do {
+        if (slot <= 0) return;
+        if (g_joinRequestEntries[i].id >= 0) {
+            while (slot > 0 && g->playerSettings[slot].enabled == 1) {
+                slot--;
+            }
+            if (slot >= 0) {
+                player = &settings[slot];
+                player->locked = 1;
+                player->enabled = 1;
+                player->slot = slot;
+                player->character = g_joinRequestEntries[i].id;
+                player->team = g_joinRequestEntries[i].variant;
+                player->rank = g_joinRequestEntries[i].word8;
+                player->variant = g_joinRequestEntries[i].variantC;
+                XPlus_CopyString(player->name, (u8 *)g_joinRequestEntries[i].name);
+                slot--;
+            }
+        }
+        i++;
+    } while (i < 3);
+}
+
+/* unit JOIN_GETJOINREQUESTRANK.CPP */
+/* Scores the three entries (5, 10 or 20 points by kind for each active one, repeating the previous award for other kinds) and returns the first of five ranks whose threshold for the active-entry count reaches the score, 4 when none does, or zero with no active entry. */
+static inline s32 entryScore(void) {
+    s32 score;
+    s32 points;
+    s32 i;
+
+    score = 0;
+    points = 0;
+    for (i = 0; i < 3; i++) {
+        if (g_joinRequestEntries[i].id >= 0) {
+            switch (g_joinRequestEntries[i].variant) {
+            case 0:
+                points = 5;
+                break;
+            case 1:
+                points = 10;
+                break;
+            case 2:
+                points = 20;
+                break;
+            }
+            score += points;
+        }
+    }
+    return score;
+}
+
+
+static inline s32 activeCount(void) {
+    s32 count;
+    s32 i;
+
+    count = 0;
+    for (i = 0; i < 3; i++) {
+        if (g_joinRequestEntries[i].id >= 0) {
+            count++;
+        }
+    }
+    return count;
+}
+
+s32 Join_GetJoinRequestRank(void) {
+    s32 score;
+    s32 i;
+    s32 count;
+    s32 rank;
+
+    score = entryScore();
+    count = activeCount();
+    rank = 4;
+    if (count <= 0) {
+        return 0;
+    }
+    for (i = 0; i < 5; i++) {
+        if (g_rewardScoreBudgetRows[i].w[count - 1] >= score) {
+            rank = i;
+            break;
+        }
+    }
+    return rank;
+}
+
+/* unit JOIN_RANDOMIZEJOINREQUESTENTRIES.CPP */
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+#include "Frontend/join_randomizejoinrequestentries.h"
+#include "Common/shared_gameslot.h"
+
+void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
+    Shared_Game *game;
+    char *name;
+    s32 points[3];
+    s32 *p;
+    s32 budget;
+    s32 i;
+    s32 *entry;
+    s32 tier;
+    s32 value;
+    s32 pick;
+    s32 last;
+
+    if (count <= 0) {
+        return;
+    }
+    for (i = 2, p = points + i; i >= 0; i--) {
+        *p-- = 0;
+    }
+    last = count - 1;
+    if (count <= 0) {
+        budget = 0;
+    } else {
+        budget = g_rewardScoreBudgets[level * 5 + last];
+    }
+    for (i = 0; i < count; i++) {
+        points[i] = 5;
+        budget -= 5;
+    }
+    i = 0;
+    while (budget > 0) {
+        entry = &points[Graphu64_NextRandom() % count];
+        value = *entry;
+        if (value < 20 && budget >= value) {
+            *entry = value * 2;
+            budget -= value;
+        }
+        if (++i >= 10001) {
+            break;
+        }
+    }
+    for (i = 0; i < count; i++) {
+        tier = points[i] / 10;
+        g_joinRequestEntries[i].word8 = 4;
+        g_joinRequestEntries[i].variant = tier;
+        g_joinRequestEntries[i].variantC = tier;
+        do {
+            pick = Graphu64_NextRandom() % 17;
+            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
+#if defined(VERSION_EU) || defined(VERSION_EU_X)
+            name = g_joinRequestEntries[i].name;
+            game = &g_gameSettings;
+            XPlus_CopyString(name, g_rewardItemTiers[tier][pick].text[game->language]);
+#else
+            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
+#endif
+        } while (g_joinRequestEntries[i].id == -1);
+    }
+}
+#endif
+
+#if !(defined(VERSION_EU) || defined(VERSION_EU_X))
+/* Deals out random rewards for count entries at difficulty level: starts every entry at 5 points
+   from the level's budget in g_rewardScoreBudgets, then for up to 10001 random picks doubles an entry below
+   20 points while the budget covers it; each entry then records mode 4 and its tier (points / 10)
+   in g_joinRequestEntries's 0x1C-byte records and draws random tier items from the seventeen per tier in
+   g_rewardItemTiers, copying the item's name, until it gets one that exists. */
+#include "types.h"
+#include "Common/player_join_requests.h"
+#include "Constants/g_rewarditemtiers.h"
+#include "X_files/x_plus.h"
+#include "Frontend/frontend_address_symbols.h"
+
+void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
+    s32 points[3];
+    s32 *p;
+    s32 budget;
+    s32 i;
+    s32 *entry;
+    s32 tier;
+    s32 value;
+    s32 pick;
+    s32 last;
+
+    if (count <= 0) {
+        return;
+    }
+    for (i = 2, p = points + i; i >= 0; i--) {
+        *p-- = 0;
+    }
+    last = count - 1;
+    if (count <= 0) {
+        budget = 0;
+    } else {
+        budget = g_rewardScoreBudgets[level * 5 + last];
+    }
+    for (i = 0; i < count; i++) {
+        points[i] = 5;
+        budget -= 5;
+    }
+    i = 0;
+    while (budget > 0) {
+        entry = &points[Graphu64_NextRandom() % count];
+        value = *entry;
+        if (value < 20 && budget >= value) {
+            *entry = value * 2;
+            budget -= value;
+        }
+        if (++i >= 10001) {
+            break;
+        }
+    }
+    for (i = 0; i < count; i++) {
+        tier = points[i] / 10;
+        g_joinRequestEntries[i].word8 = 4;
+        g_joinRequestEntries[i].variant = tier;
+        g_joinRequestEntries[i].variantC = tier;
+        do {
+            pick = Graphu64_NextRandom() % 17;
+            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
+            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
+        } while (g_joinRequestEntries[i].id == -1);
+    }
+}
+#endif
+
 /* Resets the three join request entries of g_joinRequestEntries: -1 in the id and zero in the other fields. */
 void Join_ResetJoinRequestEntries(void) {
     s32 i;
@@ -47,12 +432,12 @@ s32 Join_CountOpenPlayerSlots(void) {
     s32 count;
     s32 i;
     s32 result;
-    struct Shared_PlayerSettingsRecord *player;
+    struct Shared_PlayerSettingsRecord *players;
 
     count = 0;
-    player = g_playerSettings;
-    for (i = 0; i < 4; i++, player++) {
-        if (player->enabled == 1) {
+    players = g_playerSettings;
+    for (i = 0; i < 4; i++) {
+        if (players[i].enabled == 1) {
             count++;
         }
     }
@@ -222,7 +607,7 @@ s32 Join_CycleJoinRequestRank(s32 element, s32 eventId, u32 eventData, s32 event
     if ((eventKind == 3) && (eventValue == 0)) {
         MarkMenuEventHandled();
         selectedEntry = &g_joinRequestRanks[g_courseOptionsScreen->selection];
-        selectedEntry->id = (selectedEntry->id + 1) % 5;
+        selectedEntry->id = (g_joinRequestRanks[g_courseOptionsScreen->selection].id + 1) % 5;
         Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->selection);
         if (Menu_GetPreviousScreenOwner(0) == 22) {
             selectedRow = g_courseOptionsScreen->selection;
@@ -559,383 +944,6 @@ s32 Frontend_DispatchUsJoinOptionsEvent(ActorDefinitionHeader *actor, s32 event,
         } while (g_joinOptionsEventHandlers[index].handler != 0);
     }
     return 0;
-}
-#endif
-
-#if !(defined(VERSION_US))
-
-/* Steps the model of the join request the screen g_courseOptionsScreen edits (by its selection index) back on event 1
-   unless Menu_GetPreviousScreenOwner reports 0x16: calls MarkMenuEventHandled, finds the request's place in the 3 by 17
-   model table g_rewardItemTiers through Join_FindJoinModelIndex, walks back through its variants and, before the
-   first, to the last variant of the previous model (wrapping to the last), skipping entries whose
-   id is -1, then stores the variant and the id in the request in
-   g_joinRequestEntries, copies the name of the entry the found id selects in that variant row into the request, redraws through Join_UpdateJoinRequestDisplay and plays sound
-   0xE81. Returns zero. */
-s32 Frontend_SelectPreviousJoinModel(void *element, void *eventId, void *eventPayload, s32 event) {
-    s32 variant;
-    s32 model;
-    s32 id;
-
-    if (event != 1) {
-        return 0;
-    }
-    MarkMenuEventHandled();
-    if (Menu_GetPreviousScreenOwner(0) == 22) {
-        return 0;
-    }
-    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
-    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
-    do {
-        variant--;
-        if (variant < 0) {
-            variant = 2;
-            model--;
-            if (model < 0) {
-                model = 16;
-            }
-        }
-        id = g_rewardItemTiers[variant][model].id;
-    } while (id == -1);
-    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
-    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
-    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-        g_rewardItemTiers[variant][id].text[g_languageIndex]
-#else
-        *g_rewardItemTiers[variant][id].text
-#endif
-    );
-    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
-    Join_UpdateJoinRequestDisplay(g_courseOptionsScreen->selection);
-    SoundElement_PlayFlatSound(3713);
-    return 0;
-}
-
-/* Steps the model of the join request the screen g_courseOptionsScreen edits (by its selection index) forward on event 1
-   unless Menu_GetPreviousScreenOwner reports 0x16: calls MarkMenuEventHandled, finds the request's place in the 3 by 17
-   model table g_rewardItemTiers through Join_FindJoinModelIndex, walks forward through its variants and, past the
-   last, to the first variant of the next model (wrapping to the first), skipping entries whose
-   id is -1, then stores the variant and the id in the request in
-   g_joinRequestEntries, copies the name of the entry the found id selects in that variant row into the request, redraws through Join_UpdateJoinRequestDisplay and plays sound
-   0xE81. Returns zero. */
-s32 Frontend_SelectNextJoinModel(void *element, void *eventId, void *eventPayload, s32 event) {
-    s32 variant;
-    s32 model;
-    s32 id;
-
-    if (event != 1) {
-        return 0;
-    }
-    MarkMenuEventHandled();
-    if (Menu_GetPreviousScreenOwner(0) == 22) {
-        return 0;
-    }
-    variant = g_joinRequestEntries[g_courseOptionsScreen->selection].variant;
-    model = Join_FindJoinModelIndex(variant, g_joinRequestEntries[g_courseOptionsScreen->selection].id);
-    do {
-        variant++;
-        if (variant >= 3) {
-            variant = 0;
-            model++;
-            if (model >= 17) {
-                model = 0;
-            }
-        }
-        id = g_rewardItemTiers[variant][model].id;
-    } while (id == -1);
-    g_joinRequestEntries[g_courseOptionsScreen->selection].variant = variant;
-    g_joinRequestEntries[g_courseOptionsScreen->selection].id = id;
-    XPlus_CopyString(g_joinRequestEntries[g_courseOptionsScreen->selection].name,
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-        g_rewardItemTiers[variant][id].text[g_languageIndex]
-#else
-        *g_rewardItemTiers[variant][id].text
-#endif
-    );
-    g_joinRequestEntries[g_courseOptionsScreen->selection].variantC = variant;
-    id = g_courseOptionsScreen->selection;
-    Join_UpdateJoinRequestDisplay(id);
-    SoundElement_PlayFlatSound(3713);
-    return 0;
-}
-#endif
-
-/* unit JOIN_UPDATEJOINREQUESTDISPLAY.CPP */
-#if defined(VERSION_EU_X)
-enum { DRAW_ICON=913, DRAW_NAME=915, DRAW_VARIANT=914, DRAW_FIRST=916, DRAW_SECOND=917 };
-#elif defined(VERSION_DE)
-enum { DRAW_ICON=903, DRAW_NAME=905, DRAW_VARIANT=904, DRAW_FIRST=906, DRAW_SECOND=907 };
-#else
-enum { DRAW_ICON=909, DRAW_NAME=911, DRAW_VARIANT=910, DRAW_FIRST=912, DRAW_SECOND=913 };
-#endif
-void Join_UpdateJoinRequestDisplay(s32 index) {
-    void *window;
-    RequestDrawScreen *screen;
-    MenuWidget *widget;
-    s32 model;
-    char *name;
-    Shared_Game *game;
-    void *widgetObject;
-    void *variantObject;
-    char ***variantSlot;
-    screen = (RequestDrawScreen *)g_courseOptionsScreen;
-    window = screen->roots[index];
-    if (screen->count < index || g_joinRequestEntries[index].id < 0) {
-        Widget_SetWidgetFlag08(window, 0);
-    } else {
-        widgetObject = Node_FindWidgetByResourceId(window, DRAW_ICON);
-        widget = widgetObject;
-        widget->alpha = 125;
-        model = Key_FindKeyIndex(g_joinRequestEntries[index].id);
-        widget->value = g_characterPortraitRecords[model].portrait;
-        widgetObject = Node_FindWidgetByResourceId(window, DRAW_NAME);
-        widget = widgetObject;
-        widget->alpha = 125;
-        model = Join_FindJoinModelIndex(g_joinRequestEntries[index].variant, g_joinRequestEntries[index].id);
-    name = g_joinRequestEntries[index].name;
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-        game = &g_gameSettings;
-        XPlus_CopyString((u8 *)name, g_joinPlayerNamesLocalized[g_joinRequestEntries[index].variant * 17 + model].names[game->language]);
-#else
-        XPlus_CopyString((u8 *)name,
-          (u8 *)*g_rewardItemTiers[g_joinRequestEntries[index].variant][model].text
-        );
-#endif
-        widget->text = name;
-        widgetObject = Node_FindWidgetByResourceId(window, DRAW_VARIANT);
-        widget = widgetObject;
-        widget->alpha = 125;
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-        widget->text = g_resultsRankTexts[g_joinRequestEntries[index].variant][game->language];
-#else
-        variantObject = &g_resultsRankTexts[g_joinRequestEntries[index].variant];
-        variantSlot = variantObject;
-        widget->text = **variantSlot;
-#endif
-        widgetObject = Node_FindWidgetByResourceId(window, DRAW_FIRST);
-        widget = widgetObject;
-        widget->alpha = 125;
-        widget->value = g_joinRequestDrawPairs[g_joinRequestEntries[index].word8].first;
-        widgetObject = Node_FindWidgetByResourceId(window, DRAW_SECOND);
-        widget = widgetObject;
-        widget->alpha = 125;
-        widget->value = g_joinRequestDrawPairs[g_joinRequestEntries[index].word8].second;
-    }
-}
-
-/* Seats the three join requests in free player settings slots, searching down from slot 7. */
-void Join_SeatJoinRequests(void) {
-    Shared_PlayerSettingsRecord *player;
-    s32 slot = 7;
-    s32 i = 0;
-    Shared_Game *g = &g_gameSettings;
-    Shared_PlayerSettingsRecord *settings = g->playerSettings;
-    do {
-        if (slot <= 0) return;
-        if (g_joinRequestEntries[i].id >= 0) {
-            while (slot > 0 && g->playerSettings[slot].enabled == 1) {
-                slot--;
-            }
-            if (slot >= 0) {
-                player = &settings[slot];
-                player->locked = 1;
-                player->enabled = 1;
-                player->slot = slot;
-                player->character = g_joinRequestEntries[i].id;
-                player->team = g_joinRequestEntries[i].variant;
-                player->rank = g_joinRequestEntries[i].word8;
-                player->variant = g_joinRequestEntries[i].variantC;
-                XPlus_CopyString(player->name, (u8 *)g_joinRequestEntries[i].name);
-                slot--;
-            }
-        }
-        i++;
-    } while (i < 3);
-}
-
-/* unit JOIN_GETJOINREQUESTRANK.CPP */
-/* Scores the three entries (5, 10 or 20 points by kind for each active one, repeating the previous award for other kinds) and returns the first of five ranks whose threshold for the active-entry count reaches the score, 4 when none does, or zero with no active entry. */
-static inline s32 entryScore(void) {
-    s32 score;
-    s32 points;
-    s32 i;
-
-    score = 0;
-    points = 0;
-    for (i = 0; i < 3; i++) {
-        if (g_joinRequestEntries[i].id >= 0) {
-            switch (g_joinRequestEntries[i].variant) {
-            case 0:
-                points = 5;
-                break;
-            case 1:
-                points = 10;
-                break;
-            case 2:
-                points = 20;
-                break;
-            }
-            score += points;
-        }
-    }
-    return score;
-}
-
-
-s32 Join_GetJoinRequestRank(void) {
-    s32 score;
-    s32 i;
-    s32 count;
-    s32 rank;
-
-    score = entryScore();
-    count = 0;
-    for (i = 0; i < 3; i++) {
-        if (g_joinRequestEntries[i].id >= 0) {
-            count++;
-        }
-    }
-    rank = 4;
-    if (count <= 0) {
-        return 0;
-    }
-    for (i = 0; i < 5; i++, count += 5) {
-        if (g_rewardScoreBudgets[count - 1] >= score) {
-            rank = i;
-            break;
-        }
-    }
-    return rank;
-}
-
-/* unit JOIN_RANDOMIZEJOINREQUESTENTRIES.CPP */
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-#include "Frontend/join_randomizejoinrequestentries.h"
-#include "Common/shared_gameslot.h"
-
-void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
-    Shared_Game *game;
-    char *name;
-    s32 points[3];
-    s32 *p;
-    s32 budget;
-    s32 i;
-    s32 *entry;
-    s32 tier;
-    s32 value;
-    s32 pick;
-    s32 last;
-
-    if (count <= 0) {
-        return;
-    }
-    for (i = 2, p = points + i; i >= 0; i--) {
-        *p-- = 0;
-    }
-    last = count - 1;
-    if (count <= 0) {
-        budget = 0;
-    } else {
-        budget = g_rewardScoreBudgets[level * 5 + last];
-    }
-    for (i = 0; i < count; i++) {
-        points[i] = 5;
-        budget -= 5;
-    }
-    i = 0;
-    while (budget > 0) {
-        entry = &points[Graphu64_NextRandom() % count];
-        value = *entry;
-        if (value < 20 && budget >= value) {
-            *entry = value * 2;
-            budget -= value;
-        }
-        if (++i >= 10001) {
-            break;
-        }
-    }
-    for (i = 0; i < count; i++) {
-        tier = points[i] / 10;
-        g_joinRequestEntries[i].word8 = 4;
-        g_joinRequestEntries[i].variant = tier;
-        g_joinRequestEntries[i].variantC = tier;
-        do {
-            pick = Graphu64_NextRandom() % 17;
-            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-            name = g_joinRequestEntries[i].name;
-            game = &g_gameSettings;
-            XPlus_CopyString(name, g_rewardItemTiers[tier][pick].text[game->language]);
-#else
-            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
-#endif
-        } while (g_joinRequestEntries[i].id == -1);
-    }
-}
-#endif
-
-#if !(defined(VERSION_EU) || defined(VERSION_EU_X))
-/* Deals out random rewards for count entries at difficulty level: starts every entry at 5 points
-   from the level's budget in g_rewardScoreBudgets, then for up to 10001 random picks doubles an entry below
-   20 points while the budget covers it; each entry then records mode 4 and its tier (points / 10)
-   in g_joinRequestEntries's 0x1C-byte records and draws random tier items from the seventeen per tier in
-   g_rewardItemTiers, copying the item's name, until it gets one that exists. */
-#include "types.h"
-#include "Common/player_join_requests.h"
-#include "Constants/g_rewarditemtiers.h"
-#include "X_files/x_plus.h"
-#include "Frontend/frontend_address_symbols.h"
-
-void Join_RandomizeJoinRequestEntries(s32 count, s32 level) {
-    s32 points[3];
-    s32 *p;
-    s32 budget;
-    s32 i;
-    s32 *entry;
-    s32 tier;
-    s32 value;
-    s32 pick;
-    s32 last;
-
-    if (count <= 0) {
-        return;
-    }
-    for (i = 2, p = points + i; i >= 0; i--) {
-        *p-- = 0;
-    }
-    last = count - 1;
-    if (count <= 0) {
-        budget = 0;
-    } else {
-        budget = g_rewardScoreBudgets[level * 5 + last];
-    }
-    for (i = 0; i < count; i++) {
-        points[i] = 5;
-        budget -= 5;
-    }
-    i = 0;
-    while (budget > 0) {
-        entry = &points[Graphu64_NextRandom() % count];
-        value = *entry;
-        if (value < 20 && budget >= value) {
-            *entry = value * 2;
-            budget -= value;
-        }
-        if (++i >= 10001) {
-            break;
-        }
-    }
-    for (i = 0; i < count; i++) {
-        tier = points[i] / 10;
-        g_joinRequestEntries[i].word8 = 4;
-        g_joinRequestEntries[i].variant = tier;
-        g_joinRequestEntries[i].variantC = tier;
-        do {
-            pick = Graphu64_NextRandom() % 17;
-            g_joinRequestEntries[i].id = g_rewardItemTiers[tier][pick].id;
-            XPlus_CopyString(g_joinRequestEntries[i].name, *g_rewardItemTiers[tier][pick].text);
-        } while (g_joinRequestEntries[i].id == -1);
-    }
 }
 #endif
 

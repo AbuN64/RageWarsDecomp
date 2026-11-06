@@ -15,22 +15,22 @@ void Lists_ClearHeader(ListHeader *list) {
     list->count = 0;
 }
 /** Push a node onto the front of a doubly-linked list. */
-void Lists_PrependNode(void *listHeader, void *nodeStorage) {
-    ListLink *node = nodeStorage;
-    ListLinkHeader *list = listHeader;
-    if ((((struct ListHeader *) ((s8 *) listHeader))->count) == 0) {
-        (((struct ListHeader *) ((s8 *) listHeader))->head) = node;
-        (((struct ListHeader *) ((s8 *) listHeader))->tail) = node;
-        (((struct ListLink *) ((s8 *) node))->next) = 0;
-        (((struct ListLink *) ((s8 *) node))->prev) = 0;
+void Lists_PrependNode(void *listHeader, void *node) {
+    ListHeader *list = listHeader;
+    if (list->count == 0) {
+        list->head = node;
+        list->tail = node;
+        *(s32 *)node = 0;
+        ((ResourceKeyView *)node)->key = 0;
     } else {
-        node->prev = list->head;
-        node->next = 0;
-        list->head->next = node;
+        ((ListNodeNextView *)node)->value = list->head;
+        *(s32 *)node = 0;
+        ((ListPreviousLinkView *)list->head)->previous = node;
         list->head = node;
     }
     list->count = list->count + 1;
 }
+
 /** Push a node onto the tail of a doubly-linked list; returns new count. */
 s32 Lists_Append(ListLinkHeader *listHeader, ListLink *newNode) {
     ListLinkHeader *list = listHeader;
@@ -92,13 +92,11 @@ static inline s32 append(ListHeader *list, ListLink *node) {
 /* Reset the free and active headers and link every fixed-size pool node. */
 void Lists_InitFromPool(ListHeader *lists, void *pool, s32 stride, s32 count) {
     s32 remaining;
-    ListLink *node = pool;
-
     clear_list(lists);
     clear_list(lists + 1);
     for (remaining = count - 1; remaining != -1; remaining--) {
-        append(lists, node);
-        node += stride;
+        append(lists, (ListLink *)pool);
+        pool = (char *)pool + stride;
     }
 }
 ListLink *Lists_MoveHeadToInactiveList(Lists18 *lists) {

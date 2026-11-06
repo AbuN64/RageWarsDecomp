@@ -3,6 +3,7 @@
 #include "Common/Lone/controller_rumble_pool.h"
 #include "Common/snapshot_actor.h"
 struct SampledEffectCurveState;
+struct ControllerProfile;
 extern void Control_ResetControllerProfiles(void);
 extern void Control_SetControllerMode(s32 a);
 extern void Control_SaveControllerSetup(void);
@@ -17,4 +18,6 @@ extern void Control_SaveActorSnapshot(void);
 extern void Control_InitializeCurvePlayer(unsigned int *record, unsigned int value);
 extern s32 Control_AdvanceEffectCurve(struct SampledEffectCurveState *curvePlayer);
 extern float Control_SampleEffectCurve(struct SampledEffectCurveState *p);
+extern int Control_IsNavDown(struct ControllerProfile *controllerProfile);
+extern int Control_IsNavUp(struct ControllerProfile *controllerProfile);
 #endif

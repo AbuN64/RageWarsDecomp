@@ -23,8 +23,9 @@ extern f32 Scaled_GetDifficultyEngagementAdjustment(struct AiController *control
 extern f32 Scaled_UpdateDifficultyAimJitter(void *aiController);
 
 
-extern void Scaled_SetPitchFromAngle(struct AiController *controller, float amount);
+extern void Scaled_SetPitchFromAngle(struct AiController *controller, float amount, s32 rate);
 extern void Scaled_SetBehaviorTable(struct AiController *object, struct AiBehaviourTable *value);
 extern void Scaled_HandlePlayerTimeout(struct SharedPlayer **brain);
 
+extern void Nav_UpdatePlayerSteering(struct AiController *controller);
 #endif

@@ -324,10 +324,7 @@ void Geometry_DrawIntensityMask(void *matrix, s32 pass, u32 alpha) {
     gDPSetPrimColor(g_displayListCursor++, 0, 0, 255, 255, 255, alpha);
     gSPMatrix(g_displayListCursor++, matrix, G_MTX_MODELVIEW | G_MTX_LOAD | G_MTX_NOPUSH);
     list = g_geometryDefaultMaterialDisplayList;
-    if (pass != 0) {
-        list = g_geometryAlternateMaterialDisplayList;
-    }
-    gSPDisplayList(g_displayListCursor++, list);
+    gSPDisplayList(g_displayListCursor++, ({ if (pass != 0) list = g_geometryAlternateMaterialDisplayList; list; }));
     g_geometryPreviousCombineMode = -1;
     g_geometryPreviousModePreset = -1;
     TextLoad_ResetTextureCache();
@@ -961,9 +958,7 @@ s32 Geometry_ApplyMaterialLighting(void *model, void *lights, ModelMaterial *mat
 /* Draws an actor model's parts, choosing each part by the 0x38 bits of its material byte 6: on the special
  * character 0x12 the part must equal the bits for its variant (or be a fade/bonus part whose flag is set),
  * otherwise the 0x38/0x30/0x10 groups are drawn only when the matching flag (fade, bonus, glow) is set. */
-void Geometry_DrawActorModelParts(void **resource, void *ownerStorage, void *matrix, s32 segment, void *lightStorage, void *textures, s32 pass) {
-    struct Player *owner = ownerStorage;
-    Shared_ParticleLighting *lights = lightStorage;
+void Geometry_DrawActorModelParts(void **resource, struct Player *owner, void *matrix, s32 segment, Shared_ParticleLighting *lights, void *textures, s32 pass) {
     struct Pack *header;
     void *base;
     struct Pack *parts;
@@ -979,7 +974,7 @@ void Geometry_DrawActorModelParts(void **resource, void *ownerStorage, void *mat
     if (g_primaryDisplayListCapacity - ((u32)g_displayListCursor - (u32)g_gameSession.ring.current->commands) / sizeof(Gfx) < 3000) {
         return;
     }
-    settings = &g_matchRoundCounters;
+    settings = &g_gameSettings.counters;
     if (settings->enabled != 0) {
         AiProfile *state = owner->profile;
         if (state->character == 11 && state->enabled != 0) {
@@ -992,7 +987,7 @@ void Geometry_DrawActorModelParts(void **resource, void *ownerStorage, void *mat
     if (0.0f < owner->glow) {
         glow = 1;
     }
-    if (g_matchRoundCounters.m_bCTFOn != 0 && owner->profile->bonus == 1) {
+    if (g_gameSettings.counters.m_bCTFOn != 0 && owner->profile->bonus == 1) {
         bonus = 1;
     }
     header = *resource;
@@ -1017,7 +1012,7 @@ void Geometry_DrawActorModelParts(void **resource, void *ownerStorage, void *mat
             Geometry_ApplyMaterialLighting(matrix, lights, material);
         }
         state = owner->profile;
-        if (state->character == 18 && (g_matchRoundCounters.m_bFragTagOn == 0 || state->bonus == 0)) {
+        if (state->character == 18 && (g_gameSettings.counters.m_bFragTagOn == 0 || state->bonus == 0)) {
             u32 bits;
             u32 wanted;
             if (state->variant == 0) {
@@ -1598,7 +1593,7 @@ void Geometry_DrawCharacterEffectParts(void **resource, struct Player *owner, vo
     if (matrix == 0) {
         return;
     }
-    settings = &g_matchRoundCounters;
+    settings = &g_gameSettings.counters;
     if (settings->enabled != 0) {
         AiProfile *state = owner->profile;
         if (state->character == 11 && state->enabled != 0) {
@@ -1611,7 +1606,7 @@ void Geometry_DrawCharacterEffectParts(void **resource, struct Player *owner, vo
     if (0.0f < owner->glow) {
         glow = 1;
     }
-    if (g_matchRoundCounters.m_bCTFOn != 0 && owner->profile->bonus == 1) {
+    if (g_gameSettings.counters.m_bCTFOn != 0 && owner->profile->bonus == 1) {
         bonus = 1;
     }
     shared = (MeshMaterial *)&g_tintedModelSharedMaterial;
@@ -1658,7 +1653,7 @@ void Geometry_DrawCharacterEffectParts(void **resource, struct Player *owner, vo
                 Geometry_ApplyMaterialLighting(matrix, lights, material);
             }
             state = owner->profile;
-            if (state->character == 18 && (g_matchRoundCounters.m_bFragTagOn == 0 || state->bonus == 0)) {
+            if (state->character == 18 && (g_gameSettings.counters.m_bFragTagOn == 0 || state->bonus == 0)) {
                 switch (state->variant) {
                 case 0:
                     if ((material->mode & 0x38) == 0x28) {
@@ -2185,9 +2180,9 @@ void Geometry_LoadRenderMicrocode(void) {
     gDPFullSync(cmd);
     gSPLoadUcodeEx(g_displayListCursor++, &g_primaryRenderMicrocodeText, &g_primaryRenderMicrocodeData, 0x800);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayLists[0]);
+    gSPDisplayList(cmd, (uintptr_t) g_cameraViewDisplayListPrimary);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayLists[1]);
+    gSPDisplayList(cmd, (uintptr_t) g_cameraViewDisplayListSecondary);
 }
 
 void Geometry_SwitchRenderMicrocode(void) {
@@ -2197,9 +2192,9 @@ void Geometry_SwitchRenderMicrocode(void) {
     gDPFullSync(cmd);
     gSPLoadUcodeEx(g_displayListCursor++, &g_alternateRenderMicrocodeText, &g_alternateRenderMicrocodeData, 0x800);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayLists[0]);
+    gSPDisplayList(cmd, (uintptr_t) g_cameraViewDisplayListPrimary);
     cmd = g_displayListCursor++;
-    gSPDisplayList(cmd, (uintptr_t) &g_cameraViewDisplayLists[1]);
+    gSPDisplayList(cmd, (uintptr_t) g_cameraViewDisplayListSecondary);
 }
 
 /** Initialize the two-word state to minus one and zero. */
@@ -2569,7 +2564,7 @@ GeometryDrawResourceModelWritableWords_euLayout g_geometryDrawResourceModelWrita
     { -512.0f, -131072.0f, 0.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 0.0f, 0.0f }
 };
 ResourceModelColorMasksLayout g_resourceModelColorMasks = {
-    { 0xA0000000, 0xA0000000 },
+    0xA0000000, 0xA0000000,
     { 16711680, 16711680 },
 };
 #endif
@@ -2714,7 +2709,7 @@ struct {
     gsSPGeometryMode(0xFFFFFF, 0x00000000),
     gsSPGeometryMode(0x000000, 0x00000001),
     gsMoveWd(2, 0x0000, 0x00000018),
-    gsDma2p(G_MOVEMEM, g_playerModelLighting + 8, 16, 10, 48),
+    gsDma2p(G_MOVEMEM, g_playerModelLighting[0].diffuse, 16, 10, 48),
     gsDma2p(G_MOVEMEM, g_playerModelLighting, 16, 10, 72),
     gsSPEndDisplayList(),
     }

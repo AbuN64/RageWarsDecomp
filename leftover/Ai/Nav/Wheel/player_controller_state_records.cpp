@@ -8,7 +8,7 @@ PlayerControllerStateHeaderUsRev1Layout g_playerControllerStateHeader_usrev1_CED
     1.0f,
     { 5, 0 },
 };
-RestplayerControllerStateIdThirteenUsRev1Record397 g_playerControllerStateIdThirteen_usrev1_CEE00 = {
+PlayerControllerStateThirteenWords g_playerControllerStateIdThirteen_usrev1_CEE00 = {
     13,
 };
 unsigned int g_playerControllerStartCallback_usrev1_CEE04[1] = {
@@ -22,7 +22,7 @@ PlayerControllerStateHeaderAlternateUsRev1Layout g_playerControllerStateHeaderAl
     1.0f,
     { 5, 0 },
 };
-RestplayerControllerStateEndUsRev1Record399 g_playerControllerStateEnd_usrev1_CEE20 = {
+PlayerControllerStateEndWords g_playerControllerStateEnd_usrev1_CEE20 = {
     -1,
 };
 #endif

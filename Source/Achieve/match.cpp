@@ -305,128 +305,192 @@ s32 Match_ApplyLevelCompletionReward(s32 index) {
     u32 code;
 
     if (Defs_TestBit(&player->achievementFlags[219 + player->slot * 5], *key) != 0) {
-        return result;
+        goto done;
     }
     Defs_SetBitValue(&player->achievementFlags[219 + player->slot * 5], *key, 1);
     code = g_currentStagePreset->recorded;
     result = code + 5000;
-    switch (code) {
-    case 1:
+    do {
+        if (code >= 58) {
+            goto unknown;
+        }
+        switch (code) {
+        case 0: goto unknown;
+        case 1: goto effect_0;
+        case 2: goto effect_1;
+        case 3: goto effect_2;
+        case 4: goto effect_3;
+        case 5: goto effect_4;
+        case 6: goto effect_5;
+        case 7: goto effect_6;
+        case 8: goto effect_7;
+        case 9: goto effect_8;
+        case 10: goto effect_9;
+        case 11: goto effect_10;
+        case 12: goto effect_11;
+        case 13: goto effect_12;
+        case 14: goto effect_13;
+        case 15: goto effect_14;
+        case 16: goto effect_15;
+        case 17: goto effect_16;
+        case 18: goto effect_17;
+        case 19: goto effect_18;
+        case 20: goto effect_19;
+        case 21: goto effect_20;
+        case 22: goto effect_21;
+        case 23: goto effect_22;
+        case 24: goto effect_23;
+        case 25: goto effect_24;
+        case 26: goto effect_25;
+        case 27: goto effect_26;
+        case 28: goto effect_27;
+        case 29: goto effect_28;
+        case 30: goto effect_29;
+        case 31: goto effect_30;
+        case 32: goto unknown;
+        case 33: goto effect_31;
+        case 34: goto effect_32;
+        case 35: goto unknown;
+        case 36: goto unknown;
+        case 37: goto effect_33;
+        case 38: goto unknown;
+        case 39: goto unknown;
+        case 40: goto unknown;
+        case 41: goto unknown;
+        case 42: goto unknown;
+        case 43: goto unknown;
+        case 44: goto unknown;
+        case 45: goto unknown;
+        case 46: goto unknown;
+        case 47: goto unknown;
+        case 48: goto unknown;
+        case 49: goto unknown;
+        case 50: goto unknown;
+        case 51: goto unknown;
+        case 52: goto done;
+        case 53: goto effect_34;
+        case 54: goto unknown;
+        case 55: goto unknown;
+        case 56: goto unknown;
+        case 57: goto effect_35;
+        }
+    effect_0:
         Player_IncrementLevelProgress(player, player->slot);
         Player_IncrementLevelProgress(player, player->slot);
-        return result;
-    case 2:
+        goto done;
+    effect_1:
         Player_IncrementLevelProgress(player, player->slot);
         if ((Player_GetLevelProgress(player, player->slot) & 1) == 0) {
             result = 5001;
         }
-        return result;
-    case 3:
+        goto done;
+    effect_2:
         Player_SetAchievementFlag2F(player, 4);
-        return result;
-    case 4:
+        goto done;
+    effect_3:
         Player_SetAchievementFlagByIndex(player, 2);
-        return result;
-    case 5:
+        goto done;
+    effect_4:
         Player_SetAchievementFlag2F(player, 14);
-        return result;
-    case 6:
+        goto done;
+    effect_5:
         Player_SetAchievementFlagByIndex(player, 6);
-        return result;
-    case 7:
+        goto done;
+    effect_6:
         Player_SetAchievementFlag2F(player, 7);
-        return result;
-    case 8:
+        goto done;
+    effect_7:
         Player_SetAchievementFlagByIndex(player, 16);
-        return result;
-    case 9:
+        goto done;
+    effect_8:
         Player_SetAchievementFlagByIndex(player, 5);
-        return result;
-    case 10:
+        goto done;
+    effect_9:
         Player_SetAchievementFlagByIndex(player, 17);
-        return result;
-    case 11:
+        goto done;
+    effect_10:
         Player_SetAchievementFlag2F(player, 6);
-        return result;
-    case 12:
+        goto done;
+    effect_11:
         Player_SetAchievementFlagByIndex(player, 14);
-        return result;
-    case 13:
+        goto done;
+    effect_12:
         Player_SetAchievementFlagByIndex(player, 4);
-        return result;
-    case 14:
+        goto done;
+    effect_13:
         Player_SetAchievementFlag2F(player, 12);
-        return result;
-    case 15:
+        goto done;
+    effect_14:
         Player_SetAchievementFlag2F(player, 10);
-        return result;
-    case 16:
+        goto done;
+    effect_15:
         Player_AddTenToProfileValue14(player);
-        return result;
-    case 17:
+        goto done;
+    effect_16:
         Player_SetAchievementFlagByIndex(player, 8);
-        return result;
-    case 18:
+        goto done;
+    effect_17:
         Player_SetAchievementFlag2F(player, 8);
-        return result;
-    case 19:
+        goto done;
+    effect_18:
         Player_SetAchievementFlag2F(player, 15);
-        return result;
-    case 20:
+        goto done;
+    effect_19:
         Player_SetAchievementFlagByIndex(player, 11);
-        return result;
-    case 21:
+        goto done;
+    effect_20:
         Player_SetAchievementFlagByIndex(player, 10);
-        return result;
-    case 22:
+        goto done;
+    effect_21:
         Player_SetAchievementFlagByIndex(player, 3);
-        return result;
-    case 23:
+        goto done;
+    effect_22:
         Player_AddFiftyToProfileValue16(player);
-        return result;
-    case 24:
+        goto done;
+    effect_23:
         Player_AddFiftyToProfileValue15(player);
-        return result;
-    case 25:
+        goto done;
+    effect_24:
         Player_SetAchievementFlag2F(player, 13);
-        return result;
-    case 26:
+        goto done;
+    effect_25:
         Player_SetAchievementFlag2F(player, 9);
-        return result;
-    case 27:
+        goto done;
+    effect_26:
         Player_SetAchievementFlagByIndex(player, 1);
-        return result;
-    case 28:
+        goto done;
+    effect_27:
         Player_SetAchievementFlagByIndex(player, 9);
-        return result;
-    case 29:
+        goto done;
+    effect_28:
         Player_SetAchievementFlagByIndex(player, 7);
-        return result;
-    case 30:
+        goto done;
+    effect_29:
         Player_SetAchievementFlagByIndex(player, 13);
-        return result;
-    case 31:
+        goto done;
+    effect_30:
         Player_SetAchievementFlag2F(player, 5);
-        return result;
-    case 33:
+        goto done;
+    effect_31:
         Player_SetAchievementFlag2F(player, 1);
-        return result;
-    case 34:
+        goto done;
+    effect_32:
         Player_SetAchievementFlagByIndex(player, 0);
-        return result;
-    case 37:
+        goto done;
+    effect_33:
         Player_SetAchievementFlag2F(player, 11);
-        return result;
-    case 53:
+        goto done;
+    effect_34:
         player->count++;
-        return result;
-    case 57:
+        goto done;
+    effect_35:
         Player_AdvanceProfileProgress(player);
-        return result;
-    default:
+        goto done;
+    unknown:
         result = -1;
+    done:
         return result;
-    }
+    } while (0);
 }
 
 char *Match_GetResultText(s32 result) {

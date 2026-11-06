@@ -269,18 +269,18 @@ void Controller_SendControllerButtonEvent(s16 device, s16 control, s32 pressed) 
 }
 
 void Controller_SendControllerStickEvent(s16 device, s32 stickX, s32 stickY) {
-    input_event event;
+    input_event m;
 
-    event.source = 4;
-    event.kind = 3;
-    event.control = 354;
-    event.x = stickX * 100;
-    event.device = device;
-    event.reserved08 = 0;
-    event.pressed = 0;
-    event.y = stickY * 100;
-    event.z = 0;
-    Controller_DispatchControllerEvent(&event);
+    m.source = 4;
+    m.kind = 3;
+    m.control = 354;
+    m.x = stickX * 100;
+    m.device = device;
+    m.reserved08 = 0;
+    m.pressed = 0;
+    m.y = stickY * 100;
+    m.z = 0;
+    Controller_DispatchControllerEvent(&m);
 }
 
 #if !(defined(VERSION_EU) || defined(VERSION_US))

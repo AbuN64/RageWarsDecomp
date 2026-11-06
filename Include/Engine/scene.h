@@ -259,10 +259,8 @@ extern char *g_resultsMinutesPluralFormat;
 extern char *g_resultsRoundsControllerModeFormat;
 extern char *g_resultsRoundsPluralFormat;
 extern char *g_resultsTimeLimitFormat;
-#if defined(VERSION_DE)
-extern void *g_resultsModeMessage[];
-#else
-extern char *g_resultsModeMessage;
+extern char *g_resultsModeMessage[];
+#if !defined(VERSION_DE)
 extern char addrLow_SetN64_AdvanceIntroForMemorySize_us_rev1[];
 extern char addrLow_SetN64_AdvanceIntroTextToOpeningCinema_us_rev1[];
 extern char addrLow_SetN64_DrawCenteredIntroText_us_rev1[];

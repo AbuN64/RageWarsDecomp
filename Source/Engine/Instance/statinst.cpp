@@ -129,7 +129,7 @@ void Statinst_InitializePlacedProp(ObjA *prop, PackedPlacedPropDefinition *recor
         prop->bounds.max.x = position.x + 102.3999939f;
         prop->bounds.max.y = position.y + 102.3999939f;
         prop->bounds.max.z = position.z + 102.3999939f;
-        prop->surfaceType = g_defaultCameraSurfaceType;
+        prop->surfaceType = ((struct MemoryUsageStats *)&g_defaultCameraSurfaceType)->value;
     } else {
         prop->bounds.min.x = position.x + record->extents[0] * 10.23999977f - 0.5f;
         prop->bounds.min.y = position.y + record->extents[2] * 10.23999977f - 0.5f;
@@ -319,7 +319,7 @@ s32 Statinst_UpdateDistanceFade(void *prop, s32 cameraAddress) {
     return 1;
 }
 
-void Statinst_DrawDistanceFadedModel(ObjA *owner) {
+void Statinst_DrawDistanceFadedModel(ObjA *owner, void *camera) {
     StaticModelAnimationDescriptor *descriptor;
     s32 remaining;
     s32 key;
@@ -384,7 +384,7 @@ void Statinst_DrawDistanceFadedModel(ObjA *owner) {
     g_menuModelFillColor[3] = g_staticObjectOpaqueAlpha;
 }
 
-void Statinst_DrawModel(ObjA *owner) {
+void Statinst_DrawModel(ObjA *owner, void *camera) {
     s32 remaining;
     void *instance;
     CachedResource *resource;
@@ -515,7 +515,7 @@ int Statinst_FindPlacedPropIndex(void *wanted,int key) {
     count=h->count; entries=(char *)h->records;
     i=0; if(count>0) {offset=i; do {if(entries+offset!=wanted) {i++;offset+=232;} else {result=i;break;}}while(i<count);}return result;}
 
-void Statinst_RegisterGeometryResources(void *owner) {
+void Statinst_RegisterGeometryResources(void *owner, void *camera) {
     struct ResourceBinding *o = (struct ResourceBinding *) owner;
     void *geometryResource;
     CachedResource *ret2;
@@ -547,12 +547,12 @@ s32 Statinst_GetPropGeometryIndex(struct ObjA *object) {
     return ((struct ResourceFadeDefinition *)linked)->nearValue;
 }
 
-void Statinst_DrawForGameMode(void *owner) {
+void Statinst_DrawForGameMode(void *owner, void *camera) {
     if (g_gameSettings.local != 0) {
-        Statinst_DrawModel(owner);
+        Statinst_DrawModel(owner, camera);
         return;
     }
-    Statinst_DrawDistanceFadedModel(owner);
+    Statinst_DrawDistanceFadedModel(owner, camera);
 }
 
 void Statinst_RefreshResourceUsage(void *resourceBinding) {

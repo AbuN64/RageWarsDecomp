@@ -64,7 +64,7 @@ typedef Shared_CollisionMoveFrame UnicolMotionFrame;
 
 typedef CVector3 UnicolPosition;
 
-s32 Unicol_MoveActorWithCollision(UnicolActor *actor, volatile f32 x, volatile f32 y, volatile f32 z, u32 *motionSettings) {
+s32 Unicol_MoveActorWithCollision(UnicolActor *actor, CVector3 position, u32 *motionSettings) {
     s32 CCollision_ApplyMotionResponse();
     UnicolMotionFrame frame;
     f32 headingCosine;
@@ -98,8 +98,8 @@ s32 Unicol_MoveActorWithCollision(UnicolActor *actor, volatile f32 x, volatile f
     f32 actorY;
     f32 savedY;
 
-    CCollision_ClearResultFlags();
-    __builtin_memcpy(&g_collisionCurrentActor->vecE4, &actor->room, 12);
+    CCollision_ClearResultFlags(&frame.actor);
+    __builtin_memcpy(&g_collisionCurrentActor->particleVelocity, &actor->room, 12);
     actor->flags = (u32) (actor->flags & ~0x18);
     frame.actor = actor;
     motionContinuation = 0;
@@ -112,9 +112,7 @@ s32 Unicol_MoveActorWithCollision(UnicolActor *actor, volatile f32 x, volatile f
     high = Gobjinst_GetActorHeight(actor);
     CCollision_SetSweepRange(&frame.actor, actorReach, count, high, InstHdr_GetActorBaseOffset(actor));
     *(UnicolPosition *)&frame.startX = *(UnicolPosition *)&actor->x;
-    frame.targetX = x;
-    frame.targetY = y;
-    frame.targetZ = z;
+    __builtin_memcpy(&frame.targetX, &position, 12);
     __builtin_memcpy(&frame.room, &actor->room, 12);
     frame.surface = actor->collision;
     groundFollowEnabled = 0;
@@ -360,7 +358,7 @@ s32 CCollision_SweepPoint(char *actorStorage, CVector3 startPosition, CVector3 d
     out = work.data;
     vectors.first = startPosition;
     vectors.second = desired;
-    CCollision_ClearResultFlags();
+    CCollision_ClearResultFlags(out);
     if (vectors.first.x == vectors.second.x &&
         vectors.first.y == vectors.second.y &&
         vectors.first.z == vectors.second.z) {
@@ -438,7 +436,7 @@ s32 CCollision_SweepUniformExtent(char *actorStorage, CVector3 startPosition, CV
     out = work.data;
     vectors.first = startPosition;
     vectors.second = endPosition;
-    CCollision_ClearResultFlags();
+    CCollision_ClearResultFlags(out);
     if (vectors.first.x == vectors.second.x &&
         vectors.first.y == vectors.second.y &&
         vectors.first.z == vectors.second.z) {
@@ -516,7 +514,7 @@ s32 Unicol_SweepActorMotion(char *actorStorage, CVector3 startPosition, CVector3
     out = work.data;
     vectors.first = startPosition;
     vectors.second = endPosition;
-    CCollision_ClearResultFlags();
+    CCollision_ClearResultFlags(out);
     if (vectors.first.x == vectors.second.x &&
         vectors.first.y == vectors.second.y &&
         vectors.first.z == vectors.second.z) {
@@ -579,6 +577,7 @@ s32 Unicol_SweepActorMotion(char *actorStorage, CVector3 startPosition, CVector3
 
 s32 CCollision_SweepWithWorkBuffer(char *actorStorage, char *motionWork, CVector3 first, CVector3 second,
     s32 motionSurface) {
+    extern s32 CCollision_ApplyMotionResponse(void *actorStorage);
     char *object = actorStorage;
     char *out = motionWork;
     s32 count;
@@ -588,7 +587,7 @@ s32 CCollision_SweepWithWorkBuffer(char *actorStorage, char *motionWork, CVector
     s32 maximum;
     s32 flags;
 
-    CCollision_ClearResultFlags();
+    CCollision_ClearResultFlags(out);
     if (first.x == second.x && first.y == second.y && first.z == second.z) {
         return 0;
     }
@@ -604,7 +603,7 @@ s32 CCollision_SweepWithWorkBuffer(char *actorStorage, char *motionWork, CVector
     ((struct ActorMotion *)(out))->actor = object;
     if (object != 0) {
         s32 value = 0;
-        if (((LevelActor *)object)->kind == 1) {
+        if (*(u8 *)object == 1) {
             flags = ((struct LevelActor *)(object))->flags;
             flags &= 0x300000;
             value = flags != 0;

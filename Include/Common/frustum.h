@@ -19,4 +19,5 @@ extern s32 Visdata_TestBoxAgainstPlane(f32 *plane, f32 *boxBounds);
 extern void *Node_GetScreenData(s32 index);
 
 s32 Node_IsValidScreenIndex(s32);
+extern s32 Visdata_TestBoxAgainstFrustum(f32 (*planes)[4], f32 *boxBounds);
 #endif

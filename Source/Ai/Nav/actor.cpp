@@ -229,10 +229,10 @@ void Actor_ApplySupportingPlatformMotion(LevelActor *player, void *motionContext
         Graphu64_SubtractVectors(&transformed, &transformed, &position);
         player->yaw += amount;
         Graphu64_AddVec3(&position, &position, &transformed);
-        Unicol_MoveActorWithCollision(player, position.x, position.y, position.z, &g_supportingPlatformCollisionQuery);
+        Unicol_MoveActorWithCollision(player, position, &g_supportingPlatformCollisionQuery);
         player->position1 = saved_velocity;
         if ((object[0] == 1) && (((LevelActor *)object)->definition->kind == 2)) {
-            Triggered_PathMotionNoOp();
+            Triggered_PathMotionNoOp(object, player);
         }
     }
 }

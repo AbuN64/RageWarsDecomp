@@ -1,5 +1,6 @@
 #ifndef GSKY_GSKY_GETFLOORSURFACESHAKE_H
 #define GSKY_GSKY_GETFLOORSURFACESHAKE_H
 #include "types.h"
-void Gsky_DrawViewportEffectNoOp(void);
+struct GameplayCamera;
+void Gsky_DrawViewportEffectNoOp(struct GameplayCamera *camera, s32 effect);
 #endif

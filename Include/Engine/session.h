@@ -443,9 +443,9 @@ struct GameSession; extern void SetN64_HandleSessionTransitionInput(struct GameS
 
 struct EffectSlot;
 void SetN64_RecycleEffectNode(void *container, struct EffectSlot *node);
-extern void SetN64_DrawCreditsLines(void);
+extern void SetN64_DrawCreditsLines(s32 session);
 extern void CCredits_UpdateScroll(void *);
-extern void SetN64_StartBootstrapThread(void);
+extern void SetN64_StartBootstrapThread(s32 *session);
 extern void SetN64_StartGameThreadAndIdle(s32 *gameSession, s32 threadArgument);
 #endif
 

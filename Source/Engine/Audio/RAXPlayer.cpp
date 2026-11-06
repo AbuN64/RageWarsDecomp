@@ -53,15 +53,15 @@ void Audio_UpdateDialogPlayer(DialogPlaybackPlayer *player) {
         }
         break;
     case 1:
-        g_dialogDecodeStreamRecord->head = 0;
-        g_dialogDecodeStreamRecord->kind = 2;
-        g_dialogDecodeStreamRecord->tail = 0;
+        ((s32 *)&g_dialogDecodeStreamRecord->head)[0] = 0;
+        ((u8 *)&g_dialogDecodeStreamRecord->head)[4] = 2;
+        ((s32 *)&g_dialogDecodeStreamRecord->head)[2] = 0;
         index = player->song * 2;
         header = SetN64_GetPackSection(player->bank->songs, index);
         player->tempoScale = header->tempo * 0.01f;
         player->volume = header->volume;
         sequence = SetN64_GetPackSection(player->bank->songs, index | 1);
-        g_dialogDecodeStreamRecord->sequence = sequence;
+        ((void **)&g_dialogDecodeStreamRecord->head)[-1] = sequence;
         g_dialogDefaultSample->key = Audio_InitDecodeStream(sequence, 22050, &rate);
         player->state = 3;
         alSndpSetSound(channel, player->id);
@@ -157,7 +157,7 @@ void Audio_InitializeDialogPlayer(struct DialogPlayerState *record, s32 resource
     record->state = 0;
     record->speed = 0;
     record->volume = 64;
-    record->soundId = alSndpAllocate(Audio_GetSoundPlayer(record->resource), g_dialogDefaultSample);
+    record->soundId = alSndpAllocate(Audio_GetSoundPlayer(record->resource), (ALSound *)&g_dialogDefaultSample);
 }
 
 void Audio_StopDialogPlayer(void *dialogPlayer) {

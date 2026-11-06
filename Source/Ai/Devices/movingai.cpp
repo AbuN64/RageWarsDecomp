@@ -60,7 +60,7 @@ void MovingAI_ChooseTriggerDelay(void *levelActor, void *actorMotionState) {
     ActorMotionState *motion = actorMotionState;
     AnimationTriggerResource *resource;
     AnimationTriggerDefinition *base;
-    char *ctx;
+    Shared_Game *game;
     f32 result;
     s32 count;
     s32 delayPercent;
@@ -71,9 +71,9 @@ void MovingAI_ChooseTriggerDelay(void *levelActor, void *actorMotionState) {
     base = &resource->trigger;
     result = Graphu64_RandomBetween(base->delayMinimum, base->delayMaximum);
     motion->speed = result;
-    ctx = (char *) &g_gameSettings;
-    if (((GameModeEnableView *)(ctx))->local != 0) {
-        count = g_playerViewRenderContext.sessionOptionResetMode;
+    game = &g_gameSettings;
+    if (game->local != 0) {
+        count = ((Shared_MenuData *)((char *)game - offsetof(Shared_MenuData, game)))->sessionOptionResetMode;
         if ((u32) count >= 3) {
             count -= 2;
             scaled = result * k_triggerDelayPercentScale;
@@ -143,7 +143,7 @@ void MovingAI_SetActorStateActive(void *actor) {
 
 
 /* Spawns effect kind at an actor's position through SetN64_SpawnModelEffect in g_modelEffectPool's list: kind 0xBD7
-   is skipped while both of g_matchRoundCounters's flags are set, and kind 0x1388 is offset by
+   is skipped while both of g_gameSettings.counters's flags are set, and kind 0x1388 is offset by
    the variant byte at g_currentStagePreset when option g_gameControllerMode is 1 (skipped for variant 0); a spawned node
    has its word cleared, takes one charge from the owner and starts effect 0x11D at its own
    position through Barrel_SpawnActorEffect_Movingai. */
@@ -250,7 +250,7 @@ void MovingAI_InitializeMotionDispatch(LevelActor *actor, ActorMotionState *moti
     flags |= 0x02000000;
     flags2 = flags | 0x20000;
     actor->flags = flags2;
-    if (g_motionVisibilitySettings.gameFlag == 0) {
+    if (g_gameSettings.local == 0) {
         actor->flags = flags2 | 0x10000000;
     }
     if ((actor->type == 1107) && (Cinema_GetSequenceRequest() == 111)) {
@@ -776,7 +776,7 @@ void Triggered_AdvancePathMotion(PathMotionActorView *actor, PathMotionInterpola
 }
 
 /** Perform no operation. */
-void Triggered_PathMotionNoOp(void) {
+void Triggered_PathMotionNoOp(u8 *platform, void *player) {
 }
 
 s32 Triggered_SelectMotionSound(void *context, struct TriggeredMotionSoundOption *option) {
@@ -868,10 +868,10 @@ const float k_movingAiUnit[1] = {
     1.0f,
 };
 
-const float k_triggeredUpdatetriggeredmotionFloatConstants[1] = {
-    6.283186f,
-};
+#if defined(VERSION_DE)
+float k_triggerDelayPercentScale = 0.00999999978f;
+#endif
 
-const float k_movingaiDataFloatConstants[1] = {
-    0.01f,
-};
+#if defined(VERSION_DE)
+float k_triggeredInitialMotionScale = 6.28318596f;
+#endif

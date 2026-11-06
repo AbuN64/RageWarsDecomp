@@ -4,6 +4,6 @@
 #include "Ai/cteamselect.h"
 
 struct Shared_MenuItemList;
-extern void Cteamselect_InitTeamChoices(struct Shared_MenuItemList *list);
+extern void Cteamselect_InitTeamChoices(struct Shared_MenuItemList *list, s32 heldButtons, void *player);
 
 #endif

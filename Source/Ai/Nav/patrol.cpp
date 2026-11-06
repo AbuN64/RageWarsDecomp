@@ -92,7 +92,6 @@ void Nav_UpdatePatrolRoute(PatrolActor *actor)
 }
 
 
-#if !(defined(VERSION_DE))
 /* Reset the two bot state words reached through the actor and player records. */
 void Nav_ResetPatrolRouteSelection(void *object) {
     RouteChaseActor *actor = object;
@@ -100,4 +99,3 @@ void Nav_ResetPatrolRouteSelection(void *object) {
     bot->closeAttackState = 0;
     bot->resetWord224 = -1;
 }
-#endif

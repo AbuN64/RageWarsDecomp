@@ -85,12 +85,12 @@
 #include "Common/screenmessagesubstitution.h"
 
 /* Samples one shake axis: a random value within the amplitude for mode 0, a sine of the scaled angle for mode 1, and zero otherwise. */
-static f32 Camera_SampleShakeAxis(CShakeAxis *wave, f32 angleScale) {
-    if (wave->mode == 0) {
+static inline f32 Camera_SampleShakeAxis(CShakeAxis *wave, f32 *angleScale) {
+    switch (wave->mode) {
+    case 1:
+        return Gu_Sinf(wave->m_Angle * *angleScale) * wave->m_Amp;
+    case 0:
         return Graphu64_RandomBetween(-wave->m_Amp, wave->m_Amp);
-    }
-    if (wave->mode == 1) {
-        return Gu_Sinf(wave->m_Angle * angleScale) * wave->m_Amp;
     }
     return 0.0f;
 }
@@ -105,11 +105,11 @@ void Camera_AccumulateDistanceScaledShake(CShake *shake, CVector3 position, CVec
     if (distance < shake->m_Radius) {
         distance = Defs_CosineEase(g_cameraShakeDistanceComplement - (distance / shake->m_Radius));
 
-        out->x += Camera_SampleShakeAxis(&shake->x, g_cameraShakeXAngleScale) * distance;
+        out->x += Camera_SampleShakeAxis(&shake->x, &g_cameraShakeXAngleScale) * distance;
 
-        out->y += Camera_SampleShakeAxis(&shake->y, g_cameraShakeYAngleScale) * distance;
+        out->y += Camera_SampleShakeAxis(&shake->y, &g_cameraShakeYAngleScale) * distance;
 
-        out->z += Camera_SampleShakeAxis(&shake->z, g_cameraShakeZAngleScale) * distance;
+        out->z += Camera_SampleShakeAxis(&shake->z, &g_cameraShakeZAngleScale) * distance;
     }
 }
 
@@ -121,12 +121,13 @@ void Camera_AdvanceOverlayFade(Overlay *overlay) {
     case 0:
         break;
     case 1:
-        if (overlay->fadeIn > overlay->timer) {
+        if (overlay->fadeIn <= overlay->timer) {
+            overlay->state = 2;
+            overlay->timer = 0.0f;
+        } else {
             overlay->alpha = (u32)(overlay->timer / (overlay->fadeIn + 1) * overlay->alphaMax);
             break;
         }
-        overlay->state = 2;
-        overlay->timer = 0.0f;
         /* Fade-in finished: continue straight into the hold handling. */
     case 2:
         if (!(overlay->hold <= overlay->timer)) {
@@ -225,6 +226,11 @@ const unsigned int k_cameraZeroPad[1] = {
 #if defined(VERSION_US_REV1)
 
 #endif
+#if defined(VERSION_US_REV1)
+const unsigned int k_CameraZeroWords[1] = {
+    0x00000000,
+};
+#endif
 void Camera_AnimateViewColorsAndLight(View *actor) {
     CVector3 direction;
     f32 phaseScale;
@@ -244,34 +250,34 @@ void Camera_AnimateViewColorsAndLight(View *actor) {
     ambientScale = phaseScale;
     do {
         ambient = (ambientScale * (Gu_Sinf(
-            phaseScale * (f32) g_gameLoopFrameCount * ((f32) (channel + 2) * 4.0f) *
+            phaseScale * (f32) (u32) g_gameLoopFrameCount * ((f32) (channel + 2) * 4.0f) *
             0.01745329424738884f) * 16.0f)) + 16.0f + 48.0f;
-        ((Shared_ParticleLighting *)g_playerModelLighting)[0].ambientCopy[channel] = ((Shared_ParticleLighting *)g_playerModelLighting)[0].ambient[channel] = (u32)ambient;
+        g_playerModelLighting[0].ambientCopy[channel] = g_playerModelLighting[0].ambient[channel] = (u32)ambient;
         diffuse = (((Gu_Sinf(
-            phaseScale * (f32) g_gameLoopFrameCount * ((f32) (channel + 2) * 4.0f) *
+            phaseScale * (f32) (u32) g_gameLoopFrameCount * ((f32) (channel + 2) * 4.0f) *
             0.01745329424738884f) * 64.0f) + 255.0f) - 64.0f) - 1.0f;
-        ((Shared_ParticleLighting *)g_playerModelLighting)[0].diffuseCopy[channel] = ((Shared_ParticleLighting *)g_playerModelLighting)[0].diffuse[channel] = (u32)diffuse;
+        g_playerModelLighting[0].diffuseCopy[channel] = g_playerModelLighting[0].diffuse[channel] = (u32)diffuse;
         channel += 1;
     } while (channel < 3);
-    direction.x = Gu_Sinf((f32) (g_gameLoopFrameCount * 6) * 0.01745329424738884f);
-    direction.y = Gu_Sinf((f32) (g_gameLoopFrameCount * 8) * 0.01745329424738884f);
-    direction.z = Math_Cosf((f32) (g_gameLoopFrameCount * 10) * 0.01745329424738884f);
+    direction.x = Gu_Sinf((f32) ((u32) g_gameLoopFrameCount * 6) * 0.01745329424738884f);
+    direction.y = Gu_Sinf((f32) ((u32) g_gameLoopFrameCount * 8) * 0.01745329424738884f);
+    direction.z = Math_Cosf((f32) ((u32) g_gameLoopFrameCount * 10) * 0.01745329424738884f);
     Graphu64_NormalizeVec3(&direction);
     direction.x *= 120.0f;
     direction.y *= 120.0f;
     direction.z *= 120.0f;
-    ((Shared_ParticleLighting *)g_playerModelLighting)[0].direction[0] = (u32)direction.x;
-    ((Shared_ParticleLighting *)g_playerModelLighting)[0].direction[1] = (u32)direction.y;
-    ((Shared_ParticleLighting *)g_playerModelLighting)[0].direction[2] = (u32)direction.z;
-    red = (Gu_Sinf(2.0f * (phaseScale * (f32) g_gameLoopFrameCount) * 0.06981317698955536f) * 64.0f) + 128.0f;
+    g_playerModelLighting[0].direction[0] = (u32)direction.x;
+    g_playerModelLighting[0].direction[1] = (u32)direction.y;
+    g_playerModelLighting[0].direction[2] = (u32)direction.z;
+    red = (Gu_Sinf(2.0f * (phaseScale * (f32) (u32) g_gameLoopFrameCount) * 0.06981317698955536f) * 64.0f) + 128.0f;
     redByte = (u32)red & 0xF8;
     actor->color[0] = redByte;
     actor->secondaryColor[0] = redByte;
-    green = (Gu_Sinf(phaseScale * (f32) g_gameLoopFrameCount * 0.20943953096866608f) * 64.0f) + 128.0f;
+    green = (Gu_Sinf(phaseScale * (f32) (u32) g_gameLoopFrameCount * 0.20943953096866608f) * 64.0f) + 128.0f;
     greenByte = (u32)green & 0xF8;
     actor->color[1] = greenByte;
     actor->secondaryColor[1] = greenByte;
-    blue = (Gu_Sinf(phaseScale * (f32) g_gameLoopFrameCount * 0.27925270795822144f) * 64.0f) + 128.0f;
+    blue = (Gu_Sinf(phaseScale * (f32) (u32) g_gameLoopFrameCount * 0.27925270795822144f) * 64.0f) + 128.0f;
     blueByte = (u32)blue & 0xF8;
     actor->color[2] = blueByte;
     actor->secondaryColor[2] = blueByte;
@@ -312,10 +318,13 @@ void Camera_BlendEnvironmentColors(View *self) {
     freeze = hold;
     for (node = g_transientPlayerList.actorList; node != 0; node = node->views16E0.view16E0_1.next) {
         if (node->views5DC.view5DC_0.messageCamera == self) {
-            break;
+            ownerNode = node;
+            goto found;
         }
     }
-    ownerNode = node;
+    node = 0;
+    ownerNode = 0;
+found:
     if (node != 0) {
         hold = 0;
         if ((ownerNode->views5E8.view664_27.timer & 0x40) ||
@@ -711,10 +720,12 @@ void Camera_UpdateViewProjectionAndEffects(GameplayCamera *camera) {
 
     for (actorCursor = g_transientPlayerList.actorList; actorCursor != 0; actorCursor = actorCursor->nextActor) {
         if (actorCursor->camera == camera) {
-            break;
+            cameraOwner = actorCursor;
+            goto owner_found;
         }
     }
-    cameraOwner = actorCursor;
+    cameraOwner = 0;
+owner_found:
     camera->elapsed = (f32) (camera->elapsed + g_frameElapsedTime);
     Camera_BlendEnvironmentColors((View *) camera);
     camera->dirty = 1;
@@ -949,8 +960,8 @@ void Camera_SetupViewportAndFog(GameplayCamera *view) {
     Gfx **gfx = &g_displayListCursor;
 
     gDPPipeSync((*gfx)++);
-    gSPDisplayList((*gfx)++, ((&g_cameraViewDisplayLists[0])));
-    gSPDisplayList((*gfx)++, ((&g_cameraViewDisplayLists[1])));
+    gSPDisplayList((*gfx)++, ((g_cameraViewDisplayListPrimary)));
+    gSPDisplayList((*gfx)++, ((g_cameraViewDisplayListSecondary)));
     view->pixelXScale = 1.0f;
     view->pixelYScale = 1.0f;
     view->pixelXScale = view->fadeScalarOne;
@@ -1068,7 +1079,7 @@ void Camera_DrawWorldViewLayers(char *view, char *world) {
         Playerai_DrawPlayersForView(&g_playerViewRenderContext, view);
     }
     Scene_DrawOpaqueActors(world, view);
-    Fx_DrawBoundedParticleQuads(&g_gameSession.hud.actors);
+    Fx_DrawBoundedParticleQuads(&g_gameSession.hud.actors, view);
     if (Cinema_IsSequenceInWindow() == 0) {
         SetN64_DrawVisibleEffects(&((Shared_World *)world)->effectSlots, view);
     }
@@ -1469,8 +1480,8 @@ void Camera_DrawActiveViews(ScreenMessageOwner *race, s32 world)
         racer = race->header.views.head;
         if (racer != 0) {
             gDPPipeSync(g_displayListCursor++);
-            gSPDisplayList(g_displayListCursor++, ((&g_cameraViewDisplayLists[0])));
-            gSPDisplayList(g_displayListCursor++, ((&g_cameraViewDisplayLists[1])));
+            gSPDisplayList(g_displayListCursor++, ((g_cameraViewDisplayListPrimary)));
+            gSPDisplayList(g_displayListCursor++, ((g_cameraViewDisplayListSecondary)));
             racer->viewports[g_lightingBufferIndex].vscale[0] = SCREEN_WD;
             racer->viewports[g_lightingBufferIndex].vscale[1] = SCREEN_HT;
             racer->viewports[g_lightingBufferIndex].vtrans[0] = SCREEN_WD;
@@ -1490,7 +1501,7 @@ void Camera_DrawActiveViews(ScreenMessageOwner *race, s32 world)
         Camera_SetupViewportAndFog(racer);
         Camera_DrawWorldViewLayers((char *) racer, (char *) world);
         if (racer->monochrome != 0) {
-            Gsky_DrawViewportEffectNoOp();
+            Gsky_DrawViewportEffectNoOp(racer, racer->effectArgument);
         }
         Camera_DrawViewportOverlays((View *) racer);
         Camera_DrawAndAdvanceMessages(race, racer);
@@ -1584,8 +1595,8 @@ static inline CCameraText *Camera_PostMessageLines(struct ScreenMessageOwner *ow
     if (pool == 0) {
         return message;
     }
-    if (text == g_screenMessageSubstitutionSource) {
-        text = (u8 *)g_screenMessageSubstitutionReplacement;
+    if (text == *(u8 **)g_screenMessageSubstitutionSource) {
+        text = (u8 *)*g_screenMessageSubstitutionReplacement;
     }
     p = text;
     line = p;
@@ -1820,11 +1831,6 @@ const float k_cameraViewTuning[14] = {
 #endif
 
 /* Retained data for this translation unit. */
-#if defined(VERSION_US_REV1)
-const unsigned int k_CameraZeroWords[1] = {
-    0x00000000,
-};
-#endif
 #if !(defined(VERSION_US_REV1))
 const float k_CameraEncodedWords[2] = {
     0.5f, 0.5f,

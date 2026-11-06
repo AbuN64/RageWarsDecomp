@@ -59,6 +59,7 @@ s32 Cache_WaitForResourceLoads(ResourceLoadWorker *resourceLoadWorker) {
 void Cache_RunResourceLoadWorkerUs(ResourceLoadWorker *worker)
 {
     ResourceRequest *request;
+    extern s32 g_gameFrameCounter;
 
     for (;;) {
         osRecvMesg(&worker->requests, (void **)&request, 1);
@@ -73,6 +74,7 @@ void Cache_RunResourceLoadWorkerUs(ResourceLoadWorker *worker)
 void Cache_RunResourceLoadWorkerEu(ResourceLoadWorker *worker)
 {
     ResourceRequest *request;
+    extern s32 g_gameFrameCounter;
 
     for (;;) {
         osRecvMesg(&worker->requests, (void **)&request, 1);
@@ -87,6 +89,7 @@ void Cache_RunResourceLoadWorkerEu(ResourceLoadWorker *worker)
 void Cache_RunResourceLoadWorkerDe(ResourceLoadWorker *worker)
 {
     ResourceRequest *request;
+    extern s32 g_gameFrameCounter;
 
     for (;;) {
         osRecvMesg(&worker->requests, (void **)&request, 1);
@@ -101,6 +104,7 @@ void Cache_RunResourceLoadWorkerDe(ResourceLoadWorker *worker)
 void Cache_RunResourceLoadWorkerEuX(ResourceLoadWorker *worker)
 {
     ResourceRequest *request;
+    extern s32 g_gameFrameCounter;
 
     for (;;) {
         osRecvMesg(&worker->requests, (void **)&request, 1);

@@ -2,6 +2,7 @@
 #define ENGINE_CACHE_CACHE_H
 #include "types.h"
 struct IntrusiveList;
+struct ResourceNodePair;
 extern void Cache_ReleaseResourceCompletely(void *cacheContext, struct IntrusiveList *resource);
 #include "types.h"
 extern s32 Cache_RequestWordCountedResourcePinned(s32 unusedCache, void **handle, s32 resourceKey, void *loadTag);
@@ -115,6 +116,7 @@ extern s32 g_resourceFreeNodeCount;
 extern int g_resourceSlotLockState;
 extern int g_resourceHeapLockUsers;
 extern int g_resourceSlotProtected[];
-extern void Cache_WaitForResourceSlotRelease(void);
-extern struct CacheResourceNode *Cache_AllocateResourceNodeStorage(s32 unused, s32 byteCount, u32 allocationFlags);
+extern void Cache_WaitForResourceSlotRelease(s32 slot);
+extern struct CacheResourceNode *Cache_AllocateResourceNodeStorage(s32 pool, s32 byteCount, u32 allocationFlags, void *evicted);
+extern void Cache_ReplaceResourcePairFirst(s32 unusedCache, struct ResourceNodePair *resourcePair, struct CacheResourceNode *replacementResource);
 #endif

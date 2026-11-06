@@ -7,10 +7,6 @@
 #include "Common/runtime_declarations.h"
 #include "Weapons/startup_cues_and_side_yaw.h"
 
-const unsigned int k_weaponaiPackedWord[1] = {
-    0x00000008,
-};
-
 #if defined(VERSION_US)
 WeaponFireStateTableRow k_weaponFireStateTable[5] = {
     { (u32)&g_weaponFireStateCallbackTable, 0, 0, 0, 0, 0.0f, 0, 0 },

@@ -735,7 +735,7 @@ void InstHdr_GetActorTargetOffset(u8 *player, void *vector) {
     struct ActorTargetOffsetResult offset;
 
     if (*player == 1) {
-        Barrel_ComputeTargetOffset(player, (char *)&((Player *)player)->motion, (struct CAIMovementInfo *)&offset);
+        Barrel_ComputeTargetOffset(player, (char *)&((LevelActor *)player)->behaviorFlags, (struct CAIMovementInfo *)&offset);
         *(CVector3 *)vector = offset.first;
         return;
     }
@@ -747,7 +747,7 @@ void InstHdr_GetActorTargetOffset(u8 *player, void *vector) {
 f32 InstHdr_GetActorTargetHeight(u8 *player) {
     struct ActorTargetOffsetResult offset;
     if (*player == 1) {
-        Barrel_ComputeTargetOffset(player, (char *)&((Player *)player)->motion, (struct CAIMovementInfo *)&offset);
+        Barrel_ComputeTargetOffset(player, (char *)&((LevelActor *)player)->behaviorFlags, (struct CAIMovementInfo *)&offset);
         return offset.height;
     }
     return 0.0f;
@@ -866,7 +866,7 @@ int InstHdr_GetActorMotionIndex(void *record) {
 }
 
 /** Return the zero status that callers treat as no result. */
-int InstHdr_ReturnUnusedActorStatus(void) {
+int InstHdr_ReturnUnusedActorStatus(void *owner) {
     return 0;
 }
 
@@ -906,7 +906,7 @@ s32 InstHdr_HasEnabledMotionHooks(void *actor) {
     if (!(((LevelActor *)actor)->flags & 0x2000)) {
         return 0;
     }
-    actor = ((ActorMotionState *)((Player *)actor)->motion)->hooks;
+    actor = ((ActorMotionState *)&((LevelActor *)actor)->behaviorFlags)->hooks;
     if (actor == 0) {
         goto ret1;
     }

@@ -179,7 +179,7 @@ void Weapon_ApplySwitchAndRequestIdle(void *actor, void *fireState) {
 
 
 int Weapon_CheckSinglePlayerFirePermission(WeaponPlayerPermissionView *player) {
-    Shared_Game *game;
+    SettingsE *rules;
     int result;
 
     if (player->shield > 0.0f) {
@@ -188,17 +188,16 @@ int Weapon_CheckSinglePlayerFirePermission(WeaponPlayerPermissionView *player) {
     if (player->isBot != 0) {
         return 1;
     }
-    game = &g_playerViewRenderContext.game;
-    if (game->controllerMode != 1) {
+    rules = &g_gameSettings;
+    if (rules->players != 1) {
         return 1;
     }
     result = Player_GetProfileAchievementFlag((char *)&g_localPlayerProfiles[player->character], player->weapon);
     if (result == 0) {
         SoundElement_PlayFlatSound(3405);
         if (player->hud != 0) {
-            Gsky_PostTargetedScreenMessage((char *)&g_playerViewRenderContext.object,
-                player->hud, g_weaponLockedNoticeText,
-                          Player_GetPlayerIndex((char *)&g_playerViewRenderContext, player), g_weaponPermissionNoticeDuration);
+            Gsky_PostTargetedScreenMessage((char *)rules - (((char *)&((Shared_MenuData *)0)->game - (char *)0) - ((char *)&((Shared_MenuData *)0)->object - (char *)0)), player->hud, g_weaponLockedNoticeText[0],
+                          Player_GetPlayerIndex((char *)rules - ((char *)&((Shared_MenuData *)0)->game - (char *)0), player), g_weaponPermissionNoticeDuration);
         }
     }
     return result;
@@ -244,7 +243,7 @@ void Weapon_DrawWeaponLookupModel(void *actorStorage, Dest *weaponState, Lookup 
     if ((state == one) && (weaponState->fireEnabled == 0)) {
         return;
     }
-    if ((state >= 18) && (Playerai_GetWeaponAmmo(actor, state) <= 0)) {
+    if ((state >= 18) && (Playerai_GetWeaponAmmo(actor, (s16) state) <= 0)) {
         return;
     }
     state = ((Player *)actor)->selectedAction;

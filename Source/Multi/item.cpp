@@ -11,6 +11,25 @@
 #include "Multi/item.h"
 #include "Menu/Pak/menu_createmenufromtemplate.h"
 
+/* Reports whether the player holds the item: type 4350 indices 0-2 against count64D, 3-5 against count64E, type 4500 by its flag. */
+static inline s32 Multi_HasItemSlot(struct PlayerItemInventoryView *player, s32 type, s32 index) {
+    switch (type) {
+    case 4350:
+        if (index >= 0) {
+            if (index < 3) {
+                return index < player->count64D;
+            }
+            if (index < 6) {
+                return index - 3 < player->count64E;
+            }
+        }
+        break;
+    case 4500:
+        return player->flags[index] != 0;
+    }
+    return 0;
+}
+
 void Multi_DrawPlayerItemAvailability(struct MultiplayerItemAvailabilityView *item, MenuOptionBox *box, s32 direction, struct HolderMultiIsPlayerItemAvailable *context) {
     struct ItemDef *def = item->def;
     s32 type = def->type;
@@ -20,12 +39,15 @@ void Multi_DrawPlayerItemAvailability(struct MultiplayerItemAvailabilityView *it
     switch (type) {
     case 4350:
         if (index >= 0) {
-            if (index < 3) {
-                available = index < player->count64D;
-            } else if (index < 6) {
-                available = index - 3;
-                available = available < player->count64E;
-            }
+            if (index < 3) goto low;
+            if (index < 6) goto high;
+            break;
+        low:
+            available = index < player->count64D;
+            break;
+        high:
+            available = index - 3;
+            available = available < player->count64E;
         }
         break;
     case 4500:
@@ -63,12 +85,20 @@ s32 Multi_IsPlayerItemAvailable(struct MultiplayerItemAvailabilityView *item, st
     switch (type) {
     case 4350:
         if (index >= 0) {
+            /* The ROM tests both ranges before either block. */
             if (index < 3) {
-                result = index < player->count64D;
-            } else if (index < 6) {
-                result = index - 3;
-                result = result < player->count64E;
+                goto first_bank;
             }
+            if (index < 6) {
+                goto second_bank;
+            }
+            break;
+        first_bank:
+            result = index < player->count64D;
+            break;
+        second_bank:
+            result = index - 3;
+            result = result < player->count64E;
         }
         break;
     case 4500:

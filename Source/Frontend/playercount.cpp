@@ -70,6 +70,125 @@ s32 Frontend_CreatePlayerCountScreenDe(s32 root) {
 }
 #endif
 
+/* unit FRONTEND_CREATEPLAYERCOUNTSCREENEU.CPP */
+#if defined(VERSION_EU)
+#include "types.h"
+#include "Ui/Tsmos/Smp/smp_fade.h"
+#include "Smp/smp_slider.h"
+#include "Smp/smp_button.h"
+#include "Smp/smp_flicker.h"
+#include "Frontend/frontend_address_symbols.h"
+
+/* Builds a three-row slider popup in its 0x24-byte state g_playerCountScreen: title/list from the ids at 0x398, the numeric
+   readout item at 0x39D showing the text at +0x14 formatted with s_playerCountFormat. Returns 0. */
+s32 Frontend_CreatePlayerCountScreenEu(void *window) {
+    MenuWidget *item;
+    void *title;
+
+    g_playerCountScreen = Cache_AllocateMemory(36);
+    Tsmos_ActivateControllerState();
+    title = SmpFade_CreateFadeWidget(920, 921);
+    g_playerCountScreen->menu = title;
+    SmpSlider_EnableTransition(title);
+    SmpButton_WrapButtonWidget(924);
+    item = Node_FindWidgetByResourceId(window, 922);
+    g_playerCountScreen->window = item;
+    item->alpha = 15;
+    g_playerCountScreen->button = SmpFlicker_CreateFlickerWidget(923, 110);
+    g_playerCountScreen->delay = 3;
+    item = Node_FindWidgetByResourceId(window, 925);
+    item->text = g_playerCountScreen->text;
+    g_playerCountScreen->value = 1;
+    XStdio_FormatBuffer(g_playerCountScreen->text, s_playerCountFormat, 1);
+    return 0;
+}
+#endif
+
+/* unit FRONTEND_CREATECOURSEOPTIONSMENU.CPP */
+#if defined(VERSION_US_REV1)
+#include "Common/selectionscreenstate.h"
+#include "Common/player_join_requests.h"
+#include "types.h"
+#include "Common/shared_menureply.h"
+#endif
+#if defined(VERSION_EU_X)
+#include "types.h"
+#include "Playercount/frontend_createcourseoptionsmenu.h"
+#include "Ui/Tsmos/Smp/smp_fade.h"
+#include "Smp/smp_slider.h"
+#include "Smp/smp_button.h"
+#include "Smp/smp_flicker.h"
+#include "Frontend/frontend_address_symbols.h"
+
+/* Builds a three-row slider popup in its 0x24-byte state g_playerCountScreen: title/list from the ids at 0x39C, the numeric
+   readout item at 0x39D showing the text at +0x14 formatted with s_playerCountFormat. Returns 0. */
+s32 Frontend_CreatePlayerCountScreenEux(void *window) {
+    MenuWidget *item;
+    void *title;
+
+    g_playerCountScreen = Cache_AllocateMemory(36);
+    Tsmos_ActivateControllerState();
+    title = SmpFade_CreateFadeWidget(924, 925);
+    g_playerCountScreen->menu = title;
+    SmpSlider_EnableTransition(title);
+    SmpButton_WrapButtonWidget(928);
+    item = Node_FindWidgetByResourceId(window, 926);
+    g_playerCountScreen->window = item;
+    item->alpha = 15;
+    g_playerCountScreen->button = SmpFlicker_CreateFlickerWidget(927, 110);
+    g_playerCountScreen->delay = 3;
+    item = Node_FindWidgetByResourceId(window, 929);
+    item->text = g_playerCountScreen->text;
+    g_playerCountScreen->value = 1;
+    XStdio_FormatBuffer(g_playerCountScreen->text, s_playerCountFormat, 1);
+    return 0;
+}
+#endif
+
+/* unit FRONTEND_CREATEPLAYERCOUNTSCREEN.CPP */
+#if defined(VERSION_US) || defined(VERSION_US_REV1)
+/* Builds screen state g_playerCountScreen: allocates 0x24 bytes, sets up the handle for resources
+   0x398/0x399, loads resource 0x39C, wires up windows 0x39A and 0x39D, the 0x39B button and
+   the delay, and formats s_playerCountFormat into the state's text buffer through XStdio_FormatBuffer. */
+
+#include "types.h"
+#include "Frontend/frontend_dispatchplayercountevent.h"
+#include "Ui/Tsmos/Smp/smp_fade.h"
+#include "Smp/smp_slider.h"
+#include "Frontend/frontend.h"
+#define PLAYERCOUNT_VIEW_US ((struct PlayerCountScreenState *)g_playerCountScreen)
+
+s32 Frontend_CreatePlayerCountScreen(s32 screenData) {
+    struct PlayerCountScreenState *state;
+    s32 handle;
+    struct MenuWidget *node;
+    void *text;
+
+    g_playerCountScreen = (SettingsScreenState *)Cache_AllocateMemory(36);
+    Tsmos_ActivateControllerState();
+    handle = SmpFade_CreateFadeWidget(920, 921);
+    state = PLAYERCOUNT_VIEW_US;
+    state->menu = handle;
+    SmpSlider_EnableTransition(handle);
+    SmpButton_WrapButtonWidget(924);
+    node = (struct MenuWidget *) Node_FindWidgetByResourceId((void *) screenData, 922);
+    state = PLAYERCOUNT_VIEW_US;
+    state->window = node;
+    node->alpha = 15;
+    handle = SmpFlicker_CreateFlickerWidget(923, 110);
+    state = PLAYERCOUNT_VIEW_US;
+    state->button = handle;
+    state->delay = 3;
+    node = (struct MenuWidget *) Node_FindWidgetByResourceId((void *) screenData, 925);
+    state = PLAYERCOUNT_VIEW_US;
+    text = &state->text;
+    node->text = text;
+    state->value = 1;
+    XStdio_FormatBuffer(text, s_playerCountFormat, 1);
+    return 0;
+}
+#endif
+
 /* unit FRONTEND_UPDATEPLAYERCOUNTSCREEN.CPP */
 /* Releases the object g_playerCountScreen holds through Cache_FreeMemory, clears g_playerCountScreen and returns zero. */
 s32 Frontend_DestroyPlayerCountScreen(void) {
@@ -210,122 +329,3 @@ s32 Frontend_DispatchPlayerCountEvent(void *widget, s32 eventId, s32 eventData0,
     }
     return 0;
 }
-
-/* unit FRONTEND_CREATEPLAYERCOUNTSCREENEU.CPP */
-#if defined(VERSION_EU)
-#include "types.h"
-#include "Ui/Tsmos/Smp/smp_fade.h"
-#include "Smp/smp_slider.h"
-#include "Smp/smp_button.h"
-#include "Smp/smp_flicker.h"
-#include "Frontend/frontend_address_symbols.h"
-
-/* Builds a three-row slider popup in its 0x24-byte state g_playerCountScreen: title/list from the ids at 0x398, the numeric
-   readout item at 0x39D showing the text at +0x14 formatted with s_playerCountFormat. Returns 0. */
-s32 Frontend_CreatePlayerCountScreenEu(void *window) {
-    MenuWidget *item;
-    void *title;
-
-    g_playerCountScreen = Cache_AllocateMemory(36);
-    Tsmos_ActivateControllerState();
-    title = SmpFade_CreateFadeWidget(920, 921);
-    g_playerCountScreen->menu = title;
-    SmpSlider_EnableTransition(title);
-    SmpButton_WrapButtonWidget(924);
-    item = Node_FindWidgetByResourceId(window, 922);
-    g_playerCountScreen->window = item;
-    item->alpha = 15;
-    g_playerCountScreen->button = SmpFlicker_CreateFlickerWidget(923, 110);
-    g_playerCountScreen->delay = 3;
-    item = Node_FindWidgetByResourceId(window, 925);
-    item->text = g_playerCountScreen->text;
-    g_playerCountScreen->value = 1;
-    XStdio_FormatBuffer(g_playerCountScreen->text, s_playerCountFormat, 1);
-    return 0;
-}
-#endif
-
-/* unit FRONTEND_CREATECOURSEOPTIONSMENU.CPP */
-#if defined(VERSION_US_REV1)
-#include "Common/selectionscreenstate.h"
-#include "Common/player_join_requests.h"
-#include "types.h"
-#include "Common/shared_menureply.h"
-#endif
-#if defined(VERSION_EU_X)
-#include "types.h"
-#include "Playercount/frontend_createcourseoptionsmenu.h"
-#include "Ui/Tsmos/Smp/smp_fade.h"
-#include "Smp/smp_slider.h"
-#include "Smp/smp_button.h"
-#include "Smp/smp_flicker.h"
-#include "Frontend/frontend_address_symbols.h"
-
-/* Builds a three-row slider popup in its 0x24-byte state g_playerCountScreen: title/list from the ids at 0x39C, the numeric
-   readout item at 0x39D showing the text at +0x14 formatted with s_playerCountFormat. Returns 0. */
-s32 Frontend_CreatePlayerCountScreenEux(void *window) {
-    MenuWidget *item;
-    void *title;
-
-    g_playerCountScreen = Cache_AllocateMemory(36);
-    Tsmos_ActivateControllerState();
-    title = SmpFade_CreateFadeWidget(924, 925);
-    g_playerCountScreen->menu = title;
-    SmpSlider_EnableTransition(title);
-    SmpButton_WrapButtonWidget(928);
-    item = Node_FindWidgetByResourceId(window, 926);
-    g_playerCountScreen->window = item;
-    item->alpha = 15;
-    g_playerCountScreen->button = SmpFlicker_CreateFlickerWidget(927, 110);
-    g_playerCountScreen->delay = 3;
-    item = Node_FindWidgetByResourceId(window, 929);
-    item->text = g_playerCountScreen->text;
-    g_playerCountScreen->value = 1;
-    XStdio_FormatBuffer(g_playerCountScreen->text, s_playerCountFormat, 1);
-    return 0;
-}
-#endif
-
-/* unit FRONTEND_CREATEPLAYERCOUNTSCREEN.CPP */
-#if defined(VERSION_US) || defined(VERSION_US_REV1)
-/* Builds screen state g_playerCountScreen: allocates 0x24 bytes, sets up the handle for resources
-   0x398/0x399, loads resource 0x39C, wires up windows 0x39A and 0x39D, the 0x39B button and
-   the delay, and formats s_playerCountFormat into the state's text buffer through XStdio_FormatBuffer. */
-
-#include "types.h"
-#include "Frontend/frontend_dispatchplayercountevent.h"
-#include "Ui/Tsmos/Smp/smp_fade.h"
-#include "Smp/smp_slider.h"
-#include "Frontend/frontend.h"
-#define PLAYERCOUNT_VIEW_US ((struct PlayerCountScreenState *)g_playerCountScreen)
-
-s32 Frontend_CreatePlayerCountScreen(s32 screenData) {
-    struct PlayerCountScreenState *state;
-    s32 handle;
-    struct MenuWidget *node;
-    void *text;
-
-    g_playerCountScreen = (SettingsScreenState *)Cache_AllocateMemory(36);
-    Tsmos_ActivateControllerState();
-    handle = SmpFade_CreateFadeWidget(920, 921);
-    state = PLAYERCOUNT_VIEW_US;
-    state->menu = handle;
-    SmpSlider_EnableTransition(handle);
-    SmpButton_WrapButtonWidget(924);
-    node = (struct MenuWidget *) Node_FindWidgetByResourceId((void *) screenData, 922);
-    state = PLAYERCOUNT_VIEW_US;
-    state->window = node;
-    node->alpha = 15;
-    handle = SmpFlicker_CreateFlickerWidget(923, 110);
-    state = PLAYERCOUNT_VIEW_US;
-    state->button = handle;
-    state->delay = 3;
-    node = (struct MenuWidget *) Node_FindWidgetByResourceId((void *) screenData, 925);
-    state = PLAYERCOUNT_VIEW_US;
-    text = &state->text;
-    node->text = text;
-    state->value = 1;
-    XStdio_FormatBuffer(text, s_playerCountFormat, 1);
-    return 0;
-}
-#endif

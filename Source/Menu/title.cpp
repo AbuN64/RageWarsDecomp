@@ -135,20 +135,27 @@ s32 Menu_DispatchTitleButtonTableEvent(ActorDefinitionHeader *actor, s32 event, 
 #if defined(VERSION_EU_X)
 /* Dispatches event eventId through this file's 12-byte handler table, whose rows hold an event at g_titleButtonEventTable, an actor kind at g_titleButtonEventActorKinds and a handler at g_titleButtonEventHandlers: the first row whose event equals eventId and whose kind equals the actor's input kind, or is the wildcard 0x7530, receives all five arguments and its result is returned; with no such row, or an empty table, the result is zero. */
 s32 Menu_DispatchTitleButtonOffsetEvent(void *widget, s32 eventId, s32 eventData0, s32 eventData1, s32 eventData2) {
-    ResidentEventHandlerEntry *row;
-    s32 kind;
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
 
     if (g_titleButtonEventHandlers != 0) {
-        row = g_titleButtonEventTable;
+        wildcard = 30000;
+        entry = (char *)&g_titleButtonEventHandlers;
+        offset = 0;
         do {
-            if (row->event == eventId) {
-                kind = row->actorKind;
-                if (kind == ((struct MenuWidget *)widget)->resource || kind == ANY_ACTOR_KIND) {
-                    return row->handler(widget, eventId, eventData0, eventData1, eventData2);
+            if (((struct FieldRow *) (((char *) (&g_titleButtonEventTable)) + offset))->value == eventId) {
+                actor_kind = ((struct MenuWidget *)widget)->resource;
+                table_kind = ((struct FieldRow *) (((char *) (&g_titleButtonEventActorKinds)) + offset))->value;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(widget, eventId, eventData0, eventData1, eventData2);
                 }
             }
-            row++;
-        } while (row->handler != 0);
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }

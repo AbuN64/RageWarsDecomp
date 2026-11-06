@@ -114,7 +114,17 @@ CommonEncodedWordsBlock1Layout k_commonFragment = {
 
 char g_evementSexysteveText[20] = "EVEMENT sexysteve";
 
-unsigned int g_ribbonBlendResourceTable_StorageWords[6] = {
-    ((unsigned int)&k_commonFragment.constants[0]), ((unsigned int)&k_commonFragment.constants[10]), ((unsigned int)&k_commonFragment.constants[20]), ((unsigned int)&k_commonFragment.constants[50]), ((unsigned int)&k_commonFragment.references[20]), ((unsigned int)&k_commonFragment.constants2[9]),
-};
 #endif
+
+#include "Data/Ui/ribbon_blend_resource_data.h"
+
+/* The six key selections follow the resource header in every build. */
+extern char g_ribbonBlendResources[];
+int g_ribbonBlendResourceTable[6] = {
+    (int)(g_ribbonBlendResources + 0x0C),
+    (int)(g_ribbonBlendResources + 0x34),
+    (int)(g_ribbonBlendResources + 0x5C),
+    (int)(g_ribbonBlendResources + 0xD4),
+    (int)(g_ribbonBlendResources + 0x14C),
+    (int)(g_ribbonBlendResources + 0x174),
+};

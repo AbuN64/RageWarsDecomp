@@ -32,7 +32,7 @@ s32 CItemValue_BindItemValueField(struct ItemValueBindingView *field) {
 
  /* opaque address transport */
 s32 Items_SetLanguageTextTable(struct ItemValueBindingView *field) {
-    field->value = g_languageMenuTextTable; /* types.abi.opaque_pointer: field carries an address only */
+    field->value = &g_languageMenuTextTable; /* types.abi.opaque_pointer: field carries an address only */
     return 0;
 }
 #endif

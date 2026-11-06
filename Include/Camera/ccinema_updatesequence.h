@@ -11,4 +11,5 @@ extern void Playerai_ResetControllerMotion(void *);
 extern s32 Track_HasNoTrackRequestItems(void);
 extern s32 g_gameFrameCounter;
 extern void Cache_SetResourceActivityState(unsigned int);
+extern s32 CCinema_RequestTrackWithCallbacks(s32 requestId, ContextCallback requestContextCallback, VoidCallback completionCallback);
 #endif

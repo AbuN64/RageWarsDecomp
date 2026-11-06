@@ -181,8 +181,8 @@ s32 XStdio_OpenStream(const void *name, const void *mode) {
     return g_stdioOpenCallback(name, mode);
 }
 
-void XStdio_CloseStream(void) {
-    g_stdioCloseCallback();
+void XStdio_CloseStream(s32 handle) {
+    g_stdioCloseCallback(handle);
 }
 
 s32 XStdio_ReadStream(void *destination, s32 elementSize, s32 count, s32 handle) {
@@ -245,7 +245,7 @@ s32 *XStdio_FormatScratchArgumentList(s32 fmt0, s32 argumentList) {
 
 void XStdio_SetStreamCallbacks(ResourceOpenCallback openCallback, s32 closeCallback, ResourceReadCallback readCallback, s32 writeCallback, ResourceSeekCallback seekCallback, FuncPtr tellCallback, FuncPtr endCallback) {
     g_stdioOpenCallback = openCallback;
-    g_stdioCloseCallback = (FuncPtr)closeCallback;
+    g_stdioCloseCallback = (ResourceCloseCallback)closeCallback;
     g_stdioReadCallback = readCallback;
     g_stdioWriteCallback = writeCallback;
     g_stdioSeekCallback = seekCallback;

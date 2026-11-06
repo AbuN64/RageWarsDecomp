@@ -96,4 +96,5 @@ struct AudioPendingSoundListOwner;
 void AudioWorld_RecyclePendingSoundsExceptKey(struct AudioPendingSoundListOwner *channelOwner, s32 retainedKey);
 extern s8 SoundInfo_GetPriority(void *);
 extern s16 SoundInfo_GetFlags(void *);
+extern void Sound_LoadSoundAndSequenceTables(struct GameAudioContext *ctx);
 #endif

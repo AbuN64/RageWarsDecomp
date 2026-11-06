@@ -42,7 +42,7 @@
 #include "Ai/ai_address_labels.h"
 
 
-RestOvlgameInitializeplayerpoolEncodedWordsRecord391 k_OvlgameInitializeplayerpoolData = {
+PlayerPoolInitWords k_OvlgameInitializeplayerpoolData = {
     1,
 };
 

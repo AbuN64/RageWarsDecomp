@@ -52,4 +52,6 @@ extern struct Region g_pagerRegionHead;
 extern char g_pagerDispatcherRomEntry[];
 extern char g_pagerPendingQueue[];
 
+extern void *Virtual_FindRegionForPage(u32 virtualPage);
+extern void Virtual_FinishPageJob(ResourcePageJob *req);
 #endif

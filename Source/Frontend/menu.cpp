@@ -113,9 +113,9 @@ s32 Menu_DispatchSelectionMenuEvent(void *actor, s32 event, s32 eventValue, s32 
         entry = (char *)&g_selectionMenuHandlers;
         offset = 0;
         do {
-            if ((*(s32 *) (((char *) (&g_selectionMenuHandlerEvents)) + offset)) == event) {
+            if (((s32 *) (((char *) (&g_selectionMenuHandlerEvents)) + offset))[0] == event) {
                 actor_kind = ((struct MenuWidget *) ((char *) actor))->resource;
-                table_kind = (*(s32 *) (((char *) (&g_selectionMenuHandlerKinds)) + offset));
+                table_kind = ((s32 *) (((char *) (&g_selectionMenuHandlerKinds)) + offset))[0];
                 if ((table_kind == actor_kind) || (table_kind == wildcard)) {
                     return (*(WidgetEventHandler *)entry)(actor, event, eventValue, eventData, eventContext);
                 }

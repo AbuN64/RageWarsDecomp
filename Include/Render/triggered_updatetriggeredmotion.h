@@ -11,6 +11,6 @@ s32 Triggered_SelectMotionSound(void *context, struct TriggeredMotionSoundOption
 struct MovingPlatformActorView;
 struct MovingPlatformMotionStateView;
 void Triggered_UpdateTriggeredMotion(struct MovingPlatformActorView *actor, struct MovingPlatformMotionStateView *motion);
-extern void Triggered_PathMotionNoOp(void);
+extern void Triggered_PathMotionNoOp(u8 *platform, void *player);
 
 #endif

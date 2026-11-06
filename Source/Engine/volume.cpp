@@ -1,3 +1,4 @@
+#include "Common/shared_gameslot.h"
 #include "Ai/cteamselect.h"
 #include "Engine/debug_value_labels.h"
 #include "include_asm.h"
@@ -194,6 +195,7 @@ const char k_pakSyncprimarybyteoptionDataTextBytes[5] = "%03d";
 s32 Pak_AdjustModelField(OptionEditState *label, OptionEditState *menu, s32 third, s32 wrap, s32 fieldOffset, s32 step, s32 maximum, f32 displayDivisor) {
     s32 modelIndex;
     s32 recordIndex;
+    s32 modelRecordIndexOrLimit;
     s32 textAddress;
     s32 length;
     u8 *fieldAddress;
@@ -227,7 +229,8 @@ s32 Pak_AdjustModelField(OptionEditState *label, OptionEditState *menu, s32 thir
                     break;
                 case 2:
                     fieldValue = (s32)*(f32 *)fieldAddress;
-                    fieldValue = Menu_AdjustValue(menu, fieldValue, step, 0, maximum, 1);
+                    modelRecordIndexOrLimit = maximum;
+                    fieldValue = Menu_AdjustValue(menu, fieldValue, step, 0, modelRecordIndexOrLimit, 1);
                     *(f32 *)fieldAddress = fieldValue;
                     break;
                 }
@@ -237,15 +240,19 @@ s32 Pak_AdjustModelField(OptionEditState *label, OptionEditState *menu, s32 thir
                 Libc_FormatString(textAddress + length, &g_menuScaledLabelValueFormat, (s32) ((f32) fieldValue / displayDivisor));
                 if (g_modelEditorApplyToAllRecords != 0) {
                     modelPack = (OptionEditContext *)SetN64_GetPackSection(g_modelEditPack, 0);
+                    modelRecordIndexOrLimit = 0;
                     recordCount = modelPack->count;
                     record = modelPack->records;
-                    for (recordIndex = 0; recordIndex < recordCount; recordIndex++, record++) {
-                        fieldAddress = &record->bytes[fieldOffset];
+                    if (recordCount > 0) {
+                      do {
+                        fieldAddress = record[modelRecordIndexOrLimit].bytes + fieldOffset;
                         switch (wrap) {
                         case 0: *fieldAddress = fieldValue; break;
                         case 1: *(s32 *)fieldAddress = fieldValue; break;
                         case 2: *(f32 *)fieldAddress = fieldValue; break;
                         }
+                        modelRecordIndexOrLimit += 1;
+                      } while (modelRecordIndexOrLimit < recordCount);
                     }
                 }
             }
@@ -1078,7 +1085,7 @@ s32 Pak_FormatMusicPreview(LayeredText *field) {
     } else {
         field->text = VALUE_TEXT;
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-        text = field->text[g_languageIndex];
+        text = field->text[g_gameSettings.language];
 #else
         text = (char *)*VALUE_TEXT;
 #endif
@@ -1225,7 +1232,7 @@ s32 Pak_UpdateTextureVariationBypassText(struct PakActionLabelView *field) {
 
 /* PAK_ENTERPLAYEROPTIONS.CPP */
 
-/* Sets a player state to 2, then in multiplayer (g_motionVisibilitySettings) clears and otherwise sets bit 0x800000 in both of its actor's visibility masks at 0x80 and 0xA8, and refreshes the audio state through SoundVoicePool_GetGlobalState and SoundVoicePool_Pause with that mask. */
+/* Sets a player state to 2, then in multiplayer (g_gameSettings.local) clears and otherwise sets bit 0x800000 in both of its actor's visibility masks at 0x80 and 0xA8, and refreshes the audio state through SoundVoicePool_GetGlobalState and SoundVoicePool_Pause with that mask. */
 
 void Pak_EnterPlayerOptions(PlayerOptionsEntry *player) {
     s32 mask;
@@ -1306,21 +1313,21 @@ s32 Pak_UpdateChoiceText(struct PakActionLabelView *field) {
     }
     return 0;
 }
-/* Keeps an option field and the remembered byte g_playerModelLighting[index] in step, giving a field still at -1 the remembered value and otherwise remembering the field low byte, then mirrors it into g_savedPlayerModelLighting[index] and formats it into the field text with s_menuByteOptionValueFormat three bytes before the length Menu_CountLineChars reports, returning zero. */
+/* Keeps an option field and the remembered byte g_playerModelLighting[0].ambient[index] in step, giving a field still at -1 the remembered value and otherwise remembering the field low byte, then mirrors it into g_savedPlayerModelLighting[index] and formats it into the field text with s_menuByteOptionValueFormat three bytes before the length Menu_CountLineChars reports, returning zero. */
 
 s32 Pak_SyncPrimaryByteOption(struct Field *field, s32 index) {
     char *text = *field->text;
 
     if (field->value == -1) {
-        field->value = g_playerModelLighting[index];
+        field->value = g_playerModelLighting[0].ambient[index];
     } else {
-        g_playerModelLighting[index] = (u8)field->value;
+        g_playerModelLighting[0].ambient[index] = (u8)field->value;
     }
-    g_savedPlayerModelLighting[index] = g_playerModelLighting[index];
+    g_savedPlayerModelLighting[index] = g_playerModelLighting[0].ambient[index];
     Libc_FormatString(text + (Menu_CountLineChars(field) - 3), s_menuByteOptionValueFormat, field->value);
     return 0;
 }
-/* Keeps an option field and the remembered byte g_playerModelLighting[0] in step: a field still at -1 takes the
+/* Keeps an option field and the remembered byte g_playerModelLighting[0].ambient[0] in step: a field still at -1 takes the
    remembered value, otherwise the field's low byte is remembered; the value is mirrored into
    g_savedPlayerModelLighting[0] and formatted into the field's text with s_menuByteOptionValueFormat, three bytes before the length
    Menu_CountLineChars reports. Returns zero. */
@@ -1328,15 +1335,15 @@ s32 Pak_SyncAmbientRed(struct Field *field) {
     char *text = *field->text;
 
     if (field->value == -1) {
-        field->value = g_playerModelLighting[0];
+        field->value = g_playerModelLighting[0].ambient[0];
     } else {
-        g_playerModelLighting[0] = (u8)field->value;
+        g_playerModelLighting[0].ambient[0] = (u8)field->value;
     }
-    g_savedPlayerModelLighting[0] = g_playerModelLighting[0];
+    g_savedPlayerModelLighting[0] = g_playerModelLighting[0].ambient[0];
     Libc_FormatString(text + (Menu_CountLineChars(field) - 3), s_menuByteOptionValueFormat, field->value);
     return 0;
 }
-/* Keeps an option field and the remembered byte g_playerModelLighting[1] in step: a field still at -1 takes the
+/* Keeps an option field and the remembered byte g_playerModelLighting[0].ambient[1] in step: a field still at -1 takes the
    remembered value, otherwise the field's low byte is remembered; the value is mirrored into
    g_savedPlayerModelLighting[1] and formatted into the field's text with s_menuByteOptionValueFormat, three bytes before the length
    Menu_CountLineChars reports. Returns zero. */
@@ -1344,15 +1351,15 @@ s32 Pak_SyncAmbientGreen(struct Field *field) {
     char *text = *field->text;
 
     if (field->value == -1) {
-        field->value = g_playerModelLighting[1];
+        field->value = g_playerModelLighting[0].ambient[1];
     } else {
-        g_playerModelLighting[1] = (u8)field->value;
+        g_playerModelLighting[0].ambient[1] = (u8)field->value;
     }
-    g_savedPlayerModelLighting[1] = g_playerModelLighting[1];
+    g_savedPlayerModelLighting[1] = g_playerModelLighting[0].ambient[1];
     Libc_FormatString(text + (Menu_CountLineChars(field) - 3), s_menuByteOptionValueFormat, field->value);
     return 0;
 }
-/* Keeps an option field and the remembered byte g_playerModelLighting[2] in step: a field still at -1 takes the
+/* Keeps an option field and the remembered byte g_playerModelLighting[0].ambient[2] in step: a field still at -1 takes the
    remembered value, otherwise the field's low byte is remembered; the value is mirrored into
    g_savedPlayerModelLighting[2] and formatted into the field's text with s_menuByteOptionValueFormat, three bytes before the length
    Menu_CountLineChars reports. Returns zero. */
@@ -1360,11 +1367,11 @@ s32 Pak_SyncAmbientBlue(struct Field *field) {
     char *text = *field->text;
 
     if (field->value == -1) {
-        field->value = g_playerModelLighting[2];
+        field->value = g_playerModelLighting[0].ambient[2];
     } else {
-        g_playerModelLighting[2] = (u8)field->value;
+        g_playerModelLighting[0].ambient[2] = (u8)field->value;
     }
-    g_savedPlayerModelLighting[2] = g_playerModelLighting[2];
+    g_savedPlayerModelLighting[2] = g_playerModelLighting[0].ambient[2];
     Libc_FormatString(text + (Menu_CountLineChars(field) - 3), s_menuByteOptionValueFormat, field->value);
     return 0;
 }

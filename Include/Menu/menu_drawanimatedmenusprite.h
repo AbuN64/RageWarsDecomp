@@ -4,5 +4,5 @@
 struct PaddedFloatView;
 extern void *Menu_GetListContext(void *member);
 struct MenuItemFlagsView;
-extern void *Menu_GetWidgetStyle(struct MenuItemFlagsView *widget);
+extern void *Menu_GetWidgetStyle(struct MenuItemFlagsView *widget, s32 unused);
 #endif

@@ -64,6 +64,9 @@ s32 Menu_FormatRightAlignedName(RightAlignedNameLabelView *labelWidget) {
 }
 #endif
 
+/* g_pakPreviewNoteType is read through a struct view so the compiler keeps the load behind the preceding store. */
+typedef struct { s8 value; } PakModeByte;
+
 #if defined(VERSION_DE)
 typedef struct { char pad0[0x14]; char **text; } NoteTypeLabelView;
 /* Copies the 14-byte label chosen by g_pakPreviewNoteType (default g_pakNoteTypeDefaultLabel) into the label's text after its fixed prefix, or points the text at g_pakDefaultPreviewTypeLabel when g_pakUseDefaultPreviewLabels is set; returns zero. */
@@ -72,10 +75,10 @@ s32 Menu_FormatNoteTypeLabel(NoteTypeLabelView *labelWidget) {
     char *dst;
     s32 i;
     if (g_pakUseDefaultPreviewLabels != 0) {
-        labelWidget->text = (char **)g_pakDefaultPreviewTypeLabel;
+        labelWidget->text = (char **)&g_pakDefaultPreviewTypeLabel;
     } else {
         labelWidget->text = (char **)g_pakPreviewTypeLabelBuffer;
-        switch (g_pakPreviewNoteType) {
+        switch (((PakModeByte *)&g_pakPreviewNoteType)->value) {
         case 0:
         case 1:
         case 4:
@@ -100,7 +103,7 @@ s32 Menu_FormatNoteTypeLabel(NoteTypeLabelView *labelWidget) {
             src = g_pakNoteTypeCampaignerLabel;
             break;
         case 14:
-            src = g_pakNoteTypeTelsetLabelText;
+            src = *(char **)g_pakNoteTypeTelsetLabelText;
             break;
         }
         dst = (char *)*labelWidget->text;
@@ -114,8 +117,6 @@ s32 Menu_FormatNoteTypeLabel(NoteTypeLabelView *labelWidget) {
 #endif
 
 #if defined(VERSION_EU) || defined(VERSION_EU_X)
-/* g_pakPreviewNoteType is read through a struct view so the compiler keeps the load behind the preceding store. */
-typedef struct { s8 value; } PakModeByte;
 /* Pak status line: picks the 11-character status text for the state g_pakPreviewNoteType in the current language and copies it into
    the entry's line; with g_pakUseDefaultPreviewLabels set it only selects the heading table. */
 s32 Menu_FormatLocalizedPakStatus(struct Field *entry) {
@@ -162,13 +163,30 @@ s32 Menu_FormatLocalizedPakStatus(struct Field *entry) {
 /* Points a field's text at the pak action label for the frontend resource load stage: stages 1 and 2
    use the alternate label, every other stage uses the default label. Returns zero. */
 s32 Menu_SelectEuropeanPakActionLabel(struct PakActionLabelView *field) {
-    u32 stage = g_frontendResourceLoadStage;
+    u32 state = g_frontendResourceLoadStage;
 
-    if (stage == 1 || stage == 2) {
-        field->text = s_nodeAlternateFieldText;
-    } else {
-        field->text = s_nodeDefaultFieldText;
+    if (state >= 5) {
+        goto state_other;
     }
+    switch (state) {
+        case 0: goto state_other;
+        case 1: goto case_3;
+        case 2: goto case_3;
+        case 3: goto case_1;
+        case 4: goto case_2;
+        }
+state_other:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+case_1:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+case_2:
+    field->text = s_nodeDefaultFieldText;
+    goto done;
+case_3:
+    field->text = s_nodeAlternateFieldText;
+done:
     return 0;
 }
 #endif

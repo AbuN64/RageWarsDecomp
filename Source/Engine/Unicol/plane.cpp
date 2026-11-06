@@ -31,8 +31,8 @@ s32 CCollision_CopyProbePosition(struct LevelActor *unusedActor, CVector3 t, s32
 s32 CCollision_CopyPositionAndGetModelFlags(void *modelStorage, s32 unusedFlags, CVector3 t, s32 unusedRoom, s32 unusedRadius, void *outputStorage) {
     struct Model *model = modelStorage;
     CVector3 *output = outputStorage;
-    Triple scratchPositionA;
-    Triple scratchPositionB;
+    Triple unused1;
+    Triple unused2;
     *output = t;
     return model->flags;
 }
@@ -371,7 +371,7 @@ s32 CCollision_IntersectFrontPlanePoint(void *contactPlane, void *segmentStart, 
         }
     }
     if (intersectsPlane != 0) {
-        Graphu64_InterpolateVector(outputPoint, hitFraction, segmentStart, segmentEnd);
+        ((void (*)(CVector3 *, u32, CVector3 *, CVector3 *))Graphu64_InterpolateVector)(outputPoint, *(u32 *)&hitFraction, segmentStart, segmentEnd);
         return 1;
     }
     return 0;
@@ -476,6 +476,7 @@ f32 CCollision_GetContactYaw(f32 *contactRecord) {
  * its projection onto the segment direction, clamped to the segment ends, before taking the length. */
 
 f32 CCollision_DistanceToSegment(CVector3 *a, CVector3 *b, CVector3 *p) {
+    extern void Graphu64_SubtractVectors(CVector3 *, CVector3 *, CVector3 *);
     CVector3 offset;
     CVector3 dir;
     f32 value;

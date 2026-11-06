@@ -294,7 +294,6 @@
 #include "Ai/playerai_updatedelayeddamage__player.h"
 
 
-s32 k_PlayeraiTrystartplayersequenceZeroFill = 0;
 
 float k_linktablesFragment[6] = {
     -132.0f, 64.0f, 64.0f, 24.0f, -12.0f, -48.0f,
@@ -304,9 +303,4 @@ float g_aiDistanceBounds[2] = {
     0.0f, 102.399994f,
 };
 
-s32 k_aiSignWords[15] = {
-    1, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, -1, 1,
-    1, 1, 1,
-};
 #endif

@@ -385,6 +385,7 @@ void Achieve_ConfigureResultModelPreview(void) {
 #include "Widget/widget_findwidgetatpoint.h"
 #include "Achieve/achieve_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Achieve/match_updateranktext.h"
 #if defined(VERSION_DE)
 #define Preview_DrawMenuModelItem Frontend_DrawResultModelPreviewDe
 #else
@@ -542,7 +543,7 @@ s32 Achieve_UpdateResultsScreen(void *window, void *callbackContext, s32 event) 
             Widget_SetWidgetFlag08(window, 1);
             object = &g_frontendScreenStatus;
             Pools_ResetActorPools(object, 0);
-            Player_InitializePlayerPool((Shared_MenuData *)&g_frontendScreenStatus, 0, 0);
+            Player_InitializePlayerPool(object - ((char *)&((Shared_MenuData *)0)->object - (char *)0), 0, 0);
             Scene_LoadLevelResources(&g_world, 0, 0);
             ((MatchMenuObjects *)(object))->transition = 8;
         } else {

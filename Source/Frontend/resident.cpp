@@ -125,7 +125,7 @@ s32 Frontend_DispatchResidentActorEvent(void *menuActor, s32 eventKind, s32 even
     s32 wildcard;
     s32 actor_kind;
     s32 table_kind;
-    MenuWidget *actor;
+    struct MenuWidget *actor;
 
     if (g_residentActorEventHandlers != 0) {
         wildcard = 30000;

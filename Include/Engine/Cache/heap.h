@@ -32,11 +32,11 @@ struct HeapFreeBlockList {
     struct HeapAllocationBlock *tail;
 };
 extern void Heap_CoalesceEmptyPhysicalBlocks(struct HeapArena_Heap *arena);
-extern void Heap_GetFreeByteCounts(struct HeapArena_Entryrecat18v3 *arena, s32 *totalBytesOut, u32 *largestBlockBytesOut);
+extern void Heap_GetFreeByteCounts(struct HeapArenaBlockList *arena, s32 *totalBytesOut, u32 *largestBlockBytesOut);
 struct HeapFreeBlockList;
 void *Heap_AllocateFromBack(struct HeapFreeBlockList *heap, s32 request);
 void *Heap_AllocateFromFront(struct HeapFreeBlockList *heap, s32 request);
 struct Heap;
 void Heap_InitializeArena(struct Heap *heap, char *start, s32 size);
-extern s32 Heap_FreeAllocation(struct HeapArena_Entryrecat18v3 *arena, char *dataToFree);
+extern s32 Heap_FreeAllocation(struct HeapArenaBlockList *arena, char *dataToFree);
 #endif

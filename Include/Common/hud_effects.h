@@ -226,7 +226,7 @@ struct CItem {
 
 
 
-extern float g_impactMarkScaleConstants[2]; /* impact mark scale constants, indexed by the readers in FX_SPAWNIMPACTMARK.CPP */
+extern float g_impactMarkScaleConstants; /* impact mark scale constants, indexed by the readers in FX_SPAWNIMPACTMARK.CPP */
 
 
 

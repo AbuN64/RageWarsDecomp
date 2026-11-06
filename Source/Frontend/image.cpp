@@ -328,9 +328,9 @@ u8 Frontend_OwnsImagePixels(u8 *record) {
     return record[1] & 1;
 }
 
-void Frontend_ConfigureOwnedImage(struct Config *out, unsigned char type, short x, short y,
-                  short a, short b, int enable1, int d, int e, int enable2,
-                  int f, int g, short last) {
+void Frontend_ConfigureOwnedImage(struct Config *out, int type, short x, short y,
+                  int a, int b, int enable1, int d, int e, int enable2,
+                  int f, int g, int last) {
     out->type = type;
     out->x = x;
     out->y = y;

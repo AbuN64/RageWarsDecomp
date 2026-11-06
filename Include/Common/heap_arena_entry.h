@@ -8,7 +8,7 @@
 /* Appends node at the tail and returns the new count. */
 
 
-struct HeapArena_Entryrecat18v3;
+struct HeapArenaBlockList;
 
 
 

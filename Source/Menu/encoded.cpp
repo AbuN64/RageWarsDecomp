@@ -3,48 +3,8 @@
 #include "Common/shared_gameslot.h"
 #include "Common/effectrender.h"
 #include "Menu/levelselect_types.h"
-#if ((defined(VERSION_DE))) || ((!(defined(VERSION_DE))))
-#include "Menu/handle_unlocked_level_selection_body.h"
-#endif
-#include "../../sdk/include/LIBC.H"
-#include "Common/weapon_screen_message_operations.h"
-#include "Common/Lone/g_languageindex.h"
-#include "Common/cheatcode.h"
-#include "Common/vector4f.h"
-#include "Common/font_style_and_glyph_operations.h"
-#include "Common/menu_ui_providers.h"
-#include "Menu/menu_drawanimatedmenusprite.h"
-#include "Menu/menu_createmenufromparameters.h"
-#include "Gfx/Text/onscreen_drawscaledmaskedtilegrid.h"
-#include "Menu/Encoded/encoded_drawtextentrycursor_symbols.h"
-#include "Menu/built_menu.h"
-#include "Common/runtime_declarations.h"
-#include "Menu/Encoded/encoded_findunlockedlevel_symbols.h"
-#include "Common/world.h"
-#if ((!(defined(VERSION_DE))))
-#include "Common/shared_menuselection.h"
-#endif
-#if ((!(defined(VERSION_DE))))
-#include "Common/game_session.h"
-#endif
-#if ((!(defined(VERSION_DE))))
-#include "Ovlgame/confirming_controller.h"
-#endif
-#include "Menu/encoded_resettextentryresult.h"
-#include "Menu/Encoded/encoded_resettextentryresult_symbols.h"
-#include "Render/soundelement_playflatsound.h"
-#include "Menu/Encoded/encoded_applycheatcode_symbols.h"
-#include "Menu/menu_item_views.h"
-#include "Menu/Pak/pak_menu_entries.h"
-
-#if defined(VERSION_DE)
-extern char g_encodedCheatTextWords[180];
-#endif
-
-/* Minimal callback views established by Encoded_UpdateLevelSelectionAvailability_MenuHandleunlockedlevelselection..C85C: the owner at+12
-   supplies the descriptor whose option flags are at+728. */
-
-static inline s32 levelBit_menuHandleunlockedlevelselection(s32 level) {
+/* The unlock bit of a level: an inlined switch whose default (level 0 and level >= 11) is 0x10000; levels 6 and 7 hold swapped bits. */
+static inline s32 levelBit(s32 level) {
     s32 bit;
 
     switch (level) {
@@ -86,12 +46,52 @@ static inline s32 levelBit_menuHandleunlockedlevelselection(s32 level) {
     return bit;
 }
 
+#include "Menu/handle_unlocked_level_selection_body.h"
+#include "../../sdk/include/LIBC.H"
+#include "Common/weapon_screen_message_operations.h"
+#include "Common/Lone/g_languageindex.h"
+#include "Common/cheatcode.h"
+#include "Common/vector4f.h"
+#include "Common/font_style_and_glyph_operations.h"
+#include "Common/menu_ui_providers.h"
+#include "Menu/menu_drawanimatedmenusprite.h"
+#include "Menu/menu_createmenufromparameters.h"
+#include "Gfx/Text/onscreen_drawscaledmaskedtilegrid.h"
+#include "Menu/Encoded/encoded_drawtextentrycursor_symbols.h"
+#include "Menu/built_menu.h"
+#include "Common/runtime_declarations.h"
+#include "Menu/Encoded/encoded_findunlockedlevel_symbols.h"
+#include "Common/world.h"
+#if ((!(defined(VERSION_DE))))
+#include "Common/shared_menuselection.h"
+#endif
+#if ((!(defined(VERSION_DE))))
+#include "Common/game_session.h"
+#endif
+#if ((!(defined(VERSION_DE))))
+#include "Ovlgame/confirming_controller.h"
+#endif
+#include "Menu/encoded_resettextentryresult.h"
+#include "Menu/Encoded/encoded_resettextentryresult_symbols.h"
+#include "Render/soundelement_playflatsound.h"
+#include "Menu/Encoded/encoded_applycheatcode_symbols.h"
+#include "Menu/menu_item_views.h"
+#include "Menu/Pak/pak_menu_entries.h"
+
+#if defined(VERSION_DE)
+extern char g_encodedCheatTextWords[180];
+#endif
+
+/* Minimal callback views established by Encoded_UpdateLevelSelectionAvailability_MenuHandleunlockedlevelselection..C85C: the owner at+12
+   supplies the descriptor whose option flags are at+728. */
+
+
 /* Choose the first unlocked level, then enable the corresponding widget flags. */
 static inline s32 firstUnlocked_menuHandleunlockedlevelselection(void) {
     s32 level = 0;
     s32 i;
     for (i = 0; i < 11; i++) {
-        if (g_gameSettings.unlockedLevels & levelBit_menuHandleunlockedlevelselection(level)) {
+        if (g_gameSettings.unlockedLevels & levelBit(level)) {
             return level;
         }
         level++;
@@ -127,7 +127,7 @@ void Encoded_DrawTextEntryCursor(void *menu, MenuLocalizedTextItemView *item, vo
     unsigned int bits;
 
     if (g_encodedTextEntryState.timer <= (6.0f)) {
-        width = ((struct PaddedFloatView *)Menu_GetWidgetStyle((struct MenuItemFlagsView *)menu))->value * (f32)g_hudReferenceViewportWidth * (0.0035211266949772835f);
+        width = ((struct PaddedFloatView *)Menu_GetWidgetStyle((struct MenuItemFlagsView *)menu, 0))->value * (f32)g_hudReferenceViewportWidth * (0.0035211266949772835f);
         x = (f32)item->x + (f32)g_encodedTextEntryState.value * width;
         g_multiplayerItemRenderState = -1;
         alpha = style->alpha * (style->fade * (128.0f));
@@ -525,7 +525,7 @@ s32 Encoded_ApplyCheatCode(void)
             g_gameSettings.unlockedLevels |= g_encodedCheatDefinitions[i].flags;
             settings = &g_gameSettings;
             do {
-                g_persistedOptionUnlockFlags = settings->unlockedLevels;
+                g_persistedOptionUnlockFlags[0] = settings->unlockedLevels;
             } while (0);
             hasSound = g_encodedCheatDefinitions[i].sound != 0;
             g_encodedCheatCharacterIndex = i;

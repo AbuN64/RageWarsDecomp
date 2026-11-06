@@ -127,7 +127,6 @@ void Sky_DrawClippedEffectFan(SkyLayerRuntimeView *object, ClipView *view) {
                 }
             }
             for (face = 0; face < 4; face++) {
-                s32 faceVisible;
                 switch (face) {
                 case 0:
                 default: first = 0; second = 1; third = 3; break;
@@ -141,55 +140,59 @@ void Sky_DrawClippedEffectFan(SkyLayerRuntimeView *object, ClipView *view) {
                 Graphu64_SubtractVectors(&edge0, &triangle[1], &triangle[0]);
                 Graphu64_SubtractVectors(&edge1, &triangle[2], &triangle[1]);
                 Graphu64_CrossVectors(&normal, &edge0, &edge1);
-                faceVisible = (normal.y <= 0.0f) ? (below != 1) : (below != 0);
-                if (faceVisible) {
-                    triRed[0] = red[first]; triRed[1] = red[second]; triRed[2] = red[third];
-                    triGreen[0] = green[first]; triGreen[1] = green[second]; triGreen[2] = green[third];
-                    triBlue[0] = blue[first]; triBlue[1] = blue[second]; triBlue[2] = blue[third];
-                    triAlpha[0] = alpha[first]; triAlpha[1] = alpha[second]; triAlpha[2] = alpha[third];
-                    texcoord[0] = points[first];
-                    texcoord[1] = points[second];
-                    texcoord[2] = points[third];
-                    for (i = 0; i < 3; i++) {
-                        texcoord[i].x -= triangle[0].x * 0.5f;
-                        texcoord[i].z -= triangle[0].z * 0.5f;
-                        texcoord[i].x += object->offsetS;
-                        texcoord[i].z += object->offsetT;
+                if (normal.y <= 0.0f) {
+                    if (below != 1) goto draw_face;
+                } else {
+                    if (below != 0) {
+draw_face:
+                        triRed[0] = red[first]; triRed[1] = red[second]; triRed[2] = red[third];
+                        triGreen[0] = green[first]; triGreen[1] = green[second]; triGreen[2] = green[third];
+                        triBlue[0] = blue[first]; triBlue[1] = blue[second]; triBlue[2] = blue[third];
+                        triAlpha[0] = alpha[first]; triAlpha[1] = alpha[second]; triAlpha[2] = alpha[third];
+                        texcoord[0] = points[first];
+                        texcoord[1] = points[second];
+                        texcoord[2] = points[third];
+                        for (i = 0; i < 3; i++) {
+                            texcoord[i].x -= triangle[0].x * 0.5f;
+                            texcoord[i].z -= triangle[0].z * 0.5f;
+                            texcoord[i].x += object->offsetS;
+                            texcoord[i].z += object->offsetT;
+                        }
+                        maxS = texcoord[2].x;
+                        if (!(texcoord[1].x <= maxS)) maxS = texcoord[1].x;
+                        if (!(texcoord[0].x <= maxS)) maxS = texcoord[0].x;
+                        minS = texcoord[2].x;
+                        if (!(minS <= texcoord[1].x)) minS = texcoord[1].x;
+                        if (!(minS <= texcoord[0].x)) minS = texcoord[0].x;
+                        maxT = texcoord[2].z;
+                        if (!(texcoord[1].z <= maxT)) maxT = texcoord[1].z;
+                        if (!(texcoord[0].z <= maxT)) maxT = texcoord[0].z;
+                        minT = texcoord[2].z;
+                        if (!(minT <= texcoord[1].z)) minT = texcoord[1].z;
+                        if (!(minT <= texcoord[0].z)) minT = texcoord[0].z;
+                        if (wrapPeriod <= maxS) shiftS = (s32)(maxS / wrapPeriod) * -wrapPeriod;
+                        else if (minS <= -wrapPeriod) shiftS = (s32)(minS / wrapPeriod) * wrapPeriod;
+                        else shiftS = 0.0f;
+                        if (wrapPeriod <= maxT) shiftT = (s32)(maxT / wrapPeriod) * -wrapPeriod;
+                        else if (minT <= -wrapPeriod) shiftT = (s32)(minT / wrapPeriod) * wrapPeriod;
+                        else shiftT = 0.0f;
+                        for (i = 0; i < 3; i++) {
+                            vertex = i + &object->vertices[g_lightingBufferIndex][face * 3];
+                            vertex->flag = 0;
+                            vertex->x = (s32)triangle[i].x;
+                            vertex->y = (s32)triangle[i].y;
+                            vertex->z = (s32)triangle[i].z;
+                            factor = 16384.0f / texturePeriod;
+                            vertex->s = (s32)((texcoord[i].x + shiftS) * factor);
+                            vertex->t = (s32)((texcoord[i].z + shiftT) * factor);
+                            vertex->r = (u32)triRed[i];
+                            vertex->g = (u32)triGreen[i];
+                            vertex->b = (u32)triBlue[i];
+                            vertex->a = (u32)triAlpha[i];
+                        }
+                        gSPVertex(g_displayListCursor++, &object->vertices[g_lightingBufferIndex][face * 3], 3, 0);
+                        gSP1Triangle(g_displayListCursor++, 0, 1, 2, 0);
                     }
-                    maxS = texcoord[2].x;
-                    if (!(texcoord[1].x <= maxS)) maxS = texcoord[1].x;
-                    if (!(texcoord[0].x <= maxS)) maxS = texcoord[0].x;
-                    minS = texcoord[2].x;
-                    if (!(minS <= texcoord[1].x)) minS = texcoord[1].x;
-                    if (!(minS <= texcoord[0].x)) minS = texcoord[0].x;
-                    maxT = texcoord[2].z;
-                    if (!(texcoord[1].z <= maxT)) maxT = texcoord[1].z;
-                    if (!(texcoord[0].z <= maxT)) maxT = texcoord[0].z;
-                    minT = texcoord[2].z;
-                    if (!(minT <= texcoord[1].z)) minT = texcoord[1].z;
-                    if (!(minT <= texcoord[0].z)) minT = texcoord[0].z;
-                    if (wrapPeriod <= maxS) shiftS = (s32)(maxS / wrapPeriod) * -wrapPeriod;
-                    else if (minS <= -wrapPeriod) shiftS = (s32)(minS / wrapPeriod) * wrapPeriod;
-                    else shiftS = 0.0f;
-                    if (wrapPeriod <= maxT) shiftT = (s32)(maxT / wrapPeriod) * -wrapPeriod;
-                    else if (minT <= -wrapPeriod) shiftT = (s32)(minT / wrapPeriod) * wrapPeriod;
-                    else shiftT = 0.0f;
-                    for (i = 0; i < 3; i++) {
-                        vertex = i + &object->vertices[g_lightingBufferIndex][face * 3];
-                        vertex->flag = 0;
-                        vertex->x = (s32)triangle[i].x;
-                        vertex->y = (s32)triangle[i].y;
-                        vertex->z = (s32)triangle[i].z;
-                        factor = 16384.0f / texturePeriod;
-                        vertex->s = (s32)((texcoord[i].x + shiftS) * factor);
-                        vertex->t = (s32)((texcoord[i].z + shiftT) * factor);
-                        vertex->r = (u32)triRed[i];
-                        vertex->g = (u32)triGreen[i];
-                        vertex->b = (u32)triBlue[i];
-                        vertex->a = (u32)triAlpha[i];
-                    }
-                    gSPVertex(g_displayListCursor++, &object->vertices[g_lightingBufferIndex][face * 3], 3, 0);
-                    gSP1Triangle(g_displayListCursor++, 0, 1, 2, 0);
                 }
             }
         }

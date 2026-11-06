@@ -81,6 +81,6 @@ void TeamSelect_ResetWeaponWheel(struct CBarrel_t *menu);
 struct Player;
 void TeamSelect_UpdateDraftPanel(CBarrel *wheel, struct Player *player, s32 selectionContext);
 s32 TeamSelect_TryCloseWeaponWheel(CBarrel *wheel, struct Player *player);
-extern void TeamSelect_EmptyWeaponWheelHook(void);
+extern void TeamSelect_EmptyWeaponWheelHook(void *weaponWheelState);
 
 #endif

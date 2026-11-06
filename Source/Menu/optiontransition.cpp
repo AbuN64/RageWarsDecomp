@@ -106,14 +106,27 @@ s32 Menu_ConsumeOptionsTransitionEvent(void) {
 }
 
 s32 Menu_DispatchOptionsTransitionEvent(void *object, s32 event, s32 eventData, s32 eventValue, s32 eventContext) {
-    ResidentEventHandlerEntry *handlers = (ResidentEventHandlerEntry *)g_optionsTransitionEventCodes;
-    s32 row;
-    for (row = 0; handlers[row].handler != 0; row++) {
-        if (handlers[row].event == event &&
-            (handlers[row].actorKind == ((struct MenuWidget *)object)->resource ||
-             handlers[row].actorKind == ANY_ACTOR_KIND)) {
-            return handlers[row].handler(object, event, eventData, eventValue, eventContext);
-        }
+    char *entry;
+    s32 offset;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+
+    if (g_optionsTransitionEventCallbacks != 0) {
+        wildcard = 30000;
+        entry = (char *)&g_optionsTransitionEventCallbacks;
+        offset = 0;
+        do {
+            if (((s32 *) (((char *) (&g_optionsTransitionEventCodes)) + offset))[0] == event) {
+                actor_kind = ((struct MenuWidget *) ((char *) object))->resource;
+                table_kind = ((s32 *) (((char *) (&g_optionsTransitionActorKinds)) + offset))[0];
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*(WidgetEventHandler *)entry)(object, event, eventData, eventValue, eventContext);
+                }
+            }
+            entry += sizeof(ResidentEventHandlerEntry);
+            offset += 12;
+        } while (*(WidgetEventHandler *)entry != 0);
     }
     return 0;
 }

@@ -23,6 +23,7 @@
 #include "Animpool/animpool_readsignedbits.h"
 #include "include_asm.h"
 #include "Data/rest_source_records.h"
+#include "Engine/gobjinst_findnearestbonebounds.h"
 
 /* ANIMPOOL.CPP */
 

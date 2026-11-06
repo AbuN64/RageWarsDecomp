@@ -46,6 +46,11 @@ void Menu_SetOptionsSceneSelection(int key) {
  g->width = width; width = height; g->height = width;
 }
 
+#if defined(VERSION_EU)
+unsigned int k_menuOptionSceneAspectRatio[1] = {
+    0x0800002A,
+};
+#endif
 void Menu_InitializeOptionsScene(void) {
     Menu_ConfigureOptionsCamera();
     Pools_ResetActorPools(&g_playerViewRenderContext.object, 1);
@@ -64,11 +69,6 @@ void Menu_ConfigureOptionsCamera(void) {
     Cinema_SetViewport(67, 79, 18, 128);
 }
 
-#if defined(VERSION_EU)
-unsigned int k_menuOptionSceneAspectRatio[1] = {
-    0x0800002A,
-};
-#endif
 
 #if defined(VERSION_EU_X)
 unsigned int k_menuOptionSceneAspectRatio[1] = {

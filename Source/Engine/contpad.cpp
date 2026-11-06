@@ -273,10 +273,6 @@ ButtonRemap g_controllerButtonRemap[19] = {
     { 0x80000, 0x80000 },
     { 0, 0 },
 };
-/* Bytes the original holds up to the next 16-byte object boundary; no instruction reads them. */
-unsigned int g_buttonRemapSentinels[2] = {
-    0x00000000, 0xFFFFFFFF,
-};
 #endif
 
 /* G_CONTROLLERBUTTONREMAP_RESOURCES.CPP */

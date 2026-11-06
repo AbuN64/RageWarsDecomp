@@ -35,241 +35,6 @@
 #include "Ui/Quag/N64_Eng.h"
 #include "Node/node_configurescrolledtablecell.h"
 
-/* unit FRONTEND_HANDLETABOPTIONSSHORTCUT.CPP */
-/* The first message this handles and how many it takes: eu-x numbers the messages 4 higher, de 4
-   lower and takes only 8, as each cartridge's own bytes show; us, us-rev1 and eu share 0x377 and 10. */
-
-/* The message screen g_gameOptionsScreenState; its handled flag marks the message handled. */
-
-
-/* Releases the object g_gameOptionsScreenState holds through Cache_FreeMemory, calls Tsmos_ActivateControllerState, clears
-   g_gameOptionsScreenState and returns zero. */
-s32 Frontend_DestroyCompactOptionsPage(void) {
-    Cache_FreeMemory(g_gameOptionsScreenState);
-    Tsmos_ActivateControllerState();
-    g_gameOptionsScreenState = 0;
-    return 0;
-}
-
-/* Marks the compact options page as activated and calls Tsmos_ActivateControllerState, once:
-   nothing happens when it is already activated. Returns zero. */
-s32 Frontend_ActivateCompactOptionsPage(void) {
-    struct CompactOptionsPageView *state = g_gameOptionsScreenState;
-
-    if (state->flagWord == 0) {
-        state->flagWord = 1;
-        Tsmos_ActivateControllerState();
-    }
-    return 0;
-}
-
-/* Handles the menu message Menu_GetFocusedElementId reports after MarkMenuEventHandled: 0x1C3, 0x1BD, 0x1C2 and
-   0x1C4 send codes -1, 13, 12 and 14 to Random_SetMenuChoiceResult; a handled message then runs Menu_CommitCompactOptionsPage
-   and Menu_ReturnToPreviousScreen. Returns zero. */
-s32 Frontend_HandleCompactOptionsShortcut(void) {
-    s32 handled;
-    MarkMenuEventHandled();
-    handled = 1;
-    switch (Menu_GetFocusedElementId()) {
-#if defined(VERSION_DE)
-    case 447:
-#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    case 451:
-#elif defined(VERSION_EU_X)
-    case 455:
-#endif
-        Random_SetMenuChoiceResult(-1);
-        break;
-#if defined(VERSION_DE)
-    case 441:
-#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    case 445:
-#elif defined(VERSION_EU_X)
-    case 449:
-#endif
-        Random_SetMenuChoiceResult(13);
-        break;
-#if defined(VERSION_DE)
-    case 446:
-#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    case 450:
-#elif defined(VERSION_EU_X)
-    case 454:
-#endif
-        Random_SetMenuChoiceResult(12);
-        break;
-#if defined(VERSION_DE)
-    case 448:
-#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
-    case 452:
-#elif defined(VERSION_EU_X)
-    case 456:
-#endif
-        Random_SetMenuChoiceResult(14);
-        break;
-    default:
-        handled = 0;
-        break;
-    }
-    if (handled == 1) {
-        Menu_CommitCompactOptionsPage();
-        Menu_ReturnToPreviousScreen();
-    }
-    return 0;
-}
-
-/* Calls MarkMenuEventHandled, Random_SetMenuChoiceResult with -1, Menu_CommitCompactOptionsPage and Menu_ReturnToPreviousScreen, and returns zero. */
-s32 Frontend_CloseCompactOptionsPage(void) {
-    MarkMenuEventHandled();
-    Random_SetMenuChoiceResult(-1);
-    Menu_CommitCompactOptionsPage();
-    Menu_ReturnToPreviousScreen();
-    return 0;
-}
-
-s32 Frontend_DispatchCompactOptionsEvent(void *menuActor, s32 eventKind, s32 eventDataOne, s32 eventDataTwo, s32 eventDataThree) {
-    CompactOptionsEventHandler *entry;
-    MenuWidget *actor;
-    s32 index;
-    s32 wildcard;
-    s32 actor_kind;
-    s32 table_kind;
-
-    if (g_compactOptionsEventHandlers != 0) {
-        wildcard = 30000;
-        entry = &g_compactOptionsEventHandlers;
-        index = 0;
-        do {
-            if (g_compactOptionsEventKinds[index].value == eventKind) {
-                actor = menuActor;
-                actor_kind = actor->resource;
-                table_kind = g_compactOptionsActorKinds[index].value;
-                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
-                    return (*entry)(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
-                }
-            }
-            entry += 3;
-            index++;
-        } while (*entry != 0);
-    }
-    return 0;
-}
-
-/* Releases the object g_optionsShortcutScreen holds through Cache_FreeMemory, calls Tsmos_ActivateControllerState, clears g_optionsShortcutScreen, calls
-   Cinema_ReleaseSequenceContext_FrontendHandletaboptionsshortcut and returns zero. */
-s32 Frontend_DestroyTabOptionsPage(void) {
-    Cache_FreeMemory(g_optionsShortcutScreen);
-    Tsmos_ActivateControllerState();
-    g_optionsShortcutScreen = 0;
-    Cinema_ReleaseSequenceContext();
-    return 0;
-}
-
-/* Deactivates the controller state and brings the shortcut menu image back on screen. */
-static inline void Frontend_ReopenTabOptionsShortcut(void) {
-    Tsmos_DeactivateControllerState();
-    Frontend_StartMenuImageTransition(g_optionsShortcutScreen);
-    g_optionsShortcutScreen->shown = 1;
-    g_optionsShortcutScreen->timer = -1;
-    Widget_SetWidgetFlag08(g_optionsShortcutScreen->window, 1);
-    Widget_SetWidgetFlag08(g_optionsShortcutScreen->second_window, 1);
-    Cinema_ReleaseSequenceContext();
-}
-
-/* Starts a random cup stage; when none can start, shows a message for 20 ticks instead of leaving the menu. */
-static inline void Frontend_RetryTabOptionsShortcut(void) {
-    Tsmos_DeactivateControllerState();
-    if (ScenarioSetup_StartRandomCupStage() == 0) {
-        g_optionsShortcutScreen->messageMode = 5;
-        g_optionsShortcutScreen->messageNextMode = 4;
-        g_optionsShortcutScreen->timer = 20;
-    } else {
-        Frontend_StartMenuImageTransition(g_optionsShortcutScreen);
-        g_optionsShortcutScreen->shown = 1;
-        g_optionsShortcutScreen->timer = 0;
-    }
-}
-
-/* Handles the focused menu element of the tab options shortcut screen: one element reopens the screen, one retries
-   with a random cup stage, and the others pick menu choice results 12, 13, 14 or 23. A handled element then commits
-   the options page. Returns zero. */
-s32 Frontend_HandleTabOptionsShortcut(void) {
-    s32 handled;
-    u32 message;
-    MarkMenuEventHandled();
-    handled = 1;
-    message = Menu_GetFocusedElementId() -
-#if defined(VERSION_DE)
-        883;
-#elif defined(VERSION_EU_X)
-        891;
-#else
-        887;
-#endif
-    switch (message) {
-#if defined(VERSION_DE)
-    case 0: Frontend_ReopenTabOptionsShortcut(); break;
-    case 1: Frontend_RetryTabOptionsShortcut(); break;
-    case 2: Random_SetMenuChoiceResult(14); break;
-    case 3: Random_SetMenuChoiceResult(23); break;
-    case 6: Random_SetMenuChoiceResult(13); break;
-    case 7: Random_SetMenuChoiceResult(12); break;
-#else
-    case 0: Random_SetMenuChoiceResult(13); break;
-    case 5: Random_SetMenuChoiceResult(12); break;
-    case 6: Frontend_ReopenTabOptionsShortcut(); break;
-    case 7: Frontend_RetryTabOptionsShortcut(); break;
-    case 8: Random_SetMenuChoiceResult(14); break;
-    case 9: Random_SetMenuChoiceResult(23); break;
-#endif
-    default: handled = 0; break;
-    }
-    if (handled == 1) {
-        Menu_CommitTabOptionsPage();
-    }
-    return 0;
-}
-
-s32 Frontend_ConsumeTabOptionsEvent(void) {
-    MarkMenuEventHandled();
-    return 0;
-}
-
-/* Calls the handler registered for eventKind (tables g_tabOptionsEventKinds, g_tabOptionsActorKinds, g_tabOptionsEventHandlers). A row matches when its event equals eventKind and its kind equals the actor's kind or is the any-kind wildcard 0x7530. Returns the handler's result, or zero when no row matches. */
-s32 Frontend_DispatchTabOptionsEvent(void *menuActor, s32 eventKind, s32 eventDataOne, s32 eventDataTwo, s32 eventDataThree) {
-    TabOptionsEventHandler *entry;
-    s32 index;
-    s32 wildcard;
-    s32 actor_kind;
-    s32 table_kind;
-    MenuWidget *actor;
-
-    if (g_tabOptionsEventHandlers != 0) {
-        wildcard = 30000;
-        entry = &g_tabOptionsEventHandlers;
-        index = 0;
-        do {
-            if (g_tabOptionsEventKinds[index].value == eventKind) {
-                actor = menuActor;
-                actor_kind = actor->resource;
-                table_kind = g_tabOptionsActorKinds[index].value;
-                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
-                    return (*entry)(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
-                }
-            }
-            entry += 3;
-            index++;
-        } while (*entry != 0);
-    }
-    return 0;
-}
-
-#if defined(VERSION_DE)
-unsigned int k_FrontendHandletaboptionsshortcutEncodedWords[2] = {
-    0x00424034, 0x0042405C,
-};
-#endif
-
 /* unit OPTIONS.CPP */
 #if defined(VERSION_US) || defined(VERSION_US_REV1)
 #include "Menu/scroll.h"
@@ -508,6 +273,18 @@ s32 Frontend_ReturnGermanOptionsEventZeroB(void) {
 }
 #endif
 
+/* unit FRONTEND_RETURNEUOPTIONSEVENTZEROA.CPP */
+#if defined(VERSION_EU)
+s32 Frontend_ReturnEuOptionsEventZeroA(void) {
+    return 0;
+}
+
+/* Event handler placeholder: ignores the event and returns zero. */
+s32 Frontend_ReturnEuOptionsEventZeroB(void) {
+    return 0;
+}
+#endif
+
 /* unit FRONTEND_CREATEGAMEOPTIONSSCREEN.CPP */
 /* Calls the handler registered for eventKind (tables g_gameOptionsEventKinds, g_gameOptionsActorKinds, g_gameOptionsEventHandlers). A row matches when its event equals eventKind and its kind equals the actor's kind or is the any-kind wildcard 0x7530. Returns the handler's result, or zero when no row matches. */
 
@@ -598,16 +375,270 @@ s32 Frontend_CreateGameOptionsScreen(void) {
 }
 #endif
 
-/* unit FRONTEND_RETURNEUOPTIONSEVENTZEROA.CPP */
-#if defined(VERSION_EU)
-s32 Frontend_ReturnEuOptionsEventZeroA(void) {
+
+
+/* unit FRONTEND_HANDLETABOPTIONSSHORTCUT.CPP */
+/* The first message this handles and how many it takes: eu-x numbers the messages 4 higher, de 4
+   lower and takes only 8, as each cartridge's own bytes show; us, us-rev1 and eu share 0x377 and 10. */
+
+/* The message screen g_gameOptionsScreenState; its handled flag marks the message handled. */
+
+
+/* Releases the object g_gameOptionsScreenState holds through Cache_FreeMemory, calls Tsmos_ActivateControllerState, clears
+   g_gameOptionsScreenState and returns zero. */
+s32 Frontend_DestroyCompactOptionsPage(void) {
+    Cache_FreeMemory(g_gameOptionsScreenState);
+    Tsmos_ActivateControllerState();
+    g_gameOptionsScreenState = 0;
     return 0;
 }
 
-/* Event handler placeholder: ignores the event and returns zero. */
-s32 Frontend_ReturnEuOptionsEventZeroB(void) {
+/* Marks the compact options page as activated and calls Tsmos_ActivateControllerState, once:
+   nothing happens when it is already activated. Returns zero. */
+s32 Frontend_ActivateCompactOptionsPage(void) {
+    struct CompactOptionsPageView *state = g_gameOptionsScreenState;
+
+    if (state->flagWord == 0) {
+        state->flagWord = 1;
+        Tsmos_ActivateControllerState();
+    }
     return 0;
 }
+
+/* Handles the menu message Menu_GetFocusedElementId reports after MarkMenuEventHandled: 0x1C3, 0x1BD, 0x1C2 and
+   0x1C4 send codes -1, 13, 12 and 14 to Random_SetMenuChoiceResult; a handled message then runs Menu_CommitCompactOptionsPage
+   and Menu_ReturnToPreviousScreen. Returns zero. */
+s32 Frontend_HandleCompactOptionsShortcut(void) {
+    s32 handled;
+    MarkMenuEventHandled();
+    handled = 1;
+    switch (Menu_GetFocusedElementId()) {
+#if defined(VERSION_DE)
+    case 447:
+#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
+    case 451:
+#elif defined(VERSION_EU_X)
+    case 455:
+#endif
+        Random_SetMenuChoiceResult(-1);
+        break;
+#if defined(VERSION_DE)
+    case 441:
+#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
+    case 445:
+#elif defined(VERSION_EU_X)
+    case 449:
+#endif
+        Random_SetMenuChoiceResult(13);
+        break;
+#if defined(VERSION_DE)
+    case 446:
+#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
+    case 450:
+#elif defined(VERSION_EU_X)
+    case 454:
+#endif
+        Random_SetMenuChoiceResult(12);
+        break;
+#if defined(VERSION_DE)
+    case 448:
+#elif defined(VERSION_EU) || defined(VERSION_US) || defined(VERSION_US_REV1)
+    case 452:
+#elif defined(VERSION_EU_X)
+    case 456:
+#endif
+        Random_SetMenuChoiceResult(14);
+        break;
+    default:
+        handled = 0;
+        break;
+    }
+    if (handled == 1) {
+        Menu_CommitCompactOptionsPage();
+        Menu_ReturnToPreviousScreen();
+    }
+    return 0;
+}
+
+/* Calls MarkMenuEventHandled, Random_SetMenuChoiceResult with -1, Menu_CommitCompactOptionsPage and Menu_ReturnToPreviousScreen, and returns zero. */
+s32 Frontend_CloseCompactOptionsPage(void) {
+    MarkMenuEventHandled();
+    Random_SetMenuChoiceResult(-1);
+    Menu_CommitCompactOptionsPage();
+    Menu_ReturnToPreviousScreen();
+    return 0;
+}
+
+s32 Frontend_DispatchCompactOptionsEvent(void *menuActor, s32 eventKind, s32 eventDataOne, s32 eventDataTwo, s32 eventDataThree) {
+    CompactOptionsEventHandler *entry;
+    MenuWidget *actor;
+    s32 index;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+
+    if (g_compactOptionsEventHandlers != 0) {
+        wildcard = 30000;
+        entry = &g_compactOptionsEventHandlers;
+        index = 0;
+        do {
+            if (g_compactOptionsEventKinds[index].value == eventKind) {
+                actor = menuActor;
+                actor_kind = actor->resource;
+                table_kind = g_compactOptionsActorKinds[index].value;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*entry)(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
+                }
+            }
+            entry += 3;
+            index++;
+        } while (*entry != 0);
+    }
+    return 0;
+}
+
+/* Releases the object g_optionsShortcutScreen holds through Cache_FreeMemory, calls Tsmos_ActivateControllerState, clears g_optionsShortcutScreen, calls
+   Cinema_ReleaseSequenceContext_FrontendHandletaboptionsshortcut and returns zero. */
+s32 Frontend_DestroyTabOptionsPage(void) {
+    Cache_FreeMemory(g_optionsShortcutScreen);
+    Tsmos_ActivateControllerState();
+    g_optionsShortcutScreen = 0;
+    Cinema_ReleaseSequenceContext();
+    return 0;
+}
+
+/* Deactivates the controller state and brings the shortcut menu image back on screen. */
+static inline void Frontend_ReopenTabOptionsShortcut(void) {
+    Tsmos_DeactivateControllerState();
+    Frontend_StartMenuImageTransition(g_optionsShortcutScreen);
+    g_optionsShortcutScreen->shown = 1;
+    g_optionsShortcutScreen->timer = -1;
+    Widget_SetWidgetFlag08(g_optionsShortcutScreen->window, 1);
+    Widget_SetWidgetFlag08(g_optionsShortcutScreen->second_window, 1);
+    Cinema_ReleaseSequenceContext();
+}
+
+/* Starts a random cup stage; when none can start, shows a message for 20 ticks instead of leaving the menu. */
+static inline void Frontend_RetryTabOptionsShortcut(void) {
+    Tsmos_DeactivateControllerState();
+    if (ScenarioSetup_StartRandomCupStage() == 0) {
+        g_optionsShortcutScreen->messageMode = 5;
+        g_optionsShortcutScreen->messageNextMode = 4;
+        g_optionsShortcutScreen->timer = 20;
+    } else {
+        Frontend_StartMenuImageTransition(g_optionsShortcutScreen);
+        g_optionsShortcutScreen->shown = 1;
+        g_optionsShortcutScreen->timer = 0;
+    }
+}
+
+/* Handles the focused menu element of the tab options shortcut screen: one element reopens the screen, one retries
+   with a random cup stage, and the others pick menu choice results 12, 13, 14 or 23. A handled element then commits
+   the options page. Returns zero. */
+s32 Frontend_HandleTabOptionsShortcut(void) {
+    s32 handled;
+    u32 message;
+    MarkMenuEventHandled();
+    handled = 1;
+    message = Menu_GetFocusedElementId() -
+#if defined(VERSION_DE)
+        883;
+#elif defined(VERSION_EU_X)
+        891;
+#else
+        887;
+#endif
+    switch (message) {
+#if defined(VERSION_DE)
+    case 0:
+#else
+    case 6:
+#endif
+        Frontend_ReopenTabOptionsShortcut();
+        break;
+#if defined(VERSION_DE)
+    case 3:
+#else
+    case 9:
+#endif
+        Random_SetMenuChoiceResult(23);
+        break;
+#if defined(VERSION_DE)
+    case 1:
+#else
+    case 7:
+#endif
+        Frontend_RetryTabOptionsShortcut();
+        break;
+#if defined(VERSION_DE)
+    case 6:
+#else
+    case 0:
+#endif
+        Random_SetMenuChoiceResult(13);
+        break;
+#if defined(VERSION_DE)
+    case 7:
+#else
+    case 5:
+#endif
+        Random_SetMenuChoiceResult(12);
+        break;
+#if defined(VERSION_DE)
+    case 2:
+#else
+    case 8:
+#endif
+        Random_SetMenuChoiceResult(14);
+        break;
+    default:
+        handled = 0;
+        break;
+    }
+    if (handled == 1) {
+        Menu_CommitTabOptionsPage();
+    }
+    return 0;
+}
+
+s32 Frontend_ConsumeTabOptionsEvent(void) {
+    MarkMenuEventHandled();
+    return 0;
+}
+
+/* Calls the handler registered for eventKind (tables g_tabOptionsEventKinds, g_tabOptionsActorKinds, g_tabOptionsEventHandlers). A row matches when its event equals eventKind and its kind equals the actor's kind or is the any-kind wildcard 0x7530. Returns the handler's result, or zero when no row matches. */
+s32 Frontend_DispatchTabOptionsEvent(void *menuActor, s32 eventKind, s32 eventDataOne, s32 eventDataTwo, s32 eventDataThree) {
+    TabOptionsEventHandler *entry;
+    s32 index;
+    s32 wildcard;
+    s32 actor_kind;
+    s32 table_kind;
+    struct MenuWidget *actor;
+
+    if (g_tabOptionsEventHandlers != 0) {
+        wildcard = 30000;
+        entry = &g_tabOptionsEventHandlers;
+        index = 0;
+        do {
+            if (g_tabOptionsEventKinds[index].value == eventKind) {
+                actor = menuActor;
+                actor_kind = actor->resource;
+                table_kind = g_tabOptionsActorKinds[index].value;
+                if ((table_kind == actor_kind) || (table_kind == wildcard)) {
+                    return (*entry)(menuActor, eventKind, eventDataOne, eventDataTwo, eventDataThree);
+                }
+            }
+            entry += 3;
+            index++;
+        } while (*entry != 0);
+    }
+    return 0;
+}
+
+#if defined(VERSION_DE)
+unsigned int k_FrontendHandletaboptionsshortcutEncodedWords[2] = {
+    0x00424034, 0x0042405C,
+};
 #endif
 
 /* unit MENU_CREATELOCALIZEDSETTINGSPAGE.CPP */

@@ -1,3 +1,4 @@
+#include "PR/os_internal_error.h"
 #include "Engine/session.h"
 #include "Engine/textload.h"
 #include "Engine/lists.h"

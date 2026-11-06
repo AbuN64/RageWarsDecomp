@@ -33,6 +33,7 @@
 #include "Cache/cache_allocatememory.h"
 #include "Frontend/frontend_address_symbols.h"
 #include "Frontend/frontend.h"
+#include "Common/self.h"
 
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 
@@ -150,9 +151,11 @@ s32 Player_StartFourPlayerResults(void) {
     MenuWidget *widget;
     s32 i;
     s32 baseAngle;
+    s32 badgeOffset;
     Shared_PlayerSettingsRecord *config;
     Tsmos_SetMenuModelFlag(1);
     i = 0;
+    badgeOffset = ((char *)&((struct FourPlayerResultsScreen *)0)->badges - (char *)0);
 #if defined(VERSION_EU)
     scale.value.x = g_playerResultsRodataFloats[0];
     scale.value.y = g_playerResultsRodataFloats[0];
@@ -193,9 +196,10 @@ s32 Player_StartFourPlayerResults(void) {
         }
         rotation.value.y = (f32)(baseAngle + Graphu64_NextRandom() % 10);
         baseAngle += 45;
-        Frontend_InitModelPreviewTransform((u8 *)&g_equipmentAndResultsScreen->badges[i], 0, scale.words, position.words);
-        Frontend_SetPreviewRotation((u8 *)&g_equipmentAndResultsScreen->badges[i], rotation.words);
-        Frontend_SetPreviewRotationSpeed((u8 *)&g_equipmentAndResultsScreen->badges[i], angularVelocity.words);
+        Frontend_InitModelPreviewTransform((u8 *)g_equipmentAndResultsScreen + badgeOffset, 0, scale.words, position.words);
+        Frontend_SetPreviewRotation((u8 *)g_equipmentAndResultsScreen + badgeOffset, rotation.words);
+        Frontend_SetPreviewRotationSpeed((u8 *)g_equipmentAndResultsScreen + badgeOffset, angularVelocity.words);
+        badgeOffset += sizeof(g_equipmentAndResultsScreen->badges[0]);
     }
     for (i = 0; i < 4; i++) {
         config = &g_playerSettings[i];
@@ -306,7 +310,7 @@ s32 Player_DrawFourPlayerResults(void *window, void *item, s32 event) {
         g_menuModelFillColor[3] = 255.0f;
         for (i = 0; i < 4; i++) {
             if (g_equipmentAndResultsScreen->panels[i].state == 1 || g_equipmentAndResultsScreen->panels[i].state == 2) {
-                gDPSetScissor(g_displayListCursor++, G_SC_NON_INTERLACE, ((OverlayScissorRect *)g_menuPlayerScissorRects)[i].left, ((OverlayScissorRect *)g_menuPlayerScissorRects)[i].top, ((OverlayScissorRect *)g_menuPlayerScissorRects)[i].right, ((OverlayScissorRect *)g_menuPlayerScissorRects)[i].bottom);
+                gDPSetScissor(g_displayListCursor++, G_SC_NON_INTERLACE, g_menuPlayerScissorRects[i].left, g_menuPlayerScissorRects[i].top, g_menuPlayerScissorRects[i].right, g_menuPlayerScissorRects[i].bottom);
                 Preview_DrawModelPreview(&g_equipmentAndResultsScreen->panels[i]);
             }
         }

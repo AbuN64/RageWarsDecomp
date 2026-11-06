@@ -1529,9 +1529,9 @@ void ScenarioSetup_InitResultModelPreview(void) {
 }
 
 #if defined(VERSION_US_REV1)
-extern char g_resultsAcquireFragsFormat[];
+extern char *g_resultsSingleLapsPluralFormat;
 unsigned int g_scenarioSetupLabelRecord[3] = {
-    0x00000000, 0xFFFFFFEC, (unsigned int)&g_resultsAcquireFragsFormat,
+    0x00000000, 0xFFFFFFEC, (unsigned int)&g_resultsSingleLapsPluralFormat,
 };
 #endif
 
