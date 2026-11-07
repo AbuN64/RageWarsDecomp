@@ -460,13 +460,5 @@ float k_CpolycollisionTraceceilingtriangleConstants[3] = {
 
 /* POLYCOL.CPP */
 
-#if !(defined(VERSION_US_REV1))
-const char k_PolycolEncodedBytes[8] =
-    "\077333\077333";
-#endif
-
-#if defined(VERSION_US_REV1)
-const float k_Polycol[2] = {
-    0.7f, 0.7f,
-};
-#endif
+const float g_collisionDownwardNormalThreshold = 0.7f;
+const float g_collisionUpwardNormalThreshold = 0.7f;

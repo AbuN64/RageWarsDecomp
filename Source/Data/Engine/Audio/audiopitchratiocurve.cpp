@@ -66,8 +66,9 @@
 #include "data_overlay_layouts.h"
 
 
-unsigned int g_audiopitchratiocurve[6] = {
-    (unsigned int)(&g_lastResumedPoolSoundHandle + 1), (unsigned int)(&g_lastResumedPoolSoundHandle + 5), (unsigned int)g_dialogDecodeStreamRecord,
-    0x403F0000, 0x3F8BD1C1, 0x3F8BADA9,
+DialogDefaultSample g_dialogDefaultSample = {
+    (struct ResourceKeyView *)(&g_lastResumedPoolSoundHandle + 1), (void *)(&g_lastResumedPoolSoundHandle + 5), (void *)g_dialogDecodeStreamRecord,
+    0x40, 0x3F, 0x00, 0x00,
+    { 0x3F, 0x8B, 0xD1, 0xC1, 0x3F, 0x8B, 0xAD, 0xA9 },
 };
 #endif

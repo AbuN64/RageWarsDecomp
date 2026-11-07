@@ -130,7 +130,7 @@ typedef struct BoneTwistSourceView BoneTwistSourceView;
 
 extern float g_actorDefaultOffsetValue;
 
-extern float g_affinePackUnsignedThresholdPairs[6][2];
+extern const float g_affinePackUnsignedConversionThresholds[12];
 
 
 struct ActorAnimationResourceView;

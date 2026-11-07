@@ -129,7 +129,7 @@ void Graphu64_InvertAffineMatrix(f32 *out, f32 *m) {
         return;
     }
 
-    affineHomogeneousOne = g_directionMatrixUnitConstants_de[0].x;
+    affineHomogeneousOne = g_invertAffineMatrixConstants[0];
     reciprocalDeterminant = affineHomogeneousOne / determinant;
     out[0] = (m[5] * m[10] - m[9] * m[6]) * reciprocalDeterminant;
     m01TimesM22 = m[1] * m[10];
@@ -297,114 +297,50 @@ void GraphU64_PackFixedMatrix(f32 *src, FixedPointMatrix *dst) {
     f32 value;
     s32 a;
     s32 b;
-    value = (src[(0) * 2]) * (g_fullFixedMatrixElement0ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement0ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement0ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(0) * 2 + 1]) * (g_fullFixedMatrixElement1ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement1ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement1ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(0) * 2] * 65536.0f);
+    b = (u32)(src[(0) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(1) * 2]) * (g_fullFixedMatrixElement2ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement2ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement2ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(1) * 2 + 1]) * (g_fullFixedMatrixElement3ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement3ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement3ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(1) * 2] * 65536.0f);
+    b = (u32)(src[(1) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(2) * 2]) * (g_fullFixedMatrixElement4ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement4ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement4ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(2) * 2 + 1]) * (g_fullFixedMatrixElement5ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement5ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement5ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(2) * 2] * 65536.0f);
+    b = (u32)(src[(2) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(3) * 2]) * (g_fullFixedMatrixElement6ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement6ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement6ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(3) * 2 + 1]) * (g_fullFixedMatrixElement7ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement7ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement7ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(3) * 2] * 65536.0f);
+    b = (u32)(src[(3) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(4) * 2]) * (g_fullFixedMatrixElement8ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement8ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement8ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(4) * 2 + 1]) * (g_fullFixedMatrixElement9ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement9ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement9ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(4) * 2] * 65536.0f);
+    b = (u32)(src[(4) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(5) * 2]) * (g_fullFixedMatrixElement10ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement10ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement10ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(5) * 2 + 1]) * (g_fullFixedMatrixElement11ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement11ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement11ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(5) * 2] * 65536.0f);
+    b = (u32)(src[(5) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(6) * 2]) * (g_fullFixedMatrixElement12ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement12ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement12ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(6) * 2 + 1]) * (g_fullFixedMatrixElement13ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement13ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement13ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(6) * 2] * 65536.0f);
+    b = (u32)(src[(6) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
-    value = (src[(7) * 2]) * (g_fullFixedMatrixElement14ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement14ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_fullFixedMatrixElement14ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[(7) * 2 + 1]) * (g_fullFixedMatrixElement15ConversionConstants);
-    if (!(*(&(g_fullFixedMatrixElement15ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_fullFixedMatrixElement15ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[(7) * 2] * 65536.0f);
+    b = (u32)(src[(7) * 2 + 1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
@@ -417,101 +353,53 @@ void Graphu64_ConvertMatrixToFixed(f32 *src, FixedPointMatrix *dst) {
     f32 value;
     s32 a;
     s32 b;
-    value = (src[0]) * (g_affineFixedMatrixElement0ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement0ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement0ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[1]) * (g_affineFixedMatrixElement1ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement1ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement1ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[0] * 65536.0f);
+    b = (u32)(src[1] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    value = (src[2]) * (g_affineFixedMatrixElement2ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement2ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement2ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
+    a = (u32)(src[2] * 65536.0f);
     *upper = a & 0xFFFF0000;
     *lower = a << 16;
     upper++;
     lower++;
 
-    value = (src[4]) * (g_affineFixedMatrixElement4ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement4ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement4ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[5]) * (g_affineFixedMatrixElement5ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement5ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement5ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[4] * 65536.0f);
+    b = (u32)(src[5] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    value = (src[6]) * (g_affineFixedMatrixElement6ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement6ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement6ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
+    a = (u32)(src[6] * 65536.0f);
     *upper = a & 0xFFFF0000;
     *lower = a << 16;
     upper++;
     lower++;
 
-    value = (src[8]) * (g_affineFixedMatrixElement8ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement8ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement8ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[9]) * (g_affineFixedMatrixElement9ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement9ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement9ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[8] * 65536.0f);
+    b = (u32)(src[9] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    value = (src[10]) * (g_affineFixedMatrixElement10ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement10ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement10ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
+    a = (u32)(src[10] * 65536.0f);
     *upper = a & 0xFFFF0000;
     *lower = a << 16;
     upper++;
     lower++;
 
-    value = (src[12]) * (g_affineFixedMatrixElement12ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement12ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement12ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
-    value = (src[13]) * (g_affineFixedMatrixElement13ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement13ConversionConstants) + 1) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - *(&(g_affineFixedMatrixElement13ConversionConstants) + 1));
-    (b) |= 0x80000000;
-    };
+    a = (u32)(src[12] * 65536.0f);
+    b = (u32)(src[13] * 65536.0f);
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
     *lower = (a << 16) | (b & 0xFFFF);
     upper++;
     lower++;
 
-    value = (src[14]) * (g_affineFixedMatrixElement14ConversionConstants);
-    if (!(*(&(g_affineFixedMatrixElement14ConversionConstants) + 1) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - *(&(g_affineFixedMatrixElement14ConversionConstants) + 1));
-    (a) |= 0x80000000;
-    };
+    a = (u32)(src[14] * 65536.0f);
     *upper = (a & 0xFFFF0000) | 1;
     *lower = a << 16;
 }
@@ -1561,7 +1449,7 @@ void Graphu64_RunCountdown(void) {
 
 /* BUILDDIRECTIONMATRIX.CPP */
 
-/* Builds an orientation matrix whose third row is the given direction: the first row is the cross product of the up vector g_directionMatrixUnitConstants_us_rev1 with it, or the X axis when the direction is within the vertical thresholds, the second row is the cross product of the first row with it, all three rows are normalised and the rest is identity. */
+/* Builds an orientation matrix whose third row is the given direction: the first row is the cross product of the up vector g_directionMatrixDefaultUp with it, or the X axis when the direction is within the vertical thresholds, the second row is the cross product of the first row with it, all three rows are normalised and the rest is identity. */
 
 /* Copies a 4x4 float matrix while scaling its first three rows by three per-row factors, zeroing their fourth column and setting the last element to the canonical unit constant. */
 
@@ -1668,7 +1556,7 @@ void Graphu64_BuildPlaneProjectionMatrix(void *projection, CVector3 *projectionD
 
 void BuildDirectionMatrix(CMatrix4 *matrix, CVector3 *direction) {
     CVector3 up;
-    CVector3 *upVector = (void *)&g_directionMatrixUnitConstants_de[0].y;
+    CVector3 *upVector = (void *)g_directionMatrixDefaultUp;
 
     up = *upVector;
     if (direction->y < 0.0f ? (&g_planeProjectionAndDirectionConstants)[1] <= -direction->y : g_directionVerticalThreshold.value <= direction->y) {
@@ -2833,79 +2721,15 @@ extern float g_directionMatrixDefaultUp[3];
 
 
 
-#if defined(VERSION_US_REV1)
-/* Scale and clamp pair per element of a full 4x4 matrix packed to s15.16 fixed point. */
-const float g_fullMatrixFixedConversionPairs[16][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f,
-};
-#endif
-
-#if defined(VERSION_US_REV1)
-/* Scale and clamp pair per element of the 3x4 affine part of a matrix (rows 0-2 and translation, column 3 skipped). */
-const float g_affineMatrixFixedConversionPairs[12][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-};
-#endif
-
-#if defined(VERSION_EU) || defined(VERSION_EU_X)
-const float g_fullMatrixFixedConversionPairs[16][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f,
-};
-#endif
 
 
-#if defined(VERSION_EU)
-const float g_affineMatrixFixedConversionPairs[12][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-};
-#endif
+
+
 
 /* GRAPHU64_CONVERT_MATRIX_TO_FIXED_CONSTANT_WORDS3_DATA.CPP */
 
-#if defined(VERSION_US)
-const float g_affineMatrixFixedConversionPairs[12][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-};
-#endif
 
-#if defined(VERSION_DE)
-const float g_fullMatrixFixedConversionPairs[16][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f,
-};
-#endif
 
-#if defined(VERSION_DE)
-const float g_affineMatrixFixedConversionPairs[12][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-};
-#endif
 
 /* G_VECTORNORMALIZEUNITSCALE.CPP */
 
@@ -3046,14 +2870,6 @@ extern const float g_vectorNormalizeUnitScale;
 
 /* GRAPHU64_CONVERTMATRIXTOFIXED_DATA.CPP */
 
-#if defined(VERSION_EU_X)
-const float g_affineMatrixFixedConversionPairs[12][2] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-};
-#endif
 
 /* G_ARCCOSTABLE_EU_X.CPP */
 
@@ -3170,9 +2986,8 @@ const float k_matrixFromQuaternionUnit[1] = {
     1.0f,
 };
 
-const float g_wrappedValueScaleConstants[3] = {
-    3.0e+01f, 0.0f, 3.051851e-05f,
-};
+const double g_randomUnsignedFloatCorrection = 4294967296.0;
+const float g_randomFloatRangeScale = 3.051851e-05f;
 
 const float g_arcCosConstants[5] = {
     -1023.0f, 1023.0f, 1023.0f, 3.1415927f, 3.1415927f,
@@ -3218,15 +3033,5 @@ const float g_getCachedSurfaceNormalConstants[2] = {
 const float g_getTrianglePlaneHeightConstants[1] = {
     0.33333334f,
 };
-#if defined(VERSION_US)
-const float g_graphU_PackFixedMatrixConstantWords[32] = {
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f, 65536.0f, 2.1474836e+09f,
-    65536.0f, 2.1474836e+09f,
-};
-#endif
 
 const float g_vectorNormalizeUnitScale = 1.0f;

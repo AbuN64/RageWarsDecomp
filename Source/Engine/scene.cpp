@@ -5349,36 +5349,41 @@ EngineSessionHandlers g_screenModeHandlers[21] = {
 #ifdef VERSION_DE
 #if defined(VERSION_US)
 
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "\000\000\000\000\003\340\000\010", 0, 1, "\000\000\000\012\000\000\000\013"
+    "\000\000\000\000\003\340\000\010", 0, 1, "\000\000\000\012\000\000\000\013"
 };
 #endif
 #endif
 #ifdef VERSION_EU
 #if defined(VERSION_US)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "\000\000\000\000\000\000\000\010", 0, 1, "\000\000\000\000\000\000\000\010"
+    "\000\000\000\000\000\000\000\010", 0, 1, "\000\000\000\000\000\000\000\010"
 };
 #endif
 #endif
 #ifdef VERSION_EU_X
 #if defined(VERSION_US)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "were bes", 0, 1, "Munch.\000\000"
+    "were bes", 0, 1, "Munch.\000\000"
 };
 #endif
 #endif
 #ifdef VERSION_US
 #if defined(VERSION_US)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "INFLATOR", 0, 1, "\004\000\000\000f\000\000\000"
+    "INFLATOR", 0, 1, "\004\000\000\000f\000\000\000"
 };
 #endif
 #endif
 #ifdef VERSION_US_REV1
 #if defined(VERSION_US)
-EnginePreviewRenderState g_sessionFrameRenderState = {
-    0, "eft.\000\000\000\000", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "ep?\000Oops"
+u32 g_maximumDisplayListBytes = 0;
+EngineRenderState g_sessionFrameRenderState = {
+    "eft.\000\000\000\000", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "ep?\000Oops"
 };
 #endif
 #endif
@@ -5386,8 +5391,10 @@ EnginePreviewRenderState g_sessionFrameRenderState = {
 /* S_SMACKFORMAT.CPP */
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_US)
-SmackFormatTableLayoutD g_smackFormatTable = {
-    { 0, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 22, -1 },
+SmackFormatTable g_smackFormatTable = {
+    0,
+    { 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+    { 22, -1 },
     "INFLATOR_REC"
 };
 #endif

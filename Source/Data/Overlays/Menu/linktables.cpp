@@ -1,5 +1,6 @@
 #include "Common/resident_event_handler.h"
 #include "Data/Overlays/Menu/linktables_addresses.h"
+#include "Engine/Audio/decode_stream.h"
 #include "Menu/event.h"
 #include "types.h"
 #include "include_asm.h"
@@ -1097,11 +1098,11 @@ struct {
         0x00000105, 0x00000100, 0x00000005, (unsigned int)&g_audioDecodeBlock[128].start, (unsigned int)&g_audioDecodeBlock[238].start, 0xFFFFFF81, 0x0000007F, 0x000000FF,
         0x00000010, 0x00000109, 0x00000100, 0x00000009, (unsigned int)&g_audioDecodeBlock[342].table, (unsigned int)&g_audioDecodeBlock[540].table, 0xFFFFFFC0, 0x00000040,
         0xFFFFFFFF, 0x00000010, 0xFFFFFFFF, 0x00000081, 0x00000000, 0x00000000, (unsigned int)&g_audioDecodeBlock[647].kind, 0x00000004,
-        0x00000001, 0x00000000, 0x00000010, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords[29],
+        0x00000001, 0x00000000, 0x00000010, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords.words[26],
         0x00000000, 0x00000000, 0x00000023,
         0x00000000, (unsigned int)&g_audioTransformTablesInitialized, 0x00000000, 0x00000023, 0x00000059, 0x00000000,
-        (unsigned int)&g_audioInitdecodestreamDataConstantWords[11], 0x00000000,
-        0x0000007C, 0x00000084, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords[20], 0x28202031,
+        (unsigned int)&g_audioInitdecodestreamDataConstantWords.words[8], 0x00000000,
+        0x0000007C, 0x00000084, 0x00000000, (unsigned int)&g_audioInitdecodestreamDataConstantWords.words[17], 0x28202031,
         0x31202020, 0x30277320, 0x29200000,
     },
     { 0x28, 0x20, 0x20, 0x31 },

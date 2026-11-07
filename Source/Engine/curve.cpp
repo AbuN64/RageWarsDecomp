@@ -154,17 +154,20 @@ s32 Curve_DecodePackedChannels(s32 *channels, void *encoded, s32 channelCount) {
 
 /* CURVE_DECODETHREEBITSAMPLES_DATA.CPP */
 
+/* Curve_DecodeThreeBitSamples' predictor coefficients per filter index; the label table and the bytes each version
+   holds after it follow. */
+s32 g_curvePredictorShortLagCoefficients[4] = { 0, 61440, 124928, 117760 };
+s32 g_curvePredictorLongLagCoefficients[4] = { 0, 0, -61440, -53248 };
+
 #if defined(VERSION_DE)
-CurveDecodethreebitsamplesEncodedWordsLayout313 k_CurveDecodethreebitsamples = {
-    { 0, 61440, 124928, 117760, 0, 0, -61440, -53248 },
+CurveDecodethreebitsamplesEncodedWordsLayout313 g_curveDecodeThreeBitSamplesTail = {
     { &g_threadLabelWordsGerman[0x5C], &g_threadLabelWordsGerman[0x54], &g_threadLabelWordsGerman[0x4C], &g_threadLabelWordsGerman[0x3C], &g_threadLabelWordsGerman[0x34], &g_threadLabelWordsGerman[0x2C], &g_threadLabelWordsGerman[0x20], &g_threadLabelWordsGerman[0x14], &g_threadLabelWordsGerman[0xC], 0 },
     { -1, 10273 }
 };
 #endif
 
 #if defined(VERSION_EU)
-CurveDecodethreebitsamplesEncodedWordsLayout314 k_CurveDecodethreebitsamples = {
-    { 0, 61440, 124928, 117760, 0, 0, -61440, -53248 },
+CurveDecodethreebitsamplesEncodedWordsLayout314 g_curveDecodeThreeBitSamplesTail = {
     { &g_threadLabelWordsEuropean[0x5C], &g_threadLabelWordsEuropean[0x54], &g_threadLabelWordsEuropean[0x4C], &g_threadLabelWordsEuropean[0x3C], &g_threadLabelWordsEuropean[0x34], &g_threadLabelWordsEuropean[0x2C], &g_threadLabelWordsEuropean[0x20], &g_threadLabelWordsEuropean[0x14], &g_threadLabelWordsEuropean[0xC], 0 },
     -1,
     "FAMI"
@@ -172,8 +175,7 @@ CurveDecodethreebitsamplesEncodedWordsLayout314 k_CurveDecodethreebitsamples = {
 #endif
 
 #if defined(VERSION_EU_X)
-CurveDecodethreebitsamplesEncodedWordsLayout315 k_CurveDecodethreebitsamples = {
-    { 0, 61440, 124928, 117760, 0, 0, -61440, -53248 },
+CurveDecodethreebitsamplesEncodedWordsLayout315 g_curveDecodeThreeBitSamplesTail = {
     { &g_threadLabelWordsEuropeanX[0x5C], &g_threadLabelWordsEuropeanX[0x54], &g_threadLabelWordsEuropeanX[0x4C], &g_threadLabelWordsEuropeanX[0x3C], &g_threadLabelWordsEuropeanX[0x34], &g_threadLabelWordsEuropeanX[0x2C], &g_threadLabelWordsEuropeanX[0x20], &g_threadLabelWordsEuropeanX[0x14], &g_threadLabelWordsEuropeanX[0xC], 0 },
     -1,
     1.000847f
@@ -181,8 +183,7 @@ CurveDecodethreebitsamplesEncodedWordsLayout315 k_CurveDecodethreebitsamples = {
 #endif
 
 #if defined(VERSION_US)
-CurveDecodethreebitsamplesEncodedWordsLayout316 k_CurveDecodethreebitsamples = {
-    { 0, 61440, 124928, 117760, 0, 0, -61440, -53248 },
+CurveDecodethreebitsamplesEncodedWordsLayout316 g_curveDecodeThreeBitSamplesTail = {
     { &g_threadLabelWordsUs[0x5C], &g_threadLabelWordsUs[0x54], &g_threadLabelWordsUs[0x4C], &g_threadLabelWordsUs[0x3C], &g_threadLabelWordsUs[0x34], &g_threadLabelWordsUs[0x2C], &g_threadLabelWordsUs[0x20], &g_threadLabelWordsUs[0x14], &g_threadLabelWordsUs[0xC], 0 },
     -1,
     "INI_"
@@ -190,8 +191,7 @@ CurveDecodethreebitsamplesEncodedWordsLayout316 k_CurveDecodethreebitsamples = {
 #endif
 
 #if defined(VERSION_US_REV1)
-CurveDecodethreebitsamplesEncodedWordsLayout317 g_CurveDecodethreebitsamples = {
-    { 0, 61440, 124928, 117760, 0, 0, -61440, -53248 },
+CurveDecodethreebitsamplesEncodedWordsLayout317 g_curveDecodeThreeBitSamplesTail = {
     { &g_threadLabelWordsUsRevision[92], &g_threadLabelWordsUsRevision[84], &g_threadLabelWordsUsRevision[76], &g_threadLabelWordsUsRevision[60], &g_threadLabelWordsUsRevision[52], &g_threadLabelWordsUsRevision[44], &g_threadLabelWordsUsRevision[32], &g_threadLabelWordsUsRevision[20], &g_threadLabelWordsUsRevision[12], 0 },
     -1
 };
@@ -200,61 +200,48 @@ CurveDecodethreebitsamplesEncodedWordsLayout317 g_CurveDecodethreebitsamples = {
 /* DEFS_TOGGLESAVEDFLAG_DATA.CPP */
 
 #if defined(VERSION_DE)
-struct {
-    unsigned int leadingWords;
-    unsigned char colorBytes[32];
-} g_savedFlagToggleStorage = {
-    0x00000000,
+s32 g_pointLightSavedBufferOffset = 0x00000000;
+SavedFlagToggleStorage g_savedFlagToggleStorage = {
     {
         0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0x38, 0x38, 0x38, 0x00,
         0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xD6, 0x1E, 0xDC, 0x00,
-    },
-};
+    }};
 #endif
 
 #if defined(VERSION_EU)
-struct {
-    unsigned int leadingWords[4];
-    unsigned char colorBytes[20];
-} g_savedFlagToggleStorage = {
+s32 g_pointLightSavedBufferOffset = 0x00000000;
+SavedFlagToggleStorage g_savedFlagToggleStorage = {
     {
-        0x00000000, 0x00000000, 0x4E4F5553, 0x20564F55,
+        0x00000000, 0x4E4F5553, 0x20564F55,
     },
     {
         0x38, 0x38, 0x38, 0x00, 0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00,
         0xD6, 0x1E, 0xDC, 0x00,
-    },
-};
+    }};
 #endif
 
 #if defined(VERSION_EU_X)
-struct {
-    unsigned int leadingWords[4];
-    unsigned char colorBytes[20];
-} g_savedFlagToggleStorage = {
+s32 g_pointLightSavedBufferOffset = 0x00000000;
+SavedFlagToggleStorage g_savedFlagToggleStorage = {
     {
-        0x00000000, 0x3F7F9F36, 0x3F7F52FA, 0x3F7F06B0,
+        0x3F7F9F36, 0x3F7F52FA, 0x3F7F06B0,
     },
     {
         0x38, 0x38, 0x38, 0x00, 0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00,
         0xD6, 0x1E, 0xDC, 0x00,
-    },
-};
+    }};
 #endif
 
 #if defined(VERSION_US)
-struct {
-    unsigned int leadingWords[4];
-    unsigned char colorBytes[20];
-} g_savedFlagToggleStorage = {
+s32 g_pointLightSavedBufferOffset = 0x00000000;
+SavedFlagToggleStorage g_savedFlagToggleStorage = {
     {
-        0x00000000, 0x52454144, 0x59657175, 0x5200006C,
+        0x52454144, 0x59657175, 0x5200006C,
     },
     {
         0x38, 0x38, 0x38, 0x00, 0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00,
         0xD6, 0x1E, 0xDC, 0x00,
-    },
-};
+    }};
 #endif
 
 /* PLAYERAI_BUILDFORCEMARKERTRANSFORM_DATA.CPP */
@@ -268,16 +255,14 @@ const char k_playeraiForceMarkerLightColorWord[4] = "888";
 
 /* PAK_ADJUSTOWNERNOTIFICATIONOPTION_DATA.CPP */
 #if defined(VERSION_US_REV1)
-/* Nine words, then the ambient light, the diffuse light and its direction as bytes (read bytewise by the RSP). */
-struct {
-    unsigned int words[9];
-    unsigned char lights[20];
-} g_enemyMixWordsAndLights = {
-    { 0x00000001, 0x3F800000, 0x3F8067C9, 0x3F8041C9, 0x3F801BC1, 0x00000000, 0x3F7F9F36, 0x3F7F52FA,
-      0x3F7F06B0 },
+s32 g_playerViewRenderingEnabled = 0x00000001;
+EnemyMixWordsAndLights g_enemyMixWordsAndLights = {
+    { 0x3F800000, 0x3F8067C9, 0x3F8041C9, 0x3F801BC1 }};
+s32 g_pointLightSavedBufferOffset = 0x00000000;
+SavedFlagToggleStorage g_savedFlagToggleStorage = {
+    { 0x3F7F9F36, 0x3F7F52FA, 0x3F7F06B0 },
     { 0x38, 0x38, 0x38, 0x00, 0x38, 0x38, 0x38, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00,
-      0xD6, 0x1E, 0xDC, 0x00 },
-};
+      0xD6, 0x1E, 0xDC, 0x00 }};
 s32 g_notificationOptionZero[1] = {
     0,
 };

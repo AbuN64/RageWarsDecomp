@@ -93,7 +93,7 @@ void Polytrak2_SampleVectorTrack(AnimRef *anim, s32 index, f32 time, CVector3 *o
         }
         first = position >= 0.0f ? (s32)position : (s32)position - ((f32)(s32)position != position);
         if (length <= (f32)first) {
-            if (unsignedFloat(span,&g_rotationTrackLowerKeySpanTestBias)*rate <= 0.0f) {
+            if (unsignedFloat(span,g_rotationTrackLowerKeySpanTestBias)*rate <= 0.0f) {
             first = (s32)(unsignedFloat(span,&g_rotationTrackLowerKeySpanIndexBias)*rate);
         } else {
             f32 integer = (f32)(s32)(unsignedFloat(span,&g_rotationTrackLowerKeyWrappedIntegerSpanBias)*rate);
@@ -211,7 +211,7 @@ void Polytrak2_DecodeScalarSamples(u32 *stream, ScalarSampleOutput *out, s32 cou
         decode.second_bits = Polytrak2_ReadBitsAndAdvance(&decode.stream, 6);
         converted = (f64)decode.first_bits;
         if (decode.first_bits < 0) {
-            converted += (*(const double *)g_sampleTrackUnsignedConversionBias);
+            converted += g_sampleTrackUnsignedConversionBias[0];
         }
         first = Polytrak2_UnpackUnitValue((f32)converted, 6);
         converted = (f64)decode.second_bits;
@@ -1724,7 +1724,7 @@ char *Polytrak2_AppendOutputPackSection(Pack *pack, const void *source, s32 size
 /* ROTATION_TRACK_START_SPAN_TEST_BIAS_DATA.CPP */
 
 #if defined(VERSION_DE)
-extern const f32 g_rotationTrackLowerKeySpanTestBias[21];
+extern const double g_rotationTrackLowerKeySpanTestBias[10];
 #endif
 
 /* K_POLYTRAK2ENCODEDWORDS.CPP */
@@ -1737,7 +1737,7 @@ extern const f32 g_rotationTrackLowerKeyFrameEndBias[24];
 
 /* SAMPLE_TRACK_UNSIGNED_CONVERSION_BIAS_DATA.CPP */
 
-extern const float g_sampleTrackUnsignedConversionBias[4];
+extern const double g_sampleTrackUnsignedConversionBias[2];
 
 /* POLYTRAK2_REBUILDEXPANDEDANIMATIONRESOURCE_DATA.CPP */
 
@@ -1858,30 +1858,13 @@ unsigned int g_buttonRemapScaleTriple[3] = {
 const float g_packedHalfwordToUnitScale[1] = {
     3.051851e-05f,
 };
-#if defined(VERSION_US_REV1)
-const float g_vectorTrackLimitPairs[21] = {
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f, 3.0e+01f, 0.0f,
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f, 3.0e+01f, 0.0f,
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f, 3.0e+01f, 0.0f,
-    3.0e+01f, 0.0f, 1.0f,
+/* 2^32 per unsigned span conversion of the rotation track keys, then the interpolation unit. */
+const double g_rotationTrackLowerKeySpanTestBias[10] = {
+    4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0,
+    4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0,
 };
-#endif
-#if defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US)
-const f32 g_vectorTrackSpanTestBiases[21] = {
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 1.0f,
-};
-#endif
-#if defined(VERSION_DE)
-const f32 g_rotationTrackLowerKeySpanTestBias[21] = {
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
-    30.0f, 0.0f, 1.0f,
-};
-#endif
+
+const float g_rotationTrackInterpolationUnit = 1.0f;
 
 const f32 g_rotationTrackLowerKeyFrameEndBias[24] = {
     1.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
@@ -1890,8 +1873,8 @@ const f32 g_rotationTrackLowerKeyFrameEndBias[24] = {
     30.0f, 0.0f, 30.0f, 0.0f, 30.0f, 0.0f,
 };
 
-const float g_sampleTrackUnsignedConversionBias[4] = {
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f,
+const double g_sampleTrackUnsignedConversionBias[2] = {
+    4294967296.0, 4294967296.0,
 };
 
 const float g_motionQuantizedRateZero[4] = {

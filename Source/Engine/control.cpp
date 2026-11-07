@@ -692,9 +692,6 @@ void Control_DisableAllControllerPaks(void) {
  * the table's mode is 1, also restores its position, its saved value and its identifier resolved from the
  * saved handle through Scene_GetModelSectionTwoRecord. */
 
-const float g_snapshotModeColorScale[3] = {
-    1.0f, 1.0f, 0.003921569f,
-};
 void Control_SetProfileMode(ControllerProfile *slot, s32 profileMode) {
     slot->mode = profileMode;
     if (profileMode == 0) {
@@ -936,7 +933,7 @@ s32 Control_AdvanceEffectCurve(SampledEffectCurveState *curvePlayer) {
     switch (type) {
     case 0: {
         f32 divisor = g_displayedFramebufferAndRefreshRate[1];
-        advancedTime = curvePlayer->time + (g_controllerEffectTimeAdvanceScale.value / divisor);
+        advancedTime = curvePlayer->time + (g_controllerEffectTimeAdvanceScale / divisor);
         curvePlayer->time = advancedTime;
         if (curve->length <= advancedTime) {
             return 1;
@@ -946,14 +943,14 @@ s32 Control_AdvanceEffectCurve(SampledEffectCurveState *curvePlayer) {
     case 1: {
         RandomCurve *random = (void *)curve;
         f32 divisor = g_displayedFramebufferAndRefreshRate[1];
-        remainingTime = curvePlayer->time - (g_controllerEffectTimeRetreatScale.value / divisor);
+        remainingTime = curvePlayer->time - (g_controllerEffectTimeRetreatScale / divisor);
         curvePlayer->time = remainingTime;
         if (remainingTime <= 0.0f) {
             curvePlayer->time =
                 remainingTime + random->period;
             curvePlayer->value = Graphu64_RandomBetween(
-                (f32)random->minimum * g_controllerEffectRandomRangeScale.value,
-                (f32)random->maximum * g_controllerEffectRandomRangeScale.value);
+                (f32)random->minimum * g_controllerEffectRandomRangeScale,
+                (f32)random->maximum * g_controllerEffectRandomRangeScale);
         }
         goto block_7;
     }
@@ -1087,3 +1084,9 @@ struct {
     },
 };
 #endif
+
+/* Defined after their readers so the reads stay loads. */
+/* Control_AdvanceEffectCurve's time advance and retreat scales and the random range scale. */
+const float g_controllerEffectTimeAdvanceScale = 1.0f;
+const float g_controllerEffectTimeRetreatScale = 1.0f;
+const float g_controllerEffectRandomRangeScale = 0.003921569f;

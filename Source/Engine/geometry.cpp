@@ -62,6 +62,7 @@
 #include "data_overlay_layouts.h"
 #include "Data/Enemy/events_delivercontacteffect_data.h"
 #include "System/engine_data_source.h"
+#include "System/contact_effect.h"
 
 /* GEOMETRY_SETUPMATERIAL.CPP */
 
@@ -2559,9 +2560,12 @@ EventHandlerAddressTable_euLayout g_eventHandlerAddressTable_eu = { { -256, -256
 
 /* GEOMETRY_DRAWRESOURCEMODEL_DATA.CPP */
 #if defined(VERSION_EU)
-GeometryDrawResourceModelWritableWords_euLayout g_geometryDrawResourceModelWritableWords_eu = {
-    { -1, -1, 1, 1, 1, 1, 1, 1, 1, 65536 },
-    { -512.0f, -131072.0f, 0.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 0.0f, 0.0f }
+u32 g_geometryPreviousModePreset = 0xFFFFFFFF;
+int g_geometryPreviousCombineMode = -1;
+EngineGeometryState g_geometryPreviousModePresetBlock = {
+    1, 1, 1, 1, 1, 1, 1, 0x00010000, 0xC4000000, 0xC8000000, 0,
+    { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f },
+    { 0, 0, 0, 0 }, 0, 0, { 0, 0 }
 };
 ResourceModelColorMasksLayout g_resourceModelColorMasks = {
     0xA0000000, 0xA0000000,
@@ -3008,62 +3012,73 @@ Gfx g_geometryDrawIntensityMaskDisplayList[17] = {
 /* EVENTS_DELIVERCONTACTEFFECT_DATA.CPP */
 
 #if defined(VERSION_US)
-unsigned short g_eventsDeliverContactEffectHalfwords[68] = {
-    0xE300, 0x1001, 0x0000, 0x0000, 0xD7FF, 0x0002, 0x8000, 0x8000, 0xD9F9, 0xFBFF, 0x0000, 0x0000,
-    0xD9FF, 0xFFFF, 0x0021, 0x0004, 0xFCFF, 0x97FF, 0xFFFF, 0xFE38, 0xE200, 0x001C, 0xC810, 0x4E50,
-    0xDB04, 0x0004, 0x0000, 0x0001, 0xDB04, 0x000C, 0x0000, 0x0001, 0xDB04, 0x0014, 0x0000, 0xFFFF,
-    0xDB04, 0x001C, 0x0000, 0xFFFF, 0x0100, 0x4008, 0x8014, 0x08E0, 0x0600, 0x0204, 0x0004, 0x0600,
-    0xDB04, 0x0004, 0x0000, 0x0005, 0xDB04, 0x000C, 0x0000, 0x0005, 0xDB04, 0x0014, 0x0000, 0xFFFB,
-    0xDB04, 0x001C, 0x0000, 0xFFFB, 0xDF00, 0x0000, 0x0000, 0x0000,
+/* Geometry_DrawResourceModel's second-pass material display list. */
+Gfx g_geometryAlternateMaterialDisplayList[17] = {
+    {{ 0xE3001001, 0x00000000 }},
+    {{ 0xD7FF0002, 0x80008000 }},
+    {{ 0xD9F9FBFF, 0x00000000 }},
+    {{ 0xD9FFFFFF, 0x00210004 }},
+    {{ 0xFCFF97FF, 0xFFFFFE38 }},
+    {{ 0xE200001C, 0xC8104E50 }},
+    {{ 0xDB040004, 0x00000001 }},
+    {{ 0xDB04000C, 0x00000001 }},
+    {{ 0xDB040014, 0x0000FFFF }},
+    {{ 0xDB04001C, 0x0000FFFF }},
+    {{ 0x01004008, 0x801408E0 }},
+    {{ 0x06000204, 0x00040600 }},
+    {{ 0xDB040004, 0x00000005 }},
+    {{ 0xDB04000C, 0x00000005 }},
+    {{ 0xDB040014, 0x0000FFFB }},
+    {{ 0xDB04001C, 0x0000FFFB }},
+    {{ 0xDF000000, 0x00000000 }},
 };
 #endif
 
 #if defined(VERSION_US_REV1)
-EventsDelivercontacteffectWords2Layout g_contactEffectParticleQuadDisplayList = {
-    {
-        { 0xE3001001, 0 },
-        { 0xD7FF0002, 0x80008000 },
-        { 0xD9F9FBFF, 0 },
-        { 0xD9FFFFFF, 2162692 },
-        { 0xFCFF97FF, -456 },
-        { 0xE200001C, 0xC8104E50 },
-        { 0xDB040004, 1 },
-        { 0xDB04000C, 1 },
-        { 0xDB040014, 65535 },
-        { 0xDB04001C, 65535 },
-        { 0x01004008, (unsigned int)g_particleQuadVertices },
-        { 0x06000204, 263680 },
-        { 0xDB040004, 5 },
-        { 0xDB04000C, 5 },
-        { 0xDB040014, 65531 },
-        { 0xDB04001C, 65531 },
-        { 0xDF000000, 0 },
-    }
+/* Geometry_DrawResourceModel's second-pass material display list. */
+Gfx g_geometryAlternateMaterialDisplayList[17] = {
+    {{ 0xE3001001, 0 }},
+    {{ 0xD7FF0002, 0x80008000 }},
+    {{ 0xD9F9FBFF, 0 }},
+    {{ 0xD9FFFFFF, 2162692 }},
+    {{ 0xFCFF97FF, -456 }},
+    {{ 0xE200001C, 0xC8104E50 }},
+    {{ 0xDB040004, 1 }},
+    {{ 0xDB04000C, 1 }},
+    {{ 0xDB040014, 65535 }},
+    {{ 0xDB04001C, 65535 }},
+    {{ 0x01004008, (unsigned int)g_particleQuadVertices }},
+    {{ 0x06000204, 263680 }},
+    {{ 0xDB040004, 5 }},
+    {{ 0xDB04000C, 5 }},
+    {{ 0xDB040014, 65531 }},
+    {{ 0xDB04001C, 65531 }},
+    {{ 0xDF000000, 0 }},
 };
 
 RestBytes8 g_contactEffectStaleFloatPairAboveHalf = {
     { 63, 22, 156, 251, 63, 22, 41, 101 },
 };
 
-EffectCallbackFlagsLayout g_effectCallbackFlags = { { { (void *)&addrLow_Events_PlayClipEvent, 0 }, { (void *)&addrLow_Events_SpawnActorEffect,
-             0 }, { (void *)&addrLow_Events_ApplyDirectDamage_us_rev1, 4 }, { (void *)&addrLow_Events_ApplyRadialDamage,
-             6 }, { (void *)&addrLow_Events_ApplyRadialDamageWithKnockback_us_rev1, 6 }, { (void *)&addrLow_Events_PreserveEventArgument,
-             10 }, { (void *)&addrLow_Events_RunFirstNodeOperation, 16 }, { (void *)&addrLow_Events_RunSecondNodeOperation_us_rev1,
-             16 }, { (void *)&addrLow_Events_SpawnActorEffect, 0 }, { (void *)&addrLow_Events_StartCameraFadeAtPoint,
-             0 }, { (void *)&addrLow_Events_ConsumeEventArgument, 0 }, { (void *)&addrLow_Events_RequestActorPosition,
-             0 }, { (void *)&addrLow_Events_StartEnabledCameraEmitter, 0 }, { (void *)&addrLow_Events_StartDisabledCameraEmitter,
-             0 }, { (void *)&addrLow_Events_PostGameplayMessage, 0 }, { (void *)&addrLow_Events_ApplyFlag100RadialDamage,
-             6 }, { (void *)&addrLow_Events_ApplyFlag100RadialKnockback, 6 }, { (void *)&addrLow_Events_ApplyFlag200RadialDamage,
-             7 }, { (void *)&addrLow_Events_ApplyFlag200RadialKnockback, 7 }, { (void *)&addrLow_Events_ApplyFlag400RadialDamage,
-             6 }, { (void *)&addrLow_Events_ApplyFlag400RadialKnockback, 6 }, { (void *)&addrLow_Events_StartActorEmitter,
-             0 }, { (void *)&addrLow_Events_IgnoreEvent, 0 }, { (void *)&addrLow_Events_PlayTeamClip,
-             0 }, { (void *)&addrLow_Events_SpawnFilteredActorEffect, 0 }, { (void *)&addrLow_Events_FireWithinHeightRange,
-             7 }, { (void *)&addrLow_Events_SetActorEventBit, 0 }, { (void *)&addrLow_Events_ClearActorEventBit,
-             0 }, { (void *)&addrLow_Events_SpawnAttachedEffect, 0 }, { (void *)&addrLow_Events_PlayTeamEffect,
-             0 }, { (void *)&addrLow_Events_StopClipEvent, 0 }, { (void *)&addrLow_Events_SetActorLoopingSound_us_rev1,
-             0 }, { (void *)&addrLow_Events_StopActorLoopingSound, 0 }, { (void *)&addrLow_Events_IncrementNearbyPlayerCounter,
-             2 }, { (void *)&addrLow_Events_SpawnPositionedEffect, 0 }, { (void *)&addrLow_Events_SetActorEffectMode,
-             0 }, { (void *)&addrLow_Events_DeactivateActor, 0 } } };
+ContactEffectEntry g_effectCallbackFlags[37] = { { (ContactEffectHandler)&addrLow_Events_PlayClipEvent, 0 }, { (ContactEffectHandler)&addrLow_Events_SpawnActorEffect,
+             0 }, { (ContactEffectHandler)&addrLow_Events_ApplyDirectDamage_us_rev1, 4 }, { (ContactEffectHandler)&addrLow_Events_ApplyRadialDamage,
+             6 }, { (ContactEffectHandler)&addrLow_Events_ApplyRadialDamageWithKnockback_us_rev1, 6 }, { (ContactEffectHandler)&addrLow_Events_PreserveEventArgument,
+             10 }, { (ContactEffectHandler)&addrLow_Events_RunFirstNodeOperation, 16 }, { (ContactEffectHandler)&addrLow_Events_RunSecondNodeOperation_us_rev1,
+             16 }, { (ContactEffectHandler)&addrLow_Events_SpawnActorEffect, 0 }, { (ContactEffectHandler)&addrLow_Events_StartCameraFadeAtPoint,
+             0 }, { (ContactEffectHandler)&addrLow_Events_ConsumeEventArgument, 0 }, { (ContactEffectHandler)&addrLow_Events_RequestActorPosition,
+             0 }, { (ContactEffectHandler)&addrLow_Events_StartEnabledCameraEmitter, 0 }, { (ContactEffectHandler)&addrLow_Events_StartDisabledCameraEmitter,
+             0 }, { (ContactEffectHandler)&addrLow_Events_PostGameplayMessage, 0 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag100RadialDamage,
+             6 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag100RadialKnockback, 6 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag200RadialDamage,
+             7 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag200RadialKnockback, 7 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag400RadialDamage,
+             6 }, { (ContactEffectHandler)&addrLow_Events_ApplyFlag400RadialKnockback, 6 }, { (ContactEffectHandler)&addrLow_Events_StartActorEmitter,
+             0 }, { (ContactEffectHandler)&addrLow_Events_IgnoreEvent, 0 }, { (ContactEffectHandler)&addrLow_Events_PlayTeamClip,
+             0 }, { (ContactEffectHandler)&addrLow_Events_SpawnFilteredActorEffect, 0 }, { (ContactEffectHandler)&addrLow_Events_FireWithinHeightRange,
+             7 }, { (ContactEffectHandler)&addrLow_Events_SetActorEventBit, 0 }, { (ContactEffectHandler)&addrLow_Events_ClearActorEventBit,
+             0 }, { (ContactEffectHandler)&addrLow_Events_SpawnAttachedEffect, 0 }, { (ContactEffectHandler)&addrLow_Events_PlayTeamEffect,
+             0 }, { (ContactEffectHandler)&addrLow_Events_StopClipEvent, 0 }, { (ContactEffectHandler)&addrLow_Events_SetActorLoopingSound_us_rev1,
+             0 }, { (ContactEffectHandler)&addrLow_Events_StopActorLoopingSound, 0 }, { (ContactEffectHandler)&addrLow_Events_IncrementNearbyPlayerCounter,
+             2 }, { (ContactEffectHandler)&addrLow_Events_SpawnPositionedEffect, 0 }, { (ContactEffectHandler)&addrLow_Events_SetActorEffectMode,
+             0 }, { (ContactEffectHandler)&addrLow_Events_DeactivateActor, 0 } };
 
 RestBytes8 g_contactEffectStaleFloatPairBelowHalf = {
     { 62, 223, 149, 71, 62, 222, 101, 149 },
@@ -3145,8 +3160,10 @@ unsigned char g_materialIntensityMaskTexture[256] = {
 
 /* XPLUS_NEXTRANDOMINTEGER_DATA.CPP */
 #if defined(VERSION_US)
+u32 g_geometryPreviousModePreset = 0xFFFFFFFF;
+int g_geometryPreviousCombineMode = -1;
 EngineGeometryState g_geometryPreviousModePresetBlock = {
-    0xFFFFFFFF, -1, 1, 1, 1, 1, 1, 1, 1, 0x00010000, 0xC4000000, 0xC8000000, 0,
+    1, 1, 1, 1, 1, 1, 1, 0x00010000, 0xC4000000, 0xC8000000, 0,
     { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f },
     { 0, 0, 0, 0 }, 0, 0, { 0, 0 }
 };
@@ -3162,9 +3179,12 @@ unsigned int g_robertsoTextColorMasks[4] = {
 
 /* X_PLUS_DATA.CPP */
 #if defined(VERSION_US_REV1)
-XPlusWritableWords_us_rev1Layout g_xPlusWritableWords_us_rev1 = {
-    { -1, -1, 1, 1, 1, 1, 1, 1, 1, 65536 },
-    { -512.0f, -131072.0f, 0.0f, 255.0f, 255.0f, 255.0f, 255.0f, 255.0f, 0.0f, 0.0f }
+u32 g_geometryPreviousModePreset = 0xFFFFFFFF;
+int g_geometryPreviousCombineMode = -1;
+EngineGeometryState g_geometryPreviousModePresetBlock = {
+    1, 1, 1, 1, 1, 1, 1, 0x00010000, 0xC4000000, 0xC8000000, 0,
+    { 255.0f, 255.0f, 255.0f, 255.0f, 255.0f },
+    { 0, 0, 0, 0 }, 0, 0, { 0, 0 }
 };
 MaterialPlusModeConstantsUsRev1Layout g_xPlusData = {
     { 0xA0000000, 0xA0000000, 16711680, 16711680 }

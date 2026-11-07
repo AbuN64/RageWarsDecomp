@@ -237,7 +237,7 @@ extern char g_triggeredMotionDispatchTable[];
 extern u8 g_savedSecondaryMenuByteOptions[];
 
 
-extern struct ScalarFloatView g_controllerEffectTimeRetreatScale;
+extern const float g_controllerEffectTimeRetreatScale;
 
 extern struct ScalarFloatView g_directionVerticalThreshold;
 
@@ -281,7 +281,8 @@ extern char g_menuOptionBigHeadModeEnabledText[];
 
 extern s32 g_movingCallbackRomEntry;
 
-extern struct SessionInitializeHandler g_sessionInitializeHandlers[];
+struct EngineSessionHandlers;
+extern struct EngineSessionHandlers g_sessionInitializeHandlers[21];
 
 extern s32 g_frameHeapBufferIndex;
 
@@ -1310,7 +1311,6 @@ extern const char g_gameObjectResetAnimInfoText[];
 extern f32 k_xmathPositiveAngleWrapConstants[2];
 
 
-extern s32 g_playerViewRenderingEnabled;
 
 extern int *g_weaponIndexedValueTable[];
 
@@ -1357,7 +1357,6 @@ extern const float g_navigationObjectLinkDistanceLimits[];
 
 
 
-extern s32 g_activeVoiceCount;
 
 extern WidgetEventHandler g_numericWidgetEventHandlers;
 
@@ -1621,7 +1620,6 @@ extern s32 g_trialCatalogueNeighborZero[];
 extern char g_initialDialogMiddleRowResource[];
 
 
-extern s32 g_pointLightSavedBufferOffset;
 
 extern s32 g_frontendArchiveResident;
 
@@ -1731,7 +1729,7 @@ extern char g_difficultyHardText[];
 
 extern char g_menuOptionStickModeEnabledText[];
 
-extern struct ScalarFloatView g_controllerEffectTimeAdvanceScale;
+extern const float g_controllerEffectTimeAdvanceScale;
 
 extern char g_pauseOptionsMenuResource_eu_x[];
 
@@ -1911,7 +1909,7 @@ extern char addrLow_SetN64_RunBootstrapThread[];
 
 extern s32 g_systemBootMarkerComparison;
 
-extern struct ScalarFloatView g_controllerEffectRandomRangeScale;
+extern const float g_controllerEffectRandomRangeScale;
 
 #include "Common/legacy_collision_actor.h"
 
@@ -2391,6 +2389,8 @@ extern char g_particleQuadRenderRestoreList;
 extern char g_playerSequenceCallbacks;
 
 extern f32 k_collisionSurfaceOffsetScales[];
+extern s32 g_playerViewRenderingEnabled;
+extern s32 g_pointLightSavedBufferOffset;
 
 
 

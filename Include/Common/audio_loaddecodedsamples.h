@@ -93,7 +93,6 @@ typedef struct DecodeState {
     u16 frame[336]; /* Packed decoder transport, also consumed as TransformAudioFrame. */
 } DecodeState;
 extern struct DecodeState g_audioSampleDecodeState;
-extern u16 gPackedBitsLeft;
 extern u16 gPackedBitMasks[17];
 extern u16 gPackedSignBits[18];
 extern u16 gPackedWord;

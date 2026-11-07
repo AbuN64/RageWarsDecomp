@@ -30,7 +30,6 @@ struct SessionPlayerItemResetView;
 extern int g_bootstrapThreadPriority;
 
 
-extern int g_videoFrameSchedulingMode;
 
 
 
@@ -74,7 +73,6 @@ extern u32 g_lastFrameRetraceCount;
 extern f32 g_displayedFramebufferAndRefreshRate[2];
 extern struct MessageList g_matchEndingTeamWheelClose;
 
-extern u32 g_maximumDisplayListBytes;
 extern f32 rwFrameBuildSeconds;
 extern f32 g_sessionFrameFadeMaximum;
 extern void Cache_SelectResourceSlot(s32,s32);
@@ -88,5 +86,6 @@ extern const char g_buildTimestampText[];
 extern char g_buildVersionSuffix[];
 
 extern void SetN64_SelectSpawnAfterCredits(struct GameSession *scene, s32 spawnIndex);
+extern u32 g_maximumDisplayListBytes;
 
 #endif

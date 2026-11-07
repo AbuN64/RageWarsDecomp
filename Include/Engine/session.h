@@ -424,7 +424,7 @@ extern s32 g_schedulerFrameQueueWriteIndex;
 extern s32 g_schedulerQueuedFrameCount;
 extern s32 g_schedulerRetracesSinceSwap;
 extern s32 g_schedulerSwapPending;
-extern struct SessionInitializeHandler g_sessionInitializeHandlers[];
+extern struct EngineSessionHandlers g_sessionInitializeHandlers[21];
 extern struct UnitVp g_fullScreenViewports[];
 extern char g_videoModeDefaultLabel[];
 extern f32 g_backdropModelFillValue;

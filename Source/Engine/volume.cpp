@@ -9,6 +9,7 @@
 #include "Menu/player_settings_text.h"
 #include "types.h"
 #include "Common/runtime_declarations.h"
+#include "Engine/curve.h"
 #include "Common/frontend_video_mode.h"
 #include "Frontend/screen_video_mode.h"
 #include "Engine/defs.h"

@@ -190,7 +190,7 @@ struct ActorLightingBlockView {
 struct ActorCollisionDataView;
 typedef struct ActorCollisionDataView ActorCollisionDataView;
 
-extern float g_actorGroundRotationUnitW;
+extern const float g_actorGroundRotationUnitW[4];
 
 struct RootMotionActorView;
 typedef struct RootMotionActorView RootMotionActorView;

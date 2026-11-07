@@ -203,7 +203,11 @@
 #include "System/engine_data_source.h"
 #include "Data/Enemy/mode_lifecycle_handlers2_us_rev1_data.h"
 
+float g_schedulerTaskDuration = 0.0f;
+f32 g_schedulerAudioDuration = 0.0f;
+float g_schedulerElapsedFrameDuration = 0.0f;
+f32 rwFrameBuildSeconds = 0.0f;
 EngineSchedulerState g_schedulerState = {
-    0.0f, 0.0f, 0.0f, 0.0f, 262144.0f, 1, 0, (void *)&g_schedulerStateBuffer,
+    262144.0f, 1, 0, (void *)&g_schedulerStateBuffer,
     2048, 0, 0, 1, 1, 0, 0
 };

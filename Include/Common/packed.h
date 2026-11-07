@@ -70,7 +70,7 @@ struct GeometryEdgeDirectionView {
     f32 unitDirectionZ;
 };
 
-extern float g_randomFloatRangeScale;
+extern const float g_randomFloatRangeScale;
 
 extern float g_regionWordToFloatScaleDe;
 
@@ -106,7 +106,7 @@ extern float g_cachedSurfaceCeilingAverageScale;
 extern float g_randomBlendScale;
 
 
-extern double g_randomUnsignedFloatCorrection;
+extern const double g_randomUnsignedFloatCorrection;
 
 extern void Graphu64_InitializeEdge(struct GeometryEdge *geometryEdge, void *startPoint, void *endPoint);
 

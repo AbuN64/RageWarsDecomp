@@ -17,11 +17,8 @@ typedef struct EngineVoiceScaleEntry {
     f32 scale;
 } EngineVoiceScaleEntry;
 
+/* The scheduler words after its four leading floats (g_schedulerTaskDuration .. rwFrameBuildSeconds, scalar globals). */
 typedef struct EngineSchedulerState {
-    f32 taskDuration;
-    f32 audioDuration;
-    f32 elapsedFrameDuration;
-    f32 frameBuildSeconds;
     f32 tickScale;
     s32 enabled;
     s32 screenImageResourcesEnabled;
@@ -34,18 +31,26 @@ typedef struct EngineSchedulerState {
     s32 creditsReturnToFrontend;
     s32 creditsSelectSpawnOnExit;
 } EngineSchedulerState;
+extern EngineSchedulerState g_schedulerState;
 
+/* Audio_UpdateVoicePool stores the active voice count in the first word; the words each version holds after it up
+   to the next object follow. */
+typedef struct AudioVoicePoolState {
+    s32 activeVoiceCount;
+#if defined(VERSION_EU)
+    unsigned int word1;
+    char text1[12];
+    unsigned int words[10];
+#else
+    unsigned int words[14];
+#endif
+} AudioVoicePoolState;
+extern AudioVoicePoolState g_audioPitchRatioCurveZeroWords;
+
+/* The words after g_maximumDisplayListBytes (the largest display list SetN64_BuildAndSubmitSessionFrame built, its own scalar global). */
 typedef struct EngineRenderState {
-    u32 maximumDisplayListBytes;
     u8 leadingStaleBytes[8];
-    s32 textureCacheResource;
-    s32 texturePaletteOverrideEnabled;
-    u8 trailingStaleBytes[8];
-} EngineRenderState;
-
-typedef struct EnginePreviewRenderState {
-    u32 maximumDisplayListBytes;
-    u8 leadingStaleBytes[8];
+#if defined(VERSION_US_REV1)
     s32 textureVariationBypassEnabled;
     s32 previousTextureHeld;
     s32 nextTextureHeld;
@@ -54,14 +59,15 @@ typedef struct EnginePreviewRenderState {
     s32 previousPageHeld;
     s32 nextPageHeld;
     s32 toggleButtonHeld;
+#endif
     s32 textureCacheResource;
     s32 texturePaletteOverrideEnabled;
     u8 trailingStaleBytes[8];
-} EnginePreviewRenderState;
+} EngineRenderState;
+extern EngineRenderState g_sessionFrameRenderState;
 
+/* The geometry state after g_geometryPreviousModePreset and g_geometryPreviousCombineMode (scalar globals). */
 typedef struct EngineGeometryState {
-    u32 previousModePreset;
-    s32 previousCombineMode;
     s32 modeEnabled;
     s32 combineEnabled;
     s32 antialiasingEnabled;
@@ -79,6 +85,8 @@ typedef struct EngineGeometryState {
     u8 primitiveAlphaOverride;
     u8 alignmentPad[2];
 } EngineGeometryState;
+/* Geometry_SetCombineMode caches the last combine mode preset in the first word. */
+extern EngineGeometryState g_geometryPreviousModePresetBlock;
 
 typedef struct EngineRuntimeIoState {
     s32 randomState;

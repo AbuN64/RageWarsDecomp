@@ -27,5 +27,5 @@ extern void Audio_StopDialogPlayerUnlocked(void *dialogPlayer);
 extern s32 Audio_StartDialogGroup(struct DialogGroupPlayer *player, s32 group, f32 scale, int pan);
 struct DialogPlayerState;
 void Audio_InitializeDialogPlayer(struct DialogPlayerState *record, s32 resource);
-extern struct ResourceKeyView *g_dialogDefaultSample;
+#include "Engine/Audio/audio.h"
 #endif

@@ -1663,7 +1663,7 @@ void SetN64_StartGameThreadAndIdle(s32 *gameSession, s32 threadArgument) {
     osCreateThread((s32)g_gameThread, 1, addrLow_SetN64_RunGameThread, threadArgument, (s32)g_schedulerThreadStack, g_gameThreadPriority);
     osStartThread(g_gameThread);
     {
-        s32 schedulingPriority = g_videoFrameSchedulingMode;
+        s32 schedulingPriority = g_smackFormatTable.videoFrameSchedulingMode;
         ((GameSession *)gameSession)->enabled = 0;
         osSetThreadPri(0, schedulingPriority);
     }
@@ -2651,7 +2651,7 @@ void SetN64_EnterPendingSessionMode(void *gameSession) {
         Cinema_EndSequence();
         SoundElement_StopAudioExceptKey(-1);
         Control_SetControllerMode(0);
-        callback = g_sessionInitializeHandlers[((struct GameSession *)gameSession)->mode].callback;
+        callback = g_sessionInitializeHandlers[((struct GameSession *)gameSession)->mode].initialize;
         if (callback != 0) {
             callback(gameSession);
         }
@@ -3113,7 +3113,7 @@ float g_trackedActorScaleTriple[3] = {
 #if defined(VERSION_DE)
 
 
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
+EngineSessionHandlers g_sessionInitializeHandlers[21] = {
     { (EngineSessionCallback)((u32)SetN64_InitializeFrontendScreenState - 0x80000000u), (EngineSessionCallback)((u32)SetN64_ExitSessionAndDisablePaks - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawRoundTimeoutSession - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSceneForIntro - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroForMemorySize - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawIntroBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeIntroText - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroTextToOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCenteredIntroText - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ClearSessionPlayerPools - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceLoadingToSplashImage - 0x80000000u), (EngineSessionCallback)((u32)SetN64_SetupLoadingBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSplashImageEffects - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceSplashImageToMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSplashImage - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleOpeningCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawOpeningCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterOpeningCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartTitleMusic - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleTitleScreenInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawFullscreenBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeMainMenuScene - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawMainMenu - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartAttractCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleAttractCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawAttractCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartSkippablePreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippablePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippablePreRoundCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartPreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandlePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawPreRoundCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_StartLevelIntroCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleLevelIntroCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawLevelIntroCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartRound - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResumeSelectedSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterResume - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCreditsRoll - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeSkippableCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippableCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippableCreditsRoll - 0x80000000u) },
@@ -3122,7 +3122,7 @@ EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
 #endif
 #if defined(VERSION_EU)
 
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
+EngineSessionHandlers g_sessionInitializeHandlers[21] = {
     { (EngineSessionCallback)((u32)SetN64_InitializeFrontendScreenState - 0x80000000u), (EngineSessionCallback)((u32)SetN64_ExitSessionAndDisablePaks - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawRoundTimeoutSession - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSceneForIntro - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroForMemorySize - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawIntroBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeIntroText - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroTextToOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCenteredIntroText - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ClearSessionPlayerPools - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceLoadingToSplashImage - 0x80000000u), (EngineSessionCallback)((u32)SetN64_SetupLoadingBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSplashImageEffects - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceSplashImageToMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSplashImage - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleOpeningCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawOpeningCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterOpeningCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartTitleMusic - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleTitleScreenInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawFullscreenBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeMainMenuScene - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawMainMenu - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartAttractCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleAttractCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawAttractCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartSkippablePreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippablePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippablePreRoundCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartPreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandlePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawPreRoundCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_StartLevelIntroCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleLevelIntroCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawLevelIntroCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartRound - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResumeSelectedSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterResume - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCreditsRoll - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeSkippableCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippableCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippableCreditsRoll - 0x80000000u) },
@@ -3131,7 +3131,7 @@ EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
 #endif
 #if defined(VERSION_EU_X)
 
-EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
+EngineSessionHandlers g_sessionInitializeHandlers[21] = {
     { (EngineSessionCallback)((u32)SetN64_InitializeFrontendScreenState - 0x80000000u), (EngineSessionCallback)((u32)SetN64_ExitSessionAndDisablePaks - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawRoundTimeoutSession - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSceneForIntro - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroForMemorySize - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawIntroBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeIntroText - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroTextToOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCenteredIntroText - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ClearSessionPlayerPools - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceLoadingToSplashImage - 0x80000000u), (EngineSessionCallback)((u32)SetN64_SetupLoadingBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResetSplashImageEffects - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceSplashImageToMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSplashImage - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleOpeningCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawOpeningCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterOpeningCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartTitleMusic - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleTitleScreenInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawFullscreenBackdrop - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeMainMenuScene - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateMainMenu - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawMainMenu - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartAttractCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleAttractCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawAttractCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartSkippablePreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippablePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippablePreRoundCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartPreRoundCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandlePreRoundCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawPreRoundCinema - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_StartLevelIntroCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleLevelIntroCinemaInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawLevelIntroCinema - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_StartRound - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_ResumeSelectedSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateActiveSession - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSessionWithRoundTimeout - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_UpdateUnusedModeAfterResume - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawUnusedModeAfterResume - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCreditsRoll - 0x80000000u) }, { (EngineSessionCallback)((u32)SetN64_InitializeSkippableCreditsRoll - 0x80000000u), (EngineSessionCallback)((u32)SetN64_HandleSkippableCreditsRollInput - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawSkippableCreditsRoll - 0x80000000u) },
@@ -3143,7 +3143,7 @@ EngineSessionHandlers g_schedHandleRspCompletionSessionHandlers[21] = {
 
 
 extern char addrLow_SetN64_DrawFullscreenBackdrop[];
-EngineSessionHandlers g_initialSessionHandlers[21] = {
+EngineSessionHandlers g_sessionInitializeHandlers[21] = {
     { (EngineSessionCallback)((u32)SetN64_InitializeFrontendScreenState - 0x80000000u), (EngineSessionCallback)((u32)SetN64_ExitSessionAndDisablePaks - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawRoundTimeoutSession - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_ResetSceneForIntro - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroForMemorySize - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawIntroBackdrop - 0x80000000u) },
     { (EngineSessionCallback)((u32)SetN64_InitializeIntroText - 0x80000000u), (EngineSessionCallback)((u32)SetN64_AdvanceIntroTextToOpeningCinema - 0x80000000u), (EngineSessionCallback)((u32)SetN64_DrawCenteredIntroText - 0x80000000u) },
@@ -3172,36 +3172,41 @@ EngineSessionHandlers g_initialSessionHandlers[21] = {
 #ifdef VERSION_DE
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
 
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "\000\000\000\000\003\340\000\010", 0, 1, "\000\000\000\012\000\000\000\013"
+    "\000\000\000\000\003\340\000\010", 0, 1, "\000\000\000\012\000\000\000\013"
 };
 #endif
 #endif
 #ifdef VERSION_EU
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "\000\000\000\000\000\000\000\010", 0, 1, "\000\000\000\000\000\000\000\010"
+    "\000\000\000\000\000\000\000\010", 0, 1, "\000\000\000\000\000\000\000\010"
 };
 #endif
 #endif
 #ifdef VERSION_EU_X
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "were bes", 0, 1, "Munch.\000\000"
+    "were bes", 0, 1, "Munch.\000\000"
 };
 #endif
 #endif
 #ifdef VERSION_US
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
+u32 g_maximumDisplayListBytes = 0;
 EngineRenderState g_sessionFrameRenderState = {
-    0, "INFLATOR", 0, 1, "\004\000\000\000f\000\000\000"
+    "INFLATOR", 0, 1, "\004\000\000\000f\000\000\000"
 };
 #endif
 #endif
 #ifdef VERSION_US_REV1
 #if defined(VERSION_DE) || defined(VERSION_EU) || defined(VERSION_EU_X) || defined(VERSION_US_REV1)
-EnginePreviewRenderState g_sessionFrameRenderState = {
-    0, "eft.\000\000\000\000", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "ep?\000Oops"
+u32 g_maximumDisplayListBytes = 0;
+EngineRenderState g_sessionFrameRenderState = {
+    "eft.\000\000\000\000", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "ep?\000Oops"
 };
 #endif
 #endif
@@ -3209,8 +3214,9 @@ EnginePreviewRenderState g_sessionFrameRenderState = {
 /* S_SMACKFORMAT.CPP */
 #if !(defined(VERSION_US_REV1))
 #if defined(VERSION_DE)
-SmackFormatTableLayoutA g_smackFormatTable = {
-    { 0, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+SmackFormatTable g_smackFormatTable = {
+    0,
+    { 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
     0.0079651f,
     -1,
     { 0x8C500000, 0x16020007 },
@@ -3218,14 +3224,17 @@ SmackFormatTableLayoutA g_smackFormatTable = {
 };
 #endif
 #if defined(VERSION_EU)
-SmackFormatTableLayoutB g_smackFormatTable = {
-    { 0, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, -1 },
+SmackFormatTable g_smackFormatTable = {
+    0,
+    { 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+    { 0, -1 },
     { 0.70710677f, 0.0f, -0.70710677f }
 };
 #endif
 #if defined(VERSION_EU_X)
-SmackFormatTableLayoutC g_smackFormatTable = {
-    { 0, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+SmackFormatTable g_smackFormatTable = {
+    0,
+    { 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
     "k %s",
     -1,
     "or find Powe"
@@ -3236,8 +3245,9 @@ SmackFormatTableLayoutC g_smackFormatTable = {
 /* Announce message block shared by the menu handler table: ids 10..18 followed by the kill-message
    text tail "nted", "Embryo Destr". us-rev1 wording; the other cartridges word this block in their
    own language, so only the versions carrying these bytes land here. */
-SmackFormatTableAltLayout g_smackFormatTableAlt = {
-    { 0, 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
+SmackFormatTable g_smackFormatTable = {
+    0,
+    { 10, 10, 11, 12, 13, 14, 15, 16, 17, 18 },
     "nted",
     -1,
     "Embryo Destr"

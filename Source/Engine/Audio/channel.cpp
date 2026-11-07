@@ -1196,7 +1196,7 @@ void Audio_UpdateVoicePool(void **voicePool) {
         i += 1;
         view += sizeof(AudioVoiceKeyedSlotView);
     } while (i < 16);
-    g_activeVoiceCount = activeVoiceCount;
+    g_audioPitchRatioCurveZeroWords.activeVoiceCount = activeVoiceCount;
     if (g_peakActiveVoiceCount < activeVoiceCount) {
         g_peakActiveVoiceCount = activeVoiceCount;
     }
@@ -1880,20 +1880,18 @@ s32 g_audioPitchRatioCurveUnitTable[10] = {
 #endif
 #ifdef VERSION_DE
 
-unsigned int g_audioPitchRatioCurveZeroWords[15] = {
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+AudioVoicePoolState g_audioPitchRatioCurveZeroWords = {
+    0x00000000,
+    {
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
+    },
 };
 #endif
 #ifdef VERSION_EU
-struct {
-    unsigned int words0[2];
-    char text1[12];
-    unsigned int words2[10];
-} g_audioPitchRatioCurveZeroWords = {
-    {
-        0x00000000, 0x00000000, 0x52204E4F, 0x55532041, 0x564F4952, 0x00000000, 0x00000000, 0x00000000,
-    },
+AudioVoicePoolState g_audioPitchRatioCurveZeroWords = {
+    0x00000000,
+    0x00000000,
     "R NOUS AVOIR",
     {
         0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000,
@@ -1902,21 +1900,30 @@ struct {
 };
 #endif
 #ifdef VERSION_EU_X
-unsigned int g_audioPitchRatioCurveZeroWords[15] = {
-    0x00000000, 0x00000000, 0x3F8DA520, 0x3F8D814B, 0x3F8D5D71, 0x00000000, 0x00000000, 0x00000000,
+AudioVoicePoolState g_audioPitchRatioCurveZeroWords = {
+    0x00000000,
+    {
+    0x00000000, 0x3F8DA520, 0x3F8D814B, 0x3F8D5D71, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
+    },
 };
 #endif
 #ifdef VERSION_US
-unsigned int g_audioPitchRatioCurveZeroWords[15] = {
-    0x00000000, 0x00000000, 0x71755200, 0x00260700, 0x0010000B, 0x00000000, 0x00000000, 0x00000000,
+AudioVoicePoolState g_audioPitchRatioCurveZeroWords = {
+    0x00000000,
+    {
+    0x00000000, 0x71755200, 0x00260700, 0x0010000B, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
+    },
 };
 #endif
 #ifdef VERSION_US_REV1
-unsigned int g_audioPitchRatioCurveZeroWords[15] = {
-    0x00000000, 0x00000000, 0x3F8E3441, 0x3F8E1080, 0x3F8DECBA, 0x00000000, 0x00000000, 0x00000000,
+AudioVoicePoolState g_audioPitchRatioCurveZeroWords = {
+    0x00000000,
+    {
+    0x00000000, 0x3F8E3441, 0x3F8E1080, 0x3F8DECBA, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x7F7F0000, 0x007F2929, 0x29000000,
+    },
 };
 #endif
 

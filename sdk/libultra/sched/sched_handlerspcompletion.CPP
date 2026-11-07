@@ -13,6 +13,7 @@
 #include <PR/os_internal_si.h>
 
 #include "Common/game_session.h"
+#include "System/engine_data_source.h"
 void Sched_HandleRspCompletion(void *object) {
  OSSched *scheduler=object;
  OSScTask *nextRsp,*nextRdp;

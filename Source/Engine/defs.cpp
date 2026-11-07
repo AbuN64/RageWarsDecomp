@@ -15,6 +15,7 @@
 #include "Data/initialized_runtime_buffers.h"
 #include "Engine/gdynlight.h"
 #include "Common/runtime_declarations.h"
+#include "Engine/curve.h"
 #include "Common/shared_optionsscreen.h"
 #include "Scene/cache_allocateresourceat.h"
 #include "System/defs_togglesavedflag.h"

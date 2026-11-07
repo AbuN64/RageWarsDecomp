@@ -47,7 +47,7 @@ typedef struct ResourcePayloadSizeView ResourcePayloadSizeView;
 
 
 
-extern float g_packedFloatRandomScale;
+extern const float g_packedFloatRandomScale;
 
 
 
@@ -81,7 +81,7 @@ extern float g_particleNearestEffectDistanceTuning;
 
 
 
-extern double g_packedFloatRandomBias;
+extern const double g_packedFloatRandomBias;
 
 
 

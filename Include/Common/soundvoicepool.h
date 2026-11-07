@@ -37,7 +37,7 @@ struct CLoopingSoundData_t {
 
 struct CLoopingSoundData_t;
 
-extern float g_dialogTempoScale;
+extern const float g_dialogTempoScale;
 
 
 
@@ -69,7 +69,7 @@ struct DialogGroupPlayer;
 
 
 
-extern double g_dialogUnsignedTimeCorrection;
+extern const double g_dialogUnsignedTimeCorrection;
 
 
 

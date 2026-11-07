@@ -62,7 +62,7 @@ void Audio_UpdateDialogPlayer(DialogPlaybackPlayer *player) {
         player->volume = header->volume;
         sequence = SetN64_GetPackSection(player->bank->songs, index | 1);
         ((void **)&g_dialogDecodeStreamRecord->head)[-1] = sequence;
-        g_dialogDefaultSample->key = Audio_InitDecodeStream(sequence, 22050, &rate);
+        g_dialogDefaultSample.key->key = Audio_InitDecodeStream(sequence, 22050, &rate);
         player->state = 3;
         alSndpSetSound(channel, player->id);
         alSndpSetPitch(channel, rate * 4.5351473e-05f);
@@ -248,9 +248,9 @@ void Audio_StopDialogPlayerUnlocked(void *dialogPlayer) {
     }
 }
 
-const float g_audio_LoadDialogMetadataConstant[3] = {
-    3.0e+01f, 0.0f, 0.01f,
-};
+/* 2^32, added when a negative song tempo converts to double, then the tempo scale. */
+const double g_dialogUnsignedTimeCorrection = 4294967296.0;
+const float g_dialogTempoScale = 0.01f;
 
 #if defined(VERSION_DE)
 extern float k_Raxplayer[3];
@@ -264,26 +264,11 @@ const float g_audio_StartDialogGroupConstant[1] = {
 
 /* G_AUDIOPITCHRATIOCURVE.CPP */
 
-#if defined(VERSION_DE)
-extern unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12];
-#endif
-
 #if defined(VERSION_EU)
-unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12] = {
-    0x800C, 0xC700, 0x800C, 0xC710, 0x8011, 0x8060, 0x403F, 0x0000, 0x2054, 0x5520, 0x4D45, 0x204D,
+DialogDefaultSample g_dialogDefaultSample = {
+    (struct ResourceKeyView *)0x800CC700, (void *)0x800CC710, (void *)0x80118060, 0x40, 0x3F, 0x00, 0x00,
+    { 0x20, 0x54, 0x55, 0x20, 0x4D, 0x45, 0x20, 0x4D },
 };
-#endif
-
-#if defined(VERSION_EU_X)
-extern unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12];
-#endif
-
-#if defined(VERSION_US)
-extern unsigned short k_GAudiopitchratiocurveEncodedHalfwords[12];
-#endif
-
-#if defined(VERSION_US_REV1)
-extern unsigned int g_audiopitchratiocurve[6];
 #endif
 
 /* CONTROL_RESTOREACTORSNAPSHOT.CPP */

@@ -197,7 +197,7 @@ void Gastate_AdvanceRootMotion(CGameAnimateState_t *animationChannel, CVector3 *
         if (loopStartFrame != 0xFFFF) {
             restartFrame = loopStartFrame;
         }
-        loopStartDouble = unsignedDouble(restartFrame, &g_rootMotionRestartUnsignedBias);
+        loopStartDouble = unsignedDouble(restartFrame, g_rootMotionRestartUnsignedBias);
         wrappedFramePosition = ((f32) loopStartDouble + animationChannel->time) - lastFramePosition;
         animationChannel->time = wrappedFramePosition;
         if (lastFramePosition < wrappedFramePosition) {
@@ -491,10 +491,13 @@ const float g_rootMotionAngleScale[2] = {
 
 /* GASTATE_DATA.CPP */
 
-const float g_rootMotionRestartUnsignedBias[12] = {
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f, 3.0e+01f, 0.0f,
-    3.0e+01f, 0.0f, 3.0e+01f, 0.0f, 9.587673e-05f, 9.587673e-05f,
+/* 2^32, added when an unsigned frame converts to double, once per conversion site. */
+const double g_rootMotionRestartUnsignedBias[5] = {
+    4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0, 4294967296.0,
 };
+
+const float g_rootMotionWrappedAngleScale = 9.587673e-05f;
+const float g_rootMotionCurrentAngleScale = 9.587673e-05f;
 
 /* ANIMSTATE_PREPAREANIMATIONFRAMES.CPP */
 

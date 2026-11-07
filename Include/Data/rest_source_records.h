@@ -1282,42 +1282,37 @@ typedef struct FrontendShutdownWritableWordsLayout {
 typedef char FrontendShutdownWritableWordsLayoutSizeCheck[sizeof(FrontendShutdownWritableWordsLayout) == 432 ? 1 : -1];
 
 typedef struct CurveDecodethreebitsamplesEncodedWordsLayout313 {
-    s32 ids[8];
     void * references[10];
     s32 ids2[2];
 } CurveDecodethreebitsamplesEncodedWordsLayout313;
-typedef char CurveDecodethreebitsamplesEncodedWordsLayout313SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout313) == 80 ? 1 : -1];
+typedef char CurveDecodethreebitsamplesEncodedWordsLayout313SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout313) == 48 ? 1 : -1];
 
 typedef struct CurveDecodethreebitsamplesEncodedWordsLayout314 {
-    s32 ids[8];
     void * references[10];
     s32 id;
     char text[4];
 } CurveDecodethreebitsamplesEncodedWordsLayout314;
-typedef char CurveDecodethreebitsamplesEncodedWordsLayout314SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout314) == 80 ? 1 : -1];
+typedef char CurveDecodethreebitsamplesEncodedWordsLayout314SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout314) == 48 ? 1 : -1];
 
 typedef struct CurveDecodethreebitsamplesEncodedWordsLayout315 {
-    s32 ids[8];
     void * references[10];
     s32 id;
     float constant;
 } CurveDecodethreebitsamplesEncodedWordsLayout315;
-typedef char CurveDecodethreebitsamplesEncodedWordsLayout315SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout315) == 80 ? 1 : -1];
+typedef char CurveDecodethreebitsamplesEncodedWordsLayout315SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout315) == 48 ? 1 : -1];
 
 typedef struct CurveDecodethreebitsamplesEncodedWordsLayout316 {
-    s32 ids[8];
     void * references[10];
     s32 id;
     char text[4];
 } CurveDecodethreebitsamplesEncodedWordsLayout316;
-typedef char CurveDecodethreebitsamplesEncodedWordsLayout316SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout316) == 80 ? 1 : -1];
+typedef char CurveDecodethreebitsamplesEncodedWordsLayout316SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout316) == 48 ? 1 : -1];
 
 typedef struct CurveDecodethreebitsamplesEncodedWordsLayout317 {
-    s32 ids[8];
     void * references[10];
     s32 id;
 } CurveDecodethreebitsamplesEncodedWordsLayout317;
-typedef char CurveDecodethreebitsamplesEncodedWordsLayout317SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout317) == 76 ? 1 : -1];
+typedef char CurveDecodethreebitsamplesEncodedWordsLayout317SizeCheck[sizeof(CurveDecodethreebitsamplesEncodedWordsLayout317) == 44 ? 1 : -1];
 
 typedef struct DisplayListCommandWords {
     u32 command;
@@ -1329,11 +1324,6 @@ typedef struct EventsDelivercontacteffectWords2Layout {
     DisplayListCommandWords commands[17];
 } EventsDelivercontacteffectWords2Layout;
 typedef char EventsDelivercontacteffectWords2LayoutSizeCheck[sizeof(EventsDelivercontacteffectWords2Layout) == 136 ? 1 : -1];
-
-typedef struct EffectCallbackFlagsLayout {
-    struct { void * handler; u32 flags; } entries[37]; /* ContactEffectEntry, read by events.cpp */
-} EffectCallbackFlagsLayout;
-typedef char EffectCallbackFlagsLayoutSizeCheck[sizeof(EffectCallbackFlagsLayout) == 296 ? 1 : -1];
 
 typedef struct RestemacTextLayout324 {
     s32 ids[2];
@@ -1374,42 +1364,30 @@ typedef struct PakAdjustownernotificationoptionDataConstantWordsLayout {
 } PakAdjustownernotificationoptionDataConstantWordsLayout;
 typedef char PakAdjustownernotificationoptionDataConstantWordsLayoutSizeCheck[sizeof(PakAdjustownernotificationoptionDataConstantWordsLayout) == 3912 ? 1 : -1];
 
-typedef struct SmackFormatTableLayoutA {
-    s32 ids[11];
+/* SetN64_StartGameThreadAndIdle reads the game thread's scheduling priority from the first word; the announce
+   message ids 10..18 and the bytes each version holds after them up to the next object follow. */
+typedef struct SmackFormatTable {
+    s32 videoFrameSchedulingMode;
+    s32 ids[10];
+#if defined(VERSION_DE)
     float constant;
     s32 id;
     u32 packedValues[2];
     s32 id2;
-} SmackFormatTableLayoutA;
-typedef char SmackFormatTableLayoutASizeCheck[sizeof(SmackFormatTableLayoutA) == 64 ? 1 : -1];
-
-typedef struct SmackFormatTableLayoutB {
-    s32 ids[13];
+#elif defined(VERSION_EU)
+    s32 ids2[2];
     float constants[3];
-} SmackFormatTableLayoutB;
-typedef char SmackFormatTableLayoutBSizeCheck[sizeof(SmackFormatTableLayoutB) == 64 ? 1 : -1];
-
-typedef struct SmackFormatTableLayoutC {
-    s32 ids[11];
-    char text[4];
-    s32 id;
-    char text2[12];
-} SmackFormatTableLayoutC;
-typedef char SmackFormatTableLayoutCSizeCheck[sizeof(SmackFormatTableLayoutC) == 64 ? 1 : -1];
-
-typedef struct SmackFormatTableLayoutD {
-    s32 ids[13];
+#elif defined(VERSION_US)
+    s32 ids2[2];
     char text[12];
-} SmackFormatTableLayoutD;
-typedef char SmackFormatTableLayoutDSizeCheck[sizeof(SmackFormatTableLayoutD) == 64 ? 1 : -1];
-
-typedef struct SmackFormatTableAltLayout {
-    s32 ids[11];
+#else
     char text[4];
     s32 id;
     char text2[12];
-} SmackFormatTableAltLayout;
-typedef char SmackFormatTableAltLayoutSizeCheck[sizeof(SmackFormatTableAltLayout) == 64 ? 1 : -1];
+#endif
+} SmackFormatTable;
+typedef char SmackFormatTableSizeCheck[sizeof(SmackFormatTable) == 64 ? 1 : -1];
+extern SmackFormatTable g_smackFormatTable;
 
 typedef struct XplusNextrandomintegerEncodedWordsLayout {
     s32 id;
@@ -1427,12 +1405,6 @@ typedef struct XplusSeedRandomGeneratorWordsDeLayout {
     s32 ids3[2];
 } XplusSeedRandomGeneratorWordsDeLayout;
 typedef char XplusSeedRandomGeneratorWordsDeLayoutSizeCheck[sizeof(XplusSeedRandomGeneratorWordsDeLayout) == 160 ? 1 : -1];
-
-typedef struct XPlusWritableWords_us_rev1Layout {
-    s32 ids[10];
-    float constants[10];
-} XPlusWritableWords_us_rev1Layout;
-typedef char XPlusWritableWords_us_rev1LayoutSizeCheck[sizeof(XPlusWritableWords_us_rev1Layout) == 80 ? 1 : -1];
 
 typedef struct XPlusWritableWords_usLayout {
     s32 id;
@@ -1523,12 +1495,6 @@ typedef struct SceneEffectTuningDeLayout {
     s32 id;
 } SceneEffectTuningDeLayout;
 typedef char SceneEffectTuningDeLayoutSizeCheck[sizeof(SceneEffectTuningDeLayout) == 16 ? 1 : -1];
-
-typedef struct GeometryDrawResourceModelWritableWords_euLayout {
-    s32 ids[10];
-    float constants[10];
-} GeometryDrawResourceModelWritableWords_euLayout;
-typedef char GeometryDrawResourceModelWritableWords_euLayoutSizeCheck[sizeof(GeometryDrawResourceModelWritableWords_euLayout) == 80 ? 1 : -1];
 
 typedef struct GeometryDrawresourcemodelEncodedWordsBlock2Layout {
     float constants[2];
@@ -2188,15 +2154,6 @@ typedef struct PlayerSettingsEventHandlersUsLayout {
     s32 ids2[44];
 } PlayerSettingsEventHandlersUsLayout;
 typedef char PlayerSettingsEventHandlersUsLayoutSizeCheck[sizeof(PlayerSettingsEventHandlersUsLayout) == 384 ? 1 : -1];
-
-typedef struct AudioDecodeframeEncodedWordsLayout {
-    s32 ids2[4];
-    void * references2[3];
-    s32 ids3[2];
-    struct { void * references[2]; s32 ids[3]; } rows[2];
-    void * reference;
-} AudioDecodeframeEncodedWordsLayout;
-typedef char AudioDecodeframeEncodedWordsLayoutSizeCheck[sizeof(AudioDecodeframeEncodedWordsLayout) == 80 ? 1 : -1];
 
 typedef struct EncodedConstantRow {
     float constant;

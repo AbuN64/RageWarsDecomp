@@ -7,6 +7,7 @@
 #include "Common/vector4f.h"
 #include "Common/shared_worldfunc.h"
 #include "Common/runtime_declarations.h"
+#include "Engine/curve.h"
 #include "Common/gameplay_transition.h"
 #include "Common/round_state_variants.h"
 #include "types.h"

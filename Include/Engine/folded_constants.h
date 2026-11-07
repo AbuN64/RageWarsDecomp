@@ -20,9 +20,9 @@ extern const float g_regionEdgeCrossDefaultUp[1];
 extern const float g_regionMissingPolygonHeight[2];
 extern const float g_regionNormalDefaultUp[2];
 extern const float g_rootMotionAngleScale[2];
-extern const float g_rootMotionRestartUnsignedBias[12];
+extern const double g_rootMotionRestartUnsignedBias[5];
 extern const float g_rotationTrackLowerKeyFrameEndBias[24];
-extern const float g_rotationTrackLowerKeySpanTestBias[21];
-extern const float g_sampleTrackUnsignedConversionBias[4];
+extern const double g_rotationTrackLowerKeySpanTestBias[10];
+extern const double g_sampleTrackUnsignedConversionBias[2];
 
 #endif

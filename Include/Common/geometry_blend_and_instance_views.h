@@ -89,7 +89,6 @@ extern void Geometry_InvalidateMaterialKeys(void);
 struct GeometryModelInstanceEntry;
 typedef struct GeometryModelInstanceEntry GeometryModelInstanceEntry;
 
-extern u32 g_geometryPreviousModePreset;
 
 extern void Geometry_SelectEffectModes(void);
 
@@ -122,6 +121,7 @@ extern void Geometry_NoOperation(void);
 extern void Geometry_InitializeModelRenderState(void);
 
 extern void Geometry_FlushModelBatch(void);
+extern u32 g_geometryPreviousModePreset;
 
 struct SharedModelTintMaterial;
 

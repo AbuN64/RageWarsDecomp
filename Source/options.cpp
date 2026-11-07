@@ -50,7 +50,7 @@ s32 Options_CreateOptionsPage(void) {
     secondList = SmpButton_CreateListWidget(85, 86);
     g_optionsPage->twoPlayerScreenList = secondList;
     SmpButton_AppendListText(secondList, g_optionsPrimaryLocalizedLabels[0]);
-    SmpButton_AppendListText(g_optionsPage->twoPlayerScreenList, *(u8 **)g_optionsSecondaryLocalizedLabels);
+    SmpButton_AppendListText(g_optionsPage->twoPlayerScreenList, g_optionsSecondaryLocalizedLabels[0]);
     SmpButton_SelectListEntry(g_optionsPage->twoPlayerScreenList, settings->twoPlayerScreenPreference);
     thirdList = SmpButton_CreateListWidget(81, 82);
     g_optionsPage->resolutionList = thirdList;

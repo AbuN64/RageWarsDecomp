@@ -75,6 +75,5 @@ struct {
 };
 #endif
 
-const float g_mattable[3] = {
-    3.0e+01f, 0.0f, 3.051851e-05f,
-};
+const double g_packedFloatRandomBias = 4294967296.0;
+const float g_packedFloatRandomScale = 3.051851e-05f;

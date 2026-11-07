@@ -122,9 +122,6 @@ extern char g_smpSlider_DestroyControllerEntry[];
 extern char g_smpSlider_DimSliderItemsEntry[];
 extern char g_smpSlider_HighlightSliderItemsEntry[];
 extern char g_smp_UpdateFadeProgressEntry[];
-#if !defined(VERSION_US) && !defined(VERSION_US_REV1)
-extern unsigned int g_audioInitdecodestreamDataConstantWords[];
-#endif
 extern char g_tlbMissExceptionVector[];
 extern char g_unlockedLevelResultLabel[];
 #endif

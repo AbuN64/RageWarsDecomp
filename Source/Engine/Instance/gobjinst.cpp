@@ -628,7 +628,7 @@ void Gobjinst_UpdateActorGroundRotation(ActorModelLoadState *actor) {
     if (!(actorFlags & 1) && (rotationState = InstHdr_GetActorMotionState(actor), (actor->modelHeader != NULL)) && (vec = Insthdr_BuildActorGroundRotation(actor), resetRotationFlag = actor->modelHeader->spreadHighWord & 1, (InstHdr_UsesGroundRotation(actor) != 0))) {
         if (resetRotationFlag != 0) {
             vec.x = vec.y = vec.z = 0.0f;
-            vec.w = g_actorGroundRotationUnitW;
+            vec.w = g_actorGroundRotationUnitW[0];
         }
         if (flags) {
             if ((!(actor->flags & 0x1000) && (rotationDestination = actor->rotation, (rotationState != 0))) || (rotationDestination = actor->rotation, (resetRotationFlag != 0))) {
@@ -636,9 +636,9 @@ void Gobjinst_UpdateActorGroundRotation(ActorModelLoadState *actor) {
             }
         } else {
             if ((rotationState != 0) && !(actor->flags & 0x1000)) {
-                rotationBlend = g_frameElapsedTime; rotationBlendRate = *(&g_actorGroundRotationUnitW + 1);
+                rotationBlend = g_frameElapsedTime; rotationBlendRate = g_actorGroundRotationUnitW[1];
             } else {
-                rotationBlend = g_frameElapsedTime; rotationBlendRate = *(&g_actorGroundRotationUnitW + 2);
+                rotationBlend = g_frameElapsedTime; rotationBlendRate = g_actorGroundRotationUnitW[2];
             }
             rotationBlend = rotationBlend * rotationBlendRate;
             rotation = actor->rotation;
@@ -3081,11 +3081,11 @@ static inline s32 Gobjinst_FloatToUnsignedFlaggedWord(f32 value, f32 threshold) 
 
 /* Packs one row of the affine part: the first two values share a high/low halfword pair, the third fills the next pair alone. */
 #define GOBJINST_PACK_AFFINE_ROW(row, endFlag)                                                                                 \
-    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 0], g_affinePackUnsignedThresholdPairs[(row) * 3 / 2][((row) * 3) & 1]);       \
-    second = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 1], g_affinePackUnsignedThresholdPairs[((row) * 3 + 1) / 2][((row) * 3 + 1) & 1]); \
+    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 0], g_affinePackUnsignedConversionThresholds[(row) * 3]);       \
+    second = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 1], g_affinePackUnsignedConversionThresholds[(row) * 3 + 1]); \
     *upper++ = (first & 0xFFFF0000) | ((u32)second >> 16);                                                            \
     *lower++ = (first << 16) | (second & 0xFFFF);                                                                      \
-    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 2], g_affinePackUnsignedThresholdPairs[((row) * 3 + 2) / 2][((row) * 3 + 2) & 1]); \
+    first = Gobjinst_FloatToUnsignedFlaggedWord(src[(row) * 4 + 2], g_affinePackUnsignedConversionThresholds[(row) * 3 + 2]); \
     *upper++ = (first & 0xFFFF0000) | (endFlag);                                                                               \
     *lower++ = first << 16;
 
@@ -3097,13 +3097,13 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     s32 a;
     s32 b;
     { f32 value = (src[0]);
-    if (!((g_affinePackUnsignedThresholdPairs[0][0]) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[0][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[0]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[0]));
     (a) |= 0x80000000;
     } };
     { f32 value = (src[1]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[0][0] + 1)) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[0][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[1]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedConversionThresholds[1]));
     (b) |= 0x80000000;
     } };
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
@@ -3111,8 +3111,8 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[2]);
-    if (!((g_affinePackUnsignedThresholdPairs[1][0]) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[1][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[2]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[2]));
     (a) |= 0x80000000;
     } };
     *upper = a & 0xFFFF0000;
@@ -3120,13 +3120,13 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[4]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[1][0] + 1)) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[1][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[3]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[3]));
     (a) |= 0x80000000;
     } };
     { f32 value = (src[5]);
-    if (!((g_affinePackUnsignedThresholdPairs[2][0]) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - (g_affinePackUnsignedThresholdPairs[2][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[4]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedConversionThresholds[4]));
     (b) |= 0x80000000;
     } };
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
@@ -3134,8 +3134,8 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[6]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[2][0] + 1)) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[2][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[5]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[5]));
     (a) |= 0x80000000;
     } };
     *upper = a & 0xFFFF0000;
@@ -3143,13 +3143,13 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[8]);
-    if (!((g_affinePackUnsignedThresholdPairs[3][0]) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[3][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[6]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[6]));
     (a) |= 0x80000000;
     } };
     { f32 value = (src[9]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[3][0] + 1)) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[3][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[7]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedConversionThresholds[7]));
     (b) |= 0x80000000;
     } };
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
@@ -3157,8 +3157,8 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[10]);
-    if (!((g_affinePackUnsignedThresholdPairs[4][0]) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (g_affinePackUnsignedThresholdPairs[4][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[8]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[8]));
     (a) |= 0x80000000;
     } };
     *upper = a & 0xFFFF0000;
@@ -3166,13 +3166,13 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[12]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[4][0] + 1)) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[4][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[9]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[9]));
     (a) |= 0x80000000;
     } };
     { f32 value = (src[13]);
-    if (!((g_affinePackUnsignedThresholdPairs[5][0]) <= value)) { (b) = (s32)value;
-    } else { (b) = (s32)(value - (g_affinePackUnsignedThresholdPairs[5][0]));
+    if (!((g_affinePackUnsignedConversionThresholds[10]) <= value)) { (b) = (s32)value;
+    } else { (b) = (s32)(value - (g_affinePackUnsignedConversionThresholds[10]));
     (b) |= 0x80000000;
     } };
     *upper = (a & 0xFFFF0000) | ((u32)b >> 16);
@@ -3180,8 +3180,8 @@ void Gobjinst_PackAffineMatrixWords(f32 *src, FixedPointMatrix *dst) {
     upper++;
     lower++;
     { f32 value = (src[14]);
-    if (!((*(&g_affinePackUnsignedThresholdPairs[5][0] + 1)) <= value)) { (a) = (s32)value;
-    } else { (a) = (s32)(value - (*(&g_affinePackUnsignedThresholdPairs[5][0] + 1)));
+    if (!((g_affinePackUnsignedConversionThresholds[11]) <= value)) { (a) = (s32)value;
+    } else { (a) = (s32)(value - (g_affinePackUnsignedConversionThresholds[11]));
     (a) |= 0x80000000;
     } };
     *upper = (a & 0xFFFF0000) | 1;
@@ -3788,19 +3788,12 @@ const char s_advanceAnimObjectInfoText[47] =
 const char s_animationAdvanceObjectInfoUsRev1[47] =
     "CGameObjectInstance__Advance: anim object info";
 #endif
-#if !(defined(VERSION_US_REV1))
-const char k_GAnimationsindextextEncodedBytes[33] =
-    "\077\200\000\000>\000\000\000=\031\231\232\077\200\000\000animations index\000";
-#endif
-#if defined(VERSION_US_REV1)
-const float k_GAnimationsindextext[4] = {
+/* The ground rotation's w, its two blend rates and the blend limit, then the animation index name. */
+const float g_actorGroundRotationUnitW[4] = {
     1.0f, 0.125f, 0.0375f, 1.0f,
 };
-#endif
-#if defined(VERSION_US_REV1)
 const char g_animationsIndexText[17] =
     "animations index";
-#endif
 
 const char s_calculateMatrixStackAnimInfoText[60] = "CGameObjectInstance__CalculateMatrixStack: anim object info";
 
