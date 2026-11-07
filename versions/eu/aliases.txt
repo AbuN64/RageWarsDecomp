@@ -2771,3 +2771,4 @@ g_primaryDisplayListBufferZero = 0x8015D460;
 g_primaryDisplayListBufferAlternate = 0x8015D464;
 g_spawnHealthChoices = 0x800C9108;
 g_spawnHealthChoicesVisible = 0x800C9118;
+g_gameSettingsOptionFlags = 0x80152208; // scalar view of the option word at the start of g_gameSettings
